@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>롯데글로벌로지스</title>
+<meta
+	content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1"
+	name="viewport">
+<meta name="theme-color" content="#e8463a">
+<!-- 안드로드 헤드 칼라 -->
+<meta name="format-detection" content="telephone=no">
+<!-- IOS 전화번호 자동색상 방지 -->
+
+<link rel="stylesheet" type="text/css" href="../../common/css/style.css" />
+<link rel="stylesheet" type="text/css"
+	href="../../common/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="../../common/css/sub.css">
+
+<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+<script type="text/javascript" src="../js/ARI0104.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(document).on('click, touchstart', '.tableBoxSimple tbody tr', function(e) {
+			var $this = $(this);
+			var listIndex = $this.index();
+
+			$(".tableBoxSimple tbody tr").removeClass("on");
+			$this.addClass("on");
+
+		});
+	});
+</script>
+</head>
+
+<body>
+	<input type="hidden" name="menuId" id="menuId" value="ARI0104" />
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection v2">
+			<div class="headerWrap">
+				<h1>연계일보</h1>
+				<button class="btn closeW paR">닫기</button>
+			</div>
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+
+			<!-- contentBox -->
+			<div class="contentBox pop popArea">
+
+				<!-- topHead -->
+				<div class="topHead">
+					<div class="inputBox pdl75 pdr85">
+						<span class="pa paL fs14 mgt5 tGray5">기준일자</span> <input
+							type="text" value="" name="" placeholder="" class="inCal"
+							id="inDate" readonly>
+						<button class="btn red w80" id="searchD">조회</button>
+					</div>
+				</div>
+				<!-- //topHead -->
+
+				<div class="topHead cl2">
+					<span class="vm lineL">스캔</span> <span class="vm" id="jibbqe"></span> 
+					<span class="fr vm" id="totalC"></span>
+				</div>
+
+				<div class="tableBox tableBoxSimple">
+					<table>
+						<colgroup>
+							<col style="width: 110px">
+							<col style="width: auto">
+							<col style="width: auto">
+							<col style="width: 110px">
+						</colgroup>
+						<thead>
+							<tr>
+								<th>연계일보 번호</th>
+								<th>스캔점소</th>
+								<th>상대점소</th>
+								<th>차량번호</th>
+							</tr>
+						</thead>
+
+
+						<tbody id="dataListB">
+						</tbody>
+
+						<script id="ARI0104-template" type="text/x-handlebars-template">
+						{{#list}}
+						<tr>
+							<td>{{alcr_no}}</td>
+							<td>{{jib}}</td>
+							<td>{{prtn_brsh_nm}}</td>
+							<td>{{vhc_no}}</td>
+						</tr>
+						{{/list}}
+						</script>
+
+
+					</table>
+				</div>
+				<!-- // tableBoxSimple -->
+
+				<div class="NoBox">
+					<p class="txt tc">조회일자에 대한 결과가 없습니다.</p>
+				</div>
+
+				<div class="btnBox pxB">
+					<ul class="ul0 ul2">
+						<li><button class="btn gray w100p m" id="cancle">취소</button></li>
+						<li><button class="btn red w100p m" id="confirm">확인</button></li>
+					</ul>
+				</div>
+
+
+			</div>
+			<!-- //contentBox -->
+
+		</div>
+		<!--  //contentSection  -->
+
+	</div>
+	<!--  //contents  -->
+
+
+</body>
+
+</html>

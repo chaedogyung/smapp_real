@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+	
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
+
+</head>
+
+<body>
+<input type="hidden" name="menuId" id="menuId" value="PAY0101"/>
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection v2">
+			<div class="headerWrap black">
+				<button class="btn back paL ti">버튼</button>
+				<h1>결제현황/결제</h1>
+			</div>		
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+			<!-- contentBox -->
+			<div class="contentBox pop mypage">
+				
+				<!-- infoBox -->
+				<div class="infoListBox">
+					<ul>
+						<li>
+							<div class="infoBox">
+								<div class="tit">
+									<span class="titBox curDate"></span>
+								</div>
+								<div id="paymentLstDiv"></div>
+							</div>
+						</li>
+						<li>
+							<div class="infoBox">
+								<div class="tit">
+									<span class="titBox">사용료결제</span>
+								</div>
+								<dl class="inBox tp3">
+									<dt>기간선택</dt>
+									<dd>
+										<span class="selBox w100p">
+											<select name="pay_month" id="pay_month" disabled>
+												<option value="1">1개월</option>
+												<option value="2">2개월</option>
+												<option value="3">3개월</option>
+												<option value="4">4개월</option>
+												<option value="5">5개월</option>
+												<option value="6">6개월</option>
+												<option value="7">7개월</option>
+												<option value="8">8개월</option>
+												<option value="9">9개월</option>
+												<option value="10">10개월</option>
+												<option value="11">11개월</option>
+												<option value="12">12개월</option>
+											</select>
+										</span>
+										<p class="tRed2 fs11 mgt3">1개월 기준은 31일 입니다.</p>
+									</dd>
+									<dt>결제방법</dt>
+									<dd><input type="text" value="신용카드" name="" placeholder="신용카드" disabled /></dd>
+									<dt>사용료</dt>
+									<dd>
+										<div class="inputBox pdr100">
+											<input type="text" value="" name="pay_amount" id="pay_amount"  placeholder="" disabled readonly="readonly" />
+											<button class="btn s2 pdlr15" id="payCalcBtn" disabled>사용료계산</button>
+										</div>
+									</dd>
+									<dt>사용기간</dt>
+									<dd>
+										<span id="useDate"></span>
+										<p class="tRed2 fs11">사용 당월을 제외한 잔여 개월만 환불이 됩니다.</p>
+									</dd>
+								</dl>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<!-- //infoBox -->
+	
+				<div class="btnBox pxB">
+					<button class="btn w100p m" id="paymentBtn" disabled>사용료결제</button>
+				</div>
+				
+			</div>
+			<!-- //contentBox -->
+		
+		</div>
+		<!--  //contentSection  -->
+
+	</div>
+	<!--  //contents  -->
+
+
+</body>
+
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/PAY0101.js"></script>
+	
+	
+	<!-- handlebars template start -->
+	<script id="pay0101_list_template" type="text/x-handlebars-template">
+		{{#each list}}
+		<dl class="inBox tp3 bdt2">
+			<dt>승인번호</dt>
+			<dd>{{pg_auth_no}}</dd>
+			<dt>사용기간</dt>
+			<dd>{{useFromTo dateText}}</dd>
+			<dt>결제일</dt>
+			<dd>{{setStlmYmdText stlm_ymd}}</dd>
+		</dl>
+		{{/each}}
+	</script>
+</html>

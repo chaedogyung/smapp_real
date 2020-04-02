@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
+	
+</head>
+
+<body>
+<input type="hidden" name="menuId" id="menuId" value="PID0302"/>
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection headFx">
+			<div class="headerWrap">
+				<button class="btn back paL"></button>
+				<h1>스마일픽업</h1>
+				<button class="btn barcode paR" id="openFrePop"></button>
+			</div>
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+			<!-- contentBox -->
+			<div class="contentBox gathBox gathListTp10">
+				<div class="topFx">
+					<!-- calBox -->
+					<div class="calBox">
+						<span class="radioBox"><input type="radio"  name="area_sct_cd" id="ra1" value="A" checked/> <label for="ra1">집배송구역기준</label></span>
+						<span class="radioBox mgl20"><input type="radio"  name="area_sct_cd" value="P" id="ra2" /> <label for="ra2">집배대리점기준</label></span>
+							
+						<div class="calinBox">
+							<ul class="ul0 ul2 calin">
+								<li class="pdr10"><input type="text" value="" name="" placeholder="" class="inCal" id="startDate" readonly/></li>
+								<li class="pdl10"><input type="text" value="" name="" placeholder="" class="inCal" id="endDate" readonly/></li>
+							</ul>
+							<button class="btn red lstSch" data-prnt-sct-cd="A">조회</button>
+						</div>
+					</div>
+					<!--// calBox -->
+	
+					<!-- tabBox -->
+					<div class="tabBox cl2 li3">
+						<ul>
+							<li class="on">
+								<button class="btn lstSchBtn on" data-prnt-sct-cd="A">
+									<span class="badge gray m">전체</span>
+									<p class="num" id="A_pid0302Cnt">0</p>
+								</button>
+							</li>
+							<li>
+								<button class="btn lstSchBtn" data-prnt-sct-cd="Y">
+									<span class="badge gray m">출력</span>
+									<p class="num" id="Y_pid0302Cnt">0</p>
+								</button>
+							</li>
+							<li>
+								<button class="btn lstSchBtn" data-prnt-sct-cd="N">
+									<span class="badge gray m">미출력</span>
+									<p class="num" id="N_pid0302Cnt">0</p>
+								</button>
+							</li>
+						</ul>
+					</div>
+					<!-- //tabBox -->
+	
+					<!-- topHead -->
+					<div class="topHead cl2">
+						<span class="chkBox m vm"><input type="checkbox" name="chk" id="checkall" /> <label for="checkall">구분</label></span>
+						<span class="selBox v1 cl2 mgl10 mgt3">
+							<select id="fltr_sct_cd">
+							</select>
+						</span>
+						<dl class="horizontalDl mgt5">
+							<dt>거래처 :</dt>
+							<dd id="custSctCd"></dd>
+							<dt>방문처 :</dt>
+							<dd id="bkgName"></dd>
+						</dl>
+					</div>
+					<!-- //topHead -->
+				</div>
+				<!-- // topFx -->
+
+				<!-- tabView -->
+				<div class="tabView">
+					<ul id="pid0302Lst">
+						<li>
+							<!-- baedalListBox -->
+							<div class="baedalListBox">
+								<ul id="pid0302LstUl">
+								</ul>
+							</div>
+							<!-- //baedalListBox -->
+						</li>
+					</ul>
+				</div>
+				<!-- //tabView -->
+
+			</div>
+			<!-- //contentBox -->
+
+		</div>
+		<!--  //contentSection  -->
+
+		<!-- ftMenu -->
+		<div class="ftMenu li1">
+			<ul>
+				<li class="on">
+					<button class="btn ftPrint">
+						<p class="badge red s num" id="printCount">0</p>
+						<span class="txt">출력</span>
+					</button>
+				</li>
+			</ul>
+		</div>
+		<!-- //ftMenu -->
+
+
+		<!-- 모달팝업 출력 -->
+		<div class="mpopBox img print">
+			<div class="popBody">
+				<p class="img"><img src="../../common/img/icon-error.png" alt="" /></p>
+				<p class="txt1">출력 확인</p>
+				<p class="txt2">선택한 송장을 출력하시겠습니까?</p>
+			</div>
+			<div class="popFooter">
+				<div class="btnBox">
+					<ul class="ul0 ul2">
+						<li><button class="btn gray m w100p b-close">아니오</button></li>
+						<li><button class="btn red m w100p b-close" id="invPrntYesBtn">예</button></li>
+					</ul>				
+				</div>
+			</div>
+		</div>
+		<!-- 모달팝업 출력 -->
+		
+		<!-- 모달팝업 출력 취소 -->
+		<div class="mpopBox img cancel">
+			<div class="popBody">
+				<p class="img"><img src="../../common/img/icon-error.png" alt="" /></p>
+				<p class="txt1">출력 취소 확인</p>
+				<p class="txt2">송장번호가 삭제되고 미 출력 상태로 변경이 됩니다. 선택한 송장을 취소하시겠습니까?</p>
+			</div>
+			<div class="popFooter">
+				<div class="btnBox">
+					<ul class="ul0 ul2">
+						<li><button class="btn gray m w100p b-close">아니오</button></li>
+						<li><button class="btn red m w100p b-close" id="invPrntCclYesBtn">예</button></li>
+					</ul>				
+				</div>
+			</div>
+		</div>
+		<!-- 모달팝업 출력 취소 -->
+		
+		<!-- 모달팝업 통화 -->
+		<div class="mpopBox img phone">
+			<div class="popBody">
+				<p class="img"><img src="../../common/img/icon-phone2.png" alt="" /></p>
+				<p class="txt1" id="popPhoneTxt"></p>
+				<p class="txt2">통화하시겠습니까?</p>
+			</div>
+			<div class="popFooter">
+				<div class="btnBox">
+					<ul class="ul0 ul2">
+						<li><button class="btn gray m w100p b-close">취소</button></li>
+						<li><button class="btn red m w100p b-close" id="phoneCallYesBtn">통화</button></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- //모달팝업 통화 -->
+
+	</div>
+	<!--  //contents  -->
+
+</body>
+
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/PID0302.js"></script>
+	
+	<!-- handlebars li template start -->
+	<script id="pid0302_list_template" type="text/x-handlebars-template">
+		{{#each list}}
+			<li>
+				<div class="baedalBox bg-v1" data-inv="{{inv_no}}" data-rsrv="{{rsrv_mgr_no}}" data-corp="{{corp_sct_cd}}" data-inv-prnt-yn="{{inv_prnt_yn}}">
+					<div class="chk">
+						{{#prntChk}}
+							<span class="chkBox m ti">
+								<input type="checkbox" class="checkBoxSelect" name="chk" id="{{rsrv_mgr_no}}" value="{{snperTelTmp}}"/>
+								<label for="{{rsrv_mgr_no}}">출력체크</label>
+							</span>
+						{{/prntChk}}
+					</div>
+					<div class="thumb">
+						<span class="{{corpLogoReturn corp_sct_cd}}"></span>
+					</div>
+					<div class="infoBox">
+						<p class="tit">
+							{{!-- 송장번호형식표시 helper invNoTmpl --}}
+							<span class="dsin vm">{{invNoTmpl inv_no}}</span>
+							{{!-- 운임 라벨 표시 helper fareChk --}}
+							{{fareSctChk fare_sct_cd}}
+							{{!-- 신선식품 여부 helper--}}
+							{{#fresYnChk}}
+								<span class="badge red s bing">신선</span>
+							{{/fresYnChk}}
+						</p>
+						<div class="infoList">
+							<ul>
+								{{!-- 송하인 이름 helper--}}
+								<li>{{snper_nm}}</li>
+								{{!-- 송하인 전화번호 helper--}}
+								<li>{{snper_tel}}</li>
+								{{!-- 출력일,접수일 표시 helper--}}
+								{{ymdTmpl}}
+								<!--<li>배달 <em>2</em>/3</li>-->
+							</ul>
+						</div>
+						<p class="addRe">{{snper_addr}}</p>
+					</div>
+					{{#prntCclChk}}
+					<button class="btn cancel printCancel">캔슬}}</button>
+					{{/prntCclChk}}
+				</div>
+				<div class="btnBox">
+					<button class="btn blue bdM bdPhone" data-phone-number="{{snper_tel}}">전화</button>
+					<!-- <button class="btn blue2 bdM bdMemo mgl1" data-rsrv="{{rsrv_mgr_no}}">SM변경</button> -->
+					{{corpSctCdTmp}}
+				</div>
+			</li>
+		{{/each}}
+	</script>
+	
+	<!-- handlebars template start -->
+	<script id="pid0302_nolist_template" type="text/x-handlebars-template">
+		<li class="noList">
+			<div class="NoBox">
+				<p class="txt tc">조회된 결과가 없습니다.</p>
+			</div>
+		</li>
+	</script>
+
+</html>

@@ -1,0 +1,60 @@
+@charset "utf-8";
+/************************************** 
+** 공통
+***************************************/
+.contentSection{font-weight:500;}
+.contentBox.main{padding:60px 10px 0;}
+.headFx {position:fixed;top:0; left:0; width:100%; z-index:10;}
+
+/************************************** 
+** cardBox
+***************************************/
+/* 공통 */
+.cardBox{border-radius:8px; padding:20px; background:linear-gradient(to bottom, #fff 65%,#eee 90%); box-shadow:0px 0px 12px 4px #0000001c; margin-bottom:20px; letter-spacing:-0.888px;}
+.cardBox .tit{color:#333; font-size:20px; border-bottom:2px solid #8d9090; padding-bottom:10px; padding-left:35px;}
+.cardBox .boxBody{display:table;width:100%;table-layout:fixed;}
+.cardBox  .boxBody .leftBox{float:left; width:60%;}
+.cardBox  .boxBody .leftBox li{color:#333; font-size:18px; margin-bottom:5px;}
+.cardBox  .boxBody .leftBox li em{float:right; color:#b15700; font-size:16px;}
+.cardBox  .boxBody .rightBox{width:40%; float:left;}
+.cardBox  .boxBody .rightBox .photo{width:83px; height:90px; border-radius:5px; border:1px solid #e3e3e3;  float:right; overflow:hidden;}
+
+/* 랭킹 */
+.cardBox.ranking{position:relative;}
+.cardBox.ranking .boxBody{padding-top:10px;}
+.cardBox.ranking .medal{display:inline-block; position:absolute; right:20px; top:0px;  background:url('../../common/img/icon-medal.png') no-repeat; background-size:100%;width:32px; height:47px; text-indent:-99999px;}
+.cardBox.ranking .tit{background:url('../../common/img/icon-man.png') no-repeat 0px 3px; background-size:21px;}
+
+/* 실적 */
+.cardBox.chart .tit .num{color:#da291c; font-weight:400; float:right;}
+.cardBox.chart .tit{background:url('../../common/img/icon-chart.png') no-repeat 0px 3px; background-size:21px; border-bottom:2px solid #8d9090;}
+.cardBox.chart .boxBody{padding-top:20px; margin-bottom:10px;}
+.cardBox.chart .boxBody .rightBox .photo{height:70px; text-align:center; box-sizing:border-box; padding-top:10px; background-color:#f7f7f7;}
+.cardBox.chart .boxBody .rightBox .photo em{color:#b15700;}
+
+.cardBox.chart .monthBox{overflow:hidden;}
+.cardBox.chart .monthBox .tit{background:url('../../common/img/icon-memo.png') no-repeat 0px 3px; background-size:21px; border-bottom:2px solid #8d9090; margin-bottom:15px;}
+.cardBox.chart .monthBox .badge{padding:0px 20px;}
+.cardBox.chart .monthBox li{float:left; width:29%; text-align:center; font-size:14px; color:#000; background:url('../../common/img/line-col-1.png') no-repeat right 50%; }
+.cardBox.chart .monthBox li:last-child{background:none;}
+.cardBox.chart .monthBox li .num{margin-top:15px; font-size:14px;}
+.cardBox.chart .monthBox li:nth-child(1) {text-align: left;}
+.cardBox.chart .monthBox li:nth-child(1) .num { min-width:68px; max-width:68px; text-align: center;}
+.cardBox.chart .monthBox li:nth-child(2) { width:42%;}
+.cardBox.chart .monthBox li:nth-child(3) {text-align: right;}
+.cardBox.chart .monthBox li:nth-child(3) .num { display:inline-block; min-width:68px; max-width:68px; text-align: center;}
+/****  // cardBox //  ****/
+
+/* 
+
+/************************************** 
+** quickMenu
+***************************************/
+.quickMenuBox{background-color:#fff;overflow:hidden;}
+.quickMenuBox li{width:33.33%; height:133px; border-right:1px solid #cfcdcd; border-bottom:1px solid #cfcdcd; float:left; box-sizing:border-box; background-color:#f7f7f7;}
+.quickMenuBox li .btn{height:132px; width:100%; position:relative; background-color:#fff;}
+.quickMenuBox li:nth-child(3n) { border-right:0; }
+.quickMenuBox li .btn .img{display:inline-block; width:60px; height:60px; position:absolute; top:25px; left:calc(50% - 30px);}
+.quickMenuBox li .num{position:absolute; top:5px; right:20px; color:#e60012; font-size:15px; font-weight:600;}
+.quickMenuBox li .txt{position:absolute; left:0px; top:82px; color:#000; font-size:15px; font-weight:600; display:inline-block; width:100%; text-align:center;}
+/****  // quickMenu //  ****/

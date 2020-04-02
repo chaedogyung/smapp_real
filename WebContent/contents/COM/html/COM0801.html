@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css">
+
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/COM0801.js"></script>
+
+</head>
+
+<body>
+<input type="hidden" name="menuId" id="menuId" value="COM0801"/>
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection v2">
+			<div class="headerWrap black">
+				<h1 id="pageNm"></h1>
+				<button class="btn closeW paR">닫기</button>
+			</div>
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+		<!-- contentBox -->
+		<div class="contentBox pop popAddress">
+			
+			<!-- infoListBox -->
+			<div class="infoListBox">
+				<ul>
+					<li>
+						<div class="infoBox">
+							<div class="selArea">
+								<ul class="ul0 ul2">
+									<li class="pdr5">
+										<span class="selBox w100">
+											<select name="sido" id="com0801SidoSel">
+												<option value="0" disabled="disabled" selected="selected">시/도</option>
+											</select>
+										</span>
+									</li>
+									<li class="pdl5">
+										<span class="selBox w100">
+											<select name="gungu" id="com0801GunguSel">
+												<option value="0" disabled="disabled" selected="selected">시/도를 선택해주세요</option>
+											</select>
+										</span>
+									</li>
+								</ul>
+							</div>
+							<div class="inputBox">
+								<input type="text" id="addr_input" value="" name="">
+								<button class="btn glass" id="addrSearch">검색</button>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="infoBox">
+							
+							<div class="addTab">
+								<ul class="ul0 ul2">
+									<li class="on"><button class="btn" value="00" id="ldno_addr">지번주소</button></li>
+									<li><button class="btn" value="01" id="rdnm_addr">도로명주소</button></li>
+								</ul>
+							</div>
+
+							<div class="addArea">
+								<ul>
+									<li>
+										<!-- 주소 -->
+										<div class="addList">
+											<ul id="com0801Ul">
+											</ul>
+										</div>
+										<!-- 주소 -->
+									</li>
+								</ul>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!-- infoListBox -->
+
+<!-- 			<div class="btnBox pxB"> -->
+<!-- 				<button class="btn m red w100p">확인</button> -->
+<!-- 			</div> -->
+
+		</div>
+		<!-- //contentBox -->
+		
+		</div>
+		<!--  //contentSection  -->
+		
+		<!-- 모달팝업 주소확인 -->
+		<div class="mpopBox img map">
+			<div class="popBody">
+				<p class="img"><img src="../../common/img/icon-map2.png" alt="" /></p>
+				<p class="txt1">주소 확인</p>
+				<p class="txt2">
+					<span class="mpopBoxJuso"></span>
+					<br />선택하신 주소가 맞습니까?
+				</p>
+			</div>
+			<div class="popFooter">
+				<div class="btnBox">
+					<ul class="ul0 ul2">
+						<li><button class="btn gray m w100p b-close">아니오</button></li>
+						<li><button class="btn red m w100p" id="jusoPopYes">예</button></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- //모달팝업 지도 -->
+
+	</div>
+	<!--  //contents  -->
+
+	<!-- handlebars template start -->
+	<script id="addr_list_template" type="text/x-handlebars-template">
+		<input type="hidden" id="badr" value="{{badr}}" />
+		<input type="hidden" id="dadr" value="{{dadr}}" />
+		<input type="hidden" id="zipcd" value="{{zipcd}}" />
+		<input type="hidden" id="basAreaCd" value="{{basAreaCd}}" />
+		<input type="hidden" id="rdnmBadr" value="{{rdnmBadr}}" />
+		<input type="hidden" id="rdnmDadr" value="{{rdnmDadr}}" />
+		<input type="hidden" id="bldMgrNo" value="{{bldMgrNo}}" />
+		<input type="hidden" id="dlvBrshCd" value="{{dlvBrshCd}}" />
+		<input type="hidden" id="dlvBrshNm" value="{{dlvBrshNm}}" />
+		<input type="hidden" id="rsphCd" value="{{rsphCd}}" />
+		<input type="hidden" id="cldlEmpno" value="{{cldlEmpno}}" />
+		<input type="hidden" id="bldNm" value="{{bldNm}}" />
+		<li>
+			<div class="addIn">
+				<span class="radioBox">
+					<input type="radio" id="jusoSelect"/>
+					<label for="jusoSelect">{{zipcd}}</label>
+				</span>
+			</div>
+			<div class="addTxt selectJuso">
+				{{badrTmpl}} {{dabrTmpl}}
+			</div>
+		</li>
+	</script>
+	<script type="text/x-handlebars-template" id="no_list_template">
+		<li class="noList">
+			<div class="NoBox">
+				<p class="txt tc">조회된 결과가 없습니다.</p>
+			</div>
+		</li>
+	</script>
+	<script type="text/x-handlebars-template" id="com0801_list_template">
+	{{#each list}}
+		<li>
+			<div class="addIn">
+				<label for="dstt_cd_{{@key}}">{{addr}}</label>
+			</div>
+			<div class="addTxt">
+				<span class="lineL">집하<i>{{pick_pltg}}</i>원</span>
+				<span>배달<i>{{dlv_pltg}}</i>원</span>
+			</div>
+		</li>
+	{{else}}
+		<li class="noList">
+			<div class="NoBox">
+				<p class="txt tc">조회된 결과가 없습니다.</p>
+			</div>
+		</li>
+	{{/each}}
+	</script>
+	<script type="text/x-handlebars-template" id="com0801_sido_template">
+		<option value="default" disabled="disabled" selected="selected">시/도</option>
+		{{#each list}}
+			<option value="{{@key}}">{{city_do}}</option>
+		{{/each}}
+	</script>
+	<script type="text/x-handlebars-template" id="com0801_gungu_template">
+		<option value="default" disabled="disabled" selected="selected">군/구</option>
+		{{#each list}}
+			<option value="{{@key}}">{{city_gun_gu}}</option>
+		{{/each}}
+	</script>
+
+</body>
+
+</html>

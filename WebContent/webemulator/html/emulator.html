@@ -1,0 +1,521 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<meta name="viewport" content="initial-scale=1.0,  maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<style type="text/css">
+	html,body,p,a,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,em,table,th,td,form,fieldset,legend,input,textarea,select,button,div,time,article,aside,dialog,footer,header,section,footer,nav,figure,blockquote,address {margin:0;padding:0;border:0;outline:0;-webkit-text-size-adjust:none;}
+	html,body {height:100%; overflow:hidden;}
+	body {height:100%; font:normal 16px '나눔고딕', 'Samsung Gothic', 'Apple Gothic', 'Malgun Gothic', sans-serif; color:#474e55;-webkit-text-size-adjust: none;background:#fff;}
+	article, aside, footer, header, hgroup, nav, section, figure {display:block;}
+	img {border:none;-webkit-touch-callout:none;}
+	h1, h2, h3 {font-size:1em;margin:0;}
+	ul, ol, li {list-style:none;}
+	button {margin:0; padding:0; font:normal 1em 'Samsung Gothic', 'Apple Gothic', 'Malgun Gothic', sans-serif;vertical-align:middle; border:none; overflow:visible; background:none;}
+	iframe {border:0;outline:0;margin:0;overflow:auto;}
+	table { border-spacing:0;}
+	
+	.hide {position:absolute !important; left:-10000px !important; top:-10000px !important; visibility:hidden;}
+	.buttonBox01 {position:relative; text-align:center;height : 39px; line-height : 39px;padding:0 5px;}
+	.box01 { position:absolute; top:0; right:10px; }
+	.btn01 { display:inline-block;padding:5px 10px; background-color:#566181; border-radius:7px; color:white;}
+	.bottomLine01 { border-bottom : 1px solid #717b84;}
+	.txt01 { color : blue;}
+	.txt02 { font-size:0.8em; color:#777; padding:3px;}
+	.txt03 { font-size:0.7em; color:#777; }
+	.bt01 {width:5.5em; padding:0.5em; background:-webkit-gradient(linear, left top, left bottom, from(#f1f1f1), color-stop(0.5, #e3e3e3), to(#f1f1f1)); background-color:#e6e5e5; border:1px solid #999; border-radius:10px;}
+	
+	.screens {position:relative;width:100%;height:100%;}
+	.screens>article {width:100%;height:100%;}
+	.titleBar {position:absolute;left:0;top:0;overflow:hidden;width:100%;/* height:44px */;background-repeat:no-repeat;background-image: url('');background-position:top center;-webkit-background-size:100% 100%;-moz-background-size:100% 100%;-o-background-size:100% 100%;background-size:100% 100%;-webkit-box-shadow:0 1px 2px rgba(0,0,0,0.3);z-index:9;}
+	.titleBar h1 {float:left;width:60%;height:44px;line-height:44px;text-align:center;color:#fff;letter-spacing:-0.04em;overflow:hidden;word-space:nowrap;word-break:break-all;}
+	.titleBar div {float:left;overflow:hidden;width:20%;padding:0 4px;height:100%;white-space:nowrap;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-o-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;}
+	.titleBar div button {display:inline-block;padding:6px;height:100%;margin:0 -4px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-o-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;}
+	.titleBar div button img {width:auto;max-height:32px;height:100%;}
+	.pr {text-align:right;direction:rtl;}
+	.toolBar {position:absolute;left:0;bottom:0;overflow:hidden;width:100%;height:58px;background-repaet:no-repeat;background-image: url('');background-position:top center;-webkit-background-size:100% 100%;-moz-background-size:100% 100%;-o-background-size:100% 100%;background-size:100% 100%;z-index:9;}
+	.toolBar ul {overflow:hidden;width:100%;height:100%;}
+	.toolBar li {float:left;height:100%;}
+	.toolBar li button {display:block;overflow:hidden;width:100%;height:100%;text-align:center;}
+	.toolBar li button img {width:auto;height:100%;}
+	.n1 li {width:100%;}
+	.n2 li {width:50%;}
+	.n3 li {width:33.3%;}
+	.n4 li {width:25%;}
+	.n5 li {width:20%;}
+	.n6 li {width:16.5%;}
+	.n7 li {width:14.2%;}
+	.n8 li {width:12.5%;}
+	.n9 li {width:11%;}
+	.n10 li {width:10%;}
+	.content {position:absolute;left:0;top:44px;bottom:58px;overflow:hidden;width:100%;}
+	.content iframe { width:100%; height:100%; }
+	
+	.layPop {position:absolute;left:0;top:0;bottom:0;width:100%;height:100%;background:rgba(0,0,0,0.3); overflow:scroll; z-index:999;}
+	.layPop>div {position:absolute;left:50%;top:50%;margin-left:-100px;margin-top:-120px;overflow:hidden;width:200px;height:auto;background:#fff;border-radius:4px;-webkit-box-shadow:1px 1px 2px rgba(0,0,0,0.5);-moz-box-shadow:1px 1px 2px rgba(0,0,0,0.5);-o-box-shadow:1px 1px 2px rgba(0,0,0,0.5);-ms-box-shadow:1px 1px 2px rgba(0,0,0,0.5);box-shadow:1px 1px 2px rgba(0,0,0,0.5);}
+	.layPop h2 {height:40px;line-height:40px;border-bottom:1px solid #717b84;background:#88919a;color:#fff;text-align:center;letter-spacing:-0.08em;}
+	/* .layPop ul {height:200px;overflow-y:auto;width:100%;} */
+	.layPop li {height:39px;border-bottom:1px solid #c0c9d2;}
+	.layPop li button {display:block;padding:0 15px;width:100%;height:39px;line-height:39px;text-align:left;font-size:0.9em;font-weight:bold;color:#88919a;background:url('webemulator/images/icon_go.png') no-repeat 95% center;-webkit-background-size:auto 10px;-moz-background-size:auto 10px;-o-background-size:auto 10px;background-size:auto 10px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-o-box-sizing:border-box;box-sizing:border-box;}
+	
+	.testAction>div { width:300px; height:440px; margin-left:-150px;margin-top:-200px;}
+	.testAction table { width:100%; font-size: 0.8em; }
+	.testAction tr { line-height:39px; }
+	.testAction td { border-bottom:1px solid #717b84; }
+	.testAction td.name { width:30%; text-align: right;padding-right:5px; max-width: 120px;text-overflow: ellipsis;overflow: hidden; font-weight:bold;}
+	.testAction td input, .testAction td textarea { width:95%; height:26px; border:1px solid black; }
+	.testAction td textarea { height:200px; }
+	
+	.messageBox {z-index:888;}
+	.messageBox pre {margin:0;}
+	.messageBox>div {height:auto;width:80%; margin-left:-40%;}
+	.messageBox #title, .messageBox #message {text-align: left; padding: 0 5px;}
+	.messageBox #message {padding: 5px; word-wrap: break-word;}
+	.messageBox .buttonGroup {padding: 5px; text-align: center;}
+	.messageBox button { border: 1px solid #88919a; padding: 5px; border-radius: 5px; margin: 0 5px;}
+	
+	button.close01 {position: absolute; right: 15px; top: 8px; color: #fff;}
+	button.close02 {  position: absolute; right: 15px; top: 0px; color: #fff; font-size: 25px;}
+	
+	.popup {position:absolute;left:0;top:0;bottom:0;width:100%;height:100%;z-index:10;}
+	.popup .content {width:100%;height:100%;background:rgba(0,0,0,0.3);}
+	.popup iframe {position:absolute;background:#fff;border-radius:4px;-webkit-box-shadow:1px 1px 2px rgba(0,0,0,0.5);-moz-box-shadow:1px 1px 2px rgba(0,0,0,0.5);-o-box-shadow:1px 1px 2px rgba(0,0,0,0.5);-ms-box-shadow:1px 1px 2px rgba(0,0,0,0.5);box-shadow:1px 1px 2px rgba(0,0,0,0.5);}
+	
+	.screens>article .content:first-child {top:0;}
+	.screens>article .content:last-child {bottom:0;}
+	.screens>article .content:only-child {top:0;bottom:0;height:100%;}
+		
+	#notice  { position: absolute;top: 0; width:100%; height:100%; background-color:white;z-index:10;}
+	#notice .content {position:absolute;left:0;top:0;bottom:0;overflow:hidden;width:100%;}
+		
+	#appConfig { position: absolute;top: 0; width:100%; height:100%; overflow:scroll; background-color:white;z-index:11;}
+	#appConfig .buttons {text-align:right;height : 39px; line-height : 39px;padding:0 5px;}
+	#appConfig .buttons button {width:50px;height:33px; background-color:#E6E6E7; border-radius: 5px;}
+	#appConfig .tab {height:40px;line-height:40px;border-bottom:1px solid #717b84; background-color:#569EC0;}
+	#appConfig .tab li{height:100%;line-height:100%;float:left; width:33.33%;}
+	#appConfig .tab li button{ display:block;height:100%;width:100%;border-right:1px solid #E6E6E7; color:#fff;}
+	#appConfig .tab li button.on{ background-color:#55C7E4;}
+	#appConfig .tabContents { display: none;}
+	#appConfig .tabContents h3 {height:40px;line-height:40px;border-bottom:1px solid #717b84;background:#88919a;color:#fff;text-align:center;letter-spacing:-0.08em;}
+	#appConfig .tabContents ul {width:100%;}
+	#appConfig .tabContents li {height:39px; line-height:39px; border-bottom:1px solid #c0c9d2;}
+	#appConfig .tabContents li label {display:block;float:left;width:40%;}
+	#appConfig .tabContents li input[type=text] {border:1px solid black; width:58%;height:35px;}
+	#appConfig .tabContents li select {border:1px solid black; height:35px;}
+	
+	#appConfig .actions {border-top:1px solid #EFEFEF;height : 39px; line-height : 39px;padding:0 5px; text-align: right;}
+	#appConfig .actions select {min-width:73px;}
+	#appConfig .actions button {min-width:50px;height:33px; background-color:#E6E6E7; border-radius: 5px;}
+	
+	#appConfig .tabContents li textarea {width: 100%;height: 200px;border: 1px solid #ccc;}
+	
+	.accordian p { height : 39px; line-height:39px; }
+	.accordian p+div { padding:5px; border-bottom:1px solid #c0c9d2;text-align:right;}
+	.accordian li { height:inherit !important; line-height:inherit !important; }
+	
+	.toastMessage {position:absolute;height:0;bottom:20%;text-align:center;border-radius:5px;width:100%;}
+	.toastMessage span{background-color: #aeaeae; height: auto; text-align: center; border-radius: 5px; padding: 5px 10px;}
+	
+	
+	.snap-content {position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: auto; height: auto; z-index: 2; overflow: auto; -webkit-overflow-scrolling: touch; -webkit-transform: translate3d(0, 0, 0); -moz-transform: translate3d(0, 0, 0); -ms-transform: translate3d(0, 0, 0); -o-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0);}
+	
+	.snap-drawers {position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: auto; height: auto;}
+	
+	.snap-drawer {position: absolute; top: 0; right: auto; bottom: 0; left: auto; width: 265px; height: auto; overflow: auto; -webkit-overflow-scrolling: touch; -webkit-transition: width 0.3s ease; -moz-transition: width 0.3s ease; -ms-transition: width 0.3s ease; -o-transition: width 0.3s ease; transition: width 0.3s ease;}
+	.snap-drawer>article .content:only-child {top: 0; bottom: 0; height: 100%;}
+	.snap-drawer-left {left: 0; z-index: 1;}
+	.snap-drawer-right {right: 0; z-index: 1;}
+	
+	.snapjs-left .snap-drawer-right, .snapjs-right .snap-drawer-left {display: none;}
+	
+	.snapjs-expand-left .snap-drawer-left, .snapjs-expand-right .snap-drawer-right {width: 100%;}
+		
+	/* Show "Left" drawer for the "Right" drawer */
+	.snapjs-right .snap-drawer-left {display: block;right: 0;left: auto;}
+	/* Hide the actual "Right" drawer */
+	.snapjs-right .snap-drawer-right {display: none;}
+	
+	/*loading*/
+	.loading{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.6);font-weight:bold;font-size:1em;color:#fff;z-index:999999;}
+	.loading p{line-height:80px;text-align:center;width:150px;margin:0 auto;border-radius:3px;position:absolute;top:50%;left:50%;margin:-40px 0 0 -75px;}	
+	.loading p span{background-position:left center; padding-left:35px;line-height:80px;display:inline-block;min-height:80px;}
+	
+	/* Custom title bar from previous dev */
+	.wrap-content{width: 100% !important;}
+	.wrap-content div button img{max-height:inherit  !important;}
+	.content__left {width:auto !important;float: left !important;/* [1] */}
+	.content__middle{text-align:right;overflow: auto;/* [2] */float:none !important;width:auto !important;}
+	.content__middle h1{width:100% !important;height:100%}
+	.content__middle h1 em{display: flex;font-style:normal;align-items: center;/* justify-content: center; */height: 100%;}
+	.content__right{width:auto !important;float: right !important;/* [3] */}	
+	
+</style>
+<script>
+	/* var link = document.createElement("link");
+	link.type = "text/css";
+	link.rel = "stylesheet";
+	link.href = location.pathname + "webemulator/css/emulator.css";
+	document.head.appendChild(link); */
+	
+	var script = document.createElement("script");
+	script.type = "text/javascript";
+	script.src = location.pathname + "webemulator/js/require-min.js";
+	document.write(script.outerHTML);
+	
+	var script2 = document.createElement("script");
+	script2.type = "text/javascript";
+	script2.className = "lempEmulator";
+	script2.src = location.pathname + "webemulator/js/LEMP-emulator.js";
+	document.write(script2.outerHTML);
+	
+</script>
+<!-- <script src="../js/require.js"></script>
+<script src="../js/LEMP-emulator-2.5.js"></script> -->
+
+</head>
+<body>				
+	<aside class="layPop hide" id="contextMenu">
+		<div>
+			<h2>Menu</h2>
+			<button id="btnClose" class="close01">x</button>
+			<ul>
+				<li class="menu" id="btnBack"><button type="button">Back</button></li>
+				<li class="menu" id="btnRefresh"><button type="button">Refresh</button></li>
+				<li class="menu" id="btnRestart"><button type="button">Restart</button></li>
+				<li class="menu" id="btnReset"><button type="button">Reset</button></li>
+				<li class="menu" id="btnConfiguration"><button type="button">Configuration</button></li>
+			</ul>
+		</div>
+	</aside>	
+	
+	<div id="appConfig" class="hide">
+		<div class="buttons">
+			<button id="btnCancel">Cancel</button>
+			<button id="btnSave">Save</button>
+		</div>
+		<div class="actions">
+			<select id="currentProperty"></select>
+			<button id="btnRename">Rename</button>
+			<button id="btnDelete">Delete</button>
+			<button id="btnNew">New</button>
+		</div>
+		<ul class="tab">
+			<li><button class="btnTab">LEMP</button></li>
+			<li><button class="btnTab">Device</button></li>
+			<li><button class="btnTab">Test Response</button></li>
+		</ul>
+		<div class="tabContents">
+			<h3>Server</h3>
+			<ul>
+				<!-- <li>
+					<label>IP:</label><input id="serverIp"><br/>
+					<label>Port:</label><input id="serverPort"><br/>
+					<label>Context:</label><input id="serverContext"><br/>
+					<label>SSL:</label>
+					<select id="serverSsl">
+						<option value="Y">true</option>
+						<option value="N" selected>false</option>
+					</select><br/>
+				</li> -->
+				<li>
+					<label>IP:</label><input type="text" id="serverIp"><br/>
+				</li>
+				<li>
+					<label>Port:</label><input type="text" id="serverPort"><br/>
+				</li>
+				<li>
+					<label>Context:</label><input type="text" id="serverContext"><br/>
+				</li>
+				<li>
+					<label>SSL:</label>
+					<select id="serverSsl">
+						<option value="Y">true</option>
+						<option value="N" selected>false</option>
+					</select><br/>
+				</li>
+			</ul>
+			<h3>App</h3>
+			<ul>
+				<li>
+					<label>App Key:</label><input type="text" id="appKey" value="BMGWANP0"><br/>
+				</li>
+			</ul>
+			<!-- <h3>Upgrade</h3>
+			<ul>
+				<li>
+					<label>IP:</label><input type="text" id="upgradeIp"><br/>
+					<label>Port:</label><input type="text" id="upgradePort"><br/>
+					<label>Context:</label><input type="text" id="upgradeContext"><br/>
+					<label>SSL:</label><input type="text" id="upgradeSsl"><br/>
+				</li>
+			</ul>
+			<h3>Log Level</h3>
+			<ul>
+				<li>
+					<label>Level:</label><input type="text" id="logLevel"><br/>
+				</li>
+			</ul> 
+			<h3>Contents Mode</h3>
+			<ul>
+				<li>
+					<label>Mode:</label><input type="text" id="contentsMode"><br/>
+				</li>
+			</ul>
+			<h3>Web Resource</h3>
+			<ul>
+				<li>
+					<label>URL:</label><input type="text" id="webResourceUrl"><br/>
+				</li>
+			</ul>
+			 <h3>Push</h3>
+			<ul>
+				<li>
+					<label>IP:</label><input type="text" id="pushIp"><br/>
+					<label>Port:</label><input type="text" id="pushPort"><br/>
+					<label>Context:</label><input type="text" id="pushContext"><br/>
+					<label>SSL:</label><input type="text" id="pushSsl"><br/>
+				</li>
+			</ul>
+			<h3>기기인증</h3>
+			<ul>
+				<li>
+					<label>auth(등록여부):</label><input type="text" id="deviceAuth"><br/>
+				</li>
+			</ul> -->
+		</div>
+		<div class="tabContents">
+			<ul id="deviceBox">
+				<li>
+					<label>locale:</label>
+					<select id="locale">
+						<option value="ko_KR">ko_KR</option>
+						<option value="en-US">en-US</option>
+					</select>
+				</li>
+				<li>
+					<label>device_type:</label>
+					<select id="device_type">
+						<option value="Phone">Phone</option>
+						<option value="Tablet">Tablet</option>
+					</select>
+				</li>
+				<li>
+					<label>model:</label><input type="text" id="model">
+				</li>
+				<li>
+					<label>spec_version:</label><input type="text" id="spec_version">
+				</li>
+				<li>
+					<label>app_build_version:</label><input type="text" id="app_build_version">
+				</li>
+				<li>
+					<label>app_major_version:</label><input type="text" id="app_major_version">
+				</li>
+				<li>
+					<label>app_minor_version:</label><input type="text" id="app_minor_version">
+				</li>
+				<li>
+					<label>app_minor_version:</label><input type="text" id="app_minor_version">
+				</li>
+				<li>
+					<label>content_minor_version:</label><input type="text" id="content_minor_version">
+				</li>
+				<li>
+					<label>device_id:</label><input type="text" id="device_id">
+				</li>
+				<li>
+					<label>content_major_version:</label><input type="text" id="content_major_version">
+				</li>
+				<li>
+					<label>client_version:</label><input type="text" id="client_version">
+				</li>
+				
+				<li>
+					<label>network_operater_name:</label><input type="text" id="network_operater_name">
+				</li>
+				
+				<li>
+					<label>mobile_number:</label><input type="text" id="mobile_number">
+				</li>
+				<li>
+					<label>screen_density:</label><input type="text" id="screen_density">
+				</li>
+				<li>
+					<label>screen_density_dpi:</label><input type="text" id="screen_density_dpi">
+				</li>
+				<li>
+					<label>os_type:</label>
+					<select id="os_type">
+						<option value="Android">Android</option>
+						<option value="iPhone">iPhone</option>
+					</select>
+				</li>
+				<li>
+					<label>os_version:</label><input type="text" id="os_version" readonly style="border:none;"/>
+				</li>
+				<li>
+					<label>screen_width:</label><input type="text" id="screen_width" readonly style="border:none;">
+				</li>
+				<li>
+					<label>screen_height:</label><input type="text" id="screen_height" readonly style="border:none;">
+				</li>
+				<li>
+					<label>manufacturer:</label><input type="text" id="manufacturer" readonly style="border:none;">
+				</li>
+			</ul>
+			<span class="txt01"> * 텍스트형태로 표시되는 항목은 선택한 단말기 정보가 반영되는 항목입니다. </span>
+		</div>
+		<div class="tabContents">
+			<ul id="testActionBox" class="accordian">
+				<li>
+					<p class="title"><label>LEMP.Web.open</label></p>
+					<div class="hide">
+						<textarea class="response"></textarea>
+						<span class="txt03">입력창 숨기기</span><input type="checkbox" class="fixTestAction"/>
+					</div>
+				</li>
+				<li>
+					<p class="title"><label>LEMP.Web.open2222</label></p>
+					<div class="hide">
+						<textarea class="response"></textarea>
+						<span class="txt03">입력창 숨기기</span><input type="checkbox" class="fixTestAction"/>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+	
+	<!-- Muny -->
+	<div id="notice" class="hide">
+		Hello Notice
+		<iframe></iframe>
+	</div>		
+	<!--  -->
+	
+	<!--  -->	
+    <div class="snap-drawers">
+        <div id="snap-drawer" class="snap-drawer snap-drawer-left"></div>
+        <div class="snap-drawer snap-drawer-right"></div>
+    </div>
+    
+    <div class="loading"><p><span></span></p></div>
+    <div id="screens" class="screens snap-content">
+	</div>
+	<!--  -->
+	
+	<!-- <div class="screens" id="screens">
+	</div> -->
+	
+	<!--  BEGIN: Underscore Template Definition. -->
+	<script type="text/template" class="titleBarTemplate">
+		<div class="wrap-content">
+			<div class="content__left leftButtons pl">
+				<% _.each( leftButtons, function( button )
+					{ %>
+						<button type="button"></button>
+				<% }); %>
+			</div>
+         	<div class="content__right rightButtons pr">
+            	<% _.each( rightButtons, function( button )
+					{ %>
+               			<button type="button"></button>
+	        	<% }); %>
+         	</div>
+         	<div class="content__middle">
+            	<h1><em><%= title %></em></h1>
+         	</div>
+		</div>
+    </script>
+    
+    <script type="text/template" class="toolBarTemplate">
+			<ul class="buttons n<%=buttons.length%>" >
+				<% _.each( buttons, function( button )
+				{ %>
+                	<li><button type="button"></button></li>
+	            <% }); %>
+			</ul>
+    </script>
+    
+    <script type="text/template" class="buttonTemplate">
+		<img src='<%= imagePath ? imagePath : ""%>' style='display:<%=imagePath ? "inline" : "none"%>'/>
+    </script>
+    
+    <script type="text/template" class="testActionTemplate">
+		<% _.each( _.keys(attributes), function(key)
+		{ %>
+		<li class="testActionRecord">
+			<p class="title"><span><%=key%></span></p>
+			<div class="hide">
+				<textarea class="response"><%=JSON.stringify(attributes[key].response, null, 4)%></textarea>
+				<span class="txt03">입력창 숨기기</span><input type="checkbox" class="fixTestAction" <%=attributes[key].isFixed ? "checked" : ""%>/>
+			</div>
+		</li>
+		<% }); %>
+    </script>
+    
+    <script type="text/template" class="messageBoxTemplate">
+		<div>
+			<h2><pre id="title"></pre></h2>
+			<div><pre id="message"></pre></div>
+			<div class="buttonGroup">
+				<button id="btnConfirm">OK</button>
+				<button id="btnCancel">Cancel</button>
+			</div>
+		</div>
+	</script>
+	
+	<script type="text/template" class="toastMessageTemplate">
+		<div>
+			<span class="message"></span>
+		</div>
+	</script>
+	
+	<script type="text/template" class="propertyOptionTemplate">
+		<% _.each(propertyList, function(property) { %>
+			<option value="<%=property%>"><%=property%></option>
+		<% }); %>
+	</script>
+	
+	<script type="text/template" class="testActionViewTemplate">
+			<div>
+				<h2>Test Response</h2>
+				<button id="btnClose" class="close02" type="button">x</button>
+				<h3 class="txt02">* 에뮬레이터에서 지원하지 않는 기능입니다. 테스트용 Response을 입력해주세요.</h3>
+			
+				<table>
+					<tbody>
+						<tr>
+							<td class="name">Xross API:</td>
+							<td class="xrossApi" id="xrossApi"><%=xrossApi%></td>
+						</tr>
+						<tr>
+							<td class="name">Action ID:</td>
+							<td class="actionId" id="actionId"><%=actionId%></td>
+						</tr>
+						<tr>
+							<td class="name">Response:</td>
+							<td><textarea class="response"><%=JSON.stringify(responseInfo.response, null, 4)%></textarea></td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="buttonBox01 bottomLine01">
+					<div class="box01">
+						<label class="txt03 actionId"></label><label class="txt03">에 대한 입력창 숨기기:</label>
+						<input type="checkbox" class="fixTestAction" <%=responseInfo.isFixed ? "checked" : ""%>/>
+					</div>
+				</div>
+				<div class="buttonBox01">
+					<button class="btn01" id="btnSubmit">확인</button>
+				
+				</div>
+			</div>
+	</script>
+	
+   <!--  <% _.each(_.key(propertyList), function(key) { %>
+			<option value="<%=key%>"><%=key%></option>
+		<% }); %> -->
+    <!-- END: Underscore Template Definition. -->
+</body>
+</html>

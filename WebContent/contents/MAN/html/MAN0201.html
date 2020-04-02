@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
+
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/MAN0201.js"></script>
+</head>
+
+<body>
+	<input type="hidden" name="menuId" id="menuId" value="MAN0201"/>
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection">
+			<div class="headerWrap">				
+				<h1>공지사항</h1>
+			</div>		
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection_1">
+		
+		
+
+		</div>
+		<!--  //contentSection  -->
+
+	</div>
+	<!--  //contents  -->
+
+</body>
+<script type="text/x-handlebars-template" id="MAN0201_list_template">
+{{#notice}}
+<div class="contentBox mypage pop">
+		<div class="noticeContents">
+			<div class="topHead">
+				<p>
+					<span class="date">{{sta_ymd}}</span>
+				</p>
+				<p class="tit">{{title}}</p>
+			</div>
+			{{content}}
+			<div class="btnBox pxB" id={{seq_no}}>
+				<button class="btn m red w100p" id="checkOkay">확인</button>
+			</div>
+		</div>
+</div>
+{{/notice}}
+</script>
+
+</html>

@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css">
+
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/CLDL0502.js"></script>
+</head>
+
+<body>
+<input type="hidden" name="menuId" id="menuId" value="CLDL0502"/>
+	<!--  contents  -->
+	<div id="contents">
+	</div>
+	<!--  //contents  -->
+
+</body>
+		<script type="text/x-handlebars-template" id="CLDL0502_list_template">
+		{{!--  headerSection  --}}
+		<header id="headerSection" class="headerSection">
+			<div class="headerWrap black">
+				<h1>집하현황 상세정보</h1>
+				<button class="btn closeW paR">닫기</button>
+			</div>		
+			<div class="topHead">
+				<button class="btn barcodeSmall fr" data-inv-no="{{inv_no}}">&nbsp;</button>
+				<p class="songNum">송장번호 <em>{{inv_no}}</em></p>
+			</div>
+		</header>
+		{{!--  //headerSection  --}}
+
+		{{!--  contentSection  --}}
+		<div class="contentSection" id="contentSection">
+		
+		{{!-- contentBox --}}
+		<div class="contentBox pop popInfo">
+			
+			{{!-- infoListBox --}}
+			<div class="infoListBox">
+				<ul>
+					<li>
+						<div class="infoBox" id="S">
+							<div class="tit"><span class="titBox">보내는사람</span><span>{{snper_nm}}</span></div>
+							<ul>								
+								<li>
+									<span class="titBox">전화번호</span>
+									<span>{{acper_tel}}</span>
+									{{#mobileAT}}<button class="btn mobile">전화번호</button>{{/mobileAT}}
+								</li>
+								<li>
+									<span class="titBox">전화번호</span>
+									<span>{{acper_cpno}}</span>
+									{{#mobileAC}}<button class="btn mobile">전화번호</button>{{/mobileAC}}
+								</li>
+								<li class="map"><span class="titBox">원본</span><div class="add">{{snper_addr}}</div><button class="btn map">지도</button></li>
+								<li class="map"><span class="titBox">지번</span><div class="add">{{snper_ldno_addr}}</div><button class="btn map">지도</button></li>
+								<li class="map"><span class="titBox">도로</span><div class="add">{{snper_rdnm_addr}}</div><button class="btn map">지도</button></li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<div class="infoBox" id="A">
+							<div class="tit"><span class="titBox">받는사람</span><span>{{acper_nm}}</span></div>
+							<ul>								
+								<li>
+									<span class="titBox">전화번호</span>
+									<span>{{acper_tel}}</span>
+									{{#mobileAT}}<button class="btn mobile">전화번호</button>{{/mobileAT}}
+								</li>
+								<li>
+									<span class="titBox">전화번호</span>
+									<span>{{acper_cpno}}</span>
+									{{#mobileAC}}<button class="btn mobile">전화번호</button>{{/mobileAC}}
+								</li>
+								<li class="map"><span class="titBox">원본</span><div class="add">{{acper_addr}}</div><button class="btn map">지도</button></li>
+								<li class="map"><span class="titBox">지번</span><div class="add">{{acper_ldno_addr}}</div><button class="btn map">지도</button></li>
+								<li class="map"><span class="titBox">도로</span><div class="add">{{acper_rdnm_addr}}</div><button class="btn map">지도</button></li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<div class="infoBox">
+							<div class="tit"><span class="titBox">상품명</span><span>{{gds_nm}}</span></div>
+							<ul>
+								<li><span class="titBox">박스크기</span><span>{{box_mgnt}}</span></li>
+								{{#fres}}
+									<li><span class="titBox">신선식품</span><span class="badge bing s">신선</span></li>
+								{{/fres}}
+								{{#svc}}
+									<li><span class="titBox">집하일</span><span>{{pick_ymd}}</span></li>
+								{{/svc}}
+							</ul>
+						</div>
+					</li>
+					<li id="summ_Fare">
+						<div class="infoBox">
+							<div class="tit"><span class="titBox">운임정보</span>합계<span class="tRed mgl5"><b>{{summ_fare}}</b>원</span></div>
+							<ul>
+								<li><span class="titBox">기본운임</span>{{bsc_fare}}원</li>
+								<li><span class="titBox">항공운임</span>{{airf}}원</li>
+								<li><span class="titBox">도선료</span>{{pltg}}원</li>
+								<li><span class="titBox">할증료</span>{{extch}}원</li>
+							</ul>
+						</div>
+					</li>
+					
+					<li>
+						<div class="infoBox">
+							<div class="tit"><span class="titBox">배송요청사항</span></div>
+							<div class="memo">{{dlv_msg_cont}}</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			{{!-- infoListBox --}}
+		</div>
+		{{!-- //contentBox --}}
+		
+		</div>
+		{{!--  //contentSection  --}}
+		</script>
+		<script type="text/x-handlebars-template" id="dlay_template">
+		<li>
+			<div class="infoBox">
+				<dl class="inBox tp1 won">
+					<dt class="tit won"><span class="titBox">집하보류</span></dt>
+					<dd>
+						<div class="inputBox pdr70">
+							<div class="txtBox tp3 plus" id={{dlay_rsn_cd}}>
+								{{rsn_cont}}
+							</div>
+						</div>
+					</dd>
+				</dl>
+			</div>
+		</li>
+		{{#img_src}}
+		<li>
+			<div class="infoBox ">
+				<div class="tit won fl">
+					<span class="titBox">이미지</span>
+				</div>
+				<div class="imgArea tp2 fr"><img id="imgArea" src="{{img_path}}" alt=""></div>
+			</div>
+		</li>
+		{{/img_src}}
+		</script>
+
+</html>

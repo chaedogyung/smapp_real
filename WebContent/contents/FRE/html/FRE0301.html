@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css">
+
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/FRE0301.js"></script>
+</head>
+
+<body>
+	<input type="hidden" name="menuId" id="menuId" value="FRE0301" />
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection v2">
+			<div class="headerWrap">
+				<button class="btn back paL"></button>
+				<h1>화물추적</h1>
+			</div>
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+		<!-- contentBox -->
+		<div class="contentBox pop freTracking">
+
+			<!-- infoListBox -->
+			<div class="infoListBox">
+				<ul>
+					<li>
+						<!-- infoBox -->
+						<div class="infoBox" id="infoBox_D">
+							<div class="inputBox pdl75">
+								<span class="pa paL fs12 mgt7 tGray5">운송장번호</span>
+								<input type="text" value="" name=""  id="inv_noNumber" placeholder="운송장 번호를 입력해주세요." readonly data-menu-id="">
+								<p class='tRed fs11' style="display: none;">송장번호에 송수하인 정보가 없습니다.</p>
+								<button class="btn scan">스캔</button>
+							</div>
+						</div>
+						<!-- //infoBox -->
+					</li>
+			
+					<li>
+						<!-- infoBox -->
+						<div class="infoBox">
+							<div class="tit" ><em class="titBox">보내는 사람</em><span id="snper_nm" class="fre0301_class"></span></div>
+							<dl class="inBox tp3">
+								<dt class="inBoxTel">전화번호1</dt>
+								<dd id="snper_tel" class="fre0301_class inBoxTel"></dd>
+								
+								<dt class="inBoxTel">전화번호2</dt>
+								<dd id="snper_htel" class="fre0301_class inBoxTel"></dd>
+								<dt>원본</dt>
+								<dd id="snper_badr" class="fre0301_class"></dd>
+								<dt>지번</dt>
+								<dd id="snper_ldno_adr" class="fre0301_class"></dd>
+								<dt>도로</dt>
+								<dd id="snper_rdnm_adr" class="fre0301_class"></dd>
+							</dl>
+						</div>
+						<!-- //infoBox -->
+					</li>
+					<li>
+						<!-- infoBox -->
+						<div class="infoBox">
+							<div class="tit"><em class="titBox">받는사람</em><span id="acper_nm" class="fre0301_class"></span></div>
+							<dl class="inBox tp3">
+								<dt class="inBoxTel">전화번호1</dt>
+								<dd id="acper_tel" class="fre0301_class inBoxTel"></dd>
+								<dt class="inBoxTel">전화번호2</dt>
+								<dd id="acper_htel" class="fre0301_class inBoxTel"></dd>
+								<dt>원본</dt>
+								<dd id="acper_badr" class="fre0301_class"></dd>
+								<dt>지번</dt>
+								<dd id="acper_ldno_adr" class="fre0301_class"></dd>
+								<dt>도로</dt>
+								<dd id="acper_rdnm_adr" class="fre0301_class"></dd>
+							</dl>
+						</div>
+						<!-- //infoBox -->
+					</li>
+					<li>
+						<!-- infoBox -->
+						<div class="infoBox">
+							<dl class="inBox tp3">
+								<dt>수량</dt>
+								<dd id="box_qty" class="fre0301_class"></dd>
+								<dt>운임구분</dt>
+								<dd id="pay_con_cd" class="fre0301_class"></dd>
+								<dt>운임</dt>
+								<dd id="fare" class="fre0301_class"></dd>
+							</dl>
+						</div>
+						<!-- //infoBox -->
+					</li>
+					<li>
+						<!-- infoBox -->
+						<div class="infoBox">
+							<dl class="inBox tp3" class="fre0301_class">
+								<dt>인수자</dt>
+								<dd id="acpt_per_nm" class="fre0301_class"></dd>
+							</dl>
+						</div>
+						<!-- //infoBox -->
+					</li>
+					<li style="display: none">
+						<div class="infoBox img">
+							<div class="tit">
+								<em class="titBox">이미지</em>
+							</div>
+							<div class="imgBox">
+								<img src="" alt="" id="FRE0301_img">
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!-- //infoListBox -->
+
+
+			<div class="btnBox pxB">
+				<button class="btn red w100p m" id="freInfo">화물정보</button>
+			</div>
+
+		</div>
+		<!-- //contentBox -->
+		
+		</div>
+		<!--  //contentSection  -->
+
+	</div>
+	<!--  //contents  -->
+	<!-- 모달팝업 통화 -->
+	<div class="mpopBox img phone">
+		<div class="popBody">
+			<p class="img"><img src="../../common/img/icon-phone2.png" alt="" /></p>
+			<p class="txt1" id="phoneNum"></p>
+			<p class="txt2">통화하시겠습니까?</p>
+		</div>
+		<div class="popFooter">
+			<div class="btnBox">
+				<ul class="ul0 ul2">
+					<li><button class="btn gray m w100p b-close">취소</button></li>
+					<li><button class="btn red m w100p" id="callOk">통화</button></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- //모달팝업 통화 -->
+</body>
+</html>

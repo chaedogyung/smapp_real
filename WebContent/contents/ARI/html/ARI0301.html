@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css">
+	
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/ARI0301.js"></script>
+</head>
+
+<body>
+	<input type="hidden" name="menuId" id="menuId" value="ARI0301" />
+	<!--  contents  -->
+	<div id="contents">
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection">
+			<div class="headerWrap">
+				<button class="btn back paL"></button>
+				<h1>소형적입</h1>
+			</div>		
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+		<!-- contentBox -->
+		<div class="contentBox pop">
+
+			<!-- topHead -->
+			<div class="topHead">				
+				<span class="fl mgt8">소형적입등록</span>
+				<button class="fr btn red" id="searchJy">적입점소 조회</button>
+				<ul class="topHeadInfo">
+					<li id="smsz_mbag_no_cnt">운반장비 : <span>0</span></li>
+					<li id="inv_no_cnt">운송장 : <span>0</span></li>
+					<li id="all_cnt">전체 : <span>0</span></li>
+					<li id="trsm_cnt">전송 : <span>0</span></li>
+					<li id="un_trsm_cnt">미전송 : <span>0</span></li>
+				</ul>
+			</div>
+			<!-- //topHead -->
+						
+            <!-- infoListBox -->
+			<div class="infoListBox">
+				<ul>
+					<li>
+						<div class="infoBox">
+							<dl class="inBox tp1">
+								<dt>적입점소</dt>
+								<dd>
+									<input type="text" value="" name="" id="inputJy" readonly>
+								</dd>
+								<dt>운반장비<i>★</i></dt>
+								<dd>
+									<div class="inputBox">
+										<input type="text" value="" name="" placeholder="" id="moequi" disabled readonly>
+										<button class="btn scan" id="eqScan">스캔</button>
+									</div>
+								</dd>
+							</dl>
+						</div>
+					</li>
+					<li>
+						<div class="infoBox">
+							<div class="inputBox">
+								<input type="text" value="" name="" placeholder=""  id="invScan" readonly/>
+								<button class="btn scan" id="invScan_c">스캔</button>
+							</div>
+						</div>
+						<div class="infoBox">
+							<ul class="boxList">
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!-- //infoListBox -->
+            
+            <div class="btnBox pxB">
+				<button class="btn m red w100p" id="sendP">전송</button>
+			</div>
+			
+
+		</div>
+		<!-- //contentBox -->
+	
+		</div>
+		<!--  //contentSection  -->
+
+	</div>
+	<!--  //contents  -->
+	
+	
+	
+	<div class="mpopBox img cancel" style="left: 18.75px; position: absolute; top: 840.906px; z-index: 9999; opacity: 0; display: none;">
+		<div class="popBody">
+			<p class="img"><img src="../../common/img/icon-error.png" alt=""></p>
+			<p class="txt1">취소 확인</p>
+			<p class="txt2">스캔이 취소됩니다. 삭제하시겠습니까?</p>
+		</div>
+		<div class="popFooter">
+			<div class="btnBox">
+				<ul class="ul0 ul2">
+					<li><button class="btn gray m w100p b-close" id="disagress" >아니오</button></li>
+					<li><button class="btn red m w100p b-close" id="agree">예</button></li>
+				</ul>				
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="mpopBox send pop1" style="left: 18.75px; position: absolute; top: 609.485px; z-index: 9999; opacity: 0; display: none;">
+		<div class="popBody">
+			<p class="img"><img src="../../common/img/icon-airplane.png" alt=""></p>
+			<p class="txt1">전송완료</p>
+			<p class="txt2" id="scanDataN">스캔된 데이터 N건<br>데이터 전송이 완료되었습니다.</p>
+		</div>
+		<div class="popFooter">
+			<div class="btnBox">
+				<button class="btn red m w100p b-close" id="scanSFi">확인</button>
+			</div>
+		</div>
+	</div>
+	
+	
+</body>
+
+
+	<script type="text/x-handlebars-template" id="COM0101_list_template">
+		{{#each	list}}
+			<li class="li list" id="{{invNoId}}">
+				<div class="item">
+					<p>
+						<span class="span invNo">{{invNo}}</span>
+						<button class="btn del2">삭제</button>
+					</p>
+				</div>
+			</li>
+		{{else}}
+			<li class="noList">
+				<div class="NoBox">
+					<p class="txt tc">조회된 결과가 없습니다.</p>
+				</div>
+			</li>
+		{{/each}}
+	</script>
+
+
+</html>

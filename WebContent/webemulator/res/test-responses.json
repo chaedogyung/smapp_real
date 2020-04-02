@@ -1,0 +1,233 @@
+{
+	"App" : 
+	{
+		"exit" : 
+		{
+		},
+		"getTimeout" : 
+		{
+			"result" : 1800
+		},
+		"setTimeout" : 
+		{
+		},
+		"requstTimeout" :
+		{
+		}
+	},
+	
+	"Contacts" : 
+	{
+		"get" :
+		{
+		}
+	},
+	
+	"File" : 
+	{
+		"copy" : 
+		{
+			"result" : true
+		},
+		"directory" :
+		{ 
+			"result" : true,
+			"directory_info" : 
+			[
+				{
+					"is_directory" : true,
+					"file_path" : "/storage/emulated/0/images/test"
+				}
+			]
+		},
+		"download" : 
+		{
+			"result": true,
+			"current_count" : 1,
+			"total_count" : 2,
+			"file_path" : "/storage/emulated/0/images/logo.png",
+			"file_id" : 0
+		},
+		"exist" : 
+		{
+			"result" : true
+		},
+		"getInfo" : 
+		{
+			"result" : true,
+			"list" : []
+		},
+		"move" : 
+		{
+			"result" : true
+		},
+		"open" : 
+		{
+			"result" : true
+		},
+		"remove" : 
+		{
+			"list" : [
+				{	
+					"result" : true,
+					"file_path" : "/storage/emulated/0/images/test.jpg"
+				}
+			]
+		},
+		"resizeImage" : 
+		{
+			"result" : true,
+			"list" : [
+				{
+					"origin_path" : "/storage/emulated/0/images/test.jpg",
+					"target_path" : "/storage/emulated/0/images/test_resize.jpg"
+				}
+			]
+		},
+		"rotateImage" : 
+		{
+			"result" : true,
+			"path" : "/storage/emulated/0/images/test_rotated.jpg"
+		},
+		"unzip" : 
+		{
+			"result" : true,
+			"file_path" : "/storage/emulated/0/files/unzipped"
+		},
+		"upload" : 
+		{
+			"result" : true,
+			"exception_msg" : "",
+			"list" : [
+				{
+					"file_name" : "",
+					"uid" : "",
+					"result" : true
+				}
+			]
+		},
+		"zip" : 
+		{
+			"result" : true,
+			"file_path" : "/storage/emulated/0/images/test.zip"
+		}
+		
+		
+	},
+	
+	"Push" :  	
+	{
+		"getAlarm" : 
+		{
+			"result" : true,
+			"resultCode" : "",
+			"resultMessage" : ""
+		},
+		"getMessageList" : 
+		{
+			"result" : true,
+			"resultCode" : "",
+			"resultMessage" : ""
+		},
+		"getPushKey" : 
+		{
+			"result" : true,
+			"resultCode" : "",
+			"resultMessage" : ""
+		},
+		"getUnreadCount" :
+		{
+			"result" : true,
+			"resultCode" : "",
+			"resultMessage" : ""
+		},
+		"readMessage" : 
+		{
+			"result" : true,
+			"resultCode" : "",
+			"resultMessage" : ""
+		},
+		"registerToServer" : 
+		{
+			"result" : true,
+			"resultCode" : "",
+			"resultMessage" : ""
+		},
+		"sendMessage" : 
+		{
+			"result" : true,
+			"resultCode" : "",
+			"resultMessage" : ""
+		},
+		"setAlarm" : 
+		{
+			"result" : true,
+			"resultCode" : "",
+			"resultMessage" : ""
+		},
+		"setBadgeCount" : 
+		{
+		}
+	},
+	
+	"System" : 
+	{
+		"callBrowser" : 
+		{
+		},
+		"callCamera" :
+		{
+			"result" : true,
+			"path" : "/storage/emulated/0/images/capture.jpg"
+		},
+		"callGallery" : 
+		{
+			"result" : true,
+			"images" : [
+				{
+					"uri" : "",
+					"filename" : "1.jpg",
+					"size" : "10240"
+				}
+			]
+		},
+		"callMap" : 
+		{
+		},
+		"callSMS" : 
+		{
+			"result" : true
+		},
+		"callTEL" : 
+		{
+			"result" : true
+		},
+		"getGPS" : 
+		{
+			"result" : {}
+		}
+	},
+	
+	
+	
+	"Window":
+	{
+		"toast":
+		{
+		},
+		"openCodeReader" : 
+		{
+			"result" : true
+		},
+		"openImageViewer" : 
+		{
+			"result" : true
+		},
+		"openSignPad" : 
+		{
+			"result" : true,
+			"sign_data" : "",
+			"file_path" : "{external}/signpad/sign.bmp"
+		}
+	}
+}

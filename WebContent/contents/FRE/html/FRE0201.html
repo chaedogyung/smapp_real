@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css">
+
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/FRE0201.js"></script>
+</head>
+
+<body>
+	<input type="hidden" name="menuId" id="menuId" value="FRE0201" />
+	<!--  contents  -->
+	<div id="contents">
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection">
+			<div class="headerWrap">
+				<button class="btn back paL"></button>
+				<h1>화물사고 확인서</h1>
+			</div>		
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+		<!-- contentBox -->
+		<div class="contentBox freAccident">
+
+			<!-- topHead -->
+			<div class="topHead">
+				<div class="inputBox pdl75">
+					<span class="pa paL fs14 mgt5 tGray5">운송장번호</span>
+					<input type="text" id="inv_noText" value="" name="" placeholder="운송장 번호를 입력해주세요." id="inv_noText" readonly/>
+					<button class="btn scan" id="cameraScan_1">스캔</button>
+				</div>
+			</div>
+			<!-- //topHead -->
+
+			<!-- infoListBox -->
+			<div class="infoListBox">
+				<ul>
+					<li>
+						<!-- infoBox -->
+						<div class="infoBox">
+							<dl class="inBox tp1 won">
+								<dt>화물상태</dt>
+								<dd>
+									<span class="selBox w100p">
+										<select name="" id="FRE0201_code_template">	
+										</select>
+									</span>
+								</dd>
+							</dl>
+						</div>
+						<!-- //infoBox -->
+					</li>
+					
+						
+					<li class ="damage_1_others">
+						<!-- infoBox -->
+						<div class="infoBox">
+							<div class="tit"><em class="titBox">사진등록</em></div>
+							
+							<div class="imgList l">
+								<ul class="ul0 ul2">
+									<li>
+										<span class="titArea">운송장</span>
+										<div class="imgArea">
+											<button class="btn plus3" id="inv_no1"></button>
+											<button class="btn del4" style="display: none;" id="inv_no1_D"></button>
+											<img src="" alt="" id="invIm" style="width: 200px; height: 168px;"/>
+										</div>
+									</li>
+									<li>
+										<span class="titArea">전체</span>
+										<div class="imgArea">
+											<button class="btn plus3" id="total1"></button>
+											<button class="btn del4" style="display: none;" id="total1_D"></button>
+											<img src="" alt="" id="totalIm" style="width: 200px; height: 168px;"/>
+										</div>
+									</li>
+									<li>
+										<span class="titArea">파손사진1</span>
+										<div class="imgArea">
+											<button class="btn plus3" id="damage_p1"></button>
+											<button class="btn del4" style="display: none;" id="damage_p1_D"></button>
+												<img src="" alt="" id="dama1Im" style="width: 200px; height: 168px;"/>
+										</div>
+									</li>
+									<li>
+										<span class="titArea">파손사진2</span>
+										<div class="imgArea">
+											<button class="btn plus3" id="damage_p1t"></button>
+											<button class="btn del4" style="display: none;" id="damage_p1t_D"></button>
+											<img src="" alt="" id="dama2Im" style="width: 200px; height: 168px;"/>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<!-- //infoBox -->
+					</li>
+
+					
+					<li class="damage">
+						<div class="infoBox">
+							<div class="tit"><em class="titBox">사진등록</em></div>
+							
+							<div class="imgList l">
+								<ul class="ul0 ul2">
+									<li>
+										<span class="titArea">운송장</span>
+										<div class="imgArea">
+											<button class="btn plus3" id="inv_no2"></button>
+											<button class="btn del4" style="display: none;" id="inv_no2_D"></button>
+											<img src="" alt=""  id="invImg" style="width: 200px; height: 168px;"/>
+										</div>
+									</li>
+									<li>
+										<span class="titArea">전체</span>
+										<div class="imgArea">
+											<button class="btn plus3" id="total2"></button>
+											<button class="btn del4" style="display: none;" id="total2_D"></button>
+											<img src="" alt="" id="totalImg" style="width: 200px; height: 168px;"/>
+										</div>
+									</li>
+									<li>
+										<span class="titArea">오손사진1</span>
+										<div class="imgArea">
+										
+											<button class="btn plus3" id="damage_p2"></button>
+											<button class="btn del4" style="display: none;" id="damage_p2_D"></button>
+											<img src="" alt=""  id="dama1Img" style="width: 200px; height: 168px;"/>
+										</div>
+									</li>
+									<li>
+										<span class="titArea">오손사진2</span>
+										<div class="imgArea">
+											<button class="btn plus3" id="damage_p2t"></button>
+											<button class="btn del4" style="display: none;" id="damage_p2t_D"></button>
+											<img src="" alt=""  id="dama2Img" style="width: 200px; height: 168px;"/>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</li>
+					
+					
+					<li class="damage">
+						<!-- infoBox -->
+						<div class="infoBox">
+							<div class="inputBox pdl75">
+								<span class="pa paL fs12 mgt7 tGray5">원인운송장</span>
+								<input type="text" value="" name="" placeholder="원인 운송장 번호를 입력해주세요." id="text_cause" readonly/>
+								<button class="btn scan" id="cameraScan_Cause">스캔</button>
+							</div>
+						</div>
+						<!-- //infoBox -->
+					</li>
+					<li class="damage">
+						<!-- infoBox -->
+						<div class="infoBox">
+							<div class="imgList l">
+								<ul class="ul0 ul2">
+									<li>
+										<span class="titArea">운송장</span>
+										<div class="imgArea">
+											<button class="btn plus3" id="damage2C"></button>
+											<button class="btn del4" style="display: none;" id="damage2C_D"></button>
+											<img src="" alt=""  id="inv_noC" style="width: 200px; height: 168px;"/>
+										</div>
+									</li>
+									<li>
+										<span class="titArea">전체</span>
+										<div class="imgArea">
+											<button class="btn plus3" id="damage2CT"></button>
+											<button class="btn del4" style="display: none;" id="damage2CT_D"></button>
+											<img src="" alt=""  id="inv_noCT" style="width: 200px; height: 168px;"/>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<!-- //infoBox -->
+					</li>
+				</ul>
+			</div>
+			<!-- //infoListBox -->
+
+			<button class="btn red m w100p" id="sendDatas">전송</button>
+
+		</div>
+		<!-- //contentBox -->
+	
+		</div>
+		<!--  //contentSection  -->
+
+	</div>
+	<!--  //contents  -->
+	
+	<div class="mpopBox send pop3" style="left: 18.75px; position: absolute; top: 538.985px; z-index: 9999; opacity: 0; display: none;">
+		<div class="popBody">
+			<p class="img"><img src="../../common/img/icon-airplane.png" alt=""></p>
+			<p class="txt1">전송완료</p>
+			<p class="txt2">데이터 전송이 완료되었습니다.</p>
+		</div>
+		<div class="popFooter">
+			<div class="btnBox">
+				<button class="btn red m w100p b-close">확인</button>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

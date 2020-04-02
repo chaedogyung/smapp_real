@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css">
+	
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/SET0202.js"></script>
+</head>
+
+<body>
+	<input type="hidden" name="menuId" id="menuId" value="SET0202"/>
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection v2">
+			<div class="headerWrap black">
+				<h1>문구 작성</h1>
+				<button class="btn closeW paR">닫기</button>
+			</div>		
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+		<!-- contentBox -->
+		<div class="contentBox pop memoSection">
+			
+			<!-- infoListBox -->
+			<div class="infoListBox">
+				<ul>
+					<li>
+						<div class="infoBox">
+							<p class="mgb5">
+								<input type="text" value="" name="" placeholder="제목을 입력해주요." id="inputB"/>
+							</p>
+							<textarea name="" id="smsTextDummy" cols="30" rows="10" disabled class="srOnly"></textarea>
+							<textarea name="" id="smsText" cols="30" rows="10"></textarea>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!-- //infoListBox -->
+
+			<div class="btnBox pxB">
+				<ul class="ul0 ul2">
+					<li><button class="btn gray w100p m" id="canDel"></button></li>
+					<li><button class="btn red w100p m" id="sendData">저장</button></li>
+				</ul>
+			</div>
+
+		</div>
+		<!-- //contentBox -->
+		
+		</div>
+		<!--  //contentSection  -->
+
+	</div>
+	<!--  //contents  -->
+	
+	<div class="mpopBox send pop3" style="left: 18.75px; position: absolute; top: 538.985px; z-index: 9999; opacity: 0; display: none;">
+		<div class="popBody">
+			<p class="img"><img src="../../common/img/icon-airplane.png" alt=""></p>
+			<p class="txt1">저장완료</p>
+			<p class="txt2">작성하신 내용이 저장 되었습니다.</p>
+		</div>
+		<div class="popFooter">
+			<div class="btnBox">
+				<button class="btn red m w100p b-close" id="confirm">확인</button>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	<div class="mpopBox img cancel" style="left: 18.75px; position: absolute; top: 840.906px; z-index: 9999; opacity: 0; display: none;">
+		<div class="popBody">
+			<p class="img"><img src="../../common/img/icon-error.png" alt=""></p>
+			<p class="txt1">취소 확인</p>
+			<p class="txt2">문자가 삭제됩니다. 삭제하시겠습니까?</p>
+		</div>
+		<div class="popFooter">
+			<div class="btnBox">
+				<ul class="ul0 ul2">
+					<li><button class="btn gray m w100p b-close" id="deleteCancle">아니오</button></li>
+					<li><button class="btn red m w100p b-close" id="deleteMassge">예</button></li>
+				</ul>				
+			</div>
+		</div>
+	</div>
+	
+</body>
+	
+</html>

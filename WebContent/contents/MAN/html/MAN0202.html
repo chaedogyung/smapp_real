@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
+	<script src="../../common/js/panzoom.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/MAN0202.js"></script>
+
+
+
+</head>
+
+<body>
+	<input type="hidden" name="menuId" id="menuId" value="MAN0202"/>
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection">
+			<div class="headerWrap">				
+				<h1>공지사항</h1>
+			</div>		
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+		</div>
+		<!--  //contentSection  -->
+
+	</div>
+	<!--  //contents  -->
+
+</body>
+<script>
+		$(document).ready(function(){
+			var area = document.querySelector('.panArea')
+			panzoom(area, {autocenter: true, bounds: true, boundsPadding : 0, transformOrigin: {x: 0.5, y: 0.5}});
+		});
+</script>
+<script type="text/x-handlebars-template" id="MAN0202_list_template">
+{{#notice}}
+			<!-- contentBox -->
+			<div class="contentBox mypage pop">
+				<!-- memoContents -->
+				<div class="noticeContents">
+					<div class="topHead">
+						<p>
+							<span class="date lineL">{{sta_ymd}}</span>
+						</p>
+						<p class="tit">{{title}}</p>
+					</div>
+
+
+					<div class="content contentImage">
+						<div class="panArea">
+							<img src={{img_path}} alt="">
+						</div>
+					</div>
+
+					<div class="btnBox pxB">
+						<button class="btn m red w100p" id="Man02Check">확인</button>
+					</div>
+
+				</div>
+				<!-- //memoContents -->
+			</div>
+			<!-- //contentBox -->
+{{/notice}}
+</script>
+</html>

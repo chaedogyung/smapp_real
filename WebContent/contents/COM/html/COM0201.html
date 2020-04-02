@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
+
+	<!-- JS Global -->
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/COM0201.js"></script>
+	<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=3c7ef4737f064d8e289dcf6f5ea6c132&libraries=services"></script>
+	<!-- //JS Global  -->
+
+</head>
+
+<body>
+<input type="hidden" name="menuId" id="menuId" value="COM0201"/>
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection">
+			<div class="headerWrap black">
+				<h1>지도 보기</h1>	
+				<button class="btn closeW paR">닫기</button>
+			</div>
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+			<!-- contentBox -->
+			<div class="contentBox popMap">
+				
+				<!-- tabBox -->
+				<div class="tabBox li2">
+					<ul>
+						<li class="on">
+							<button class="btn">
+								숫자정렬
+							</button>
+						</li>
+						<li>
+							<button class="btn">
+								순서정렬
+							</button>
+						</li>
+					</ul>
+				</div>
+				<!-- //tabBox -->
+
+				
+				<!-- tabView -->
+				<div class="tabView">
+					<ul>
+						<li>
+							<!-- divisionBox -->
+							<div class="divisionBox v2">
+
+								<div class="selectBox">
+									<ul id="com0201LstUl">
+									</ul>
+								</div>
+
+								<div class="topBox">
+									<span class="chkBox m lineL">집하</span><span class="mapcon blue">미전송</span> <span class="mapcon sky">전송</span>
+									<span class="chkBox m lineL mgl20">배달</span><span class="mapcon red">미전송</span> <span class="mapcon pink">전송</span>
+								</div>
+
+							</div>
+							<!-- //divisionBox -->
+						</li>
+						<li class="noList">
+							<!-- mapCon -->
+							<div class="mapCon" id="mapCon">
+							</div>
+							<!-- //mapCon -->
+							<div class="NoBox" style="display: none;">
+								<p class="txt tc">조회된 결과가 없습니다.</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<!-- //tabView -->
+
+				
+			</div>
+			<!-- //contentBox -->
+
+		</div>
+		<!--  //contentSection  -->
+
+	</div>
+	<!--  //contents  -->
+
+</body>
+<script type="text/x-handlebars-template" id="COM0201_list_template">
+{{#each list}}
+	<li>
+		<div class="itemBox">
+			<p class="top" id="{{cldl_tmsl_cd}}">{{cldl_tmsl_nm}}</p>
+			<p class="txt">집하<em>{{pick_cnf_cnt}}/{{pick_total_cnt}}</em></p>
+			<p class="txt bdb">배달<em>{{dlv_cnf_cnt}}/{{dlv_total_cnt}}</em></p>
+		</div>
+	</li>
+{{/each}}
+</script>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
+	
+</head>
+
+
+<body class="bg-gray-v1">
+<input type="hidden" name="menuId" id="menuId" value="LGN0003"/>
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection v2">
+			<div class="headerWrap">
+				<h1>비밀번호 변경</h1>
+				<button class="btn closeW paR">닫기</button>
+			</div>		
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+			<!-- contentBox -->
+			<div class="contentBox login">
+				<h2><a><img src="../../common/img/logo2.png" alt="롯데택배" /></a></h2>
+				<form>
+					<fieldset>
+						<legend>비밀번호 변경</legend> 
+						<p class="mgb20"><input type="password" id="credential" name="credential" placeholder="새로운 비밀번호" /></p>
+						<p class="mgb20"><input type="password" id="reCredential" name="reCredential" placeholder="비밀번호 확인" /></p>
+					</fieldset>
+				</form>
+				
+				<p class="mgb20"><button class="btn m red w100p" id="pwChangeBtn">비밀번호 변경</button></p>
+
+				<div class="txtBox tp4 mgt20">
+					<p class="txt1 tc">문의사항은 아래 연락처로 문의하시기 바랍니다.</p>
+					<p class="num" id="infoTelNo"><span class="icon"></span>02-2081-5143</p>
+				</div>
+				
+				
+				<div class="txtBox error mgt10">
+					숫자+영문자+특수문자 조합으로 10자리 이상 혹은<br />
+					숫자+영문자 조합으로 8자리 이상 사용해야 합니다.
+				</div>
+			</div>
+			<!-- //contentBox -->
+
+		</div>
+		<!--  //contentSection  -->
+		
+		
+		<!-- 모달팝업 통화 -->
+		<div class="mpopBox img phone">
+			<div class="popBody">
+				<p class="img"><img src="../../common/img/icon-phone2.png" alt="" /></p>
+				<p class="txt1" id="popPhoneTxt"></p>
+				<p class="txt2">통화하시겠습니까?</p>
+			</div>
+			<div class="popFooter">
+				<div class="btnBox">
+					<ul class="ul0 ul2">
+						<li><button class="btn gray m w100p b-close">취소</button></li>
+						<li><button class="btn red m w100p b-close" id="phoneCallYesBtn">통화</button></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- //모달팝업 통화 -->
+
+	</div>
+	<!--  //contents  -->
+
+	<!-- 모달팝업 전송 -->
+	<div class="mpopBox img lock">
+		<div class="popBody">
+			<p class="img"><img src="../../common/img/icon-lock.png" alt="" /></p>
+			<p class="txt1">비밀번호 변경 완료</p>
+			<p class="txt2">비밀번호 변경이 완료되었습니다.<br />로그인을 진행해주세요.</p>
+		</div>
+		<div class="popFooter">
+			<div class="btnBox">
+				<button class="btn red w100p m b-close">확인</button>
+			</div>
+		</div>
+	</div>
+	<!-- //모달팝업 전송 -->
+
+</body>
+
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/LGN0003.js"></script>
+	
+</html>

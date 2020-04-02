@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>롯데글로벌로지스</title>
+<meta
+	content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1"
+	name="viewport">
+<meta name="theme-color" content="#e8463a">
+<!-- 안드로드 헤드 칼라 -->
+<meta name="format-detection" content="telephone=no">
+<!-- IOS 전화번호 자동색상 방지 -->
+
+<link rel="stylesheet" type="text/css" href="../../common/css/style.css" />
+<link rel="stylesheet" type="text/css"
+	href="../../common/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="../../common/css/sub.css">
+
+<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+<script type="text/javascript" src="../js/FRE0101.js"></script>
+<script type="text/javascript">
+
+</script>
+<!-- //JS Global  -->
+</head>
+
+<body>
+	<input type="hidden" name="menuId" id="menuId" value="FRE0101" />
+	<!--  contents  -->
+	<div id="contents">
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection">
+			<div class="headerWrap">
+				<button class="btn back paL"></button>
+				<h1>화물신고</h1>
+			</div>
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+
+			<!-- contentBox -->
+			<div class="contentBox freRegister">
+
+				<!-- tabBox -->
+				<div class="tabBox li3">
+					<ul>
+						<li class="on">
+							<button class="btn FBtn" data-tab-cd="N">비규격</button>
+						</li>
+						<li>
+							<button class="btn FBtn" data-tab-cd="M">운임미기재</button>
+						</li>
+						<li>
+							<button class="btn FBtn" data-tab-cd="I">운임불일치</button>
+						</li>
+					</ul>
+				</div>
+				<!-- //tabBox -->
+
+				<!-- topHead -->
+				<div class="topHead">
+					<div class="inputBox pdl75">
+						<span class="pa paL fs14 mgt5 tGray5">운송장번호</span> <input
+							type="text" id="inv_noText" value="" name=""
+							placeholder="운송장번호를 입력해주세요." readonly />
+						<button class="btn scan">스캔</button>
+					</div>
+				</div>
+				<!-- //topHead -->
+
+				<!-- tabView -->
+				<div class="tabView">
+					<ul>
+						<li id="tabView_1">
+							<!-- tabView-1 -->
+							<div class="tabView-1">
+								<!-- infoListBox -->
+								<div class="infoListBox">
+									<ul>
+										<li>
+											<!-- infoBox -->
+											<div class="infoBox">
+												<dl class="inBox tp1">
+													<dt>점소구분</dt>
+													<dd>
+														<span class="selBox w100p"> <select name=""
+															id="FRE0101_code_template"></select>
+														</span>
+													</dd>
+													<dt>신고내용</dt>
+													<dd>
+														<span class="selBox w100p"> <select
+															name="reportName" id="FRE0101_code2_template2"></select>
+														</span>
+													</dd>
+												</dl>
+											</div> <!-- //infoBox -->
+										</li>
+										<li>
+											<div class="infoBox" id="updatePictures1">
+												<div class="tit">
+													<em class="titBox">사진등록</em>
+												</div>
+
+												<div class="imgList m mgb15">
+													<ul class="ul0 ul3">
+														<li><span class="titArea">운송장</span>
+															<div class="imgArea">
+																<button class="btn plus3" id="Inv_no1"></button>
+																<button class="btn del4" style="display: none;" style="display: none;" id="Inv_no1_D"></button>
+																<img src="" alt="" style="width: 200px; height: 111px;" />
+															</div></li>
+														<li><span class="titArea">전체</span>
+															<div class="imgArea">
+																<button class="btn plus3" id="total1"></button>
+																<button class="btn del4" style="display: none;" style="display: none;" id="total1_D"></button>
+																<img src="" alt="" style="width: 200px; height: 111px;" />
+															</div></li>
+														<li><span class="titArea">가로</span>
+															<div class="imgArea">
+																<button class="btn plus3" id="width1"></button>
+																<button class="btn del4" style="display: none;" id="width1_D"></button>
+																<img src="" alt="" style="width: 200px; height: 111px;" />
+															</div>
+														</li>
+													</ul>
+												</div>
+
+												<div class="imgList m">
+													<ul class="ul0 ul3">
+														<li><span class="titArea">세로</span>
+															<div class="imgArea">
+																<button class="btn plus3" id="length1"></button>
+																<button class="btn del4" style="display: none;" id="length1_D"></button>
+																<img src="" alt="" style="width: 200px; height: 111px;" />
+															</div></li>
+														<li><span class="titArea">높이</span>
+															<div class="imgArea">
+																<button class="btn plus3" id="height1"></button>
+																<button class="btn del4" style="display: none;" id="height1_D"></button>
+																<img src="" alt="" style="width: 200px; height: 111px;" />
+															</div></li>
+														<li><span class="titArea">무게</span>
+															<div class="imgArea">
+																<button class="btn plus3" id="weight1"></button>
+																<button class="btn del4" style="display: none;" id="weight1_D"></button>
+																<img src="" alt="" style="width: 200px; height: 111px;" />
+															</div></li>
+													</ul>
+												</div>
+
+											</div> <!-- //infoBox -->
+										</li>
+
+										<!-- 세변합 160cm 초과 , 최장변 120cm 초과 -->
+										<li>
+											<!-- infoBox -->
+											<div class="infoBox" id="updatePictures2"> 
+												<div class="tit">
+													<em class="titBox">사진등록</em>
+												</div>
+
+												<div class="imgList m mgb15">
+													<ul class="ul0 ul3">
+														<li id="inv_noImage"><span class="titArea">운송장</span>
+															<div class="imgArea">
+																<button class="btn plus3" id="Inv_no2"></button>
+																<button class="btn del4" style="display: none;" id="Inv_no2_D"></button>
+																<img src="" alt="" style="width: 200px; height: 111px;" />
+															</div></li>
+														<li id="totalImage"><span class="titArea">전체</span>
+															<div class="imgArea">
+																<button class="btn plus3" id="total2"></button>
+																<button class="btn del4" style="display: none;" id="total2_D"></button>
+																<img src="" alt="" style="width: 200px; height: 111px;" />
+															</div></li>
+														<li id="widthImage"><span class="titArea">가로</span>
+															<div class="imgArea">
+																<button class="btn plus3" id="width2"></button>
+																<button class="btn del4" style="display: none;" id="width2_D"></button>
+																<img src="" alt="" style="width: 200px; height: 111px;" />
+															</div></li>
+													</ul>
+												</div>
+
+												<div class="imgList m">
+													<ul class="ul0 ul3">
+														<li id="lengthImage"><span class="titArea">세로</span>
+															<div class="imgArea">
+																<button class="btn plus3" id="length2"></button>
+																<button class="btn del4" style="display: none;" id="length2_D"></button>
+																<img src="" alt="" style="width: 200px; height: 111px;" />
+															</div></li>
+														<li><span class="titArea">높이</span>
+															<div class="imgArea">
+																<button class="btn plus3" id="height2"></button>
+																<button class="btn del4" style="display: none;" id="height2_D"></button>
+																<img src="" alt="" style="width: 200px; height: 111px;" />
+															</div></li>
+													</ul>
+												</div>
+											</div> <!-- //infoBox -->
+										</li>
+										
+										
+										<!-- 나체품 , 포장비정상 , 기타금지화물 -->
+										<li>
+											<!-- infoBox -->
+											<div class="infoBox" id="updatePictures6">
+												<div class="tit">
+													<em class="titBox">사진등록</em>
+												</div>
+
+												<div class="imgList m mgb15">
+													<ul class="ul0 ul3">
+														<li id="inv_noImage"><span class="titArea">운송장</span>
+															<div class="imgArea">
+																<button class="btn plus3" id="Inv_no6"></button>
+																<button class="btn del4" style="display: none;" id="Inv_no6_D"></button>
+																<img src="" alt="" style="width: 200px; height: 111px;" />
+															</div></li>
+														<li id="totalImage"><span class="titArea">전체</span>
+															<div class="imgArea">
+																<button class="btn plus3" id="total6"></button>
+																<button class="btn del4" style="display: none;" id="total6_D"></button>
+																<img src="" alt="" style="width: 200px; height: 111px;" />
+															</div></li>
+														<li id="widthImage"><span class="titArea">가로</span>
+															<div class="imgArea">
+																<button class="btn plus3" id="width6"></button>
+																<button class="btn del4" style="display: none;" id="width6_D"></button>
+																<img src="" alt="" style="width: 200px; height: 111px;" />
+															</div></li>
+													</ul>
+												</div>
+
+												<div class="imgList m">
+													<ul class="ul0 ul3">
+														<li id="lengthImage"><span class="titArea">세로</span>
+															<div class="imgArea">
+																<button class="btn plus3" id="length6"></button>
+																<button class="btn del4" style="display: none;" id="length6_D"></button>
+																<img src="" alt="" style="width: 200px; height: 111px;" />
+															</div></li>
+														<li><span class="titArea">높이</span>
+															<div class="imgArea">
+																<button class="btn plus3" id="height6"></button>
+																<button class="btn del4" style="display: none;" id="height6_D"></button>
+																<img src="" alt="" style="width: 200px; height: 111px;" />
+															</div></li>
+													</ul>
+												</div>
+											</div> <!-- //infoBox -->
+										</li>
+										
+											
+										
+										<!-- 무게 25kg초과  code03  -->
+										<li>
+											<!-- infoBox -->
+											<div class="infoBox" id="updatePictures3">
+												<div class="tit">
+													<em class="titBox">사진등록</em>
+												</div>
+
+												<div class="imgList m mgb15">
+													<ul class="ul0 ul3">
+														<li><span class="titArea">운송장</span>
+															<div class="imgArea">
+																<button class="btn plus3" id="Inv_no3"></button>
+																<button class="btn del4" style="display: none;" id="Inv_no3_D"></button>
+																<img src="" alt="" style="width: 200px; height: 111px;" />
+															</div></li>
+														<li><span class="titArea">전체</span>
+															<div class="imgArea">
+																<button class="btn plus3" id="total3"></button>
+																<button class="btn del4" style="display: none;" id="total3_D"></button>
+																<img src="" alt="" style="width: 200px; height: 111px;" />
+															</div></li>
+														<li><span class="titArea">무게</span>
+															<div class="imgArea">
+																<button class="btn plus3" id="weight3"></button>
+																<button class="btn del4" style="display: none;" id="weight3_D"></button>
+																<img src="" alt="" style="width: 200px; height: 111px;" />
+															</div></li>
+
+													</ul>
+
+
+													<div class="infoBox">
+														<dl class="inBox tp1">
+															<dt>무게</dt>
+															<dd>
+																<div class="pr">
+																	<input type="number" value="" name="" placeholder=""
+																		class="tr pdr35" id="weightInput" readonly> <span
+																		class="pa paR mgr10 mgt7">kg</span>
+																</div>
+															</dd>
+														</dl>
+													</div>
+												</div>
+
+											</div> <!-- //infoBox -->
+
+										</li>
+										<li>
+											<!-- infoBox -->
+											<div class="infoBox" id="lengthInfomation">
+												<div class="tit mgb10">
+													<em class="titBox">길이 정보</em>
+												</div>
+												<dl class="inBox tp1">
+													<dt>가로</dt>
+													<dd>
+														<div class="pr">
+															<input type="number" value="" name="" placeholder=""
+																class="tr pdr35" id="widthCm" readonly /> <span
+																class="pa paR mgr10 mgt7">cm</span>
+														</div>
+													</dd>
+													<dt>세로</dt>
+													<dd>
+														<div class="pr">
+															<input type="number" value="" name="" placeholder=""
+																class="tr pdr35" id="lengthCm" readonly /> <span
+																class="pa paR mgr10 mgt7">cm</span>
+														</div>
+													</dd>
+													<dt class="vt">높이</dt>
+													<dd>
+														<div class="pr">
+															<input type="number" value="" name="" placeholder=""
+																class="tr pdr35" id="heightCm" readonly /> <span
+																class="pa paR mgr10 mgt7">cm</span>
+														</div>
+														<button class="btn red s w100p mgt10" id="sumCm">합계</button>
+													</dd>
+													<dt class="vt">세변의 합</dt>
+													<dd>
+														<div class="pr">
+															<input type="text" value="" name="" placeholder=""
+																class="tr pdr35 tRed" id="sumCmTri" readonly /> <span
+																class="pa paR mgr10 mgt7">cm</span>
+														</div>
+
+													</dd>
+												</dl>
+											</div> <!-- //infoBox -->
+
+										</li>
+										<button class="btn red m w100p" id="sendDatas">전송</button>
+									</ul>
+								</div>
+								<!-- //infoListBox -->
+							</div> <!-- //tabView-1 -->
+						</li>
+						<li id="tabView_2">
+							<!-- tabView-2 -->
+							<div class="tabView-2">
+								<!-- infoListBox -->
+								<div class="infoListBox">
+									<!-- infoBox -->
+									<div class="infoBox">
+										<div class="tit">
+											<em class="titBox">사진등록</em>
+										</div>
+
+										<div class="imgList l mgb15">
+											<ul class="ul0 ul2">
+												<li><span class="titArea">운송장</span>
+													<div class="imgArea">
+														<button class="btn plus3" id="Inv_no4"></button>
+														<button class="btn del4" style="display: none;" id="Inv_no4_D"></button>
+														<img src="" alt="" style="width: 200px; height: 174px;" />
+													</div></li>
+												<li><span class="titArea">전체</span>
+													<div class="imgArea">
+														<button class="btn plus3" id="total4"></button>
+														<button class="btn del4" style="display: none;" id="total4_D"></button>
+														<img src="" alt="" style="width: 200px; height: 174px;" />
+													</div></li>
+											</ul>
+										</div>
+
+									</div>
+									<!-- //infoBox -->
+								</div>
+								<!-- //infoListBox -->
+								<div class="btnBox pxB">
+									<button class="btn m red w100p" id="sendDatas1">전송</button>
+								</div>
+							</div> <!-- //tabView-2 -->
+						</li>
+						<li id="tabView_3">
+							<!-- tabView-3 -->
+							<div class="tabView-3">
+								<!-- infoListBox -->
+								<div class="infoListBox">
+									<ul>
+										<li>
+											<!-- infoBox -->
+											<div class="infoBox">
+												<div class="inputBox pdl75">
+													<span class="pa paL fs14 mgt5 tGray5">실집하 운임</span> <input
+														type="text" value="" name="" placeholder="실집하 운임을 입력해주세요."
+														id="fare_amt"
+														style="text-align: right;" readonly /> <span
+														class="dsin pa paR mgt5 mgr10">원</span>
+												</div>
+											</div> <!-- //infoBox -->
+										</li>
+										<li>
+											<!-- infoBox -->
+											<div class="infoBox">
+												<div class="imgList l mgb15">
+													<ul class="ul0 ul2">
+														<li><span class="titArea">운송장</span>
+															<div class="imgArea">
+																<button class="btn plus3" id="Inv_no5"></button>
+																<button class="btn del4" style="display: none;" id="Inv_no5_D"></button>
+																<img src="" alt="" style="width: 200px; height: 174px;" />
+															</div></li>
+														<li><span class="titArea">전체</span>
+															<div class="imgArea">
+																<button class="btn plus3" id="total5"></button>
+																<button class="btn del4" style="display: none;" id="total5_D"></button>
+																<img src="" alt="" style="width: 200px; height: 174px;" />
+															</div></li>
+													</ul>
+												</div>
+											</div> <!-- //infoBox -->
+
+										</li>
+									</ul>
+								</div>
+								<!-- //infoListBox -->
+								<div class="btnBox pxB">
+									<button class="btn m red w100p" id="sendDatas2">전송</button>
+								</div>
+							</div> <!-- //tabView-3 -->
+						</li>
+					</ul>
+				</div>
+				<!-- //tabView -->
+			</div>
+			<!-- //contentBox -->
+		</div>
+		<!--  //contentSection  -->
+	</div>
+	<!--  //contents  -->
+	
+	
+	<div class="mpopBox send pop3" style="left: 18.75px; position: absolute; top: 538.985px; z-index: 9999; opacity: 0; display: none;">
+		<div class="popBody">
+			<p class="img"><img src="../../common/img/icon-airplane.png" alt=""></p>
+			<p class="txt1">전송완료</p>
+			<p class="txt2">데이터 전송이 완료되었습니다.</p>
+		</div>
+		<div class="popFooter">
+			<div class="btnBox">
+				<button class="btn red m w100p b-close">확인</button>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

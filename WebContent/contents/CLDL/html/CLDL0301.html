@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+	
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
+
+</head>
+
+<body>
+<input type="hidden" name="menuId" id="menuId" value="CLDL0301"/>
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection headFx">
+			<div class="headerWrap">
+				<button class="btn cldlBack paL ti">버튼</button>
+				<h1>집하완료</h1>
+				<button class="btn barcode paR" id="openFrePop">&nbsp;</button>
+			</div>
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+			<!-- contentBox -->
+			<div class="contentBox gathBox">
+				
+				<div class="topFx">
+					
+					<!-- tabBox -->
+					<div class="tabBox li2">
+						<ul>
+							<li class="on lstSchBtn" data-pick-sct-cd='G'>
+								<button class="btn">
+									일반집하
+								</button>
+							</li>
+							<li class="lstSchBtn" data-pick-sct-cd='C'>
+								<button class="btn">
+									전산집하
+								</button>
+							</li>
+						</ul>
+					</div>
+					<!-- //tabBox -->
+
+					<!-- divisionBox -->
+					<div class="divisionBox">
+						<div class="selectBox">
+							<ul id="cmptTmListUl">
+							</ul>
+						</div>
+					</div>
+					<!-- //divisionBox -->
+
+					<!-- topHead -->
+					<div class="topHead">
+						<span class="fs13">구분</span>
+						<span class="selBox v1 mgl15">
+							<select name="fltr_sct_cd" id="fltr_sct_cd">
+							</select>
+						</span>
+					</div>
+					<!-- //topHead -->
+					
+					<div class="topHeadCal">
+						<button class="btn btnCal" id="cldlBtnCal"></button>
+					</div>
+					<!-- // topHeadCal -->
+					
+				</div>
+				<!-- //topFx -->
+
+
+				<!-- tabView -->
+				<div class="tabView gathListTp1" id="listViewDiv">
+					<ul>
+						<li>
+							<!-- baedalListBox -->
+							<div class="baedalListBox">
+								<ul id="cldl0301LstUl">
+								</ul>
+								<div class="pagination" id="pagingDiv" style="display: none;">
+									<ul id="pagingUl">
+									</ul>
+								</div>
+							</div>
+							<!-- //baedalListBox -->
+						</li>
+					</ul>
+				</div>
+				<!-- //tabView -->
+
+			</div>
+			<!-- //contentBox -->
+
+		</div>
+		<!--  //contentSection  -->
+		
+		<!-- ftMenu 일반집하 하단-->
+		<div class="ftMenu li4" id="bottomDivG">
+			<ul>
+				<li>
+					<button class="btn ftMap"><span class="txt">지도</span></button>
+				</li>
+				<li>
+					<button class="btn ftShip">
+						<span class="txt">도선료조회</span>
+					</button>
+				</li>
+				<li>
+					<button class="btn ftScan" id="scnBtnG">
+						<span class="txt">스캔</span>
+					</button>
+				</li>
+				<li class="on">
+					<button class="btn ftSend" id="cmptTrsmBtnG">
+						<p class="badge red s num" id="scanLstCntG">0</p>
+						<span class="txt">전송</span>
+					</button>
+				</li>
+			</ul>
+		</div>
+		<!-- //ftMenu -->
+		
+		
+		
+		<!-- ftMenu 전산집하 하단-->
+		<div class="ftMenu li3" id="bottomDivC" style="display: none;">
+			<ul>
+				<li>
+					<button class="btn ftScan" id="scnBtnC">
+						<span class="txt">스캔</span>
+					</button>
+				</li>
+				<li>
+					<button class="btn ftScanCancel" id="scnCancelAllBtn">
+						<span class="txt">전체스캔취소</span>
+					</button>
+				</li>
+				<li class="on">
+					<button class="btn ftSend" id="cmptTrsmBtnC">
+						<p class="badge red s num" id="scanLstCntC">0</p>
+						<span class="txt">전송</span>
+					</button>
+				</li>
+			</ul>
+		</div>
+		<!-- //ftMenu -->
+		
+		
+		
+		<!-- 모달팝업 통화 -->
+		<div class="mpopBox img phone">
+			<div class="popBody">
+				<p class="img"><img src="../../common/img/icon-phone2.png" alt="" /></p>
+				<p class="txt1" id="popPhoneTxt"></p>
+				<p class="txt2">통화하시겠습니까?</p>
+			</div>
+			<div class="popFooter">
+				<div class="btnBox">
+					<ul class="ul0 ul2">
+						<li><button class="btn gray m w100p b-close">취소</button></li>
+						<li><button class="btn red m w100p b-close" id="phoneCallYesBtn">통화</button></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- //모달팝업 통화 -->
+
+
+
+		<!-- 모달팝업 전송 -->
+		<div class="mpopBox send pop2">
+			<div class="popBody">
+				<p class="img"><img src="../../common/img/icon-beadal.png" alt="" /></p>
+				<p class="txt1">집하완료 전송</p>
+				<p class="txt2" id="pop2Txt2"></p>
+			</div>
+			<div class="popFooter">
+				<div class="btnBox">
+					<ul class="ul0 ul2">
+						<li><button class="btn gray m w100p b-close">아니오</button></li>
+						<li><button class="btn red m w100p b-close" id="cmptTrsmYesBtn">예</button></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- //모달팝업 전송 -->
+		
+		
+
+	</div>
+	<!--  //contents  -->
+
+</body>
+
+
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/CLDL0301.js"></script>
+	
+	
+	<!-- handlebars template start -->
+	<!-- 일반집하 탬플릿 -->
+	<script id="cldl0301_list_template" type="text/x-handlebars-template">
+		{{#each list}}
+		<li id="{{inv_no}}" class='row-four cldlSctCd_P' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}'>
+			<div class="baedalBox {{scanYnClass scanYn}} jibBox noChk" data-scn-inv-no='{{inv_no}}'>
+				{{!--
+				<div class="chk">
+					<span class="chkBox m ti">
+						<input type="checkbox" name="chk" id="{{inv_no}}_chk" value="{{returnSctCdTel tellNo}}" /> 
+						<label for="{{inv_no}}_chk">&nbsp;</label>
+					</span>
+				</div>
+				--}}
+				<div class="thumb">
+					<span class="{{corpLogoReturn corplogo}}"></span>
+				</div>
+				<div class="infoBox">
+					<p class="tit">
+						{{!-- 송장번호형식표시 helper invNoTmpl --}}
+						<span class="dsin vm invNoSpan">{{invNoTmpl inv_no}}</span>
+						
+						{{#prcsMemoYn}}		{{!-- 기사 메모 내용이 있는지 없는지 확인하는 if --}}
+						<button class="btn pen" data-memo-inv-no='{{inv_no}}'></button>
+						{{/prcsMemoYn}}
+				
+						{{!-- 운임 라벨 표시 helper fareChk --}}
+						{{fareChk label}}
+						
+						{{!-- 취소 여부 helper--}}
+						{{#cclYnChk}}
+							<span class="badge red s outline">취소</span>
+						{{/cclYnChk}}
+						
+						{{!-- 신선식품 여부 helper--}}
+						{{#fresYnChk}}
+							<span class="badge blue s outline">신선</span>
+						{{/fresYnChk}}
+						
+						{{!-- 사고 여부 helper--}}
+						{{#acdYnChk}}
+							<span class="badge purple s outline">사고</span>
+						{{/acdYnChk}}
+					</p>
+					{{!-- 집하, 배달 구분 해서 보내는사람 받는사람 정보 태그로 리턴 --}}
+					{{cldlSctCdChkTag resultTag}}
+
+					<p class="addRe">{{snper_adr}}</p>
+					<p class="addRed">{{dlv_msg_cont}}</p>
+				</div>
+
+				{{!-- #chkScanCmptYn --}}
+				<button class="btn cancel" data-cancel-inv-no='{{inv_no}}' data-cancle-sct-cd='{{cldl_sct_cd}}'>캔슬</button>
+				<div id="subBoxBtnDiv_{{inv_no}}">{{setSubBoxBtn subBoxBtn}}		{{!-- 보조송장 등록버튼 셋팅 --}}</div>
+				{{!-- /chkScanCmptYn--}}
+			</div>
+			<div class="btnBox">
+				{{setPhoneNumber phoneNumber}}		{{!-- 전화걸기 버튼 --}}
+				{{setRsnRgstBtn rsnBtn}}			{{!-- 미집하 버튼 --}}
+			</div>
+		</li>
+		{{else}}
+		<li class="noList">
+			<div class="NoBox">
+				<p class="txt tc">조회된 결과가 없습니다.</p>
+			</div>
+		</li>
+		{{/each}}
+	</script>
+	
+	
+	<!-- handlebars template start -->
+	<script id="cldl0301_noLstLi" type="text/x-handlebars-template">
+		<li class="noList">
+			<div class="NoBox">
+				<p class="txt tc">조회된 결과가 없습니다.</p>
+			</div>
+		</li>
+	</script>
+	
+	
+	<!-- 리스트에 없는 데이터 스켄 송장 li -->
+	<script id="cldl0301_li_template" type="text/x-handlebars-template">
+		<li id="{{inv_no}}" class='row-four cldlSctCd_P' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}'>
+			<div class="baedalBox jibBox noChk">
+				{{!--
+				<div class="chk">
+					<span class="chkBox m ti">
+						<input type="checkbox" name="chk" id="{{inv_no}}_chk" value="{{returnSctCdTel tellNo}}" /> 
+						<label for="{{inv_no}}_chk">&nbsp;</label>
+					</span>
+				</div>
+				--}}
+				<div class="thumb">
+					<span class="img df">&nbsp;</span>
+				</div>
+				<div class="infoBox">
+					<p class="tit">
+						{{!-- 송장번호형식표시 helper invNoTmpl --}}
+						<span class="dsin vm invNoSpan">{{invNoTmpl inv_no}}</span>
+					</p>
+				</div>
+				<button class="btn cancel" data-cancel-inv-no='{{inv_no}}' data-cancle-sct-cd='{{cldl_sct_cd}}' data-li-status='noData'>캔슬</button>
+				<div id="subBoxBtnDiv_{{inv_no}}">{{setSubBoxBtn subBoxBtn}}{{!-- 보조송장 등록버튼 셋팅 --}}</div>
+			</div>
+			<div class="btnBox">
+				{{setRsnRgstBtn rsnBtn}}			{{!-- 미집하 버튼 --}}
+			</div>
+		</li>
+	</script>
+	
+	
+	<!-- 상단 설정시간 리스트 li -->
+	<script id="cldl0301_timeLst_template" type="text/x-handlebars-template">
+	{{#each list}}
+		<li name="timeLstLi" data-time-li="{{cldl_tmsl_cd}}" data-time-txt='{{cldl_tmsl_nm}}'>
+			<div class="itemBox">
+				<p class="top">{{cldl_tmsl_nm}}</p>
+				<p class="txt tc" id="timeCnt_P_{{cldl_tmsl_cd}}">{{tmsl_pick_cnt}}</p>
+			</div>
+		</li>
+	{{/each}}
+	</script>
+
+</html>

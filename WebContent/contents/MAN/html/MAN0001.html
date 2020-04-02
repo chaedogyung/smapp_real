@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+	
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/main.css">
+	
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/MAN0001.js"></script>
+</head>
+
+<body class="bg-red-v1">
+<input type="hidden" name="menuId" id="menuId" value="MAN0001"/>
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection headFx">
+			<div class="headerWrap main">
+				<button class="btn alim paL" id="alim">알림 <span class="badge s black num"  id="alimCount" style="display: none;"></span></button>
+				<h1><span class="logo" id="mainLogo"><a><img src="../../common/img/txt-logo.png" alt="롯데택배" /></a></span></h1>
+				<div class="paR">
+					<!-- <span class="bluet"><img src="../../common/img/icon-bluetooth-on.png" alt="" id="scannerStatusImg"/></span> -->
+					<!-- <span class="bluet"><img src="../../common/img/icon-bluetooth-on2.png" alt="" /></span> -->
+					<span class="bluet"><img src="../../common/img/icon-bluetooth-off.png" alt="" id="scannerStatusImg"/></span>
+					<button class="btn topM">메뉴</button>
+				</div>
+			</div>
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+			<!-- contentBox -->
+			<div class="contentBox main" id="infoMain">
+				<div class="cardBox ranking">		
+					<!-- <span class="medal">메달</span> -->
+					<div class="tit" id="emp_nm"></div>
+		
+					<div class="boxBody">
+						<div class="leftBox">
+							<ul class="dotTp1">
+								<!-- <li>등급 <em id="emp_grd"></em></li> -->
+								<li>사번<em id="empno"></em></li>
+								<li>차량번호<em id="vhc_no"></em></li>
+							</ul>
+						</div>
+						<div class="rightBox">
+							<div class="photo">
+								 <img src="" alt="" id="emp_img_path"/>
+							</div>
+						</div>
+					</div>
+	
+				</div>
+				<!-- //등급 박스 -->
+
+				<!-- 실적박스 -->
+				<div class="cardBox chart">
+					<div class="tit">
+						이달의 실적현황 
+						<span class="num" id="cur_monF"></span>
+					</div>
+	
+					<div class="boxBody">
+						<div class="leftBox">
+							<ul class="dotTp1">
+								<li>집하 <em id="cur_pick_rate"></em></li>
+								<li>배달<em id="cur_dlv_rate"></em></li>
+								<li>합계<em id="cur_sum"></em></li>
+							</ul>
+						</div>
+				<div class="rightBox">
+					<div class="photo" id="maile" style="display:none;">
+							마일리지<br />
+							<em></em>
+						</div>
+					</div>
+				</div>	
+				<div class="monthBox">
+					<div class="tit">금일집배송</div>
+					<ul>
+						<li>
+							<span class="badge gray2 l">집하</span>
+							<p class="num" id="tod_pick_rslt"></p>
+						</li>
+						<li>
+							<span class="badge gray2 l">배달/사진</span>
+							<p class="num">
+								<span id="tod_dlv_rslt"></span>
+								/
+								<span id="pic_dlv_rslt"></span>
+							</p>
+						</li>
+						<li>
+							<span class="badge gray2 l">합계</span>
+							<p class="num" id="tod_sum"></p>
+						</li>
+					</ul>
+				</div>
+			</div>
+				<!-- //실적박스 -->
+			
+			</div>
+			<!-- //contentBox -->
+			
+			<!-- <input type="file" name="file" id="file" accept="image/*,video/*"/>
+			<input type="file" name="file2" id="file2" accept="image/*,video/*"/>
+			<input type="file" name="file3" id="file3" accept="image/*,video/*"/> -->
+			<!-- <input type="file" name="file" id="file" accept="image/*" capture="camera"> --> 
+			<!-- 즐겨찾기 -->
+			<div class="quickMenuBox">
+				<ul id="freMenuBox">
+					<li id ="CLDL0101" class="frevPage" data-type="default">
+						<button class="btn">
+							<span class="img"><img src="../../common/img/icon-fa5.png"></span>
+							<span class="txt">집배달예정</span>
+						</button>
+					</li>
+					<li id ="CLDL0201" class="frevPage" data-type="default">
+						<button class="btn">
+							<span class="img"><img src="../../common/img/icon-fa1.png"></span>
+							<span class="txt">집배달출발</span>
+						</button>
+					</li>
+					<li id ="CLDL0301" class="frevPage" data-type="default">
+						<button class="btn">
+							<span class="img"><img src="../../common/img/icon-fa7.png"></span>
+							<span class="txt">집하완료</span>
+						</button>
+					</li>
+					<li id ="CLDL0401" class="frevPage" data-type="default">
+						<button class="btn">
+							<span class="img"><img src="../../common/img/icon-fa3.png"></span>
+							<span class="txt">배달완료</span>
+						</button>
+					</li>
+					<li id ="CLDL0501" class="frevPage" data-type="default">
+						<button class="btn">
+							<span class="img"><img src="../../common/img/icon-fa20.png"></span>
+							<span class="txt">집배달현황</span>
+						</button>
+					</li>
+					<!-- <li id ="PID0401" class="frevPage" data-type="default">
+						<button class="btn">
+							<span class="img"><img src="../../common/img/icon-fa20.png"></span>
+							<span class="txt">바로반품</span>
+						</button>
+					</li> -->
+				</ul>
+			</div>
+			<!-- //즐겨찾기 -->
+
+		</div>
+		<!--  //contentSection  -->
+	</div>
+	<!--  //contents  -->
+
+
+</body>
+<script type="text/x-handlebars-template" id="FREVE0101_template">
+	{{#each list}}
+		
+		<li id ={{fvrt_id}} class="frevPage" data-type="remove">
+			<button class="btn">
+				<span class="img"><img src={{img}}></span>
+				<span class="txt">{{text}}</span>
+			</button>
+		</li>
+		{{!-- <li style="background-color:#fff;"></li> --}}
+	{{/each}}
+</script>
+
+</html>

@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
+	
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/FRE0401.js"></script>
+</head>
+
+<body>
+	<input type="hidden" name="menuId" id="menuId" value="FRE0401" />
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection">
+			<div class="headerWrap">
+				<button class="btn back paL"></button>
+				<h1>화물사고 판정확인</h1>
+			</div>
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+			<!-- contentBox -->
+			<div class="contentBox freResult">
+				
+				<!-- tabBox -->
+				<div class="tabBox li2">
+					<ul id="tab_btn_ul">
+						<li class="on">
+							<button class="btn FBtn_2" data-tab-cd="A">
+								사고등록
+							</button>
+						</li>
+						<li>
+							<button class="btn FBtn_2" data-tab-cd="R">
+								판정결과
+							</button>
+						</li>
+					</ul>
+				</div>
+				<!-- //tabBox -->
+
+				<!-- calBox -->
+				<div class="calBox">
+					<div class="calinBox mgt1">
+						<ul class="ul0 ul2 calin">
+							<li class="pdr10"><input type="text" value="" name="" placeholder="" class="inCal" id="stDate"/></li>
+							<li class="pdl10"><input readonly="readonly" type="text" value="" name="" placeholder="" class="inCal" id="enDate"/></li>
+						</ul>
+						<button class="btn red">조회</button>
+					</div>
+				</div>
+				<!--// calBox -->
+
+				<!-- topHead -->
+				<div class="topHead cl2 tab_R">
+					<ul class="ul0 ul4 tc fs12">
+						<li>사고유형</li>
+						<li>합의금액</li>
+						<li>분담금액</li>
+						<li>승인여부</li>
+					</ul>
+				</div>
+				<!-- //topHead -->
+
+				<!-- conBody -->
+				<div class="conBody tab_R">
+					<ul id="FRE0401_tab_R">
+						<li class="noList">
+							<div class="NoBox">
+								<p class="txt tc">조회된 결과가 없습니다.</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<!-- conBody -->
+				
+				
+				
+					<!-- topHead -->
+				<div class="topHead cl2 tab_A">
+					<ul class="ul0 ul4 tc fs12">
+						<li>집하일자</li>
+						<li>사고유형</li>
+						<li>상품금액</li>
+						<li>품목</li>
+					</ul>
+				</div>
+				<!-- //topHead -->
+
+				<!-- conBody -->
+				<div class="conBody tab_A">
+					<ul id="FRE0401_tab_A">
+						<li class="noList">
+							<div class="NoBox">
+								<p class="txt tc">조회된 결과가 없습니다.</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<!-- conBody -->
+				
+				
+			
+			</div>
+			<!-- //contentBox -->
+
+		</div>
+		<!--  //contentSection  -->
+
+
+	</div>
+	<!--  //contents  -->
+
+</body>
+<script id="FRE0401_tab_A_template" type="text/x-handlebars-template">
+	{{#each list}}
+	<li>	
+		<ul class="ul0 ul4 data">
+			<li>{{pick_ymd}}</li>
+			<li>{{acd_typ_nm}}</li>
+			<li>{{gds_amt}}</li>
+			<li>{{item_knd_nm}}</li>
+		</ul>
+		<p class="song">
+			<span class="lineL">운송장</span>
+			<span class="">{{invNo}}</span>
+		</p>
+	</li>
+	{{else}}
+		<li class="noList">
+			<div class="NoBox">
+				<p class="txt tc">조회된 결과가 없습니다.</p>
+			</div>
+		</li>
+	{{/each}}
+</script>
+<script id="FRE0401_tab_R_template" type="text/x-handlebars-template">
+	{{#each list}}
+	<li>
+		<ul class="ul0 ul4 data">
+			<li>{{act_typ_nm}}</li>
+			<li>{{agr_sum_amt}}</li>
+			<li>{{shex_sum_amt}}</li>
+			<li>{{judg_rst_conf_yn}}</li>
+		</ul>
+		<p class="song">
+			<span class="lineL">운송장</span>
+			<span class="freInvNo">{{invNo}}</span>
+		</p>
+	</li>
+	{{else}}
+		<li class="noList">
+			<div class="NoBox">
+				<p class="txt tc">조회된 결과가 없습니다.</p>
+			</div>
+		</li>
+	{{/each}}
+</script>
+</html>

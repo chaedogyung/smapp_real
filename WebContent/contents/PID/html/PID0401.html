@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
+	
+</head>
+
+<body>
+<input type="hidden" name="menuId" id="menuId" value="PID0401"/>
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection">
+			<div class="headerWrap">
+				<button class="btn back paL"></button>
+				<h1>바로반품 입찰/취소</h1>
+				<button class="btn refresh paR"></button>
+			</div>
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+			<!-- contentBox -->
+			<div class="contentBox gathBox">
+				
+				<!-- calBox -->
+				<div class="calBox">
+					<div class="calinBox mgt1">
+						<ul class="ul0 ul3">
+							<li class="pdr10"><input type="text" value="" name="" placeholder="" class="inCal" id="startDate" readonly/></li>
+							<li class="pdl10"><input type="text" value="" name="" placeholder="" class="inCal" id="endDate" readonly/></li>
+							<li class="pdl10">
+								<span class="selBox w100p">
+									<select id="stat_cd">
+									</select>
+								</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!--// calBox -->
+
+
+				<!-- biddingBox -->
+				<div class="biddingBox">
+					<ul id="pid0401LstUl">
+					</ul>
+				</div>
+				<!-- //biddingBox -->
+
+			</div>
+			<!-- //contentBox -->
+
+		</div>
+		<!--  //contentSection  -->
+
+		<!-- 모달팝업 전송 -->
+		<div class="mpopBox send">
+			<div class="popBody">
+				<p class="img"><img src="../../common/img/icon-airplane.png" alt="" /></p>
+				<p class="txt1">전송완료</p>
+				<p class="txt2">스캔된 데이터 N건<br />데이터 전송이 완료되었습니다.</p>
+			</div>
+			<div class="popFooter">
+				<div class="btnBox">
+					<button class="btn red m w100p b-close">확인</button>
+				</div>
+			</div>
+		</div>
+		<!-- //모달팝업 전송 -->
+
+	</div>
+	<!--  //contents  -->
+
+</body>
+
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/PID0401.js"></script>
+
+	<!-- handlebars template start -->
+	<script id="pid0401_list_template" type="text/x-handlebars-template">
+	{{#each list}}
+		<li data-rsrv="{{rsrv_mgr_no}}">
+			{{!-- 상태표시,시간 helper invNoTmpl --}}
+			{{statTmpl}}
+			<div class="{{infoAreaClass}}">
+				<p>
+					<span class="tit">{{snper_nm}}</span>
+					{{invNoTmpl}}
+				</p>
+				<p class="tGray1">{{gds_nm}}</p>
+				<p class="tGray2">{{snper_addr}}</p>
+				<p class="tGray2">{{ord_no}}</p>
+			</div>
+			{{statNmTag}}
+		</li>
+	{{/each}}
+	</script>
+	
+	<!-- handlebars template start -->
+	<script id="pid0401_nolist_template" type="text/x-handlebars-template">
+		<li>
+			<div class="NoBox">
+				<div class="txt tc">조회된 결과가 없습니다.</div>
+			</div>
+		</li>
+	</script>
+
+</html>

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>롯데글로벌로지스</title>
+<meta
+	content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1"
+	name="viewport">
+<meta name="theme-color" content="#e8463a">
+<!-- 안드로드 헤드 칼라 -->
+<meta name="format-detection" content="telephone=no">
+<!-- IOS 전화번호 자동색상 방지 -->
+
+<link rel="stylesheet" type="text/css" href="../../common/css/style.css" />
+<link rel="stylesheet" type="text/css"
+	href="../../common/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="../../common/css/sub.css" />
+
+<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+<script type="text/javascript" src="../js/MAN0301.js"></script>
+
+
+</head>
+
+<body>
+	<input type="hidden" name="menuId" id="menuId" value="MAN0301" />
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection headFx">
+			<div class="headerWrap">
+				<!-- <button class="btn back paL ti" id="returnButton">버튼</button> -->
+				<h1>알림</h1>
+				<button class="btn closeW paR">닫기</button>
+			</div>
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+
+			<!-- contentBox -->
+			<div class="contentBox mypage">
+
+				<div class="topFx">
+					<!-- tabBox -->
+					<div class="tabBox li2">
+						<ul>
+							<li class="on">
+								<button class="btn" data-sch-sct-cd="N" id="btn_N">
+									공지사항</button>
+							</li>
+							<li class="">
+								<button class="btn" data-sch-sct-cd="M" id="btn_M">
+									쪽지 <em class="tRed"></em>
+								</button>
+							</li>
+						</ul>
+					</div>
+					<!-- //tabBox -->
+				</div>
+				
+				<div class="tabView gathListTp9">
+					<ul id="MAN0301_list">
+						<li id="Man_noticeList">
+							<!-- noticeList -->
+							<div class="noticeList">
+								<ul id="notice">
+
+								</ul>
+							</div> <!-- //noticeList -->
+						</li>
+						<li id="Man_memoList">
+							<div class="memoList">
+								<ul id="memo">
+
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<!-- //tabView -->
+
+			</div>
+			<!-- //contentBox -->
+
+		</div>
+		<!--  //contentSection  -->
+
+	</div>
+	<!--  //contents  -->
+
+</body>
+<script type="text/x-handlebars-template" id="MAN0301_notice_template">
+{{#each list}}
+	<li class="noticeDetail" id={{sta_ymd}}{{seq_no}}>
+		<span class="date">
+			{{date}}
+		</span>
+		<p class="tit">
+			{{title}}
+		</p>
+	</li>
+{{else}}
+	<li>
+		<div class='NoBox'>
+			<p class='txt tc'>조회된 결과가 없습니다.</p>
+		</div>
+	</li>
+{{/each}}
+</script>
+
+<script type="text/x-handlebars-template" id="MAN0301_memo_template">
+{{#each list}}
+	<li class="memoDetail" id={{reg_ymd}}{{reg_tme}}>
+		<span class="date">{{reg_ymd}}</span>
+		{{#if read_sct}}
+		<p class="tit" style="color:gray;">{{title}}</p>
+		{{else}}
+		<p class="tit">{{title}}</p>
+		{{/if}}
+	</li>
+{{else}}
+	<li>
+		<div class='NoBox'>
+			<p class='txt tc'>조회된 결과가 없습니다.</p>
+		</div>
+	</li>
+{{/each}}
+</script>
+</html>

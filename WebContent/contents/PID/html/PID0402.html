@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
+	
+</head>
+
+<body>
+	<input type="hidden" name="menuId" id="menuId" value="PID0402"/>
+	<!--  contents  -->
+	<div id="contents">		
+	</div>
+	<!--  //contents  -->
+	
+	<!-- 모달팝업 통화 -->
+	<div class="mpopBox img phone">
+		<div class="popBody">
+			<p class="img"><img src="../../common/img/icon-phone2.png" alt="" /></p>
+			<p class="txt1" id="phoneNumber">02-000-0000</p>
+			<p class="txt2">통화하시겠습니까?</p>
+		</div>
+		<div class="popFooter">
+			<div class="btnBox">
+				<ul class="ul0 ul2">
+					<li><button class="btn gray m w100p b-close">취소</button></li>
+					<li><button class="btn red m w100p" id="phoneCallYesBtn">통화</button></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- //모달팝업 통화 -->
+	
+</body>
+
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/PID0402.js"></script>
+	
+	<!-- handlebars template start -->
+	<script id="pid0401_dtl_template" type="text/x-handlebars-template">
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection">
+			<div class="headerWrap">
+				<button class="btn back paL"></button>
+				<h1>바로반품 상세정보</h1>
+			</div>
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+			<!-- contentBox -->
+			<div class="contentBox gathBox">
+				
+				<!-- topHead -->
+				<div class="topHead">
+					<p class="songNum">송장번호 <em>{{invNoTmpl}}</em></p>
+				</div>
+				<!-- //topHead -->
+		
+				<!-- infoListBox -->
+				<div class="infoListBox pop">
+					<ul>
+						<li>
+							<div class="infoBox" id="multiGds">
+							</div>
+						</li>
+						<li>
+							<div class="infoBox">
+								<div class="tit"><em class="titBox">보내는 분</em>{{snper_nm}}</div>
+								<dl class="inBox tp3">
+									<dt class="vt">지번</dt>
+									<dd>{{snper_addr}}</dd>
+									<dt class="vt">도로명</dt>
+									<dd>{{snper_rdnm_adr}}</dd>
+									<dt>연락처</dt>
+									<dd>{{snper_tel}}<button class="btn mobile" data-phone-number="{{snper_tel}}">전화번호</button></dd>
+									{{cclrsnTml}}
+									<dt class="vt">상태</dt>
+									<dd><span class="tRed">{{statTml}}</span></dd>
+								</dl>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<!-- //infoListBox -->
+
+			</div>
+			<!-- //contentBox -->
+
+		</div>
+		<!--  //contentSection  -->
+
+		<!-- ftMenu -->
+		<div class="ftMenu">
+			{{statCdBtn}}
+		</div>
+		<!-- //ftMenu -->
+	</script>
+	
+	<!-- handlebars template start -->
+	<script id="pid0401_gds_template" type="text/x-handlebars-template">
+	{{#each list}}
+		<dl class="inBox tp3 bdb">
+			<dt class="vt">주문번호</dt>
+			<dd data-real="{{real_ord_no}}">{{ord_no}}</dd>
+			<dt class="vt">상품명</dt>
+			<dd>{{gds_nm}}</dd>
+		</dl>
+	{{/each}}
+	</script>
+
+</html>

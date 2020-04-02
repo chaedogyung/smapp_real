@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css">
+
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/CLDL0206.js"></script>
+</head>
+
+<body>
+<input type="hidden" name="menuId" id="menuId" value="CLDL0206"/>
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection v2">
+			<div class="headerWrap black">
+				<h1>문자발송 설정</h1>
+				<button class="btn closeW paR">닫기</button>
+			</div>		
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+			<!-- contentBox -->
+			<div class="contentBox pop popSmsop">
+				
+					<div class="radioList">
+						<ul class="radio" id="cldl0206LstUl">
+							<li>
+								<div class="infoBox">
+									<span class="dsin mgt13 pdl10">마이크를 누르시고 제목을 말씀하세요</span>
+									<button class="btn mic fr" id="micBtn">마이크</button>
+								</div>
+							</li>
+						</ul>
+					</div>
+	
+					<div class="btnBox pxB">
+						<button class="btn red w100p m">확인</button>
+					</div>
+	
+			</div>
+			<!-- //contentBox -->
+		
+		</div>
+		<!--  //contentSection  -->
+		
+		
+		<div class="mpopBox img sms">
+			<div class="popBody">
+				<p class="img"><img src="../../common/img/icon-voice.png" alt="" /></p>
+				<p class="txt1 tRed2">음성인식 중</p>
+				<p class="txt2">2초 ~ 3초 이내 말씀이 없으시면 자동 종료됩니다.</p>
+			</div>
+		</div>
+	
+		<div class="mpopBox img sms2">
+			<div class="popBody">
+				<p class="img"><img src="../../common/img/icon-voice.png" alt="" /></p>
+				<p class="txt1 tRed2">음성인식 중</p>
+				<p class="txt2">음성인식 완료를 원하시면 완료버튼을 눌러주세요.</p>
+			</div>
+			<div class="popFooter">
+				<div class="btnBox">
+					<button class="btn gray3 m w100p b-close">완료</button>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!--  //contents  -->
+
+</body>
+<script type="text/x-handlebars-template" id="CLDL0206_list_template">
+	{{#each list}}
+		<li>
+			<p class="tit">
+				<span class="radioBox">
+					<input type="radio"  name="ra" id="{{msg_no}}" />
+					<label for="{{msg_no}}" class="msgTitleClass">{{msg_titl}}</label>
+				</span>
+			</p>
+			 <div class="txtBox">{{msg_cont}}</div>
+		</li>
+	{{/each}}
+</script>
+</html>

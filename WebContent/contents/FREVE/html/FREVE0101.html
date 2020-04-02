@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
+
+</head>
+
+<body>
+	<input type="hidden" name="menuId" id="menuId" value="FREVE0101"/>
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection">
+			<div class="headerWrap">
+				<button type="button" class="btn back paL ti">버튼</button>
+				<h1>즐겨찾기</h1>
+			</div>		
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+			<!-- contentBox -->
+			<div class="contentBox favoList">
+				<!-- infoListBox -->
+				<div class="infoListBox">
+					<ul>
+						<li>
+							<div class="topHead">
+								<span class="tit">즐겨찾기 목록</span>
+								<span class="fr">아래 영역에서 설정이 가능합니다.</span>
+							</div>
+							<!-- 즐겨찾기 -->
+							<div class="quickMenuBox">
+								<ul id="freMenuBox">
+								</ul>
+							</div>
+							<!-- //즐겨찾기 -->
+							
+							<div class="topHead">
+								<span class="tit">즐겨찾기 설정</span>
+							</div>
+							
+						</li>
+						
+					</ul>
+					<ul id="zero_dept_area">
+					</ul>
+				</div>
+				<!-- //infoListBox -->
+			</div>
+			<!-- //contentBox -->
+
+		</div>
+		<!--  //contentSection  -->
+
+	</div>
+	<!--  //contents  -->
+</body>
+	<!-- //JS Global  -->
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/FREVE0101.js"></script>
+	
+	<script type="text/x-handlebars-template" id="frvt_zero_dept_template">
+	{{#each list}}
+		<li>
+			<div class="infoBox">
+				<div class="tit">
+					<em class="titBox">{{menuTxt}}</em>
+				</div>
+				<div class="itemList">
+					<ul class="quickMenuBox favo" id="{{menu_nm}}" value="{{@key}}">
+					</ul>
+				</div>
+			</div>
+		</li>
+	{{/each}}
+	</script>
+	<script type="text/x-handlebars-template" id="frvt_one_dept_template">
+	{{#each list}}
+		<li>
+			<button class="btn off">
+				<span class="chkBox star">
+					<input type="checkbox" id="{{menuId}}" />
+					<label for="{{menuId}}" class="fvr_ck">&nbsp;</label>
+				</span>
+				<span class="img">
+					<img src="{{mainImgSrc}}" alt="" />
+				</span>
+				<span class="txt">{{menuTxt}}</span>
+			</button>
+		</li>
+	{{/each}}
+	</script>
+	<script type="text/x-handlebars-template" id="frvt_template">
+	{{#each list}}
+		<li>
+			<button class="btn" data-menu="{{foldernm}}" data-menu-id="{{filenm}}">
+				<span class="img">
+					<img src="{{src}}" alt="">
+				</span>
+				<span class="txt">{{menuTxt}}</span>
+			</button>
+		</li>
+	{{/each}}
+	</script>
+</html>
+

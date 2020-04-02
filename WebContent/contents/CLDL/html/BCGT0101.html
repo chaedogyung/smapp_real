@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+	
+	<!-- <link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/> -->
+
+</head>
+
+<body>
+<div style="width:100%;">
+<table id="barcodeLstUl" style="width:100%;">
+</table>
+</div>
+
+
+</body>
+
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/BCGT0101.js"></script>
+	
+	
+	<!-- handlebars template start -->
+	<script id="listLi" type="text/x-handlebars-template">
+		{{#each list}}
+		<tr style="width:100%;">
+			<td style=" width:100%; height:50px; text-align:center; padding:7px; font-size:10pt; border:1px solid blue;"><div id="{{inv_no}}"></div></td>
+		</tr>
+		{{/each}}
+	</script>
+	
+
+</html>

@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
+
+
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>	
+	<script type="text/javascript" src="../js/MYP0101.js"></script>
+</head>
+
+<body>
+<input type="hidden" name="menuId" id="menuId" value="MYP0101"/>
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection">
+			<div class="headerWrap">
+				<button class="btn back paL ti">버튼</button>
+				<h1>MY PAGE</h1>
+			</div>		
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+			<!-- contentBox -->
+			<div class="contentBox mypage">
+				<!-- infoListBox -->
+				<div class="infoListBox" id="MypInfoList">
+					<ul>
+						<li>
+							<div class="topHead">
+								<span class="tit">&nbsp;</span>
+							</div>
+
+							<div class="infoBox photo">
+								<dl class="inBox tp3">
+									<dt>사번</dt>
+									<dd>&nbsp;</dd>
+									<dt>차량번호</dt>
+									<dd>&nbsp;</dd>
+								</dl>
+								<div class="photo">
+									<!-- <img src="../../common/img/icon-man.png" alt=""> -->
+									<img src="" alt="">
+								</div>
+							</div>
+
+							<div class="topHead">
+								<span class="tit">이달의 실적현황</span>
+								<span class="fr">&nbsp;</span>
+							</div>
+							<div class="infoBox">
+								<dl class="inBox tp3">
+									<dt>집하</dt>
+									<dd>&nbsp;</dd>
+									<dt>배송</dt>
+									<dd>&nbsp;</dd>
+									<dt>합계</dt>
+									<dd>&nbsp;</dd>
+								</dl>
+								<div class="mileage" style="display:none;">
+									마일리지<br>
+									<i>1,850</i>
+								</div>
+							</div>
+						</li>
+
+						<li>
+							<div class="infoBox">
+								<dl class="inBox tp3">
+									<dt style="display:none;">마일리지</dt>
+									<dd style="display:none;">&nbsp;</dd>
+									<dt>점소명</dt>
+									<dd>&nbsp;</dd>
+									<dt>집배센터</dt>
+									<dd>&nbsp;</dd>
+									<dt>세븐일레븐<br />인증번호</dt>
+									<dd>&nbsp;</dd>
+									<dt>바코드번호</dt>
+									<dd id="bacodeNumber"></dd>
+								</dl>
+							</div>
+						</li>
+
+						<li>
+							<div class="infoBox monthBox">
+								<ul class="ul0 ul3">
+									<li>
+										<span class="badge gray m" id="beforeMonth2"></span>
+										<p class="num" id="before2TotCnt">0건</p>
+									</li>
+									<li>
+										<span class="badge gray m" id="beforeMonth1"></span>
+										<p class="num" id="before1TotCnt">0건</p>
+									</li>
+									<li>
+										<span class="badge gray m" id="currentMontn"></span>
+										<p class="num" id="currentTotCnt">0건</p>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<!-- 
+						<li>
+							<div class="topHead">
+								<span class="tit">사용료 결제</span>
+								<span class="fr">2019년8월</span>
+							</div>
+							<div class="infoBox">
+								<dl class="inBox tp3 mgb10">
+									<dt>사용기간</dt>
+									<dd><b>2019</b>년<b>11</b>월<b>1</b>일 ~ <b>2019</b>년 <b>11</b>월 <b>30</b>일</dd>
+									<dt>결제일</dt>
+									<dd><b>2019</b>년<b>10</b>월<b>30</b>일</dd>
+									<dt>결제방법</dt>
+									<dd>신용카드</dd>
+								</dl>
+								<button class="btn red w100p">결제하기</button>
+							</div>
+						</li> -->
+						<li>
+							<div class="topHead" id="changePwd">
+								<span class="tit">비밀번호 변경</span>
+								<button class="btn arrowR fr">변경</button>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<!-- //infoListBox -->
+			</div>
+			<!-- //contentBox -->
+
+		</div>
+		<!--  //contentSection  -->
+
+	</div>
+	<!--  //contents  -->
+
+</body>
+<script type="text/x-handlebars-template" id="MYP0101_template">
+			<ul>
+				<li>
+					<div class="topHead">
+						<span class="tit">{{emp_nm}}</span>
+					</div>
+
+					<div class="infoBox photo">
+						<dl class="inBox tp3">
+							{{!--<dt>등급</dt>
+							<dd>{{emp_grd}}</dd>--}}
+							<dt>사번</dt>
+							<dd>{{empno}}</dd>
+							<dt>차량번호</dt>
+							<dd>{{vhc_no}}</dd>
+							<dt>&nbsp;</dt>
+							<dd>&nbsp;</dd>
+						</dl>
+						<div class="photo">
+							<img src="{{emp_img_path}}" alt="">
+						</div>
+						</div>
+
+							<div class="topHead">
+								<span class="tit">이달의 실적현황</span>
+								<span class="fr">{{infoMonL}}</span>
+							</div>
+							<div class="infoBox">
+								<dl class="inBox tp3">
+									<dt>집하</dt>
+									<dd><b>{{cur_pick_rate}}</b>건</dd>
+									<dt>배송</dt>
+									<dd><b>{{cur_dlv_rate}}</b>건</dd>
+									<dt>합계</dt>
+									<dd><b>{{monSumMyp}}</b>건</dd>
+								</dl>
+								<div class="mileage" style="display:none;">
+									 마일리지<br>
+									 <i>1,850</i>
+								</div>
+							</div>
+						</li>
+
+						<li>
+							<div class="infoBox">
+								<dl class="inBox tp3">
+									<dt style="display:none;">마일리지</dt>
+									<dd style="display:none;">25,000</dd>
+									<dt>점소명</dt>
+									<dd>{{brnshp_nm}}</dd>
+									<dt>집배센터</dt>
+									<dd>{{cldl_cenr_nm}}</dd>
+									<dt>세븐일레븐<br>인증번호</dt>
+									<dd>{{k7_conf_no}}</dd>
+									<dt>바코드번호</dt>
+									<dd id="bacodeNumber"></dd>
+								</dl>
+							</div>
+						</li>
+						
+						<li>
+							<!-- 실적 -->
+							<div class="infoBox monthBox">
+								<ul class="ul0 ul3">
+									<li>
+										<span class="badge gray m" id="2mag">{{2mag}}</span>
+										<p class="num">{{two_mon_rate}}건</p>
+									</li>
+									<li>
+										<span class="badge gray m" id="1mag">{{1mag}}</span>
+										<p class="num">{{one_mon_rate}}건</p>
+									</li>
+									<li>
+										<span class="badge gray m" id="currm">{{infoMonC}}</span>
+										<p class="num">{{cur_mon_rate}}건</p>
+									</li>
+								</ul>
+							</div>
+							<!-- //실적 -->
+						</li>
+						
+						<li>
+							<div class="topHead">
+								<span class="tit">비밀번호 변경</span>
+								<button class="btn arrowR fr" id="changePwd">변경</button>
+							</div>
+						</li>
+					</ul>
+</script>
+</html>

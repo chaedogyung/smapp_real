@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css">
+	
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/ARI0102.js"></script>
+</head>
+
+<body>
+	<input type="hidden" name="menuId" id="menuId" value="ARI0202" />
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection v2">
+			<div class="headerWrap">				
+				<h1>발송조회</h1>
+				<button class="btn closeW paR">닫기</button>
+			</div>
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+		<!-- contentBox -->
+		<div class="contentBox pop popArea">
+			
+            <!-- topHead -->
+			<div class="topHead">
+				<div class="inputBox pdl75">
+					<span class="pa paL fs14 mgt5 tGray5">운송장번호</span>
+					<input type="text" value="" name="" placeholder="운송장번호를 입력해주세요." id="inv_noText" readonly>
+					<button class="btn scan" id="invScan">스캔</button>
+				</div>
+			</div>
+            <!-- //topHead -->
+
+            <div class="infoListBox">
+                <ul>                    
+                    <li>
+                        <div class="emptyData">송장에 데이터가 없습니다.</div>
+                        <div class="infoBox">
+                            <dl class="inBox">
+                                <dt>도착점소</dt>
+                                <dd>
+                                    <input type="text" value="" name="" id="arrp" disabled>
+                                </dd>
+                                <dt>SM ID</dt>
+                                <dd>
+                                    <input type="text" value="" name="" id="smId" disabled>
+                                </dd>
+                                <dt>상대점소</dt>
+                                <dd>
+                                    <input type="text" value="" name=""  id="counp" disabled>
+                                </dd>
+                                <dt>차량번호</dt>
+                                <dd>
+                                    <input type="text" value="" name="" id="carN" disabled>
+                                </dd>                                
+                            </dl>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+			<div class="btnBox pxB">
+				<button class="btn m red w100p">확인</button>
+			</div>
+
+		</div>
+		<!-- //contentBox -->
+		
+		</div>
+		<!--  //contentSection  -->
+
+	</div>
+	<!--  //contents  -->
+
+
+</body>
+
+</html>

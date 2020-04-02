@@ -1,0 +1,704 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
+</head>
+
+<body>
+	<input type="hidden" name="menuId" id="menuId" value="PID0201"/>
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection">
+			<div class="headerWrap">
+				<button class="btn back paL"></button>
+				<h1>B2B접수</h1>
+			</div>
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+			<!-- contentBox -->
+			<div class="contentBox gathBox">
+				
+				<!-- tabBox -->
+				<div class="tabBox li2">
+					<ul>
+						<li class="on">
+							<button class="btn tabBtn" data-tab-cd="b2b">
+								B2B반품/점간
+							</button>
+						</li>
+						<li>
+							<button class="btn tabBtn" data-tab-cd="b2c">
+								B2B개인
+							</button>
+						</li>
+					</ul>
+				</div>
+				<!-- //tabBox -->
+				
+				<!-- B2B 반품/점간 //S -->
+				<!-- infoListBox -->
+				<div class="infoListBox b2bDiv">
+					<ul>
+						<li>
+							<div class="topHead">
+								<span class="tit">보내는 사람 정보 조회</span>
+								<div class="fr">
+									<span class="radioBox"><input type="radio" name="b2bSctCd" id="rtg" value="02" checked/> <label for="rtg">반품</label></span>
+									<span class="radioBox"><input type="radio" name="b2bSctCd" id="sts" value="03"/> <label for="sts">점간</label></span>
+								</div>
+							</div>
+							<div class="infoBox">
+								<dl class="inBox tp1">
+									<dt>집하점</dt>
+									<dd>
+										<div class="">
+											<ul class="ul0 ul2">
+												<li class="pdr5"><input type="text" id="b2bBrshCd" class="inbdb" readonly/></li>
+												<li><input type="text" id="b2bBrshNm" class="inbdb" readonly/></li>
+											</ul>
+										</div>
+									</dd>
+								</dl>
+								<ul class="ul0 ul3 b2bCodeInitInfo">
+									<li class="pdr3">
+										<div class="inSearch" data-type="Cust">
+											<input type="text" id="b2bCust" value="" placeholder="거래처코드" />
+											<button class="btn glass2 custSch">검색</button>
+											<input type="hidden" id="b2bCustCode" value="" />
+											<input type="hidden" id="b2bCustName" value="" />
+										</div>
+									</li>
+									<li class="pdr3">
+										<div class="inSearch" data-type="Brnd">
+											<input type="text" id="b2bBrnd" value="" placeholder="브랜드코드" />
+											<button class="btn glass2 brndSch">검색</button>
+											<input type="hidden" id="b2bBrndCode" value="" />
+											<input type="hidden" id="b2bBrndName" value="" />
+										</div>
+									</li>
+									<li>
+										<div class="inSearch" data-type="Shcn">
+											<input type="text" id="b2bShcn" value="" placeholder="매장코드" />
+											<button class="btn glass2 shcnSch">검색</button>
+											<input type="hidden" id="b2bShcnCode" value="" />
+											<input type="hidden" id="b2bShcnName" value="" />
+										</div>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="b2bSnperInitInfo">
+							<!-- 보내는 사람 -->
+							<div class="infoBox">
+								
+								<div class="tit mgb15">보내는 사람 
+									<span class="chkBox m fr">
+										<input type="checkbox" id="b2bSnperSave" />
+										<label for="b2bSnperSave"> 보내는 사람 정보 저장</label>
+									</span>
+								</div>
+								
+								<dl class="inBox tp1">
+									<dt>거래처</dt>
+									<dd><input type="text" id="b2bSnperCust" value="" disabled></dd>
+									<dt>브랜드</dt>           
+									<dd><input type="text" id="b2bSnperBrnd" value="" disabled></dd>
+									<dt>매장</dt>            
+									<dd><input type="text" id="b2bSnperShcn" value="" disabled></dd>
+									<dt class="vt">주소</dt> 
+									<dd>                   
+										<input type="text" id="b2bSnperBadr" value="" disabled>
+										<input type="text" id="b2bSnperDadr" value="" disabled class="mgt5">
+									</dd>
+								</dl>
+
+							</div>
+							<!-- //보내는 사람 -->
+						</li>
+						<li>
+							<div class="topHead">
+								<span class="tit">받는 사람 정보 조회</span>
+							</div>
+
+							<div class="infoBox">
+							
+								<div class="inputBox">
+									<input type="text" id="ustRtgCustCd" placeholder="물류센터코드"/><button class="btn glass b2bUstRtgSch">검색</button>
+								</div>
+								<div class="inputBox">
+									<input type="text" id="stsFareSctCd" placeholder="매장코드" style="display:none;"/><button class="btn glass b2bStsFareSch">검색</button>
+								</div>
+
+								<dl class="inBox tp1 mgt10 b2bBrshInitInfo">
+									<dt class="vt">배달점</dt>
+									<dd>
+										<ul class="ul0 ul2">
+											<li class="pdr5"><input type="text" id="b2bDlvPlnBrshCd" class="inbdb" readonly/></li>
+											<li><input type="text" id="b2bDlvPlnBrshNm" class="inbdb" readonly/></li>
+										</ul>
+									</dd>
+								</dl>
+								
+							</div>
+						</li>
+						<li class="b2bAcperInitInfo">
+							<!-- 받는사람 -->
+							<div class="infoBox">
+								
+								<div class="tit mgb15">
+									<span class="">받는사람 </span>
+								</div>
+
+								<dl class="inBox tp1">
+									<dt>거래처</dt>
+									<dd><input type="text" id="b2bAcperCust" value="" disabled></dd>
+									<dt>브랜드</dt>
+									<dd><input type="text" id="b2bAcperBrnd" value="" disabled></dd>
+									<dt>매장</dt>
+									<dd><input type="text" id="b2bAcperShcn" value="" disabled></dd>
+									<dt class="vt">주소</dt>
+									<dd>
+										<input type="text" id="b2bAcperBadr" value="" disabled>
+										<input type="text" id="b2bAcperDadr" value="" disabled class="mgt5">
+									</dd>
+								</dl>
+
+							</div>
+						</li>
+						<li>
+							
+							<div class="topHead">
+								<span class="tit">집하정보</span>
+							</div>
+
+							<div class="infoBox">
+								<dl class="inBox tp1">
+									<dt>집하일자<i>★</i></dt>
+									<dd>
+										<input type="text" class="inCal" id="b2bPickYmd" readonly>
+									</dd>
+								</dl>
+							</div>
+
+							<div class="topHead">
+								<span class="tit">운임정보</span>
+							</div>
+							
+							<div class="infoBox">
+								<dl class="inBox tp1">
+									<dt>수량구분<i>★</i></dt>
+									<dd>
+										<span class="selBox">
+											<select id="b2bBoxTyp" disabled>
+												<option value="A">A Type</option>
+											</select>
+										</span>
+										
+										<div class="inNum">
+											<button class="btn minus">마이너스</button>
+											<input type="number" id="b2bBoxQty" value="1" class="valNum" readonly/>
+											<button class="btn plus2">플러스</button>
+										</div>
+
+									</dd>
+									<dt>운임구분<i>★</i></dt>
+									<dd>
+										<span class="selBox w100">
+											<select id="b2bFareSctCd" disabled>
+												<option value="01">현불</option>
+												<option value="02">착불</option>
+												<option value="03">신용</option>
+											</select>
+										</span>
+									</dd>
+									<dt>배송단가</dt>
+									<dd>
+										<input type="text" id="b2bDlvFare" value="0" placeholder="" disabled/>
+									</dd>
+								</dl>
+							</div>
+							
+							<div class="topHead">
+								<span class="tit">상품/배송요청사항</span>
+							</div>
+							
+							<div class="infoBox">
+								<dl class="inBox tp1">
+									<dt>상품명<i>★</i></dt>
+									<dd>
+										<input type="text" id="b2bGdsNm" value="B2B반품">
+									</dd>
+									<dt>배송요청사항<i>★</i></dt>
+									<dd>
+										<div class="txtBox tp3 plus" id="b2bDlvMsg">
+											<input type="hidden" id="b2bDlvMsgCont" value="없음" required hname="배송요청사항">
+											<span id="b2bDlvMsgContText">없음</span>
+											<button class="btn plus">추가</button>
+										</div>
+									</dd>
+								</dl>
+							</div>
+							
+							<div class="topHead mgb10">
+								<span class="tit">개인정보활용 동의</span>
+								<button class="btn arrowR mgl10 agreeView" data-etc="b2b">전문보기</button>
+								<span class="chkBox m fr">
+									<input type="checkbox" id="b2bAgree">
+									<label for="b2bAgree">동의</label>
+								</span>
+								<div class="clear mgt5">
+									고객님께서 읽고 직접 동의 선택을 하여야 합니다.
+								</div>
+							</div>
+							
+							<div class="btnBox">
+								<button class="btn red m w100p confirmBtn">접수</button>
+							</div>
+							<!-- //받는사람 -->
+						</li>
+					</ul>
+				</div>
+				<!-- //infoListBox -->
+				<!-- B2B 반품/점간 //E -->
+				
+				<!-- B2B 개인/매장 //S-->
+				<!-- infoListBox -->
+				<div class="infoListBox b2cDiv" style="display:none;">
+					<ul>
+						<li>
+							<div class="topHead">
+								<span class="tit">보내는 사람 정보</span>
+								<span class="fr">
+									<span class="radioBox"><input type="radio" name="b2cSctCd" id="shop" value="01" checked> <label for="shop">매장→개인</label></span>
+									<span class="radioBox m"><input type="radio" name="b2cSctCd" id="customer" value="02"> <label for="customer">개인→매장</label></span>
+								</span>
+							</div>
+							
+							<!-- 매장->개인 01 //S -->
+							<div class="infoBox b2cArea01">
+								<dl class="inBox tp1">
+									<dt>집하점</dt>
+									<dd>
+										<div class="">
+											<ul class="ul0 ul2">
+												<li class="pdr5"><input type="text" id="b2c01BrshCd" class="inbdb" readonly/></li>
+												<li><input type="text" id="b2c01BrshNm" class="inbdb" readonly/></li>
+											</ul>
+										</div>
+									</dd>
+								</dl>
+								<ul class="ul0 ul3 b2c01CodeInitInfo">
+									<li class="pdr3">
+										<div class="inSearch" data-type="Cust">
+											<input type="text" id="b2c01Cust" value="" placeholder="거래처코드" />
+											<button class="btn glass2 custSch">검색</button>
+											<input type="hidden" id="b2c01CustCode" value="" />
+											<input type="hidden" id="b2c01CustName" value="" />
+										</div>
+									</li>
+									<li class="pdr3">
+										<div class="inSearch" data-type="Brnd">
+											<input type="text" id="b2c01Brnd" value="" placeholder="브랜드코드" />
+											<button class="btn glass2 brndSch">검색</button>
+											<input type="hidden" id="b2c01BrndCode" value="" />
+											<input type="hidden" id="b2c01BrndName" value="" />
+										</div>
+									</li>
+									<li>
+										<div class="inSearch" data-type="Shcn">
+											<input type="text" id="b2c01Shcn" value="" placeholder="매장코드" />
+											<button class="btn glass2 shcnSch">검색</button>
+											<input type="hidden" id="b2c01ShcnCode" value="" />
+											<input type="hidden" id="b2c01ShcnName" value="" />
+										</div>
+									</li>
+								</ul>
+							</div>
+							<!-- 매장->개인 01 //E -->
+							<!-- 개인->매장 02 //S -->
+							<div class="infoBox b2cArea02" style="display:none;">
+								<dl class="inBox tp1">
+									<dt>집하점</dt>
+									<dd>
+										<div class="">
+											<ul class="ul0 ul2">
+												<li class="pdr5"><input type="text" id="b2c02BrshCd" class="inbdb" readonly/></li>
+												<li><input type="text" id="b2c02BrshNm" class="inbdb" readonly/></li>
+											</ul>
+										</div>
+									</dd>
+									<dt>원송장번호</dt>
+									<dd>
+										<div class="inputBox pdr50">
+											<input type="text" id="orgInvNo" placeholder="송장번호 입력" readonly>
+											<button class="btn gray" id="orgInvNoSearch">조회</button>
+										</div>
+									</dd>
+								</dl>
+							</div>
+							<!-- 개인->매장 02 //E -->
+						</li>
+						
+						
+						
+						<!-- 매장->개인 01 //S -->
+						<li class="b2cArea01 b2c01SnperInitInfo">
+							<!-- 보내는 사람 -->
+							<div class="infoBox">
+								<div class="tit mgb15">보내는 사람 
+									<span class="chkBox m fr">
+										<input type="checkbox" id="b2c01SnperSave" />
+										<label for="b2c01SnperSave"> 보내는 사람 정보 저장</label>
+									</span>
+								</div>
+								
+								<dl class="inBox tp1">
+									<dt>이름<i>★</i></dt>
+									<dd>
+										<input type="text" id="b2c01SnperNm" placeholder="이름을 입력해주세요."/>
+									</dd>
+									<dt>전화번호<i>★</i></dt>
+									<dd>
+										<input type="text" id="b2c01SnperTel" class="autoHypenPhone" placeholder="전화번호를 입력해주세요."/>
+									</dd>
+									<dt>핸드폰번호</dt>
+									<dd>
+										<input type="text" id="b2c01SnperCpno" class="autoHypenPhone" placeholder="전화번호를 입력해주세요." />
+									</dd>
+									<dt class="vt">기본주소<i>★</i></dt>
+									<dd>
+										<input type="text" id="b2c01SnperBadr" placeholder="매장 코드를 검색주세요." disabled>
+										<input type="text" id="b2c01SnperDadr" disabled>
+									</dd>
+								</dl>
+							</div>
+						</li>
+						<li class="b2cArea01">
+							<div class="topHead">
+								<span class="tit">받는 사람 정보 입력</span>
+							</div>
+
+							<div class="infoBox">
+								
+								<dl class="inBox tp1 mgt10 b2c01BrshInitInfo">
+									<dt class="vt">배달점</dt>
+									<dd>
+										<ul class="ul0 ul2">
+											<li class="pdr10"><input type="text" id="b2c01DlvBrshCd" class="inbdb" readonly/></li>
+											<li><input type="text" id="b2c01DlvBrshNm" class="inbdb" readonly/></li>
+										</ul>
+									</dd>
+								</dl>
+
+							</div>
+							<!-- //보내는 사람 -->
+
+						</li>
+						<li class="b2cArea01 b2c01AcperInitInfo">
+							<!-- 받는사람 -->
+							<div class="infoBox">
+								
+								<div class="tit mgb15">
+									<span class="">받는사람 </span>
+								</div>
+
+								<dl class="inBox tp1">
+									<dt>이름<i>★</i></dt>
+									<dd>
+										<input type="text" id="b2c01AcperNm" placeholder="이름을 입력해주세요."/>
+									</dd>
+									<dt>전화번호<i>★</i></dt>
+									<dd>
+										<input type="text" id="b2c01AcperTel" class="autoHypenPhone" placeholder="전화번호를 입력해주세요."/>
+									</dd>
+									<dt>핸드폰번호</dt>
+									<dd>
+										<input type="text" id="b2c01AcperCpno" class="autoHypenPhone" placeholder="전화번호를 입력해주세요." />
+									</dd>
+									<dt class="vt">주소<i>★</i></dt>
+									<dd>
+										<div class="inputBox mgb5">
+											<input type="text" id="b2c01AcperBadr" placeholder="주소를 검색주세요." disabled>
+											<button class="btn glass">검색</button>
+											<button class="btn glass addrSrch" data-type="b2c01Acper">검색</button>
+										</div>
+										<input type="text" id="b2c01AcperDadr" placeholder="상세주소를 입력해주세요." disabled>
+										<input type="text" id="b2c01AcperEtcAdr" value="" />
+									</dd>
+								</dl>
+
+							</div>
+						</li>
+						<!-- 매장->개인 01 //E -->
+						
+						<!-- 개인->매장 02 //S -->
+						<li class="b2cArea02 b2c02SnperInitInfo" style="display:none;">
+							<!-- 보내는 사람 -->
+							<div class="infoBox">
+								<div class="tit mgb15">보내는 사람 
+									<span class="chkBox m fr">
+										<input type="checkbox" id="b2c02SnperSave" />
+										<label for="b2c02SnperSave"> 보내는 사람 정보 저장</label>
+									</span>
+								</div>
+								
+								<dl class="inBox tp1">
+									<dt>이름<i>★</i></dt>
+									<dd>
+										<input type="text" id="b2c02SnperNm" placeholder="이름을 입력해주세요."/>
+									</dd>
+									<dt>전화번호<i>★</i></dt>
+									<dd>
+										<input type="text" id="b2c02SnperTel" class="autoHypenPhone" placeholder="전화번호를 입력해주세요."/>
+									</dd>
+									<dt>핸드폰번호</dt>
+									<dd>
+										<input type="text" id="b2c02SnperCpno" class="autoHypenPhone" placeholder="전화번호를 입력해주세요." />
+									</dd>
+									<dt class="vt">기본주소<i>★</i></dt>
+									<dd>
+										<div class="inputBox mgb5">
+											<input type="text" id="b2c02SnperBadr" placeholder="주소를 검색주세요." disabled>
+											<button class="btn glass">검색</button>
+											<button class="btn glass addrSrch" data-type="b2c02Snper">검색</button>
+										</div>
+										<input type="text" id="b2c02SnperDadr" placeholder="상세주소를 입력해주세요." disabled>
+										<input type="text" id="b2c02SnperEtcAdr" value="" />
+									</dd>
+								</dl>
+							</div>
+						</li>
+						<li class="b2cArea02" style="display:none;">
+							<div class="topHead">
+								<span class="tit">받는 사람 정보 입력</span>
+							</div>
+
+							<div class="infoBox">
+								
+								<ul class="ul0 ul3 b2c02CodeInitInfo">
+									<li class="pdr3">
+										<div class="inSearch" data-type="Cust">
+											<input type="text" id="b2c02Cust" value="" placeholder="거래처코드" />
+											<button class="btn glass2 custSch">검색</button>
+											<input type="hidden" id="b2c02CustCode" value="" />
+											<input type="hidden" id="b2c02CustName" value="" />
+										</div>
+									</li>
+									<li class="pdr3">
+										<div class="inSearch" data-type="Brnd">
+											<input type="text" id="b2c02Brnd" value="" placeholder="브랜드코드" />
+											<button class="btn glass2 brndSch">검색</button>
+											<input type="hidden" id="b2c02BrndCode" value="" />
+											<input type="hidden" id="b2c02BrndName" value="" />
+										</div>
+									</li>
+									<li>
+										<div class="inSearch" data-type="Shcn">
+											<input type="text" id="b2c02Shcn" value="" placeholder="매장코드" />
+											<button class="btn glass2 shcnSch">검색</button>
+											<input type="hidden" id="b2c02ShcnCode" value="" />
+											<input type="hidden" id="b2c02ShcnName" value="" />
+										</div>
+									</li>
+								</ul>
+								<dl class="inBox tp1 mgt10 b2c02BrshInitInfo">
+									<dt class="vt">배달점</dt>
+									<dd>
+										<ul class="ul0 ul2">
+											<li class="pdr10"><input type="text" id="b2c02DlvBrshCd" class="inbdb" readonly/></li>
+											<li><input type="text" id="b2c02DlvBrshNm" class="inbdb" readonly/></li>
+										</ul>
+									</dd>
+								</dl>
+
+							</div>
+							<!-- //보내는 사람 -->
+
+						</li>
+						<li class="b2cArea02 b2c02AcperInitInfo" style="display:none;">
+							<!-- 받는사람 -->
+							<div class="infoBox">
+								
+								<div class="tit mgb15">
+									<span class="">받는사람 </span>
+									<span class="chkBox m fr">
+										<input type="checkbox" id="b2c02AcperSave" />
+										<label for="b2c02AcperSave"> 받는 사람 정보 저장</label>
+									</span>
+								</div>
+
+								<dl class="inBox tp1">
+									<dt>이름<i>★</i></dt>
+									<dd>
+										<input type="text" id="b2c02AcperNm" placeholder="이름을 입력해주세요."/>
+									</dd>
+									<dt>전화번호<i>★</i></dt>
+									<dd>
+										<input type="text" id="b2c02AcperTel" class="autoHypenPhone" placeholder="전화번호를 입력해주세요."/>
+									</dd>
+									<dt>핸드폰번호</dt>
+									<dd>
+										<input type="text" id="b2c02AcperCpno" class="autoHypenPhone" placeholder="전화번호를 입력해주세요." />
+									</dd>
+									<dt class="vt">기본주소<i>★</i></dt>
+									<dd>
+										<input type="text" id="b2c02AcperBadr" placeholder="매장 코드를 검색주세요." disabled>
+										<input type="text" id="b2c02AcperDadr" disabled>
+										<input type="text" id="b2c02AcperEtcAdr"/>
+									</dd>
+									<!-- <dt class="vt">주소<i>★</i></dt>
+									<dd>
+										<div class="inputBox mgb5">
+											<input type="text" id="b2c02AcperBadr" placeholder="주소를 검색주세요." disabled>
+											<button class="btn glass">검색</button>
+											<button class="btn glass addrSrch" data-type="b2c02Acper">검색</button>
+										</div>
+										<input type="text" id="b2c02AcperDadr" placeholder="상세주소를 입력해주세요." disabled>
+										<input type="text" id="b2c02AcperEtcAdr" value="" />
+									</dd> -->
+								</dl>
+
+							</div>
+						</li>
+						<!-- 개인->매장 02 //E -->
+						
+						<li>
+							<div class="topHead">
+								<span class="tit">집하정보</span>
+							</div>
+
+							<div class="infoBox">
+								<dl class="inBox tp1">
+									<dt>집하일자<i>★</i></dt>
+									<dd>
+										<input type="text" class="inCal" id="b2cPickYmd" readonly>
+									</dd>
+								</dl>
+							</div>
+
+							<div class="topHead">
+								<span class="tit">운임정보</span>
+							</div>
+							
+							<div class="infoBox">
+								<dl class="inBox tp1">
+									<dt>수량구분<i>★</i></dt>
+									<dd>
+										<span class="selBox">
+											<select id="b2cBoxTyp" disabled>
+												<option value="A">A Type</option>
+											</select>
+										</span>
+										
+										<div class="inNum">
+											<button class="btn minus">마이너스</button>
+											<input type="number" id="b2cBoxQty" value="1" class="valNum" readonly/>
+											<button class="btn plus2">플러스</button>
+										</div>
+
+									</dd>
+									<dt>운임구분<i>★</i></dt>
+									<dd>
+										<span class="selBox w100">
+											<select id="b2cFareSctCd" disabled>
+												<option value="01">현불</option>
+												<option value="02">착불</option>
+												<option value="03">신용</option>
+											</select>
+										</span>
+									</dd>
+									<dt>배송단가</dt>
+									<dd>
+										<input type="text" id="b2cDlvFare" value="0" placeholder=""/>
+									</dd>
+								</dl>
+							</div>
+							
+							<div class="topHead">
+								<span class="tit">상품/배송요청사항</span>
+							</div>
+							
+							<div class="infoBox">
+								<dl class="inBox tp1">
+									<dt>상품명<i>★</i></dt>
+									<dd>
+										<input type="text" id="b2cGdsNm" value="B2B매장발송건">
+									</dd>
+									<dt>배송요청사항<i>★</i></dt>
+									<dd>
+										<div class="txtBox tp3 plus" id="b2cDlvMsg">
+											<input type="hidden" id="b2cDlvMsgCont" value="없음" required hname="배송요청사항">
+											<span id="b2cDlvMsgContText">없음</span>
+											<button class="btn plus">추가</button>
+										</div>
+									</dd>
+								</dl>
+							</div>
+							
+							<div class="topHead mgb10">
+								<span class="tit">개인정보활용 동의</span>
+								<button class="btn arrowR mgl10 agreeView" data-etc="b2c">전문보기</button>
+								<span class="chkBox m fr">
+									<input type="checkbox" id="b2cAgree">
+									<label for="b2cAgree">동의</label>
+								</span>
+								<div class="clear mgt5">
+									고객님께서 읽고 직접 동의 선택을 하여야 합니다.
+								</div>
+							</div>
+							
+							<div class="btnBox">
+								<button class="btn red m w100p confirmBtn">접수</button>
+							</div>
+							<!-- //받는사람 -->
+						</li>
+					</ul>
+				</div>
+				<!-- //infoListBox -->
+				<!-- B2B 개인 //E-->
+						
+
+			</div>
+			<!-- //contentBox -->
+
+		</div>
+		<!--  //contentSection  -->
+
+
+
+		<!-- 모달팝업 전송 -->
+		<div class="mpopBox send">
+			<div class="popBody">
+				<p class="img"><img src="../../common/img/icon-airplane.png" alt="" /></p>
+				<p class="txt1">전송완료</p>
+				<p class="txt2">스캔된 데이터 N건<br />데이터 전송이 완료되었습니다.</p>
+			</div>
+			<div class="popFooter">
+				<div class="btnBox">
+					<button class="btn red m w100p b-close">확인</button>
+				</div>
+			</div>
+		</div>
+		<!-- //모달팝업 전송 -->
+
+	</div>
+	<!--  //contents  -->
+
+</body>
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/PID0201.js"></script>
+</html>

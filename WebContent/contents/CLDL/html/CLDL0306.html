@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css">
+
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/CLDL0306.js"></script>
+
+</head>
+
+<body>
+<input type="hidden" name="menuId" id="menuId" value="CLDL0306"/>
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection">
+			<div class="headerWrap black">
+				<h1>집하완료 옵션 선택</h1>
+				<button class="btn closeW paR">닫기</button>
+			</div>
+			<div class="topHead tr">
+				<span class="chkBox"></span>
+			</div>
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+		<!-- contentBox -->
+		<div class="contentBox pop popOption">
+			
+			<!-- infoListBox -->
+			<div class="infoListBox">
+				<ul>
+					<li>
+						<div class="infoBox">
+							<div class="tit">
+								<em>서비스 구분</em>
+								<span class="chkBox m fr"></span>
+							</div>
+							<div class="raTab">
+								<span class="radioBox"><input type="radio"  name="svc_cd" id="00_SVC_CD" value="00" checked="checked"/><label for="00_SVC_CD">일반</label></span>
+								<span class="radioBox mgl10"><input type="radio"  name="svc_cd" id="01_SVC_CD" value="01" class="raShow"/><label for="01_SVC_CD">의류</label></span>
+							</div>
+
+							<div class="raView dsn mgt10">
+								<span class="radioBox txt"><input type="radio" name="box_typ" id="A_BOX_TYP" value="A"><label for="A_BOX_TYP">A</label></span>
+								<span class="radioBox txt"><input type="radio" name="box_typ" id="B_BOX_TYP" value="B"><label for="B_BOX_TYP">B</label></span>
+								<span class="radioBox txt"><input type="radio" name="box_typ" id="C_BOX_TYP" value="C"><label for="C_BOX_TYP">C</label></span>
+								<span class="radioBox txt"><input type="radio" name="box_typ" id="D_BOX_TYP" value="D"><label for="D_BOX_TYP">D</label></span>
+								<span class="radioBox txt"><input type="radio" name="box_typ" id="E_BOX_TYP" value="E"><label for="E_BOX_TYP">E</label></span>
+								<span class="radioBox txt"><input type="radio" name="box_typ" id="F_BOX_TYP" value="F"><label for="F_BOX_TYP">F</label></span>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="infoBox">
+							<div class="tit">
+								<em>운임구분</em> 
+								<span class="chkBox m fr"></span>
+							</div>
+							<span class="radioBox"><input type="radio" name="fare_sct_cd" id="01_FARE_SCT_CD" value="01" checked="checked"/><label for="01_FARE_SCT_CD">현불</label></span>
+							<span class="radioBox mgl10"><input type="radio" name="fare_sct_cd" id="02_FARE_SCT_CD" value="02"/><label for="02_FARE_SCT_CD">착불</label></span>
+							<span class="radioBox mgl10"><input type="radio" name="fare_sct_cd" id="03_FARE_SCT_CD" value="03"/><label for="03_FARE_SCT_CD">신용</label></span>
+						</div>
+					</li>
+					<li>
+						<div class="infoBox">
+							
+							<div class="tit">
+								<em>도착지 검색</em> 
+							</div>
+
+							<div class="selArea mgt10">
+								<ul class="ul0 ul2">
+									<li class="pdr5">
+										<span class="selBox w100">
+											<select name="sido" id="cldl0306SidoSel">
+												<option value="0" disabled="disabled" selected="selected">시/도</option>
+											</select>
+										</span>
+									</li>
+									<li class="pdl5">
+										<span class="selBox w100">
+											<select name="gungu" id="cldl0306GunguSel">
+												<option value="0" disabled="disabled" selected="selected">시/도를 선택해주세요</option>
+											</select>
+										</span>
+									</li>
+								</ul>
+							</div>
+							<div class="inputBox">
+								<input type="text" id="addr_input" value="" name="" placeholder="법정동명을 입력해주세요" style="width:275px;">
+								<button class="btn scan" id="codeReader" style="right:40px;">스캔</button>
+								<button class="btn glass" id="addrSearch">검색</button>
+							</div>
+						</div>
+					</li>
+					<li>
+						<!-- 검색탭 -->
+						<div class="infoBox">
+							
+							<div class="addTab">
+								<ul class="ul0 ul2">
+									<li class="on"><button class="btn" value="00" id="ldno_addr">지번주소</button></li>
+									<li><button class="btn" value="01" id="rdnm_addr">도로명주소</button></li>
+								</ul>
+							</div>
+
+							<!-- addArea -->
+							<div class="addArea">
+								<ul>
+									<li>
+										<!-- 지번 -->
+										<div class="addList tp2">
+											<ul id="cldl0306Ul">
+											</ul>
+										</div>
+										<!-- //지번 -->
+									</li>
+								</ul>
+							</div>
+							<!-- addArea -->
+						</div>
+						<!-- //검색탭 -->
+					</li>
+				</ul>
+			</div>
+			<!-- //infoListBox -->
+
+			<div class="btnBox pxB">
+				<ul>
+					<li><button class="btn red w100p m">확인</button></li>
+				</ul>
+			</div>
+
+		</div>
+		<!-- //contentBox -->
+		
+		</div>
+		<!--  //contentSection  -->
+
+	</div>
+	<!--  //contents  -->
+	<script type="text/x-handlebars-template" id="cldl0306_list_template">
+	{{#each list}}
+		<li>
+			<div class="addList tp2">
+				<ul>
+					<li>
+						<div class="addIn"><span class="radioBox"><input type="radio" name="dstt_cd" id="{{@key}}_DSTT_CD" value="{{dstt_cd}}"/> <label for="{{@key}}_DSTT_CD">{{addr}}</label></span></div>
+						<div class="addTxt">
+							<span class="">{{tml_cd}}[{{tml_nm}}]</span>
+							<span class="lineR">{{mrng_clsf_cd}}</span>
+							<span class="lineR">{{dstt_cd}}</span>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</li>
+	{{else}}
+		<li class="noList">
+			<div class="NoBox">
+				<p class="txt tc">조회된 결과가 없습니다.</p>
+			</div>
+		</li>
+	{{/each}}
+	</script>
+	<script type="text/x-handlebars-template" id="cldl0306_sido_template">
+		<option value="default" disabled="disabled" selected="selected">시/도</option>
+		{{#each list}}
+			<option value="{{@key}}">{{city_do}}</option>
+		{{/each}}
+	</script>
+	<script type="text/x-handlebars-template" id="cldl0306_gungu_template">
+		<option value="default" disabled="disabled" selected="selected">군/구</option>
+		{{#each list}}
+			<option value="{{@key}}">{{city_gun_gu}}</option>
+		{{/each}}
+	</script>
+
+</body>
+
+</html>

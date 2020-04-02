@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+	
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
+
+</head>
+
+<body>
+<input type="hidden" name="menuId" id="menuId" value="RES0101"/>
+	<!--  contents  -->
+	<div id="contents">
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection">
+			<div class="headerWrap black">
+				<button class="btn back paL"></button>
+				<h1>서비스 실적</h1>
+			</div>		
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+			<!-- contentBox -->
+			<div class="contentBox result">
+	
+				<!-- tabBox -->
+				<!-- <div class="tabBox li3"> -->
+				<div class="tabBox li3">
+					<ul>
+						<li>
+							<button class="btn lstSchBtn" data-tab-idx="1">
+								서비스 실적
+							</button>
+						</li>
+						<li>
+							<button class="btn lstSchBtn" data-tab-idx="2">
+								일일작업현황
+							</button>
+						</li>
+						<li>
+							<button class="btn lstSchBtn" data-tab-idx="3">
+								월별실적현황
+							</button>
+						</li>
+					</ul>
+				</div>	
+				<!-- //tabBox -->
+	
+				<!-- tabView -->
+				<div class="tabView">
+					<ul>
+						<li>
+							<!-- tabView-1 -->
+							<div class="tabView-1">
+								<div class="topHead tc">
+									<button class="btn arrowL fl tv1">&nbsp;</button>								
+									<span class="dateTit" id="cldlBtnCal_V1"></span>
+									<button class="btn arrowR fr tv1">&nbsp;</button>
+								</div>
+	
+								<!-- tableBox -->
+								<div class="tableBox tp1">
+									<table>
+										<colgroup>
+											<col style="width:40%">
+											<col style="width:30%">
+											<col style="width:30%">
+										</colgroup>
+										<thead>
+											<tr>
+												<th class="tl pdl10">항목</th>
+												<th>배달율(%)</th>
+												<th>회수율(%)</th>
+											</tr>
+										</thead>
+										<tbody id="view1Tbody">
+											<tr>
+												<td colspan="3">
+													<div class="NoBox">
+														<p class="txt tc">조회된 결과가 없습니다.</p>
+													</div>
+												<td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<!-- //tableBox -->
+							</div>
+							<!-- //tabView-1 -->
+						</li>
+						<li style="display: none;">
+							<!-- tabView-2 -->
+							<div class="tabView-2">
+								<div class="topHead tc">
+									<button class="btn arrowL fl tv2">&nbsp;</button>								
+									<span class="dateTit" id="cldlBtnCal_V2"></span>
+									<button class="btn arrowR fr tv2">&nbsp;</button>
+								</div>
+								<!-- tableBox -->
+								<div class="tableBox tp1">
+									<table>
+										<colgroup>
+											<col style="width:33.33%">
+											<col style="width:33.33%">
+											<col style="width:33.33%">
+										</colgroup>
+										<thead>
+											<tr>
+												<th>항목</th>
+												<th>미전송</th>
+												<th>전송</th>
+											</tr>
+										</thead>
+										<tbody id="view2Tbody">
+											<tr>
+												<td colspan="3">
+													<div class="NoBox">
+														<p class="txt tc">조회된 결과가 없습니다.</p>
+													</div>
+												<td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<!-- //tableBox -->
+							</div>
+							<!-- //tabView-2 -->
+						</li>
+						<li style="display: none;">
+							<!-- tabView-3 -->
+							<div class="tabView-3">
+								<div class="topHead">
+									<span class="txtBox tp3 tp3Compact" id="view3TotTxt1">0원</span>
+									<span class="txtBox tp3"><i>집하</i><b id="view3TotTxt2">0건</b></span>
+									<span class="txtBox tp3"><i>배송</i><b id="view3TotTxt3">0건</b></span>
+								</div>
+								<div class="topHead tc">
+									<button class="btn arrowL fl tv3">&nbsp;</button>								
+									<span class="dateTit" id="cldlBtnCal_V3"></span>
+									<button class="btn arrowR fr tv3">&nbsp;</button>
+								</div>
+								<!-- tableBox -->
+								<div class="tableBox tp1">
+									<table>
+										<colgroup>
+											<col style="width:33.33%">
+											<col style="width:33.33%">
+											<col style="width:33.33%">
+										</colgroup>
+										<thead>
+											<tr>
+												<th>일자</th>
+												<th>집하건(금액)</th>
+												<th>배송건(금액)</th>
+											</tr>
+										</thead>
+										<tbody id="view3Tbody">
+											<tr>
+												<td colspan="3">
+													<div class="NoBox">
+														<p class="txt tc">조회된 결과가 없습니다.</p>
+													</div>
+												<td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<!-- //tableBox -->
+							</div>
+							<!-- //tabView-3 -->
+						</li>
+					</ul>
+				</div>
+				<!-- //tabView -->
+	
+			</div>
+			<!-- //contentBox -->
+	
+		</div>
+		<!--  //contentSection  -->
+
+	</div>
+	<!--  //contents  -->
+
+</body>
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/RES0101.js"></script>
+
+
+	<!-- handlebars template start -->
+	<!-- 일일작업 현황 -->
+	<script id="view1TrTmpl" type="text/x-handlebars-template">
+		{{#each list}}
+		<tr class="view1Tr">
+			<th>전체</th>
+			<td>{{tot_dlv_rate}}</td>
+			<td>{{tot_pick_rate}}</td>
+		</tr>
+		<tr class="view1Tr">
+			<th>롯데홈쇼핑</th>
+			<td>{{lt_dlv_rate}}</td>
+			<td>{{lt_pick_rate}}</td>
+		</tr>
+		<tr class="view1Tr">
+			<th>현대홈쇼핑</th>
+			<td>{{hs_dlv_rate}}</td>
+			<td>{{hs_pick_rate}}</td>
+		</tr>
+		<tr class="view1Tr">
+			<th>홈&쇼핑</th>
+			<td>{{hn_dlv_rate}}</td>
+			<td>{{hn_pick_rate}}</td>
+		</tr>
+		{{else}}
+		<tr>
+			<td colspan="3">
+				<div class="NoBox">
+					<p class="txt tc">조회된 결과가 없습니다.</p>
+				</div>
+			<td>
+		</tr>
+		{{/each}}
+	</script>
+
+	<!-- handlebars template start -->
+	<!-- 일일작업 현황 -->
+	<script id="view2TrTmpl" type="text/x-handlebars-template">
+		{{#each list}}
+		<tr class="view2Tr" data-pacl-stat-cd="{{pacl_stat_cd}}" data-pacl-stat-nm="{{pacl_stat_nm}}">
+			<td>{{pacl_stat_nm}}</td>
+			<td>{{utrsm_cnt}}</td>
+			<td>{{trsm_cnt}}</td>
+		</tr>
+		{{else}}
+		<tr>
+			<td colspan="3">
+				<div class="NoBox">
+					<p class="txt tc">조회된 결과가 없습니다.</p>
+				</div>
+			<td>
+		</tr>
+		{{/each}}
+	</script>
+	
+	
+	
+	<!-- handlebars template start -->
+	<!-- 월별 실적 현황 -->
+	<script id="view3TrTmpl" type="text/x-hanlebars-template">
+		{{#each list}}
+		<tr class="view3Tr" data-ymd="{{ymd}}">
+			<td>{{ymd}}</td>
+			<td>{{picResult result1}}</td>
+			<td>{{dvlResult result2}}</td>
+		</tr>
+		{{else}}
+		<tr>
+			<td colspan="3">
+				<div class="NoBox">
+					<p class="txt tc">조회된 결과가 없습니다.</p>
+				</div>
+			<td>
+		</tr>
+		{{/each}}
+	</script>
+
+</html>

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css">
+</head>
+
+<body>
+	<input type="hidden" name="menuId" id="menuId" value="PID0104"/>
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection v2">
+			<div class="headerWrap">
+				<h1>운임계산</h1>
+				<button class="btn closeW paR">닫기</button>
+			</div>		
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+		<!-- contentBox -->
+		<div class="contentBox pop popCount">
+			
+			<!-- infoListBox -->
+			<div class="infoListBox tp2">
+				<ul>
+					<li>
+						<div class="infoBox">
+							<dl class="inBox tp2 bdb">
+								<dt>기본운임</dt>
+								<dd id="bscFare"></dd>
+								<dt>항공운임</dt>
+								<dd id="airFare"></dd>
+								<dt>도선료</dt>
+								<dd id="shipFare"></dd>
+								<dt>할증료</dt>
+								<dd id="surFare"></dd>
+							</dl>
+						</div>
+					</li>
+					<li>
+						<div class="infoBox">
+							<dl class="inBox tp2">
+								<dt class="numTotal">합계운임</dt>
+								<dd>
+									<input type="text" class="tRed mgr5" id="sumFare" style="width:150px;"/> <i class="fs16 vm">원</i>
+									<p class="tRed" id="sumFareTxt" style="display:none;">합계금액보다 적은 금액입니다.</p>
+								</dd>
+							</dl>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!-- infoListBox -->
+
+			<div class="btnBox pxB">
+				<button class="btn m red w100p" id="confirmBtn">확인</button>
+			</div>
+
+		</div>
+		<!-- //contentBox -->
+		
+		</div>
+		<!--  //contentSection  -->
+
+	</div>
+	<!--  //contents  -->
+
+
+</body>
+
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/PID0104.js"></script>
+	
+	<!-- handlebars template start -->
+	<script id="com0901_list_template" type="text/x-handlebars-template">
+	{{#each list}}
+		<li>
+			<span class="radioBox">
+				<input type="radio" name="dtl" id="{{dtl_cd}}" data-name="{{dtl_cd_nm}}"/>
+				<label for="{{dtl_cd}}">{{dtl_cd_nm}}</label>
+			</span>
+		</li>
+	{{/each}}
+	</script>
+
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
+	
+</head>
+
+
+<body class="bg-gray-v1">
+<input type="hidden" name="menuId" id="menuId" value="LGN0002"/>
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection v2">
+			<div class="headerWrap">
+				<h1>사용자 인증</h1>
+				<button class="btn closeW paR">닫기</button>
+			</div>		
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+			<!-- contentBox -->
+			<div class="contentBox login">
+				<h2><a><img src="../../common/img/logo2.png" alt="롯데택배" /></a></h2>
+					<fieldset>
+						<legend>로그인</legend> 
+						
+						<em>휴대폰</em>
+						<!-- 휴대폰 -->
+						<ul class="ul0 ul4 mgb20">
+							<li>
+								<span class="selBox w100p">
+									<select name="phone1" id="phone1">
+										<option value="010">010</option>
+										<option value="011">011</option>
+										<option value="016">016</option>
+										<option value="017">017</option>
+									</select>
+								</span>
+							</li>
+							<li class="pdl5">
+								<input type="text" name="phone2" id="phone2" pattern="\d*" maxlength="4">
+							</li>
+							<li class="pdl5">
+								<input type="text" name="phone3" id="phone3" pattern="\d*" maxlength="4">
+							</li>
+							<li class="pdl5">
+								<button class="btn red s2 w100p" id="accessNumBtn">번호요청</button>
+							</li>
+						</ul>
+						<!-- //휴대폰 -->
+						
+						<em>인증번호</em>
+						<ul class="ul0">
+							<li class="li7 pr"><input type="text" value="" name="certNo" id="certNo" placeholder="인증번호 입력" /><span class="pa tRed zi99 paR fs12 mgt8 mgr10" id="timeTxt">3분 00초</span></li>
+							<li class="li2 pdl5"><button class="btn s2 red w100p" id="accessBtn">인증</button></li>
+						</ul>
+					</fieldset>
+				
+				<div class="mgt20 mgb10">&nbsp;</div>
+				<!-- <p class="mgt20 mgb20"><button class="btn m gray  w100p" onclick="$('.mpopBox.usrNo').bPopup();">확인</button></p> -->
+				<p class="mgt20 mgb20"><button class="btn m red  w100p" id="closeButtomBtn">닫기</button></p>
+				
+				<div class="txtBox tp4 mgt20">
+					<ul class="dotTp2">
+						<li>서비스 이용을 위해 <b>사용자 및 휴대폰 인증</b>이 필요 합니다.</li>
+						<li>본인 명의의 휴대폰번호를 입력해 주시기 바랍니다.</li>
+						<li>3분 이내에 인증번호(8자리)를 입력하셔야 합니다.</li>
+						<li>문자메시지가 3분 이내에 도착하지 않았거나 입력 시간 초과 시 <b>재전송</b> 버튼을 눌러서 인증번호를 재전송 받으세요.</li>
+					</ul>
+				</div>
+			</div>
+			<!-- //contentBox -->
+
+		</div>
+		<!--  //contentSection  -->
+
+	</div>
+	<!--  //contents  -->
+
+	<!-- 모달팝업 전송 -->
+	<div class="mpopBox img usrOk">
+		<div class="popBody">
+			<p class="img"><img src="../../common/img/icon-man2.png" alt="" /></p>
+			<p class="txt1">사용자 인증</p>
+			<p class="txt2">인증이 완료되었습니다.<br />로그인을 진행해주세요.</p>
+		</div>
+		<div class="popFooter">
+			<div class="btnBox">
+				<button class="btn red w100p m b-close">확인</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="mpopBox img usrNo">
+		<div class="popBody">
+			<p class="img"><img src="../../common/img/icon-error.png" alt="" /></p>
+			<p class="txt1">사용자 인증</p>
+			<p class="txt2">인증번호 오류입니다.<br />재확인하고 입력해주세요.</p>
+		</div>
+		<div class="popFooter">
+			<div class="btnBox">
+				<button class="btn red w100p m b-close">확인</button>
+			</div>
+		</div>
+	</div>
+	<!-- //모달팝업 전송 -->
+
+</body>
+
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/LGN0002.js"></script>
+	
+</html>

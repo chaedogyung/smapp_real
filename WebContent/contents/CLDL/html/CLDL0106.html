@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css">
+
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/CLDL0106.js"></script>
+</head>
+
+<body>
+<input type="hidden" name="menuId" id="menuId" value="CLDL0106"/>
+	<!--  contents  -->
+	<div id="contents">
+	<script type="text/x-handlebars-template" id="CLDL0106_list_template">
+		{{!--  headerSection  --}}
+		<header id="headerSection" class="headerSection">
+			<div class="headerWrap black">
+				<h1>배달 상세정보</h1>
+				<button class="btn closeW paR">닫기</button>
+			</div>		
+			<div class="topHead">
+				<button class="btn barcodeSmall fr" data-inv-no="{{inv_no}}">&nbsp;</button>
+				<p class="songNum">송장번호 <em>{{inv_no}}</em></p>
+			</div>
+		</header>
+		{{!--  //headerSection  --}}
+
+		{{!--  contentSection  --}}
+		<div class="contentSection" id="contentSection">
+		
+		{{!-- contentBox --}}
+		<div class="contentBox pop popInfo">
+			
+			{{!-- infoListBox --}}
+			<div class="infoListBox">
+				<ul>
+					<li>
+						<div class="infoBox" id="S">
+							<div class="tit"><span class="titBox">보내는사람</span><span>{{snper_nm}}</span></div>
+							<ul>								
+								<li>
+									<span class="titBox">전화번호</span>
+									<span>{{snper_tel}}</span>
+									{{#mobileST}}<button class="btn mobile">전화번호</button>{{/mobileST}}
+								</li>
+								<li>
+									<span class="titBox">전화번호</span>
+									<span>{{snper_cpno}}</span>
+									{{#mobileSC}}<button class="btn mobile">전화번호</button>{{/mobileSC}}
+								</li>
+								<li class="map"><span class="titBox">원본</span><div class="add">{{snper_addr}}</div><button class="btn map">지도</button></li>
+								<li class="map"><span class="titBox">지번</span><div class="add">{{snper_ldno_addr}}</div><button class="btn map">지도</button></li>
+								<li class="map"><span class="titBox">도로</span><div class="add">{{snper_rdnm_addr}}</div><button class="btn map">지도</button></li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<div class="infoBox" id="A">
+							<div class="tit"><span class="titBox">받는사람</span><span>{{acper_nm}}</span></div>
+							<ul>								
+								<li>
+									<span class="titBox">전화번호</span>
+									<span>{{acper_tel}}</span>
+									{{#mobileAT}}<button class="btn mobile">전화번호</button>{{/mobileAT}}
+								</li>
+								<li>
+									<span class="titBox">전화번호</span>
+									<span>{{acper_cpno}}</span>
+									{{#mobileAC}}<button class="btn mobile">전화번호</button>{{/mobileAC}}
+								</li>
+								<li class="map"><span class="titBox">원본</span><div class="add">{{acper_addr}}</div><button class="btn map">지도</button></li>
+								<li class="map"><span class="titBox">지번</span><div class="add">{{acper_ldno_addr}}</div><button class="btn map">지도</button></li>
+								<li class="map"><span class="titBox">도로</span><div class="add">{{acper_rdnm_addr}}</div><button class="btn map">지도</button></li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<div class="infoBox">
+							<div class="tit"><span class="titBox">수량운임</span></div>
+							<ul class="ul0 ul2">
+								<li><span class="titBox">수량</span><span>{{qty}}</span></li>
+								<li><span class="titBox">운임구분</span><span>{{fare_sct_nm}}</span></li>
+								<li><span class="titBox">운임</span><span>{{summ_fare}}</span></li>
+								<li class="w100p"><span class="titBox">인수자</span><span>{{acpr_nm}}</span></li>
+								{{#fres}}
+									<li><span class="titBox">신선식품</span><span class="badge bing s">신선</span></li>
+								{{/fres}}
+								{{#svc}}
+									<li class="w100p"><span class="titBox">집하일</span><span>{{pick_ymd}}</span></li>
+								{{/svc}}
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+			{{!-- infoListBox --}}
+		</div>
+		{{!-- //contentBox --}}
+		
+		</div>
+		{{!--  //contentSection  --}}
+		</script>
+	</div>
+	<!--  //contents  -->
+	
+	<!-- 모달팝업 통화 -->
+	<div class="mpopBox img phone">
+		<div class="popBody">
+			<p class="img"><img src="../../common/img/icon-phone2.png" alt="" /></p>
+			<p class="txt1" id="phoneNum"></p>
+			<p class="txt2">통화하시겠습니까?</p>
+		</div>
+		<div class="popFooter">
+			<div class="btnBox">
+				<ul class="ul0 ul2">
+					<li><button class="btn gray m w100p b-close">취소</button></li>
+					<li><button class="btn red m w100p" id="callOk">통화</button></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- //모달팝업 통화 -->
+</body>
+
+</html>

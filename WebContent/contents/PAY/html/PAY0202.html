@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+	
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
+
+</head>
+
+<body>
+<input type="hidden" name="menuId" id="menuId" value="PAY0202"/>
+<input type="hidden" name="pg_stlm_no" id="pg_stlm_no" value=""/>		<!-- 거래번호 -->
+<input type="hidden" name="refund_amount" id="refund_amount" value=""/>			<!-- 환불예정금액 -->
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection v2">
+			<div class="headerWrap black">
+				<h1>환불정보</h1>
+				<button class="btn closeW paR closeBtn">닫기</button>
+			</div>		
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+		<!-- contentBox -->
+		<div class="contentBox pop mypage">
+			
+			<!-- infoBox -->
+			<div class="infoListBox tp2">
+					<ul>
+					<li>
+						<div class="topTitBox pdt15">2020.2.21</div>
+						<div class="topHead">
+							<span class="tGray5 fs15">결제정보</span>
+						</div>
+						<div class="infoBox">
+							<dl class="inBox tp3">
+								<dt>승인번호</dt>
+								<dd></dd>
+								<dt>사용기간</dt>
+								<dd id="useFromToDate"></dd>
+								<dt>결제일</dt>
+								<dd id="stlm_ymd"></dd>
+								<dt>결제금액</dt>
+								<dd id="useMoneyMonth"></dd>
+								<dt>결제수단</dt>
+								<dd id="stlm_mthd"></dd>
+							</dl>
+						</div>
+					</li>
+					<li>
+						<div class="topHead">
+							<span class="tGray5 fs15">환불정보</span>
+						</div>
+						<div class="infoBox">
+							<dl class="inBox tp3">
+								<dt>사용종료일</dt>
+								<dd id="refund_use_end_ymd"></dd>
+								<dt><span class="tGray4">환불예정금액</span></dt>
+								<dd><span class="tGray4" id="refundInfo"></span></dd>
+							</dl>
+							<p class="bdt tRed2 fs13 pdt5">사용 당월을 제외한 잔여 개월만 환불이 됩니다.</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!-- //infoBox -->
+
+			<div class="btnBox pxB">
+				<button class="btn red w100p m" id="refundBtn">취소</button>
+			</div>
+			
+		</div>
+		<!-- //contentBox -->
+		
+		</div>
+		<!--  //contentSection  -->
+
+	</div>
+	<!--  //contents  -->
+	
+</body>
+
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/PAY0202.js"></script>
+	
+</html>

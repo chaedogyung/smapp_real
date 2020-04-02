@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css">
+
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/ARI0303.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".keypadBox li .btn").on("click, touchstart",function(){
+				
+				var txtBox = $(".numBox");
+				var thisN = $(this).parent().index()+1;
+
+					if($(this).hasClass("cancle")){
+						txtBox.html("");
+					}else if($(this).hasClass("keyDel")){
+						txDel = txtBox.text().length-1;						
+						txtBox.html(txtBox.text().substr(0,txDel));
+					}else if(txtBox.text().length<5){
+						if($(this).hasClass("key0")){
+							txtBox.html(txtBox.html() + 0);
+						}else{
+							txtBox.html(txtBox.html() + thisN);
+						}
+					}
+			});
+		});
+	</script>
+	<!-- //JS Global  -->
+</head>
+
+<body>
+	<input type="hidden" name="menuId" id="menuId" value="ARI0303" />
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection v2">
+			<div class="headerWrap black">
+				<h1>적입점소번호 입력</h1>
+				<button class="btn closeW paR">메뉴</button>
+			</div>
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+		<!-- contentBox -->
+		<div class="contentBox">
+
+			<div class="inBox mg10">
+				<div class="txtBox tp2 numBox"></div>
+			</div>			
+
+			<div class="keypadBox pxB">
+				<ul class="ul0 ul3">
+					<li><button class="btn key">1</button></li>
+					<li><button class="btn key">2</button></li>
+					<li><button class="btn key">3</button></li>
+					<li><button class="btn key">4</button></li>
+					<li><button class="btn key">5</button></li>
+					<li><button class="btn key">6</button></li>
+					<li><button class="btn key">7</button></li>
+					<li><button class="btn key">8</button></li>
+					<li><button class="btn key">9</button></li>
+					<li><button class="btn key2 cancle">취소</button></li>
+					<li><button class="btn key key0">0</button></li>
+					<li><button class="btn keyDel"></button></li>
+				</ul>
+				<button class="btn red m w100p">확인</button>
+			</div>
+
+		</div>
+		<!-- //contentBox -->
+		
+		</div>
+		<!--  //contentSection  -->
+
+	</div>
+	<!--  //contents  -->
+</body>
+
+</html>

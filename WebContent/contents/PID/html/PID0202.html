@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css">
+</head>
+
+<body>
+<input type="hidden" name="menuId" id="menuId" value="PID0202"/>
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection v2">
+			<div class="headerWrap">
+				<h1 id="menuTitle"></h1>
+				<button class="btn closeW paR">닫기</button>
+			</div>
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+		<!-- contentBox -->
+		<div class="contentBox pop popBrand">
+			
+			<!-- logisListBox -->
+			<div class="logisListBox">
+				<ul id="pid0202LstUl">
+				</ul>
+			</div>
+			<!-- //logisListBox -->
+
+			<div class="btnBox pxB">
+				<button class="btn red w100p m" id="popConfirmBtn">확인</button>
+			</div>
+
+		</div>
+		<!-- //contentBox -->
+		
+		</div>
+		<!--  //contentSection  -->
+
+	</div>
+	<!--  //contents  -->
+
+
+</body>
+	
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/PID0202.js"></script>
+	
+	<!-- handlebars template start -->
+	<script id="pid0202CustTemplate" type="text/x-handlebars-template">
+	{{#each list}}
+		<li>
+			<div class="radioArea">
+				<span class="radioBox"><input type="radio" name="pick" id="{{mgr_cust_cd}}" data-name="{{mgr_cust_nm}}"/> <label for="{{mgr_cust_cd}}">&nbsp;</label></span>
+			</div>
+			<div class="dataBox">
+				<div class="logisBox">
+					<span>{{mgr_cust_cd}}</span>
+					<span class="fr tit">{{mgr_cust_nm}}</span>
+				</div>
+				<div class="addresBox">
+					<span>{{job_cust_cd}}</span>
+					<span class="fr tit">{{job_cust_nm}}</span>
+				</div>
+			</div>
+		</li>
+	{{/each}}
+	</script>
+	
+	<script id="pid0202BrndTemplate" type="text/x-handlebars-template">
+	{{#each list}}
+		<li>
+			<div class="radioArea">
+				<span class="radioBox"><input type="radio" name="pick" id="{{brnd_cust_cd}}" data-name="{{brnd_cust_nm}}"/> <label for="{{brnd_cust_cd}}">&nbsp;</label></span>
+			</div>
+			<div class="dataBox">
+				<div class="logisBox">
+					<span>{{mgr_cust_cd}}</span>
+					<span class="fr tit">{{mgr_cust_nm}}</span>
+				</div>
+				<div class="addresBox">
+					<span>{{brnd_cust_cd}}</span>
+					<span class="fr tit">{{brnd_cust_nm}}</span>
+				</div>
+			</div>
+		</li>
+	{{/each}}
+	</script>
+	
+	<script id="pid0202ShcnTemplate" type="text/x-handlebars-template">
+	{{#each list}}
+		<li>
+			<div class="radioArea">
+				<span class="radioBox">
+					<input type="radio" name="pick" id="{{shcn_cust_cd}}" data-name="{{shcn_cust_nm}}" data-brnd-cd="{{brnd_cust_cd}}" data-brnd-nm="{{brnd_cust_nm}}"/>
+					<label for="{{shcn_cust_cd}}">&nbsp;</label>
+				</span>
+			</div>
+			<div class="dataBox">
+				<div class="logisBox">
+					<span class="tit">{{brnd_cust_nm}}</span>
+					<span class="fr">{{brnd_cust_cd}}</span>
+				</div>
+				<div class="addresBox">
+					<span class="tit">{{shcn_cust_nm}} <span class="badge gray m">{{picsh_nm}}</span></span>
+					<span class="fr">{{shcn_cust_cd}}</span>
+					<p class="memo">{{dlv_cust_sct_nm}}</p>
+					<div class="txt">
+						{{shcn_badr}}{{shcn_dadr}}{{shcn_etc_adr}}
+					</div>
+				</div>
+			</div>
+		</li>
+	{{/each}}
+	</script>
+	
+		
+
+</html>
