@@ -1,6 +1,6 @@
-var menuJsonJs = 
+var menuJsonJs =
 {
-	
+
 	"LGN" : {
 		"GNB":false,			// 햄버거메뉴 사용여부
 		"FREVE":false,			// 즐겨찾기에서 사용여부
@@ -50,7 +50,7 @@ var menuJsonJs =
 		"FREVE":false,
 		"menuTxt" : "집배달",
 		"menuDept" : 0,
-		"mainImgSrc" : "", 
+		"mainImgSrc" : "",
 		"gnbImgClass" : "icon dvl",
 		"CLDL0101":{"menuTxt" : "집배달예약", "parentMenuCd" : null, "menuDept" : 1, "url" : "CLDL/html/CLDL0101.html", "mainImgSrc" : "../../common/img/icon-fa5.png", "gnbImgClass" : ""},
 		"CLDL0104":{"menuTxt" : "집하 상세정보", "parentMenuCd" : null, "menuDept" : 2, "url" : "CLDL/html/CLDL0104.html", "mainImgSrc" : "", "gnbImgClass" : ""},
@@ -82,7 +82,7 @@ var menuJsonJs =
 		"FREVE":true,
 		"menuTxt" : "집하예약출력",
 		"menuDept" : 0,
-		"mainImgSrc" : "", 
+		"mainImgSrc" : "",
 		"gnbImgClass" : "icon gath",
 		"PID0101":{"menuTxt" : "접수/출력", "parentMenuCd" : null, "menuDept" : 1, "url" : "PID/html/PID0101.html", "mainImgSrc" : "../../common/img/icon-fa21.png", "gnbImgClass" : ""},
 		"PID0102":{"menuTxt" : "상세화면", "parentMenuCd" : null, "menuDept" : 2, "url" : "PID/html/PID0102.html", "mainImgSrc" : "", "gnbImgClass" : ""},
@@ -101,7 +101,7 @@ var menuJsonJs =
 		"FREVE":true,
 		"menuTxt" : "도착발송",
 		"menuDept" : 0,
-		"mainImgSrc" : "", 
+		"mainImgSrc" : "",
 		"gnbImgClass" : "icon ari",
 		"ARI0101":{"menuTxt" : "구간셔틀(도착)", "parentMenuCd" : null, "menuDept" : 1, "url" : "ARI/html/ARI0101.html", "mainImgSrc" : "../../common/img/icon-fa10.png", "gnbImgClass" : ""},
 		"ARI0102":{"menuTxt" : "도착조회", "parentMenuCd" : null, "menuDept" : 2, "url" : "ARI/html/ARI0102.html", "mainImgSrc" : "", "gnbImgClass" : ""},
@@ -119,7 +119,7 @@ var menuJsonJs =
 		"FREVE":true,
 		"menuTxt" : "화물",
 		"menuDept" : 0,
-		"mainImgSrc" : "", 
+		"mainImgSrc" : "",
 		"gnbImgClass" : "icon fre",
 		"FRE0101":{"menuTxt" : "화물신고", "parentMenuCd" : null, "menuDept" : 1, "url" : "FRE/html/FRE0101.html", "mainImgSrc" : "../../common/img/icon-fa12.png", "gnbImgClass" : ""},
 		"FRE0102":{"menuTxt" : "사진등록", "parentMenuCd" : null, "menuDept" : 2, "url" : "FRE/html/FRE0102.html", "mainImgSrc" : "", "gnbImgClass" : ""},
@@ -146,7 +146,7 @@ var menuJsonJs =
 		"FREVE":false,
 		"menuTxt" : "즐겨찾기",
 		"menuDept" : 0,
-		"mainImgSrc" : "", 
+		"mainImgSrc" : "",
 		"gnbImgClass" : "icon favo",
 		"FREVE0101":{"menuTxt" : "즐겨찾기", "parentMenuCd" : null, "menuDept" : 1, "url" : "FREVE/html/FREVE0101.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 	},
@@ -155,7 +155,7 @@ var menuJsonJs =
 		"FREVE":false,
 		"menuTxt" : "설정",
 		"menuDept" : 0,
-		"mainImgSrc" : "", 
+		"mainImgSrc" : "",
 		"gnbImgClass" : "icon option",
 		"SET0101":{"menuTxt" : "블루투스 설정", "parentMenuCd" : null, "menuDept" : 1, "url" : "SET/html/SET0101.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"SET0105":{"menuTxt" : "프린터 연결 모델", "parentMenuCd" : null, "menuDept" : 2, "url" : "SET/html/SET0105.html", "mainImgSrc" : "", "gnbImgClass" : ""},
@@ -168,21 +168,21 @@ var menuJsonJs =
 		"FREVE":true,
 		"menuTxt" : "MY PAGE",
 		"menuDept" : 0,
-		"mainImgSrc" : "", 
+		"mainImgSrc" : "",
 		"gnbImgClass" : "icon mypage",
 		"MYP0101":{"menuTxt" : "마이페이지", "parentMenuCd" : null, "menuDept" : 1, "url" : "MYP/html/MYP0101.html", "mainImgSrc" : "../../common/img/icon-fa18.png", "gnbImgClass" : ""},
 		"MYP0102":{"menuTxt" : "비밀번호 변경", "parentMenuCd" : null, "menuDept" : 2, "url" : "MYP/html/MYP0102.html", "mainImgSrc" : "", "gnbImgClass" : ""}
 	},
 	// 나중에 적용시 주석 풀어주세요
-	"PAY":{
-		"GNB":true,			// 나중에 오픈시 true 로 변경해 주세요~!!!!!!!!!
-		"FREVE":false,
-		"menuTxt" : "결제",
-		"menuDept" : 0,
-		"mainImgSrc" : "", 
-		"gnbImgClass" : "icon card",
-		"PAY0101":{"menuTxt" : "결제현황/결제", "parentMenuCd" : null, "menuDept" : 1, "url" : "PAY/html/PAY0101.html", "mainImgSrc" : "", "gnbImgClass" : ""},
-		"PAY0201":{"menuTxt" : "결제내역/취소", "parentMenuCd" : null, "menuDept" : 1, "url" : "PAY/html/PAY0201.html", "mainImgSrc" : "", "gnbImgClass" : ""},
-		"PAY0202":{"menuTxt" : "환불정보", "parentMenuCd" : null, "menuDept" : 2, "url" : "PAY/html/PAY0202.html", "mainImgSrc" : "", "gnbImgClass" : ""},
-	}
+	// "PAY":{
+	// 	"GNB":true,			// 나중에 오픈시 true 로 변경해 주세요~!!!!!!!!!
+	// 	"FREVE":false,
+	// 	"menuTxt" : "결제",
+	// 	"menuDept" : 0,
+	// 	"mainImgSrc" : "",
+	// 	"gnbImgClass" : "icon card",
+	// 	"PAY0101":{"menuTxt" : "결제현황/결제", "parentMenuCd" : null, "menuDept" : 1, "url" : "PAY/html/PAY0101.html", "mainImgSrc" : "", "gnbImgClass" : ""},
+	// 	"PAY0201":{"menuTxt" : "결제내역/취소", "parentMenuCd" : null, "menuDept" : 1, "url" : "PAY/html/PAY0201.html", "mainImgSrc" : "", "gnbImgClass" : ""},
+	// 	"PAY0202":{"menuTxt" : "환불정보", "parentMenuCd" : null, "menuDept" : 2, "url" : "PAY/html/PAY0202.html", "mainImgSrc" : "", "gnbImgClass" : ""},
+	// }
 };
