@@ -386,7 +386,11 @@ var page = {
     //////////////////////////////////////////////////
     // API CALLBACK: 송장 등록 정보 조회
     cmptPhtgTrsmCheckCallback: function(res) {
-        var data = res.data.list[0];
+        var data = {};
+        if (res.data_count > 0) {
+            data = res.data.list[0];
+        }
+
         var invNo = page.CLDL0601.invNo;
         var item = {
             invNo: invNo,
@@ -436,10 +440,14 @@ var page = {
 
             page.CLDL0601.item = item;
 
+            console.log('@@@@@@@@@@@@@@@@@ inininin 1111');
+
             if (data.cnf_yn === 'Y') {
+                console.log('@@@@@@@@@@@@@@@@@ inininin 2222');
                 // 확정인 경우 스캔 등록 안함
                 page.addItem();
             } else {
+                console.log('@@@@@@@@@@@@@@@@@ inininin 3333');
                 // 확정이 아닌경우 스캔 등록
                 page.cmptScanRgst();
             }
