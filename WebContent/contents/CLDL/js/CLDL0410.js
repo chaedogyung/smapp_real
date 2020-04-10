@@ -31,20 +31,17 @@ var page = {
 
 	initInterface : function()
 	{
-		var Directory = "{external}/LEMP/";
-
 		// 닫기 버튼
 		$(".btn.closeW.paR").click(function(){
 			LEMP.Window.close();
 		});
 
-
 		// 카메라 버튼 클릭
 		$(".btn.camera").click(function() {
 			var date = new Date();
 			var curTime = date.LPToFormatDate("yyyymmddHHnnss");
-			var FileName = "000000000000_cdlv_"+curTime+".jpg";
-			smutil.callCamera(Directory, FileName, page.imageCallback);
+			var fileName = "000000000000_cdlv_"+curTime+".jpg";
+			smutil.callCamera(fileName, 'page.imageCallback');
 		});
 
 
@@ -52,8 +49,9 @@ var page = {
 		$(".btn.img").click(function() {
 			var date = new Date();
 			var curTime = date.LPToFormatDate("yyyymmddHHnnss");
-			var FileName = "000000000000_cdlv_"+curTime+".jpg";
-			smutil.callGallery(Directory+FileName, page.imageCallback);
+			var fileName = "000000000000_cdlv_"+curTime+".jpg";
+
+			smutil.callGallery(fileName, 'page.imageCallback');
 		});
 
 
@@ -76,7 +74,6 @@ var page = {
 
 		//전송 버튼 클릭
 		$("#confirm").click(function(){
-			var tiCheck = $("#MMSseq").text();
 			var conCheck = $("#MMScont").val();			// mms 메세지
 			var insujaTxt = $("#insujaTxt").text();		// 인수자
 			var invNoTxt = $("#invNoTxt").text();		// 송장번호
@@ -130,7 +127,7 @@ var page = {
 					case "050":
 						pNum.push(phoneNumber.replace(/\-/gi,""));
 						invNo.push(String(inv_no));
-						usrCpno.push(phoneNumber)
+						usrCpno.push(phoneNumber);
 						break;
 					default:
 						plag = true;
@@ -155,7 +152,7 @@ var page = {
 
 			obj = {
 				"phoneNumber": pNum
-				,"title": tiCheck
+				,"title": '롯데택배'
 				,"context": conCheck
 				,"filePath": imgCheck
 				,"sleepTime": 0
@@ -266,7 +263,7 @@ var page = {
 
 	,imageCallback:function(res){
 		if (res.result) {
-			$(".imgBox > img").attr("src",res.list[0].target_path);
+			$(".imgBox > img").attr("src",res.target_path);
 		}else {
 			LEMP.Window.alert({
 				"_sTitle" : "사진전송",
@@ -277,7 +274,7 @@ var page = {
 	}
 
 
-	//MMS 플러그인 호출
+	// MMS 플러그인 호출
 	,MMSLIbTestFunction : function(){
 		var tr = {
 			"id":"SENDMMS",

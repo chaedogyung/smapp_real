@@ -167,22 +167,22 @@ var page = {
 		$("#loginBtn").click(function(){
 			//###################################################### test 용 start
 			// 햄버거 메뉴 생성
-//			LEMP.SideView.create({
-//				"_sPosition" : "left",  // or right
-//				"_sPagePath" : "GNB/html/GNB0001.html",
-//				"_sWidth" : "100",
-//				"_oMessage" : {
-//					"param" : ""
-//				}
-//			});
-//
-//			var popUrl = smutil.getMenuProp("MAN.MAN0001","url");
-//
-//			LEMP.Window.open({
-//				"_sPagePath":popUrl,
-//			});
-//
-//			return;
+			// LEMP.SideView.create({
+			// 	"_sPosition" : "left",  // or right
+			// 	"_sPagePath" : "GNB/html/GNB0001.html",
+			// 	"_sWidth" : "100",
+			// 	"_oMessage" : {
+			// 		"param" : ""
+			// 	}
+			// });
+			//
+			// var popUrl = smutil.getMenuProp("MAN.MAN0001","url");
+			//
+			// LEMP.Window.open({
+			// 	"_sPagePath":popUrl,
+			// });
+			//
+			// return;
 			//###################################################### test 용 end
 			// 안드로이드 혹은 웹
 			if(page.deviceInfo !== "smios"){
@@ -578,9 +578,7 @@ var page = {
 
 			// 결제 임시 제외
 			// 결제 대상자인경우 결제팝업
-			// if(!smutil.isEmpty(res.pay_status_yn) && res.pay_status_yn == "N"){
-			if(false){
-
+			if(!smutil.isEmpty(res.pay_status_yn) && res.pay_status_yn == "N"){
 				LEMP.Window.alert({
 					"_sTitle":"결제 대상자",
 					"_vMessage":"결제완료 후 사용이 가능합니다.\n결제창으로 이동합니다."
@@ -669,7 +667,7 @@ var page = {
 						$.each(keysLst, function(idx, Obj){
 							$.each(Obj, function (key, val) {
 								// 개인정보 동의를 제외한 모든 데이터 삭제
-								if(!smutil.isEmpty(key) && key != "personalInfo"){
+								if(!smutil.isEmpty(key) && key != "personalInfo") {
 									LEMP.Properties.remove({"_sKey":key});
 								}
 							});

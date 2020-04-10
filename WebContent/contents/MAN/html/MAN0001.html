@@ -6,11 +6,11 @@
 	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
 	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
 	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
-	
+
 	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
 	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
 	<link rel="stylesheet" type="text/css" href="../../common/css/main.css">
-	
+
 	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
 	<script type="text/javascript" src="../js/MAN0001.js"></script>
 </head>
@@ -37,13 +37,13 @@
 
 		<!--  contentSection  -->
 		<div class="contentSection" id="contentSection">
-		
+
 			<!-- contentBox -->
 			<div class="contentBox main" id="infoMain">
-				<div class="cardBox ranking">		
+				<div class="cardBox ranking">
 					<!-- <span class="medal">메달</span> -->
 					<div class="tit" id="emp_nm"></div>
-		
+
 					<div class="boxBody">
 						<div class="leftBox">
 							<ul class="dotTp1">
@@ -58,17 +58,17 @@
 							</div>
 						</div>
 					</div>
-	
+
 				</div>
 				<!-- //등급 박스 -->
 
 				<!-- 실적박스 -->
 				<div class="cardBox chart">
 					<div class="tit">
-						이달의 실적현황 
+						이달의 실적현황
 						<span class="num" id="cur_monF"></span>
 					</div>
-	
+
 					<div class="boxBody">
 						<div class="leftBox">
 							<ul class="dotTp1">
@@ -83,7 +83,7 @@
 							<em></em>
 						</div>
 					</div>
-				</div>	
+				</div>
 				<div class="monthBox">
 					<div class="tit">금일집배송</div>
 					<ul>
@@ -107,14 +107,14 @@
 				</div>
 			</div>
 				<!-- //실적박스 -->
-			
+
 			</div>
 			<!-- //contentBox -->
-			
+
 			<!-- <input type="file" name="file" id="file" accept="image/*,video/*"/>
 			<input type="file" name="file2" id="file2" accept="image/*,video/*"/>
 			<input type="file" name="file3" id="file3" accept="image/*,video/*"/> -->
-			<!-- <input type="file" name="file" id="file" accept="image/*" capture="camera"> --> 
+			<!-- <input type="file" name="file" id="file" accept="image/*" capture="camera"> -->
 			<!-- 즐겨찾기 -->
 			<div class="quickMenuBox">
 				<ul id="freMenuBox">
@@ -142,6 +142,13 @@
 							<span class="txt">배달완료</span>
 						</button>
 					</li>
+					<!-- 사진 전송 적용 시 활성화 필요 -->
+					<li id ="CLDL0601" class="frevPage" data-type="default">
+						<button class="btn">
+							<span class="img"><img src="../../common/img/icon-fa26.png"></span>
+							<span class="txt">사진전송</span>
+						</button>
+					</li>
 					<li id ="CLDL0501" class="frevPage" data-type="default">
 						<button class="btn">
 							<span class="img"><img src="../../common/img/icon-fa20.png"></span>
@@ -167,7 +174,7 @@
 </body>
 <script type="text/x-handlebars-template" id="FREVE0101_template">
 	{{#each list}}
-		
+
 		<li id ={{fvrt_id}} class="frevPage" data-type="remove">
 			<button class="btn">
 				<span class="img"><img src={{img}}></span>

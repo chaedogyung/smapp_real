@@ -72,7 +72,7 @@ var menuJsonJs =
 		"CLDL0406":{"menuTxt" : "이미지 팝업", "parentMenuCd" : null, "menuDept" : 2, "url" : "CLDL/html/CLDL0406.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"CLDL0407":{"menuTxt" : "전화번호 변경 팝업", "parentMenuCd" : null, "menuDept" : 2, "url" : "CLDL/html/CLDL0407.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"CLDL0410":{"menuTxt" : "배달완료 사진촬영", "parentMenuCd" : null, "menuDept" : 2, "url" : "CLDL/html/CLDL0410.html", "mainImgSrc" : "", "gnbImgClass" : ""},
-		// "CLDL0601":{"menuTxt" : "사진전송", "parentMenuCd" : null, "menuDept" : 1, "url" : "CLDL/html/CLDL0601.html", "mainImgSrc" : "../../common/img/icon-fa3.png", "gnbImgClass" : ""},
+		"CLDL0601":{"menuTxt" : "사진전송", "parentMenuCd" : null, "menuDept" : 1, "url" : "CLDL/html/CLDL0601.html", "mainImgSrc" : "../../common/img/icon-fa3.png", "gnbImgClass" : ""},
 		"CLDL0501":{"menuTxt" : "집배달현황", "parentMenuCd" : null, "menuDept" : 1, "url" : "CLDL/html/CLDL0501.html", "mainImgSrc" : "../../common/img/icon-fa20.png", "gnbImgClass" : ""},
 		"CLDL0502":{"menuTxt" : "집하완료현황", "parentMenuCd" : null, "menuDept" : 2, "url" : "CLDL/html/CLDL0502.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"CLDL0503":{"menuTxt" : "배달완료현황", "parentMenuCd" : null, "menuDept" : 2, "url" : "CLDL/html/CLDL0503.html", "mainImgSrc" : "", "gnbImgClass" : ""},
@@ -174,16 +174,15 @@ var menuJsonJs =
 		"MYP0101":{"menuTxt" : "마이페이지", "parentMenuCd" : null, "menuDept" : 1, "url" : "MYP/html/MYP0101.html", "mainImgSrc" : "../../common/img/icon-fa18.png", "gnbImgClass" : ""},
 		"MYP0102":{"menuTxt" : "비밀번호 변경", "parentMenuCd" : null, "menuDept" : 2, "url" : "MYP/html/MYP0102.html", "mainImgSrc" : "", "gnbImgClass" : ""}
 	},
-	// 나중에 적용시 주석 풀어주세요
-	// "PAY":{
-	// 	"GNB":true,			// 나중에 오픈시 true 로 변경해 주세요~!!!!!!!!!
-	// 	"FREVE":false,
-	// 	"menuTxt" : "결제",
-	// 	"menuDept" : 0,
-	// 	"mainImgSrc" : "",
-	// 	"gnbImgClass" : "icon card",
-	// 	"PAY0101":{"menuTxt" : "결제현황/결제", "parentMenuCd" : null, "menuDept" : 1, "url" : "PAY/html/PAY0101.html", "mainImgSrc" : "", "gnbImgClass" : ""},
-	// 	"PAY0201":{"menuTxt" : "결제내역/취소", "parentMenuCd" : null, "menuDept" : 1, "url" : "PAY/html/PAY0201.html", "mainImgSrc" : "", "gnbImgClass" : ""},
-	// 	"PAY0202":{"menuTxt" : "환불정보", "parentMenuCd" : null, "menuDept" : 2, "url" : "PAY/html/PAY0202.html", "mainImgSrc" : "", "gnbImgClass" : ""},
-	// }
+	"PAY":{
+		"GNB":true,
+		"FREVE":false,
+		"menuTxt" : "결제",
+		"menuDept" : 0,
+		"mainImgSrc" : "",
+		"gnbImgClass" : "icon card",
+		"PAY0101":{"menuTxt" : "결제현황/결제", "parentMenuCd" : null, "menuDept" : 1, "url" : "PAY/html/PAY0101.html", "mainImgSrc" : "", "gnbImgClass" : ""},
+		"PAY0201":{"menuTxt" : "결제내역/취소", "parentMenuCd" : null, "menuDept" : 1, "url" : "PAY/html/PAY0201.html", "mainImgSrc" : "", "gnbImgClass" : ""},
+		"PAY0202":{"menuTxt" : "환불정보", "parentMenuCd" : null, "menuDept" : 2, "url" : "PAY/html/PAY0202.html", "mainImgSrc" : "", "gnbImgClass" : ""},
+	}
 };

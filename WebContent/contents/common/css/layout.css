@@ -184,6 +184,7 @@ background-position:100% 40px, 50% ,0 95%;
 .txtBox .num{color:#000; font-weight:600; text-align:center; }
 .txtBox .num .icon{display:inline-block; width:20px; height:20px; background:url('../../common/img/icon-guide.png') no-repeat; background-size:20px; vertical-align:middle; margin-right:6px; opacity:0.4;}
 .txtBox.error{border:none; background:url('../../common/img/icon-mark.png') no-repeat 0px 17px; background-size:14px; color:#da291c; font-size:12px; padding-left:18px;}
+.txtBox.disabled { background-color:#E9E9E9; border:1px solid #d6d6d6;}
 
 /*=== tobBox ===*/
 .tabBox{overflow:hidden;}

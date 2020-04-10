@@ -72,6 +72,28 @@ var page = {
 				});
 			});
 
+			// 예정시간이 변경된 경우
+			$('#cldl_tmsl_cd').change(function() {
+				// 지정일 배송의 경우 달력 팝업 출력
+				if ($(this).val() === '28') {
+					var popUrl = smutil.getMenuProp("COM.COM0301","url");
+
+					LEMP.Window.open({
+						"_sPagePath":popUrl,
+						"_oMessage":{
+							"param": {
+								type: 'time',
+								necessary: true,
+								minDate: 1,
+								maxDate: 3
+							}
+						}
+					});
+				} else {
+					$('#dsgt_dd_cldl_ymd').val('');
+				}
+			});
+
 
 			// 달력버튼을 누른경우
 			$("#cldlBtnCal").click(function(){
@@ -85,7 +107,9 @@ var page = {
 				LEMP.Window.open({
 					"_sPagePath":popUrl,
 					"_oMessage":{
-						"param":null
+						"param": {
+							type: 'list'
+						}
 					}
 				});
 
@@ -123,6 +147,14 @@ var page = {
 					});
 
 					return false;
+				}
+				else if(cldl_tmsl_cd === '28' && smutil.isEmpty(dsgt_dd_cldl_ymd)) {
+					LEMP.Window.alert({
+						"_sTitle":"스캔오류",
+						"_vMessage":"지정일자를 선택해 주세요."
+					});
+
+					scanCallYn = "N";
 				}
 
 				// 스캔 팝업 url 호출
@@ -897,10 +929,10 @@ var page = {
 
 			// api 결과 성공여부 검사
 			if(smutil.apiResValidChk(result) && result.code == "0000"){
-
 				// 조회 결과 데이터가 있으면 옵션 생성
 				if(result.data_count > 0){
 					var list = result.data.list;
+
 					// select box 셋팅
 					smutil.setSelectOptions("#cldl_tmsl_cd", list);
 				}
@@ -1088,6 +1120,7 @@ var page = {
 			var tab_sct_cd = page.returnTabSctCd();				//현제 어느 탭에 있는지 상태체크
 			var cldl_sct_cd = $('#cldl_sct_cd').val();			// 업무구분
 			var cldl_tmsl_cd = $('#cldl_tmsl_cd').val();		// 예정시간선택
+			var dsgt_dd_cldl_ymd = $('#dsgt_dd_cldl_ymd').val();				// 지정일집하/배송 일자
 			var inv_no = result.barcode;
 			inv_no = inv_no+"";
 
@@ -1122,6 +1155,14 @@ var page = {
 				LEMP.Window.alert({
 					"_sTitle":"스캔오류",
 					"_vMessage":"예정시간을 선택해 주세요."
+				});
+
+				scanCallYn = "N";
+			}
+			else if(cldl_tmsl_cd === '28' && smutil.isEmpty(dsgt_dd_cldl_ymd)) {
+				LEMP.Window.alert({
+					"_sTitle":"스캔오류",
+					"_vMessage":"지정일자를 선택해 주세요."
 				});
 
 				scanCallYn = "N";
@@ -1175,7 +1216,8 @@ var page = {
 					"inv_no":inv_no+"",
 					"scan_dtm":scan_dtm,
 					"cldl_tmsl_cd":cldl_tmsl_cd,
-					"cldl_sct_cd":cldl_sct_cd
+					"cldl_sct_cd":cldl_sct_cd,
+					"dsgt_dd_cldl_ymd":dsgt_dd_cldl_ymd
 				}
 			};			// api 통신용 파라메터
 
@@ -1679,9 +1721,14 @@ var page = {
 
 		//com0301에서 날짜 선택 한 후 실행되는 콜백 함수
 		COM0301Callback:function(res){
-			$("#cldlBtnCal").text(res.param.date);
+			console.log(res.param.date.replace(/\./g,""));
 
-			page.listReLoad();					// 리스트 제조회
+			if (res.param.type === 'list') {
+				$("#cldlBtnCal").text(res.param.date);
+				page.listReLoad();					// 리스트 제조회
+			} else if (res.param.type === 'time') {
+				$('#dsgt_dd_cldl_ymd').val(res.param.date.replace(/\./g,""));
+			}
 		},
 
 

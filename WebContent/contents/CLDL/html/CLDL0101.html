@@ -6,7 +6,7 @@
 	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
 	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
 	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
-	
+
 	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
 	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
 	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
@@ -24,16 +24,16 @@
 				<button class="btn cldlBack paL ti">버튼</button>
 				<h1>집배달예정</h1>
 				<button class="btn barcode paR" id="openFrePop"></button>
-			</div>		
+			</div>
 		</header>
 		<!--  //headerSection  -->
 
 		<!--  contentSection  -->
 		<div class="contentSection" id="contentSection">
-		
+
 			<!-- contentBox -->
 			<div class="contentBox delivery">
-				
+
 				<!-- topFx -->
 				<div class="topFx">
 					<!-- tabBox -->
@@ -81,19 +81,20 @@
 								<select name="cldl_tmsl_cd" id="cldl_tmsl_cd">
 									<!-- <option value="">예정시간선택</option> -->
 								</select>
+								<input type="hidden" id="dsgt_dd_cldl_ymd" />
 							</span>
 						</div>
 					</div>
 					<!-- //topHead -->
-					
+
 					<div class="topHeadCal">
 						<button class="btn btnCal" id="cldlBtnCal"></button>
 					</div>
 					<!-- // topHeadCal -->
-					
+
 				</div>
 				<!-- //topFx -->
-				
+
 				<!-- baedalListBox -->
 				<div class="baedalListBox deliveryTy2 deliveryTy2Cal">
 					<ul id="cldl0101LstUl">
@@ -106,7 +107,7 @@
 
 		</div>
 		<!--  //contentSection  -->
-		
+
 		<!-- ftMenu -->
 		<div class="ftMenu li2">
 			<ul>
@@ -143,9 +144,9 @@
 			</div>
 		</div>
 		<!-- //모달팝업 전송 -->
-		
-		
-		
+
+
+
 		<!-- 모달팝업 통화 -->
 		<div class="mpopBox img phone">
 			<div class="popBody">
@@ -172,8 +173,8 @@
 
 	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
 	<script type="text/javascript" src="../js/CLDL0101.js"></script>
-	
-	
+
+
 	<!-- handlebars template start -->
 	<script id="cldl0101_list_template" type="text/x-handlebars-template">
 		{{#each list}}
@@ -190,24 +191,24 @@
 					<p class="tit">
 						{{!-- 송장번호형식표시 helper invNoTmpl --}}
 						<span class="dsin vm invNoSpan">{{invNoTmpl inv_no}}</span>
-						
+
 						{{#prcsMemoYn}}		{{!-- 기사 메모 내용이 있는지 없는지 확인하는 if --}}
 						<button class="btn pen" data-memo-inv-no='{{inv_no}}'></button>
 						{{/prcsMemoYn}}
 
 						{{!-- 운임 라벨 표시 helper fareChk --}}
 						{{fareChk label}}
-						
+
 						{{!-- 취소 여부 helper--}}
 						{{#cclYnChk}}
 							<span class="badge red s outline">취소</span>
 						{{/cclYnChk}}
-						
+
 						{{!-- 신선식품 여부 helper--}}
 						{{#fresYnChk}}
 							<span class="badge blue s outline">신선</span>
 						{{/fresYnChk}}
-						
+
 						{{!-- 사고 여부 helper--}}
 						{{#acdYnChk}}
 							<span class="badge purple s outline">사고</span>
@@ -243,7 +244,7 @@
 		</li>
 		{{/each}}
 	</script>
-	
+
 	<!-- handlebars template start -->
 	<script id="cldl0101_noLstLi" type="text/x-handlebars-template">
 		<li class="noList">
@@ -252,8 +253,8 @@
 			</div>
 		</li>
 	</script>
-	
-				
+
+
 	<!-- handlebars li template start -->
 	<script id="cldl0101_li_template" type="text/x-handlebars-template">
 		<li id="{{cldl_sct_cd}}_{{returnKey key}}" class='row-four cldlSctCd_{{cldl_sct_cd}}' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}'>

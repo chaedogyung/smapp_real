@@ -4,7 +4,7 @@ var page = {
 	tagetPath : "",
 	tagId : "",
 	name : "",
-	
+
 	init : function(res) {
 		if (!smutil.isEmpty(res.data.pageStatus)) {
 			page.pageStatus = res.data.pageStatus;
@@ -18,7 +18,7 @@ var page = {
 		var inv_no = res.inv_no;
 		var status = res.status;
 		// var status ="운송장";
-	
+
 		if (!smutil.isEmpty(page.pageStatus)) {
 
 			switch (page.tagId) {
@@ -45,7 +45,7 @@ var page = {
 				page.name = inv_no+"_phto6_pic.jpg";
 				break;
 			}
-		
+
 		} else {
 			// 파일 이름 변경
 			switch (status) {
@@ -71,18 +71,7 @@ var page = {
 		}
 		// 사진찍기
 		$('.camera').click(function() {
-			
-			smutil.callCamera("{external}/LEMP/", page.name, page.gallaryCallback);
-			
-//			LEMP.System.callCamera({
-//				"_sFileName" : page.name,
-//				"_sDirectory" : "{external}/LEMP/",
-//				"_bAutoVerticalHorizontal" : true,
-//				"_fCallback" : function(result) {
-//					page.resizeImage(result.path);
-//
-//				}
-//			});
+			smutil.callCamera(page.name, 'page.gallaryCallback');
 		});
 
 		// 이미지 삭제 버튼 클릭시
@@ -94,7 +83,7 @@ var page = {
 
 		// 갤러리 이미지
 		$('.img').click(function() {
-			smutil.callGallery("{external}/LEMP/" + page.name, page.gallaryCallback);
+			smutil.callGallery(page.name, 'page.gallaryCallback');
 		});
 
 		// 등록버튼 클릭시
@@ -122,7 +111,7 @@ var page = {
 	},
 	// gallaryCallback
 	gallaryCallback : function(data) {
-		page.picturesPath = data.list[0].target_path;
+		page.picturesPath = data.target_path;
 		$('#pictureImage').attr('src', page.picturesPath);
 		$('#pictureImage').css('display', 'block');
 	},

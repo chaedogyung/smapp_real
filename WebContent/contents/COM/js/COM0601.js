@@ -32,15 +32,15 @@ var page = {
 			LEMP.Window.close();
 		});
 
-		// 시간 row 선택
+		// 인수자 row 선택
 		$(document).on('click', '.liClickEvent', function() {
 			var cnt = $(this).data('liCnt');
 			$("#ra_" + cnt).attr("checked", true);
-			
+
 			// 기존 확인 버튼 기능
 			var selectedCode = $(":input:radio[name=timeRadio]:checked").val();
 			var selectedText = $(":input:radio[name=timeRadio]:checked").data('acprNm');
-			
+
 			if(selectedCode==="99" && selectedText ==="직접입력"){
 				popUrl = smutil.getMenuProp("COM.COM0602","url")
 				LEMP.Window.open({
@@ -66,7 +66,7 @@ var page = {
 				});
 			}
 		});
-		
+
 		// label event 캡쳐링 방지
 		$(document).on("click","#com0601LstUl > li > span > label",function(e){
 			e.preventDefault();
@@ -132,7 +132,7 @@ var page = {
 		};
 		smutil.callApi(page.apiParam);
 	}
-	
+
 	// 인수자 리스트 콜백
 	,codeListPopupCallback : function(res) {
 		try {
@@ -145,7 +145,7 @@ var page = {
 				}
 				// properties에 데이터가 있음
 				if (!smutil.isEmpty(properties_arr)) {
-					
+
 					var temp_insu_l = [];
 					var temp_insu_p = []
 					var append_insu = [];
@@ -191,7 +191,7 @@ var page = {
 							}
 						}
 					}
-					
+
 					// result배열에 출력할 결과물을 저장
 					// 삭제는 result에 반영하지 않으면 됨.
 					for (var i = 0; i < properties_arr.length; i++) {
@@ -208,7 +208,7 @@ var page = {
 						"_sKey" : "receiver",
 						"_vValue" : result_insu
 					});
-				} 
+				}
 				// properties에 데이터가 없음
 				else {
 					LEMP.Properties.set({
@@ -217,8 +217,8 @@ var page = {
 					});
 //					return false;
 				}
-			} 
-			
+			}
+
 		} catch (e) {
 		} finally {
 			smutil.loadingOff();

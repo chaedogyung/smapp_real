@@ -5,11 +5,11 @@ var page = {
 		page.initEvent();
 	},
 	com0702 : {},
-	
-	
+
+
 	initEvent : function() {
 		var Directory = "{external}/LEMP/";
-		
+
 		// 닫기
 		$(document).on("click", ".btn.closeW.paR", function() {
 			var popUrl = smutil.getMenuProp("COM.COM0701","url");
@@ -24,16 +24,19 @@ var page = {
 		$(".btn.camera").click(function() {
 			var date = new Date();
 			var curTime = date.LPToFormatDate("yyyymmddHHnnss");
-			var FileName = page.com0702.inv_no + "_cldl_"+curTime+".jpg";
-			smutil.callCamera(Directory, FileName, page.imageCallback);
+			var fileName = page.com0702.inv_no + "_cldl_"+curTime+".jpg";
+
+			// 카메라 호출
+			smutil.callCamera(fileName, 'page.imageCallback')
 		});
 
 		// 갤러리 버튼 클릭
 		$(".btn.img").click(function() {
 			var date = new Date();
 			var curTime = date.LPToFormatDate("yyyymmddHHnnss");
-			var FileName = page.com0702.inv_no + "_cldl_"+curTime+".jpg";
-			smutil.callGallery(Directory+FileName, page.imageCallback);
+			var fileName = page.com0702.inv_no + "_cldl_"+curTime+".jpg";
+
+			smutil.callGallery(fileName, 'page.imageCallback');
 		});
 
 		// 확인 버튼 클릭
@@ -47,19 +50,19 @@ var page = {
 		});
 
 	}
-	
-	
+
+
 	,imageCallback:function(res){
-		
+
 		if (res.result) {
-			page.com0702.images = res.list[0].target_path;
-			$(".imgBox img").attr("src",res.list[0].target_path);
+			page.com0702.images = res.target_path;
+			$(".imgBox img").attr("src",res.target_path);
 		}else {
 			LEMP.Window.alert({
 				"_sTitle" : "알림",
 				"_vMessage" : "이미지를 가져올 수 없습니다."
 			});
 		}
-		
+
 	}
 };
