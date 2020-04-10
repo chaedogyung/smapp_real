@@ -271,6 +271,24 @@ var page = {
     },
 
     //////////////////////////////////////////////////
+    // 화면 리셋
+    reset: function() {
+        // 송장 아이템 삭제
+        $('#invNoItem').remove();
+
+        // 인수자 선택 활성화
+        $('#btnRcv').removeClass('disabled');
+
+        // 송장 번호 초기화
+        $('#mmsInvNo').text('송장번호 : ');
+        $('#inputScan').val('');
+
+        // 이미지 초기화
+        $('.imgBox > img').remove();
+        $('.imgBox').append('<img src="" style="max-width: 100%; height: auto; min-height: 215px;">');
+    },
+
+    //////////////////////////////////////////////////
     // MMS 전송
     send: function() {
         var mmsMessage = $('#mmsMessage').val();        // mms 메시지
@@ -440,14 +458,10 @@ var page = {
 
             page.CLDL0601.item = item;
 
-            console.log('@@@@@@@@@@@@@@@@@ inininin 1111');
-
             if (data.cnf_yn === 'Y') {
-                console.log('@@@@@@@@@@@@@@@@@ inininin 2222');
                 // 확정인 경우 스캔 등록 안함
                 page.addItem();
             } else {
-                console.log('@@@@@@@@@@@@@@@@@ inininin 3333');
                 // 확정이 아닌경우 스캔 등록
                 page.cmptScanRgst();
             }
@@ -630,12 +644,8 @@ var page = {
 
             textButton.setProperty({
                 _sText: '확인',
-                _fCallback: function()   {
-                    LEMP.Window.close({
-                        _oMessage: {
-                            param: ''
-                        }
-                    });
+                _fCallback: function() {
+                    page.reset();
                 }
             });
 
@@ -644,13 +654,15 @@ var page = {
                 '_vMessage' : '송장번호와 사진을 서버로 전송했습니다.',
                 '_eTextButton' : textButton
             });
+
+            smutil.loadingOff();
         } else{
             LEMP.Window.alert({
                 '_sTitle' : '사진전송 mms발송 실패',
                 '_vMessage' : 'MMS 문자발송에 실패했습니다.'
             });
 
-            smutil.loadingOff();            // 로딩바 닫기
+            smutil.loadingOff();
         }
     },
 
