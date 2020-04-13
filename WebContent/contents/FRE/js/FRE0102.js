@@ -112,8 +112,9 @@ var page = {
 	// gallaryCallback
 	gallaryCallback : function(data) {
 		page.picturesPath = data.target_path;
-		$('#pictureImage').attr('src', page.picturesPath);
-		$('#pictureImage').css('display', 'block');
+
+		$('#pictureImage').remove();
+		$('.imgBox').append(`<img src="${page.picturesPath}?t=${new Date().getTime()}" id="pictureImage" style="width:338px;">`);
 	},
 	// 이미지 resize
 //	resizeImage : function(result) {
