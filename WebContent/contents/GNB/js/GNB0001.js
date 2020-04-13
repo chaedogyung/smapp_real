@@ -24,14 +24,14 @@ var page = {
 					 && menuJsonJs[menu_nm].menuDept == 0) {
 
 				// 결제 관련 메뉴는 5월 1일부터 적용(5월 1일 이후 적용시 삭제)
-				if (menu_nm === 'PAY') {
-					var payDate = new Date(2020, 4, 1);
-					var today = new Date();
-
-					if (payDate.getTime() > today.getTime()) {
-						continue;
-					}
-				}
+				// if (menu_nm === 'PAY') {
+				// 	var payDate = new Date(2020, 4, 1);
+				// 	var today = new Date();
+				//
+				// 	if (payDate.getTime() > today.getTime()) {
+				// 		continue;
+				// 	}
+				// }
 
 				obj = {};
 				obj.menuCode = menu_nm;
