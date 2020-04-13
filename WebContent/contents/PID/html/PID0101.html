@@ -10,7 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
 	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
 	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
-	
+
 </head>
 
 <body>
@@ -23,16 +23,16 @@
 				<button class="btn back paL ti">버튼</button>
 				<h1>접수/출력</h1>
 				<button class="btn barcode paR" id="openFrePop"></button>
-			</div>		
+			</div>
 		</header>
 		<!--  //headerSection  -->
 
 		<!--  contentSection  -->
 		<div class="contentSection" id="contentSection">
-		
+
 			<!-- contentBox -->
 			<div class="contentBox gathBox">
-				
+
 				<!-- topFx -->
 				<div class="topFx">
 					<!-- tabBox -->
@@ -56,7 +56,7 @@
 					<div class="calBox">
 						<span class="radioBox"><input type="radio"  name="area_sct_cd" id="ra1" value="A" checked/> <label for="ra1">집배송구역기준</label></span>
 						<span class="radioBox mgl20"><input type="radio"  name="area_sct_cd" value="P" id="ra2" /> <label for="ra2">집배대리점기준</label></span>
-						
+
 						<div class="mgt10" id="job_cust" style="display:none;">
 							<ul class="ul0 ul3">
 								<li>
@@ -75,7 +75,7 @@
 								</li>
 							</ul>
 						</div>
-						
+
 						<div class="calinBox">
 							<ul class="ul0 ul2 calin">
 								<li class="pdr10"><input type="text" value="" name="" placeholder="" class="inCal" id="startDate" readonly/></li>
@@ -135,7 +135,7 @@
 						<!-- //baedalListBox --></li>
 					</ul>
 					<div class="btnBox mgt20 pdb20 tc" id="moreBtnDiv" style="display:none;">
-						<button class="btn blue m w300" id="moreBtn">더보기</button>	
+						<button class="btn blue m w300" id="moreBtn">더보기</button>
 					</div>
 				</div>
 				<!-- //tabView -->
@@ -145,7 +145,7 @@
 
 		</div>
 		<!--  //contentSection  -->
-		
+
 		<!-- ftMenu -->
 		<div class="ftMenu li3">
 			<ul>
@@ -167,7 +167,7 @@
 			</ul>
 		</div>
 		<!-- //ftMenu -->
-		
+
 		<!-- 모달팝업 출력 -->
 		<div class="mpopBox img print">
 			<div class="popBody">
@@ -180,12 +180,12 @@
 					<ul class="ul0 ul2">
 						<li><button class="btn gray m w100p b-close">아니오</button></li>
 						<li><button class="btn red m w100p b-close" id="invPrntYesBtn">예</button></li>
-					</ul>				
+					</ul>
 				</div>
 			</div>
 		</div>
 		<!-- 모달팝업 출력 -->
-		
+
 		<!-- 모달팝업 출력 취소 -->
 		<div class="mpopBox img cancel">
 			<div class="popBody">
@@ -198,12 +198,12 @@
 					<ul class="ul0 ul2">
 						<li><button class="btn gray m w100p b-close">아니오</button></li>
 						<li><button class="btn red m w100p b-close" id="invPrntCclYesBtn">예</button></li>
-					</ul>				
+					</ul>
 				</div>
 			</div>
 		</div>
 		<!-- 모달팝업 출력 취소 -->
-		
+
 		<!-- 모달팝업 출력 취소 불가 -->
 		<div class="mpopBox send pop3">
 			<div class="popBody">
@@ -218,7 +218,7 @@
 			</div>
 		</div>
 		<!-- //모달팝업 출력 취소 불가-->
-		
+
 		<!-- 모달팝업 통화 -->
 		<div class="mpopBox img phone">
 			<div class="popBody">
@@ -244,8 +244,8 @@
 
 	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
 	<script type="text/javascript" src="../js/PID0101.js"></script>
-		
-		
+
+
 	<!-- handlebars li template start -->
 	<script id="pid0101_list_template" type="text/x-handlebars-template">
 		{{#each list}}
@@ -279,7 +279,10 @@
 								{{infoTmpl}}
 							</ul>
 						</div>
-						<p class="addRe">{{snper_adr}}</p>
+						<p class="addRe">
+							{{!-- 주소 정보 helper--}}
+							{{infoAdr}}
+						</p>
 					</div>
 					{{#prntCclChk}}
 					<button class="btn cancel">캔슬</button>
@@ -291,7 +294,7 @@
 			</li>
 		{{/each}}
 	</script>
-	
+
 	<!-- handlebars template start -->
 	<script id="pid0101_nolist_template" type="text/x-handlebars-template">
 		<li class="noList">
