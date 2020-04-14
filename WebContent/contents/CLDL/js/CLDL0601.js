@@ -157,9 +157,9 @@ var page = {
         var rcvName = $('#rcvName').val();              // 인수자 명
         var rcvCode = $('#rcvCode').val();              // 인수자 코드
         if (smutil.isEmpty(rcvName) || smutil.isEmpty(rcvCode)) {
-            LEMP.Window.alert({
-                '_sTitle' : '사진전송',
-                '_vMessage' : '인수자 정보가 없습니다.\n인수자를 확인해주세요'
+            LEMP.Window.toast({
+                '_sMessage' : '인수자 정보가 없습니다. 인수자를 확인해주세요',
+                '_sDuration' : 'short'
             });
 
             return false;
@@ -189,9 +189,9 @@ var page = {
                 // 중복 확인
                 var invNoItem = $('#invNoItem').find('.btnInvNo').data('invNo');
                 if (invNoItem === invNo) {
-                    LEMP.Window.alert({
-                        "_sTitle" : "경고",
-                        "_vMessage" : "이미 스캔된 송장입니다."
+                    LEMP.Window.toast({
+                        '_sMessage' : '이미 스캔된 송장입니다.',
+                        '_sDuration' : 'short'
                     });
 
                     // 실패 TTS 호출
@@ -203,9 +203,9 @@ var page = {
             }
         }
 
-        LEMP.Window.alert({
-            "_sTitle" : "경고",
-            "_vMessage" : "정상적인 송장번호가 아닙니다."
+        LEMP.Window.toast({
+            '_sMessage' : '정상적인 송장번호가 아닙니다.',
+            '_sDuration' : 'short'
         });
 
         // 실패 TTS 호출
@@ -421,9 +421,9 @@ var page = {
         if (smutil.apiResValidChk(res) && res.code === '0000') {
             // 사진 전송 여부 확인
             if (data.pic_send_yn === 'Y') {
-                LEMP.Window.alert({
-                    "_sTitle" : "사진전송",
-                    "_vMessage" : "이미 사진전송이 완료된 송장입니다."
+                LEMP.Window.toast({
+                    '_sMessage' : '이미 사진전송이 완료된 송장입니다.',
+                    '_sDuration' : 'short'
                 });
 
                 // 실패 TTS 호출
