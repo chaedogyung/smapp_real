@@ -1131,10 +1131,10 @@ var page = {
 
 			// 중복 스캔 방지
 			if(page.chkScanYn(inv_no, cldl_sct_cd)){
-//				LEMP.Window.alert({
-//					"_sTitle":"스캔오류",
-//					"_vMessage":"이미 스캔 완료된 송장입니다."
-//				});
+				LEMP.Window.toast({
+					'_sMessage' : '이미 스캔 완료된 송장입니다.',
+					'_sDuration' : 'short'
+				});
 
 				// 실패 tts 호출(벨소리)
 				smutil.callTTS("0", "0", null, result.isBackground);
@@ -1144,51 +1144,51 @@ var page = {
 
 
 			if(smutil.isEmpty(cldl_sct_cd)){
-				LEMP.Window.alert({
-					"_sTitle":"스캔오류",
-					"_vMessage":"업무구분을 선택해 주세요."
+				LEMP.Window.toast({
+					'_sMessage' : '업무구분을 선택해 주세요.',
+					'_sDuration' : 'short'
 				});
 
 				scanCallYn = "N";
 			}
 			else if(smutil.isEmpty(cldl_tmsl_cd)){
-				LEMP.Window.alert({
-					"_sTitle":"스캔오류",
-					"_vMessage":"예정시간을 선택해 주세요."
+				LEMP.Window.toast({
+					'_sMessage' : '예정시간을 선택해 주세요.',
+					'_sDuration' : 'short'
 				});
 
 				scanCallYn = "N";
 			}
 			else if(cldl_tmsl_cd === '28' && smutil.isEmpty(dsgt_dd_cldl_ymd)) {
-				LEMP.Window.alert({
-					"_sTitle":"스캔오류",
-					"_vMessage":"지정일자를 선택해 주세요."
+				LEMP.Window.toast({
+					'_sMessage' : '지정일자를 선택해 주세요.',
+					'_sDuration' : 'short'
 				});
 
 				scanCallYn = "N";
 			}
 			else if(smutil.isEmpty(inv_no)){
-				LEMP.Window.alert({
-					"_sTitle":"스캔오류",
-					"_vMessage":"송장번호가 없습니다."
+				LEMP.Window.toast({
+					'_sMessage' : '송장번호가 없습니다.',
+					'_sDuration' : 'short'
 				});
 
 				scanCallYn = "N";
 			}
 			else if(inv_no.length != 12
 					|| (inv_no.substr(0,11) + ((Number(inv_no.substr(0,11))%7)+"")) != inv_no){
-				LEMP.Window.alert({
-					"_sTitle":"스캔오류",
-					"_vMessage":"정상적인 송장번호가 아닙니다."
+				LEMP.Window.toast({
+					'_sMessage' : '정상적인 송장번호가 아닙니다.',
+					'_sDuration' : 'short'
 				});
 
 				scanCallYn = "N";
 			}
 			// 집하에서 5번으로 시작하는 송장은 스캔할수 없게 한다.
 			else if(cldl_sct_cd == "P" && (inv_no.LPStartsWith("5"))){
-				LEMP.Window.alert({
-					"_sTitle":"스캔오류",
-					"_vMessage":"의류특화 보조송장은 \n집하예정 업무에선 스캔할수 없습니다."
+				LEMP.Window.toast({
+					'_sMessage' : '의류특화 보조송장은 집하예정 업무에선 스캔할수 없습니다.',
+					'_sDuration' : 'short'
 				});
 
 				scanCallYn = "N";
@@ -1446,17 +1446,17 @@ var page = {
 			var _this = this;
 
 			if(smutil.isEmpty(inv_no)){
-				LEMP.Window.alert({
-					"_sTitle":"스캔취소 오류",
-					"_vMessage":"송장번호가 없습니다."
+				LEMP.Window.toast({
+					'_sMessage' : '송장번호가 없습니다.',
+					'_sDuration' : 'short'
 				});
 
 				return false;
 			}
 			else if(smutil.isEmpty(cldl_sct_cd)){
-				LEMP.Window.alert({
-					"_sTitle":"스캔취소 오류",
-					"_vMessage":"업무구분이 없습니다."
+				LEMP.Window.toast({
+					'_sMessage' : '업무구분이 없습니다.',
+					'_sDuration' : 'short'
 				});
 
 				return false;
@@ -1505,9 +1505,9 @@ var page = {
 
 			// api 전송 성공
 			if(smutil.apiResValidChk(result) && result.code == "0000"){
-				LEMP.Window.alert({
-					"_sTitle":"스캔취소 완료",
-					"_vMessage":"스캔정보가 취소되었습니다."
+				LEMP.Window.toast({
+					'_sMessage' : '스캔정보가 취소되었습니다.',
+					'_sDuration' : 'short'
 				});
 
 				page.listReLoad();				// 리스트 제조회
