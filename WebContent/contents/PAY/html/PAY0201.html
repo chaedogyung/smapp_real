@@ -6,7 +6,7 @@
 	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
 	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
 	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
-	
+
 	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
 	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
 	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
@@ -23,16 +23,16 @@
 			<div class="headerWrap black">
 				<button class="btn back paL ti">버튼</button>
 				<h1>결제내역/취소</h1>
-			</div>		
+			</div>
 		</header>
 		<!--  //headerSection  -->
 
 		<!--  contentSection  -->
 		<div class="contentSection" id="contentSection">
-		
+
 		<!-- contentBox -->
 		<div class="contentBox pop mypage">
-			
+
 			<!-- topHead -->
 			<div class="topHead">
 				<span class="songNum">결제내역조회</span>
@@ -58,10 +58,10 @@
 				</ul>
 			</div>
 			<!-- //infoListBox -->
-			
+
 		</div>
 		<!-- //contentBox -->
-		
+
 		</div>
 		<!--  //contentSection  -->
 
@@ -73,8 +73,8 @@
 
 	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
 	<script type="text/javascript" src="../js/PAY0201.js"></script>
-	
-	
+
+
 	<!-- handlebars template start -->
 	<script id="pay0201_list_template" type="text/x-handlebars-template">
 		{{#each list}}
@@ -91,8 +91,7 @@
 					<dd>{{useFromTo dateText}}</dd>
 					<dt>결제금액</dt>
 					<dd>{{useMoneyMonth dataText}}</dd>
-					<dt>결제수단</dt>
-					<dd>{{stlm_mthd}}</dd>
+					{{paymentStatus stlm_mthd}}
 				</dl>
 			</div>
 		</li>
