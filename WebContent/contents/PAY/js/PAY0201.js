@@ -207,7 +207,7 @@ var page = {
 			});
 
 			// 결제 수단/환불 정보 셋팅
-			Handlebars.registerHelper('paymentStatus', function(options) {
+			Handlebars.registerHelper('setStlmMthd', function(options) {
 				var html;
 
 				if (this.stlm_mthd === 'all_refund') {
@@ -215,7 +215,7 @@ var page = {
 				} else if(this.stlm_mthd === 'part_refund') {
 					html = '<dt>환불상태</dt><dd>부분환불</dd>';
 				} else {
-					html = '<dt>결제수단</dt><dd>' + stlm_mthd + '</dd>';
+					html = '<dt>결제수단</dt><dd>' + this.stlm_mthd + '</dd>';
 				}
 
 				return new Handlebars.SafeString(html); // html 코드 리턴
