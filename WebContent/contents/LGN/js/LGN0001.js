@@ -584,7 +584,6 @@ var page = {
 					"_vMessage":"결제완료 후 사용이 가능합니다.\n결제창으로 이동합니다."
 				});
 
-				//####################################### 결제기능 테스트 start
 				// 결제팝업
 				var popUrl = smutil.getMenuProp('LGN.LGN0005', 'url');
 				var accessToken = smutil.nullToValue(res.accessToken, 'accessToken');
@@ -599,8 +598,6 @@ var page = {
 				});
 
 				return false;
-				//####################################### 결제기능 테스트 end
-
 			}
 			else{		// 결제대상이 아닌 사용자
 
