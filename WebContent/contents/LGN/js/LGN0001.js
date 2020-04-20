@@ -129,18 +129,18 @@ var page = {
 
 
 		// 개인정보 동의값
-		// var personalInfo = LEMP.Properties.get({
-		// 	"_sKey" : "personalInfo"
-		// });
-		//
-		// // 최초 개인정보 동의를 하지 않거나 동의했지만 id가 없는경우는 무조건 동의페이지 띄우기
-		// if(smutil.isEmpty(personalInfo) || smutil.isEmpty(personalInfo.principal)){
-		// 	var popUrl = smutil.getMenuProp("LGN.LGN0006","url");
-		//
-		// 	LEMP.Window.open({
-		// 		"_sPagePath":popUrl,
-		// 	});
-		// }
+		var personalInfo = LEMP.Properties.get({
+			"_sKey" : "personalInfo"
+		});
+
+		// 최초 개인정보 동의를 하지 않거나 동의했지만 id가 없는경우는 무조건 동의페이지 띄우기
+		if(smutil.isEmpty(personalInfo) || smutil.isEmpty(personalInfo.principal)){
+			var popUrl = smutil.getMenuProp("LGN.LGN0006","url");
+
+			LEMP.Window.open({
+				"_sPagePath":popUrl,
+			});
+		}
 
 
 
@@ -854,32 +854,31 @@ var page = {
 					var term_accept_yn = res.term_accept_yn;		// 개인정보 동의여부 대상자
 
 					// Y 인경우 이미 동의한 사람이기때문에 정상 로그인 처리
-					// if(term_accept_yn == "Y"){
-					if(true){
+					if(term_accept_yn == "Y"){
 
 						// 개인정보동의 데이터
-						// var personalInfo = LEMP.Properties.get({
-						// 	"_sKey" : "personalInfo"
-						// });
-						//
-						// // 개인정보동의 데이터에 id 셋팅해서 저장
-						// if(!smutil.isEmpty(personalInfo)){
-						// 	var principal = $.trim($('#principal').val());
-						//
-						// 	// 난독화화 함께 적용하기로하고 주석처리
-						// 	/*if(!smutil.isEmpty(principal)){
-						// 		// base64 인코딩
-						// 		principal = btoa(principal);
-						// 	}*/
-						//
-						// 	// 개인정보 동의값 id 셋팅해서 properties 에 저장
-						// 	personalInfo.principal = principal;
-						//
-						// 	LEMP.Properties.set({
-						// 		"_sKey" : "personalInfo",
-						// 		"_vValue" : personalInfo
-						// 	});
-						// }
+						var personalInfo = LEMP.Properties.get({
+							"_sKey" : "personalInfo"
+						});
+
+						// 개인정보동의 데이터에 id 셋팅해서 저장
+						if(!smutil.isEmpty(personalInfo)){
+							var principal = $.trim($('#principal').val());
+
+							// 난독화화 함께 적용하기로하고 주석처리
+							/*if(!smutil.isEmpty(principal)){
+								// base64 인코딩
+								principal = btoa(principal);
+							}*/
+
+							// 개인정보 동의값 id 셋팅해서 properties 에 저장
+							personalInfo.principal = principal;
+
+							LEMP.Properties.set({
+								"_sKey" : "personalInfo",
+								"_vValue" : personalInfo
+							});
+						}
 
 						// 메인페이지 이동
 						LEMP.Window.open({
