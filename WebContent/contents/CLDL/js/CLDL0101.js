@@ -126,6 +126,7 @@ var page = {
 				var tab_sct_cd = page.returnTabSctCd();
 				var cldl_sct_cd = $('#cldl_sct_cd').val();			// 업무구분
 				var cldl_tmsl_cd = $('#cldl_tmsl_cd').val();		// 예정시간선택
+				var dsgt_dd_cldl_ymd = $('#dsgt_dd_cldl_ymd').val();	// 지정일집하/배송 일자
 
 				// 전체 텝에서 스캔한 경우가 아니면 업무구분을 텝에 맞도록 셋팅
 				if(tab_sct_cd != 'A'){
@@ -154,7 +155,7 @@ var page = {
 						"_vMessage":"지정일자를 선택해 주세요."
 					});
 
-					scanCallYn = "N";
+					return false;
 				}
 
 				// 스캔 팝업 url 호출
@@ -165,6 +166,7 @@ var page = {
 						"param" : {
 							"cldl_sct_cd" : cldl_sct_cd,
 							"cldl_tmsl_cd" : cldl_tmsl_cd,
+							"dsgt_dd_cldl_ymd": dsgt_dd_cldl_ymd,
 							"menu_id" : "CLDL0101"
 						}
 					},
@@ -1721,8 +1723,6 @@ var page = {
 
 		//com0301에서 날짜 선택 한 후 실행되는 콜백 함수
 		COM0301Callback:function(res){
-			console.log(res.param.date.replace(/\./g,""));
-
 			if (res.param.type === 'list') {
 				$("#cldlBtnCal").text(res.param.date);
 				page.listReLoad();					// 리스트 제조회
