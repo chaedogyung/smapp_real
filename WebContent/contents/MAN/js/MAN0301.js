@@ -16,7 +16,7 @@ var page = {
 				"parameters" : {}
 			},// api 통신용 파라메터
 		},
-		
+
 		init:function()
 		{
 			page.initInterface();
@@ -47,15 +47,15 @@ var page = {
 						obj.closest('li').removeClass('on');
 					}
 				});
-				
+
 			});
-			
+
 			//공지사항 상세화면으로 이동
 			$(document).on('click','.noticeDetail',function(){
 				var obj;
 				var id =  $(this).attr('id');
 				_.forEach(page.notice,function(val,index){
-					
+
 					if(val.sta_ymd+val.seq_no === id){
 						obj = val;
 						return false;
@@ -69,7 +69,7 @@ var page = {
 						"param" : obj
 					},
 				});
-					
+
 			});
 			//쪽지 상세화면으로 이동
 			$(document).on('click','.memoDetail',function(){
@@ -81,7 +81,7 @@ var page = {
 						return false;
 					}
 				});
-				
+
 				var popUrl = smutil.getMenuProp('MAN.MAN0302','url');
 				LEMP.Window.open({
 					"_sPagePath" : popUrl,
@@ -89,7 +89,7 @@ var page = {
 						"param" : obj
 					},
 				});
-				
+
 			});
 
 			// 닫기버튼 이벤트 등록
@@ -99,42 +99,52 @@ var page = {
 				});
 			});
 		},
-		//공지사항 목록 
+		//공지사항 목록
 		notiList : function(){
 			smutil.loadingOn();
 			page.apiParam.param.baseUrl="smapis/cmn/notiList";
 			page.apiParam.param.callback="page.notiListCallback";
 			smutil.callApi(page.apiParam);
 		},
-		
+
 		//공지사항 콜백
 		notiListCallback : function(res){
-//			$('#notice').html(""); 
+//			$('#notice').html("");
 			try{
 				if(smutil.apiResValidChk(res) && res.code === "0000" && res.data_count!=0){
 					var list = res.data.list;
-					
+					var link = [
+						'https:\/\/youtu.be\/AldEexl0X5o'
+					];
+
 					_.forEach(list,function(val,index){
 						list[index].date = list[index].sta_ymd.substring(0,4)+"."
 						+list[index].sta_ymd.substring(4,6)+"."
 						+list[index].sta_ymd.substring(6,8);
 						list[index].status ="Notice";
+
+						// URL 파싱
+						link.forEach(function(url) {
+							list[index].dtl_desc = list[index].dtl_desc.replace(url, `<a href="#" onclick="page.showWeb('${url}'); return false;">${url}</a>`);
+						});
+
 						list[index].dtl_desc = list[index].dtl_desc.split("\n").join("<br>");
+
 					});
 					var list_r = {"list":list};
-					
+
 					page.notice = list_r.list;
 				}
 			}catch(e){}
 			finally{
 				var source = $("#MAN0301_notice_template").html();
 				var template = Handlebars.compile(source);
-				
+
 				$("#notice").html(template(list_r));
 				smutil.loadingOff();
 			}
 		},
-		
+
 		//쪽지 읽음수 표시
 		memoReadStatus : function(){
 			smutil.loadingOn();
@@ -142,11 +152,11 @@ var page = {
 			page.apiParam.param.callback="page.memoReadStatusCallback";
 			page.apiParam.data.parameters={
 			};
-		
+
 			smutil.callApi(page.apiParam);
 		},
-		
-		
+
+
 		//쪽지 읽음 표시
 		memoReadStatusCallback : function(res){
 			try{
@@ -161,15 +171,15 @@ var page = {
 		readUpdateCallback : function(){
 			page.noticeList();
 		},
-		
+
 		noteList:function(){
 			smutil.loadingOn();
-			
+
 			page.apiParam.param.baseUrl="smapis/cmn/noteList";
 			page.apiParam.param.callback="page.noteListCallback";
 			smutil.callApi(page.apiParam);
 		},
-		
+
 		//쪽지 콜백
 		noteListCallback : function(res){
 			try{
@@ -187,9 +197,9 @@ var page = {
 			finally{
 				var source = $("#MAN0301_memo_template").html();
 				var template = Handlebars.compile(source);
-				$("#memo").html(template(list_r));	
+				$("#memo").html(template(list_r));
 				smutil.loadingOff();
 			}
 		},
-		
+
 }

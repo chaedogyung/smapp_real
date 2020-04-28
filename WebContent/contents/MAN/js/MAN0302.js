@@ -28,9 +28,9 @@ var page = {
 		});
 		Handlebars.registerHelper('content', function(options){
 			var html = '<div class="content">'+this.dtl_desc+ '</div>';
-			return new Handlebars.SafeString(html); 
+			return new Handlebars.SafeString(html);
 		});
-		
+
 		var data_l = {
 			"notice" :[data_r]
 		}
@@ -58,8 +58,8 @@ var page = {
 				}
 			}
 		});
-		
-		
+
+
 	},
 	//쪽지일경우 읽음처리
 	readUpdate : function(data_r){
@@ -67,7 +67,7 @@ var page = {
 //		var reg_ymd = data_r.reg_ymd.substring(0,4)
 //					 +data_r.reg_ymd.substring(5,7)
 //					 +data_r.reg_ymd.substring(8,10);
-		
+
 		page.apiParam.param.baseUrl="smapis/cmn/uptNoteRead";
 		page.apiParam.param.callback="page.readUpdateCallback";
 		page.apiParam.data.parameters={
@@ -90,5 +90,14 @@ var page = {
 		finally{
 			smutil.loadingOff();
 		}
+	},
+
+	showWeb : function(url) {
+		smutil.nativeMothodCall({
+			id : 'SHOW_WEBSITE',
+			param : {
+				url: url
+			}
+		});
 	}
 }
