@@ -27,11 +27,11 @@ var page = {
 					"_sKey" : "dataId"
 				});
 
-				// 결제 관련 메뉴는 5월 1일부터 적용(5월 1일 이후 적용시 삭제)
+				// 결제 관련 메뉴는 5월 6일부터 적용(5월 6일 이후 적용시 삭제)
 				if (menu_nm === 'PAY') {
 					// 사번 : 21600154(송영규 수석님), 31909351(이하니 담당님), 31905309(개발팀)
 					if (loginId !== '21600154' && loginId !== '31909351' && loginId !== '31905309') {
-						var payDate = new Date(2020, 4, 1);
+						var payDate = new Date(2020, 4, 6);
 						var today = new Date();
 
 						if (payDate.getTime() > today.getTime()) {
