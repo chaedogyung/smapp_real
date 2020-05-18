@@ -454,6 +454,10 @@ var page = {
 			var pay_amount = $('#pay_amount').val();				// 사용료
 			var strt_ymd = $('#useDate').data('fromYmd');			// 사용시작일
 			var end_ymd = $('#useDate').data('endYmd');				// 사용종료일
+			var pay_mth = $("#pay_mth").val();						// 결제방법 01:카드, 02:모바일
+			var cpno = LEMP.Properties.get({						// 전화번호
+				"_sKey" : "dataCpno"
+			});
 			
 			if(smutil.isEmpty(pay_amount)
 					|| smutil.isEmpty(strt_ymd)
@@ -477,8 +481,12 @@ var page = {
 				"pay_amount" : pay_amount, 
 				"strt_ymd" : strt_ymd,
 				"end_ymd" : end_ymd,
-				"accessToken" : page.accessToken
+				"accessToken" : page.accessToken,
+				"pay_mth" : pay_mth,
+				"cpno" : cpno
 			};
+			
+			alert(page.apiParam.data);
 
 			smutil.nativeMothodCall(page.apiParam);
 		},

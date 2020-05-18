@@ -1,20 +1,25 @@
 <!doctype html>
 <html lang="ko">
 <head>
-	<meta charset="utf-8">
-	<title>롯데글로벌로지스</title>
-	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
-	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
-	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
-	
-	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
-	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
-	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
+<meta charset="utf-8">
+<title>롯데글로벌로지스</title>
+<meta
+	content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1"
+	name="viewport">
+<meta name="theme-color" content="#e8463a">
+<!-- 안드로드 헤드 칼라 -->
+<meta name="format-detection" content="telephone=no">
+<!-- IOS 전화번호 자동색상 방지 -->
+
+<link rel="stylesheet" type="text/css" href="../../common/css/style.css" />
+<link rel="stylesheet" type="text/css"
+	href="../../common/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="../../common/css/sub.css" />
 
 </head>
 
 <body>
-<input type="hidden" name="menuId" id="menuId" value="PAY0101"/>
+	<input type="hidden" name="menuId" id="menuId" value="PAY0101" />
 	<!--  contents  -->
 	<div id="contents">
 
@@ -23,16 +28,16 @@
 			<div class="headerWrap black">
 				<button class="btn back paL ti">버튼</button>
 				<h1>결제현황/결제</h1>
-			</div>		
+			</div>
 		</header>
 		<!--  //headerSection  -->
 
 		<!--  contentSection  -->
 		<div class="contentSection" id="contentSection">
-		
+
 			<!-- contentBox -->
 			<div class="contentBox pop mypage">
-				
+
 				<!-- infoBox -->
 				<div class="infoListBox">
 					<ul>
@@ -52,8 +57,8 @@
 								<dl class="inBox tp3">
 									<dt>기간선택</dt>
 									<dd>
-										<span class="selBox w100p">
-											<select name="pay_month" id="pay_month" disabled>
+										<span class="selBox w100p"> <select name="pay_month"
+											id="pay_month" disabled>
 												<option value="1">1개월</option>
 												<option value="2">2개월</option>
 												<option value="3">3개월</option>
@@ -66,16 +71,24 @@
 												<option value="10">10개월</option>
 												<option value="11">11개월</option>
 												<option value="12">12개월</option>
-											</select>
+										</select>
 										</span>
 										<p class="tRed2 fs11 mgt3">1개월 기준은 31일 입니다.</p>
 									</dd>
 									<dt>결제방법</dt>
-									<dd><input type="text" value="신용카드" name="" placeholder="신용카드" disabled /></dd>
+									<dd>
+										<span class="selBox w100p"> <select name="pay_mth"
+											id="pay_mth">
+												<option value="01">신용카드</option>
+												<option value="02">모바일결제</option>
+										</select>
+										</span>
+									</dd>
 									<dt>사용료</dt>
 									<dd>
 										<div class="inputBox pdr100">
-											<input type="text" value="" name="pay_amount" id="pay_amount"  placeholder="" disabled readonly="readonly" />
+											<input type="text" value="" name="pay_amount" id="pay_amount"
+												placeholder="" disabled readonly="readonly" />
 											<button class="btn s2 pdlr15" id="payCalcBtn" disabled>사용료계산</button>
 										</div>
 									</dd>
@@ -90,14 +103,14 @@
 					</ul>
 				</div>
 				<!-- //infoBox -->
-	
+
 				<div class="btnBox pxB">
 					<button class="btn w100p m" id="paymentBtn" disabled>사용료결제</button>
 				</div>
-				
+
 			</div>
 			<!-- //contentBox -->
-		
+
 		</div>
 		<!--  //contentSection  -->
 
@@ -107,12 +120,12 @@
 
 </body>
 
-	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
-	<script type="text/javascript" src="../js/PAY0101.js"></script>
-	
-	
-	<!-- handlebars template start -->
-	<script id="pay0101_list_template" type="text/x-handlebars-template">
+<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+<script type="text/javascript" src="../js/PAY0101.js"></script>
+
+
+<!-- handlebars template start -->
+<script id="pay0101_list_template" type="text/x-handlebars-template">
 		{{#each list}}
 		<dl class="inBox tp3 bdt2">
 			<dt>승인번호</dt>
