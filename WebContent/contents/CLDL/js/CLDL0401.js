@@ -2070,43 +2070,62 @@ var page = {
 						rsn_cont = rsn_cont.split('.').join('');
 					}
 
-					var btnCancel = LEMP.Window.createElement({ _sElementName:"TextButton" });
-					btnCancel.setProperty({
-						_sText : "취소",
-						_fCallback : function(){}
-					});
+					//미배달 api 호출, 
 
-
-					var btnConfirm = LEMP.Window.createElement({ _sElementName:"TextButton" });
-					btnConfirm.setProperty({
-						_sText : "확인",
-						_fCallback : function(){
-
-							//미배달 api 호출
-							page.apiParam.id = 'HTTP'
-							page.apiParam.param.baseUrl = "smapis/cmn/rsnRgstTxt";				// api no
-							page.apiParam.param.callback = "page.rsnRgstCallback";			// callback methode
-							page.apiParam.data = {				// api 통신용 파라메터
-								"parameters" : {
-									"inv_no" : inv_no+"",				// 송장번호
-									"cldl_sct_cd" : cldl_sct_cd,		// 업무구분
-									"dlay_rsn_cd" : dlay_rsn_cd,		// 미배달 사유 코드
-									"rsn_cont" : rsn_cont				// 미배달 사유 date
-								}
-							};
-							page.apiParam.files = [];
-
-							// 공통 api호출 함수
-							smutil.callApi(page.apiParam);
+					page.apiParam.id = 'HTTP'
+					page.apiParam.param.baseUrl = "smapis/cmn/rsnRgstTxt";				// api no
+					page.apiParam.param.callback = "page.rsnRgstCallback";			// callback methode
+					page.apiParam.data = {				// api 통신용 파라메터
+						"parameters" : {
+							"inv_no" : inv_no+"",				// 송장번호
+							"cldl_sct_cd" : cldl_sct_cd,		// 업무구분
+							"dlay_rsn_cd" : dlay_rsn_cd,		// 미배달 사유 코드
+							"rsn_cont" : rsn_cont				// 미배달 사유 date
 						}
-					});
+					};
+					page.apiParam.files = [];
 
-
-					LEMP.Window.confirm({
-						"_sTitle":"미배달 처리",
-						_vMessage : "선택한 송장정보를 \n미배달 처리하시겠습니까?",
-						_aTextButton : [btnConfirm, btnCancel]
-					});
+					// 공통 api호출 함수
+					smutil.callApi(page.apiParam);
+					
+					//확인창 삭제(2020.05.19)
+//					var btnCancel = LEMP.Window.createElement({ _sElementName:"TextButton" });
+//					btnCancel.setProperty({
+//						_sText : "취소",
+//						_fCallback : function(){}
+//					});
+//
+//
+//					var btnConfirm = LEMP.Window.createElement({ _sElementName:"TextButton" });
+//					btnConfirm.setProperty({
+//						_sText : "확인",
+//						_fCallback : function(){
+//
+//							//미배달 api 호출
+//							page.apiParam.id = 'HTTP'
+//							page.apiParam.param.baseUrl = "smapis/cmn/rsnRgstTxt";				// api no
+//							page.apiParam.param.callback = "page.rsnRgstCallback";			// callback methode
+//							page.apiParam.data = {				// api 통신용 파라메터
+//								"parameters" : {
+//									"inv_no" : inv_no+"",				// 송장번호
+//									"cldl_sct_cd" : cldl_sct_cd,		// 업무구분
+//									"dlay_rsn_cd" : dlay_rsn_cd,		// 미배달 사유 코드
+//									"rsn_cont" : rsn_cont				// 미배달 사유 date
+//								}
+//							};
+//							page.apiParam.files = [];
+//
+//							// 공통 api호출 함수
+//							smutil.callApi(page.apiParam);
+//						}
+//					});
+//
+//
+//					LEMP.Window.confirm({
+//						"_sTitle":"미배달 처리",
+//						_vMessage : "선택한 송장정보를 \n미배달 처리하시겠습니까?",
+//						_aTextButton : [btnConfirm, btnCancel]
+//					});
 
 
 //				}
@@ -2139,9 +2158,9 @@ var page = {
 
 			// api 전송 성공
 			if(smutil.apiResValidChk(result) && result.code == "0000"){
-				LEMP.Window.alert({
-					"_sTitle":"미배달 처리 완료",
-					"_vMessage":"미배달 처리가 완료되었습니다."
+				LEMP.Window.toast({
+					"_sMessage" : "미배달 처리가 완료되었습니다.",
+					"_sDuration" : "short"
 				});
 
 				page.listReLoad();				// 리스트 제조회
@@ -2264,12 +2283,10 @@ var page = {
 			try{
 				// api 전송 성공
 				if(smutil.apiResValidChk(result) && result.code == "0000"){
-
-					LEMP.Window.alert({
-						"_sTitle":"",
-						"_vMessage":"배달완료를 확정하였습니다.",
+					LEMP.Window.toast({
+						"_sMessage" : "배달완료를 확정하였습니다.",
+						"_sDuration" : "short"
 					});
-
 					page.listReLoad();					// 리스트 제조회
 				}
 			}

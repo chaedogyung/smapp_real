@@ -1179,12 +1179,10 @@ var page = {
 
 				// api 전송 성공
 				if(smutil.apiResValidChk(result) && result.code == "0000"){
-
-					LEMP.Window.alert({
-						"_sTitle":"",
-						"_vMessage":"집배달출발을 전송하였습니다.",
+					LEMP.Window.toast({
+						"_sMessage" : "집배달출발을 전송하였습니다.",
+						"_sDuration" : "short"
 					});
-
 					page.listReLoad();					// 리스트 제조회
 				}
 			}

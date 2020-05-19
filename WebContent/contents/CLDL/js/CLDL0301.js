@@ -1457,10 +1457,9 @@ var page = {
 
 				// api 전송 성공
 				if(smutil.apiResValidChk(result) && result.code == "0000"){
-
-					LEMP.Window.alert({
-						"_sTitle":"",
-						"_vMessage":"집하완료을 전송하였습니다.",
+					LEMP.Window.toast({
+						"_sMessage" : "집하완료을 전송하였습니다.",
+						"_sDuration" : "short"
 					});
 
 					page.listReLoad();					// 리스트 제조회
@@ -2198,52 +2197,79 @@ var page = {
 					if(!smutil.isEmpty(rsn_cont)){
 						rsn_cont = rsn_cont.split('.').join('');
 					}
+					
+					// 이미지 있을경우
+					if(!smutil.isEmpty(filepath)){
+						page.apiParam.id = "HTTPFILE";
+						page.apiParam.param.baseUrl = "smapis/cmn/rsnRgst";				// api no
+						page.apiParam.files = [filepath];
+					}
+					else{			// 이미지 없을경우
+						page.apiParam.id = "HTTP";
+						page.apiParam.param.baseUrl = "smapis/cmn/rsnRgstTxt";				// api no
+					}
 
-					var btnCancel = LEMP.Window.createElement({ _sElementName:"TextButton" });
-					btnCancel.setProperty({
-						_sText : "취소",
-						_fCallback : function(){}
-					});
+					//미집하 api 호출
 
-					var btnConfirm = LEMP.Window.createElement({ _sElementName:"TextButton" });
-					btnConfirm.setProperty({
-						_sText : "확인",
-						_fCallback : function(){
-
-							// 이미지 있을경우
-							if(!smutil.isEmpty(filepath)){
-								page.apiParam.id = "HTTPFILE";
-								page.apiParam.param.baseUrl = "smapis/cmn/rsnRgst";				// api no
-								page.apiParam.files = [filepath];
-							}
-							else{			// 이미지 없을경우
-								page.apiParam.id = "HTTP";
-								page.apiParam.param.baseUrl = "smapis/cmn/rsnRgstTxt";				// api no
-							}
-
-							//미집하 api 호출
-
-							page.apiParam.param.callback = "page.rsnRgstCallback";			// callback methode
-							page.apiParam.data = {				// api 통신용 파라메터
-								"parameters" : {
-									"inv_no" : inv_no+"",					// 송장번호
-									"cldl_sct_cd" : cldl_sct_cd,		// 업무구분
-									"dlay_rsn_cd" : dlay_rsn_cd,		// 미집하 사유 코드
-									"rsn_cont" : rsn_cont				// 미집하 사유 date 또는 text
-								}
-							};
-
-							// 공통 api호출 함수
-							smutil.callApi(page.apiParam);
+					page.apiParam.param.callback = "page.rsnRgstCallback";			// callback methode
+					page.apiParam.data = {				// api 통신용 파라메터
+						"parameters" : {
+							"inv_no" : inv_no+"",					// 송장번호
+							"cldl_sct_cd" : cldl_sct_cd,		// 업무구분
+							"dlay_rsn_cd" : dlay_rsn_cd,		// 미집하 사유 코드
+							"rsn_cont" : rsn_cont				// 미집하 사유 date 또는 text
 						}
-					});
+					};
 
-
-					LEMP.Window.confirm({
-						"_sTitle":"미집하 처리",
-						_vMessage : "선택한 송장정보를 \n미집하 처리하시겠습니까?",
-						_aTextButton : [btnConfirm, btnCancel]
-					});
+					// 공통 api호출 함수
+					smutil.callApi(page.apiParam);
+					
+					//미집하 확인창 삭제(2020.05.19)
+//					var btnCancel = LEMP.Window.createElement({ _sElementName:"TextButton" });
+//					btnCancel.setProperty({
+//						_sText : "취소",
+//						_fCallback : function(){}
+//					});
+//
+//					var btnConfirm = LEMP.Window.createElement({ _sElementName:"TextButton" });
+//					btnConfirm.setProperty({
+//						_sText : "확인",
+//						_fCallback : function(){
+//
+//							// 이미지 있을경우
+//							if(!smutil.isEmpty(filepath)){
+//								page.apiParam.id = "HTTPFILE";
+//								page.apiParam.param.baseUrl = "smapis/cmn/rsnRgst";				// api no
+//								page.apiParam.files = [filepath];
+//							}
+//							else{			// 이미지 없을경우
+//								page.apiParam.id = "HTTP";
+//								page.apiParam.param.baseUrl = "smapis/cmn/rsnRgstTxt";				// api no
+//							}
+//
+//							//미집하 api 호출
+//
+//							page.apiParam.param.callback = "page.rsnRgstCallback";			// callback methode
+//							page.apiParam.data = {				// api 통신용 파라메터
+//								"parameters" : {
+//									"inv_no" : inv_no+"",					// 송장번호
+//									"cldl_sct_cd" : cldl_sct_cd,		// 업무구분
+//									"dlay_rsn_cd" : dlay_rsn_cd,		// 미집하 사유 코드
+//									"rsn_cont" : rsn_cont				// 미집하 사유 date 또는 text
+//								}
+//							};
+//
+//							// 공통 api호출 함수
+//							smutil.callApi(page.apiParam);
+//						}
+//					});
+//
+//
+//					LEMP.Window.confirm({
+//						"_sTitle":"미집하 처리",
+//						_vMessage : "선택한 송장정보를 \n미집하 처리하시겠습니까?",
+//						_aTextButton : [btnConfirm, btnCancel]
+//					});
 
 //				}
 //				else{
@@ -2276,10 +2302,11 @@ var page = {
 
 			// api 전송 성공
 			if(smutil.apiResValidChk(result) && result.code == "0000"){
-				LEMP.Window.alert({
-					"_sTitle":"미집하 처리 완료",
-					"_vMessage":"미집하 처리가 완료되었습니다."
+				LEMP.Window.toast({
+					"_sMessage" : "미집하 처리가 완료되었습니다.",
+					"_sDuration" : "short"
 				});
+				
 
 				page.listReLoad();				// 리스트 제조회
 			}
@@ -2369,10 +2396,11 @@ var page = {
 				// api 전송 성공
 				if(smutil.apiResValidChk(result) && result.code == "0000"){
 
-					LEMP.Window.alert({
-						"_sTitle":"",
-						"_vMessage":"집하완료를 전송하였습니다.",
+					LEMP.Window.toast({
+						"_sMessage" : "집하완료를 전송하였습니다.",
+						"_sDuration" : "short"
 					});
+
 
 					page.listReLoad();					// 리스트 제조회
 				}

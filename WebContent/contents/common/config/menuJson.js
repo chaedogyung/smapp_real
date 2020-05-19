@@ -162,7 +162,8 @@ var menuJsonJs =
 		"SET0105":{"menuTxt" : "프린터 연결 모델", "parentMenuCd" : null, "menuDept" : 2, "url" : "SET/html/SET0105.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"SET0201":{"menuTxt" : "문자발송 설정", "parentMenuCd" : null, "menuDept" : 1, "url" : "SET/html/SET0201.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"SET0202":{"menuTxt" : "문구 작성", "parentMenuCd" : null, "menuDept" : 2, "url" : "SET/html/SET0202.html", "mainImgSrc" : "", "gnbImgClass" : ""},
-		"SET0301":{"menuTxt" : "인수자 순서 변경", "parentMenuCd" : null, "menuDept" : 1, "url" : "SET/html/SET0301.html", "mainImgSrc" : "", "gnbImgClass" : ""}
+		"SET0301":{"menuTxt" : "인수자 편집", "parentMenuCd" : null, "menuDept" : 1, "url" : "SET/html/SET0301.html", "mainImgSrc" : "", "gnbImgClass" : ""},
+//		"SET0401":{"menuTxt" : "카메라 설정", "parentMenuCd" : null, "menuDept" : 1, "url" : "SET/html/SET0401.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 	},
 	"MYP":{
 		"GNB":true,
