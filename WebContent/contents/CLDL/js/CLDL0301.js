@@ -1458,7 +1458,7 @@ var page = {
 				// api 전송 성공
 				if(smutil.apiResValidChk(result) && result.code == "0000"){
 					LEMP.Window.toast({
-						"_sMessage" : "집하완료을 전송하였습니다.",
+						"_sMessage" : "집하완료를 전송하였습니다.",
 						"_sDuration" : "short"
 					});
 
