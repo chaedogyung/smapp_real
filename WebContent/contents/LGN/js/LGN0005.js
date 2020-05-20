@@ -281,8 +281,8 @@ var page = {
 			
 			if(cpno.startsWith( '+82' )){							//010으로 변경
 				cpno = "0" + cpno.substring(3, cpno.length);
-//				cpno = "010-5912-9103";
 			}
+			cpno = cpno.substr(0,3)+"-"+cpno.substr(3,4)+"-"+cpno.substr(7,4); //하이픈 추가
 			
 			if(smutil.isEmpty(pay_amount)
 					|| smutil.isEmpty(strt_ymd)
