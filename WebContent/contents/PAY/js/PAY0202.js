@@ -349,6 +349,8 @@ var page = {
 					"_vMessage": result.message
 				});
 			}
+			// 프로그래스바 닫기
+			smutil.loadingOff();
 		},
 
 };

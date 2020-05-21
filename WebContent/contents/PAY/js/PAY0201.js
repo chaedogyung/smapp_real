@@ -1,3 +1,4 @@
+LEMP.addEvent("resume", "page.resumeInfo"); // 페이지 열릴때마다 스케너 상태확인 호출
 var page = {
 
 		// api 호출 기본 형식
@@ -81,26 +82,26 @@ var page = {
 
 
 
-			// 조회버튼 클릭
-			$("#schLstBtn").on('click', function(){
-				var strt_ymd = $('#strt_ymd').val();
-				var end_ymd = $('#end_ymd').val();
-
-				if(smutil.isEmpty(strt_ymd)
-						|| smutil.isEmpty(end_ymd)){
-
-					LEMP.Window.alert({
-						"_sTitle":"조회오류",
-						"_vMessage":"조회 날짜를 설정해 주세요."
-					});
-
-					return false;
-				}
-
-				// 목록 조회
-				page.dtllist();
-
-			});
+//			// 조회버튼 클릭 같은게 두개있어서 일단 주석
+//			$("#schLstBtn").on('click', function(){
+//				var strt_ymd = $('#strt_ymd').val();
+//				var end_ymd = $('#end_ymd').val();
+//
+//				if(smutil.isEmpty(strt_ymd)
+//						|| smutil.isEmpty(end_ymd)){
+//
+//					LEMP.Window.alert({
+//						"_sTitle":"조회오류",
+//						"_vMessage":"조회 날짜를 설정해 주세요."
+//					});
+//
+//					return false;
+//				}
+//
+//				// 목록 조회
+//				page.dtllist();
+//
+//			});
 
 
 			//환불버튼 클릭
@@ -144,6 +145,11 @@ var page = {
 				// 사용 종료일
 				if(!smutil.isEmpty(this.use_end_ymd)){
 					dateTxt = dateTxt + " ~ " + (this.use_end_ymd+"").LPToFormatDate("yyyy년 mm월 dd일");
+				}
+				
+				//전체환불일 경우 기간에 전체환불로 표시
+				if (this.stlm_mthd === 'all_refund') {
+					dateTxt = "전체환불";
 				}
 
 				return smutil.nullToValue(dateTxt,'');
@@ -306,15 +312,15 @@ var page = {
 
 		// 결제 내역 목록조회 api호출 callback
 		dtllistCallback : function(result){
-
+			
 			page.apiParamInit();		// 파라메터 전역변수 초기화
-
+			
 			// api 결과 성공여부 검사
 			if(smutil.apiResValidChk(result) && result.code == "0000"){
 
 				// 조회 결과 데이터가 있으면 옵션 생성
 				if(result.data_count > 0){
-
+					
 					var data = result.data;
 
 					// 핸들바스 템플릿 가져오기
@@ -338,6 +344,16 @@ var page = {
 
 		},
 		// ################### 결제 내역 조회 end
+		// 상세내역에서 돌아올때 새로고침
+		resumeInfo : function(){
+			var strt_ymd = $('#strt_ymd').val();
+			var end_ymd = $('#end_ymd').val();
+			
+			if(strt_ymd!="" && end_ymd!=""){
+				page.listReLoad();				// 리스트 제조회	
+			}
+			
+		}
 
 };
 
