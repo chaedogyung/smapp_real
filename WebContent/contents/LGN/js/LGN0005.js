@@ -275,8 +275,11 @@ var page = {
 			var strt_ymd = $('#useDate').data('fromYmd');			// 사용시작일
 			var end_ymd = $('#useDate').data('endYmd');				// 사용종료일
 			var pay_mth = $("#pay_mth").val();						// 결제방법 01:카드, 02:모바일
-			var cpno = LEMP.Properties.get({						// 전화번호
-				"_sKey" : "dataCpno"
+//			var cpno = LEMP.Properties.get({						// 전화번호
+//				"_sKey" : "dataCpno"
+//			});
+			var cpno = LEMP.Device.getInfo({							// 디바이스번호로 변경
+				"_sKey" : "mobile_number"
 			});
 			
 			if(cpno.startsWith( '+82' )){							//010으로 변경
