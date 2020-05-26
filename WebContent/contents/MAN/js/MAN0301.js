@@ -113,6 +113,11 @@ var page = {
 			try{
 				if(smutil.apiResValidChk(res) && res.code === "0000" && res.data_count!=0){
 					var list = res.data.list;
+					
+					list = list.sort(function (a,b){
+						return b.sta_ymd - a.sta_ymd; 
+					});
+					
 					var link = [
 						'https:\/\/youtu.be\/AldEexl0X5o'
 					];
