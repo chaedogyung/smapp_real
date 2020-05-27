@@ -25,6 +25,8 @@ var page = {
 						+data_r.sta_ymd.substring(4,6)+"."
 						+data_r.sta_ymd.substring(6,8);
 		
+		//<br>태그 추가
+		data_r.dtl_desc = data_r.dtl_desc.split("\n").join("<br>");
 		
 		var data_l = {
 			"notice" :[data_r]
