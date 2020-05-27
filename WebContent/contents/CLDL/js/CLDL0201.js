@@ -124,6 +124,17 @@ var page = {
 
 			// 화면 상단의 화물추적 버튼을 누른경우
 			$("#openFrePop").click(function(){
+				var popUrl = smutil.getMenuProp("FRE.FRE0301","url");
+
+				LEMP.Window.open({
+					"_sPagePath":popUrl,
+					"_oMessage":{
+						"param":null
+					}
+				});
+			});
+				
+				
 //				var popUrl = smutil.getMenuProp("FRE.FRE0301","url");
 //
 //				LEMP.Window.open({
@@ -135,16 +146,16 @@ var page = {
 
 
 				// 집하완료 페이지로 전환
-				var popUrl = smutil.getMenuProp('CLDL.CLDL0301', 'url');
-//				LEMP.Window.open({
+//				var popUrl = smutil.getMenuProp('CLDL.CLDL0301', 'url');
+////				LEMP.Window.open({
+////					"_sPagePath":popUrl
+////				});
+////
+////				LEMP.Window.close();
+//				LEMP.Window.replace({
 //					"_sPagePath":popUrl
 //				});
-//
-//				LEMP.Window.close();
-				LEMP.Window.replace({
-					"_sPagePath":popUrl
-				});
-			});
+//			});
 
 
 			// 달력버튼을 누른경우
