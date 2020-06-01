@@ -30,6 +30,12 @@ var page = {
 			var html = '<div class="content">'+this.dtl_desc+ '</div>';
 			return new Handlebars.SafeString(html);
 		});
+		
+		//이미지 태그 추가
+		Handlebars.registerHelper('img_path', function(options){
+			var html = '<img src="'+this.img_path+ '">';
+			return new Handlebars.SafeString(html);
+		});
 
 		var data_l = {
 			"notice" :[data_r]
