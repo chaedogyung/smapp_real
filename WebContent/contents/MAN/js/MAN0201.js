@@ -40,8 +40,10 @@ var page = {
 		
 		//이미지 태그 추가
 		Handlebars.registerHelper('img_path', function(options){
-			var html = '<img src="'+this.img_path+ '">';
-			return new Handlebars.SafeString(html);
+			if (!smutil.isEmpty(this.img_path)) {
+				var html = '<img src="'+this.img_path+ '">';
+				return new Handlebars.SafeString(html);
+			}
 		});
 		
 		var source = $("#MAN0201_list_template").html();
