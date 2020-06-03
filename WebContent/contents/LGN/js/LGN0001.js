@@ -897,6 +897,7 @@ var page = {
 		}
 		else {	// 로그인 실패
 
+			var loginId = $.trim($('#principal').val());			//입력된 id
 			// 인증페이지로 이동
 			// 장기미접속 차단
 			if(res.message == "LONG_TIM_PW"){
