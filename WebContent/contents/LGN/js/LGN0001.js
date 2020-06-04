@@ -578,10 +578,8 @@ var page = {
 		if(res && (res.code == "00" || res.code == "0000")
 			&& !smutil.isEmpty(res.accessToken)){
 
-			// TODO: 결제 임시 제외
 			// 결제 대상자인경우 결제팝업
-			// if(!smutil.isEmpty(res.pay_status_yn) && res.pay_status_yn == "N"){
-			if(false){
+			if(!smutil.isEmpty(res.pay_status_yn) && res.pay_status_yn == "N"){
 				LEMP.Window.alert({
 					"_sTitle":"결제 대상자",
 					"_vMessage":"결제완료 후 사용이 가능합니다.\n결제창으로 이동합니다."
@@ -869,6 +867,8 @@ var page = {
 							page.isLmsAgree = true;
 						}
 					}
+
+
 
 					// 모두 동의한 경우 정상 로그인 처리
 					if(page.isTermAgree && page.isLmsAgree){
