@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
+
+</head>
+
+<body>
+	<input type="hidden" name="menuId" id="menuId" value="LGN0007"/>
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection v2">
+			<div class="headerWrap black">
+				<h1>자동 문자발송 동의 안내</h1>
+			</div>
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+			<div class="smsAgreeContent" style="max-height:300px;">
+				롯데글로벌로지스 SM앱에서는 고객에게 MMS를 자동으로 발송하는 서비스를 제공하고 있습니다.
+				<br/><br/>
+				자동 발송 기능을 추가 비용 없이 이용하려면 본 동의서 작성 이후 아래와 같이 통신사에 직접 문자메시지 발송량 제한 해제 신청을 하여야 합니다.
+				<br/><br/>
+				<p style="text-align: center">- 아     래 -</p>
+				①  SM이 직접 3개월 단위 통신사 필요서류 제출
+				<br/>
+				(팩스, 이메일, 직접방문中 택)
+				<br/>
+				②  필요서류 : 문자메시지 발송량 제한 해제 신청서,
+				<br/>
+				신분증, 사업자등록증, 재직증명서
+				<br/><br/>
+				※ 동의를 거부할 수 있으며, 동의 거부시 자동발송 대상에서 제외될 수 있습니다. 동의서 작성 이후에 통신사에 발송량 제한 해제 신청을 하지 않음으로써 발생하는 추가 요금에 롯데글로벌로지스는 아무런 책임이 없습니다.
+			</div>
+			<div class="infoListBox">
+				<ul>
+					<li>
+						<div class="infoBox">
+							<div id="agree_info">
+								<div class="formGroup">
+									<div class="formLabel">문자제한 해제 신청일</div>
+									<div class="formControl">
+										<input type="text" id="req_dt" name="req_dt" placeholder="신청일 선택" class="inCal2" readonly>
+									</div>
+								</div>
+								<div class="formGroup">
+									<div class="formLabel">문자제한 해제 만료일</div>
+									<div class="formControl">
+										<input type="text" id="end_dt" name="end_dt" placeholder="만료일 선택" class="inCal2" readonly>
+									</div>
+								</div>
+
+								<!--							<dl class="smsCancelTime">-->
+								<!--								<dt>문자제한 해제 기간</dt>-->
+								<!--								<dd>2020년 2월 25일 ~ 2020년 5월 24일</dd>-->
+								<!--							</dl>-->
+
+								<div class="formGroup formGroupVertical">
+									<div class="formLabel">통신사 선택</div>
+									<div class="formControl">
+										<ul class="phoneGrid">
+											<li>
+												<label class="phoneRadio">
+													<input type="radio" name="carrier" value="SKT" checked />
+													<span class="phoneRadioLabel">SKT</span>
+												</label>
+											</li>
+											<li>
+												<label class="phoneRadio">
+													<input type="radio" name="carrier" value="LGT" />
+													<span class="phoneRadioLabel">LGU+</span>
+												</label>
+											</li>
+											<li>
+												<label class="phoneRadio">
+													<input type="radio" name="carrier" value="KT" />
+													<span class="phoneRadioLabel">KT</span>
+												</label>
+											</li>
+											<li>
+												<label class="phoneRadio">
+													<input type="radio" name="carrier" value="MVNO" />
+													<span class="phoneRadioLabel">알뜰폰</span>
+												</label>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+
+							<div class="formGroup formGroupVertical">
+								<div class="formLabel">자동문자발송동의</div>
+								<div class="formControl">
+										<span class="radioBox">
+											<input type="radio" name="agree" id="disagree" value="N">
+											<label for="disagree">미동의</label>
+										</span>
+									<span class="radioBox mgl20">
+											<input type="radio" name="agree" id="agree" value="Y" checked>
+											<label for="agree">동의</label>
+										</span>
+								</div>
+							</div>
+
+							<div class="formGroup" id="disagree_reason" style="display: none;">
+								<div class="formLabel">미동의 선택 사유</div>
+								<div class="formControl">
+										<span class="selBox w100p">
+											<select id="reason">
+												<option value="1">요금제</option>
+												<option value="2">통신사(알뜰폰)</option>
+												<option value="3">KT조건 미흡</option>
+												<option value="4">휴대폰 사양</option>
+												<option value="5">문자제한해제 미신청</option>
+											</select>
+										</span>
+								</div>
+							</div>
+
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="mgt20">
+				<button class="btn red w100p m" id="btnSave">저장</button>
+			</div>
+
+		</div>
+		<!--  //contentSection  -->
+
+	</div>
+	<!--  //contents  -->
+</body>
+
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/LGN0007.js"></script>
+
+</html>

@@ -1,12 +1,12 @@
 @charset "utf-8";
-/************************************** 
+/**************************************
 ** 공통
 ***************************************/
 .contentSection{font-weight:500;}
 .contentBox.main{padding:60px 10px 0;}
 .headFx {position:fixed;top:0; left:0; width:100%; z-index:10;}
 
-/************************************** 
+/**************************************
 ** cardBox
 ***************************************/
 /* 공통 */
@@ -45,9 +45,9 @@
 .cardBox.chart .monthBox li:nth-child(3) .num { display:inline-block; min-width:68px; max-width:68px; text-align: center;}
 /****  // cardBox //  ****/
 
-/* 
+/*
 
-/************************************** 
+/**************************************
 ** quickMenu
 ***************************************/
 .quickMenuBox{background-color:#fff;overflow:hidden;}
@@ -58,3 +58,9 @@
 .quickMenuBox li .num{position:absolute; top:5px; right:20px; color:#e60012; font-size:15px; font-weight:600;}
 .quickMenuBox li .txt{position:absolute; left:0px; top:82px; color:#000; font-size:15px; font-weight:600; display:inline-block; width:100%; text-align:center;}
 /****  // quickMenu //  ****/
+
+/** smsStatus **/
+.smsStatus {display:flex;align-items: center;justify-content: flex-end;position: absolute;top:15px;right:20px;height:35px;}
+.smsBtn {display:block;padding:0 25px 0 10px;white-space: nowrap;background:#da291c url('../../common/img/icon-warrow-right.png') no-repeat calc(100% - 10px) 50%;;background-size:6px 10px;line-height:32px;}
+.smsStatusLabel {font-size:16px;color:#666;text-align: right; line-height: 1.3;color:#da291c}
+.smsStatusLabel small {display:block; font-size:13px;}

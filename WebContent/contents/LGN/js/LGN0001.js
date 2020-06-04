@@ -61,6 +61,8 @@ var page = {
 	usrCpno : null, 						// 디바이스 전화번호
 	pushToken : null,						// 디바이스 푸시토큰
 	loginUsrCpno : null,					// 로그인 요청한 전화번호
+	isTermAgree : false,					// 이용약관 동의 여부
+	isLmsAgree: false,						// 메시지 대량발송 동의 여부
 
 	// 디바이스의 푸시토큰 구해오기
 	getPushTokenCallback : function(res){
@@ -87,9 +89,9 @@ var page = {
 		// 저장해 놓은  id체크박스값 있는경우는  셋팅
 		// 복호화 한 값이 숫자타입에 8자리만 셋팅한다.
 		if(!smutil.isEmpty(saveIdChk)
-				&& saveIdChk == "Y"
-				&& $.isNumeric( principal )
-				&& principal.length == 8){
+			&& saveIdChk == "Y"
+			&& $.isNumeric( principal )
+			&& principal.length == 8){
 			// 저장해 놓은 id 가 있는경우는 id 셋팅
 			if(!smutil.isEmpty(principal)){
 				$('#principal').val(principal);
@@ -548,10 +550,10 @@ var page = {
 			page.apiParam.param.baseUrl = "/auth/login";					// api no
 			page.apiParam.param.callback = "page.loginCallback";			// callback methode
 			page.apiParam.data = {
-					"principal" : id,
-					"credential" : pw,
-					"usrCpno" : usrCpno,
-					"pushToken" : pushToken,
+				"principal" : id,
+				"credential" : pw,
+				"usrCpno" : usrCpno,
+				"pushToken" : pushToken,
 			};
 
 
@@ -574,11 +576,12 @@ var page = {
 
 		// 로그인 성공
 		if(res && (res.code == "00" || res.code == "0000")
-				&& !smutil.isEmpty(res.accessToken)){
+			&& !smutil.isEmpty(res.accessToken)){
 
-			// 결제 임시 제외
+			// TODO: 결제 임시 제외
 			// 결제 대상자인경우 결제팝업
-			if(!smutil.isEmpty(res.pay_status_yn) && res.pay_status_yn == "N"){
+			// if(!smutil.isEmpty(res.pay_status_yn) && res.pay_status_yn == "N"){
+			if(false){
 				LEMP.Window.alert({
 					"_sTitle":"결제 대상자",
 					"_vMessage":"결제완료 후 사용이 가능합니다.\n결제창으로 이동합니다."
@@ -607,10 +610,10 @@ var page = {
 				 * 로그인 id와 프로퍼티에 저장된 데이터의 id를 비교해서 id가 다를경우
 				 * 새로운 사용자로 간주하고 저장되어있는 개인정보를 전부다 삭제
 				 */
-				// 저장해 놓은 로그인id
+					// 저장해 놓은 로그인id
 				var principal = LEMP.Properties.get({
-					"_sKey" : "dataId"
-				});
+						"_sKey" : "dataId"
+					});
 
 				// 난독화화 함께 적용하기로하고 주석처리
 //				if(!smutil.isEmpty(principal)){
@@ -619,9 +622,9 @@ var page = {
 
 				// 저장한 id 와 로그인한 id 가 다르면 로컬 데이터 전부 삭제(인증데이터 제외)
 				if($.isNumeric( principal )
-						&& principal.length == 8
-						&& !smutil.isEmpty(principal)
-						&& principal != loginId){
+					&& principal.length == 8
+					&& !smutil.isEmpty(principal)
+					&& principal != loginId){
 
 					if(setPropKeys.keys){
 						var keysLst = setPropKeys.keys;
@@ -630,8 +633,8 @@ var page = {
 							$.each(Obj, function (key, val) {
 								// 인증정보 제외, 개인정보 동의 제외
 								if(!smutil.isEmpty(key)
-										&& key != "authCertInfo"		// 인증정보
-										&& key != "personalInfo")		// 개인정보 동의 제외
+									&& key != "authCertInfo"		// 인증정보
+									&& key != "personalInfo")		// 개인정보 동의 제외
 								{
 									LEMP.Properties.remove({"_sKey":key});
 								}
@@ -851,10 +854,24 @@ var page = {
 						"_nSeconds" : 90000		// 초단위
 					});
 
-					var term_accept_yn = res.term_accept_yn;		// 개인정보 동의여부 대상자
 
-					// Y 인경우 이미 동의한 사람이기때문에 정상 로그인 처리
-					if(term_accept_yn == "Y"){
+					// 이용약관 동의 여부
+					if (res.term_accept_yn == 'Y') {
+						page.isTermAgree = true;
+					}
+
+					// 메시지 대량발송 동의 여부(동의하고 만료일자가 지나지 않은 경우 팝업)
+					if (res.lms_agg_yn == 'Y') {
+						var lmsEndDt = new Date(res.lms_end_ymd.substr(0, 4), res.lms_end_ymd.substr(4, 2) - 1, res.lms_end_ymd.substr(6, 2)).LPAddDay(1);
+						var now = new Date();
+
+						if (now.getTime() < lmsEndDt.getTime()) {
+							page.isLmsAgree = true;
+						}
+					}
+
+					// 모두 동의한 경우 정상 로그인 처리
+					if(page.isTermAgree && page.isLmsAgree){
 
 						// 개인정보동의 데이터
 						var personalInfo = LEMP.Properties.get({
@@ -884,12 +901,15 @@ var page = {
 						LEMP.Window.open({
 							"_sPagePath" : "MAN/html/MAN0001.html",
 							"_oMessage":{"param":{
-								"term_accept_yn" : term_accept_yn
-							}}
+									"term_accept_yn" : res.term_accept_yn
+								}}
 						});
 					}
-					else if(term_accept_yn == "N"){					// 개인정보 동의가 필요한 사람
-						page.term();		// 개인정보 동의 로직으로 변경
+					else if(!page.isTermAgree){	// 개인정보 동의가 필요한 사람
+						page.term();
+					}
+					else if(!page.isLmsAgree) {	// 메시지 대량발송 동의가 필요한 사람
+						page.lms();
 					}
 				}
 			}
@@ -974,7 +994,7 @@ var page = {
 		var status = null;
 
 		if(!smutil.isEmpty(arg.param)
-				&& !smutil.isEmpty(arg.param.status)){
+			&& !smutil.isEmpty(arg.param.status)){
 			status = arg.param.status;
 		}
 
@@ -1000,7 +1020,7 @@ var page = {
 		else if(!smutil.isEmpty(status) && status === "smios"){
 			// 인증받은 사용자 전화번호 ( '-' 없음)
 			if(!smutil.isEmpty(arg.param)
-					&& !smutil.isEmpty(arg.param.usrCpno)){
+				&& !smutil.isEmpty(arg.param.usrCpno)){
 				page.usrCpno = arg.param.usrCpno;
 			}
 
@@ -1104,8 +1124,8 @@ var page = {
 					LEMP.Window.open({
 						"_sPagePath":popUrl,
 						"_oMessage":{"param":{
-							"principal" : $('#principal').val()		// 로그인 id
-						}}
+								"principal" : $('#principal').val()		// 로그인 id
+							}}
 					});
 				}
 				else {		// 같은경우는 최초 개인정보 동의한 경우기때문에 동의 결과를 서버에 전송한 후 로그인처리 한다.
@@ -1183,10 +1203,15 @@ var page = {
 				"_vValue" : personalInfo
 			});
 
-			// 메인페이지 이동
-			LEMP.Window.open({
-				"_sPagePath" : "MAN/html/MAN0001.html"
-			});
+			if (page.isLmsAgree) {
+				// 메인페이지 이동
+				LEMP.Window.open({
+					"_sPagePath" : "MAN/html/MAN0001.html"
+				});
+			} else {
+				// 메시지 대량발송 동의 로직
+				page.lms();
+			}
 		}
 
 
@@ -1195,9 +1220,37 @@ var page = {
 
 	// 개인정보 동의결과를 전송하고 로그인도 완료된 후에 메인페이지로 이동되는 함수
 	termPopupCallback : function(){
-		// 메인페이지 이동
+		if (page.isLmsAgree) {
+			// 메인페이지 이동
+			LEMP.Window.open({
+				"_sPagePath" : "MAN/html/MAN0001.html"
+			});
+		} else {
+			// 메시지 대량발송 동의 로직
+			page.lms();
+		}
+
+	},
+
+	lms : function() {
+		// 토큰 조회
+		var accessToken = LEMP.Properties.get({
+			"_sKey" : "accessToken"
+		});
+
+		// 저장되어있던 토큰 삭제(앱 종료 시 로그아웃 처리)
+		if (!smutil.isEmpty(accessToken)) {
+			LEMP.Properties.remove({_sKey:"accessToken"});
+		}
+
+		var popUrl = smutil.getMenuProp("LGN.LGN0007","url");
 		LEMP.Window.open({
-			"_sPagePath" : "MAN/html/MAN0001.html"
+			"_sPagePath": popUrl,
+			"_oMessage": {
+				"param": {
+					"accessToken": accessToken
+				}
+			}
 		});
 	}
 };

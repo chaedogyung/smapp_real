@@ -10,6 +10,7 @@ var menuJsonJs =
 		"LGN0004":{"menuTxt" : "앱설치 권한동의팝업", "parentMenuCd" : null, "menuDept" : 2, "url" : "LGN/html/LGN0004.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"LGN0005":{"menuTxt" : "사용료 결제", "parentMenuCd" : null, "menuDept" : 2, "url" : "LGN/html/LGN0005.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"LGN0006":{"menuTxt" : "개인정보 수집 및 이용안내", "parentMenuCd" : null, "menuDept" : 2, "url" : "LGN/html/LGN0006.html", "mainImgSrc" : "", "gnbImgClass" : ""},
+		"LGN0007":{"menuTxt" : "메시지 대량 발송 안내", "parentMenuCd" : null, "menuDept" : 2, "url" : "LGN/html/LGN0007.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 	},
 	"MAN" : {
 		"GNB":false,
@@ -163,7 +164,7 @@ var menuJsonJs =
 		"SET0201":{"menuTxt" : "문자발송 설정", "parentMenuCd" : null, "menuDept" : 1, "url" : "SET/html/SET0201.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"SET0202":{"menuTxt" : "문구 작성", "parentMenuCd" : null, "menuDept" : 2, "url" : "SET/html/SET0202.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"SET0301":{"menuTxt" : "인수자 편집", "parentMenuCd" : null, "menuDept" : 1, "url" : "SET/html/SET0301.html", "mainImgSrc" : "", "gnbImgClass" : ""},
-//		"SET0401":{"menuTxt" : "카메라 설정", "parentMenuCd" : null, "menuDept" : 1, "url" : "SET/html/SET0401.html", "mainImgSrc" : "", "gnbImgClass" : ""},
+		"SET0401":{"menuTxt" : "자동문자발송 미동의/동의", "parentMenuCd" : null, "menuDept" : 1, "url" : "SET/html/SET0401.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 	},
 	"MYP":{
 		"GNB":true,
