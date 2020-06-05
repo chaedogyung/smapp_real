@@ -27,19 +27,6 @@ var page = {
 					"_sKey" : "dataId"
 				});
 
-				// 결제 관련 메뉴는 5월 6일부터 적용(5월 6일 이후 적용시 삭제)
-				if (menu_nm === 'PAY') {
-					// 사번 : 21600154(송영규 수석님), 31909351(이하니 담당님), 31905309(개발팀)
-					if (loginId !== '21600154' && loginId !== '31909351' && loginId !== '31905309') {
-						var payDate = new Date(2020, 4, 6);
-						var today = new Date();
-
-						if (payDate.getTime() > today.getTime()) {
-							continue;
-						}
-					}
-				}
-
 				obj = {};
 				obj.menuCode = menu_nm;
 				obj.menuTxt = menuJsonJs[menu_nm].menuTxt;
@@ -50,6 +37,16 @@ var page = {
 					var subMenuObj = (menuJsonJs[menu_nm])[subMenuNm];
 					if((subMenuNm).startsWith(menu_nm)
 							&& subMenuObj.menuDept === 1){
+
+						// TODO: 6월 8일 6시 이후 제거(LMS 동의)
+						if (subMenuNm === 'SET0401') {
+							var now = new Date();
+							var applyDate = new Date(2020, 5, 8, 6);
+							if (now.getTime() < applyDate.getTime()) {
+								continue;
+							}
+						}
+
 						subObj = {};
 						subObj.menuCode = subMenuNm;
 						subObj.menuTxt = subMenuObj.menuTxt;

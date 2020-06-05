@@ -579,7 +579,8 @@ var page = {
 			&& !smutil.isEmpty(res.accessToken)){
 
 			// 결제 대상자인경우 결제팝업
-			if(!smutil.isEmpty(res.pay_status_yn) && res.pay_status_yn == "N"){
+			// if(!smutil.isEmpty(res.pay_status_yn) && res.pay_status_yn == "N"){
+			if(false){
 				LEMP.Window.alert({
 					"_sTitle":"결제 대상자",
 					"_vMessage":"결제완료 후 사용이 가능합니다.\n결제창으로 이동합니다."
@@ -868,7 +869,14 @@ var page = {
 						}
 					}
 
-
+					// TODO: 6월 8일 6시 이후 제거(LMS 동의)
+					var now = new Date();
+					var applyDate = new Date(2020, 5, 8, 6);
+					if (now.getTime() < applyDate.getTime()) {
+						console.log(now);
+						console.log(applyDate);
+						page.isLmsAgree = true;
+					}
 
 					// 모두 동의한 경우 정상 로그인 처리
 					if(page.isTermAgree && page.isLmsAgree){
