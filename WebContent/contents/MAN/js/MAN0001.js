@@ -615,11 +615,17 @@ var page = {
 
 	// 동의 상태 조회
 	, getMsgCnf: function() {
+		var loginId = LEMP.Properties.get({
+			"_sKey" : "dataId"
+		});
+
 		// TODO: 6월 8일 6시 이후 제거(LMS 동의)
-		var now = new Date();
-		var applyDate = new Date(2020, 5, 8, 6);
-		if (now.getTime() < applyDate.getTime()) {
-			return;
+		if (loginId !== '31909351') {
+			var now = new Date();
+			var applyDate = new Date(2020, 5, 8, 6);
+			if (now.getTime() < applyDate.getTime()) {
+				return;
+			}
 		}
 
 		page.apiParam.param.baseUrl = "/smapis/cmn/getMsgCnf";		// api no
