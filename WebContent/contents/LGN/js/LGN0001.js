@@ -856,27 +856,6 @@ var page = {
 					// 이용약관 동의 여부
 					if (res.term_accept_yn == 'Y') {
 						page.isTermAgree = true;
-					}
-
-					// 메시지 대량발송 동의 여부(동의하고 만료일자가 지나지 않은 경우 팝업)
-					if (res.lms_agg_yn == 'Y') {
-						var lmsEndDt = new Date(res.lms_end_ymd.substr(0, 4), res.lms_end_ymd.substr(4, 2) - 1, res.lms_end_ymd.substr(6, 2)).LPAddDay(1);
-						var now = new Date();
-
-						if (now.getTime() < lmsEndDt.getTime()) {
-							page.isLmsAgree = true;
-						}
-					}
-
-					// TODO: 6월 11일 이후 제거(LMS 동의)
-					var now = new Date();
-					var applyDate = new Date(2020, 5, 11);
-					if (now.getTime() < applyDate.getTime()) {
-						page.isLmsAgree = false;
-					}
-
-					// 모두 동의한 경우 정상 로그인 처리
-					if(page.isTermAgree && page.isLmsAgree){
 
 						// 개인정보동의 데이터
 						var personalInfo = LEMP.Properties.get({
@@ -901,7 +880,27 @@ var page = {
 								"_vValue" : personalInfo
 							});
 						}
+					}
 
+					// 메시지 대량발송 동의 여부(동의하고 만료일자가 지나지 않은 경우 팝업)
+					if (res.lms_agg_yn == 'Y') {
+						var lmsEndDt = new Date(res.lms_end_ymd.substr(0, 4), res.lms_end_ymd.substr(4, 2) - 1, res.lms_end_ymd.substr(6, 2)).LPAddDay(1);
+						var now = new Date();
+
+						if (now.getTime() < lmsEndDt.getTime()) {
+							page.isLmsAgree = true;
+						}
+					}
+
+					// TODO: 6월 11일 이후 제거(LMS 동의)
+					var now = new Date();
+					var applyDate = new Date(2020, 5, 11);
+					if (now.getTime() < applyDate.getTime()) {
+						page.isLmsAgree = false;
+					}
+
+					// 모두 동의한 경우 정상 로그인 처리
+					if(page.isTermAgree && page.isLmsAgree){
 						// 메인페이지 이동
 						LEMP.Window.open({
 							"_sPagePath" : "MAN/html/MAN0001.html",
