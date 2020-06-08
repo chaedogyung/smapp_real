@@ -868,13 +868,11 @@ var page = {
 						}
 					}
 
-					// TODO: 6월 8일 이후 제거(LMS 동의)
-					if (loginId !== '31909351') {
-						var now = new Date();
-						var applyDate = new Date(2020, 5, 8);
-						if (now.getTime() < applyDate.getTime()) {
-							page.isLmsAgree = true;
-						}
+					// TODO: 6월 11일 이후 제거(LMS 동의)
+					var now = new Date();
+					var applyDate = new Date(2020, 5, 11);
+					if (now.getTime() < applyDate.getTime()) {
+						page.isLmsAgree = false;
 					}
 
 					// 모두 동의한 경우 정상 로그인 처리
