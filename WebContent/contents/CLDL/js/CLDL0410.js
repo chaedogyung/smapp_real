@@ -44,15 +44,43 @@ var page = {
 			smutil.callCamera(fileName, 'page.imageCallback');
 		});
 
-
 		// 갤러리 버튼 클릭
 		$(".btn.img").click(function() {
 			var date = new Date();
 			var curTime = date.LPToFormatDate("yyyymmddHHnnss");
 			var fileName = "000000000000_cdlv_"+curTime+".jpg";
-
 			smutil.callGallery(fileName, 'page.imageCallback');
 		});
+		
+		// 싸인 버튼 클릭
+		$(".btn.sign").click(function() {
+			var date = new Date();
+			var curTime = date.LPToFormatDate("yyyymmddHHnnss");
+			var fileFullPath = "{external}/LEMP/"+"000000000000"+"_sign_"+curTime+".jpg";
+			smutil.callSignPad(fileFullPath, page.cmptSignRgst);
+		});
+		
+		// 서명 싸인패드 호출
+		$(document).on('click', '.btn.blue2.bdM.bdMemo.mgl1', function(e){
+			var inv_no = $(this).data('invNo')+"";
+
+			if(_this.chkScanYn(inv_no)){
+				_this.signInvNo = inv_no;
+				var date = new Date();
+				var curTime = date.LPToFormatDate("yyyymmddHHnnss");
+				var fileFullPath = "{external}/LEMP/"+inv_no+"_sign_"+curTime+".jpg";
+				smutil.callSignPad(fileFullPath, page.cmptSignRgst);
+
+			}
+			else{
+				LEMP.Window.alert({
+					"_sTitle":"서명 오류",
+					"_vMessage":"스캔후 가능합니다.",
+				});
+			}
+
+		});
+
 
 
 		$(document).on("click",".phon > button",function(){
@@ -83,6 +111,11 @@ var page = {
 			var pNum = [];
 			var invNo = [];
 			var usrCpno = [];
+			
+			//서버전송용 
+			var pNumApi = [];
+			var invNoApi = [];
+			var usrCpnoApi = [];
 
 			if (smutil.isEmpty(conCheck)) {
 				 LEMP.Window.alert({
@@ -116,6 +149,12 @@ var page = {
 				var phoneNumber = $(this).find("#tel_num > span").text();
 				var phoneCheck = phoneNumber.substr(0,3);
 				var inv_no = $(this).find("#inv_no").data("invNo");
+				
+				//전화번호 상관없이 일단 다 넣는다
+				pNumApi.push(phoneNumber.replace(/\-/gi,""));
+				invNoApi.push(String(inv_no));
+				usrCpnoApi.push(phoneNumber);
+				
 				switch (phoneCheck) {
 					//전화번호 앞자리가 아래 조건이 아니면 전송시도를 하지 않는다.
 					case "010":
@@ -158,6 +197,23 @@ var page = {
 				,"sleepTime": 0
 				,"callback":"smutil.mmsMsgCallback"
 			};
+			
+			//서버전송용 추가예정
+//			var objApi={};
+//
+//			objApi.inv_no=invNoApi;
+//			objApi.usr_cpno=usrCpnoApi;
+//			objApi.images=imgCheck;
+//			page.cldl0410.obj = objApi;
+//
+//			objApi = {
+//				"phoneNumber": pNumApi
+//				,"title": '롯데택배'
+//				,"context": conCheck
+//				,"filePath": imgCheck
+//				,"sleepTime": 0
+//				,"callback":"smutil.mmsMsgCallback"
+//			};
 
 			page.cldl0410.sendmms = obj;
 			page.cmptPhtgTrsmPop();
@@ -166,7 +222,68 @@ var page = {
 
 
 		page.InvNoAppend();
+	},
+	
+	// ################### 서명이미지 전송
+	cmptSignRgst : function(signObj){
+		//송장번호 배열
+		var invNoApi = [];
+		$("#cldl0410LstUl > li").each(function(){
+			var inv_no = $(this).find("#inv_no").data("invNo");
+			invNoApi.push(String(inv_no));
+		});
+		
+		if(!smutil.isEmpty(signObj) && signObj.result && !smutil.isEmpty(invNoApi)){
+
+			//서명이미지 api 호출
+			page.apiParam.id = 'HTTPFILE'
+			page.apiParam.param.baseUrl = "/smapis/cldl/cmptSignRgstArr";			// api no
+			page.apiParam.param.callback = "page.cmptSignRgstCallback";			// callback methode
+			page.apiParam.data = {				// api 통신용 파라메터
+				"parameters" : {
+					"inv_no" : invNoApi	// 송장번호
+				}
+			};
+			page.apiParam.files = [(signObj.list[0]).target_path];
+
+			// 공통 api호출 함수
+			smutil.callApi(page.apiParam);
+
+			page.signInvNo = null;
+		}
+		else{
+			LEMP.Window.alert({
+				"_sTitle":"서명이미지 저장오류",
+				"_vMessage":"서명이미지를 저장하지 못했습니다.\n 관리자에게문의해 주세요."
+			});
+		}
+
+	},
+
+
+	// 서명이미지 전송 콜백
+	cmptSignRgstCallback : function(result){
+		page.signInvNo = null;
+
+		// api 전송 성공
+		if(smutil.apiResValidChk(result) && result.code == "0000"){
+			LEMP.Window.alert({
+				"_sTitle":"서명이미지 저장",
+				"_vMessage":"서명이미지 저장처리가 완료되었습니다."
+			});
+			//서명이미지 전송후 종료
+			LEMP.Window.close();
+		}
+		else{
+			LEMP.Window.alert({
+				"_sTitle":"서명이미지 저장오류",
+				"_vMessage":smutil.nullToValue(result.message,'')
+			});
+		}
+
 	}
+	// ################### 서명이미지 저장 처리 end
+	
 	,InvNoAppend:function(){
 		var list = page.cldl0410.list;
 		for (var i = 0; i < list.length; i++) {
