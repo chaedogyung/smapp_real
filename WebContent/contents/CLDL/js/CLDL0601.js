@@ -135,7 +135,7 @@ var page = {
         $('#mmsMessage').val(mmsMessage);
 
         // 인수자 명 메시지 설정
-        $('#mmsRcvName').text('인수자 : ');
+        $('#mmsRcvName').text('위탁장소 : ');
 
         // 기존 설정한 인수자 정보 설정
         var acptSctInfo = LEMP.Properties.get({
@@ -242,7 +242,7 @@ var page = {
         $('#rcvName').val(name);                    // 인수자 명 hidden
         $('#rcvCode').val(code);                    // 인수자 코드 hidden
         $('#rcvNameText').text(name);               // 인수자 명
-        $('#mmsRcvName').text('인수자 : ' + name);    // 인수자 명 메시지
+        $('#mmsRcvName').text('위탁장소 : ' + name);    // 인수자 명 메시지
 
         var acpt_sct_info = {
             'acpt_sct_cd' : code
