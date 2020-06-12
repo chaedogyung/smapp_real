@@ -178,6 +178,8 @@ var page = {
 							page.ScanStatus.ymd = date.LPToFormatDate("yyyymmdd");
 							page.ScanStatus.tme = date.LPToFormatDate("HHnnss");
 							$('#inv_noText').val(res.data);
+							//BCR AI 수신/처리여부
+							page.getBcrAiRcpnInfo(res.data);
 						}else{
 							LEMP.Window.alert({
 								"_sTitle" : "경고",
@@ -559,6 +561,8 @@ var page = {
 			page.ScanStatus.ymd = date.LPToFormatDate("yyyymmdd");
 			page.ScanStatus.tme = date.LPToFormatDate("HHnnss");
 			$('#inv_noText').val(data.barcode);
+			//BCR AI 수신/처리 여부확인
+			page.getBcrAiRcpnInfo(data.barcode);
 		}else{
 			LEMP.Window.alert({
 				"_sTitle" : "운송장번호 오류",
@@ -652,6 +656,8 @@ var page = {
 		page.ScanStatus.ymd = date.LPToFormatDate("yyyymmdd");
 		page.ScanStatus.tme = date.LPToFormatDate("HHnnss");
 		$("#inv_noText").val(data.inv_no);
+		//BCR AI 수신/처리 여부확인
+		page.getBcrAiRcpnInfo(data.inv_no);
 	},
 	// 인풋콜백
 	InfoCallback : function(data) {
@@ -659,8 +665,12 @@ var page = {
 			page.fare_amt = data.value;
 			$("#" + data.id).val(
 					data.value.replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+			//BCR AI 수신/처리 여부확인
+			page.getBcrAiRcpnInfo(data.value);
 		} else {
 			$("#" + data.id).val(data.value);
+			//BCR AI 수신/처리 여부확인
+			page.getBcrAiRcpnInfo(data.value);
 		}
 	},
 
@@ -987,5 +997,43 @@ var page = {
 			}
 		// api 통신용 파라메터
 		};
+	},
+	// BCR AI 수신/처리 여부
+	getBcrAiRcpnInfo : function(code) {
+		var tab_cd = $(this).data('tabCd');
+		if(tab_cd != "N"){
+//			return;
+		}
+		smutil.loadingOn();
+		var _this = this;
+//		page.apiParamInit(); // 파라메터 전역변수 초기화
+		_this.apiParam.param.baseUrl = "smapis/pacl/getBcrAiRcpnInfo";
+		_this.apiParam.param.callback = "page.getBcrAiRcpnInfoCallback";
+		_this.apiParam.data = {
+			"parameters" : {
+				"inv_no" : code
+			}
+		};
+		smutil.callApi(_this.apiParam);
+		
+	},
+	//BCR AI 수신/처리 여부콜백
+	getBcrAiRcpnInfoCallback : function(res) {
+		try{
+			if(smutil.apiResValidChk(res) && res.code === "0000" && res.data_count!=0 && res.data.list[0].rcpn_yn == "Y"){
+				LEMP.Window.toast({
+					"_sMessage" : "이미 신고된 번호입니다",
+					"_sDuration" : "short"
+				});
+				
+				//이미신고된건은 운송장번호 초기화
+				$('#inv_noText').val("");
+			}
+		}catch(e){console.log(e)}
+		finally{
+			smutil.loadingOff();
+		}
+		
 	}
+	
 };
