@@ -55,6 +55,8 @@ var page = {
 		ymd : "",
 		tme : ""
 	},
+	//화물신고 전역변수
+	tab_cd : "N",
 	fare_amt : "",
 	apiParam : {
 		id : "HTTP", // 디바이스 콜 id
@@ -91,6 +93,7 @@ var page = {
 		/* 최상단 탭 클릭 */
 		$(".FBtn").click(function() {
 			var tab_cd = $(this).data('tabCd');
+			page.tab_cd = tab_cd;
 
 			// 텝에따라 업무구분 처리 (비규격 : N, 운임미기재 : M, 운임불일치 : I )
 			if (tab_cd == "N") {
@@ -840,12 +843,21 @@ var page = {
 				case "25Kg초과":
 					rea_cd_img = "33";
 					break;
+				case "무게 초과":
+					rea_cd_img = "33";
+					break;					
 				case "세변합 160Cm초과":
 					rea_cd_img = "34";
 					break;
+				case "세변합 초과":
+					rea_cd_img = "34";
+					break;					
 				case "최장변 120Cm초과":
 					rea_cd_img = "35";
 					break;
+				case "최장변 초과":
+					rea_cd_img = "35";
+					break;					
 				case "포장비정상":
 					rea_cd_img = "36";
 					break;
@@ -1000,9 +1012,8 @@ var page = {
 	},
 	// BCR AI 수신/처리 여부
 	getBcrAiRcpnInfo : function(code) {
-		var tab_cd = $(this).data('tabCd');
-		if(tab_cd != "N"){
-//			return;
+		if(page.tab_cd != "N"){
+			return;
 		}
 		smutil.loadingOn();
 		var _this = this;
