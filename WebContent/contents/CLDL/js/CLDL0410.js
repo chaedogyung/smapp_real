@@ -330,7 +330,7 @@ var page = {
 
 		// 인수자 셋팅
 		if(!smutil.isEmpty(acprNm)){
-			$("#insujaTxt").text("인수자 : " + acprNm);
+			$("#insujaTxt").text("위탁장소 : " + acprNm);
 		}
 
 		// 송장번호는 사진전송이 1건일 경우만 셋팅
