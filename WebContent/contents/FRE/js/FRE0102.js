@@ -19,30 +19,34 @@ var page = {
 		var status = res.status;
 		// var status ="운송장";
 
+		var date = new Date();
+        var curTime = date.LPToFormatDate("yyyymmddHHnnss");
+
+     // 사진 명명 규칙 (운송장번호 + 순번 + 시간)
 		if (!smutil.isEmpty(page.pageStatus)) {
 
 			switch (page.tagId) {
 			case "inv_no1":
 			case "inv_no2":
-				page.name = inv_no+"_phto1_pic.jpg";
+				page.name = inv_no + "_phto1_pic" + "_" + curTime + ".jpg";
 				break;
 			case "total1":
 			case "total2":
-				page.name = inv_no+"_phto2_pic.jpg";
+				page.name = inv_no + "_phto2_pic" + "_" + curTime + ".jpg";
 				break;
 			case "damage_p1":
 			case "damage_p2":
-				page.name = inv_no+"_phto3_pic.jpg";
+				page.name = inv_no + "_phto3_pic" + "_" + curTime + ".jpg";
 				break;
 			case "damage_p1t":
 			case "damage_p2t":
-				page.name = inv_no+"_phto4_pic.jpg";
+				page.name = inv_no + "_phto4_pic" + "_" + curTime + ".jpg";
 				break;
 			case "damage2C" :
-				page.name = inv_no+"_phto5_pic.jpg";
+				page.name = inv_no + "_phto5_pic" + "_" + curTime + ".jpg";
 				break;
 			case "damage2CT" :
-				page.name = inv_no+"_phto6_pic.jpg";
+				page.name = inv_no + "_phto6_pic" + "_" + curTime + ".jpg";
 				break;
 			}
 
@@ -50,25 +54,26 @@ var page = {
 			// 파일 이름 변경
 			switch (status) {
 			case "운송장":
-				page.name = inv_no+"_phto1_pic.jpg";
+				page.name = inv_no + "_phto1_pic" + "_" + curTime + ".jpg";
 				break;
 			case "전체":
-				page.name = inv_no+"_phto2_pic.jpg";
+				page.name = inv_no + "_phto2_pic" + "_" + curTime + ".jpg";
 				break;
 			case "가로":
-				page.name = inv_no+"_phto3_pic.jpg";
+				page.name = inv_no + "_phto3_pic" + "_" + curTime + ".jpg";
 				break;
 			case "세로":
-				page.name = inv_no+"_phto4_pic.jpg";
+				page.name = inv_no + "_phto4_pic" + "_" + curTime + ".jpg";
 				break;
 			case "높이":
-				page.name = inv_no+"_phto5_pic.jpg";
+				page.name = inv_no + "_phto5_pic" + "_" + curTime + ".jpg";
 				break;
 			case "무게":
-				page.name = inv_no+"_phto6_pic.jpg";
+				page.name = inv_no + "_phto6_pic" + "_" + curTime + ".jpg";
 				break;
 			}
 		}
+		
 		// 사진찍기
 		$('.camera').click(function() {
 			smutil.callCamera(page.name, 'page.gallaryCallback');
