@@ -391,6 +391,17 @@ var smutil = (function(window, document, $) {
 
 			return false;
 		}
+		// 사진 파일 전송 시 FileNotFound Error 일 경우 
+		else if(statusCode === '409' || code === '409') {
+			LEMP.Window.alert({
+				"_sTitle" : "사진파일 전송오류",
+                "_vMessage" : smutil.nullToValue(message,'갤러리 내에 선택한 사진 파일이 없습니다.\n사진을 다시 등록해 주세요.')
+			});
+
+			smutil.loadingOff();
+
+			return false;
+		} 
 		// 디바이스 네트워크 에러인경우는 로딩바만 종료해준다(디바이스 네트워크 체크시 오류인경우)
 		else if(statusCode === 'native_network_error'){
 
