@@ -122,6 +122,23 @@ var page = {
 					return false;
 				}
 
+				// 날짜 파싱
+				reqDt = reqDt.replace(/\./g,'');
+				endDt = endDt.replace(/\./g,'');
+
+				// 만료일 유효성 확인(6개월 미만)
+				var endDate = new Date(endDt.substr(0, 4), endDt.substr(4, 2), endDt.substr(6, 2));
+				var availDate = new Date(reqDt.substr(0, 4), reqDt.substr(4, 2), reqDt.substr(6, 2));
+				availDate.setMonth(availDate.getMonth() + 6);
+				if (endDate.getTime() >= availDate.getTime()) {
+					LEMP.Window.toast({
+						"_sMessage" : "만료일은 신청일로부터 최대 6개월까지 선택 가능합니다.",
+						"_sDuration" : "short"
+					});
+
+					return false;
+				}
+
 				// 알뜰폰 확인
 				var carrier = $('input[name=carrier]:checked').val();
 				if (carrier === 'MVNO') {
@@ -135,8 +152,8 @@ var page = {
 
 				page.apiParam.data.parameters = {
 					lms_agg_yn: 'Y',
-					lms_req_ymd: reqDt.replace(/\./g,''),
-					lms_end_ymd: endDt.replace(/\./g,''),
+					lms_req_ymd: reqDt,
+					lms_end_ymd: endDt,
 					carrier_sct: carrier
 				}
 			} else {
