@@ -395,7 +395,7 @@ var smutil = (function(window, document, $) {
 		else if(statusCode === '409' || code === '409') {
 			LEMP.Window.alert({
 				"_sTitle" : "사진파일 전송오류",
-                "_vMessage" : smutil.nullToValue(message,'갤러리 내에 선택한 사진 파일이 없습니다.\n사진을 다시 등록해 주세요.')
+                "_vMessage" : smutil.nullToValue(message,'동일한 사진을 선택하셨거나, 갤러리 내에 선택한 사진 파일이 없습니다.\n사진을 다시 등록해 주세요.')
 			});
 
 			smutil.loadingOff();
