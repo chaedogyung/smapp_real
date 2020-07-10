@@ -553,6 +553,7 @@ var page = {
 				$('#cur_pick_rate').text(res.cur_pick_rate+"건");
 				$('#cur_dlv_rate').text(res.cur_dlv_rate+"건");
 				$('#cur_sum').text(Number(res.cur_pick_rate)+Number(res.cur_dlv_rate)+"건");
+				$('#acmt_point').text(res.acmt_point);
 				$('#tod_pick_rslt').text(res.tod_pick_rslt+"건");
 				$('#tod_dlv_rslt').text(res.tod_dlv_rslt+"건");
 				$('#tod_sum').text(Number(res.tod_pick_rslt)+Number(res.tod_dlv_rslt)+"건");

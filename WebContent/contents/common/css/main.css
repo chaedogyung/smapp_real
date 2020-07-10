@@ -16,8 +16,10 @@
 .cardBox  .boxBody .leftBox{float:left; width:60%;}
 .cardBox  .boxBody .leftBox li{color:#333; font-size:18px; margin-bottom:5px;}
 .cardBox  .boxBody .leftBox li em{float:right; color:#b15700; font-size:16px;}
+.cardBox  .boxBody .leftBox li.mileage,
+.cardBox  .boxBody .leftBox li.mileage em { color: #da291c }
 .cardBox  .boxBody .rightBox{width:40%; float:left; padding-left:10px; box-sizing: border-box;}
-.cardBox  .boxBody .rightBox .photo{width:83px; height:90px; border-radius:5px; border:1px solid #e3e3e3;  float:right; overflow:hidden;}
+.cardBox  .boxBody .rightBox .photo{width:83px; height:90px; border-radius:5px; border:1px solid #e3e3e3;  float:right; margin-top:12px; overflow:hidden;}
 
 /* 랭킹 */
 .cardBox.ranking{position:relative;}
