@@ -184,7 +184,6 @@ background-position:100% 40px, 50% ,0 95%;
 .txtBox .num{color:#000; font-weight:600; text-align:center; }
 .txtBox .num .icon{display:inline-block; width:20px; height:20px; background:url('../../common/img/icon-guide.png') no-repeat; background-size:20px; vertical-align:middle; margin-right:6px; opacity:0.4;}
 .txtBox.error{border:none; background:url('../../common/img/icon-mark.png') no-repeat 0px 17px; background-size:14px; color:#da291c; font-size:12px; padding-left:18px;}
-.txtBox.disabled { background-color:#E9E9E9; border:1px solid #d6d6d6;}
 
 /*=== tobBox ===*/
 .tabBox{overflow:hidden;}
@@ -206,6 +205,7 @@ background-position:100% 40px, 50% ,0 95%;
 /* 라디오 리스트 */
 .radioList li{border-bottom:1px solid #f2f2f2; box-sizing:border-box; padding:10px; overflow:hidden;}
 .radioList li:last-child{border-bottom:none;}
+.radioList li.active { background-color:#f7f7f7; }
 .radioList.model{overflow:hidden;}
 .radioList.model .img{width:140px; height:100px; float:right; display:inline-block; background-color:#f7f7f7; border:1px solid #e1e1e1; overflow:hidden;box-sizing:border-box; padding:5px 10px; text-align:center;}
 .radioList.model .img.no{background:#f7f7f7 url('../../common/img/no-img.png') no-repeat 50%; background-size:60px;}
@@ -324,7 +324,6 @@ background-position:100% 40px, 50% ,0 95%;
 .imgBox .btn{position:absolute; right:10px; opacity:0.70;}
 .imgBox .btn.camera{top:15px;}
 .imgBox .btn.img{top:80px;}
-.imgBox .btn.sign{top:160px;}
 .imgBox .btn.del3{bottom:10px;}
 
 /* 텍스트 박스 */
@@ -338,10 +337,10 @@ background-position:100% 40px, 50% ,0 95%;
 /* 이미지 리스트 */
 .imgList{overflow:hidden;}
 .imgList li:first-child{padding-left:initial;}
-.imgList li{padding-left:5px; padding-right:5px; margin-bottom:15px;}
+.imgList li{padding-left:5px; margin-bottom:15px;}
 .imgList .imgArea{border:1px solid #e1e1e1; background-color:#f7f7f7; width:100%; position:relative; box-sizing:border-box; text-align:center;}
-.imgList.m .imgArea{min-height:100px; min-width:100px; }
-.imgList.l .imgArea{min-height:160px; min-width:160px; }
+.imgList.m .imgArea{min-height:115px; min-width:115px; }
+.imgList.l .imgArea{min-height:177px; min-width:177px; }
 .imgList .titArea{font-size:13px; color:#9a9c9c; display:inline-block; margin-bottom:10px;}
 .imgArea .btn.plus3{position:absolute; top:calc(50% - 17px); left:calc(50% - 17px);}
 .imgArea .btn.del4{position:absolute; right:10px; bottom:10px;}
@@ -518,7 +517,6 @@ button:disabled{background-color:#b5b5b5; color:#dcdcdc;}
 .btn.alim3{position:relative; background:#fff url('../../common/img/icon-allim-v2.png') no-repeat 50%; background-size:25px; width:45px; height:45px; text-indent:-9999px; border-radius:60px; border:1px solid #d8d8d8;}
 .btn.guide{position:relative; background:#fff url('../../common/img/icon-guide.png') no-repeat 50%; background-size:25px; width:45px; height:45px; text-indent:-9999px; border-radius:60px; border:1px solid #d8d8d8;}
 .btn.list{background:#54585a url('../../common/img/icon-list.png') no-repeat 50%; background-size:25px; width:50px; height:50px; border-radius:60px; text-indent:-9999px;}
-.btn.sign{background:#fff url('../../common/img/icon-pen-v3.png') no-repeat 50%; background-size:20px; width:40px; height:40px; text-indent:-9999px; border-radius:60px; border:1px solid #d8d8d8;}
 .btn.camera{background:#fff url('../../common/img/icon-camera.png') no-repeat 50%; background-size:20px; width:40px; height:40px; text-indent:-9999px; border-radius:60px; border:1px solid #d8d8d8;}
 .btn.camera2{background:#54585a url('../../common/img/icon-camera2.png') no-repeat 50%; background-size:13px; width:25px; height:25px; text-indent:-9999px; border-radius:60px;}
 .btn.img{background:#fff url('../../common/img/icon-img.png') no-repeat 50%; background-size:20px; width:40px; height:40px; text-indent:-9999px; border-radius:60px; border:1px solid #d8d8d8;}
@@ -581,6 +579,14 @@ button:disabled{background-color:#b5b5b5; color:#dcdcdc;}
 
 .radioBox.txt input[type="radio"] + label{border:1px solid #e1e1e1; background-color:#f7f7f7; padding:5px 15px; background-image:none; font-size:13px;}
 .radioBox.txt input[type="radio"]:checked +  label{border:1px solid #e56960; background-color:#fff;}
+.radioBox .txtLineTwo {
+	overflow: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-height: inherit;
+}
 
 /* 체크박스 */
 .chkBox {position: relative;} 
@@ -774,3 +780,44 @@ ul.li30 > li:first-child{padding-left:0px;} ul.li30 > li{padding-left:30px; floa
 	text-indent:-9999px;	
 }
 
+/* radio Content */
+.radioContent {
+	overflow:hidden;
+	height:38px;
+	font-size:12px;
+	color:#535454;
+}
+.active .radioContent {
+	overflow:auto;
+	height:auto;
+}
+.radioContentMoreWrap {
+	margin-top:12px;
+}
+.radioContentMore {
+	display:block;
+	width:100%;	
+	padding:6px 0;
+	border:1px solid #dedede;
+	background-color:#fff;
+	font-size:12px;
+	outline:none;
+}
+.radioContentMore::after {
+	content:"";
+	display:inline-block;
+	vertical-align: middle;
+	margin:-2px 0 0 4px;
+	width:10px;
+	height:6px;
+	background:url('../../common/img/icon-arrow-down-v1.png') no-repeat 0 0;
+	background-size:10px 6px;
+}
+.active .radioContentMore::after {
+	background:url('../../common/img/icon-arrow-up-v1.png') no-repeat 0 0;
+	background-size:10px 6px;
+}
+.radioContent,
+.radioContentMoreWrap {
+	margin-left:27px;
+}

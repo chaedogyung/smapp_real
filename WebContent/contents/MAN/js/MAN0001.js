@@ -19,6 +19,7 @@ var page = {
 	// api 통신용 파라메터
 	},
 	curDate:"",
+	gradeSlider: null,
 	//공지사항 팝업시 backey 방지
 	init : function(json) {
 
@@ -34,8 +35,16 @@ var page = {
 
 		//기사정보
 		page.smInfo();
+		// 메시지 대량발송 동의 조회
+		page.getMsgCnf();
+		// 등급 조회
+		page.getGrade();
 		//공지사항
 		page.noticePopup();
+		// 일일 친절페스티벌
+		page.invsDay();
+		// 연간 친절페스티벌
+		page.invsYear();
 		//블루투스 연결상태
 		page.chkScannerStatus();
 		//롯데홈쇼핑 인증키 체크
@@ -46,8 +55,6 @@ var page = {
 		page.FrevMenu();
 		//배달사진카운트
 		page.getCdlvPicCnt();
-		// 메시지 대량발송 동의 조회
-		page.getMsgCnf();
 
 		/**
 		 * 출력 테스트용 코드
@@ -89,6 +96,7 @@ var page = {
 		smutil.nativeMothodCall(tr);
 
 
+		// $('.grade').show();
 
 		// 알림 버튼 클릭
 		$('#alim').on('click', function() {
@@ -647,6 +655,89 @@ var page = {
 		smutil.loadingOff();
 	}
 
+	// 등급 조회
+	, getGrade: function() {
+		page.apiParam.param.baseUrl = "/smapis/grade";		// api no
+		page.apiParam.param.callback = "page.getGradeCallback";	// callback methode
+
+		// 공통 api호출 함수
+		smutil.callApi(page.apiParam);
+	}
+
+	// 등급 조회 콜백
+	, getGradeCallback: function(res) {
+		if(res.code === "00" || res.code === "0000") {
+			var grade = $('#grade' + res.grade);
+			var index = $('.grade div').index(grade);
+
+			grade.removeClass('disabled');
+			page.gradeSlider.goToSlide(index);
+		}
+
+		// 프로그래스바 닫기
+		smutil.loadingOff();
+	}
+
+	// 일일 친절페스티벌 조회
+	, invsDay: function() {
+		page.apiParam.param.baseUrl = "/smapis/cplt/invs/day";		// api no
+		page.apiParam.param.callback = "page.invsDayCallback";		// callback methode
+
+		// 공통 api호출 함수
+		smutil.callApi(page.apiParam);
+	}
+
+	// 일일 친절페스티벌 조회 콜백
+	, invsDayCallback: function(res) {
+		if((res.code === "00" || res.code === "0000") && res.data_count != 0) {
+			var data = res.data.list[0];
+
+			var popUrl = smutil.getMenuProp('MAN.MAN0401', 'url');
+			LEMP.Window.open({
+				"_sPagePath": popUrl,
+				"_oMessage": {
+					"param": data
+				}
+			});
+		}
+
+		// 프로그래스바 닫기
+		smutil.loadingOff();
+	}
+
+	// 연간 친절페스티벌 조회
+	, invsYear: function() {
+		page.apiParam.param.baseUrl = "/smapis/cplt/invs/year";		// api no
+		page.apiParam.param.callback = "page.invsYearCallback";		// callback methode
+
+		// 공통 api호출 함수
+		smutil.callApi(page.apiParam);
+	}
+
+	// 연간 친절페스티벌 조회 콜백
+	, invsYearCallback: function(res) {
+		// console.log('@@@@@@@@@@@@@@@@@@@@@@@ year');
+		// console.log(res);
+		if((res.code === "00" || res.code === "0000") && res.data_count != 0) {
+			var year_cplt_titl = res.data.year_cplt_titl;
+			var list = res.data.list;
+
+			var popUrl = smutil.getMenuProp('MAN.MAN0402', 'url');
+			LEMP.Window.open({
+				"_sPagePath": popUrl,
+				"_oMessage": {
+					"param": {
+						year_cplt_titl: year_cplt_titl,
+						list: list
+					}
+				}
+			});
+		}
+
+		// 프로그래스바 닫기
+		smutil.loadingOff();
+	}
+
 	// api 파람메터 초기화
 	,apiParamInit : function(){
 		page.apiParam =  {
@@ -668,8 +759,14 @@ var page = {
 	, resumeInfo : function(){
 		//기사정보
 		page.smInfo();
+		// 메시지 대량발송 동의 조회
+		page.getMsgCnf();
 		//공지사항
 		page.noticePopup();
+		// // 일일 친절페스티벌
+		// page.invsDay();
+		// // 연간 친절페스티벌
+		// page.invsYear();
 		//블루투스 연결상태
 		page.chkScannerStatus();
 		//롯데홈쇼핑 인증키 체크

@@ -56,7 +56,7 @@ var page = {
 				"_fCallback" : function(resOpenCodeReader) {
 					var code = resOpenCodeReader.data;
 					var date = new Date();
-					if (code.length !== 12 
+					if (code.length !== 12
 							|| ( code.substr(0,11)+((Number(code.substr(0,11))%7)+"") ) !== code){
 						LEMP.Window.alert({
 							"_sTitle":"스캔오류",
@@ -77,7 +77,7 @@ var page = {
 				"_fCallback" : function(resOpenCodeReader) {
 					var code = resOpenCodeReader.data;
 					var date = new Date();
-					if (code.length !== 12 
+					if (code.length !== 12
 							|| ( code.substr(0,11)+((Number(code.substr(0,11))%7)+"") ) !== code){
 						LEMP.Window.alert({
 							"_sTitle":"스캔오류",
@@ -112,14 +112,14 @@ var page = {
 				page.pictureStatus.id = status;
 				page.pictureStatus.text = text;
 				var inv_no ;
-				// 오손인경우 
+				// 오손인경우
 				if (status == "damage2C" || status == "damage2CT") {
 					inv_no = $('#text_cause').val();
 				}
 				else{
 					inv_no = $('#inv_noText').val();
 				}
-				
+
 				var popUrl = smutil.getMenuProp('FRE.FRE0102', 'url');
 				var data = {
 					"inv_no" : inv_no,
@@ -162,7 +162,7 @@ var page = {
 			$(this).prev().css('display', 'block');
 			$(this).next().attr('src', '');
 
-		
+
 			switch ($(this).prev().attr('id')) {
 			case "inv_no1":
 				page.pictures1.inv_no = "";
@@ -195,11 +195,11 @@ var page = {
 				page.pictures2.total_c = "";
 				break;
 			}
-	
+
 		});
-		
-		
-		
+
+
+
 		// 전송
 		$('#sendDatas').on('click',function(){
 			var rea_cd = $('#FRE0201_code_template option:selected').val();
@@ -209,15 +209,23 @@ var page = {
 			var scan_tme = page.scanStatus.tme;
 			var rea_cd_img;
 			var fileArray = new Array();
+			var req_dlv_sct = $('input[name=req_dlv_sct]:checked').val();
 
-			if (inv_no.length !== 12 
+			if (inv_no.length !== 12
 					|| ( inv_no.substr(0,11)+((Number(inv_no.substr(0,11))%7)+"") ) !== inv_no) {
 				LEMP.Window.alert({
 					"_vMessage" : "정상적인 송장번호가 아닙니다."
 				});
 				return false;
 			}
-			
+
+			if (req_dlv_sct === undefined) {
+				LEMP.Window.alert({
+					"_vMessage" : "배송 또는 반송을 선택해 주세요."
+				});
+				return false;
+			}
+
 			page.apiParam.id = "HTTPFILE";
 			page.apiParam.param.baseUrl = "/smapis/pacl/rgstAcc";
 			page.apiParam.param.callback = "page.sendCallback_F";
@@ -228,7 +236,8 @@ var page = {
 					"scan_ymd" : scan_ymd,
 					"scan_tme" : scan_tme,
 					"rea_cd" : rea_cd,
-					"phto_sct_img" : "2"
+					"phto_sct_img" : "2",
+					"req_dlv_sct" : req_dlv_sct
 				}
 			}
 
@@ -253,14 +262,14 @@ var page = {
 					LEMP.Window.alert({
 						"_vMessage" : "원인 운송장의 사진을 등록해주세요. "
 					});
-					
+
 					return false;
 				}
 				else if($('#inv_noText').val() == $('#text_cause').val()){
 					LEMP.Window.alert({
 						"_vMessage" : "운송장 번호는 서로 같을수 없습니다."
 					});
-					
+
 					return false;
 				}
 				else {
@@ -270,15 +279,15 @@ var page = {
 					fileArray.push(page.pictures2.total);
 					fileArray.push(page.pictures2.odamage1);
 					fileArray.push(page.pictures2.odamage2);
-					
+
 					if(!smutil.isEmpty(page.pictures2.inv_no_c)){
 						fileArray.push(page.pictures2.inv_no_c);
 					}
-					
+
 					if(!smutil.isEmpty(page.pictures2.total_c)){
 						fileArray.push(page.pictures2.total_c);
 					}
-					
+
 					page.apiParam.files = fileArray;
 				}
 			} else {
@@ -304,14 +313,14 @@ var page = {
 					page.apiParam.files = fileArray;
 				}
 			}
-		
+
 			smutil.loadingOn();
 			smutil.callApi(page.apiParam);
 		});
-		
+
 		$(document).on('click','.btn.red.m.w100p.b-close',function(){
 			$('.mpopBox.pop3').bPopup().close();
-			
+
 		});
 	},
 	// 필터 구분 조회
@@ -342,12 +351,12 @@ var page = {
 		var date = new Date();
 		page.scanStatus.ymd = date.LPToFormatDate("yyyymmdd");
 		page.scanStatus.tme = date.LPToFormatDate("HHnnss");
-	
+
 		$("#" + page.invStatus).val(data.inv_no);
 	},
 	// 사진등록 callback
 	pictureCallBack : function(data) {
-		
+
 		var num = page.pictureStatus.id.replace(/[^0-9]/g, '');
 		$('#' + page.pictureStatus.id).next().next().attr('src', data.param);
 		$('#' + page.pictureStatus.id + "_D").css('display', 'block');
@@ -385,12 +394,12 @@ var page = {
 			page.pictures2.total_c = data.param;
 			break;
 		}
-	
+
 	},
 	//전송콜백
 	sendCallback_F : function(data) {
-	
-		
+
+
 		try{
 			var res = $('#FRE0201_code_template option:selected').val();
 			if (smutil.apiResValidChk(data) && data.code === "0000") {
@@ -415,7 +424,7 @@ var page = {
 					$('#damage2CT_D').next().attr('src', '');
 					$('#damage2CT_D').css('display', 'none');
 					$('#damage2CT').css('display', 'block');
-	
+
 				} else {
 					page.ParamInit();
 					$('#inv_no1_D').next().attr('src', '');
@@ -458,33 +467,33 @@ var page = {
 			pdamage2 : "",
 		}
 
-	}, 
-	
-	
-	
+	},
+
+
+
 	scanCallback : function(result){
-		
-	
+
+
 		var inv_no = result.barcode;
-		
+
 		var date = new Date();
 		page.scanStatus.ymd = date.LPToFormatDate("yyyymmdd");
 		page.scanStatus.tme = date.LPToFormatDate("HHnnss");
-		
+
 		if(inv_no.length != 12
 				|| (inv_no.substr(0,11) + ((Number(inv_no.substr(0,11))%7)+"")) != inv_no){
 			LEMP.Window.alert({
 				"_sTitle":"스캔오류",
 				"_vMessage":"정상적인 송장번호가 아닙니다."
 			});
-			
+
 			scanCallYn = "N";
 		}
-		
-		
+
+
 		$('#inv_noText').val(inv_no);
 
-		
+
 	},
 
 };
