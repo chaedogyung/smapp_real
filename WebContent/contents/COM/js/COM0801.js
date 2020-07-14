@@ -294,9 +294,10 @@ var page = {
 			
 			// api 결과 성공여부 검사
 			if(smutil.apiResValidChk(result) && result.code == "0000"){
+
 				if(result.data_count > 0){
 					var data = result.data; //data = [];
-					if(data.zipcd != ""){
+					if(data.bldMgrNo != ""){
 						// 핸들바 템플릿 가져오기
 						var source = $("#addr_list_template").html();					
 						// 핸들바 템플릿 컴파일
