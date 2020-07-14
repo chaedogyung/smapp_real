@@ -21,6 +21,8 @@ var menuJsonJs =
 		"MAN0203":{"menuTxt" : "공지사항-설문", "parentMenuCd" : null, "menuDept" : 2, "url" : "MAN/html/MAN0203.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"MAN0301":{"menuTxt" : "알림", "parentMenuCd" : null, "menuDept" : 1, "url" : "MAN/html/MAN0301.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"MAN0302":{"menuTxt" : "알림상세페이지", "parentMenuCd" : null, "menuDept" : 2, "url" : "MAN/html/MAN0302.html", "mainImgSrc" : "", "gnbImgClass" : ""},
+		"MAN0401":{"menuTxt" : "일일 친절페스티벌", "parentMenuCd" : null, "menuDept" : 2, "url" : "MAN/html/MAN0401.html", "mainImgSrc" : "", "gnbImgClass" : ""},
+		"MAN0402":{"menuTxt" : "연간 친절페스티벌", "parentMenuCd" : null, "menuDept" : 2, "url" : "MAN/html/MAN0402.html", "mainImgSrc" : "", "gnbImgClass" : ""}
 	},
 	"COM":{
 		"GNB":false,
@@ -97,6 +99,8 @@ var menuJsonJs =
 		"PID0303":{"menuTxt" : "SM변경", "parentMenuCd" : null, "menuDept" : 2, "url" : "PID/html/PID0303.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"PID0401":{"menuTxt" : "바로반품", "parentMenuCd" : null, "menuDept" : 1, "url" : "PID/html/PID0401.html", "mainImgSrc" : "../../common/img/icon-fa9.png", "gnbImgClass" : ""},
 		"PID0402":{"menuTxt" : "바로반품 상세정보", "parentMenuCd" : null, "menuDept" : 2, "url" : "PID/html/PID0402.html", "mainImgSrc" : "", "gnbImgClass" : ""}
+		// 스캔 출력 개발 추 후 진행 예정
+		// "PID0501":{"menuTxt" : "스캔출력", "parentMenuCd" : null, "menuDept" : 1, "url" : "PID/html/PID0501.html", "mainImgSrc" : "../../common/img/icon-fa27.png", "gnbImgClass" : ""}
 	},
 	"ARI":{
 		"GNB":true,

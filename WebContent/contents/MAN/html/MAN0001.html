@@ -13,6 +13,17 @@
 
 	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
 	<script type="text/javascript" src="../js/MAN0001.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			// 등급 슬라이더 초기화
+			page.gradeSlider = $('.grade').bxSlider({
+				infiniteLoop: false,
+				pager: false,
+				hideControlOnEnd: true
+			});
+		});
+	</script>
 </head>
 
 <body class="bg-red-v1">
@@ -57,6 +68,7 @@
 								<!-- <li>등급 <em id="emp_grd"></em></li> -->
 								<li>사번<em id="empno"></em></li>
 								<li>차량번호<em id="vhc_no"></em></li>
+								<li class="mileage">마일리지<em id="acmt_point"></em></li>
 							</ul>
 						</div>
 						<div class="rightBox">
@@ -84,10 +96,24 @@
 								<li>합계<em id="cur_sum"></em></li>
 							</ul>
 						</div>
-				<div class="rightBox">
-					<div class="photo" id="maile" style="display:none;">
-							마일리지<br />
-							<em></em>
+					<div class="rightBox">
+						<div class="grade">
+							<!-- [D] 비활성화시 div 에 disabled 클래스 추가 -->
+							<div class="disabled" id="grade05">
+								<img src="../../common/img/grade-family.png" alt="패밀리 등급">
+							</div>
+							<div class="disabled" id="grade04">
+								<img src="../../common/img/grade-silver.png" alt="실버 등급">
+							</div>
+							<div class="disabled" id="grade03">
+								<img src="../../common/img/grade-gold.png" alt="골드 등급">
+							</div>
+							<div class="disabled" id="grade02">
+								<img src="../../common/img/grade-diamond.png" alt="다이아몬드 등급">
+							</div>
+							<div class="disabled" id="grade01">
+								<img src="../../common/img/grade-vip.png" alt="브이아이피 등급">
+							</div>
 						</div>
 					</div>
 				</div>
