@@ -1241,17 +1241,12 @@ var page = {
 	getBcrAiRcpnInfoCallback : function(res) {
 		try{
 			if(smutil.apiResValidChk(res) && res.code === "0000" && res.data_count!=0 && res.data.list[0].rcpn_yn == "Y"){
-				//위험화물일때는 신고가능
-				if($('#FRE0101_code2_template2 option:selected').val() == '08'){
-					return;
-				}
 				LEMP.Window.toast({
-					"_sMessage" : "이미 신고된 번호입니다",
-					"_sDuration" : "short"
+					"_sMessage" : "이미 신고된 번호입니다.\n위험화물만 신고 가능합니다",
+					"_sDuration" : "long"
 				});
-				
-				//이미신고된건은 운송장번호 초기화
-				$('#inv_noText').val("");
+
+				$("#FRE0101_code2_template2").val("08").prop("selected", true);
 			}
 		}catch(e){console.log(e)}
 		finally{
