@@ -1246,7 +1246,9 @@ var page = {
 					"_sDuration" : "long"
 				});
 
+				//BCR AI Y 수신시 위험화물로 변경
 				$("#FRE0101_code2_template2").val("08").prop("selected", true);
+				page.updatePicture();
 			}
 		}catch(e){console.log(e)}
 		finally{
