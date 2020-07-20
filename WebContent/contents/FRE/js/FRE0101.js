@@ -1135,6 +1135,7 @@ var page = {
 					$('#heightCm').val("");
 					$('#sumCmTri').val("")
 					$('#weightInput').val("");
+					$('#inv_noText').val("");
 					page.chkNonStd = "";
 				}
 			}
