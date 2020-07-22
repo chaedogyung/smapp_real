@@ -1240,27 +1240,16 @@ var page = {
 	//BCR AI 수신/처리 여부콜백
 	getBcrAiRcpnInfoCallback : function(res) {
 		try{
-			if(smutil.apiResValidChk(res) && res.code === "0000" && res.data_count!=0){
+			if(smutil.apiResValidChk(res) && res.code === "0000" && res.data_count!=0 && res.data.list[0].rcpn_yn == "Y"){
+				LEMP.Window.toast({
+					"_sMessage" : "이미 신고된 번호입니다.\n위험화물만 신고 가능합니다",
+					"_sDuration" : "long"
+				});
+
 				//BCR AI Y 수신시 위험화물로 변경
-				if(res.data.list[0].rcpn_yn == "Y"){
-					LEMP.Window.toast({
-						"_sMessage" : "이미 신고된 번호입니다.\n위험화물만 신고 가능합니다",
-						"_sDuration" : "long"
-					});
-					$("#FRE0101_code2_template2").val("08").prop("selected", true);
-					$("#FRE0101_code2_template2").prop('disabled',true);
-					page.updatePicture();
-				}
-				//BCR AI D 수신시 송장번호 초기화
-				else if(res.data.list[0].rcpn_yn == "D"){
-					LEMP.Window.toast({
-						"_sMessage" : "이미 비규격 신고완료된 건입니다.",
-						"_sDuration" : "long"
-					});
-					$('#inv_noText').val("");
-				}else{
-					$("#FRE0101_code2_template2").prop('disabled',false);
-				}
+				$("#FRE0101_code2_template2").val("08").prop("selected", true);
+				$("#FRE0101_code2_template2").prop('disabled',true);
+				page.updatePicture();
 			}else{
 				$("#FRE0101_code2_template2").prop('disabled',false);
 			}
@@ -1268,5 +1257,7 @@ var page = {
 		finally{
 			smutil.loadingOff();
 		}
+		
 	}
+	
 };
