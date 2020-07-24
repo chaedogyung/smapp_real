@@ -814,12 +814,8 @@ var page = {
 			page.fare_amt = data.value;
 			$("#" + data.id).val(
 				data.value.replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-			//BCR AI 수신/처리 여부확인
-			page.getBcrAiRcpnInfo(data.value);
 		} else {
 			$("#" + data.id).val(data.value);
-			//BCR AI 수신/처리 여부확인
-			page.getBcrAiRcpnInfo(data.value);
 		}
 	},
 
@@ -984,12 +980,12 @@ var page = {
 				page.apiParam.param.baseUrl = "/smapis/pacl/newChkNonStd"; // api
 				page.apiParam.param.callback = "page.chkNonStdCallback"; // callback
 				page.apiParam.data.parameters.p_inv_no = inv_no
-				page.apiParam.data.parameters.p_box_h = res.box_h
 				page.apiParam.data.parameters.p_box_l = res.box_l
 				page.apiParam.data.parameters.p_box_w = res.box_w
+				page.apiParam.data.parameters.p_box_h = res.box_h
 				page.apiParam.data.parameters.p_wgt = res.wgt
 				page.apiParam.data.parameters.p_pkgng_typ_cd = $("#FRE0101_code3_template3 option:selected").val();
-				page.apiParam.data.parameters.p_nstd_typ_cd = "04"
+				page.apiParam.data.parameters.p_nstd_typ_cd = $("#FRE0101_code2_template2 option:selected").val();
 				page.apiParam.data.parameters.p_strp_cnt_sct_cd = $("#FRE0101_code4_template4 option:selected").val();
 				smutil.callApi(page.apiParam);
 				return;
@@ -1076,9 +1072,8 @@ var page = {
 					page.sendDatas(page.apiParamOb);
 				}
 				else{
-					LEMP.Window.toast({
-						"_sMessage" : res.message,
-						"_sDuration" : "short"
+					LEMP.Window.alert({
+						"_vMessage" : res.message,
 					});
 					smutil.loadingOff();
 				}
@@ -1245,9 +1240,8 @@ var page = {
 			if(smutil.apiResValidChk(res) && res.code === "0000" && res.data_count!=0){
 				//BCR AI Y 수신시 위험화물로 변경
 				if(res.data.list[0].rcpn_yn == "Y"){
-					LEMP.Window.toast({
-						"_sMessage" : "이미 신고된 번호입니다.\n위험화물만 신고 가능합니다",
-						"_sDuration" : "long"
+					LEMP.Window.alert({
+						"_vMessage" : "이미 신고된 번호입니다.\n위험화물만 신고 가능합니다",
 					});
 					$("#FRE0101_code2_template2").val("08").prop("selected", true);
 					$("#FRE0101_code2_template2").prop('disabled',true);
@@ -1255,9 +1249,8 @@ var page = {
 				}
 				//BCR AI D 수신시 송장번호 초기화
 				else if(res.data.list[0].rcpn_yn == "D"){
-					LEMP.Window.toast({
-						"_sMessage" : "이미 비규격 신고완료된 건입니다.",
-						"_sDuration" : "long"
+					LEMP.Window.alert({
+						"_vMessage" : "이미 비규격 신고완료된 건입니다.",
 					});
 					$('#inv_noText').val("");
 				}else{
