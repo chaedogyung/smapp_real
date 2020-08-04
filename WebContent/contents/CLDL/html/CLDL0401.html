@@ -6,7 +6,7 @@
 	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
 	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
 	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
-
+	
 
 	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
 	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
@@ -31,10 +31,10 @@
 
 		<!--  contentSection  -->
 		<div class="contentSection" id="contentSection">
-
+		
 			<!-- contentBox -->
 			<div class="contentBox delivery">
-
+				
 				<div class="topFx">
 
 					<!-- divisionBox -->
@@ -50,14 +50,14 @@
 					<div class="topHead">
 						<!-- <span class="fs13">구분</span> -->
 						<span class="chkBox m">
-							<input type="checkbox" name="chkall" id="checkall" />
+							<input type="checkbox" name="chkall" id="checkall" /> 
 							<label for="checkall">구분</label>
 						</span>
 						<span class="selBox selBoxFixed v1 mgl15">
 							<select name="fltr_sct_cd" id="fltr_sct_cd">
 							</select>
 						</span>
-						<div class="insuja">인수자
+						<div class="insuja">인수자 
 							<span class="txt insujaTxtView" >인수자정보</span>
 							<button class="btn plus"></button>
 							<input type="hidden" id="insujaCode" name="insujaCode">
@@ -65,12 +65,12 @@
 						</div>
 					</div>
 					<!-- //topHead -->
-
+					
 					<div class="topHeadCal">
 						<button class="btn btnCal" id="cldlBtnCal"></button>
 					</div>
 					<!-- // topHeadCal -->
-
+					
 				</div>
 				<!-- //topFx -->
 
@@ -107,7 +107,7 @@
 				</li>
 				 <li>
 					<button class="btn ftImg"><span class="txt">사진/서명</span></button>
-				</li>
+				</li> 
 				<li>
 					<button class="btn ftScan">
 						<span class="txt">스캔</span>
@@ -141,8 +141,8 @@
 			</div>
 		</div>
 		<!-- //모달팝업 전송 -->
-
-
+		
+		
 		<!-- 모달팝업 통화 -->
 		<div class="mpopBox img phone">
 			<div class="popBody">
@@ -169,8 +169,8 @@
 
 	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
 	<script type="text/javascript" src="../js/CLDL0401.js"></script>
-
-
+	
+	
 	<!-- handlebars template start -->
 	<script id="cldl0401_list_template" type="text/x-handlebars-template">
 		{{#each list}}
@@ -178,37 +178,35 @@
 			<div class="baedalBox {{scanYnClass scanYn}} baeBox" data-scn-inv-no='{{inv_no}}'>
 				<div class="chk">
 					<span class="chkBox m ti">
-						<input type="checkbox" name="chk" id="{{inv_no}}_chk" value="{{returnSctCdTel tellNo}}" data-acpr-nm="{{acpr_nm}}"/>
+						<input type="checkbox" name="chk" id="{{inv_no}}_chk" value="{{returnSctCdTel tellNo}}" data-acpr-nm="{{acpr_nm}}"/> 
 						<label for="{{inv_no}}_chk">&nbsp;</label>
 					</span>
 				</div>
 				<div class="thumb">
 					<span class="{{corpLogoReturn corplogo}}"></span>
-					{{!-- 배송/반송 라벨 표시 helper fraChk --}}
-					{{fraChk}}
 				</div>
 				<div class="infoBox">
 					<p class="tit">
 						{{!-- 송장번호형식표시 helper invNoTmpl --}}
 						<span class="dsin vm invNoSpan">{{invNoTmpl inv_no}}</span>
-
+						
 						{{#prcsMemoYn}}		{{!-- 기사 메모 내용이 있는지 없는지 확인하는 if --}}
 						<button class="btn pen" data-memo-inv-no='{{inv_no}}'></button>
 						{{/prcsMemoYn}}
-
+				
 						{{!-- 운임 라벨 표시 helper fareChk --}}
 						{{fareChk label}}
-
+						
 						{{!-- 취소 여부 helper--}}
 						{{#cclYnChk}}
 							<span class="badge red s outline">취소</span>
 						{{/cclYnChk}}
-
+						
 						{{!-- 신선식품 여부 helper--}}
 						{{#fresYnChk}}
 							<span class="badge blue s outline">신선</span>
 						{{/fresYnChk}}
-
+						
 						{{!-- 사고 여부 helper--}}
 						{{#acdYnChk}}
 							<span class="badge purple s outline">사고</span>
@@ -241,8 +239,8 @@
 		</li>
 		{{/each}}
 	</script>
-
-
+	
+	
 	<!-- handlebars template start -->
 	<script id="cldl0401_noLstLi" type="text/x-handlebars-template">
 		<li class="noList">
@@ -251,15 +249,15 @@
 			</div>
 		</li>
 	</script>
-
-
+	
+	
 	<!-- 리스트에 없는 데이터 스켄 송장 li -->
 	<script id="cldl0401_li_template" type="text/x-handlebars-template">
 		<li id="{{inv_no}}" class='row-four cldlSctCd_D' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}'>
 			<div class="baedalBox baeBox"  data-scn-inv-no='{{inv_no}}'>
 				<div class="chk">
 					<span class="chkBox m ti">
-						<input type="checkbox" name="chk" id="{{inv_no}}_chk" value="{{returnSctCdTel tellNo}}" data-acpr-nm="{{acpr_nm}}" />
+						<input type="checkbox" name="chk" id="{{inv_no}}_chk" value="{{returnSctCdTel tellNo}}" data-acpr-nm="{{acpr_nm}}" /> 
 						<label for="{{inv_no}}_chk">&nbsp;</label>
 					</span>
 				</div>
@@ -281,8 +279,8 @@
 			</div>
 		</li>
 	</script>
-
-
+	
+	
 	<!-- 상단 설정시간 리스트 li -->
 	<script id="cldl0401_timeLst_template" type="text/x-handlebars-template">
 	{{#each list}}
