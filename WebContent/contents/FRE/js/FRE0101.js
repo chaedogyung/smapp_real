@@ -56,8 +56,10 @@ var page = {
 		tme : ""
 	},
 	//화물신고 전역변수
+	chkNonStd : "",
 	tab_cd : "N",
 	fare_amt : "",
+	apiParamOb : {},
 	apiParam : {
 		id : "HTTP", // 디바이스 콜 id
 		param : {// 디바이스가 알아야할 데이터
@@ -72,7 +74,7 @@ var page = {
 		data : {
 			"parameters" : {}
 		}
-	// api 통신용 파라메터
+		// api 통신용 파라메터
 	},
 	init : function() {
 		page.initInterface();
@@ -81,15 +83,15 @@ var page = {
 	},
 
 	initInterface : function() {
-		
+
 		$('#tabView_2').css('display', "none");
 		$('#tabView_3').css('display', "none");
 		//$('#lengthInfomation').css('display','none');
-	
+
 		// 처음시작시 Delete버튼 hide
 		$('.btn.del4').css("display", "none");
 
-		
+
 		/* 최상단 탭 클릭 */
 		$(".FBtn").click(function() {
 			var tab_cd = $(this).data('tabCd');
@@ -123,7 +125,7 @@ var page = {
 
 		});
 
-	
+
 		// 운송장 번호 직접 입력
 		$('#inv_noText').on('click', function() {
 			var id = $(this).attr('id');
@@ -138,9 +140,14 @@ var page = {
 		$('#widthCm, #lengthCm, #heightCm ,#weightInput').on('click',function() {
 			var text = $('#FRE0101_code2_template2 option:selected').text();
 			var id = $(this).attr('id');
-
 			var popUrl;
-			var textVal = (text == "25Kg초과") ? "무게 정보 입력" : "길이 정보 입력";
+			var textVal;
+			if(id == "weightInput"){
+				textVal = "무게 정보 입력";
+			}else{
+				textVal = "길이 정보 입력";
+			}
+
 			popUrl = smutil.getMenuProp('FRE.FRE0501', 'url');
 			LEMP.Window.open({
 				"_sPagePath" : popUrl,
@@ -232,94 +239,94 @@ var page = {
 			var num = id.replace(/[^0-9]/g, '');
 			if (num == "1") {
 				switch (shape) {
-				case "운송장":
-					page.pictures1.inv_no = "";
-					break;
-				case "전체":
-					page.pictures1.total = "";
-					break;
-				case "가로":
-					page.pictures1.width = "";
-					break;
-				case "세로":
-					page.pictures1.length = "";
-					break;
-				case "높이":
-					page.pictures1.height = "";
-					break;
-				case "무게":
-					page.pictures1.weight = "";
-					break;
+					case "운송장":
+						page.pictures1.inv_no = "";
+						break;
+					case "전체":
+						page.pictures1.total = "";
+						break;
+					case "가로":
+						page.pictures1.width = "";
+						break;
+					case "세로":
+						page.pictures1.length = "";
+						break;
+					case "높이":
+						page.pictures1.height = "";
+						break;
+					case "무게":
+						page.pictures1.weight = "";
+						break;
 				}
 			} else if (num == "2") {
 				switch (shape) {
-				case "운송장":
-					page.pictures2.inv_no = "";
-					break;
-				case "전체":
-					page.pictures2.total = "";
-					break;
-				case "가로":
-					page.pictures2.width = "";
-					break;
-				case "세로":
-					page.pictures2.length = "";
-					break;
-				case "높이":
-					page.pictures2.height = "";
-					break;
+					case "운송장":
+						page.pictures2.inv_no = "";
+						break;
+					case "전체":
+						page.pictures2.total = "";
+						break;
+					case "가로":
+						page.pictures2.width = "";
+						break;
+					case "세로":
+						page.pictures2.length = "";
+						break;
+					case "높이":
+						page.pictures2.height = "";
+						break;
 				}
 			} else if (num == "3") {
 				switch (shape) {
-				case "운송장":
-					page.pictures3.inv_no = "";
-					break;
-				case "전체":
-					page.pictures3.total = "";
-					break;
-				case "무게":
-					page.pictures3.weight = "";
-					break;
+					case "운송장":
+						page.pictures3.inv_no = "";
+						break;
+					case "전체":
+						page.pictures3.total = "";
+						break;
+					case "무게":
+						page.pictures3.weight = "";
+						break;
 				}
 			} else if (num == "4") {
 				switch (shape) {
-				case "운송장":
-					page.pictures4.inv_no = "";
-					break;
-				case "전체":
-					page.pictures4.total = "";
-					break;
+					case "운송장":
+						page.pictures4.inv_no = "";
+						break;
+					case "전체":
+						page.pictures4.total = "";
+						break;
 				}
 			}else if(num=="6"){
 				switch (shape) {
-				case "운송장":
-					page.pictures6.inv_no = "";
-					break;
-				case "전체":
-					page.pictures6.total = "";
-					break;
-				case "가로":
-					page.pictures6.width = "";
-					break;
-				case "세로":
-					page.pictures6.length = "";
-					break;
-				case "높이":
-					page.pictures6.height = "";
-					break;
-				case "무게":
-					page.pictures6.weight = "";
-					break;
+					case "운송장":
+						page.pictures6.inv_no = "";
+						break;
+					case "전체":
+						page.pictures6.total = "";
+						break;
+					case "가로":
+						page.pictures6.width = "";
+						break;
+					case "세로":
+						page.pictures6.length = "";
+						break;
+					case "높이":
+						page.pictures6.height = "";
+						break;
+					case "무게":
+						page.pictures6.weight = "";
+						break;
 				}
 			}
 			else {
 				switch (shape) {
-				case "운송장":
-					page.pictures5.inv_no = "";
-					break;
-				case "전체":
-					page.pictures5.total = "";
-					break;
+					case "운송장":
+						page.pictures5.inv_no = "";
+						break;
+					case "전체":
+						page.pictures5.total = "";
+						break;
 				}
 			}
 			$(this).prev().css("display", "block");
@@ -357,214 +364,318 @@ var page = {
 
 		// 전송하기 버튼 클릭
 		$("#sendDatas,#sendDatas1,#sendDatas2").click(
-				function() {
-					// 사진구분
-					var tabStatus = $(".tabBox.li3").find('.on').children().text();
-					// 가로 세로 높이 무게 (비규격에서만 필요)
-					var box_l;
-					var box_w;
-					var box_h;
-					var wgt;
+			function() {
+				// 사진구분
+				var tabStatus = $(".tabBox.li3").find('.on').children().text();
+				// 가로 세로 높이 무게 (비규격에서만 필요)
+				var box_l;
+				var box_w;
+				var box_h;
+				var wgt;
+				//결박개수 (결박화물)
+				var strp_cnt_sct_cd = $("#FRE0101_code4_template4 option:selected").val();
+				//포장상태
+				var pkgng_typ_cd = $("#FRE0101_code3_template3 option:selected").val();
+				// 사진이미지를 담을 배열
+				var fileArray = [];
+				var ob = {};
 
-					// 사진이미지를 담을 배열
-					var fileArray = [];
-					var ob = {};
-
-					if (tabStatus == "운임미기재") {
-						if (smutil.isEmpty(page.pictures4.inv_no)
-								|| smutil.isEmpty(page.pictures4.total)) {
-							LEMP.Window.alert({
-								"_vMessage" : "사진을 업로드 해주세요",
-							});
-							return false;
-						} else {
-							fileArray.push(page.pictures4.inv_no);
-							fileArray.push(page.pictures4.total);
-							ob.fileArray = fileArray;
-							ob.tabStatus = "20";
-							page.sendDatas(ob);
-						}
-					} else if (tabStatus == "운임불일치") {
-						if (smutil.isEmpty(page.pictures5.inv_no)
-								|| smutil.isEmpty(page.pictures5.total)) {
-							LEMP.Window.alert({
-								"_vMessage" : "사진을 업로드 해주세요",
-							});
-							return false;
-						} else if (smutil.isEmpty($("#fare_amt").val())) {
-							LEMP.Window.alert({
-								"_vMessage" : "실집하 운임을 입력해주세요",
-							});
-							return false;
-						} else {
-							fileArray.push(page.pictures5.inv_no);
-							fileArray.push(page.pictures5.total);
-							ob.fileArray = fileArray;
-							ob.tabStatus = "21";
-							ob.fare_amt = page.fare_amt;
-							page.sendDatas(ob);
-						}
+				if (tabStatus == "운임미기재") {
+					if (smutil.isEmpty(page.pictures4.inv_no)
+						|| smutil.isEmpty(page.pictures4.total)) {
+						LEMP.Window.alert({
+							"_vMessage" : "사진을 업로드 해주세요",
+						});
+						return false;
 					} else {
-						// 비규격사유코드 (비규격에서만 필요)
-						var rea_cd = $(
-								"#FRE0101_code2_template2 option:selected").val();
-						// 비규격사유 25kg초과 일경우
-
-						if (rea_cd == "03") {
-							if (smutil.isEmpty(page.pictures3.inv_no)
-									|| smutil.isEmpty(page.pictures3.total)
-									|| smutil.isEmpty(page.pictures3.weight)) {
-								LEMP.Window.alert({
-									"_vMessage" : "사진을 업로드 해주세요",
-								});
-								return false;
-							} else if (smutil
-									.isEmpty(($('#weightInput').val()))) {
-								LEMP.Window.alert({
-									"_vMessage" : "무게 값을 입력해주세요",
-								});
-								return false;
-							} else if (Number($('#weightInput').val()) <= 25) {
-								LEMP.Window.alert({
-									"_vMessage" : "무게가 25kg 이하입니다",
-								});
-								return false;
-							} else {
-								wgt = $('#weightInput').val();
-								fileArray.push(page.pictures3.inv_no);
-								fileArray.push(page.pictures3.total);
-								fileArray.push(page.pictures3.weight);
-
-								ob.fileArray = fileArray;
-								ob.wgt = wgt;
-								ob.status = rea_cd;
-								ob.tabStatus = "10";
-								page.sendDatas(ob);
-							}
-							// 비규격사유 결박화물일 경우
-						} else if (rea_cd == "02") {
-							if (smutil.isEmpty(page.pictures1.inv_no)
-									|| smutil.isEmpty(page.pictures1.total)
-									|| smutil.isEmpty(page.pictures1.width)
-									|| smutil.isEmpty(page.pictures1.length)
-									|| smutil.isEmpty(page.pictures1.height)
-									|| smutil.isEmpty(page.pictures1.weight)) {
-								LEMP.Window.alert({
-									"_vMessage" : "사진을 업로드 해주세요",
-								});
-								return false;
-							} else {
-								fileArray.push(page.pictures1.inv_no);
-								fileArray.push(page.pictures1.total);
-								fileArray.push(page.pictures1.width);
-								fileArray.push(page.pictures1.length);
-								fileArray.push(page.pictures1.height);
-								fileArray.push(page.pictures1.weight);
-
-								ob.status = rea_cd;
-								ob.fileArray = fileArray;
-								ob.tabStatus = "10";
-								page.sendDatas(ob);
-							}
-						
-						} else if(rea_cd == "04" || rea_cd == "05"){
-							if (smutil.isEmpty(page.pictures2.inv_no)
-									|| smutil.isEmpty(page.pictures2.total)
-									|| smutil.isEmpty(page.pictures2.width)
-									|| smutil.isEmpty(page.pictures2.length)
-									|| smutil.isEmpty(page.pictures2.height)) {
-								LEMP.Window.alert({
-									"_vMessage" : "사진을 업로드 해주세요",
-								});
-								return false;
-							} else if (smutil.isEmpty($("#widthCm").val())) {
-								LEMP.Window.alert({
-									"_vMessage" : "가로 값을 입력해주세요",
-								});
-								return false;
-							} else if (smutil.isEmpty($("#lengthCm").val())) {
-								LEMP.Window.alert({
-									"_vMessage" : "세로 값을 입력해주세요",
-								});
-								return false;
-							} else if (smutil.isEmpty($('#heightCm').val())) {
-								LEMP.Window.alert({
-									"_vMessage" : "높이 값을 입력해주세요",
-								});
-								return false;
-							} else if (smutil.isEmpty($("#sumCmTri").val())) {
-								LEMP.Window.alert({
-									"_vMessage" : "세변의 합을 입력해주세요",
-								});
-								return false;
-							} else if (Number($("#widthCm").val())
-									+ Number($("#lengthCm").val())
-									+ Number($('#heightCm').val()) != Number($(
-									"#sumCmTri").val())) {
-								LEMP.Window.alert({
-									"_vMessage" : "합계가 올바르지 않습니다",
-								});
-								return false;
-							} else {
-								box_l = $("#widthCm").val();
-								box_w = $('#lengthCm').val();
-								box_h = $('#heightCm').val();
-
-								fileArray.push(page.pictures2.inv_no);
-								fileArray.push(page.pictures2.total);
-								fileArray.push(page.pictures2.width);
-								fileArray.push(page.pictures2.length);
-								fileArray.push(page.pictures2.height);
-
-								ob.status = rea_cd;
-								ob.box_l = box_l;
-								ob.box_w = box_w;
-								ob.box_h = box_h;
-								ob.fileArray = fileArray;
-								ob.tabStatus = "10";
-								page.sendDatas(ob);
-							}
-						}else{
-							if(smutil.isEmpty(page.pictures6.inv_no)
-									|| smutil.isEmpty(page.pictures6.total)
-									|| smutil.isEmpty(page.pictures6.width)
-									|| smutil.isEmpty(page.pictures6.length)
-									|| smutil.isEmpty(page.pictures6.height)) {
-								LEMP.Window.alert({
-									"_vMessage" : "사진을 업로드 해주세요",
-								});
-								return false;
-							}else{
-								fileArray.push(page.pictures6.inv_no);
-								fileArray.push(page.pictures6.total);
-								fileArray.push(page.pictures6.width);
-								fileArray.push(page.pictures6.length);
-								fileArray.push(page.pictures6.height);
-								
-								ob.status = rea_cd;
-								ob.fileArray = fileArray;
-								ob.tabStatus = "10";
-								page.sendDatas(ob);
-							}
-						}
-							
+						fileArray.push(page.pictures4.inv_no);
+						fileArray.push(page.pictures4.total);
+						ob.fileArray = fileArray;
+						ob.tabStatus = "20";
+						page.sendDatas(ob);
 					}
-				});
-		
+				} else if (tabStatus == "운임불일치") {
+					if (smutil.isEmpty(page.pictures5.inv_no)
+						|| smutil.isEmpty(page.pictures5.total)) {
+						LEMP.Window.alert({
+							"_vMessage" : "사진을 업로드 해주세요",
+						});
+						return false;
+					} else if (smutil.isEmpty($("#fare_amt").val())) {
+						LEMP.Window.alert({
+							"_vMessage" : "실집하 운임을 입력해주세요",
+						});
+						return false;
+					} else {
+						fileArray.push(page.pictures5.inv_no);
+						fileArray.push(page.pictures5.total);
+						ob.fileArray = fileArray;
+						ob.tabStatus = "21";
+						ob.fare_amt = page.fare_amt;
+						page.sendDatas(ob);
+					}
+				} else {
+					// 비규격사유코드 (비규격에서만 필요)
+					var rea_cd = $(
+						"#FRE0101_code2_template2 option:selected").val();
+					// 비규격사유 25kg초과 일경우(무게초과)
+					if (rea_cd == "03") {
+						if (smutil.isEmpty(page.pictures3.inv_no)
+							|| smutil.isEmpty(page.pictures3.total)
+							|| smutil.isEmpty(page.pictures3.weight)) {
+							LEMP.Window.alert({
+								"_vMessage" : "사진을 업로드 해주세요",
+							});
+							return false;
+						} else if (smutil
+							.isEmpty(($('#weightInput').val()))) {
+							LEMP.Window.alert({
+								"_vMessage" : "무게 값을 입력해주세요",
+							});
+							return false;
+						} else if (Number($('#weightInput').val()) <= 25) {
+							LEMP.Window.alert({
+								"_vMessage" : "무게가 25kg 이하입니다",
+							});
+							return false;
+						} else {
+							wgt = $('#weightInput').val();
+							fileArray.push(page.pictures3.inv_no);
+							fileArray.push(page.pictures3.total);
+							fileArray.push(page.pictures3.weight);
+
+							ob.fileArray = fileArray;
+							ob.wgt = wgt;
+							ob.status = rea_cd;
+							ob.tabStatus = "10";
+							ob.pkgng_typ_cd = pkgng_typ_cd;
+							ob.strp_cnt_sct_cd = strp_cnt_sct_cd;
+							page.sendDatas(ob);
+						}
+						// 비규격사유 결박화물일 경우
+					} else if (rea_cd == "02") {
+						if (smutil.isEmpty(page.pictures1.inv_no)
+							|| smutil.isEmpty(page.pictures1.total)
+							|| smutil.isEmpty(page.pictures1.width)
+							|| smutil.isEmpty(page.pictures1.length)
+							|| smutil.isEmpty(page.pictures1.height)
+							|| smutil.isEmpty(page.pictures1.weight)) {
+							LEMP.Window.alert({
+								"_vMessage": "사진을 업로드 해주세요",
+							});
+							return false;
+						} else if (smutil.isEmpty($("#widthCm").val())) {
+							LEMP.Window.alert({
+								"_vMessage": "가로 값을 입력해주세요",
+							});
+							return false;
+						} else if (smutil.isEmpty($("#lengthCm").val())) {
+							LEMP.Window.alert({
+								"_vMessage": "세로 값을 입력해주세요",
+							});
+							return false;
+						} else if (smutil.isEmpty($('#heightCm').val())) {
+							LEMP.Window.alert({
+								"_vMessage": "높이 값을 입력해주세요",
+							});
+							return false;
+						} else if (smutil.isEmpty($("#sumCmTri").val())) {
+							LEMP.Window.alert({
+								"_vMessage": "세변의 합을 입력해주세요",
+							});
+							return false;
+						} else if (Number($("#widthCm").val())
+							+ Number($("#lengthCm").val())
+							+ Number($('#heightCm').val()) != Number($(
+								"#sumCmTri").val())) {
+							LEMP.Window.alert({
+								"_vMessage": "합계가 올바르지 않습니다",
+							});
+							return false;
+						} else if (smutil
+							.isEmpty(($('#weightInput').val()))) {
+							LEMP.Window.alert({
+								"_vMessage": "무게 값을 입력해주세요",
+							});
+							return false;
+						} else if (smutil
+							.isEmpty(($('#FRE0101_code3_template3').val()))) {
+							LEMP.Window.alert({
+								"_vMessage": "결박개수를 입력해주세요",
+							});
+							return false;
+						} else {
+							wgt = $('#weightInput').val();
+							box_l = $("#widthCm").val();
+							box_w = $('#lengthCm').val();
+							box_h = $('#heightCm').val();
+
+							fileArray.push(page.pictures1.inv_no);
+							fileArray.push(page.pictures1.total);
+							fileArray.push(page.pictures1.width);
+							fileArray.push(page.pictures1.length);
+							fileArray.push(page.pictures1.height);
+							fileArray.push(page.pictures1.weight);
+
+							ob.status = rea_cd;
+							ob.fileArray = fileArray;
+							ob.tabStatus = "10";
+							ob.box_l = box_l;
+							ob.box_w = box_w;
+							ob.box_h = box_h;
+							ob.wgt = wgt;
+							ob.pkgng_typ_cd = pkgng_typ_cd;
+							ob.strp_cnt_sct_cd = strp_cnt_sct_cd;
+							page.sendDatas(ob);
+						}
+						//위험화물
+					} else if (rea_cd == "08") {
+						if (smutil.isEmpty(page.pictures1.inv_no)
+							|| smutil.isEmpty(page.pictures1.total)
+							|| smutil.isEmpty(page.pictures1.width)
+							|| smutil.isEmpty(page.pictures1.length)
+							|| smutil.isEmpty(page.pictures1.height)
+							|| smutil.isEmpty(page.pictures1.weight)) {
+							LEMP.Window.alert({
+								"_vMessage": "사진을 업로드 해주세요",
+							});
+							return false;
+						} else if (smutil.isEmpty($("#widthCm").val())) {
+							LEMP.Window.alert({
+								"_vMessage": "가로 값을 입력해주세요",
+							});
+							return false;
+						} else if (smutil.isEmpty($("#lengthCm").val())) {
+							LEMP.Window.alert({
+								"_vMessage": "세로 값을 입력해주세요",
+							});
+							return false;
+						} else if (smutil.isEmpty($('#heightCm').val())) {
+							LEMP.Window.alert({
+								"_vMessage": "높이 값을 입력해주세요",
+							});
+							return false;
+						} else if (smutil.isEmpty($("#sumCmTri").val())) {
+							LEMP.Window.alert({
+								"_vMessage": "세변의 합을 입력해주세요",
+							});
+							return false;
+						} else if (Number($("#widthCm").val())
+							+ Number($("#lengthCm").val())
+							+ Number($('#heightCm').val()) != Number($(
+								"#sumCmTri").val())) {
+							LEMP.Window.alert({
+								"_vMessage": "합계가 올바르지 않습니다",
+							});
+							return false;
+						} else if (smutil
+							.isEmpty(($('#weightInput').val()))) {
+							LEMP.Window.alert({
+								"_vMessage": "무게 값을 입력해주세요",
+							});
+							return false;
+						} else {
+							wgt = $('#weightInput').val();
+							box_l = $("#widthCm").val();
+							box_w = $('#lengthCm').val();
+							box_h = $('#heightCm').val();
+
+							fileArray.push(page.pictures1.inv_no);
+							fileArray.push(page.pictures1.total);
+							fileArray.push(page.pictures1.width);
+							fileArray.push(page.pictures1.length);
+							fileArray.push(page.pictures1.height);
+							fileArray.push(page.pictures1.weight);
+
+							ob.status = rea_cd;
+							ob.fileArray = fileArray;
+							ob.tabStatus = "10";
+							ob.box_l = box_l;
+							ob.box_w = box_w;
+							ob.box_h = box_h;
+							ob.wgt = wgt;
+							ob.pkgng_typ_cd = pkgng_typ_cd;
+							ob.strp_cnt_sct_cd = strp_cnt_sct_cd;
+							page.sendDatas(ob);
+						}
+					}
+					//세변합, 최장변, 나체품, 포장비정상, 기타화물
+					else{
+						if (smutil.isEmpty(page.pictures6.inv_no)
+							|| smutil.isEmpty(page.pictures6.total)
+							|| smutil.isEmpty(page.pictures6.width)
+							|| smutil.isEmpty(page.pictures6.length)
+							|| smutil.isEmpty(page.pictures6.height)) {
+							LEMP.Window.alert({
+								"_vMessage" : "사진을 업로드 해주세요",
+							});
+							return false;
+						} else if (smutil.isEmpty($("#widthCm").val())) {
+							LEMP.Window.alert({
+								"_vMessage" : "가로 값을 입력해주세요",
+							});
+							return false;
+						} else if (smutil.isEmpty($("#lengthCm").val())) {
+							LEMP.Window.alert({
+								"_vMessage" : "세로 값을 입력해주세요",
+							});
+							return false;
+						} else if (smutil.isEmpty($('#heightCm').val())) {
+							LEMP.Window.alert({
+								"_vMessage" : "높이 값을 입력해주세요",
+							});
+							return false;
+						} else if (smutil.isEmpty($("#sumCmTri").val())) {
+							LEMP.Window.alert({
+								"_vMessage" : "세변의 합을 입력해주세요",
+							});
+							return false;
+						} else if (Number($("#widthCm").val())
+							+ Number($("#lengthCm").val())
+							+ Number($('#heightCm').val()) != Number($(
+								"#sumCmTri").val())) {
+							LEMP.Window.alert({
+								"_vMessage" : "합계가 올바르지 않습니다",
+							});
+							return false;
+						} else {
+							box_l = $("#widthCm").val();
+							box_w = $('#lengthCm').val();
+							box_h = $('#heightCm').val();
+
+							fileArray.push(page.pictures6.inv_no);
+							fileArray.push(page.pictures6.total);
+							fileArray.push(page.pictures6.width);
+							fileArray.push(page.pictures6.length);
+							fileArray.push(page.pictures6.height);
+
+							ob.status = rea_cd;
+							ob.box_l = box_l;
+							ob.box_w = box_w;
+							ob.box_h = box_h;
+							ob.fileArray = fileArray;
+							ob.tabStatus = "10";
+							ob.pkgng_typ_cd = pkgng_typ_cd;
+							ob.strp_cnt_sct_cd = strp_cnt_sct_cd;
+							page.sendDatas(ob);
+						}
+					}
+				}
+			});
+
 		$(document).on('click','.btn.red.m.w100p.b-close',function(){
 			$('.mpopBox.pop3').bPopup().close();
-	
+
 		});
 	},
 	// 스캐너 콜백
 	scanCallback : function(data) {
 		if((data.barcode.length == 12)&&
-				(Number(data.barcode.substr(0,11))%7 == Number(data.barcode.substr(11,1)))){
+			(Number(data.barcode.substr(0,11))%7 == Number(data.barcode.substr(11,1)))){
 			var date = new Date();
 			page.ScanStatus.ymd = date.LPToFormatDate("yyyymmdd");
 			page.ScanStatus.tme = date.LPToFormatDate("HHnnss");
 			$('#inv_noText').val(data.barcode);
-			//BCR AI 수신/처리 여부확인
 			page.getBcrAiRcpnInfo(data.barcode);
 		}else{
 			LEMP.Window.alert({
@@ -572,28 +683,26 @@ var page = {
 				"_vMessage" : "정상적인 바코드번호가 아닙니다."
 			});
 		}
-		
-		
+
+
 	},
-	
+
 	// 필터 구분 조회
 	fltrListSearch : function() {
 		smutil.loadingOn();
-			var _this = this;
-			_this.apiParam.param.baseUrl = "/smapis/cmn/codeListPopup"; // api
-				// no
-			_this.apiParam.param.callback = "page.fltrListCallback"; // callback
-				// methode
-			_this.apiParam.data = {
-				"parameters" : {
-					"typ_cd" : "BRSH_SCT_CD"
-				}
-			}; // api 통신용 파라메터
-				// 공통 api호출 함수
-			smutil.callApi(_this.apiParam);
-			page.anounce = $("#FRE0101_code2_template2 option:selected").text();
-			
-			
+		var _this = this;
+		_this.apiParam.param.baseUrl = "/smapis/cmn/codeListPopup"; // api
+		// no
+		_this.apiParam.param.callback = "page.fltrListCallback"; // callback
+		// methode
+		_this.apiParam.data = {
+			"parameters" : {
+				"typ_cd" : "BRSH_SCT_CD"
+			}
+		}; // api 통신용 파라메터
+		// 공통 api호출 함수
+		smutil.callApi(_this.apiParam);
+		page.anounce = $("#FRE0101_code2_template2 option:selected").text();
 	},
 	// 필터 구분조회 콜백
 	fltrListCallback : function(res) {
@@ -602,8 +711,6 @@ var page = {
 				if(res.data.list[0].dtl_cd_nm==="본사"){
 					var list = res.data.list;
 					smutil.setSelectOptions("#FRE0101_code_template", list);
-					
-					
 					page.apiParam.param.baseUrl = "/smapis/cmn/codeListPopup"; // api
 					page.apiParam.param.callback = "page.fltrListCallback"; // callback
 					page.apiParam.data = {
@@ -612,10 +719,35 @@ var page = {
 						}
 					};
 					smutil.callApi(page.apiParam);
-				}else{
+				}else if(res.data.list[0].dtl_cd_nm==="나체품"){
 					var list = res.data.list;
 					smutil.setSelectOptions("#FRE0101_code2_template2", list);
+					page.apiParam.param.baseUrl = "/smapis/cmn/codeListPopup"; // api
+					page.apiParam.param.callback = "page.fltrListCallback"; // callback
+					page.apiParam.data = {
+						"parameters" : {
+							"typ_cd" : "PKGNG_TYP_CD"
+						}
+					};
+					smutil.callApi(page.apiParam);
 					page.updatePicture();
+				}else if(res.data.list[0].dtl_cd_nm==="박스"){
+					//포장상태 입력
+					var list = res.data.list;
+					smutil.setSelectOptions("#FRE0101_code3_template3", list);
+					page.apiParam.param.baseUrl = "/smapis/cmn/codeListPopup"; // api
+					page.apiParam.param.callback = "page.fltrListCallback"; // callback
+					page.apiParam.data = {
+						"parameters" : {
+							"typ_cd" : "STRP_CNT_SCT_CD"
+						}
+					};
+					smutil.callApi(page.apiParam);
+				}
+				else {
+					//결박개수 입력
+					var list = res.data.list;
+					smutil.setSelectOptions("#FRE0101_code4_template4", list);
 				}
 			}
 		}catch(e){}
@@ -624,31 +756,45 @@ var page = {
 		}
 
 		page.apiParamInit(); // 파라메터 전역변수 초기화
-		
-	
 	},
-	
+
 	// 신고내용에 따라 영역구성
+
 	updatePicture : function() {
 		$('#updatePictures1').css('display','none');
 		$('#updatePictures2').css('display','none');
 		$('#updatePictures3').css('display','none');
 		$('#updatePictures6').css('display','none');
+		$('#weightInfomation').css('display','none');
+		$('#bindInfomation').css('display','none');
 		$('#lengthInfomation').css('display','none');
+		//포장상태는 전부들어감
+		// $('#packingInfomation').css('display','none');
 
 		var selected = $('#FRE0101_code2_template2 option:selected').val();
-		
-		
-		// (02) 결박화물일경우
-		if (selected == "02") {
-			$('#updatePictures1').css('display', 'block');
-			// (03) 무게 25초과일경우
-		} else if (selected == "03") {
+		// 01 나체품, 02 결박화물, 03 무게 초과, 04 세변합초과, 05 최장변 초과, 06 포장비정상, 07 기타금지화물, 08 위험화물
+		// (03) 무게 초과일경우
+		if (selected == "03") {
+			// 운송장, 전체사진, 무게
 			$('#updatePictures3').css('display', 'block');
-		} else if(selected =="01" || selected =="06" || selected =="07"){
-			$('#updatePictures6').css('display','block');
-		}else{
-			$('#updatePictures2').css('display', 'block');
+			$('#weightInfomation').css('display', 'block');
+		} else if(selected =="02"){
+			// 결박화물
+			// 운송장, 전체사진, 가로, 세로, 높이, 무게 / 결박개수
+			$('#updatePictures1').css('display','block');
+			$('#weightInfomation').css('display', 'block');
+			$('#bindInfomation').css('display', 'block');
+			$('#lengthInfomation').css('display', 'block');
+		} else if(selected =="08"){
+			// 위험화물
+			// 운송장, 전체사진, 가로, 세로, 높이, 무게
+			$('#updatePictures1').css('display','block');
+			$('#weightInfomation').css('display', 'block');
+			$('#lengthInfomation').css('display', 'block');
+		}
+		else{
+			// 운송장, 전체사진, 가로, 세로, 높이
+			$('#updatePictures6').css('display', 'block');
 			$('#lengthInfomation').css('display', 'block');
 		}
 	},
@@ -667,13 +813,9 @@ var page = {
 		if (data.id == "fare_amt") {
 			page.fare_amt = data.value;
 			$("#" + data.id).val(
-					data.value.replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-			//BCR AI 수신/처리 여부확인
-			page.getBcrAiRcpnInfo(data.value);
+				data.value.replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 		} else {
 			$("#" + data.id).val(data.value);
-			//BCR AI 수신/처리 여부확인
-			page.getBcrAiRcpnInfo(data.value);
 		}
 	},
 
@@ -683,63 +825,63 @@ var page = {
 
 		if (num == "1") {
 			switch (page.pictureStatus.text) {
-			case "운송장":
-				page.pictures1.inv_no = data.param;
-				break;
-			case "전체":
-				page.pictures1.total = data.param;
-				break;
-			case "가로":
-				page.pictures1.width = data.param;
-				break;
-			case "세로":
-				page.pictures1.length = data.param;
-				break;
-			case "높이":
-				page.pictures1.height = data.param;
-				break;
-			case "무게":
-				page.pictures1.weight = data.param;
-				break;
+				case "운송장":
+					page.pictures1.inv_no = data.param;
+					break;
+				case "전체":
+					page.pictures1.total = data.param;
+					break;
+				case "가로":
+					page.pictures1.width = data.param;
+					break;
+				case "세로":
+					page.pictures1.length = data.param;
+					break;
+				case "높이":
+					page.pictures1.height = data.param;
+					break;
+				case "무게":
+					page.pictures1.weight = data.param;
+					break;
 			}
 		} else if (num == "2") {
 			switch (page.pictureStatus.text) {
-			case "운송장":
-				page.pictures2.inv_no = data.param;
-				break;
-			case "전체":
-				page.pictures2.total = data.param;
-				break;
-			case "가로":
-				page.pictures2.width = data.param;
-				break;
-			case "세로":
-				page.pictures2.length = data.param;
-				break;
-			case "높이":
-				page.pictures2.height = data.param;
-				break;
+				case "운송장":
+					page.pictures2.inv_no = data.param;
+					break;
+				case "전체":
+					page.pictures2.total = data.param;
+					break;
+				case "가로":
+					page.pictures2.width = data.param;
+					break;
+				case "세로":
+					page.pictures2.length = data.param;
+					break;
+				case "높이":
+					page.pictures2.height = data.param;
+					break;
 			}
 		} else if (num == "3") {
 			switch (page.pictureStatus.text) {
-			case "운송장":
-				page.pictures3.inv_no = data.param;
-				break;
-			case "전체":
-				page.pictures3.total = data.param;
-				break;
-			case "무게":
-				page.pictures3.weight = data.param;
-				break;
+				case "운송장":
+					page.pictures3.inv_no = data.param;
+					break;
+				case "전체":
+					page.pictures3.total = data.param;
+					break;
+				case "무게":
+					page.pictures3.weight = data.param;
+					break;
 			}
 		} else if (num == "4") {
 			switch (page.pictureStatus.text) {
-			case "운송장":
-				page.pictures4.inv_no = data.param;
-				break;
-			case "전체":
-				page.pictures4.total = data.param;
-				break;
+				case "운송장":
+					page.pictures4.inv_no = data.param;
+					break;
+				case "전체":
+					page.pictures4.total = data.param;
+					break;
 			}
 		} else if(num == "6"){
 			switch (page.pictureStatus.text) {
@@ -765,12 +907,12 @@ var page = {
 		}
 		else {
 			switch (page.pictureStatus.text) {
-			case "운송장":
-				page.pictures5.inv_no = data.param;
-				break;
-			case "전체":
-				page.pictures5.total = data.param;
-				break;
+				case "운송장":
+					page.pictures5.inv_no = data.param;
+					break;
+				case "전체":
+					page.pictures5.total = data.param;
+					break;
 			}
 		}
 
@@ -793,20 +935,20 @@ var page = {
 		var rea_cd_img;
 
 		switch ($('.on').children().text()) {
-		case "비규격":
-			phto_sct = "10";
-			phto_sct_img = "3";
-			break;
-		case "운임미기재":
-			phto_sct = "20";
-			phto_sct_img = "6";
-			rea_cd_img = "61";
-			break;
-		case "운임불일치":
-			phto_sct = "21";
-			phto_sct_img = "5";
-			rea_cd_img = "51";
-			break;
+			case "비규격":
+				phto_sct = "10";
+				phto_sct_img = "3";
+				break;
+			case "운임미기재":
+				phto_sct = "20";
+				phto_sct_img = "6";
+				rea_cd_img = "61";
+				break;
+			case "운임불일치":
+				phto_sct = "21";
+				phto_sct_img = "5";
+				rea_cd_img = "51";
+				break;
 		}
 
 		page.apiParam.id = "HTTPFILE";
@@ -831,7 +973,25 @@ var page = {
 			page.apiParam.param.baseUrl = "/smapis/pacl/accNonMatchFare"; // api
 			page.apiParam.data.parameters.fare_amt = res.fare_amt;
 		} else {
-			page.apiParam.param.baseUrl = "/smapis/pacl/accNonStd"; // api
+			//비규격 화물 판단
+			if(page.chkNonStd != "Y"){
+				page.apiParamOb = res;
+				page.apiParam.id = "HTTP";
+				page.apiParam.param.baseUrl = "/smapis/pacl/newChkNonStd"; // api
+				page.apiParam.param.callback = "page.chkNonStdCallback"; // callback
+				page.apiParam.data.parameters.p_inv_no = inv_no
+				page.apiParam.data.parameters.p_box_l = res.box_l
+				page.apiParam.data.parameters.p_box_w = res.box_w
+				page.apiParam.data.parameters.p_box_h = res.box_h
+				page.apiParam.data.parameters.p_wgt = res.wgt
+				page.apiParam.data.parameters.p_pkgng_typ_cd = $("#FRE0101_code3_template3 option:selected").val();
+				page.apiParam.data.parameters.p_nstd_typ_cd = $("#FRE0101_code2_template2 option:selected").val();
+				page.apiParam.data.parameters.p_strp_cnt_sct_cd = $("#FRE0101_code4_template4 option:selected").val();
+				smutil.callApi(page.apiParam);
+				return;
+			}
+
+			page.apiParam.param.baseUrl = "/smapis/pacl/newAccNonStd"; // api
 			// 비규격 전송
 			switch ($("#FRE0101_code2_template2 option:selected").text()) {
 				case "나체품":
@@ -845,58 +1005,101 @@ var page = {
 					break;
 				case "무게 초과":
 					rea_cd_img = "33";
-					break;					
+					break;
 				case "세변합 160Cm초과":
 					rea_cd_img = "34";
 					break;
 				case "세변합 초과":
 					rea_cd_img = "34";
-					break;					
+					break;
 				case "최장변 120Cm초과":
 					rea_cd_img = "35";
 					break;
 				case "최장변 초과":
 					rea_cd_img = "35";
-					break;					
+					break;
 				case "포장비정상":
 					rea_cd_img = "36";
 					break;
 				case "기타금지화물":
 					rea_cd_img = "37";
 					break;
+				case "기타화물":
+					rea_cd_img = "37";
+					break;
+				case "위험화물":
+					rea_cd_img = "37";
+					break;
 			}
 			page.apiParam.data.parameters.rea_cd_img = rea_cd_img;
 			page.apiParam.data.parameters.rea_cd = res.status;
-	
-			if(res.status == "03"){
-				page.apiParam.data.parameters.wgt = res.wgt;
-			}else if(res.status == "04" || res.status == "05"){
-				page.apiParam.data.parameters.box_l = res.box_l
-				page.apiParam.data.parameters.box_w = res.box_w
-				page.apiParam.data.parameters.box_h = res.box_h
-			}
-			
-			
-		}
+			page.apiParam.data.parameters.pkgng_typ_cd = $("#FRE0101_code3_template3 option:selected").val();
 
+			//결박화물
+			if(res.status == "02"){
+				page.apiParam.data.parameters.box_l = res.box_l;
+				page.apiParam.data.parameters.box_w = res.box_w;
+				page.apiParam.data.parameters.box_h = res.box_h;
+				page.apiParam.data.parameters.wgt = res.wgt;
+				page.apiParam.data.parameters.strp_cnt_sct_cd = $("#FRE0101_code4_template4 option:selected").val();
+			}//무게초과
+			else if(res.status == "03"){
+				page.apiParam.data.parameters.wgt = res.wgt;
+			}//나체품, 세변의합초과, 최장변초과, 포장비정상, 기타화물
+			else if(res.status == "01" || res.status == "04" || res.status == "05" || res.status == "06" || res.status == "07"){
+				page.apiParam.data.parameters.box_l = res.box_l;
+				page.apiParam.data.parameters.box_w = res.box_w;
+				page.apiParam.data.parameters.box_h = res.box_h;
+			}//위험화물
+			else if(res.status == "08"){
+				page.apiParam.data.parameters.box_l = res.box_l;
+				page.apiParam.data.parameters.box_w = res.box_w;
+				page.apiParam.data.parameters.box_h = res.box_h;
+				page.apiParam.data.parameters.wgt = res.wgt;
+			}
+		}
 		page.apiParam.files = res.fileArray;
 		smutil.callApi(page.apiParam);
 
 	},
+
+	// 비규격 화물 판단 정보 콜백
+	chkNonStdCallback : function(res) {
+		try{
+			if (smutil.apiResValidChk(res) && res.code === "0000") {
+				page.chkNonStd = res.rtn_yn;
+				if(page.chkNonStd == "Y"){
+					page.sendDatas(page.apiParamOb);
+				}
+				else{
+					LEMP.Window.alert({
+						"_vMessage" : res.message,
+					});
+					smutil.loadingOff();
+				}
+			}
+		}catch(e){
+			smutil.loadingOff();
+		}
+		finally{
+
+		}
+	},
+
 	// 전송 콜백
 	sendCallback : function(res) {
 		try{
 			if (smutil.apiResValidChk(res) && res.code === "0000") {
 				$('.mpopBox.pop3').bPopup();
-				
+
 				var imageTagArray = [ "Inv_no1", "total1", "width1", "length1",
-						"height1", "weight1", "Inv_no2", "total2", "width2",
-						"length2", "height2", "Inv_no3", "total3", "weight3",
-						 "Inv_no6", "total6", "width6", "length6", "height6"];
-	
+					"height1", "weight1", "Inv_no2", "total2", "width2",
+					"length2", "height2", "Inv_no3", "total3", "weight3",
+					"Inv_no6", "total6", "width6", "length6", "height6"];
+
 				var tabStatus = $('.tabBox.li3').find('.on').children().text();
-			
-	
+
+
 				if (tabStatus == "운임미기재") {
 					$('#Inv_no4_D').next().attr("src", "");
 					$('#total4_D').next().attr("src", "");
@@ -905,7 +1108,7 @@ var page = {
 					$("#Inv_no4").css("display", "block");
 					$("#total4").css("display", "block");
 					page.ParamInitMi();
-				
+
 				} else if (tabStatus == "운임불일치") {
 					$('#Inv_no5_D').next().attr("src", "");
 					$('#total5_D').next().attr("src", "");
@@ -915,7 +1118,7 @@ var page = {
 					$("#total5").css("display", "block");
 					$('#fare_amt').val("");
 					page.ParamInitIn();
-				
+
 				} else {
 					_.forEach(imageTagArray, function(value) {
 						$('#' + value + "_D").next().attr("src", "");
@@ -928,15 +1131,18 @@ var page = {
 					$('#heightCm').val("");
 					$('#sumCmTri').val("")
 					$('#weightInput').val("");
+					$('#inv_noText').val("");
+					page.chkNonStd = "";
 				}
 			}
-		
+
 		}catch(e){}
 		finally{
+			page.apiParamInit(); //파라메타 초기화
 			smutil.loadingOff();
 		}
-		
 	},
+
 
 	// Parameter 비규격 초기화
 	ParamInitNon : function() {
@@ -1007,7 +1213,7 @@ var page = {
 			data : {
 				"parameters" : {}
 			}
-		// api 통신용 파라메터
+			// api 통신용 파라메터
 		};
 	},
 	// BCR AI 수신/처리 여부
@@ -1026,25 +1232,36 @@ var page = {
 			}
 		};
 		smutil.callApi(_this.apiParam);
-		
+
 	},
 	//BCR AI 수신/처리 여부콜백
 	getBcrAiRcpnInfoCallback : function(res) {
 		try{
-			if(smutil.apiResValidChk(res) && res.code === "0000" && res.data_count!=0 && res.data.list[0].rcpn_yn == "Y"){
-				LEMP.Window.toast({
-					"_sMessage" : "이미 신고된 번호입니다",
-					"_sDuration" : "short"
-				});
-				
-				//이미신고된건은 운송장번호 초기화
-				$('#inv_noText').val("");
+			if(smutil.apiResValidChk(res) && res.code === "0000" && res.data_count!=0){
+				//BCR AI Y 수신시 위험화물로 변경
+				if(res.data.list[0].rcpn_yn == "Y"){
+					LEMP.Window.alert({
+						"_vMessage" : "이미 신고된 번호입니다.\n위험화물만 신고 가능합니다",
+					});
+					$("#FRE0101_code2_template2").val("08").prop("selected", true);
+					$("#FRE0101_code2_template2").prop('disabled',true);
+					page.updatePicture();
+				}
+				//BCR AI D 수신시 송장번호 초기화
+				else if(res.data.list[0].rcpn_yn == "D"){
+					LEMP.Window.alert({
+						"_vMessage" : "이미 비규격 신고완료된 건입니다.",
+					});
+					$('#inv_noText').val("");
+				}else{
+					$("#FRE0101_code2_template2").prop('disabled',false);
+				}
+			}else{
+				$("#FRE0101_code2_template2").prop('disabled',false);
 			}
 		}catch(e){console.log(e)}
 		finally{
 			smutil.loadingOff();
 		}
-		
 	}
-	
 };

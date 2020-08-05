@@ -101,7 +101,7 @@
 .insuja .btn.plus{position:absolute; right:3px; top:10px; background-size:9px; font-size:0; line-height: 1;}
 
 /* 로고 */
-.baedalBox .thumb{float:left; box-sizing:border-box; padding-top:35px; font-size:0; line-height: 1;}
+.baedalBox .thumb{float:left; box-sizing:border-box; padding-top:8px; font-size:0; line-height: 1;}
 .baedalBox .thumb .img{display:inline-block; border-radius:100px; background-color:#dadee1; width:35px; height:35px; box-sizing:border-box;overflow:hidden;font-size:0;text-indent: -9999px;}
 .baedalBox .thumb .img.df{background:#8d9090 url('../../common/img/delivery-logo-default.png') no-repeat 50%; background-size:35px;}
 .baedalBox .thumb .img.box{background:#dadee1 url('../../common/img/icon-box.png') no-repeat 50%; background-size:50%;}
@@ -151,6 +151,7 @@
 .baedalBox .btn.move{position:absolute; right:10px; bottom:13px; width:35px;}
 .baedalBox .subBox{position:absolute; right:10px; top:10px; min-width:50px;}
 .baedalBox.on{border:1px solid #da291c;}
+.baedalBox.won .thumb { margin-top:24px;}
 .baedalBox.won .infoBox{margin-top:35px;}
 .baedalBox .tagInfo {display:block;width:45px;height:14px;position:absolute;right:10px;top:10px;background-size:45px 14px;font-size:0;overflow:hidden;text-indent: -9999px;}
 .baedalBox .tagInfo1 {background-image:url('../../common/img/taginfo-1.png');}
@@ -403,6 +404,7 @@
 ***************************************/
 /*  공통 */
 .pop{margin-bottom:60px;}
+.popVote { margin-bottom:105px;}
 
 .popImg .infoBox.img{position:relative; overflow:hidden;}
 .popImg .infoBox.img .imgBox{max-height:475px; overflow:hidden; text-align:center;}
@@ -531,4 +533,98 @@
 	vertical-align: middle;
 	max-width:30px;
 	font-size:0;
+}
+
+/* 별 평가 */
+.starVote {
+	position:fixed;
+	bottom:50px;
+	left:0;
+	width:100%;
+	height:55px;
+	background-color: #efefef;
+}
+.starBtnGroup {
+	display:flex;
+	align-items: center;
+	justify-content: center;
+	height:100%;
+	font-size:0;
+}
+.starBtn {
+	display: inline-block;
+	vertical-align: middle;
+	width:25px;
+	height:25px;
+	padding:0;
+	border:0;
+	overflow:hidden;
+	background: url('../img/star-off.png') no-repeat 0 0;
+	background-size:25px;
+	text-indent: -9999px;
+	font-size:0;
+	line-height:0;
+	outline:none;
+}
+.starBtn.active {
+	background: url('../img/star-on.png') no-repeat 0 0;
+	background-size:25px;
+}
+.starBtn + .starBtn {
+	margin-left:20px;
+}
+
+/* 버튼 박스 가이드 */
+.btnBoxGuide {
+	position:absolute;
+	bottom:60px;
+	left:50%;
+	padding:5px 10px;
+	border-radius:4px;
+	background-color:#2d2d2d;
+	font-size:12px;
+	white-space: nowrap;
+	color:#fff;
+	transform: translateX(-50%);
+}
+.btnBoxGuide::before {
+	content:"";
+	display:block;
+	position: absolute;
+	bottom:-10px;
+	left:50%;
+	width:0;
+	height:0;
+	margin-left:-3px;
+	border:6px solid transparent;
+	border-top-color: #2d2d2d;
+}
+
+/* 배송,반송 뱃지 추가 */
+.shipBadge {
+	display:block;
+	max-width:30px;
+	margin:4px auto;
+	padding:2px 4px;
+	border-radius:20px;
+	border:1px solid transparent;
+	background-color:#fff;
+	font-size:10px;
+	text-align: center;
+}
+.shipBadge.ship {
+	background-color:#008def;
+	color:#fff;
+}
+.shipBadge.shipOutlined {
+	border-color:#008def;
+	color:#008def;
+}
+.shipBadge.return {
+	background-color:#da291c;
+	color:#fff;
+}
+.shipBadge.returnOutlined {
+	border-color:#da291c;
+	color:#da291c;
 }
