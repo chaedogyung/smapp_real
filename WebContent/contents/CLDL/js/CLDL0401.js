@@ -1087,7 +1087,7 @@ var page = {
 					if(result){
 						data = result.data;
 						//2020-08-06 배달완료리스트 역순정렬
-						data.list.reverse();
+						// data.list.reverse();
 					}
 					//data = [];
 
