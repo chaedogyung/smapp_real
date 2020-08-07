@@ -325,6 +325,7 @@ background-position:100% 40px, 50% ,0 95%;
 .imgBox .btn.camera{top:15px;}
 .imgBox .btn.img{top:80px;}
 .imgBox .btn.del3{bottom:10px;}
+.imgBox .btn.sign{top:160px;}
 
 /* 텍스트 박스 */
 .textBox{position:relative;border:1px solid #dedede; padding:10px; margin-top:15px;box-sizing: border-box;}
@@ -520,6 +521,7 @@ button:disabled{background-color:#b5b5b5; color:#dcdcdc;}
 .btn.camera{background:#fff url('../../common/img/icon-camera.png') no-repeat 50%; background-size:20px; width:40px; height:40px; text-indent:-9999px; border-radius:60px; border:1px solid #d8d8d8;}
 .btn.camera2{background:#54585a url('../../common/img/icon-camera2.png') no-repeat 50%; background-size:13px; width:25px; height:25px; text-indent:-9999px; border-radius:60px;}
 .btn.img{background:#fff url('../../common/img/icon-img.png') no-repeat 50%; background-size:20px; width:40px; height:40px; text-indent:-9999px; border-radius:60px; border:1px solid #d8d8d8;}
+.btn.sign{background:#fff url('../../common/img/icon-pen-v3.png') no-repeat 50%; background-size:20px; width:40px; height:40px; text-indent:-9999px; border-radius:60px; border:1px solid #d8d8d8;}
 .btn.minus{background:#f7f7f7 url('../../common/img/icon-minus.png') no-repeat 50%; background-size:15px; text-indent:-9999px; width:35px; height:35px; border:1px solid #e1e1e1;}
 .btn.glass{background:#f7f7f7 url('../../common/img/icon-glass.png') no-repeat 50%; background-size:17px; text-indent:-9999px; width:35px; height:35px; border:1px solid #e1e1e1;}
 .btn.glass2{background:url('../../common/img/icon-glass.png') no-repeat 50%; background-size:22px; text-indent:-9999px; width:35px; height:35px;}
