@@ -7,6 +7,7 @@ var page = {
 		plnFltrList : null,			// 배달 예정 리스트 필터
 		selectedSchTime : null,		// 선택한 시간구분값
 		signInvNo : null,			// 서명이미지버튼을 클릭한 invNo
+		order : "01",				// 배달완료 정렬방식
 
 		// api 호출 기본 형식
 		apiParam : {
@@ -29,6 +30,13 @@ var page = {
 			var curDate = new Date();
 			curDate = curDate.getFullYear() + "." + ("0"+(curDate.getMonth()+1)).slice(-2) + "." + ("0"+curDate.getDate()).slice(-2);
 			$('#cldlBtnCal').text(curDate);
+
+			// 배달완료 정렬방식 세팅
+			page.order = LEMP.Properties.get({"_sKey":"order"});
+			if(smutil.isEmpty(page.order)){
+				page.order = "01";
+			}
+			$("#select_order").val(page.order).prop("selected", true);
 
 			page.initEvent();			// 페이지 이벤트 등록
 			page.initDpEvent();			// 화면 디스플레이 이벤트
@@ -127,6 +135,13 @@ var page = {
 				page.listReLoad();					// 리스트 제조회
 			});
 
+			// 배달완료 정렬방식 변경
+			$("#select_order").on('change', function(){
+				LEMP.Properties.set({"_sKey" : "order", "_vValue" : $('#select_order').val()});
+				page.order = $('#select_order').val();
+
+				page.listReLoad();					// 리스트 제조회
+			});
 
 
 			// 지도버튼 클릭
@@ -1087,7 +1102,9 @@ var page = {
 					if(result){
 						data = result.data;
 						//2020-08-06 배달완료리스트 역순정렬
-						// data.list.reverse();
+						if(page.order == "02"){
+							data.list.reverse();
+						}
 					}
 					//data = [];
 
@@ -2531,12 +2548,14 @@ var page = {
 					&& !phoneNum1.LPStartsWith("011")
 					&& !phoneNum1.LPStartsWith("016")
 					&& !phoneNum1.LPStartsWith("017")
+					&& !phoneNum1.LPStartsWith("050")
 				) &&
 				(
 					!phoneNum2.LPStartsWith("010")
 					&& !phoneNum2.LPStartsWith("011")
 					&& !phoneNum2.LPStartsWith("016")
 					&& !phoneNum2.LPStartsWith("017")
+					&& !phoneNum2.LPStartsWith("050")
 				)
 			){
 				returnNum = phoneNum1;
@@ -2546,6 +2565,7 @@ var page = {
 							|| phoneNum1.LPStartsWith("011")
 							|| phoneNum1.LPStartsWith("016")
 							|| phoneNum1.LPStartsWith("017")
+							|| phoneNum1.LPStartsWith("050")
 			){
 				returnNum = phoneNum1;
 			}
