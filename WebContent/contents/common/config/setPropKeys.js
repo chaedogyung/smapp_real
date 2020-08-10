@@ -14,6 +14,7 @@
  * - installAuthConfirmYn : LEMP.Properties.set({ "_sKey" : "installAuthConfirmYn", "_vValue" : "동의 확인 Y" });
  * - mmsMessage : LEMP.Properties.set({ "_sKey" : "mmsMessage", "_vValue" : "사진전송에 발송된 기본영역 문구" });
  * - personalInfo : LEMP.Properties.set({ "_sKey" : "personalInfo", "_vValue" : {"term_id" : 이용약관PK, "principal" : "사용자ID", "accept_yn": "동의여부"} });
+ * - order : LEMP.Properties.set({ "_sKey" : "order", "_vValue" : "01 / 02"});
  */
 var setPropKeys =
 {
@@ -31,6 +32,7 @@ var setPropKeys =
 		{"acptSctInfo2"		: "인수자 정보(단건)"},				//사진 전송에서만 사용
 		{"installAuthConfirmYn": "설치권한 동의여부"},			// 최초에 앱 설치권한 동의값
 		{"mmsMessage"		: "사진전송에 기사가 설정한 기본문구"},		// 사진전송 셋팅 기본문구
-		{"personalInfo"		: "개인정보 사용동의값"}
+		{"personalInfo"		: "개인정보 사용동의값"},
+		{"order"		: "배달완료 정렬방식"}
 	]
 };
