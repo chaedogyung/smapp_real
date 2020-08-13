@@ -7,6 +7,7 @@ var page = {
 		plnFltrList : null,			// 배달 예정 리스트 필터
 		selectedSchTime : null,		// 선택한 시간구분값
 		signInvNo : null,			// 서명이미지버튼을 클릭한 invNo
+		order : "01",				// 배달완료 정렬방식
 
 		// api 호출 기본 형식
 		apiParam : {
@@ -29,6 +30,13 @@ var page = {
 			var curDate = new Date();
 			curDate = curDate.getFullYear() + "." + ("0"+(curDate.getMonth()+1)).slice(-2) + "." + ("0"+curDate.getDate()).slice(-2);
 			$('#cldlBtnCal').text(curDate);
+
+			// 배달완료 정렬방식 세팅
+			page.order = LEMP.Properties.get({"_sKey":"order"});
+			if(smutil.isEmpty(page.order)){
+				page.order = "01";
+			}
+			$("#select_order").val(page.order).prop("selected", true);
 
 			page.initEvent();			// 페이지 이벤트 등록
 			page.initDpEvent();			// 화면 디스플레이 이벤트
@@ -127,6 +135,13 @@ var page = {
 				page.listReLoad();					// 리스트 제조회
 			});
 
+			// 배달완료 정렬방식 변경
+			$("#select_order").on('change', function(){
+				LEMP.Properties.set({"_sKey" : "order", "_vValue" : $('#select_order').val()});
+				page.order = $('#select_order').val();
+
+				page.listReLoad();					// 리스트 제조회
+			});
 
 
 			// 지도버튼 클릭
@@ -806,6 +821,24 @@ var page = {
 				}
 			});
 
+			// 배송/반송 라벨 표시
+			Handlebars.registerHelper('fraChk', function(options) {
+				var html = '';
+				if (this.fra_dlv_reg_sct === '01' && this.fra_dlv_req === '01') {
+					html = '<span class="shipBadge shipOutlined">배송</span>';
+				} else if (this.fra_dlv_reg_sct === '01' && this.fra_dlv_req === '02') {
+					html = '<span class="shipBadge returnOutlined">반송</span>';
+				} else if (this.fra_dlv_reg_sct === '02' && this.fra_dlv_req === '01') {
+					html = '<span class="shipBadge ship">배송</span>';
+				} else if (this.fra_dlv_reg_sct === '02' && this.fra_dlv_req === '02') {
+					html = '<span class="shipBadge return">반송</span>';
+				} else {
+					return html;
+				}
+
+				return new Handlebars.SafeString(html); // mark as already escaped
+			});
+
 			// ###################################### handlebars helper 등록 end
 
 		},
@@ -1070,7 +1103,6 @@ var page = {
 
 		// 리스트 조회후 그리기
 		cmptListCallback : function(result){
-
 			page.apiParamInit();		// 파라메터 전역변수 초기화
 
 			try{
@@ -1087,7 +1119,9 @@ var page = {
 					if(result){
 						data = result.data;
 						//2020-08-06 배달완료리스트 역순정렬
-						data.list.reverse();
+						if(page.order == "02"){
+							data.list.reverse();
+						}
 					}
 					//data = [];
 
@@ -2072,7 +2106,7 @@ var page = {
 						rsn_cont = rsn_cont.split('.').join('');
 					}
 
-					//미배달 api 호출, 
+					//미배달 api 호출,
 
 					page.apiParam.id = 'HTTP'
 					page.apiParam.param.baseUrl = "smapis/cmn/rsnRgstTxt";				// api no
@@ -2089,7 +2123,7 @@ var page = {
 
 					// 공통 api호출 함수
 					smutil.callApi(page.apiParam);
-					
+
 					//확인창 삭제(2020.05.19)
 //					var btnCancel = LEMP.Window.createElement({ _sElementName:"TextButton" });
 //					btnCancel.setProperty({
@@ -2531,12 +2565,14 @@ var page = {
 					&& !phoneNum1.LPStartsWith("011")
 					&& !phoneNum1.LPStartsWith("016")
 					&& !phoneNum1.LPStartsWith("017")
+					&& !phoneNum1.LPStartsWith("050")
 				) &&
 				(
 					!phoneNum2.LPStartsWith("010")
 					&& !phoneNum2.LPStartsWith("011")
 					&& !phoneNum2.LPStartsWith("016")
 					&& !phoneNum2.LPStartsWith("017")
+					&& !phoneNum2.LPStartsWith("050")
 				)
 			){
 				returnNum = phoneNum1;
@@ -2546,6 +2582,7 @@ var page = {
 							|| phoneNum1.LPStartsWith("011")
 							|| phoneNum1.LPStartsWith("016")
 							|| phoneNum1.LPStartsWith("017")
+							|| phoneNum1.LPStartsWith("050")
 			){
 				returnNum = phoneNum1;
 			}
