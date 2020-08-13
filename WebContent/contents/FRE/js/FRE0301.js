@@ -127,6 +127,24 @@ var page = {
 			});
 			$('.mpopBox.phone').bPopup().close();
 		});
+
+		//문자발송 버튼
+		$(document).on("click",".btn.sms",function(){
+			var pNum = $(this).parent().text().replace(/[^0-9\-]/g,"");
+			$(".popBody > .txt1").text(pNum);
+			$(".popBody > .txt1").attr("id",pNum);
+			$('.mpopBox.sms').bPopup();
+		})
+		//문자발송 확인 버튼
+		$("#smsOk").click(function(){
+			var aNumber = [];
+			aNumber.push($(".popBody > .txt1").attr("id"));
+			LEMP.System.callSMS({
+				"_aNumber":aNumber,
+				"_sMessage":""
+			});
+			$('.mpopBox.sms').bPopup().close();
+		})
 		
 	},
 	//송장번호 입력후 전송
@@ -192,6 +210,15 @@ var page = {
 										|| page.pInfo.dlvsh_cd === list.dev_brsh_cd){
 									$("#"+keys[i]).text(val);
 									$("#"+keys[i]).append("<button class='btn mobile'>전화번호</button>");
+									//휴대폰 번호일경우 문자버튼 추가
+									if(val.LPStartsWith("010")
+										|| val.LPStartsWith("011")
+										|| val.LPStartsWith("016")
+										|| val.LPStartsWith("017")
+										|| val.LPStartsWith("050")
+									){
+										$("#"+keys[i]).append("<button class='btn sms'>문자</button>");
+									}
 								}else {
 									var array = val.split("-");
 									switch (array.length) {
