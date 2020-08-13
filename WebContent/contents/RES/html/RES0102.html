@@ -41,17 +41,20 @@
 				<div class="tableBox tp1">
 					<table>
 						<colgroup>
-							<col style="width:33%">
-							<col style="width:33%">
+							<col style="width:10%">
+							<col style="width:30%">
+							<col style="width:30%">
 							<col style="width:auto">
 						</colgroup>
 						<thead>
 							<tr>
+								<th>번호</th>
 								<th>상태</th>
 								<th>송장번호</th>
 								<th>운임</th>
 							</tr>
 							<tr>
+								<th></th>
 								<th>합계금액</th>
 								<th colspan="2" id="total_summ_fare">0</th>
 							</tr>
@@ -91,6 +94,7 @@
 	<script type="text/x-handlebars-template" id="res0102_tb_template">
 	{{#each list}}
 		<tr class="invNoTr" data-inv-no='{{inv_no}}'>
+			<td>{{idx}}</td>
 			<td>{{trsm_stat_nm}}</td>
 			<td>{{invNoTmpl inv_no}}</td>
 			<td>{{summ_fare}}</td>
