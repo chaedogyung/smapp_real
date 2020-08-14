@@ -277,6 +277,7 @@ background-position:100% 40px, 50% ,0 95%;
 .inBox dd{overflow:hidden; display:inline-block; position:relative; font-size:13px; color:#9a9c9c; width:calc(100% - 95px);  box-sizing:border-box; margin-bottom:10px; min-height:35px;}
 .inBox dd.lh{line-height:35px;}
 .inBox dd .btn.mobile {position:absolute;top:0;right:0; z-index:10;}
+.inBox dd .btn.sms {position:absolute;top:0;right:30px; z-index:10;}
 .inBoxTel {margin:6px 0;}
 .inBox dd.inBoxTel {padding-right:40px !important;}
 
@@ -496,6 +497,7 @@ button:disabled{background-color:#b5b5b5; color:#dcdcdc;}
 
 /* 이미지형 */
 .btn.mobile{background:#54585a url('../../common/img/icon-phone.png') no-repeat 50%; background-size:11px; text-indent:-9999px; width:25px; height:25px;  border-radius:60px; padding:0px;}
+.btn.sms{background:#54585a url('../../common/img/icon-mail2.png') no-repeat 50%; background-size:11px; text-indent:-9999px; width:25px; height:25px;  border-radius:60px; padding:0px;}
 .btn.map{background:#54585a url('../../common/img/icon-map.png') no-repeat 50%; background-size:11px; text-indent:-9999px; width:25px; height:25px;  border-radius:50px; padding:0px;}
 .btn.closeW{background:url('../../common/img/icon-X.png') no-repeat 3px 6px; background-size:20px; text-indent:-9999px; width:25px;}
 .btn.version{background:url('../../common/img/icon-load.png') no-repeat right 4px; background-size:15px; color:#da291c; height:initial; padding-right:20px;}

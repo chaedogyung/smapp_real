@@ -117,6 +117,7 @@ var page = {
 				
 				for (var i = 0; i < res.data.list.length; i++) {
 					//list[i].invNo = list[i].inv_no.substr(0,4)+"-"+list[i].inv_no.substr(4,4)+"-"+list[i].inv_no.substr(8,4)
+					list[i].idx = i+1;
 					list[i].summ_fare = String(list[i].summ_fare).LPToCommaNumber();
 				}
 				var template = Handlebars.compile($("#res0102_tb_template").html());
