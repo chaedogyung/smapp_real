@@ -173,14 +173,14 @@ var page = {
 						return false;
 				}
 			});
-			//MMS 발송번호가 아니여도 전송 가능하도록 수정
-			// if (plag) {
-			// 	LEMP.Window.alert({
-			// 		"_sTitle" : "사진전송",
-			// 		"_vMessage" : "MMS를 발송할 수 없는 번호가 있습니다\n전화번호를 변경해주세요"
-			// 	});
-			// 	return false;
-			// }
+
+			if (plag) {
+				LEMP.Window.alert({
+					"_sTitle" : "사진전송",
+					"_vMessage" : "MMS를 발송할 수 없는 번호가 있습니다\n전화번호를 변경해주세요"
+				});
+				return false;
+			}
 
 			var obj={};
 
@@ -199,21 +199,21 @@ var page = {
 			};
 			
 			//서버전송용 추가예정
-			var objApi={};
-
-			objApi.inv_no=invNoApi;
-			objApi.usr_cpno=usrCpnoApi;
-			objApi.images=imgCheck;
-			page.cldl0410.objApi = objApi;
-
-			objApi = {
-				"phoneNumber": pNumApi
-				,"title": '롯데택배'
-				,"context": conCheck
-				,"filePath": imgCheck
-				,"sleepTime": 0
-				,"callback":"smutil.mmsMsgCallback"
-			};
+//			var objApi={};
+//
+//			objApi.inv_no=invNoApi;
+//			objApi.usr_cpno=usrCpnoApi;
+//			objApi.images=imgCheck;
+//			page.cldl0410.obj = objApi;
+//
+//			objApi = {
+//				"phoneNumber": pNumApi
+//				,"title": '롯데택배'
+//				,"context": conCheck
+//				,"filePath": imgCheck
+//				,"sleepTime": 0
+//				,"callback":"smutil.mmsMsgCallback"
+//			};
 
 			page.cldl0410.sendmms = obj;
 			page.cmptPhtgTrsmPop();
@@ -351,8 +351,8 @@ var page = {
 		page.apiParam.param.baseUrl = "smapis/cldl/cmptPhtgTrsmPop";				// api no
 //		page.apiParam.param.baseUrl = "smapis/cldl/cmptPhtgTrsmPopResize";			// api no(파일 리사이징용 api)
 		page.apiParam.param.callback = "page.cmptPhtgTrsmPopCallback";				// callback methode
-		page.apiParam.data.parameters.inv_no = page.cldl0410.objApi.inv_no;			// api 통신용 파라메터
-		page.apiParam.data.parameters.usr_cpno = page.cldl0410.objApi.usr_cpno;		// api 통신용 파라메터
+		page.apiParam.data.parameters.inv_no = page.cldl0410.obj.inv_no;			// api 통신용 파라메터
+		page.apiParam.data.parameters.usr_cpno = page.cldl0410.obj.usr_cpno;		// api 통신용 파라메터
 		page.apiParam.files = arr;
 
 		// 공통 api호출 함수
