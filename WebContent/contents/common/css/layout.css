@@ -341,8 +341,8 @@ background-position:100% 40px, 50% ,0 95%;
 .imgList li:first-child{padding-left:initial;}
 .imgList li{padding-left:5px; margin-bottom:15px;}
 .imgList .imgArea{border:1px solid #e1e1e1; background-color:#f7f7f7; width:100%; position:relative; box-sizing:border-box; text-align:center;}
-.imgList.m .imgArea{min-height:100px; min-width:100px; }
-.imgList.l .imgArea{min-height:160px; min-width:160px; }
+.imgList.m .imgArea{min-height:115px; min-width:115px; }
+.imgList.l .imgArea{min-height:177px; min-width:177px; }
 .imgList .titArea{font-size:13px; color:#9a9c9c; display:inline-block; margin-bottom:10px;}
 .imgArea .btn.plus3{position:absolute; top:calc(50% - 17px); left:calc(50% - 17px);}
 .imgArea .btn.del4{position:absolute; right:10px; bottom:10px;}
