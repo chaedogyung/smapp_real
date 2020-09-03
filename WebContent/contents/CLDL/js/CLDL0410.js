@@ -139,10 +139,10 @@ var page = {
 				conCheck = conCheck + "\n"+insujaTxt;
 			}
 
-			// 송장번호 정보가 있으면 메세지에 셋팅
-			if(!smutil.isEmpty(invNoTxt)){
-				conCheck = conCheck + "\n"+invNoTxt;
-			}
+			// 송장번호 정보가 있으면 메세지에 셋팅(배열로 넘겨서 주석처리)
+			// if(!smutil.isEmpty(invNoTxt)){
+			// 	conCheck = conCheck + "\n"+invNoTxt;
+			// }
 
 
 			$("#cldl0410LstUl > li").each(function(){
@@ -191,6 +191,7 @@ var page = {
 
 			obj = {
 				"phoneNumber": pNum
+				,"invoiceNumber" : invNo
 				,"title": '롯데택배'
 				,"context": conCheck
 				,"filePath": imgCheck
@@ -198,7 +199,7 @@ var page = {
 				,"callback":"smutil.mmsMsgCallback"
 			};
 			
-			//서버전송용 추가예정
+			//서버전송용 추가
 			var objApi={};
 
 			objApi.inv_no=invNoApi;
@@ -217,6 +218,22 @@ var page = {
 
 			page.cldl0410.sendmms = obj;
 			page.cmptPhtgTrsmPop();
+
+			// 테스트용 코드 업데이트시 삭제(kis)
+			// LEMP.Window.alert({
+			// 	"_sTitle":"서명이미지 저장오류",
+			// 	"_vMessage":obj
+			// });
+			//
+			// var tr = {
+			// 	"id":"SENDMMS",
+			// 	"param":page.cldl0410.sendmms
+			// };
+			//
+			// // mms 호출
+			// smutil.nativeMothodCall(tr);
+
+
 
 		});
 
@@ -359,7 +376,7 @@ var page = {
 		smutil.callApi(page.apiParam);
 	}
 
-	//
+	//api호출 후 콜백(mms전송)
 	,cmptPhtgTrsmPopCallback:function(res){
 		try{
 			if (smutil.apiResValidChk(res) && res.code=="0000") {

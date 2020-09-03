@@ -602,6 +602,11 @@ var page = {
 								btnYn = "N";
 								classTxt = "badge s default";
 								break;
+							case "07":		// 착불결제완료
+								result = "착불결제완료";
+								btnYn = "N";
+								classTxt = "badge s default";
+								break;
 							default:
 								result = "신용";
 								btnYn = "N";
@@ -624,6 +629,11 @@ var page = {
 									result = (this.summ_fare+"").LPToCommaNumber();
 								}
 								btnYn = "Y";
+								break;
+							case "07":		// 착불결제완료
+								result = "착불결제완료";
+								btnYn = "N";
+								classTxt = "badge s default";
 								break;
 							default:
 								//result = this.fare_sct_nm;
@@ -843,24 +853,6 @@ var page = {
 				}
 			});
 
-			// 배송/반송 라벨 표시
-			Handlebars.registerHelper('fraChk', function(options) {
-				var html = '';
-				if (this.fra_dlv_reg_sct === '01' && this.fra_dlv_req === '01') {
-					html = '<span class="shipBadge shipOutlined">배송</span>';
-				} else if (this.fra_dlv_reg_sct === '01' && this.fra_dlv_req === '02') {
-					html = '<span class="shipBadge returnOutlined">반송</span>';
-				} else if (this.fra_dlv_reg_sct === '02' && this.fra_dlv_req === '01') {
-					html = '<span class="shipBadge ship">배송</span>';
-				} else if (this.fra_dlv_reg_sct === '02' && this.fra_dlv_req === '02') {
-					html = '<span class="shipBadge return">반송</span>';
-				} else {
-					return html;
-				}
-
-				return new Handlebars.SafeString(html); // mark as already escaped
-			});
-
 			// ###################################### handlebars helper 등록 end
 
 		},
@@ -1057,6 +1049,7 @@ var page = {
 
 		// 리스트 조회후 그리기
 		plnListCallback : function(result){
+
 			page.apiParamInit();			// 파라메터 전역변수 초기화
 
 			try{
