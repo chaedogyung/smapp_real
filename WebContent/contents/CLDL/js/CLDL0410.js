@@ -149,12 +149,7 @@ var page = {
 				var phoneNumber = $(this).find("#tel_num > span").text();
 				var phoneCheck = phoneNumber.substr(0,3);
 				var inv_no = $(this).find("#inv_no").data("invNo");
-				
-				//전화번호 상관없이 일단 다 넣는다
-				pNumApi.push(phoneNumber.replace(/\-/gi,""));
-				invNoApi.push(String(inv_no));
-				usrCpnoApi.push(phoneNumber);
-				
+
 				switch (phoneCheck) {
 					//전화번호 앞자리가 아래 조건이 아니면 전송시도를 하지 않는다.
 					case "010":
@@ -169,18 +164,27 @@ var page = {
 						usrCpno.push(phoneNumber);
 						break;
 					default:
-						plag = true;
-						return false;
+						//휴대폰 번호는 아니지만 정상 번호가 입력되어 있을경우 전송
+						var numCheck = phoneNumber.replace(/[^0-9]/gi,"");
+						if(!smutil.isEmpty(numCheck)){
+							pNumApi.push(numCheck);
+							invNoApi.push(String(inv_no));
+							usrCpnoApi.push(phoneNumber);
+						}
+						else{
+							plag = true;
+							return false;
+						}
 				}
 			});
-			//MMS 발송번호가 아니여도 전송 가능하도록 수정
-			// if (plag) {
-			// 	LEMP.Window.alert({
-			// 		"_sTitle" : "사진전송",
-			// 		"_vMessage" : "MMS를 발송할 수 없는 번호가 있습니다\n전화번호를 변경해주세요"
-			// 	});
-			// 	return false;
-			// }
+
+			if (plag) {
+				LEMP.Window.alert({
+					"_sTitle" : "사진전송",
+					"_vMessage" : "MMS를 발송할 수 없는 번호가 있습니다\n전화번호를 변경해주세요"
+				});
+				return false;
+			}
 
 			var obj={};
 
