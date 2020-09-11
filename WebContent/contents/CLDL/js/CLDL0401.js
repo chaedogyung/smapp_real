@@ -560,6 +560,9 @@ var page = {
 					html = html + '<li>' + phoneNumber + '</li>';
 				}
 
+				this.req_acpr_nm = "위탁장소/요청";
+				this.req_acpt_rgst_sct_cd = "01";
+
 				// 고객요청 인수자 정보 셋팅
 				if(!smutil.isEmpty(this.req_acpr_nm)){
 					if(this.req_acpt_rgst_sct_cd == "01"){		// 고객요청
