@@ -135,6 +135,9 @@ var page = {
 					case "착불":		// 착불
 						result = "착불";
 						break;
+					case "착불결제완료":		// 착불결제완료
+						result = "착불결제완료";
+						break;
 					default:
 						result = "신용";
 						break;
@@ -152,6 +155,9 @@ var page = {
 						else{
 							result = "착불 (0)";
 						}
+						break;
+					case "착불결제완료":		// 착불결제완료
+						result = "착불결제완료";
 						break;
 					default:
 						result = "신용";
