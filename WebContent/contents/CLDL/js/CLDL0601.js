@@ -114,6 +114,8 @@ var page = {
             $(this).closest('li').remove();         // 송장 아이템 삭제
             $('#btnRcv').removeClass('disabled');   // 인수자 선택 활성화
             $('#mmsInvNo').text('송장번호 : ');       // 송장 번호 초기화
+            $('#mmsSnper_nm').text('보내는분 : ');       // 보내는분 초기화
+            $('#mmsArtc_nm').text('상품명 : ');       // 상품명 초기화
         });
 
         // 전송 버튼 클릭
@@ -148,6 +150,8 @@ var page = {
 
         // 송장번호 메시지 설정
         $('#mmsInvNo').text('송장번호 : ');
+        $('#mmsSnper_nm').text('보내는분 : ');
+        $('#mmsArtc_nm').text('상품명 : ');
     },
 
     //////////////////////////////////////////////////
@@ -281,6 +285,8 @@ var page = {
 
         // 송장 번호 초기화
         $('#mmsInvNo').text('송장번호 : ');
+        $('#mmsSnper_nm').text('보내는분 : ');
+        $('#mmsArtc_nm').text('상품명 : ');
         $('#inputScan').val('');
 
         // 이미지 초기화
@@ -297,6 +303,8 @@ var page = {
         var mmsImage = $('.imgBox img').attr('src');    // 사진
         var rcvName = $('#rcvName').val();              // 인수자 명
         var rcvCode = $('#rcvCode').val();              // 인수자 코드
+        var mmsSnper_nm = $('#mmsSnper_nm').text();           // 보내는분
+        var mmsArtc_nm = $('#mmsArtc_nm').text();           // 상품명
 
         var arrPhoneNumber = [];                        // 휴대폰 번호 목록
         var arrInvNo = [];                              // 송장 번호 목록
@@ -341,16 +349,30 @@ var page = {
 
             return false;
         }
-
-        // 인수자 정보가 있으면 메시지에 셋팅
-        if (!smutil.isEmpty(mmsRcvName)) {
-            mmsMessage = mmsMessage.concat('\n', mmsRcvName);
+        // 보내는분 정보가 있으면 메시지에 셋팅
+        if(!smutil.isEmpty(mmsSnper_nm)) {
+            mmsMessage = mmsMessage.concat('\n', mmsSnper_nm);
         }
-
+        // 상품명 정보가 있으면 메시지에 셋팅
+        if(!smutil.isEmpty(mmsArtc_nm)) {
+            mmsMessage = mmsMessage.concat('\n', mmsArtc_nm);
+        }
         // 송장번호 정보가 있으면 메시지에 셋팅
         if(!smutil.isEmpty(mmsInvNo)) {
             mmsMessage = mmsMessage.concat('\n', mmsInvNo);
         }
+        // 인수자 정보가 있으면 메시지에 셋팅
+        if (!smutil.isEmpty(mmsRcvName)) {
+            mmsMessage = mmsMessage.concat('\n', mmsRcvName);
+        }
+        // 배송일 메세지에 세팅
+        var today = new Date();
+        var year = today.getFullYear();
+        var month = 1+today.getMonth();
+        month = month >= 10 ? month : '0'+month
+        var day = today.getDate();
+        day = day >= 10 ? day : '0'+day;
+        mmsMessage = mmsMessage.concat('\n', '배송일자 : ' + year+"-"+month+"-"+day);
 
         var invNo = $('#invNoItem').find('.btnInvNo').data('invNo');
         var phoneNumber = $('#invNoItem').find('.btnTelNum').data('telNum');
@@ -436,6 +458,16 @@ var page = {
                 page.setReceiver(data.acpt_sct_cd, data.acpr_nm);
             }
 
+            // 보내는분 정보 설정
+            if (!smutil.isEmpty(data.snper_nm)) {
+                $('#mmsSnper_nm').text('보내는분 : ' +data.snper_nm);
+            }
+
+            // 상품명 정보 설정
+            if (!smutil.isEmpty(data.artc_nm)) {
+                $('#mmsArtc_nm').text('상품명 : '+ data.artc_nm);
+            }
+
             // 확정된 송장의 경우 인수자 변경 불가
             if (data.cnf_yn === 'Y') {
                 $('#btnRcv').addClass('disabled');
@@ -455,7 +487,6 @@ var page = {
                     item.txtTelNum = telNum.LPToFormatPhone();
                 }
             }
-
             page.CLDL0601.item = item;
 
             if (data.cnf_yn === 'Y') {
