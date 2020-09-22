@@ -139,6 +139,18 @@ var page = {
 					return false;
 				}
 
+				// 만료일 유효성 확인(오늘 이전인지)
+				var toDate = new Date();
+				toDate.setMonth(toDate.getMonth()+1);
+				if (toDate.getTime() >= endDate.getTime()) {
+					LEMP.Window.toast({
+						"_sMessage" : "만료일은 오늘 이후로 선택 가능합니다.",
+						"_sDuration" : "short"
+					});
+
+					return false;
+				}
+
 				// 알뜰폰 확인
 				var carrier = $('input[name=carrier]:checked').val();
 				if (carrier === 'MVNO') {
