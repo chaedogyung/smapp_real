@@ -149,10 +149,10 @@ var page = {
 				var phoneNumber = $(this).find("#tel_num > span").text();
 				var phoneCheck = phoneNumber.substr(0,3);
 				var inv_no = $(this).find("#inv_no").data("invNo");
-				var snper_nm = "\n보내는분 : " + $(this).find("#inv_no").attr("data-snper-nm");
-				var artc_nm = "\n상품명 : " + $(this).find("#inv_no").attr("data-artc-nm");
-				var acpr_nm = "\n위탁장소 : " + $(this).find("#inv_no").attr("data-acpr-nm");
-				var rcv_date = "\n" + $(this).find("#inv_no").attr("data-rcv-date");
+				var snper_nm = "\n◾ 보내는분 : " + $(this).find("#inv_no").attr("data-snper-nm");
+				var artc_nm = "\n◾ 상품명 : " + $(this).find("#inv_no").attr("data-artc-nm");
+				var acpr_nm = "\n◾ 위탁장소 : " + $(this).find("#inv_no").attr("data-acpr-nm");
+				var rcv_date = "\n◾ " + $(this).find("#inv_no").attr("data-rcv-date");
 
 				switch (phoneCheck) {
 					//전화번호 앞자리가 아래 조건이 아니면 전송시도를 하지 않는다.

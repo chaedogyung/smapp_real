@@ -351,28 +351,22 @@ var page = {
         }
         // 보내는분 정보가 있으면 메시지에 셋팅
         if(!smutil.isEmpty(mmsSnper_nm)) {
-            mmsMessage = mmsMessage.concat('\n', mmsSnper_nm);
+            mmsMessage = mmsMessage.concat('\n◾', mmsSnper_nm);
         }
         // 상품명 정보가 있으면 메시지에 셋팅
         if(!smutil.isEmpty(mmsArtc_nm)) {
-            mmsMessage = mmsMessage.concat('\n', mmsArtc_nm);
+            mmsMessage = mmsMessage.concat('\n◾', mmsArtc_nm);
         }
         // 송장번호 정보가 있으면 메시지에 셋팅
         if(!smutil.isEmpty(mmsInvNo)) {
-            mmsMessage = mmsMessage.concat('\n', mmsInvNo);
+            mmsMessage = mmsMessage.concat('\n◾', mmsInvNo);
         }
         // 인수자 정보가 있으면 메시지에 셋팅
         if (!smutil.isEmpty(mmsRcvName)) {
-            mmsMessage = mmsMessage.concat('\n', mmsRcvName);
+            mmsMessage = mmsMessage.concat('\n◾', mmsRcvName);
         }
         // 배송일 메세지에 세팅
-        var today = new Date();
-        var year = today.getFullYear();
-        var month = 1+today.getMonth();
-        month = month >= 10 ? month : '0'+month
-        var day = today.getDate();
-        day = day >= 10 ? day : '0'+day;
-        mmsMessage = mmsMessage.concat('\n', '배송일자 : ' + year+"-"+month+"-"+day);
+        mmsMessage = mmsMessage.concat('\n█', '배송일자 : ' + smutil.getTodayStr());
 
         var invNo = $('#invNoItem').find('.btnInvNo').data('invNo');
         var phoneNumber = $('#invNoItem').find('.btnTelNum').data('telNum');

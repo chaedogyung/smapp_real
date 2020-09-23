@@ -1235,7 +1235,7 @@ var page = {
 			var acpr_nm = "";
 
 			//배송일자
-			var rcv_date = '배송일자 : ' + smutil.getToday();
+			var rcv_date = '배송일자 : ' + smutil.getTodayStr();
 
 			$("input[name=chk]:checked").each(function(idx, Obj) {
 
