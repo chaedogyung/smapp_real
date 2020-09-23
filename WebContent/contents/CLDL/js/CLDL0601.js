@@ -366,7 +366,7 @@ var page = {
             mmsMessage = mmsMessage.concat('\n◾', mmsRcvName);
         }
         // 배송일 메세지에 세팅
-        mmsMessage = mmsMessage.concat('\n█', '배송일자 : ' + smutil.getTodayStr());
+        mmsMessage = mmsMessage.concat('\n◾', '배송일자 : ' + smutil.getTodayStr());
 
         var invNo = $('#invNoItem').find('.btnInvNo').data('invNo');
         var phoneNumber = $('#invNoItem').find('.btnTelNum').data('telNum');
