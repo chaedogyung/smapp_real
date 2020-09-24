@@ -1130,12 +1130,11 @@ var smutil = (function(window, document, $) {
 	 */
 	var getTodayStr = function() {
 		var today = new Date();
-		var year = today.getFullYear();
 		var month = 1+today.getMonth();
 		month = month >= 10 ? month : '0'+month
 		var day = today.getDate();
 		day = day >= 10 ? day : '0'+day;
-		var rcv_date = year+"년"+month+"월"+day+"일";
+		var rcv_date = month+"월"+day+"일";
 		return rcv_date;
 	};
 
@@ -1212,7 +1211,7 @@ var smutil = (function(window, document, $) {
 		// 오늘날짜 리턴
 		getToday : getToday,
 
-		// 오늘날짜 년월일 리턴
+		// 오늘날짜 월일 리턴
 		getTodayStr : getTodayStr,
 
 	};
