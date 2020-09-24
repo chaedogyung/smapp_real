@@ -149,6 +149,10 @@ var page = {
 				var phoneNumber = $(this).find("#tel_num > span").text();
 				var phoneCheck = phoneNumber.substr(0,3);
 				var inv_no = $(this).find("#inv_no").data("invNo");
+				var snper_nm = "\n◾ 보내는분 : " + $(this).find("#inv_no").attr("data-snper-nm");
+				var artc_nm = "\n◾ 상품명 : " + $(this).find("#inv_no").attr("data-artc-nm");
+				var acpr_nm = "\n◾ 위탁장소 : " + $(this).find("#inv_no").attr("data-acpr-nm");
+				var rcv_date = "\n◾ " + $(this).find("#inv_no").attr("data-rcv-date");
 
 				switch (phoneCheck) {
 					//전화번호 앞자리가 아래 조건이 아니면 전송시도를 하지 않는다.
@@ -159,16 +163,23 @@ var page = {
 					case "018":
 					case "019":
 					case "050":
+						//MMS 발송용
 						pNum.push(phoneNumber.replace(/\-/gi,""));
-						invNo.push(String(inv_no));
+						//MMS 발송할때 보내는분, 상품명, 배송날짜를 송장번호에 추가하여 발송
+						invNo.push(String(inv_no) + snper_nm + artc_nm + acpr_nm + rcv_date);
 						usrCpno.push(phoneNumber);
+
+						//API 발송용
+						pNumApi.push(phoneNumber.replace(/\-/gi,""));
+						invNoApi.push(String(inv_no));
+						usrCpnoApi.push(phoneNumber);
 						break;
 					default:
 						//휴대폰 번호는 아니지만 정상 번호가 입력되어 있을경우 전송
 						var numCheck = phoneNumber.replace(/[^0-9]/gi,"");
-						if(!smutil.isEmpty(numCheck)){
+						if(!smutil.isEmpty(numCheck) && numCheck.length>8){
 							pNumApi.push(numCheck);
-							invNoApi.push(String(inv_no));
+							invNoApi.push(String(inv_no) + snper_nm + artc_nm + acpr_nm + rcv_date);
 							usrCpnoApi.push(phoneNumber);
 						}
 						else{
@@ -196,6 +207,9 @@ var page = {
 			obj = {
 				"phoneNumber": pNum
 				,"invoiceNumber" : invNo
+				// ,"snper_nm" : obj.snper_nm
+				// ,"artc_nm" : obj.artc_nm
+				// ,"rcv_date" : obj.rcv_date
 				,"title": '롯데택배'
 				,"context": conCheck
 				,"filePath": imgCheck
@@ -222,22 +236,7 @@ var page = {
 
 			page.cldl0410.sendmms = obj;
 			page.cmptPhtgTrsmPop();
-
-			// 테스트용 코드 업데이트시 삭제(kis)
-			// LEMP.Window.alert({
-			// 	"_sTitle":"서명이미지 저장오류",
-			// 	"_vMessage":obj
-			// });
-			//
-			// var tr = {
-			// 	"id":"SENDMMS",
-			// 	"param":page.cldl0410.sendmms
-			// };
-			//
-			// // mms 호출
-			// smutil.nativeMothodCall(tr);
-
-
+			 // page.MMSLIbTestFunction(); //문자발송 테스트용
 
 		});
 
@@ -323,7 +322,6 @@ var page = {
 		var template = Handlebars.compile($("#cldl0410_list_template").html());
 		// 핸들바 템플릿에 데이터를 바인딩해서 생성된 HTML을 DOM에 주입
 		$('#cldl0410LstUl').append(template(page.cldl0410));
-
 
 		/*var MMScont = "딩~동!!\n진심을 다하는 롯데택배입니다.\n고객님의 소중한 상품이 " +
 				smutil.nullToValue(page.cldl0410.acpr_nm,'') + "에(게) 도착되었다는 소식을 알려드립니다.\n" +

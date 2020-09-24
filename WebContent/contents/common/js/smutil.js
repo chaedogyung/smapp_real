@@ -1111,7 +1111,33 @@ var smutil = (function(window, document, $) {
 		};
 	};
 
+	/**
+	 * 오늘날짜 가져오기 YYYY-mm-dd
+	 */
+	var getToday = function() {
+		var today = new Date();
+		var year = today.getFullYear();
+		var month = 1+today.getMonth();
+		month = month >= 10 ? month : '0'+month
+		var day = today.getDate();
+		day = day >= 10 ? day : '0'+day;
+		var rcv_date = year+"-"+month+"-"+day;
+		return rcv_date;
+	};
 
+	/**
+	 * 오늘날짜 가져오기 YYYY년mm월dd일
+	 */
+	var getTodayStr = function() {
+		var today = new Date();
+		var year = today.getFullYear();
+		var month = 1+today.getMonth();
+		month = month >= 10 ? month : '0'+month
+		var day = today.getDate();
+		day = day >= 10 ? day : '0'+day;
+		var rcv_date = year+"년"+month+"월"+day+"일";
+		return rcv_date;
+	};
 
 	// ######################### end function
 
@@ -1182,6 +1208,12 @@ var smutil = (function(window, document, $) {
 
 		// 자바스크립트용 페이지 처리 로직
 		paginate : paginate,
+
+		// 오늘날짜 리턴
+		getToday : getToday,
+
+		// 오늘날짜 년월일 리턴
+		getTodayStr : getTodayStr,
 
 	};
 

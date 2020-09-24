@@ -1226,9 +1226,16 @@ var page = {
 			var _this = this;
 			var chkTelLst = [];
 			var invNoLst = [];
+			// 보내는분, 상품명, 인수자 추가
+			var snperNmLst = [];
+			var artcNmLst = [];
+			var acprNmLst = []
 			var popOpenYn = true;
 			var acprCnt = 0;
 			var acpr_nm = "";
+
+			//배송일자
+			var rcv_date = '배송일자 : ' + smutil.getTodayStr();
 
 			$("input[name=chk]:checked").each(function(idx, Obj) {
 
@@ -1236,6 +1243,11 @@ var page = {
 				var inv_no = chkObj.attr("id");
 				inv_no = (inv_no.split("_"))[0];
 				var telNumber = chkObj.val();
+
+				//보내는분, 상품명, 인수자 추가
+				var snper_nm = chkObj.attr("data-snper-nm");
+				var artc_nm = chkObj.attr("data-artc-nm");
+				var acpr_nm = chkObj.attr("data-acpr-nm");
 
 				if(smutil.isEmpty(telNumber)){
 					telNumber = "";
@@ -1260,6 +1272,9 @@ var page = {
 
 						chkTelLst.push(telNumber);
 						invNoLst.push(inv_no);
+						snperNmLst.push(snper_nm);
+						artcNmLst.push(artc_nm);
+						acprNmLst.push(acpr_nm);
 
 						// 최초에 나오는 송장번호에 셋팅된 인수자를 사진정송 문구에 보내기로 수정 협의(2020-02-12)
 						if(acprCnt == 0){
@@ -1290,7 +1305,7 @@ var page = {
 				var timeTxt = "";
 
 				$.each(chkTelLst, function(idx){
-					paramObj.push({"inv_no" : (invNoLst[idx])+"", "tel_num":chkTelLst[idx]});
+					paramObj.push({"inv_no" : (invNoLst[idx])+"","snper_nm" : (snperNmLst[idx])+"", "artc_nm" : (artcNmLst[idx])+"", "acpr_nm" : (acprNmLst[idx])+"", "rcv_date" : rcv_date, "tel_num":chkTelLst[idx]});
 				});
 
 
