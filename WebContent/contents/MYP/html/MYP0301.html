@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
+
+
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>	
+	<script type="text/javascript" src="../js/MYP0301.js"></script>
+</head>
+
+<body>
+<input type="hidden" name="menuId" id="menuId" value="MYP0301"/>
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection">
+			<div class="headerWrap">
+				<button class="btn back paL ti">버튼</button>
+				<h1>마일리지 이력조회</h1>
+			</div>		
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+			<!-- contentBox -->
+			<div class="contentBox mypage">
+				<!-- infoListBox -->
+				<div class="infoListBox" id="MypInfoList">
+					<ul>
+						<li>
+							<div class="topHead">
+								<span class="tit">마일리지 이력조회</span>
+							</div>
+<!--							기간설정  숨김-->
+							<div class="topHead" style="display: none">
+								<div class="calinBox mgt5">
+									<ul class="ul0 ul2 calin">
+										<li class="pdr10"><input type="text" value="" name="strt_ymd" id="strt_ymd" class="inCal" readonly="readonly"></li>
+										<li class="pdl10"><input type="text" value="" name="end_ymd" id="end_ymd" class="inCal" readonly="readonly"></li>
+									</ul>
+									<button class="btn red" id="schLstBtn">조회</button>
+									<p class="tRed mgt5">*1년단위 조회만 가능합니다.</p>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<!-- infoListBox -->
+				<div class="infoListBox tp3">
+					<ul id="dtllistUl">
+						<li class="noList">
+							<div class="NoBox">
+								<p class="txt tc">조회된 결과가 없습니다.</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<!-- //infoListBox -->
+
+			</div>
+			<!-- //contentBox -->
+
+		</div>
+		<!--  //contentSection  -->
+
+	</div>
+	<!--  //contents  -->
+
+</body>
+	<!-- handlebars template start -->
+	<script id="myp0301_list_template" type="text/x-handlebars-template">
+		{{#each list}}
+		<li>
+			<div class="infoBox">
+				<div class="tit mgb10">
+					<em class="titBox mgt7">{{acmtYmd}}</em>
+				</div>
+				<dl class="inBox tp3">
+					<dt>적립/전환 사유</dt>
+					<dd>{{acmt_rmk}}</dd>
+					<dt>상태</dt>
+					<dd>{{acmtSctCd}}</dd>
+					<dt>적립 포인트</dt>
+					<dd>{{acmt_point}}</dd>
+					<dt>전환 포인트</dt>
+					<dd>{{cnvr_point}}</dd>
+					<dt>잔여 마일리지</dt>
+					<dd>{{acmt_rst_point}}</dd>
+				</dl>
+			</div>
+		</li>
+		{{else}}
+		<li class="noList">
+			<div class="NoBox">
+				<p class="txt tc">조회된 결과가 없습니다.</p>
+			</div>
+		</li>
+		{{/each}}
+	</script>
+</html>

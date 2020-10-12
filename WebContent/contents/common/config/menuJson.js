@@ -76,6 +76,7 @@ var menuJsonJs =
 		"CLDL0407":{"menuTxt" : "전화번호 변경 팝업", "parentMenuCd" : null, "menuDept" : 2, "url" : "CLDL/html/CLDL0407.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"CLDL0410":{"menuTxt" : "배달완료 사진촬영", "parentMenuCd" : null, "menuDept" : 2, "url" : "CLDL/html/CLDL0410.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"CLDL0601":{"menuTxt" : "사진전송", "parentMenuCd" : null, "menuDept" : 1, "url" : "CLDL/html/CLDL0601.html", "mainImgSrc" : "../../common/img/icon-fa3.png", "gnbImgClass" : ""},
+		// "CLDL0701":{"menuTxt" : "골프백 집하 사진전송", "parentMenuCd" : null, "menuDept" : 1, "url" : "CLDL/html/CLDL0701.html", "mainImgSrc" : "../../common/img/icon-fa3.png", "gnbImgClass" : ""},
 		"CLDL0501":{"menuTxt" : "집배달현황", "parentMenuCd" : null, "menuDept" : 1, "url" : "CLDL/html/CLDL0501.html", "mainImgSrc" : "../../common/img/icon-fa20.png", "gnbImgClass" : ""},
 		"CLDL0502":{"menuTxt" : "집하완료현황", "parentMenuCd" : null, "menuDept" : 2, "url" : "CLDL/html/CLDL0502.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"CLDL0503":{"menuTxt" : "배달완료현황", "parentMenuCd" : null, "menuDept" : 2, "url" : "CLDL/html/CLDL0503.html", "mainImgSrc" : "", "gnbImgClass" : ""},
@@ -178,7 +179,9 @@ var menuJsonJs =
 		"mainImgSrc" : "",
 		"gnbImgClass" : "icon mypage",
 		"MYP0101":{"menuTxt" : "마이페이지", "parentMenuCd" : null, "menuDept" : 1, "url" : "MYP/html/MYP0101.html", "mainImgSrc" : "../../common/img/icon-fa18.png", "gnbImgClass" : ""},
-		"MYP0102":{"menuTxt" : "비밀번호 변경", "parentMenuCd" : null, "menuDept" : 2, "url" : "MYP/html/MYP0102.html", "mainImgSrc" : "", "gnbImgClass" : ""}
+		"MYP0102":{"menuTxt" : "비밀번호 변경", "parentMenuCd" : null, "menuDept" : 2, "url" : "MYP/html/MYP0102.html", "mainImgSrc" : "", "gnbImgClass" : ""},
+		"MYP0201":{"menuTxt" : "마일리지 신청", "parentMenuCd" : null, "menuDept" : 1, "url" : "MYP/html/MYP0201.html", "mainImgSrc" : "", "gnbImgClass" : ""},
+		"MYP0301":{"menuTxt" : "마일리지 이력 조회", "parentMenuCd" : null, "menuDept" : 1, "url" : "MYP/html/MYP0301.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 	},
 	"PAY":{
 		"GNB":true,
