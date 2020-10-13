@@ -58,12 +58,12 @@ var page = {
 		$(document).on('click','#requestBtn', function(e){
 			if(page.req_amount < 10000){
 				LEMP.Window.alert({
-					"_vMessage" : "10000 이상부터 신청 가능합니다.",
+					"_vMessage" : "10,000 이상부터 신청 가능합니다.",
 				});
 				return false;
 			}
 			// 마일리지 신청 컴펌창 호출
-			$('#pop2Txt2').html(page.req_amount+'포인트<br /> 마일리지 전환을 신청합니다.');
+			$('#pop2Txt2').html((page.req_amount+"").LPToCommaNumber()+'<br /> 마일리지 전환을 신청합니다.');
 			$('.mpopBox.pop').bPopup();
 		});
 
