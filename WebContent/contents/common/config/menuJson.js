@@ -180,7 +180,7 @@ var menuJsonJs =
 		"gnbImgClass" : "icon mypage",
 		"MYP0101":{"menuTxt" : "마이페이지", "parentMenuCd" : null, "menuDept" : 1, "url" : "MYP/html/MYP0101.html", "mainImgSrc" : "../../common/img/icon-fa18.png", "gnbImgClass" : ""},
 		"MYP0102":{"menuTxt" : "비밀번호 변경", "parentMenuCd" : null, "menuDept" : 2, "url" : "MYP/html/MYP0102.html", "mainImgSrc" : "", "gnbImgClass" : ""},
-		"MYP0201":{"menuTxt" : "마일리지 신청", "parentMenuCd" : null, "menuDept" : 1, "url" : "MYP/html/MYP0201.html", "mainImgSrc" : "", "gnbImgClass" : ""},
+		"MYP0201":{"menuTxt" : "마일리지 교환신청", "parentMenuCd" : null, "menuDept" : 1, "url" : "MYP/html/MYP0201.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"MYP0301":{"menuTxt" : "마일리지 이력 조회", "parentMenuCd" : null, "menuDept" : 1, "url" : "MYP/html/MYP0301.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 	},
 	"PAY":{
