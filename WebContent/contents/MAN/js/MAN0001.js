@@ -45,6 +45,8 @@ var page = {
 		page.invsDay();
 		// 연간 친절페스티벌
 		page.invsYear();
+		// 설문조사
+		page.survey();
 		//블루투스 연결상태
 		page.chkScannerStatus();
 		//롯데홈쇼핑 인증키 체크
@@ -730,6 +732,37 @@ var page = {
 					"param": {
 						year_cplt_titl: year_cplt_titl,
 						list: list
+					}
+				}
+			});
+		}
+
+		// 프로그래스바 닫기
+		smutil.loadingOff();
+	}
+
+	// 설문조사여부 조회
+	, survey: function() {
+		var loginId = LEMP.Properties.get({
+			"_sKey" : "dataId"
+		});
+		page.apiParam.param.baseUrl = "/smapis/survey/resList";		// api no
+		page.apiParam.param.callback = "page.surveyCallback";		// callback methode
+		page.apiParam.data.parameters.empno = loginId;
+
+		// 공통 api호출 함수
+		smutil.callApi(page.apiParam);
+	}
+
+	// 설문조사 조회 콜백
+	, surveyCallback: function(res) {
+		if(!((res.code === "00" || res.code === "0000") && res.resCd == 'Y')) {
+			//설문조사 화면으로 이동
+			var popUrl = smutil.getMenuProp('MAN.MAN0501', 'url');
+			LEMP.Window.open({
+				"_sPagePath": popUrl,
+				"_oMessage": {
+					"param": {
 					}
 				}
 			});

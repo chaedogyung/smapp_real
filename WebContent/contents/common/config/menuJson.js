@@ -22,7 +22,8 @@ var menuJsonJs =
 		"MAN0301":{"menuTxt" : "알림", "parentMenuCd" : null, "menuDept" : 1, "url" : "MAN/html/MAN0301.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"MAN0302":{"menuTxt" : "알림상세페이지", "parentMenuCd" : null, "menuDept" : 2, "url" : "MAN/html/MAN0302.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"MAN0401":{"menuTxt" : "일일 친절페스티벌", "parentMenuCd" : null, "menuDept" : 2, "url" : "MAN/html/MAN0401.html", "mainImgSrc" : "", "gnbImgClass" : ""},
-		"MAN0402":{"menuTxt" : "연간 친절페스티벌", "parentMenuCd" : null, "menuDept" : 2, "url" : "MAN/html/MAN0402.html", "mainImgSrc" : "", "gnbImgClass" : ""}
+		"MAN0402":{"menuTxt" : "연간 친절페스티벌", "parentMenuCd" : null, "menuDept" : 2, "url" : "MAN/html/MAN0402.html", "mainImgSrc" : "", "gnbImgClass" : ""},
+		"MAN0501":{"menuTxt" : "설문조사", "parentMenuCd" : null, "menuDept" : 2, "url" : "MAN/html/MAN0501.html", "mainImgSrc" : "", "gnbImgClass" : ""}
 	},
 	"COM":{
 		"GNB":false,
@@ -77,6 +78,7 @@ var menuJsonJs =
 		"CLDL0410":{"menuTxt" : "배달완료 사진촬영", "parentMenuCd" : null, "menuDept" : 2, "url" : "CLDL/html/CLDL0410.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"CLDL0601":{"menuTxt" : "사진전송", "parentMenuCd" : null, "menuDept" : 1, "url" : "CLDL/html/CLDL0601.html", "mainImgSrc" : "../../common/img/icon-fa3.png", "gnbImgClass" : ""},
 		// "CLDL0701":{"menuTxt" : "골프백 집하 사진전송", "parentMenuCd" : null, "menuDept" : 1, "url" : "CLDL/html/CLDL0701.html", "mainImgSrc" : "../../common/img/icon-fa3.png", "gnbImgClass" : ""},
+		// "CLDL0801":{"menuTxt" : "사진전송실패", "parentMenuCd" : null, "menuDept" : 1, "url" : "CLDL/html/CLDL0801.html", "mainImgSrc" : "../../common/img/icon-fa3.png", "gnbImgClass" : ""},
 		"CLDL0501":{"menuTxt" : "집배달현황", "parentMenuCd" : null, "menuDept" : 1, "url" : "CLDL/html/CLDL0501.html", "mainImgSrc" : "../../common/img/icon-fa20.png", "gnbImgClass" : ""},
 		"CLDL0502":{"menuTxt" : "집하완료현황", "parentMenuCd" : null, "menuDept" : 2, "url" : "CLDL/html/CLDL0502.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"CLDL0503":{"menuTxt" : "배달완료현황", "parentMenuCd" : null, "menuDept" : 2, "url" : "CLDL/html/CLDL0503.html", "mainImgSrc" : "", "gnbImgClass" : ""},
