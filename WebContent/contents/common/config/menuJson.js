@@ -184,6 +184,7 @@ var menuJsonJs =
 		"MYP0102":{"menuTxt" : "비밀번호 변경", "parentMenuCd" : null, "menuDept" : 2, "url" : "MYP/html/MYP0102.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"MYP0201":{"menuTxt" : "마일리지 교환신청", "parentMenuCd" : null, "menuDept" : 1, "url" : "MYP/html/MYP0201.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"MYP0301":{"menuTxt" : "마일리지 이력 조회", "parentMenuCd" : null, "menuDept" : 1, "url" : "MYP/html/MYP0301.html", "mainImgSrc" : "", "gnbImgClass" : ""},
+		"MYP0401":{"menuTxt" : "SM APP 긴급사용", "parentMenuCd" : null, "menuDept" : 1, "url" : "MYP/html/MYP0401.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 	},
 	"PAY":{
 		"GNB":true,
