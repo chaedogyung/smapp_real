@@ -47,7 +47,8 @@ var menuJsonJs =
 		"COM0801":{"menuTxt" : "주소 조회", "parentMenuCd" : null, "menuDept" : 2, "url" : "COM/html/COM0801.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"COM0901":{"menuTxt" : "조회 팝업", "parentMenuCd" : null, "menuDept" : 2, "url" : "COM/html/COM0901.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"COM1001":{"menuTxt" : "금액 변경 팝업", "parentMenuCd" : null, "menuDept" : 2, "url" : "COM/html/COM1001.html", "mainImgSrc" : "", "gnbImgClass" : ""},
-		"COM1101":{"menuTxt" : "약관 팝업", "parentMenuCd" : null, "menuDept" : 2, "url" : "COM/html/COM1101.html", "mainImgSrc" : "", "gnbImgClass" : ""}
+		"COM1101":{"menuTxt" : "약관 팝업", "parentMenuCd" : null, "menuDept" : 2, "url" : "COM/html/COM1101.html", "mainImgSrc" : "", "gnbImgClass" : ""},
+		"COM1201":{"menuTxt" : "SM APP 긴급사용", "parentMenuCd" : null, "menuDept" : 2, "url" : "COM/html/COM1201.html", "mainImgSrc" : "", "gnbImgClass" : ""}
 	},
 	"CLDL" : {
 		"GNB":true,
@@ -184,7 +185,6 @@ var menuJsonJs =
 		"MYP0102":{"menuTxt" : "비밀번호 변경", "parentMenuCd" : null, "menuDept" : 2, "url" : "MYP/html/MYP0102.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"MYP0201":{"menuTxt" : "마일리지 교환신청", "parentMenuCd" : null, "menuDept" : 1, "url" : "MYP/html/MYP0201.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"MYP0301":{"menuTxt" : "마일리지 이력 조회", "parentMenuCd" : null, "menuDept" : 1, "url" : "MYP/html/MYP0301.html", "mainImgSrc" : "", "gnbImgClass" : ""},
-		"MYP0401":{"menuTxt" : "SM APP 긴급사용", "parentMenuCd" : null, "menuDept" : 1, "url" : "MYP/html/MYP0401.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 	},
 	"PAY":{
 		"GNB":true,
