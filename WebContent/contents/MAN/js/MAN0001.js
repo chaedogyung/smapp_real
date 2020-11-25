@@ -46,7 +46,9 @@ var page = {
 		// 연간 친절페스티벌
 		page.invsYear();
 		// 설문조사
-		page.survey();
+		// page.survey();
+		// 긴급사용신청상태
+		page.getUseStatus();
 		//블루투스 연결상태
 		page.chkScannerStatus();
 		//롯데홈쇼핑 인증키 체크
@@ -741,6 +743,18 @@ var page = {
 		smutil.loadingOff();
 	}
 
+	//긴급사용 신청여부확인
+	,getUseStatus : function (){
+		smutil.loadingOn();
+		var loginId = LEMP.Properties.get({
+			"_sKey" : "dataId"
+		});
+		page.apiParam.param.baseUrl = "/smapis/use/getApvInfo";
+		page.apiParam.param.callback = "page.getUseStatusCallback";
+		page.apiParam.data.parameters.empno = loginId;						// PARAM: 사원번호
+		smutil.callApi(page.apiParam);
+	}
+
 	// 설문조사여부 조회
 	, survey: function() {
 		var loginId = LEMP.Properties.get({
@@ -793,6 +807,8 @@ var page = {
 	, resumeInfo : function(){
 		//기사정보
 		page.smInfo();
+		//긴급사용 신청여부 조회
+		page.getUseStatus();
 		// 메시지 대량발송 동의 조회
 		page.getMsgCnf();
 		//공지사항
