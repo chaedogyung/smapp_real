@@ -23,9 +23,6 @@ var page = {
 	},
 	
 	initInterface : function(){
-		// $('#requestBtn').addClass('red');
-		// $('#requestBtn').attr('disabled', false);		// 신청버튼 활성화 -> 신청여부 확인후 활성화
-
 		$('#req_date').text(smutil.getToday()); 		// 신청일자 세팅
 		var loginId = LEMP.Properties.get({
 			"_sKey" : "dataId"
@@ -67,8 +64,17 @@ var page = {
 	getUseStatusCallback : function (res){
 		try{
 			if(smutil.apiResValidChk(res) && res.code === "0000"){
+				//신청횟수가 3일경우 비활성화
+				if(res.apv_cnt==="3"){
+					LEMP.Window.alert({
+						"_sTitle":"SM APP 긴급사용",
+						"_vMessage":'긴급사용 신청횟수(3회)를 모두 사용하였습니다.'
+					});
+					return;
+				}
+
 				if(res.apv_yn ==="W"){
-					$('#pop2Txt2').html("긴급 사용 신청중입니다.<br> 승인이 완료될떄까지 기다려주세요");
+					$('#pop2Txt2').html("긴급 사용 신청중입니다.<br> 승인이 완료될때 까지 기다려주세요");
 					$('.mpopBox.pop').bPopup({modalClose:false});
 					$('.popFooter').hide();
 					//신청 중일경우 30초뒤 다시 확인 요청
@@ -84,17 +90,13 @@ var page = {
 					LEMP.Window.close();
 				}
 				else if(res.apv_yn ==="X"){
+					$('.mpopBox.pop').bPopup().close();
 					LEMP.Window.alert({
 						"_sTitle":"SM APP 긴급사용",
-						"_vMessage":'긴급사용 신청이 변려되었습니다.\n앱이 종료됩니다.'
+						"_vMessage":'긴급사용 신청이 반려되었습니다.\n 다시 신청해주세요'
 					});
-					// 	//5초뒤 어플종료
-					setTimeout(function (){
-
-						LEMP.App.exit({
-							_sType: "kill"
-						});
-					}, 5000);
+					$('#requestBtn').addClass('red');
+					$('#requestBtn').attr('disabled', false);		// 신청버튼 활성화
 				}
 				else{
 					$('#requestBtn').addClass('red');
@@ -125,26 +127,23 @@ var page = {
 	reqUseCallback :function(res){
 		try{
 			if(smutil.apiResValidChk(res) && res.code === "0000"){
-				$('#pop2Txt2').html("긴급 사용 신청중입니다.<br> 승인이 완료될떄까지 기다려주세요");
+				$('#pop2Txt2').html("긴급 사용 신청중입니다.<br> 승인이 완료될때 까지 기다려주세요");
 				$('.mpopBox.pop').bPopup({modalClose:false});
 				$('.popFooter').hide();
 				LEMP.Window.alert({
 					"_sTitle":"SM APP 긴급사용",
 					"_vMessage":'긴급사용 신청이 완료되었습니다.'
 				});
+				//긴급사용 신청 성공후 긴급사용상태 확인
+				setTimeout(function (){
+					page.getUseStatus();
+				}, 30000);
 			}else {
 
 			}
 		}catch(e){}
 		finally{
 			smutil.loadingOff();
-			// 	//5초뒤 어플종료
-			// setTimeout(function (){
-
-			// 	LEMP.App.exit({
-			// 		_sType: "kill"
-			// 	});
-			// }, 5000);
 		}
 	},
 
