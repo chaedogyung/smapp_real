@@ -80,7 +80,7 @@ var page = {
 					//신청 중일경우 30초뒤 다시 확인 요청
 					setTimeout(function (){
 						page.getUseStatus();
-					}, 30000);
+					}, 10000);
 
 				}else if(res.apv_yn ==="Y"){
 					LEMP.Window.alert({
@@ -137,7 +137,7 @@ var page = {
 				//긴급사용 신청 성공후 긴급사용상태 확인
 				setTimeout(function (){
 					page.getUseStatus();
-				}, 30000);
+				}, 10000);
 			}else {
 
 			}
