@@ -93,7 +93,7 @@ var page = {
 					$('.mpopBox.pop').bPopup().close();
 					LEMP.Window.alert({
 						"_sTitle":"SM APP 긴급사용",
-						"_vMessage":'긴급사용 신청이 반려되었습니다.\n 다시 신청해주세요'
+						"_vMessage":'긴급사용 신청이 반려되었습니다.\n 다시 신청하시겠습니까?'
 					});
 					$('#requestBtn').addClass('red');
 					$('#requestBtn').attr('disabled', false);		// 신청버튼 활성화
