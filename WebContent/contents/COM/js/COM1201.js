@@ -32,7 +32,7 @@ var page = {
 		//긴급사용 신청버튼 클릭
 		$(document).on('click','#requestBtn', function(e){
 			// 긴급사용 신청 컴펌창 호출
-			$('#pop2Txt2').html(($("input[name='reqTime']:checked").val()).LPToCommaNumber()+"시간"+'<br /> 긴급사용을 신청합니다.');
+			$('#pop2Txt2').html("2시간"+'<br /> 긴급사용을 신청합니다.');
 			$('.mpopBox.pop').bPopup();
 			$('.popFooter').show();
 		});
@@ -120,7 +120,7 @@ var page = {
 		page.apiParam.param.callback = "page.reqUseCallback";
 		// page.apiParam.data.parameters.reqDate = smutil.getToday();			// PARAM: 신청일자
 		page.apiParam.data.parameters.empno = loginId;						// PARAM: 사원번호
-		page.apiParam.data.parameters.appTm = $("input[name='reqTime']:checked").val();			// PARAM: 신청시간
+		page.apiParam.data.parameters.appTm = "2";			// PARAM: 신청시간
 		smutil.callApi(page.apiParam);
 	},
 
