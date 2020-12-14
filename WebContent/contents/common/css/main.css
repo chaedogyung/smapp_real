@@ -52,7 +52,7 @@
 /**************************************
 ** quickMenu
 ***************************************/
-.quickMenuBox{background-color:#fff;overflow:hidden;}
+.quickMenuBox{background-color:#fff;overflow:hidden;border-radius:8px;}
 .quickMenuBox li{width:33.33%; height:133px; border-right:1px solid #cfcdcd; border-bottom:1px solid #cfcdcd; float:left; box-sizing:border-box; background-color:#f7f7f7;}
 .quickMenuBox li .btn{height:132px; width:100%; position:relative; background-color:#fff;}
 .quickMenuBox li:nth-child(3n) { border-right:0; }
