@@ -173,6 +173,7 @@ var menuJsonJs =
 		"SET0202":{"menuTxt" : "문구 작성", "parentMenuCd" : null, "menuDept" : 2, "url" : "SET/html/SET0202.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"SET0301":{"menuTxt" : "인수자 편집", "parentMenuCd" : null, "menuDept" : 1, "url" : "SET/html/SET0301.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"SET0401":{"menuTxt" : "자동문자발송 미동의/동의", "parentMenuCd" : null, "menuDept" : 1, "url" : "SET/html/SET0401.html", "mainImgSrc" : "", "gnbImgClass" : ""},
+		"SET0501":{"menuTxt" : "집배달 시간대역 편집", "parentMenuCd" : null, "menuDept" : 1, "url" : "SET/html/SET0501.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 	},
 	"MYP":{
 		"GNB":true,
@@ -183,8 +184,8 @@ var menuJsonJs =
 		"gnbImgClass" : "icon mypage",
 		"MYP0101":{"menuTxt" : "마이페이지", "parentMenuCd" : null, "menuDept" : 1, "url" : "MYP/html/MYP0101.html", "mainImgSrc" : "../../common/img/icon-fa18.png", "gnbImgClass" : ""},
 		"MYP0102":{"menuTxt" : "비밀번호 변경", "parentMenuCd" : null, "menuDept" : 2, "url" : "MYP/html/MYP0102.html", "mainImgSrc" : "", "gnbImgClass" : ""},
-		"MYP0201":{"menuTxt" : "마일리지 교환신청", "parentMenuCd" : null, "menuDept" : 1, "url" : "MYP/html/MYP0201.html", "mainImgSrc" : "", "gnbImgClass" : ""},
-		"MYP0301":{"menuTxt" : "마일리지 이력 조회", "parentMenuCd" : null, "menuDept" : 1, "url" : "MYP/html/MYP0301.html", "mainImgSrc" : "", "gnbImgClass" : ""},
+		"MYP0201":{"menuTxt" : "마일리지 교환신청", "parentMenuCd" : null, "menuDept" : 1, "url" : "MYP/html/MYP0201.html", "mainImgSrc" : "../../common/img/icon-fa18.png", "gnbImgClass" : ""},
+		"MYP0301":{"menuTxt" : "마일리지 이력조회", "parentMenuCd" : null, "menuDept" : 1, "url" : "MYP/html/MYP0301.html", "mainImgSrc" : "../../common/img/icon-fa18.png", "gnbImgClass" : ""},
 	},
 	"PAY":{
 		"GNB":true,

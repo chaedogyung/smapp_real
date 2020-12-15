@@ -74,7 +74,20 @@ var page = {
 		if(smutil.apiResValidChk(result) && result.code == "0000"){
 
 			var data = result.data;
+			let list = [];
+			let hpsrArr = page.getPropHpsr();
 
+			//hpsr 데이터가 있을경우 정렬
+			if(!smutil.isEmpty(hpsrArr)) {
+				_.forEach(hpsrArr, function (v, i){
+					_.forEach(result.data.list, function (value, index){
+						if(value.dtl_cd == v.dtl_cd){
+							list.push(value);
+						}
+					});
+				});
+				data.list = list;
+			}
 			// 토요 휴무 / 지정일 집하/배송 제거
 			data.list = data.list.filter(x => {
 				return (x.dtl_cd !== '27' && x.dtl_cd !== '28');
@@ -107,6 +120,15 @@ var page = {
 //			$('#cldl0501LstUl').append(liHtml);
 //		}
 
+	},
+	// 저장되어있는 properties를 불러옴
+	getPropHpsr : function() {
+		var obj = LEMP.Properties.get({
+			"_sKey" : "hpsrTmsl"
+		});
+		// alert("getProp : " + (JSON.stringify(obj)));
+
+		return obj;
 	},
 
 };

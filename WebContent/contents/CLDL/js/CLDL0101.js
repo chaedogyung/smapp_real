@@ -943,10 +943,43 @@ var page = {
 			if(smutil.apiResValidChk(result) && result.code == "0000"){
 				// 조회 결과 데이터가 있으면 옵션 생성
 				if(result.data_count > 0){
-					var list = result.data.list;
+					let list = [];
+					let hpsrArr = page.getPropHpsr();
+
+					//hpsr 데이터가 있을경우 정렬
+					if(!smutil.isEmpty(hpsrArr)) {
+						_.forEach(hpsrArr, function (v, i){
+							_.forEach(result.data.list, function (value, index){
+								if(value.dtl_cd == v.dtl_cd){
+									list.push(value);
+								}
+							});
+						});
+					}
+					//hpsr 데이터가 없을경우 바로입력
+					else{
+						list = result.data.list;
+					}
 
 					// select box 셋팅
 					smutil.setSelectOptions("#cldl_tmsl_cd", list);
+
+					// 지정일 배송이 최상단에 있을경우 달력 팝업 출력
+					if ($('#cldl_tmsl_cd').val() === '28') {
+						var popUrl = smutil.getMenuProp("COM.COM0301","url");
+
+						LEMP.Window.open({
+							"_sPagePath":popUrl,
+							"_oMessage":{
+								"param": {
+									type: 'time',
+									necessary: true,
+									minDate: 1,
+									maxDate: 3
+								}
+							}
+						});
+					}
 				}
 			}
 
@@ -1967,6 +2000,16 @@ var page = {
 
 
 		},
+
+	// 저장되어있는 properties(hpsrTmsl)를 불러옴
+	getPropHpsr : function() {
+		var obj = LEMP.Properties.get({
+			"_sKey" : "hpsrTmsl"
+		});
+		// alert("getProp : " + (JSON.stringify(obj)));
+
+		return obj;
+	},
 
 };
 
