@@ -78,6 +78,18 @@ var page = {
 			LEMP.Window.close();
 		});
 
+		//순서초기화 버튼
+		$("#initialize").click(function() {
+			$('.mpopBox.initialize').bPopup();
+		});
+
+		// 순서초기화 > 확인버튼
+		$('#confirm').click(function() {
+			page.setProp("");
+			page.codeListPopup();
+			$('.mpopBox.initialize').bPopup().close();
+		});
+
 		page.codeListPopup();
 	},
 
@@ -99,20 +111,34 @@ var page = {
 			// 통신성공
 			if (smutil.apiResValidChk(res) && res.code === "0000") {
 				//저장된 HPSR_TMSL이 없으면 기본순서대로 출력
-
 				if (smutil.isEmpty(hpsrArr)) {
 					page.drawCodeList(res.data.list);
 					return false;
 				}
 				else{
+					for (let i = 0; i < res.data.list.length; i++) {
+						res.data.list[i].status = "N";
+					}
+
 					let comArr = [];
 					_.forEach(hpsrArr, function (v){
-						_.forEach(res.data.list, function (value){
-							if(value.dtl_cd == v.dtl_cd){
+						_.forEach(res.data.list, function (value, index){
+							if(value.dtl_cd === v.dtl_cd){
 								comArr.push(value);
+								res.data.list[index].status = "Y";
 							}
 						});
 					});
+
+					//서버에서 받은 시간배열이 정렬된 배열보다 클 경우 기존배열중 추가되지 않은 객체를 추가
+					if(res.data.list.length > comArr.length){
+						_.forEach(res.data.list, function (val){
+							if(val.status == "N"){
+								comArr.push(val);
+							}
+						});
+					}
+
 					page.drawCodeList(comArr);
 				}
 				// 통신실패
@@ -170,6 +196,9 @@ var page = {
 		};
 		var source = $("#SET0501_list_template").html();
 		var template = Handlebars.compile(source);
-		$("#sortable").append(template(data));
+		var liHtml = template(data);
+		// $("#sortable").prepend(template(data));
+		$("#sortable").html(liHtml);
+
 	}
 }

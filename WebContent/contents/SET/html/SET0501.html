@@ -44,6 +44,7 @@
 				<div class="topFx">
 					<div class="topHead">
 						<span class="tit">드래그하여 순서를 변경해주세요.</span>
+                        <button id="initialize" style="float: right; background: white; border:1px solid #6c6c6c; font-size: 12px;">순서 초기화</button>
 					</div>
 				</div>
 
@@ -70,6 +71,21 @@
 
 	</div>
 	<!--  //contents  -->
+    <div class="mpopBox img initialize">
+        <div class="popBody">
+            <p class="txt1">집배달 시간대역</p>
+            <p class="txt2">기본 순서로 설정하시겠습니까?</p>
+        </div>
+        <div class="popFooter">
+            <div class="btnBox">
+                <ul class="ul0 ul2">
+                    <li><button class="btn gray m w100p b-close" id="cancel">취소</button></li>
+                    <li><button class="btn red m w100p" id="confirm">확인</button></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- //모달팝업 전송 -->
 </body>
 <script type="text/x-handlebars-template" id="SET0501_list_template">
 {{#each list}}
