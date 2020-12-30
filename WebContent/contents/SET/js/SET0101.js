@@ -73,6 +73,24 @@ var page = {
 			// native 기능 호출
 			smutil.nativeMothodCall(tr);
 		});
+
+		//BLE 스캐너 페어링
+		$(document).on("click","#bleScannerSet",function(){
+
+			var value = $(this).text()=="연결 해제" ? "disConnect" : "connect";
+
+			var tr = {
+				id:"SCANNER_BLE",
+				param:{
+					"type": value,
+					"callback":"page.setScannerBleStatus"
+				}
+			};
+
+			// native 기능 호출
+			smutil.nativeMothodCall(tr);
+		});
+
 	
 	},
 	setScannerStatus : function(res){
@@ -83,9 +101,17 @@ var page = {
 		}
 	
 	},
+	setScannerBleStatus : function(res){
+		if(res.status ==="true"){
+			$('#bleScannerSet').text("연결 해제");
+		}else{
+			$('#bleScannerSet').text("설정");
+		}
+
+	},
 	//페이지(웹뷰)가 로드되기 전 실행할 함수 
 	blutoothStatus : function(){
-		var device = ["scanner","printer"];
+		var device = ["scanner", "scanner_ble","printer"];
 		_.forEach(device,function(value,index){
 			var tr = {
 					id:"BLUETOOTHSTATUS",
@@ -106,6 +132,12 @@ var page = {
 				$('#scannerSet').text("연결 해제");
 			}else{
 				$('#scannerSet').text("설정");
+			}
+		}else if(res.type =="scanner_ble"){
+			if(res.status ==="true"){
+				$('#bleScannerSet').text("연결 해제");
+			}else{
+				$('#bleScannerSet').text("설정");
 			}
 		}else{
 			if(res.status ==="true"){
