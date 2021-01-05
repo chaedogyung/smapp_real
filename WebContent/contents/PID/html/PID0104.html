@@ -40,23 +40,38 @@
 							<dl class="inBox tp2 bdb">
 								<dt>기본운임</dt>
 								<dd id="bscFare"></dd>
+                                <dt>할증료</dt>
+                                <dd id="surFare"></dd>
 								<dt>항공운임</dt>
 								<dd id="airFare"></dd>
 								<dt>도선료</dt>
 								<dd id="shipFare"></dd>
-								<dt>할증료</dt>
-								<dd id="surFare"></dd>
 							</dl>
 						</div>
 					</li>
 					<li>
 						<div class="infoBox">
-							<dl class="inBox tp2">
-								<dt class="numTotal">합계운임</dt>
-								<dd>
-									<input type="text" class="tRed mgr5" id="sumFare" style="width:150px;"/> <i class="fs16 vm">원</i>
-									<p class="tRed" id="sumFareTxt" style="display:none;">합계금액보다 적은 금액입니다.</p>
-								</dd>
+							<dl class="inBox tp6">
+                                <dt class="numTotal">최종기본운임</dt>
+                                <dd>
+                                    <input type="text" inputmode="numeric" class="tRed mgr5" id="sumFareBase" style="width:150px;" /> <i class="fs16 vm">원</i>
+                                    <p class="tRed" id="sumFareBaseTxt" style="display:none;">수정 전 기본(할증)운임보다 적습니다.</p>
+                                </dd>
+                                <dt class="numTotal" style="font-size: 12px; margin-bottom: 10px;">&#8251 기본운임 + 할증료입니다</dt>
+                                <dd style="font-size: 14px;">
+                                </dd>
+                                <dt class="numTotal">기타운임</dt>
+                                <dd>
+                                    <input type="text" class="tRed mgr5" id="sumFareEtc" style="width:150px;" disabled/> <i class="fs16 vm">원</i>
+                                </dd>
+                                <dt class="numTotal">합계운임</dt>
+                                <dd>
+                                    <input type="text" class="tRed mgr5" id="sumFareFinal" style="width:150px;" disabled/> <i class="fs16 vm">원</i>
+                                </dd>
+<!--                                <dt class="numTotal">합계운임(기존)</dt>-->
+<!--                                <dd>-->
+<!--                                    <input type="text" class="tRed mgr5" id="sumFare" style="width:150px;" disabled/> <i class="fs16 vm">원</i>-->
+<!--                                </dd>-->
 							</dl>
 						</div>
 					</li>

@@ -152,21 +152,26 @@ var page = {
 			Handlebars.registerHelper('commaBscFare', function(bsc_fare) {
 				return (this.bsc_fare+"").LPToCommaNumber();
 			});
-			
-			//항공운임
-			Handlebars.registerHelper('commaAirf', function(airf) {
-				return (this.airf+"").LPToCommaNumber();
+
+			//기타운임
+			Handlebars.registerHelper('commaEtcFare', function(etc_summ_fare) {
+				return (this.etc_summ_fare+"").LPToCommaNumber();
 			});
 			
-			//할증료
-			Handlebars.registerHelper('commaPltg', function(pltg) {
-				return (this.pltg+"").LPToCommaNumber();
-			});
-			
-			//합계운임
-			Handlebars.registerHelper('commaExtch', function(extch) {
-				return (this.extch+"").LPToCommaNumber();
-			});
+			// //항공운임
+			// Handlebars.registerHelper('commaAirf', function(airf) {
+			// 	return (this.airf+"").LPToCommaNumber();
+			// });
+			//
+			// //할증료
+			// Handlebars.registerHelper('commaPltg', function(pltg) {
+			// 	return (this.pltg+"").LPToCommaNumber();
+			// });
+			//
+			// //합계운임
+			// Handlebars.registerHelper('commaExtch', function(extch) {
+			// 	return (this.extch+"").LPToCommaNumber();
+			// });
 			
 		},
 		
