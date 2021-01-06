@@ -945,9 +945,6 @@ var page = {
 				if(result.data_count > 0){
 					let list = [];
 					let hpsrArr = page.getPropHpsr();
-					for (let i = 0; i < result.data.list.length; i++) {
-						result.data.list[i].status = "N";
-					}
 
 					//hpsr 데이터가 있을경우 정렬
 					if(!smutil.isEmpty(hpsrArr)) {
@@ -958,16 +955,6 @@ var page = {
 								}
 							});
 						});
-
-						//서버에서 받은 시간배열이 정렬된 배열보다 클 경우 기존배열중 추가되지 않은 객체를 추가
-						if(result.data.list.length > list.length){
-							_.forEach(result.data.list, function (val, index){
-								if(val.status == "N"){
-									list.push(val);
-									result.data.list[index].status = "Y";
-								}
-							});
-						}
 					}
 					//hpsr 데이터가 없을경우 바로입력
 					else{

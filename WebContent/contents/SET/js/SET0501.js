@@ -116,10 +116,6 @@ var page = {
 					return false;
 				}
 				else{
-					for (let i = 0; i < res.data.list.length; i++) {
-						res.data.list[i].status = "N";
-					}
-
 					let comArr = [];
 					_.forEach(hpsrArr, function (v){
 						_.forEach(res.data.list, function (value, index){
@@ -129,15 +125,6 @@ var page = {
 							}
 						});
 					});
-
-					//서버에서 받은 시간배열이 정렬된 배열보다 클 경우 기존배열중 추가되지 않은 객체를 추가
-					if(res.data.list.length > comArr.length){
-						_.forEach(res.data.list, function (val){
-							if(val.status == "N"){
-								comArr.push(val);
-							}
-						});
-					}
 
 					page.drawCodeList(comArr);
 				}
