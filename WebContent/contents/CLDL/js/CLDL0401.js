@@ -943,6 +943,10 @@ var page = {
 				// 조회 결과 데이터가 있으면 옵션 생성
 				if(result.data_count > 0){
 					var data = result.data;
+					//오름차순 정렬
+					data.list.sort(function(a, b) {
+						return a.cldl_tmsl_nm < b.cldl_tmsl_nm ? -1 : a.cldl_tmsl_nm > b.cldl_tmsl_nm ? 1 : 0;
+					});
 
 					// 핸들바 템플릿 가져오기
 					var source = $("#cldl0401_timeLst_template").html();
