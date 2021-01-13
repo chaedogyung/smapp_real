@@ -207,7 +207,7 @@ var page = {
 		var tr = {
 			id : "BLUETOOTHSTATUS",
 			param : {
-				type : "scanner",
+				type : "scanner_all",
 				callback : "page.chkScannerStatusCallback"
 			}
 		};
