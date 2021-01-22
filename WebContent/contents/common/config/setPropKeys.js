@@ -33,6 +33,7 @@ var setPropKeys =
 		{"installAuthConfirmYn": "설치권한 동의여부"},			// 최초에 앱 설치권한 동의값
 		{"mmsMessage"		: "사진전송에 기사가 설정한 기본문구"},		// 사진전송 셋팅 기본문구
 		{"personalInfo"		: "개인정보 사용동의값"},
-		{"order"		: "배달완료 정렬방식"}
+		{"order"		: "배달완료 정렬방식"},
+		{"hpsrTmsl"			: "집배달 시간대역 순서"}
 	]
 };

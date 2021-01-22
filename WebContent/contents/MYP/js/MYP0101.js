@@ -64,6 +64,20 @@ var page = {
 				}
 			});
 		});
+
+		//푸시데이터 삭제 버튼 클릭
+		$(document).on('click','#delPushDb', function(e){
+			var tr = {
+				id:"DELPUSHDB",
+				param:{
+					"type": "DELPUSHDB",
+					"callback":"page.delPushDbCallback"
+				}
+			};
+
+			// native 기능 호출
+			smutil.nativeMothodCall(tr);
+		});
 	},
 	
 	smInfoList : function(){
@@ -134,6 +148,15 @@ var page = {
 		}catch(e){}
 		finally{
 			smutil.loadingOff();
+		}
+	},
+
+	delPushDbCallback : function (res){
+		if (res.status === "true") {
+			LEMP.Window.alert({
+				"_sTitle" : "푸시 데이터 삭제",
+				"_vMessage" : "푸시 데이터가 삭제되었습니다."
+			});
 		}
 	}
 }

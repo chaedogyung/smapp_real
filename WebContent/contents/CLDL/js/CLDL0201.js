@@ -978,6 +978,10 @@ var page = {
 				// 조회 결과 데이터가 있으면 옵션 생성
 				if(result.data_count > 0){
 					var data = result.data;
+					//오름차순 정렬
+					data.list.sort(function(a, b) {
+						return a.cldl_tmsl_nm < b.cldl_tmsl_nm ? -1 : a.cldl_tmsl_nm > b.cldl_tmsl_nm ? 1 : 0;
+					});
 
 					// 핸들바 템플릿 가져오기
 					var source = $("#cldl0201_timeLst_template").html();
@@ -1800,8 +1804,6 @@ var page = {
 			return returnNum;
 
 		},
-
-
 
 		// 물리적 뒤로가기 버튼 및 뒤로가기 화살표 버튼 클릭시 스캔 체크해서 전송여부 결정
 		callbackBackButton : function(){

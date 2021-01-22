@@ -610,10 +610,10 @@ var page = {
 				// 고객요청 인수자 정보 셋팅
 				if(!smutil.isEmpty(this.req_acpr_nm)){
 					if(this.req_acpt_rgst_sct_cd == "01"){		// 고객요청
-						html = html + '<li id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tGreen">' + this.req_acpr_nm + '</span></li>';
+						html = html + '<li style="display: inline-block; position: absolute;" id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tGreenBold">' + this.req_acpr_nm + '</span></li>';
 					}
 					else if(this.req_acpt_rgst_sct_cd == "02"){		// 기사변경
-						html = html + '<li id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tRed">' + this.req_acpr_nm + '</span></li>';
+						html = html + '<li style="display: inline-block; position: absolute;" id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tRed">' + this.req_acpr_nm + '</span></li>';
 					}
 				}
 
@@ -1037,6 +1037,10 @@ var page = {
 				// 조회 결과 데이터가 있으면 옵션 생성
 				if(result.data_count > 0){
 					var data = result.data;
+					//오름차순 정렬
+					data.list.sort(function(a, b) {
+						return a.cldl_tmsl_nm < b.cldl_tmsl_nm ? -1 : a.cldl_tmsl_nm > b.cldl_tmsl_nm ? 1 : 0;
+					});
 
 					// 핸들바 템플릿 가져오기
 					var source = $("#cldl0301_timeLst_template").html();

@@ -13,7 +13,7 @@ var page = {
 	cldl0410:{},
 
 	// mms 기본문구.  저장된 문구가 없을경우에 기본 셋팅된다
-	mmsMessage : "딩~동!!\n진심을 다하는 롯데택배입니다.\n고객님의 소중한 상품이 도착되었다는 소식을 알려드립니다.\n불편사항 있으시면 언제든지 연락바라며, 항상 최고의 서비스를 위해 노력하겠습니다.",
+	mmsMessage : "딩동\u266C\n진심을 다하는 롯데택배입니다.\n고객님의 소중한 상품이 도착되었다는 소식을 알려드립니다.\n불편사항 있으시면 언제든지 연락바라며, 항상 최고의 서비스를 위해 노력하겠습니다.",
 
 	apiParam : {
 		id:"HTTP",			// 디바이스 콜 id
@@ -149,10 +149,10 @@ var page = {
 				var phoneNumber = $(this).find("#tel_num > span").text();
 				var phoneCheck = phoneNumber.substr(0,3);
 				var inv_no = $(this).find("#inv_no").data("invNo");
-				var snper_nm = "\n◾ 보내는분 : " + $(this).find("#inv_no").attr("data-snper-nm");
-				var artc_nm = "\n◾ 상품명 : " + $(this).find("#inv_no").attr("data-artc-nm");
-				var acpr_nm = "\n◾ 위탁장소 : " + $(this).find("#inv_no").attr("data-acpr-nm");
-				var rcv_date = "\n◾ " + $(this).find("#inv_no").attr("data-rcv-date");
+				var snper_nm = "\n\u25A0\u0020보내는분 : " + $(this).find("#inv_no").attr("data-snper-nm");
+				var artc_nm = "\n\u25A0\u0020상품명 : " + $(this).find("#inv_no").attr("data-artc-nm");
+				var acpr_nm = "\n\u25A0\u0020위탁장소 : " + $(this).find("#inv_no").attr("data-acpr-nm");
+				var rcv_date = "\n\u25A0\u0020" + $(this).find("#inv_no").attr("data-rcv-date");
 
 				switch (phoneCheck) {
 					//전화번호 앞자리가 아래 조건이 아니면 전송시도를 하지 않는다.
@@ -323,7 +323,7 @@ var page = {
 		// 핸들바 템플릿에 데이터를 바인딩해서 생성된 HTML을 DOM에 주입
 		$('#cldl0410LstUl').append(template(page.cldl0410));
 
-		/*var MMScont = "딩~동!!\n진심을 다하는 롯데택배입니다.\n고객님의 소중한 상품이 " +
+		/*var MMScont = "딩동\u266C\n진심을 다하는 롯데택배입니다.\n고객님의 소중한 상품이 " +
 				smutil.nullToValue(page.cldl0410.acpr_nm,'') + "에(게) 도착되었다는 소식을 알려드립니다.\n" +
 				"불편사항 있으시면 언제든지 연락바라며, 항상 최고의 서비스를 위해 노력하겠습니다."
 		if ($("#cldl0410LstUl > li").length === 1) {

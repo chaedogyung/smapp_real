@@ -123,10 +123,10 @@ var page = {
 				// 만료일 유효성 확인(6개월 미만)
 				var endDate = new Date(endDt.substr(0, 4), endDt.substr(4, 2), endDt.substr(6, 2));
 				var availDate = new Date(reqDt.substr(0, 4), reqDt.substr(4, 2), reqDt.substr(6, 2));
-				availDate.setMonth(availDate.getMonth() + 6);
+				availDate.setMonth(availDate.getMonth() + 12);
 				if (endDate.getTime() >= availDate.getTime()) {
 					LEMP.Window.toast({
-						"_sMessage" : "만료일은 신청일로부터 최대 6개월까지 선택 가능합니다.",
+						"_sMessage" : "만료일은 신청일로부터 최대 12개월까지 선택 가능합니다.",
 						"_sDuration" : "short"
 					});
 

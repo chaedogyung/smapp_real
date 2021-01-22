@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
+
+	
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/SET0501.js"></script>
+	<script type="text/javascript">
+
+	</script>
+	<!-- //JS Global  -->
+
+</head>
+
+<body>
+	<input type="hidden" name="menuId" id="menuId" value="SET0501"/>
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection headFx">
+			<div class="headerWrap">
+				<h1>집배달 시간대역 편집</h1>
+				<button class="btn closeW paR">닫기</button>
+			</div>		
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+			<!-- contentBox -->
+			<div class="contentBox mypage mypageEdit">
+
+				<div class="topFx">
+					<div class="topHead">
+						<span class="tit">드래그하여 순서를 변경해주세요.</span>
+                        <button id="initialize" style="float: right; background: white; border:1px solid #6c6c6c; font-size: 12px;">순서 초기화</button>
+					</div>
+				</div>
+
+				<!-- boxList -->
+				<div class="boxList tp2">
+					<ul id="sortable">
+					</ul>
+				</div>
+				<!-- //boxList -->
+
+				<!-- btnBox -->
+				<div class="btnBox pxB">
+					<ul>
+						<li><button class="btn red w100p m" id="propReg">저장</button></li>
+					</ul>
+				</div>
+				<!-- //btnBox -->
+
+			</div>
+			<!-- //contentBox -->
+
+		</div>
+		<!--  //contentSection  -->
+
+	</div>
+	<!--  //contents  -->
+    <div class="mpopBox img initialize">
+        <div class="popBody">
+            <p class="txt1">집배달 시간대역</p>
+            <p class="txt2">기본 순서로 설정하시겠습니까?</p>
+        </div>
+        <div class="popFooter">
+            <div class="btnBox">
+                <ul class="ul0 ul2">
+                    <li><button class="btn gray m w100p b-close" id="cancel">취소</button></li>
+                    <li><button class="btn red m w100p" id="confirm">확인</button></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- //모달팝업 전송 -->
+</body>
+<script type="text/x-handlebars-template" id="SET0501_list_template">
+{{#each list}}
+	<li id="{{liCnt @key}}" data-dtl-cd="{{dtl_cd}}" data-code-status="{{code_status}}">
+		<div class="box">
+			<button class="btn move mgr10">이동</button>
+			<span class="txt">{{dtl_cd_nm}}</span>
+		</div>
+	</li>
+{{/each}}
+</script>
+</html>

@@ -196,7 +196,7 @@ background-position:100% 40px, 50% ,0 95%;
 .tabBox.li3 li{width:33.333%;}
 .tabBox.li2 li{width:50%;}
 
-.tabBox li.on .btn{border-bottom:2px solid #da291c;}
+.tabBox li.on .btn{border-bottom:2px solid #da291c; background-color:#FF9090;}
 .tabBox li.on span{background-color:#da291c;}
 
 .tabBox.cl2 li{border-top:1px solid #e1e1e1; border-right:1px solid #e1e1e1;}
@@ -294,6 +294,9 @@ background-position:100% 40px, 50% ,0 95%;
 
 .inBox.tp5 dt{font-size:13px; margin-bottom:initial; height:initial; line-height:initial; padding:5px 0px 3px; vertical-align:top; border-bottom:1px solid #d8d8d8;}
 .inBox.tp5 dd{color:#535454; font-size:13px; margin-bottom:initial; min-height:initial; padding:5px 0px 3px; border-bottom:1px solid #d8d8d8;}
+
+.inBox.tp6 dt{font-size:13px; margin-bottom:initial; height:initial; line-height:initial; padding:5px 0px 3px; vertical-align:top; width:150px;}
+.inBox.tp6 dd{color:#535454; font-size:12px; margin-bottom:initial; min-height:initial; padding:5px 0px 3px; width:calc(100% - 155px);}
 
 /* divisionBox */
 .divisionBox{background-color:#e9f1f6; overflow:hidden;}
@@ -556,6 +559,7 @@ button:disabled{background-color:#b5b5b5; color:#dcdcdc;}
 .badge.s{height:15px; line-height:15px; padding:0px 5px; font-size:10px; font-weight:500;}
 .badge.m{font-size:13px; height:18px; line-height:17px;}
 .badge.l{font-size:16px; height:30px; line-height:30px;}
+.badge.lb{font-size:16px; height:30px; line-height:30px; font-weight: bold}
 
 /* 뱃지 칼라 */
 .badge.gray{background-color:#b5b5b5; color:#fff;}

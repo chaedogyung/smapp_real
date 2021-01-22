@@ -20,7 +20,8 @@ var page = {
 						"param":page.com0602
 					}
 				});
-			}else {
+			}
+			else {
 				LEMP.Window.alert({
 					"_sTitle":"직접입력",
 					"_vMessage":"텍스트를 입력해주세요."
@@ -36,7 +37,12 @@ var page = {
 				}
 			});
 		});
+	},
+
+	maxLengthCheck : function(object){
+		if(object.value.length > object.maxLength) {
+			object.value = object.value.slice(0, object.maxLength);
+		}
 	}
-	
 };
 

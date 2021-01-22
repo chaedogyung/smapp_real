@@ -14,6 +14,12 @@ var page = {
 			},
 			data:{"parameters" : {}}		// api 통신용 파라메터
 		},
+
+		sum_fare_final : null,	// 합계운임
+		sum_fare_base : null,	// 최종기본운임(수정전)
+		sum_fare_base_input : null,	// 최종기본운임(수정후)
+		air_fare : null,	// 항공운임
+		ship_fare : null,	// 도선료
 		
 		init:function()
 		{
@@ -583,6 +589,7 @@ var page = {
 		// ################### 접수 start
 		// 개인택배 접수
 		postPidRsrvRgst : function(){
+			smutil.loadingOn();
 			var _this = this;
 			
 			var rsrvArtcPrc = $("#rsrvArtcPrc").val().replace(/[^0-9]/g, '') || "0";			// 화물가액
@@ -618,7 +625,13 @@ var page = {
 					"box_qty" : $("#rsrvQty").val(),					//박스수량
 					"svc_cd" : rsrvSvcCd,								//서비스(특화)구분(일반:00,특화:01)
 					"fare_sct_cd" : rsrvFareSctCd,						//운임구분(현불:01,착불:02)
+
 					"summ_fare" : rsrvSummFare,							//합계운임
+					"sum_fare_base" : page.sum_fare_base,				//최종기본운임(수정전)
+					"sum_fare_base_input" : page.sum_fare_base_input,	//최종기본운임(수정후)
+					"air_fare" : page.air_fare,							//항공운임
+					"ship_fare" : page.ship_fare,						//도선료
+
 					"dlv_msg_cont" : $("#dlvMsgCont").val(),			//배송요청사항
 					"prsn_info_agrm_yn" : "Y"							//개인정보 활용동의 체크 여부
 				}
@@ -629,7 +642,7 @@ var page = {
 		},
 		// 개인택배 접수 callback
 		pidRsrvRgstCallback : function(result){
-			
+			smutil.loadingOff();
 			if(smutil.apiResValidChk(result) && result.code == "0000"){
 				LEMP.Window.alert({
 					"_sTitle" : "개인 택배 접수",
@@ -664,6 +677,7 @@ var page = {
 		
 		// 반품 접수
 		postPidRtnRgst : function(){
+			smutil.loadingOn();
 			var _this = this;
 			
 			var rtnFareSctCd = $("input[name=rtnFareSctCd]:checked").val(); //운임구분
@@ -699,7 +713,7 @@ var page = {
 		},
 		// 반품 접수 callback
 		pidRtnRgstCallback : function(result){
-			
+			smutil.loadingOff();
 			if(smutil.apiResValidChk(result) && result.code == "0000"){
 				LEMP.Window.alert({
 					"_sTitle" : "반품 접수",
@@ -719,9 +733,14 @@ var page = {
 		
 		// 운임계산 callback
 		pid0104Callback : function(result){
-			
+			page.sum_fare_final = result.sum_fare;					// 합계운임
+			page.sum_fare_base = result.sum_fare_base;				//최종기본운임(수정전)
+			page.sum_fare_base_input = result.sum_fare_base_input;	// 최종기본운임(수정후)
+			page.air_fare = result.air_fare;						// 항공운임
+			page.ship_fare = result.ship_fare;						// 도선료
+
 			$("#rsrvSummFare").val(result.sum_fare);
-			$("#rsrvSummFareTxt").val(result.sum_fare);
+			$("#rsrvSummFareTxt").val((result.sum_fare+"").LPToCommaNumber());
 		},
 		
 		/* 반품접수 > 반품지 선택  */

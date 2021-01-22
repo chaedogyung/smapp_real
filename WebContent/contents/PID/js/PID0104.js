@@ -4,7 +4,11 @@ var page = {
 		air_fare : null,		// 항공운임
 		ship_fare : null,		// 도선료
 		sur_fare : null,		// 할증료
-		sum_fare : null,		// 합계운임
+		sum_fare : null,		// 합계운임(기존)
+		sum_fare_base : null,	// 최종기본운임
+		sum_fare_etc : null,	// 기타운임
+		sum_fare_final : null,	// 합계운임(신규)
+
 		
 		// api 호출 기본 형식
 		apiParam : {
@@ -23,17 +27,24 @@ var page = {
 		
 		init:function(arg)
 		{
-			bsc_fare = arg.data.bsc_fare;		// 기본운임
-			air_fare = arg.data.air_fare;		// 항공운임
-			ship_fare = arg.data.ship_fare;		// 도선료
-			sur_fare = arg.data.sur_fare;		// 할증료
-			sum_fare = arg.data.sum_fare;		// 합계운임
-			
+			bsc_fare = arg.data.bsc_fare;					// 기본운임
+			air_fare = arg.data.air_fare;					// 항공운임
+			ship_fare = arg.data.ship_fare;					// 도선료
+			sur_fare = arg.data.sur_fare;					// 할증료
+			sum_fare = arg.data.sum_fare;					// 합계운임(기존)
+			sum_fare_base = bsc_fare + sur_fare;			// 최종 기본운임 : 기본운임 + 할증료
+			sum_fare_etc = air_fare + ship_fare;			// 기타운임 : 항공운임 + 도선료(수정불가)
+			sum_fare_final = sum_fare_base + sum_fare_etc;	// 합계운임(신규) : 최종기본운임 + 기타운임(수정불가)
+
 			$("#bscFare").text(String(bsc_fare).LPToCommaNumber() + "원");
 			$("#airFare").text(String(air_fare).LPToCommaNumber() + "원");
 			$("#shipFare").text(String(ship_fare).LPToCommaNumber() + "원");
 			$("#surFare").text(String(sur_fare).LPToCommaNumber() + "원");
-			$("#sumFare").val(String(sum_fare).LPToCommaNumber());
+			// $("#sumFare").val(String(sum_fare).LPToCommaNumber());
+
+			$("#sumFareBase").val(String(sum_fare_base).LPToCommaNumber());
+			$("#sumFareEtc").val(String(sum_fare_etc).LPToCommaNumber());
+			$("#sumFareFinal").val(String(sum_fare_final).LPToCommaNumber());
 			
 			page.initEvent();			// 페이지 이벤트 등록
 		},
@@ -52,20 +63,24 @@ var page = {
 			$("#confirmBtn").click(function(){
 				
 				// 입력한 합계금액
-				var setSumFare = $("#sumFare").val();
+				var setSumFare = $("#sumFareBase").val().replace(/[^0-9]/g, '');
 				
-				// 조회된 합계운임보다 입력한 합계운임이 작을 경우
-				if(sum_fare > setSumFare){
+				// 조회된 최종기본운임 보다 입력한 최종기본운임이 작을 경우
+				if(sum_fare_base > setSumFare){
 					LEMP.Window.alert({
 						"_sTitle" : "알림",
-						"_vMessage" : "합계금액보다 적은 금액입니다."
+						"_vMessage" : "최종기본운임이 수정 전 기본(할증)운임보다 적습니다."
 					});
 					return false;
 					
 				}else{
 					LEMP.Window.close({
 						"_oMessage" : {
-							"sum_fare" : setSumFare	// 합계운임
+							"sum_fare" : sum_fare_final,		// 합계운임
+							"sum_fare_base" : sum_fare_base,	// 최종기본운임(수정전)
+							"sum_fare_base_input" : setSumFare,	// 최종기본운임(수정후)
+							"air_fare" : air_fare,				// 항공운임
+							"ship_fare" : ship_fare,			// 도선료
 						},
 						"_sCallback" : "page.pid0104Callback"
 					});
@@ -73,20 +88,24 @@ var page = {
 				
 			});
 			
-			/* 공통 > 조회된 금액보다 입력한 금액이 더 커야함 */
-			$(document).on('keyup', '#sumFare', function(e){
+			/* 공통 > 조회된 금액보다 입력한 금액이 더 커야함(최종기본운임) */
+			$(document).on('keyup', '#sumFareBase', function(e){
 				var tmps = parseInt($(this).val().replace(/[^0-9]/g, '')) || 0;
-				
+
 				// 조회된 합계운임보다 입력한 합계운임이 작을 경우
-				if(sum_fare > tmps){
-					$("#sumFareTxt").show();
+				if(sum_fare_base > tmps){
+					$("#sumFareBaseTxt").show();
 				}else{
-					$("#sumFareTxt").hide();
+					$("#sumFareBaseTxt").hide();
 				}
-				
+
 				var numberToComma = String(tmps).LPToCommaNumber();
 				$(this).val(numberToComma);
-				
+
+				//최종기본운임이 수정될 경우 합계운임도 변경
+				sum_fare_final = tmps + sum_fare_etc;
+				$("#sumFareFinal").val(String(sum_fare_final).LPToCommaNumber());
+
 			});
 			
 		},

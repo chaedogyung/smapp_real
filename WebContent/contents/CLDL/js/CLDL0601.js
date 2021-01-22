@@ -11,7 +11,7 @@ var page = {
     isBackground: false,
 
     // mms 기본 메시지
-    mmsMessage: '딩~동!!\n' +
+    mmsMessage: '딩동\u266C\n' +
         '진심을 다하는 롯데택배입니다.\n' +
         '고객님의 소중한 상품이 도착되었다는 소식을 알려드립니다.\n' +
         '불편사항 있으시면 언제든지 연락바라며, 항상 최고의 서비스를 위해 노력하겠습니다.',
@@ -351,22 +351,22 @@ var page = {
         }
         // 보내는분 정보가 있으면 메시지에 셋팅
         if(!smutil.isEmpty(mmsSnper_nm)) {
-            mmsMessage = mmsMessage.concat('\n◾', mmsSnper_nm);
+            mmsMessage = mmsMessage.concat('\n\u25A0\u0020', mmsSnper_nm);
         }
         // 상품명 정보가 있으면 메시지에 셋팅
         if(!smutil.isEmpty(mmsArtc_nm)) {
-            mmsMessage = mmsMessage.concat('\n◾', mmsArtc_nm);
+            mmsMessage = mmsMessage.concat('\n\u25A0\u0020', mmsArtc_nm);
         }
         // 송장번호 정보가 있으면 메시지에 셋팅
         if(!smutil.isEmpty(mmsInvNo)) {
-            mmsMessage = mmsMessage.concat('\n◾', mmsInvNo);
+            mmsMessage = mmsMessage.concat('\n\u25A0\u0020', mmsInvNo);
         }
         // 인수자 정보가 있으면 메시지에 셋팅
         if (!smutil.isEmpty(mmsRcvName)) {
-            mmsMessage = mmsMessage.concat('\n◾', mmsRcvName);
+            mmsMessage = mmsMessage.concat('\n\u25A0\u0020', mmsRcvName);
         }
         // 배송일 메세지에 세팅
-        mmsMessage = mmsMessage.concat('\n◾', '배송일자 : ' + smutil.getTodayStr());
+        mmsMessage = mmsMessage.concat('\n\u25A0\u0020', '배송일자 : ' + smutil.getTodayStr());
 
         var invNo = $('#invNoItem').find('.btnInvNo').data('invNo');
         var phoneNumber = $('#invNoItem').find('.btnTelNum').data('telNum');

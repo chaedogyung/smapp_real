@@ -66,7 +66,7 @@
 						<div class="leftBox">
 							<ul class="dotTp1">
 								<!-- <li>등급 <em id="emp_grd"></em></li> -->
-								<li>사번<em id="empno"></em></li>
+								<li>ID<em id="empno"></em></li>
 								<li>차량번호<em id="vhc_no"></em></li>
 								<li class="mileage">마일리지<em id="acmt_point"></em></li>
 							</ul>
@@ -80,9 +80,61 @@
 
 				</div>
 				<!-- //등급 박스 -->
-
+                <!-- <input type="file" name="file" id="file" accept="image/*,video/*"/>
+                            <input type="file" name="file2" id="file2" accept="image/*,video/*"/>
+                            <input type="file" name="file3" id="file3" accept="image/*,video/*"/> -->
+                <!-- <input type="file" name="file" id="file" accept="image/*" capture="camera"> -->
+                <!-- 즐겨찾기 -->
+                <div class="quickMenuBox">
+                    <ul id="freMenuBox">
+                        <li id ="CLDL0101" class="frevPage" data-type="default">
+                            <button class="btn">
+                                <span class="img"><img src="../../common/img/icon-fa5.png"></span>
+                                <span class="txt">집배달예정</span>
+                            </button>
+                        </li>
+                        <li id ="CLDL0201" class="frevPage" data-type="default">
+                            <button class="btn">
+                                <span class="img"><img src="../../common/img/icon-fa1.png"></span>
+                                <span class="txt">집배달출발</span>
+                            </button>
+                        </li>
+                        <li id ="CLDL0301" class="frevPage" data-type="default">
+                            <button class="btn">
+                                <span class="img"><img src="../../common/img/icon-fa7.png"></span>
+                                <span class="txt">집하완료</span>
+                            </button>
+                        </li>
+                        <li id ="CLDL0401" class="frevPage" data-type="default">
+                            <button class="btn">
+                                <span class="img"><img src="../../common/img/icon-fa3.png"></span>
+                                <span class="txt">배달완료</span>
+                            </button>
+                        </li>
+                        <!-- 사진 전송 적용 시 활성화 필요 -->
+                        <li id ="CLDL0601" class="frevPage" data-type="default">
+                            <button class="btn">
+                                <span class="img"><img src="../../common/img/icon-fa26.png"></span>
+                                <span class="txt">사진전송</span>
+                            </button>
+                        </li>
+                        <li id ="CLDL0501" class="frevPage" data-type="default">
+                            <button class="btn">
+                                <span class="img"><img src="../../common/img/icon-fa20.png"></span>
+                                <span class="txt">집배달현황</span>
+                            </button>
+                        </li>
+                        <!-- <li id ="PID0401" class="frevPage" data-type="default">
+                            <button class="btn">
+                                <span class="img"><img src="../../common/img/icon-fa20.png"></span>
+                                <span class="txt">바로반품</span>
+                            </button>
+                        </li> -->
+                    </ul>
+                </div>
+                <!-- //즐겨찾기 -->
 				<!-- 실적박스 -->
-				<div class="cardBox chart">
+				<div class="cardBox chart" style="margin-top: 20px;">
 					<div class="tit">
 						이달의 실적현황
 						<span class="num" id="cur_monF"></span>
@@ -143,60 +195,6 @@
 
 			</div>
 			<!-- //contentBox -->
-
-			<!-- <input type="file" name="file" id="file" accept="image/*,video/*"/>
-			<input type="file" name="file2" id="file2" accept="image/*,video/*"/>
-			<input type="file" name="file3" id="file3" accept="image/*,video/*"/> -->
-			<!-- <input type="file" name="file" id="file" accept="image/*" capture="camera"> -->
-			<!-- 즐겨찾기 -->
-			<div class="quickMenuBox">
-				<ul id="freMenuBox">
-					<li id ="CLDL0101" class="frevPage" data-type="default">
-						<button class="btn">
-							<span class="img"><img src="../../common/img/icon-fa5.png"></span>
-							<span class="txt">집배달예정</span>
-						</button>
-					</li>
-					<li id ="CLDL0201" class="frevPage" data-type="default">
-						<button class="btn">
-							<span class="img"><img src="../../common/img/icon-fa1.png"></span>
-							<span class="txt">집배달출발</span>
-						</button>
-					</li>
-					<li id ="CLDL0301" class="frevPage" data-type="default">
-						<button class="btn">
-							<span class="img"><img src="../../common/img/icon-fa7.png"></span>
-							<span class="txt">집하완료</span>
-						</button>
-					</li>
-					<li id ="CLDL0401" class="frevPage" data-type="default">
-						<button class="btn">
-							<span class="img"><img src="../../common/img/icon-fa3.png"></span>
-							<span class="txt">배달완료</span>
-						</button>
-					</li>
-					<!-- 사진 전송 적용 시 활성화 필요 -->
-					<li id ="CLDL0601" class="frevPage" data-type="default">
-						<button class="btn">
-							<span class="img"><img src="../../common/img/icon-fa26.png"></span>
-							<span class="txt">사진전송</span>
-						</button>
-					</li>
-					<li id ="CLDL0501" class="frevPage" data-type="default">
-						<button class="btn">
-							<span class="img"><img src="../../common/img/icon-fa20.png"></span>
-							<span class="txt">집배달현황</span>
-						</button>
-					</li>
-					<!-- <li id ="PID0401" class="frevPage" data-type="default">
-						<button class="btn">
-							<span class="img"><img src="../../common/img/icon-fa20.png"></span>
-							<span class="txt">바로반품</span>
-						</button>
-					</li> -->
-				</ul>
-			</div>
-			<!-- //즐겨찾기 -->
 
 		</div>
 		<!--  //contentSection  -->
