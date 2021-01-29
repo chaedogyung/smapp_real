@@ -100,6 +100,10 @@
 .insuja .txt{max-width:115px;overflow:hidden;white-space:nowrap; margin-left:5px; text-overflow:ellipsis; border:1px solid #e1e1e1; display:inline-block; vertical-align:middle; background-color:#fff; padding:5px 10px; padding-right:25px; font-size:12px; color:#000; box-sizing: border-box;}
 .insuja .btn.plus{position:absolute; right:3px; top:10px; background-size:9px; font-size:0; line-height: 1;}
 
+.bdCancel{float:right; overflow:hidden; position:relative; font-size:12px;}
+.bdCancel .txt{max-width:200px;overflow:hidden;white-space:nowrap; margin-left:5px; text-overflow:ellipsis; border:1px solid #e1e1e1; display:inline-block; vertical-align:middle; background-color:#fff; padding:5px 10px; padding-right:25px; font-size:12px; color:#000; box-sizing: border-box;}
+.bdCancel .btn.plus{position:absolute; right:3px; top:10px; background-size:9px; font-size:0; line-height: 1;}
+
 /* 로고 */
 .baedalBox .thumb{float:left; box-sizing:border-box; padding-top:8px; font-size:0; line-height: 1;}
 .baedalBox .thumb .img{display:inline-block; border-radius:100px; background-color:#dadee1; width:35px; height:35px; box-sizing:border-box;overflow:hidden;font-size:0;text-indent: -9999px;}
@@ -122,6 +126,7 @@
 .baedalBox .thumb .img.himart{background:#ed1c24 url('../../common/img/delivery-logo-himart.png') no-repeat 50%; background-size:35px;}
 .baedalBox .thumb .img.baro{background:#2063be url('../../common/img/delivery-logo-baro.png') no-repeat 50%; background-size:35px;}
 .baedalBox .thumb .img.kurly{background:url('../../common/img/delivery-logo-kurly.png') no-repeat 50%; background-size:35px;}
+.baedalBox .thumb .img.cjo{background:#fff url('../../common/img/delivery-logo-cj.png') no-repeat 50%; background-size:35px;}
 
 .baedalBox .thumb .img.lotte7{background:#000 url('../../common/img/delivery-logo-lotte6.png') no-repeat 50%; background-size:35px;}
 .baedalBox .thumb .img.lotte8{background:#000 url('../../common/img/delivery-logo-lotte7.png') no-repeat 50%; background-size:35px;}

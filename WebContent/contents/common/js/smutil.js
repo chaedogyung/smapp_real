@@ -391,7 +391,7 @@ var smutil = (function(window, document, $) {
 
 			return false;
 		}
-		// 사진 파일 전송 시 FileNotFound Error 일 경우 
+		// 사진 파일 전송 시 FileNotFound Error 일 경우
 		else if(statusCode === '409' || code === '409') {
 			LEMP.Window.alert({
 				"_sTitle" : "사진파일 전송오류",
@@ -401,7 +401,7 @@ var smutil = (function(window, document, $) {
 			smutil.loadingOff();
 
 			return false;
-		} 
+		}
 		// 디바이스 네트워크 에러인경우는 로딩바만 종료해준다(디바이스 네트워크 체크시 오류인경우)
 		else if(statusCode === 'native_network_error'){
 
@@ -724,6 +724,9 @@ var smutil = (function(window, document, $) {
 					break;
 				case '2301':			// 롯데렌탈
 					className = "img lotte4";
+					break;
+				case '2401':			// CJ오쇼핑
+					className = "img cjo";
 					break;
 				case '3001':			// 롯데푸드
 					className = "img lotte5";
