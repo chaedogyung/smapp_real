@@ -1141,6 +1141,16 @@ var smutil = (function(window, document, $) {
 		return rcv_date;
 	};
 
+	/**
+	 * 심야배송 확인 (true : 심야 / false : X)
+	 */
+	let isMidnight = function() {
+		let currentDate = new Date();
+		let compareDate = new Date();
+		compareDate.setHours(20, 30, 0,0);
+		return currentDate.getTime() > compareDate.getTime();
+	};
+
 	// ######################### end function
 
 	// public 함수 등록
@@ -1216,6 +1226,9 @@ var smutil = (function(window, document, $) {
 
 		// 오늘날짜 월일 리턴
 		getTodayStr : getTodayStr,
+
+		// 심야배송 확인
+		isMidnight : isMidnight,
 
 	};
 
