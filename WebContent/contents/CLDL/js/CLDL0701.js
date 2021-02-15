@@ -28,10 +28,10 @@ var page = {
 			//이전메뉴 확인
 			if(!smutil.isEmpty(arg.data.param)){
 				page.cldl0701 = arg.data.param;
-				//팝업에서 들어왔을경우 미배달 사유 자동설정
+				//팝업에서 들어왔을경우 미배달 사유(심야배송) 자동설정
 				if(page.cldl0701.menu_id === "pop"){
-					let code = "25";
-					let name = "착지변경"
+					let code = "42";
+					let name = "심야배송으로 인한 익일배송"
 					$('#bdCancelTxt').val(name);			// 미배달 사유 text
 					$('#bdCancelCode').val(code);			// 미배달 사유 code
 					$('.bdCancelTxtView').text(name);		// 미배달 사유 text
@@ -79,19 +79,6 @@ var page = {
 						"param":null
 					}
 				});
-			});
-
-			// 상단 시간선택 클릭이벤트 등록
-			$(document).on('click', "li[name='timeLstLi']", function(e){
-
-				$("li[name='timeLstLi']").removeClass('on');
-				$(this).addClass('on');
-
-				// 선택한 시간목록값 전역변수로 셋팅
-				page.selectedSchTime = $(this).data('timeLi')+"";
-
-				// 리스트 제조회
-				page.listReLoad();
 			});
 
 			// 배달완료 정렬방식 변경
@@ -217,7 +204,7 @@ var page = {
 			}
 
 			smutil.loadingOn();
-			page.cmptTmList();		// 시간대별 조회건수 조회
+			page.cmptList();		//전체 배달완료 리스트 조회
 		},
 
 		//helper 등록
@@ -500,166 +487,13 @@ var page = {
 			// ###################################### handlebars helper 등록 end
 		},
 
-		// ################### 시간대별 조회건수 조회 start
-		cmptTmList : function(){
-			var _this = this;
-
-			_this.apiParam.param.baseUrl = "smapis/cldl/cmptTmList";					// api no
-			_this.apiParam.param.callback = "page.cmptTmListCallback";					// callback methode
-
-			// 날짜셋팅
-			var curDate = new Date();
-			curDate = curDate.getFullYear() + ("0"+(curDate.getMonth()+1)).slice(-2) + ("0"+curDate.getDate()).slice(-2);
-			var base_ymd = smutil.nullToValue($('#cldlBtnCal').text(),curDate);
-			base_ymd = base_ymd.split('.').join('');
-
-			_this.apiParam.data = {
-				"parameters" : {
-					"cldl_sct_cd":"D",
-					"base_ymd" : base_ymd
-				}
-			};					// api 통신용 파라메터 (배달)
-
-
-			// 공통 api호출 함수
-			smutil.callApi(_this.apiParam);
-
-			page.apiParamInit();		// 파라메터 전역변수 초기화
-		},
-
-
-		// 시간대별 조회건수 callback
-		cmptTmListCallback : function(result){
-			page.apiParamInit();		// 파라메터 전역변수 초기화
-
-			// api 결과 성공여부 검사
-			if(smutil.apiResValidChk(result) && result.code == "0000"){
-
-				// 조회 결과 데이터가 있으면 옵션 생성
-				if(result.data_count > 0){
-					var data = result.data;
-					//오름차순 정렬
-					data.list.sort(function(a, b) {
-						return a.cldl_tmsl_nm < b.cldl_tmsl_nm ? -1 : a.cldl_tmsl_nm > b.cldl_tmsl_nm ? 1 : 0;
-					});
-
-					// 핸들바 템플릿 가져오기
-					var source = $("#cldl0701_timeLst_template").html();
-
-					// 핸들바 템플릿 컴파일
-					var template = Handlebars.compile(source);
-
-					// 핸들바 템플릿에 데이터를 바인딩해서 HTML 생성
-					var liHtml = template(data);
-
-					// 생성된 HTML을 DOM에 주입
-					$('#cmptTmListUl').html(liHtml);
-
-
-					/* touchFlow 등록*/
-					$(".divisionBox .selectBox").touchFlow();
-
-					// 선택한 값이 없을경우는 시간리스트의 첫번째 순서를 on 상태로 만든다
-					// 최초에 들어온 경우만 이벤트 등록
-					if(smutil.isEmpty(page.selectedSchTime)){
-
-						// 현제 어느 시간데를 선택했는지 검사
-						var timeLstLi = $("li[name='timeLstLi']");
-
-						_.forEach(timeLstLi, function(obj, key) {
-							$(obj).addClass('on');
-
-							// 선택한 시간구간 등록
-							page.selectedSchTime = $(obj).data('timeLi')+"";
-							// 한번만 셋팅하고 바로 루프 나감
-							return false;
-						});
-					}
-					else {		// 선택한 시간 구간이 있을경우에는 그 시간을 on 시켜줌
-						// 현제 어느 시간구간을 선택했는지 검사
-						var timeLstLi = $("li[name='timeLstLi']");
-						var timeObj;
-						_.forEach(timeLstLi, function(obj, key) {
-							timeObj = $(obj);
-
-							if((timeObj.data('timeLi')+"") == page.selectedSchTime){
-								timeObj.addClass('on');
-
-								return false;
-							}
-						});
-
-						// 활성화된 시간구간코드가 없으면 첫번째 리스트를 선택
-						if(smutil.isEmpty(page.returnTimeCd())){
-							// 현제 어느 시간데를 선택했는지 검사
-							var timeLstLi = $("li[name='timeLstLi']");
-
-							_.forEach(timeLstLi, function(obj, key) {
-								$(obj).addClass('on');
-
-								// 선택한 시간구간 등록
-								page.selectedSchTime = $(obj).data('timeLi')+"";
-								// 한번만 셋팅하고 바로 루프 나감
-								return false;
-							});
-						}
-					}
-				}
-				else{
-					// 리스트가 아무것도 없을경우에는 기본으로 18~20 시 코드를 셋팅한다
-					var data = {"list" : [{
-						"cldl_tmsl_nm": "18~20시",
-						"cldl_tmsl_cd": "19",
-						"tmsl_dlv_cnt" : 0
-					}]};
-
-					// 핸들바 템플릿 가져오기
-					var source = $("#cldl0701_timeLst_template").html();
-
-					// 핸들바 템플릿 컴파일
-					var template = Handlebars.compile(source);
-
-					// 핸들바 템플릿에 데이터를 바인딩해서 HTML 생성
-					var liHtml = template(data);
-
-					// 생성된 HTML을 DOM에 주입
-					$('#cmptTmListUl').html(liHtml);
-
-
-					/* touchFlow 등록*/
-					$(".divisionBox .selectBox").touchFlow();
-
-					// 현제 어느 시간데를 선택했는지 검사
-					var timeLstLi = $("li[name='timeLstLi']");
-
-					_.forEach(timeLstLi, function(obj, key) {
-						$(obj).addClass('on');
-
-						// 선택한 시간구간 등록
-						page.selectedSchTime = $(obj).data('timeLi')+"";
-						// 한번만 셋팅하고 바로 루프 나감
-						return false;
-					});
-
-
-					// 생성된 HTML을 DOM에 주입
-//					$('#cmptTmListUl').html('');
-				}
-
-				page.cmptList();		// 페이지 리스트 조회
-			}
-		},
-		// ################### 시간대별 조회건수 조회 end
-
-
-
 		// ################### 페이지 리스트 조회 start
 		cmptList : function(){
 
 			var _this = this;
 			var cldl_sct_cd = "D";		// 업무구분 (배달 : D)
 			// var fltr_sct_cd = $('#fltr_sct_cd').val();		// 필터구분(미배달 사유 일괄전송 화면에서는 사용하지 않음)
-			var cldl_tmsl_cd = _this.returnTimeCd();			// 현재 어느 시간을 선택했는지 검사
+			// var cldl_tmsl_cd = _this.returnTimeCd();			// 현재 어느 시간을 선택했는지 검사(미배달 사유 일괄전송 화면에서는 사용하지 않음)
 
 			_this.apiParam.param.baseUrl = "smapis/cldl/cmptList";				// api no
 			_this.apiParam.param.callback = "page.cmptListCallback";			// callback methode
@@ -673,8 +507,8 @@ var page = {
 			_this.apiParam.data = {				// api 통신용 파라메터
 				"parameters" : {
 					// "fltr_sct_cd" : smutil.nullToValue(fltr_sct_cd+"",""),			// 필터구분(미배달 사유 일괄전송 화면에서는 사용하지 않음)
+					// "cldl_tmsl_cd" : smutil.nullToValue(cldl_tmsl_cd+"",""),		// 시간코드(미배달 사유 일괄전송 화면에서는 사용하지 않음)
 					"cldl_sct_cd" : smutil.nullToValue(cldl_sct_cd+"","D"),		// 업무구분
-					"cldl_tmsl_cd" : smutil.nullToValue(cldl_tmsl_cd+"",""),		// 시간코드
 					"base_ymd" : base_ymd+""
 				}
 			};
@@ -692,9 +526,6 @@ var page = {
 			page.apiParamInit();		// 파라메터 전역변수 초기화
 
 			try{
-				// 스캔건수
-				var scanLstCnt = $('#scanLstCnt');
-
 				// 조회한 결과가 있을경우
 				if(smutil.apiResValidChk(result) && result.code == "0000"){
 
@@ -720,25 +551,16 @@ var page = {
 					// 생성된 HTML을 DOM에 주입
 					$('#cldl0701LstUl').html(liHtml);
 
-					// 스캔건수 표시
-					if(!smutil.isEmpty(result.data.scan_cnt)
-						&& result.data.scan_cnt > 0){
-						scanLstCnt.text(result.data.scan_cnt);
-						scanLstCnt.show();
-					}
-					else{	// 스캔건수 숨김
-						scanLstCnt.text('0');
-						scanLstCnt.hide();
-					}
+					//상단에 전체 그리기
+					page.showTotalCount(data.list.length);
 
 				}
 				else{		// 조회 결과 없음
-					scanLstCnt.hide();		// 전체 스캔건수 숨김
+
 				}
 			}
 			catch(e){}
 			finally{
-				scanLstCnt.hide();				// 전체 스캔건수 숨김
 				smutil.loadingOff();			// 로딩바 닫기
 				page.apiParamInit();			// 파라메터 전역변수 초기화
 			}
@@ -758,7 +580,7 @@ var page = {
 			}
 
 			smutil.loadingOn();				// 로딩바 시작
-			page.cmptTmList();				// 상단 시간별 카운트 조회
+			page.cmptList();				// 전체 리스트 조회
 		},
 
 		// 미배달사유 설정버튼 콜백
@@ -840,22 +662,40 @@ var page = {
 		},
 		// ################### 미배달 처리 end
 
-		// 현재 활성화 시간구간코드 리턴
-		returnTimeCd : function(){
-			var timeLst = $("li[name='timeLstLi']");
+		// 상단 전체카운트 표시
+		showTotalCount : function (count){
+			let data = {"list" : [{
+					"cldl_tmsl_nm": "전체",
+					"cldl_tmsl_cd": "19",
+					"tmsl_dlv_cnt" : count
+				}]};
 
-			//현제 어느 탭에 있는지 상태체크
-			var btnObj;
-			var cldl_tmsl_cd;
-			_.forEach(timeLst, function(obj, key) {
-				btnObj = $(obj);
+			// 핸들바 템플릿 가져오기
+			let source = $("#cldl0701_timeLst_template").html();
 
-				if(btnObj.is('.on')){
-					cldl_tmsl_cd = btnObj.data('timeLi');
-					return false;
-				}
+			// 핸들바 템플릿 컴파일
+			let template = Handlebars.compile(source);
+
+			// 핸들바 템플릿에 데이터를 바인딩해서 HTML 생성
+			let liHtml = template(data);
+
+			// 생성된 HTML을 DOM에 주입
+			$('#cmptTmListUl').html(liHtml);
+
+			/* touchFlow 등록*/
+			$(".divisionBox .selectBox").touchFlow();
+
+			// 현제 어느 시간데를 선택했는지 검사
+			let timeLstLi = $("li[name='timeLstLi']");
+
+			_.forEach(timeLstLi, function(obj, key) {
+				$(obj).addClass('on');
+
+				// 선택한 시간구간 등록
+				page.selectedSchTime = $(obj).data('timeLi')+"";
+				// 한번만 셋팅하고 바로 루프 나감
+				return false;
 			});
-			return cldl_tmsl_cd;
 		},
 
 		// api 파람메터 초기화
