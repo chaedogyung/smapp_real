@@ -1,7 +1,6 @@
 // LEMP.addEvent("backbutton", "page.callbackBackButton");		// 뒤로가기 버튼 클릭시 이벤트
 var page = {
 		cldl0701 :{},				// 전달받은 파라메터
-		dprtCnt : null,				// 최상단 전체, 배달, 집하 조회 건수
 		selectedSchTime : null,		// 선택한 시간구분값
 		rsn_cont : "",				// 직접입력 텍스트 또는 지정일
 		dlay_rsn_cd : null,			// 미배달 사유 등록코드
@@ -40,7 +39,7 @@ var page = {
 			}
 
 			// 달력셋팅
-			var curDate = new Date();
+			let curDate = new Date();
 			curDate = curDate.getFullYear() + "." + ("0"+(curDate.getMonth()+1)).slice(-2) + "." + ("0"+curDate.getDate()).slice(-2);
 			$('#cldlBtnCal').text(curDate);
 
@@ -71,7 +70,7 @@ var page = {
 
 			// 화면 상단의 화물추적 버튼을 누른경우
 			$("#openFrePop").click(function(){
-				var popUrl = smutil.getMenuProp("FRE.FRE0301","url");
+				const popUrl = smutil.getMenuProp("FRE.FRE0301","url");
 
 				LEMP.Window.open({
 					"_sPagePath":popUrl,
@@ -82,9 +81,10 @@ var page = {
 			});
 
 			// 배달완료 정렬방식 변경
-			$("#select_order").on('change', function(){
-				LEMP.Properties.set({"_sKey" : "order", "_vValue" : $('#select_order').val()});
-				page.order = $('#select_order').val();
+			const selectOrder = $("#select_order");
+			selectOrder.on('change', function(){
+				LEMP.Properties.set({"_sKey" : "order", "_vValue" : selectOrder.val()});
+				page.order = selectOrder.val();
 				page.listReLoad();					// 리스트 제조회
 			});
 
@@ -92,18 +92,18 @@ var page = {
 			$(document).on('click', '.invNoSpan', function(event){
 				if ($(event.target).parents('li').length > 0) {
 
-					var liElement = $(event.target);
+					let liElement = $(event.target);
 					$('.baedalBox').removeClass('bg-v2');									// 다른 row 선택초기화
 					liElement.parents('.baedalBox').addClass('bg-v2');						// row 선택 표시
-					var sctCd = liElement.parents('li').data('liSctCd');		// 업무 구분
+					const sctCd = liElement.parents('li').data('liSctCd');					// 업무 구분
 
 					if(!smutil.isEmpty(sctCd)){
 
-						var inv_no = liElement.parents('li').data('invNo')+"";				// 송장번호
-						var rsrv_mgr_no = liElement.parents('li').data('rsrvMgrNo')+"";		// 접수번호
+						const inv_no = liElement.parents('li').data('invNo')+"";				// 송장번호
+						const rsrv_mgr_no = liElement.parents('li').data('rsrvMgrNo')+"";		// 접수번호
 
 						// 팝업 url 호출
-						var popUrl = smutil.getMenuProp('CLDL.CLDL0404', 'url');
+						const popUrl = smutil.getMenuProp('CLDL.CLDL0404', 'url');
 
 						LEMP.Window.open({
 							"_sPagePath":popUrl,
@@ -119,8 +119,8 @@ var page = {
 			});
 
 			// 미배달 설정 버튼 클릭
-			$(document).on('click', '.bdCancel', function(e){
-				let popUrl = smutil.getMenuProp("COM.COM0701","url");
+			$(document).on('click', '.bdCancel', function(){
+				const popUrl = smutil.getMenuProp("COM.COM0701","url");
 				LEMP.Window.open({
 					"_sPagePath":popUrl,
 					"_oMessage" : {
@@ -150,9 +150,8 @@ var page = {
 				// 모든 li 리스트를 돌면서 스캔한 데이터와 체크박스의 체크한 데이터를 셋팅한다.
 				$.each(liLst, function(idx, liObj){
 					inv_no = $(liObj).attr('id')+"";
-					// 체크박스에 체크한 데이터 (기본적으로 스캔 안한데이터이다)
+					// 체크박스에 체크한 데이터
 					if($('#'+inv_no+'_chk').prop("checked")){
-						// 스캔한 송장번호, 스캔여부 전부 Y으로 셋팅
 						invNoObj = {"inv_no":inv_no, "scan_yn":"N"};
 						param_list.push(invNoObj);
 					}
@@ -160,12 +159,11 @@ var page = {
 
 				page.param_list = param_list;
 
-				let scanCnt = 0;
-				scanCnt = param_list.length;
+				let scanCnt = param_list.length;
 
 				// 컴펌창 호출
 				if(scanCnt > 0){
-					if(page.dlay_rsn_cd == 42){
+					if(page.dlay_rsn_cd === "42"){
 						$('#pop2Txt2').html('등록할 데이터 '+scanCnt+'건<br />미배달 사유를 등록합니다.<br />심야배송으로 인한 익일배송 사유로 고객님에게 문자메세지가 발송됩니다');
 					}else{
 						$('#pop2Txt2').html('등록할 데이터 '+scanCnt+'건<br />미배달 사유를 등록합니다.');
@@ -177,13 +175,11 @@ var page = {
 						"_sTitle":"미배달 전송오류",
 						"_vMessage":"전송할 데이터가 없습니다.\n체크박스를 선택해주세요.",
 					});
-
-					return;
 				}
 			});
 
 			// 미배달사유 일괄전송 'yes' 버튼 클릭
-			$('#rsnRgstYesBtn').click(function(e){
+			$('#rsnRgstYesBtn').click(function(){
 				// 미배달 전송
 				page.sendRsnRgstTxt();
 			});
@@ -490,8 +486,8 @@ var page = {
 		// ################### 페이지 리스트 조회 start
 		cmptList : function(){
 
-			var _this = this;
-			var cldl_sct_cd = "D";		// 업무구분 (배달 : D)
+			let _this = this;
+			const cldl_sct_cd = "D";		// 업무구분 (배달 : D)
 			// var fltr_sct_cd = $('#fltr_sct_cd').val();		// 필터구분(미배달 사유 일괄전송 화면에서는 사용하지 않음)
 			// var cldl_tmsl_cd = _this.returnTimeCd();			// 현재 어느 시간을 선택했는지 검사(미배달 사유 일괄전송 화면에서는 사용하지 않음)
 
@@ -499,9 +495,9 @@ var page = {
 			_this.apiParam.param.callback = "page.cmptListCallback";			// callback methode
 
 			// 날짜셋팅
-			var curDate = new Date();
+			let curDate = new Date();
 			curDate = curDate.getFullYear() + ("0"+(curDate.getMonth()+1)).slice(-2) + ("0"+curDate.getDate()).slice(-2);
-			var base_ymd = smutil.nullToValue($('#cldlBtnCal').text(),curDate);
+			let base_ymd = smutil.nullToValue($('#cldlBtnCal').text(),curDate)+"";
 			base_ymd = base_ymd.split('.').join('');
 
 			_this.apiParam.data = {				// api 통신용 파라메터
@@ -527,26 +523,26 @@ var page = {
 
 			try{
 				// 조회한 결과가 있을경우
-				if(smutil.apiResValidChk(result) && result.code == "0000"){
+				if(smutil.apiResValidChk(result) && result.code === "0000"){
 
-					var data = {};
+					let data = {};
 
 					if(result){
 						data = result.data;
 						//2020-08-06 배달완료리스트 역순정렬
-						if(page.order == "02"){
+						if(page.order === "02"){
 							data.list.reverse();
 						}
 					}
 
 					// 핸들바 템플릿 가져오기
-					var source = $("#cldl0701_list_template").html();
+					const source = $("#cldl0701_list_template").html();
 
 					// 핸들바 템플릿 컴파일
-					var template = Handlebars.compile(source);
+					const template = Handlebars.compile(source);
 
 					// 핸들바 템플릿에 데이터를 바인딩해서 HTML 생성
-					var liHtml = template(data);
+					const liHtml = template(data);
 
 					// 생성된 HTML을 DOM에 주입
 					$('#cldl0701LstUl').html(liHtml);
@@ -587,7 +583,7 @@ var page = {
 		com0701Callback : function(res){
 			if(!smutil.isEmpty(res.param.code) && !smutil.isEmpty(res.param.name)){
 				//심야배송 선택했을경우 시간체크
-				if(res.param.code == 42){
+				if(res.param.code === "42"){
 					if(!smutil.isMidnight()){
 						LEMP.Window.alert({
 							"_sTitle":"미배달 사유 선택 오류",
@@ -651,7 +647,7 @@ var page = {
 			page.apiParamInit();			// 파라메터 전역변수 초기화
 
 			// api 전송 성공
-			if (smutil.apiResValidChk(result) && result.code == "0000") {
+			if (smutil.apiResValidChk(result) && result.code === "0000") {
 				LEMP.Window.toast({
 					"_sMessage": "미배달 처리가 완료되었습니다.",
 					"_sDuration": "short"
@@ -662,22 +658,43 @@ var page = {
 		},
 		// ################### 미배달 처리 end
 
+		// 스캔된후 호출되는 함수
+		scanCallback : function(result){
+			let isChecked = false;
+			let liLst = $('.baedalListBox > ul > li');
+
+			// 모든 li 리스트를 돌면서 스캔한 바코드와 일치하는 운송장을 체크
+			$.each(liLst, function(idx, liObj){
+				if($(liObj).attr('id') === result.barcode){
+					$('#'+result.barcode+'_chk').prop("checked",true);
+					isChecked = true;
+					smutil.callTTS("1", "0", null, result.isBackground);
+					return false;
+				}
+			});
+
+			// 스캔한 바콛가 리스트에 없을경우 실패사운드
+			if(!isChecked){
+				smutil.callTTS("0", "0", null, result.isBackground);
+			}
+		},
+
 		// 상단 전체카운트 표시
 		showTotalCount : function (count){
-			let data = {"list" : [{
+			const data = {"list" : [{
 					"cldl_tmsl_nm": "전체",
 					"cldl_tmsl_cd": "19",
 					"tmsl_dlv_cnt" : count
 				}]};
 
 			// 핸들바 템플릿 가져오기
-			let source = $("#cldl0701_timeLst_template").html();
+			const source = $("#cldl0701_timeLst_template").html();
 
 			// 핸들바 템플릿 컴파일
-			let template = Handlebars.compile(source);
+			const template = Handlebars.compile(source);
 
 			// 핸들바 템플릿에 데이터를 바인딩해서 HTML 생성
-			let liHtml = template(data);
+			const liHtml = template(data);
 
 			// 생성된 HTML을 DOM에 주입
 			$('#cmptTmListUl').html(liHtml);
@@ -686,11 +703,10 @@ var page = {
 			$(".divisionBox .selectBox").touchFlow();
 
 			// 현제 어느 시간데를 선택했는지 검사
-			let timeLstLi = $("li[name='timeLstLi']");
+			const timeLstLi = $("li[name='timeLstLi']");
 
 			_.forEach(timeLstLi, function(obj, key) {
 				$(obj).addClass('on');
-
 				// 선택한 시간구간 등록
 				page.selectedSchTime = $(obj).data('timeLi')+"";
 				// 한번만 셋팅하고 바로 루프 나감
