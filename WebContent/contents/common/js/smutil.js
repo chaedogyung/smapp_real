@@ -1147,7 +1147,7 @@ var smutil = (function(window, document, $) {
 	let isMidnight = function() {
 		let currentDate = new Date();
 		let compareDate = new Date();
-		compareDate.setHours(20, 30, 0,0);
+		compareDate.setHours(10, 30, 0,0);
 		return currentDate.getTime() > compareDate.getTime();
 	};
 
