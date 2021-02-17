@@ -1394,88 +1394,88 @@ var page = {
 
 
 		// ################### 집하완료 전송 start
-		cmptTrsm : function(){
-			page.apiParamInit();			// 파라메터 전역변수 초기화
-
-			var _this = this;
-			var cldl_sct_cd = "P";							// 업무구분 (집하 : P)
-			var cldl_tmsl_cd = _this.returnTimeCd();		// 시간구분코드
-			var pick_sct_cd = _this.returnTabSctCd();		// (일반집하 : G, 전산집하 : C)
-			var base_ymd = $('#cldlBtnCal').text();			// 기준일자
-
-			if(smutil.isEmpty(base_ymd)){
-				LEMP.Window.alert({
-					"_sTitle":"집하 전송 오류",
-					"_vMessage":"날짜를 선택해 주세요.",
-				});
-
-				return ;
-			}
-
-			base_ymd = base_ymd.split('.').join('');
-
-			if(!smutil.isEmpty(cldl_sct_cd)
-					&& !smutil.isEmpty(cldl_tmsl_cd)){
-				_this.apiParamInit();		// 파라메터 전역변수 초기화
-				_this.apiParam.param.baseUrl = "smapis/cldl/cmptTrsm";			// api no
-				_this.apiParam.param.callback = "page.cmptTrsmCallback";		// callback methode
-
-				// 일반집하
-				if(pick_sct_cd == "G"){
-					_this.apiParam.data = {						// api 통신용 파라메터
-						"parameters" : {
-							"cldl_sct_cd" : cldl_sct_cd								// 업무구분
-							, "cldl_tmsl_cd" : cdl_tmsl_cd							// 시간대구분
-							, "pick_sct_cd" : pick_sct_cd
-							, "base_ymd" : base_ymd									// 기준일자
-						}
-					};
-				}
-				else if(pick_sct_cd == "C"){		// 전산집하
-					_this.apiParam.data = {						// api 통신용 파라메터
-						"parameters" : {
-							"cldl_sct_cd" : cldl_sct_cd								// 업무구분
-							//, "cldl_tmsl_cd" : cdl_tmsl_cd							// 시간대구분
-							, "pick_sct_cd" : pick_sct_cd
-							, "base_ymd" : base_ymd									// 기준일자
-						}
-					};
-				}
-
-
-
-				smutil.loadingOn();				// 로딩바 on
-
-				// 공통 api호출 함수
-				smutil.callApi(_this.apiParam);
-			}
-
-		},
+		// cmptTrsm : function(){
+		// 	page.apiParamInit();			// 파라메터 전역변수 초기화
+		//
+		// 	var _this = this;
+		// 	var cldl_sct_cd = "P";							// 업무구분 (집하 : P)
+		// 	var cldl_tmsl_cd = _this.returnTimeCd();		// 시간구분코드
+		// 	var pick_sct_cd = _this.returnTabSctCd();		// (일반집하 : G, 전산집하 : C)
+		// 	var base_ymd = $('#cldlBtnCal').text();			// 기준일자
+		//
+		// 	if(smutil.isEmpty(base_ymd)){
+		// 		LEMP.Window.alert({
+		// 			"_sTitle":"집하 전송 오류",
+		// 			"_vMessage":"날짜를 선택해 주세요.",
+		// 		});
+		//
+		// 		return ;
+		// 	}
+		//
+		// 	base_ymd = base_ymd.split('.').join('');
+		//
+		// 	if(!smutil.isEmpty(cldl_sct_cd)
+		// 			&& !smutil.isEmpty(cldl_tmsl_cd)){
+		// 		_this.apiParamInit();		// 파라메터 전역변수 초기화
+		// 		_this.apiParam.param.baseUrl = "smapis/cldl/cmptTrsm";			// api no
+		// 		_this.apiParam.param.callback = "page.cmptTrsmCallback";		// callback methode
+		//
+		// 		// 일반집하
+		// 		if(pick_sct_cd == "G"){
+		// 			_this.apiParam.data = {						// api 통신용 파라메터
+		// 				"parameters" : {
+		// 					"cldl_sct_cd" : cldl_sct_cd								// 업무구분
+		// 					, "cldl_tmsl_cd" : cdl_tmsl_cd							// 시간대구분
+		// 					, "pick_sct_cd" : pick_sct_cd
+		// 					, "base_ymd" : base_ymd									// 기준일자
+		// 				}
+		// 			};
+		// 		}
+		// 		else if(pick_sct_cd == "C"){		// 전산집하
+		// 			_this.apiParam.data = {						// api 통신용 파라메터
+		// 				"parameters" : {
+		// 					"cldl_sct_cd" : cldl_sct_cd								// 업무구분
+		// 					//, "cldl_tmsl_cd" : cdl_tmsl_cd							// 시간대구분
+		// 					, "pick_sct_cd" : pick_sct_cd
+		// 					, "base_ymd" : base_ymd									// 기준일자
+		// 				}
+		// 			};
+		// 		}
+		//
+		//
+		//
+		// 		smutil.loadingOn();				// 로딩바 on
+		//
+		// 		// 공통 api호출 함수
+		// 		smutil.callApi(_this.apiParam);
+		// 	}
+		//
+		// },
 
 
 		// 집하완료전송 콜백
-		cmptTrsmCallback : function(result){
-			var _this = this;
-
-			try{
-
-				// api 전송 성공
-				if(smutil.apiResValidChk(result) && result.code == "0000"){
-					LEMP.Window.toast({
-						"_sMessage" : "집하완료를 전송하였습니다.",
-						"_sDuration" : "short"
-					});
-
-					page.listReLoad();					// 리스트 제조회
-				}
-
-			}
-			catch(e){}
-			finally{
-				smutil.loadingOff();			// 로딩바 닫기
-				page.apiParamInit();			// 파라메터 전역변수 초기화
-			}
-		},
+		// cmptTrsmCallback : function(result){
+		// 	var _this = this;
+		//
+		// 	try{
+		//
+		// 		// api 전송 성공
+		// 		if(smutil.apiResValidChk(result) && result.code == "0000"){
+		// 			LEMP.Window.toast({
+		// 				"_sMessage" : "집하완료를 전송하였습니다.",
+		// 				"_sDuration" : "short"
+		// 			});
+		//
+		// 			page.listReLoad();					// 리스트 제조회
+		// 		}
+		//
+		// 	}
+		// 	catch(e){}
+		// 	finally{
+		// 		smutil.loadingOff();			// 로딩바 닫기
+		// 		page.apiParamInit();			// 파라메터 전역변수 초기화
+		// 	}
+		// },
 		// ################### 집하완료전송(전송) end
 
 
@@ -2201,7 +2201,7 @@ var page = {
 					if(!smutil.isEmpty(rsn_cont)){
 						rsn_cont = rsn_cont.split('.').join('');
 					}
-					
+
 					// 이미지 있을경우
 					if(!smutil.isEmpty(filepath)){
 						page.apiParam.id = "HTTPFILE";
@@ -2227,7 +2227,7 @@ var page = {
 
 					// 공통 api호출 함수
 					smutil.callApi(page.apiParam);
-					
+
 					//미집하 확인창 삭제(2020.05.19)
 //					var btnCancel = LEMP.Window.createElement({ _sElementName:"TextButton" });
 //					btnCancel.setProperty({
@@ -2310,7 +2310,7 @@ var page = {
 					"_sMessage" : "미집하 처리가 완료되었습니다.",
 					"_sDuration" : "short"
 				});
-				
+
 
 				page.listReLoad();				// 리스트 제조회
 			}
@@ -2340,6 +2340,9 @@ var page = {
 			var cldl_sct_cd = "P";							// 업무구분
 			var cldl_tmsl_cd = page.returnTimeCd();			// 예정시간코드
 			var pick_sct_cd = _this.returnTabSctCd();
+			var base_ymd = $('#cldlBtnCal').text();			// 기준일자
+
+			base_ymd = base_ymd.split('.').join('');
 
 			if((pick_sct_cd == "G" && !smutil.isEmpty(cldl_tmsl_cd))
 					|| pick_sct_cd == "C"){
@@ -2360,6 +2363,7 @@ var page = {
 							"cldl_sct_cd" : cldl_sct_cd			// 업무구분
 							, "pick_sct_cd" : pick_sct_cd		// 일반집하, 전산집하 구분코드
 							, "cldl_tmsl_cd" : cldl_tmsl_cd		// 예정시간 구분코드
+							, "base_ymd" : base_ymd
 						}
 					};
 
