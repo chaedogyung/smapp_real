@@ -44,8 +44,7 @@ var page = {
 
 		// 닫기버튼 이벤트 등록
 		$(".btn.closeW.paR").click(function() {
-			LEMP.Window.close();
-			// page.callbackBackButton();
+			page.callbackBackButton();
 		});
 	},
 
