@@ -21,7 +21,7 @@ var page = {
 		page.initInterface();
 		page.getUseStatus();
 	},
-	
+
 	initInterface : function(){
 		$('#req_date').text(smutil.getToday()); 		// 신청일자 세팅
 		var loginId = LEMP.Properties.get({
@@ -44,7 +44,8 @@ var page = {
 
 		// 닫기버튼 이벤트 등록
 		$(".btn.closeW.paR").click(function() {
-			page.callbackBackButton();
+			LEMP.Window.close();
+			// page.callbackBackButton();
 		});
 	},
 

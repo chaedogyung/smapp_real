@@ -1,4 +1,4 @@
-// LEMP.addEvent("backbutton", "page.callbackBackButton");		// 뒤로가기 버튼 클릭시 이벤트
+LEMP.addEvent("backbutton", "page.callbackBackButton");		// 뒤로가기 버튼 클릭시 이벤트
 var page = {
 		cldl0701 :{},				// 전달받은 파라메터
 		selectedSchTime : null,		// 선택한 시간구분값
@@ -6,6 +6,7 @@ var page = {
 		dlay_rsn_cd : null,			// 미배달 사유 등록코드
 		param_list : [],			// 미배달 전송할 송장 리스트
 		order : "01",				// 배달완료 정렬방식
+		isPop : false,
 
 		// api 호출 기본 형식
 		apiParam : {
@@ -24,17 +25,22 @@ var page = {
 
 		init : function(arg)
 		{
-			//이전메뉴 확인
+			//팝업에서 들어왔을경우
 			if(!smutil.isEmpty(arg.data.param)){
 				page.cldl0701 = arg.data.param;
-				//팝업에서 들어왔을경우 미배달 사유(심야배송) 자동설정
-				if(page.cldl0701.menu_id === "pop"){
+				//미배달 사유(심야배송) 자동설정
+				if(page.cldl0701.typ_cd === "pop"){
 					let code = "42";
 					let name = "심야배송으로 인한 익일배송"
 					$('#bdCancelTxt').val(name);			// 미배달 사유 text
 					$('#bdCancelCode').val(code);			// 미배달 사유 code
 					$('.bdCancelTxtView').text(name);		// 미배달 사유 text
 					page.dlay_rsn_cd = code;				// 미배달 사유 등록코드
+
+					//상단버튼 숨김처리
+					$('.back').remove();
+					$('.barcode').remove();
+					page.isPop = true;
 				}
 			}
 
@@ -88,35 +94,37 @@ var page = {
 				page.listReLoad();					// 리스트 제조회
 			});
 
-			// 송장번호 누른경우 (상세보기 연결)
-			$(document).on('click', '.invNoSpan', function(event){
-				if ($(event.target).parents('li').length > 0) {
+			// 송장번호 누른경우 (상세보기 연결) 팝업으로 들어오지 않았을경우만 등록
+			if(!page.isPop){
+				$(document).on('click', '.invNoSpan', function(event){
+					if ($(event.target).parents('li').length > 0) {
 
-					let liElement = $(event.target);
-					$('.baedalBox').removeClass('bg-v2');									// 다른 row 선택초기화
-					liElement.parents('.baedalBox').addClass('bg-v2');						// row 선택 표시
-					const sctCd = liElement.parents('li').data('liSctCd');					// 업무 구분
+						let liElement = $(event.target);
+						$('.baedalBox').removeClass('bg-v2');									// 다른 row 선택초기화
+						liElement.parents('.baedalBox').addClass('bg-v2');						// row 선택 표시
+						const sctCd = liElement.parents('li').data('liSctCd');					// 업무 구분
 
-					if(!smutil.isEmpty(sctCd)){
+						if(!smutil.isEmpty(sctCd)){
 
-						const inv_no = liElement.parents('li').data('invNo')+"";				// 송장번호
-						const rsrv_mgr_no = liElement.parents('li').data('rsrvMgrNo')+"";		// 접수번호
+							const inv_no = liElement.parents('li').data('invNo')+"";				// 송장번호
+							const rsrv_mgr_no = liElement.parents('li').data('rsrvMgrNo')+"";		// 접수번호
 
-						// 팝업 url 호출
-						const popUrl = smutil.getMenuProp('CLDL.CLDL0404', 'url');
+							// 팝업 url 호출
+							const popUrl = smutil.getMenuProp('CLDL.CLDL0404', 'url');
 
-						LEMP.Window.open({
-							"_sPagePath":popUrl,
-							"_oMessage" : {
-								"param" : {
-									"inv_no" : inv_no+"",
-									"rsrv_mgr_no" : rsrv_mgr_no
+							LEMP.Window.open({
+								"_sPagePath":popUrl,
+								"_oMessage" : {
+									"param" : {
+										"inv_no" : inv_no+"",
+										"rsrv_mgr_no" : rsrv_mgr_no
+									}
 								}
-							}
-						});
+							});
+						}
 					}
-				}
-			});
+				});
+			}
 
 			// 미배달 설정 버튼 클릭
 			$(document).on('click', '.bdCancel', function(){
@@ -182,6 +190,21 @@ var page = {
 			$('#rsnRgstYesBtn').click(function(){
 				// 미배달 전송
 				page.sendRsnRgstTxt();
+			});
+
+			// 종료팝업 > 긴급사용 신청 버튼 클릭
+			$('#notDeliveryYesBtn').click(function(){
+				const popUrl = smutil.getMenuProp("COM.COM1201","url");
+				LEMP.Window.replace({
+					"_sPagePath":popUrl
+				});
+			});
+
+			// 종료팝업 > 종료 버튼 클릭
+			$('#notDeliveryNoBtn').click(function(){
+				LEMP.App.exit({
+					_sType : "kill"
+				});
 			});
 
 			//헬퍼등록
@@ -771,5 +794,19 @@ var page = {
 
 		},
 
+		// 물리적 뒤로가기 버튼 클릭시
+		callbackBackButton : function(){
+			if(page.isPop){
+				if($('.mpopBox.pop').is(':visible')){
+					$('.mpopBox.pop').bPopup().close();
+					return;
+				}else{
+					$('.mpopBox.pop').bPopup();
+					return;
+				}
+			}else{
+				LEMP.Window.close();
+			}
+		}
 };
 
