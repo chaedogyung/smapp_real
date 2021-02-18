@@ -32,10 +32,10 @@ var page = {
 	},
 	emp : function(){
 		smutil.loadingOn();
-		
+
 		page.apiParam.param.baseUrl="smapis/cmn/emp";
 		page.apiParam.param.callback="page.empCallback";
-		
+
 		smutil.callApi(page.apiParam);
 	},
 	empCallback:function(res){
@@ -67,7 +67,7 @@ var page = {
 			LEMP.Window.openCodeReader({
 				"_fCallback" : function(res) {
 					if(res.result){
-						if(String(res.data).length == 12 && (Number(String((res.data)).substr(0,11))%7 ==								
+						if(String(res.data).length == 12 && (Number(String((res.data)).substr(0,11))%7 ==
 									Number(String((res.data)).substr(0,11))%7)){
 							page.changeForm(res.data);
 							page.trclInfo(res.data);
@@ -86,7 +86,7 @@ var page = {
 				}
 			});
 		});
-		
+
 		//화물정보 click
 		$('#freInfo').click(function() {
 			if(smutil.isEmpty($('#inv_noNumber').val())){
@@ -112,15 +112,15 @@ var page = {
 				});
 			}
 		});
-		
-		
+
+
 		$(document).on("click",".btn.mobile",function(){
 			var pNum = $(this).parent().text().replace(/[^0-9\-]/g,"");
 			$(".popBody > .txt1").text(pNum);
 			$(".popBody > .txt1").attr("id",pNum);
 			$('.mpopBox.phone').bPopup();
 		})
-		
+
 		$("#callOk").click(function(){
 			LEMP.System.callTEL({
 				"_sNumber":$(".popBody > .txt1").attr("id")
@@ -145,7 +145,7 @@ var page = {
 			});
 			$('.mpopBox.sms').bPopup().close();
 		})
-		
+
 	},
 	//송장번호 입력후 전송
 	trclInfo : function(code) {
@@ -160,12 +160,12 @@ var page = {
 			}
 		};
 		smutil.callApi(_this.apiParam);
-		
+
 	},
 	// 숫자키패드 콜백
 	InputCallback : function(res) {
 		var code = res.inv_no;
-		
+
 		page.changeForm(code);
 		page.trclInfo(code);
 	},
@@ -176,9 +176,9 @@ var page = {
 				$(".tRed.fs11").css("display","none");
 				var list = res.data.list[0];
 				//주소가 있으면 기타주소까지 출력, 없으면 공백으로 출력(배달사원이 로그인한 사원과 동일할때)
-				
+
 				var keys = Object.keys(list);
-				
+
 				//null 값 공백으로 치환하는 반복문;
 				for (var i = 0; i < keys.length; i++) {
 					if (smutil.isEmpty($.trim(list[keys[i]]))) {
@@ -188,12 +188,12 @@ var page = {
 				for (var i = 0; i < keys.length; i++) {
 					var str = keys[i];
 					var val = list[str];
-					
+
 					// 데이터가 빈 내용으로 돌아올시 공백으로 처리
 					if (smutil.isEmpty($.trim(val))) {
 						val = "";
 					}
-					
+
 					/**
 					 * 데이터가 공백일시 아무것도 하지 않음 -> 공백일시 공백으로 입력
 					 * 데이터가 있을 시 자신의 점소코드가 배달이나 집하점소코드와 동일하다면 정상적으로 출력
@@ -205,7 +205,7 @@ var page = {
 							case "snper_htel":
 							case "acper_tel":
 							case "snper_tel":
-								if (page.pInfo.dlvsh_cd === list.dlvsh_cd 
+								if (page.pInfo.dlvsh_cd === list.dlvsh_cd
 										|| page.pInfo.dlvsh_cd === list.picsh_cd
 										|| page.pInfo.dlvsh_cd === list.dev_brsh_cd){
 									$("#"+keys[i]).text(val);
@@ -239,7 +239,7 @@ var page = {
 								page.pInfo[str]=val;
 								break;
 							case "acper_badr":
-								if (page.pInfo.dlvsh_cd === list.dlvsh_cd 
+								if (page.pInfo.dlvsh_cd === list.dlvsh_cd
 										|| page.pInfo.dlvsh_cd === list.picsh_cd
 										|| page.pInfo.dlvsh_cd === list.dev_brsh_cd){
 									val += " "+ list.acper_dadr+" "+list.acper_etc_adr;
@@ -248,7 +248,7 @@ var page = {
 								$("#"+keys[i]).text(val);
 								break;
 							case "snper_badr":
-								if (page.pInfo.dlvsh_cd === list.dlvsh_cd 
+								if (page.pInfo.dlvsh_cd === list.dlvsh_cd
 										|| page.pInfo.dlvsh_cd === list.picsh_cd
 										|| page.pInfo.dlvsh_cd === list.dev_brsh_cd){
 									val += " "+ list.snper_dadr+" "+list.snper_etc_adr;
@@ -258,7 +258,7 @@ var page = {
 								break;
 							case "acper_rdnm_adr":
 							case "acper_ldno_adr":
-								if (page.pInfo.dlvsh_cd === list.dlvsh_cd 
+								if (page.pInfo.dlvsh_cd === list.dlvsh_cd
 										|| page.pInfo.dlvsh_cd === list.picsh_cd
 										|| page.pInfo.dlvsh_cd === list.dev_brsh_cd){
 									val += " "+ list.acper_etc_adr;
@@ -268,7 +268,7 @@ var page = {
 								break;
 							case "snper_rdnm_adr":
 							case "snper_ldno_adr":
-								if (page.pInfo.dlvsh_cd === list.dlvsh_cd 
+								if (page.pInfo.dlvsh_cd === list.dlvsh_cd
 										|| page.pInfo.dlvsh_cd === list.picsh_cd
 										|| page.pInfo.dlvsh_cd === list.dev_brsh_cd){
 									val += " "+ list.snper_etc_adr;
@@ -277,8 +277,8 @@ var page = {
 								$("#"+keys[i]).text(val);
 								break;
 							case "img_path":
-								// 본인의 구역인 데이터를 조회중일때만 이미지 출력 
-								if (page.pInfo.dlvsh_cd === list.dlvsh_cd 
+								// 본인의 구역인 데이터를 조회중일때만 이미지 출력
+								if (page.pInfo.dlvsh_cd === list.dlvsh_cd
 										|| page.pInfo.dlvsh_cd === list.picsh_cd
 										|| page.pInfo.dlvsh_cd === list.dev_brsh_cd){
 									$("#FRE0301_img").attr("src",list.img_path);
@@ -293,7 +293,7 @@ var page = {
 							case "acpt_per_nm":
 								// 본인의 구역이 아닌 데이터를 조회중 이름이 3글자 일때 2,3번째 글자를 * 처리
 								// 본인의 구역이 아닌 데이터를 조회중 이름이 4글자 이상일때 첫번째와 마지막 글자 제외하고 * 처리
-								if(page.pInfo.dlvsh_cd !== list.dlvsh_cd 
+								if(page.pInfo.dlvsh_cd !== list.dlvsh_cd
 										&& page.pInfo.dlvsh_cd !== list.picsh_cd
 										&& page.pInfo.dlvsh_cd !== list.dev_brsh_cd){
 									if (val.length <= 3) {
@@ -304,9 +304,16 @@ var page = {
 	//									val = val.LPLeftSubstr(val.length-1).replace(/(?<=.{1})./gi,"*") + val.LPRightSubstr(1);
 									}
 								}
-									
+
 								$("#"+keys[i]).text(val);
 								page.pInfo[str]=val;
+								break;
+							case "fare":
+								if(list["pay_con_cd"] === "신용" && !smutil.isEmpty(list["fare03"])){
+									$("#"+keys[i]).text(list["fare03"]);
+									break;
+								}
+								$("#"+keys[i]).text(val);
 								break;
 							default:
 								$("#"+keys[i]).text(val);
@@ -327,7 +334,7 @@ var page = {
 		finally{
 			smutil.loadingOff();
 		}
-		
+
 	},
 	scanCallback : function(data){
 		if((data.barcode.length == 12)&&
@@ -340,7 +347,7 @@ var page = {
 				"_vMessage" : "정상적인 바코드번호가 아닙니다."
 			});
 		}
-		
+
 	},
 	changeForm : function(code){
 		$("#inv_noNumber").val(code.replace(/^(\d{4})(\d{4})(\d{4})$/,"$1-$2-$3"));
