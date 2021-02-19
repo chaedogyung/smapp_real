@@ -310,10 +310,10 @@ var page = {
 								break;
 							case "fare":
 								if(list["pay_con_cd"] === "신용" && !smutil.isEmpty(list["fare03"])){
-									$("#"+keys[i]).text(list["fare03"]);
+									$("#" + keys[i]).text((list["fare03"] + "").LPToCommaNumber() + "원");
 									break;
 								}
-								$("#"+keys[i]).text(val);
+								$("#"+keys[i]).text((val+"").LPToCommaNumber()+"원");
 								break;
 							default:
 								$("#"+keys[i]).text(val);
