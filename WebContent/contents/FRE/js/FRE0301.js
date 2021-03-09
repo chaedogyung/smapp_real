@@ -32,10 +32,9 @@ var page = {
 				//상단버튼 숨김처리
 				$('.back').remove();
 				page.isPop = true;
-				return;
 			}
 		}
-		if (!smutil.isEmpty(args.data.param)) {
+		if (!smutil.isEmpty(args.data.param.inv_no)) {
 			$("#inv_noNumber").data("menuId",args.data.param.menuId);
 			page.changeForm(args.data.param.inv_no+"");
 			page.trclInfo(args.data.param.inv_no);
