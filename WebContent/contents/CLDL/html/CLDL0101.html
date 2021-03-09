@@ -180,9 +180,9 @@
 		{{#each list}}
 		<li id="{{cldl_sct_cd}}_{{returnKey key}}" class='row-four cldlSctCd_{{cldl_sct_cd}}' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}'>
 			{{#cldlSctCdChk}}		{{!-- 집하와 배달을 구분해주는 helper sctCd --}}
-			<div class="baedalBox {{scanYnClass scanYn}} jibBox noChk" data-scn-inv-no='{{inv_no}}'>
+			<div class="baedalBox {{scanYnClass scanYn}} jibBox noChk {{base_ymd base_ymd}}" data-scn-inv-no='{{inv_no}}'>
 			{{else}}
-			<div class="baedalBox {{scanYnClass scanYn}} baeBox noChk" data-scn-inv-no='{{inv_no}}'>
+			<div class="baedalBox {{scanYnClass scanYn}} baeBox noChk {{base_ymd base_ymd}}" data-scn-inv-no='{{inv_no}}' >
 			{{/cldlSctCdChk}}
 				<div class="thumb">
 					<span class="{{corpLogoReturn corplogo}}"></span>
