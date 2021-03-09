@@ -1,4 +1,6 @@
+LEMP.addEvent("backbutton", "page.callbackBackButton");		// 뒤로가기 버튼 클릭시 이벤트
 var page = {
+	isPop : false, //심야 팝업여부
 	pInfo :{},
 	apiParam : {
 		id : "HTTP", // 디바이스 콜 id
@@ -24,6 +26,15 @@ var page = {
 	init : function(args) {
 		page.initInterface();
 		page.emp();
+		//팝업에서 들어왔을경우
+		if(!smutil.isEmpty(args.data.param)){
+			if(args.data.param.typ_cd === "pop"){
+				//상단버튼 숨김처리
+				$('.back').remove();
+				page.isPop = true;
+				return;
+			}
+		}
 		if (!smutil.isEmpty(args.data.param)) {
 			$("#inv_noNumber").data("menuId",args.data.param.menuId);
 			page.changeForm(args.data.param.inv_no+"");
@@ -145,7 +156,20 @@ var page = {
 			});
 			$('.mpopBox.sms').bPopup().close();
 		})
+		// 종료팝업 > 긴급사용 신청 버튼 클릭
+		$('#notDeliveryYesBtn').click(function(){
+			const popUrl = smutil.getMenuProp("COM.COM1201","url");
+			LEMP.Window.replace({
+				"_sPagePath":popUrl
+			});
+		});
 
+		// 종료팝업 > 종료 버튼 클릭
+		$('#notDeliveryNoBtn').click(function(){
+			LEMP.App.exit({
+				_sType : "kill"
+			});
+		});
 	},
 	//송장번호 입력후 전송
 	trclInfo : function(code) {
@@ -352,5 +376,20 @@ var page = {
 	changeForm : function(code){
 		$("#inv_noNumber").val(code.replace(/^(\d{4})(\d{4})(\d{4})$/,"$1-$2-$3"));
 		page.pInfo.inv_no =$("#inv_noNumber").val();
+	},
+
+	// 물리적 뒤로가기 버튼 클릭시
+	callbackBackButton : function(){
+		if(page.isPop){
+			if($('.mpopBox.pop').is(':visible')){
+				$('.mpopBox.pop').bPopup().close();
+				return;
+			}else{
+				$('.mpopBox.pop').bPopup();
+				return;
+			}
+		}else{
+			LEMP.Window.close();
+		}
 	}
 };
