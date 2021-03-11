@@ -78,8 +78,9 @@ var menuJsonJs =
 		"CLDL0407":{"menuTxt" : "전화번호 변경 팝업", "parentMenuCd" : null, "menuDept" : 2, "url" : "CLDL/html/CLDL0407.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"CLDL0410":{"menuTxt" : "배달완료 사진촬영", "parentMenuCd" : null, "menuDept" : 2, "url" : "CLDL/html/CLDL0410.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"CLDL0601":{"menuTxt" : "사진전송", "parentMenuCd" : null, "menuDept" : 1, "url" : "CLDL/html/CLDL0601.html", "mainImgSrc" : "../../common/img/icon-fa3.png", "gnbImgClass" : ""},
-		// "CLDL0701":{"menuTxt" : "골프백 집하 사진전송", "parentMenuCd" : null, "menuDept" : 1, "url" : "CLDL/html/CLDL0701.html", "mainImgSrc" : "../../common/img/icon-fa3.png", "gnbImgClass" : ""},
+		"CLDL0701":{"menuTxt" : "미배달사유 일괄등록", "parentMenuCd" : null, "menuDept" : 1, "url" : "CLDL/html/CLDL0701.html", "mainImgSrc" : "../../common/img/icon-fa3.png", "gnbImgClass" : ""},
 		// "CLDL0801":{"menuTxt" : "사진전송실패", "parentMenuCd" : null, "menuDept" : 1, "url" : "CLDL/html/CLDL0801.html", "mainImgSrc" : "../../common/img/icon-fa3.png", "gnbImgClass" : ""},
+		// "CLDL0901":{"menuTxt" : "임시테스트", "parentMenuCd" : null, "menuDept" : 1, "url" : "CLDL/html/CLDL0901.html", "mainImgSrc" : "../../common/img/icon-fa3.png", "gnbImgClass" : ""},
 		"CLDL0501":{"menuTxt" : "집배달현황", "parentMenuCd" : null, "menuDept" : 1, "url" : "CLDL/html/CLDL0501.html", "mainImgSrc" : "../../common/img/icon-fa20.png", "gnbImgClass" : ""},
 		"CLDL0502":{"menuTxt" : "집하완료현황", "parentMenuCd" : null, "menuDept" : 2, "url" : "CLDL/html/CLDL0502.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"CLDL0503":{"menuTxt" : "배달완료현황", "parentMenuCd" : null, "menuDept" : 2, "url" : "CLDL/html/CLDL0503.html", "mainImgSrc" : "", "gnbImgClass" : ""},
@@ -102,7 +103,7 @@ var menuJsonJs =
 		"PID0302":{"menuTxt" : "스마일픽업", "parentMenuCd" : null, "menuDept" : 2, "url" : "PID/html/PID0302.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"PID0303":{"menuTxt" : "SM변경", "parentMenuCd" : null, "menuDept" : 2, "url" : "PID/html/PID0303.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"PID0401":{"menuTxt" : "바로반품", "parentMenuCd" : null, "menuDept" : 1, "url" : "PID/html/PID0401.html", "mainImgSrc" : "../../common/img/icon-fa9.png", "gnbImgClass" : ""},
-		"PID0402":{"menuTxt" : "바로반품 상세정보", "parentMenuCd" : null, "menuDept" : 2, "url" : "PID/html/PID0402.html", "mainImgSrc" : "", "gnbImgClass" : ""}
+		"PID0402":{"menuTxt" : "바로반품 상세정보", "parentMenuCd" : null, "menuDept" : 2, "url" : "PID/html/PID0402.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		// 스캔 출력 개발 추 후 진행 예정
 		// "PID0501":{"menuTxt" : "스캔출력", "parentMenuCd" : null, "menuDept" : 1, "url" : "PID/html/PID0501.html", "mainImgSrc" : "../../common/img/icon-fa27.png", "gnbImgClass" : ""}
 	},
@@ -174,6 +175,7 @@ var menuJsonJs =
 		"SET0301":{"menuTxt" : "인수자 편집", "parentMenuCd" : null, "menuDept" : 1, "url" : "SET/html/SET0301.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"SET0401":{"menuTxt" : "자동문자발송 미동의/동의", "parentMenuCd" : null, "menuDept" : 1, "url" : "SET/html/SET0401.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"SET0501":{"menuTxt" : "집배달 시간대역 편집", "parentMenuCd" : null, "menuDept" : 1, "url" : "SET/html/SET0501.html", "mainImgSrc" : "", "gnbImgClass" : ""},
+		// "SET0601":{"menuTxt" : "기타 설정", "parentMenuCd" : null, "menuDept" : 1, "url" : "SET/html/SET0601.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 	},
 	"MYP":{
 		"GNB":true,

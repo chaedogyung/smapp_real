@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-/************************************** 
+/**************************************
 ** 공통
 ***************************************/
 body{-webkit-text-size-adjust: none;}
@@ -11,9 +11,9 @@ body{-webkit-text-size-adjust: none;}
 #contents{overflow:hidden;}
 .intro{
 position:fixed; width:100%; height:100%; z-index:99999; background-color:#da291c;
-background-image:url('../../common/img/intro-top.png'),url('../../common/img/intro-logo.png'),url('../../common/img/intro-bottom.png'); 
+background-image:url('../../common/img/intro-top.png'),url('../../common/img/intro-logo.png'),url('../../common/img/intro-bottom.png');
 background-repeat:no-repeat;
-background-size:155px,220px,105px; 
+background-size:155px,220px,105px;
 background-position:100% 40px, 50% ,0 95%;
 }
 
@@ -65,7 +65,7 @@ background-position:100% 40px, 50% ,0 95%;
 /****  // 공통 //  ****/
 
 
-/************************************** 
+/**************************************
 ** headerSection
 ***************************************/
 .headerSection{overflow:hidden; position:relative;}
@@ -91,7 +91,7 @@ background-position:100% 40px, 50% ,0 95%;
 /****  // headerSection //  ****/
 
 
-/************************************** 
+/**************************************
 ** 파랑색 헤드 - topHead
 ***************************************/
 .topHead{background-color:#e9f1f6; padding:10px; box-sizing:border-box; font-size:12px; border-bottom:1px solid #e1e1e1; overflow:hidden;}
@@ -104,14 +104,14 @@ background-position:100% 40px, 50% ,0 95%;
 .topHeadInfo {
 	overflow: hidden;
 	clear:both;
-	border-top:1px solid #ccc;	
+	border-top:1px solid #ccc;
 	padding-top:5px;
 	text-align:center;
 }
 .topHeadInfo > li {
 	position: relative;
 	display:inline-block;
-	vertical-align: middle;	
+	vertical-align: middle;
 }
 .topHeadInfo > li:before {
 	content:"";
@@ -120,7 +120,7 @@ background-position:100% 40px, 50% ,0 95%;
 	width:1px;
 	height:10px;
 	margin:0 5px;
-	background: #ccc;	
+	background: #ccc;
 	transform:rotate(20deg);
 }
 .topHeadInfo > li:first-child:before {
@@ -128,7 +128,7 @@ background-position:100% 40px, 50% ,0 95%;
 }
 /******* // topHead // *******/
 
-/************************************** 
+/**************************************
 ** naviSection
 ***************************************/
 .gnbBox{overflow:hidden; background-color:#fff; height:100%; width:100%;/* position:fixed; top:0px; z-index:999999;*/ text-align:initial;}
@@ -169,7 +169,7 @@ background-position:100% 40px, 50% ,0 95%;
 /****  // naviSection //  ****/
 
 
-/************************************** 
+/**************************************
 ** contentSection
 ***************************************/
 /* 공통 */
@@ -237,7 +237,7 @@ background-position:100% 40px, 50% ,0 95%;
 
 .numListFluid li {width:100%; float:none;}
 .numListFluid li:nth-child(2n-1) p { margin-right:0; }
-.numListFluid li .phonNum {	
+.numListFluid li .phonNum {
 	vertical-align: top;
 	height:32px;
 	padding:0;
@@ -406,7 +406,7 @@ background-color:#b5b5b5; background-repeat:no-repeat; background-size:17px; bac
 
 /******* // contentSection // *******/
 
-/************************************** 
+/**************************************
 ** 주소 검색
 ***************************************/
 .selArea{margin-bottom:10px;}
@@ -430,7 +430,7 @@ background-color:#b5b5b5; background-repeat:no-repeat; background-size:17px; bac
 .addList.tp2 .addTxt i{color:#000; font-weight:600;}
 /******* // 주소검색 // *******/
 
-/************************************** 
+/**************************************
 ** 모달팝업
 ***************************************/
 /* 공통 */
@@ -468,7 +468,7 @@ background-color:#b5b5b5; background-repeat:no-repeat; background-size:17px; bac
 /******* // 모달팝업 // *******/
 
 
-/************************************** 
+/**************************************
 ** button & badge
 ***************************************/
 /* 공통 */
@@ -575,13 +575,13 @@ button:disabled{background-color:#b5b5b5; color:#dcdcdc;}
 /****  // button 디자인 //  ****/
 
 
-/************************************** 
+/**************************************
 ** 폼 스타일
 ***************************************/
 /* 라디오 */
-.radioBox {position: relative;} 
-.radioBox input[type="radio"] { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; } 
-.radioBox input[type="radio"] + label { display: inline-block; position: relative; padding-left: 27px; cursor: pointer; -webkit-touch-callout: none;-webkit-user-select: none;-khtml-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none; line-height:23px; font-size:14px;} 
+.radioBox {position: relative;}
+.radioBox input[type="radio"] { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }
+.radioBox input[type="radio"] + label { display: inline-block; position: relative; padding-left: 27px; cursor: pointer; -webkit-touch-callout: none;-webkit-user-select: none;-khtml-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none; line-height:23px; font-size:14px;}
 .radioBox label{background:url('../../common/img/radio-off.png') no-repeat 5px 4px; background-size:17px;}
 .radioBox input[type="radio"]:checked +  label{background:url('../../common/img/radio-on.png') no-repeat 5px 4px; background-size:17px;}
 
@@ -597,9 +597,9 @@ button:disabled{background-color:#b5b5b5; color:#dcdcdc;}
 }
 
 /* 체크박스 */
-.chkBox {position: relative;} 
-.chkBox input[type="checkbox"] { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; } 
-.chkBox input[type="checkbox"] + label { display: inline-block; position: relative; padding-left: 25px; cursor: pointer; -webkit-touch-callout: none;-webkit-user-select: none;-khtml-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none; line-height:25px; letter-spacing:-1px; vertical-align:middle;} 
+.chkBox {position: relative;}
+.chkBox input[type="checkbox"] { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }
+.chkBox input[type="checkbox"] + label { display: inline-block; position: relative; padding-left: 25px; cursor: pointer; -webkit-touch-callout: none;-webkit-user-select: none;-khtml-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none; line-height:25px; letter-spacing:-1px; vertical-align:middle;}
 .chkBox label{background:url('../../common/img/chk-off.png') no-repeat 0px 5px; background-size:20px;}
 .chkBox input[type="checkbox"]:checked +  label{background:url('../../common/img/chk-on.png') no-repeat 0px 5px; background-size:20px;}
 
@@ -612,11 +612,11 @@ button:disabled{background-color:#b5b5b5; color:#dcdcdc;}
 .chkBox.login input[type="checkbox"] + label {font-size:12px; padding-top:3px; padding-bottom:3px;}
 
 /* 스위치박스 */
-.switchBox {position: relative; overflow:hidden;} 
-.switchBox input[type="checkbox"] { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; } 
-.switchBox input[type="checkbox"] + label { display: inline-block; position: relative; padding-left: 40px; cursor: pointer; height:25px;} 
-.switchBox label{background:url('../../common/img/switch-off.png') no-repeat 0px 0px; background-size:38px;}
-.switchBox input[type="checkbox"]:checked +  label{background:url('../../common/img/switch-on2.png') no-repeat 0px 0px; background-size:40px;}
+.switchBox {position: relative; overflow:hidden;}
+.switchBox input[type="checkbox"] { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }
+.switchBox input[type="checkbox"] + label { display: inline-block; position: relative; padding-left: 40px; outline: none; height:25px;}
+.switchBox label{background:url('../../common/img/switch-off.png') no-repeat 0px 0px; background-size:38px; outline: none;}
+.switchBox input[type="checkbox"]:checked +  label{background:url('../../common/img/switch-on2.png') no-repeat 0px 0px; background-size:40px; outline: none;}
 
 /* 셀렉트 */
 .selBox{display:inline-block; }
@@ -632,7 +632,7 @@ button:disabled{background-color:#b5b5b5; color:#dcdcdc;}
 .inNum input[type="number"]{width:40px; border-left:none; border-right:none; padding:0px 5px;}
 
 /* 인풋 박스 */
-input::-webkit-outer-spin-button,  
+input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {-webkit-appearance: none;  margin: 0;}
 input[type='text'],
 input[type='number'],
@@ -660,8 +660,8 @@ input.inbdb2{border:none; border-bottom:1px solid #e1e1e1; height:35px; line-hei
 
 /* IOS */
 Input, textarea, select{
--webkit-border-radius:0; /* 모서리 스타일 제거 */ 
--webkit-appearance:none; /* 인풋내 그림자 제거 */ 
+-webkit-border-radius:0; /* 모서리 스타일 제거 */
+-webkit-appearance:none; /* 인풋내 그림자 제거 */
 }
 
 .inSearch{position:relative;}
@@ -670,7 +670,7 @@ Input, textarea, select{
 /****  // 폼스타일 //  ****/
 
 
-/************************************** 
+/**************************************
 **  달력 스타일
 ***************************************/
 #datepicker {width: 100%;height: 100%;font-size: 16px;text-align: center;}
@@ -697,7 +697,7 @@ Input, textarea, select{
 /******* // 달력 스타일 // *******/
 
 
-/************************************** 
+/**************************************
 ** ul 스타일
 ***************************************/
 ul.dotTp1 > li{background:url('../../common/img/dot.png') no-repeat 0px 50%; background-size:3.7px; padding-left:10px; font-size:11px;}
@@ -707,7 +707,7 @@ ul.li20 > li:first-child{padding-left:0px;} ul.li20 > li{padding-left:20px; floa
 ul.li30 > li:first-child{padding-left:0px;} ul.li30 > li{padding-left:30px; float:left;}
 /****  /ul 스타일 //  ****/
 
-/************************************** 
+/**************************************
 ** tableBox
 ***************************************/
 .tableBox table{width:100%;}
@@ -744,7 +744,7 @@ ul.li30 > li:first-child{padding-left:0px;} ul.li30 > li{padding-left:30px; floa
 	display:inline-block;
 }
 .pagination strong,
-.pagination button {	
+.pagination button {
 	vertical-align: middle;
 	padding:4px 12px;
 	border:0;
@@ -754,7 +754,7 @@ ul.li30 > li:first-child{padding-left:0px;} ul.li30 > li{padding-left:30px; floa
 }
 .pagination .current {
 	position:relative;
-	color:#3678c2;	
+	color:#3678c2;
 }
 .pagination .current:after {
 	content:"";
@@ -775,7 +775,7 @@ ul.li30 > li:first-child{padding-left:0px;} ul.li30 > li{padding-left:30px; floa
 	background:url('../../common/img/icon-prev.png') no-repeat 0 0;
 	background-size:30px;
 	font-size:0;
-	text-indent:-9999px;	
+	text-indent:-9999px;
 }
 .pagination .next {
 	overflow:hidden;
@@ -785,7 +785,7 @@ ul.li30 > li:first-child{padding-left:0px;} ul.li30 > li{padding-left:30px; floa
 	background:url('../../common/img/icon-next.png') no-repeat 0 0;
 	background-size:30px;
 	font-size:0;
-	text-indent:-9999px;	
+	text-indent:-9999px;
 }
 
 /* radio Content */
@@ -804,7 +804,7 @@ ul.li30 > li:first-child{padding-left:0px;} ul.li30 > li{padding-left:30px; floa
 }
 .radioContentMore {
 	display:block;
-	width:100%;	
+	width:100%;
 	padding:6px 0;
 	border:1px solid #dedede;
 	background-color:#fff;

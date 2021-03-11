@@ -1,7 +1,7 @@
 LEMP.addEvent("backbutton", "page.callbackBackButton");		// 뒤로가기 버튼 클릭시 이벤트
 
 var page = {
-
+		curDate:"",
 		// api 호출 기본 형식
 		apiParam : {
 			id:"HTTP",			// 디바이스 콜 id
@@ -21,6 +21,7 @@ var page = {
 		{
 			// 달력셋팅
 			var curDate = new Date();
+			page.curDate = curDate.getFullYear() + "" + ("0"+(curDate.getMonth()+1)).slice(-2) + "" + ("0"+curDate.getDate()).slice(-2);
 			curDate = curDate.getFullYear() + "." + ("0"+(curDate.getMonth()+1)).slice(-2) + "." + ("0"+curDate.getDate()).slice(-2);
 			$('#cldlBtnCal').text(curDate);
 
@@ -850,6 +851,15 @@ var page = {
 				else{	// 사고 아님
 					// options.inverse == else
 					return options.inverse(this);
+				}
+			});
+
+			// 기준날짜가 오늘이 아닌경우 배경색 변경
+			Handlebars.registerHelper('base_ymd', function(options) {
+				if(!smutil.isEmpty(this.base_ymd)){
+					if(this.base_ymd!=page.curDate){
+						return 'pink';
+					}
 				}
 			});
 
@@ -1831,7 +1841,16 @@ var page = {
 			var str;
 
 			if(!smutil.isEmpty(inv_no) && !smutil.isEmpty(dlay_rsn_cd)){
-
+				//심야배송 선택했을경우 시간체크
+				if(res.param.code == 42){
+					if(!smutil.isMidnight()){
+						LEMP.Window.alert({
+							"_sTitle":"미배달 사유 선택 오류",
+							"_vMessage":"심야배송으로 인한 익일배송은 20시 30분 이후에 선택 가능합니다."
+						});
+						return false;
+					}
+				}
 				page.rsnRgstCldlSctCd = cldl_sct_cd;
 
 				if(cldl_sct_cd == "P"){
