@@ -44,6 +44,7 @@ var page = {
 
 		// 닫기버튼 이벤트 등록
 		$(".btn.closeW.paR").click(function() {
+			// LEMP.Window.close();
 			page.callbackBackButton();
 		});
 	},
@@ -64,14 +65,14 @@ var page = {
 	getUseStatusCallback : function (res){
 		try{
 			if(smutil.apiResValidChk(res) && res.code === "0000"){
-				//신청횟수가 3일경우 비활성화
-				if(res.apv_cnt==="3"){
-					LEMP.Window.alert({
-						"_sTitle":"SM APP 긴급사용",
-						"_vMessage":'긴급사용 신청횟수(3회)를 모두 사용하였습니다.'
-					});
-					return;
-				}
+				// 신청횟수가 3일경우 비활성화(해당기능 삭제)
+				// if(res.apv_cnt==="3"){
+				// 	LEMP.Window.alert({
+				// 		"_sTitle":"SM APP 긴급사용",
+				// 		"_vMessage":'긴급사용 신청횟수(3회)를 모두 사용하였습니다.'
+				// 	});
+				// 	return;
+				// }
 
 				if(res.apv_yn ==="W"){
 					$('#pop2Txt2').html("긴급 사용 신청중입니다.<br> 승인이 완료될때 까지 기다려주세요");
@@ -120,7 +121,7 @@ var page = {
 		page.apiParam.param.callback = "page.reqUseCallback";
 		// page.apiParam.data.parameters.reqDate = smutil.getToday();			// PARAM: 신청일자
 		page.apiParam.data.parameters.empno = loginId;						// PARAM: 사원번호
-		page.apiParam.data.parameters.appTm = "2";			// PARAM: 신청시간
+		page.apiParam.data.parameters.appTm = "1";			// PARAM: 신청시간
 		smutil.callApi(page.apiParam);
 	},
 
