@@ -266,7 +266,7 @@ var page = {
 		try{
 			if (smutil.apiResValidChk(res) && res.code==="0000") {
 				//8시30분 이전인경우 심야배송(42) 노출하지 않음
-				if(page.com0701.typ_cd = "UDLV_RSN_CD" && !smutil.isMidnight()){
+				if(page.com0701.typ_cd === "UDLV_RSN_CD" && !smutil.isMidnight()){
 					const idx = res.data.list.findIndex(function(item) {return item.dtl_cd === "42"})
 					if (idx > -1) res.data.list.splice(idx, 1)
 				}
