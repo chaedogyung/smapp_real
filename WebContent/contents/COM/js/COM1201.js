@@ -32,7 +32,7 @@ var page = {
 		//긴급사용 신청버튼 클릭
 		$(document).on('click','#requestBtn', function(e){
 			// 긴급사용 신청 컴펌창 호출
-			$('#pop2Txt2').html("2시간"+'<br /> 긴급사용을 신청합니다.');
+			$('#pop2Txt2').html("1시간"+'<br /> 긴급사용을 신청합니다.');
 			$('.mpopBox.pop').bPopup();
 			$('.popFooter').show();
 		});
