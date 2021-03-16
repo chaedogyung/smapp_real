@@ -825,7 +825,9 @@ var page = {
 
 				//출력 할 배열이 남아있으면 함수 호출
 				if(prntDataArr.length > 0){
-					page.invPrnt();
+					setTimeout(function (){
+						page.invPrnt();
+					}, 2000);
 				}else{
 					page.listReLoad();
 				}
