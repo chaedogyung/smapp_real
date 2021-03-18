@@ -83,6 +83,12 @@
 .baedalListBox .btnBox{font-size:0; display:inline-block;}
 
 .baedalBox.pink{background-color: #FFEFEF;}
+
+/*=== 긴급사용 승인 리스트 - acceptListBox ===*/
+.appBox.baeBox{border-left:5px solid #f5a88c;}
+.acceptListBox > ul > li{overflow:hidden;  box-sizing:border-box; position:relative; height:60px; border-bottom:1px solid #f2f2f2;}
+.acceptListBox .chk{float:left; margin: 10px 10px 0 0; width:20px;  overflow:hidden;}
+.acceptListBox .appBox{overflow:hidden;background-color:#fff; padding: 5px 0 0 10px; box-sizing:border-box; position:relative; width:100%; height:60px; z-index:55;}
 /*
 .baedalListBox > ul > li.row-four { height: 90px; }
 .baedalListBox > ul > li.row-four .baedalBox {height:90px;}
