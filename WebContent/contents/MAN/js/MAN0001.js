@@ -561,6 +561,12 @@ var page = {
 				$('#tod_pick_rslt').text(res.tod_pick_rslt+"건");
 				$('#tod_dlv_rslt').text(res.tod_dlv_rslt+"건");
 				$('#tod_sum').text(Number(res.tod_pick_rslt)+Number(res.tod_dlv_rslt)+"건");
+
+				LEMP.Properties.set({
+					"_sKey" : "approval_yn",
+					"_vValue" : res.approval_yn
+				});
+				page.initCreateSideView();
 			}
 		}catch(e){}
 		finally{

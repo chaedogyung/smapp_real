@@ -37,6 +37,11 @@ var page = {
 					var subMenuObj = (menuJsonJs[menu_nm])[subMenuNm];
 					if((subMenuNm).startsWith(menu_nm)
 							&& subMenuObj.menuDept === 1){
+						if (subMenuNm === 'MYP0401'){
+							if(LEMP.Properties.get({"_sKey":"approval_yn"})!=="Y"){
+								continue;
+							}
+						}
 						subObj = {};
 						subObj.menuCode = subMenuNm;
 						subObj.menuTxt = subMenuObj.menuTxt;

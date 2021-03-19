@@ -148,6 +148,7 @@ var page = {
 				//apvyn 이 W 인경우만 표시
 				$.each(result.data.list, function(idx, liObj){
 					if(liObj.apvyn ==="W"){
+						liObj.apvyn = "승인대기중";
 						data.list.push(liObj);
 					}
 				});
