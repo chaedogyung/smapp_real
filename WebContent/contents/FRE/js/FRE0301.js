@@ -253,7 +253,7 @@ var page = {
 											break;
 										default:
 											if (array.length > 0) {
-												val=array[0]+"-"+array[1]+"-"+array[2].replace(/[0-9]/gi,"*");
+												val=array[0]+"-"+array[1].replace(/[0-9]/gi,"*")+"-"+array[2].replace(/[0-9]/gi,"*");
 											};
 											break;
 									}
@@ -266,6 +266,8 @@ var page = {
 										|| page.pInfo.dlvsh_cd === list.picsh_cd
 										|| page.pInfo.dlvsh_cd === list.dev_brsh_cd){
 									val += " "+ list.acper_dadr+" "+list.acper_etc_adr;
+								}else{
+									val = val.replace(/./gi,"*");
 								}
 								page.pInfo[str]=val;
 								$("#"+keys[i]).text(val);
@@ -275,6 +277,8 @@ var page = {
 										|| page.pInfo.dlvsh_cd === list.picsh_cd
 										|| page.pInfo.dlvsh_cd === list.dev_brsh_cd){
 									val += " "+ list.snper_dadr+" "+list.snper_etc_adr;
+								}else{
+									val = val.replace(/./gi,"*");
 								}
 								page.pInfo[str]=val;
 								$("#"+keys[i]).text(val);
@@ -285,6 +289,8 @@ var page = {
 										|| page.pInfo.dlvsh_cd === list.picsh_cd
 										|| page.pInfo.dlvsh_cd === list.dev_brsh_cd){
 									val += " "+ list.acper_etc_adr;
+								}else{
+									val = val.replace(/./gi,"*");
 								}
 								page.pInfo[str]=val;
 								$("#"+keys[i]).text(val);
@@ -295,6 +301,8 @@ var page = {
 										|| page.pInfo.dlvsh_cd === list.picsh_cd
 										|| page.pInfo.dlvsh_cd === list.dev_brsh_cd){
 									val += " "+ list.snper_etc_adr;
+								}else{
+									val = val.replace(/./gi,"*");
 								}
 								page.pInfo[str]=val;
 								$("#"+keys[i]).text(val);
