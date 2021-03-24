@@ -566,7 +566,7 @@ var page = {
 					"_sKey" : "approval_yn",
 					"_vValue" : res.approval_yn
 				});
-				page.initCreateSideView();
+				// page.initCreateSideView();
 			}
 		}catch(e){}
 		finally{
