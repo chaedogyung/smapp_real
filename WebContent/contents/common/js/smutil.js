@@ -1147,8 +1147,24 @@ var smutil = (function(window, document, $) {
 	let isMidnight = function() {
 		let currentDate = new Date();
 		let compareDate = new Date();
-		compareDate.setHours(20, 30, 0,0);
+		compareDate.setHours(10, 30, 0,0);
 		return currentDate.getTime() > compareDate.getTime();
+	};
+
+	/**
+	 * 12자리 숫자 송장번호 형식으로 변경하여 리턴
+	 */
+	let changeInvType = function(invNo) {
+		return invNo.replace(/([0-9]{4})([0-9]{4})([0-9]{4})/,"$1-$2-$3");
+	};
+
+	/**
+	 * YYYYMMDD를 받아서 현재날짜부터 기준일 이전인지 확인(20200911, 180)
+	 */
+	let isPassed = function(baseDate, period) {
+		let currentDate = new Date();
+		let compareDate = new Date(baseDate.substring(0,4), baseDate.substring(4,6)-1, baseDate.substring(6,8));
+		return (currentDate.getTime()-(60*60*24*1000*period)) > (compareDate.getTime());
 	};
 
 	// ######################### end function
@@ -1229,6 +1245,12 @@ var smutil = (function(window, document, $) {
 
 		// 심야배송 확인
 		isMidnight : isMidnight,
+
+		// 12자리숫자 송장번호 형식으로 변경
+		changeInvType : changeInvType,
+
+		// 기준날짜 이전인지 확인
+		isPassed: isPassed,
 
 	};
 

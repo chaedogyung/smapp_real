@@ -2,6 +2,7 @@ LEMP.addEvent("backbutton", "page.callbackBackButton");		// 뒤로가기 버튼 
 var page = {
 	isPop : false, //심야 팝업여부
 	pInfo :{},
+	isPassed : false,		//기준날짜가 180일 이전인지 확인(false 개인정보 표시, true 표시하지 않음)
 	apiParam : {
 		id : "HTTP", // 디바이스 콜 id
 		param : { // 디바이스가 알아야할 데이터
@@ -196,6 +197,8 @@ var page = {
 	trclInfoCallback : function(res) {
 		try{
 			if(smutil.apiResValidChk(res) && res.code === "0000" && res.data_count!=0){
+				//기준날짜가 현재날짜로부터 180일 이전인지 확인
+				page.isPassed = smutil.isPassed(res.data.list[0].dlv_ymd, 180);
 				$(".tRed.fs11").css("display","none");
 				var list = res.data.list[0];
 				//주소가 있으면 기타주소까지 출력, 없으면 공백으로 출력(배달사원이 로그인한 사원과 동일할때)
@@ -230,7 +233,8 @@ var page = {
 							case "snper_tel":
 								if (page.pInfo.dlvsh_cd === list.dlvsh_cd
 										|| page.pInfo.dlvsh_cd === list.picsh_cd
-										|| page.pInfo.dlvsh_cd === list.dev_brsh_cd){
+										|| page.pInfo.dlvsh_cd === list.dev_brsh_cd
+										&& page.isPassed === false){
 									$("#"+keys[i]).text(val);
 									$("#"+keys[i]).append("<button class='btn mobile'>전화번호</button>");
 									//휴대폰 번호일경우 문자버튼 추가
@@ -264,7 +268,8 @@ var page = {
 							case "acper_badr":
 								if (page.pInfo.dlvsh_cd === list.dlvsh_cd
 										|| page.pInfo.dlvsh_cd === list.picsh_cd
-										|| page.pInfo.dlvsh_cd === list.dev_brsh_cd){
+										|| page.pInfo.dlvsh_cd === list.dev_brsh_cd
+										&& page.isPassed === false){
 									val += " "+ list.acper_dadr+" "+list.acper_etc_adr;
 								}else{
 									val = val.replace(/./gi,"*");
@@ -275,7 +280,8 @@ var page = {
 							case "snper_badr":
 								if (page.pInfo.dlvsh_cd === list.dlvsh_cd
 										|| page.pInfo.dlvsh_cd === list.picsh_cd
-										|| page.pInfo.dlvsh_cd === list.dev_brsh_cd){
+										|| page.pInfo.dlvsh_cd === list.dev_brsh_cd
+										&& page.isPassed === false){
 									val += " "+ list.snper_dadr+" "+list.snper_etc_adr;
 								}else{
 									val = val.replace(/./gi,"*");
@@ -287,7 +293,8 @@ var page = {
 							case "acper_ldno_adr":
 								if (page.pInfo.dlvsh_cd === list.dlvsh_cd
 										|| page.pInfo.dlvsh_cd === list.picsh_cd
-										|| page.pInfo.dlvsh_cd === list.dev_brsh_cd){
+										|| page.pInfo.dlvsh_cd === list.dev_brsh_cd
+										&& page.isPassed === false){
 									val += " "+ list.acper_etc_adr;
 								}else{
 									val = val.replace(/./gi,"*");
@@ -299,7 +306,8 @@ var page = {
 							case "snper_ldno_adr":
 								if (page.pInfo.dlvsh_cd === list.dlvsh_cd
 										|| page.pInfo.dlvsh_cd === list.picsh_cd
-										|| page.pInfo.dlvsh_cd === list.dev_brsh_cd){
+										|| page.pInfo.dlvsh_cd === list.dev_brsh_cd
+										&& page.isPassed === false){
 									val += " "+ list.snper_etc_adr;
 								}else{
 									val = val.replace(/./gi,"*");
@@ -311,7 +319,8 @@ var page = {
 								// 본인의 구역인 데이터를 조회중일때만 이미지 출력
 								if (page.pInfo.dlvsh_cd === list.dlvsh_cd
 										|| page.pInfo.dlvsh_cd === list.picsh_cd
-										|| page.pInfo.dlvsh_cd === list.dev_brsh_cd){
+										|| page.pInfo.dlvsh_cd === list.dev_brsh_cd
+										&& page.isPassed === false){
 									$("#FRE0301_img").attr("src",list.img_path);
 									$("#FRE0301_img").closest("li").css("display","block");
 								}else {
@@ -326,7 +335,8 @@ var page = {
 								// 본인의 구역이 아닌 데이터를 조회중 이름이 4글자 이상일때 첫번째와 마지막 글자 제외하고 * 처리
 								if(page.pInfo.dlvsh_cd !== list.dlvsh_cd
 										&& page.pInfo.dlvsh_cd !== list.picsh_cd
-										&& page.pInfo.dlvsh_cd !== list.dev_brsh_cd){
+										&& page.pInfo.dlvsh_cd !== list.dev_brsh_cd
+										|| page.isPassed === true){
 									if (val.length <= 3) {
 										//val = val.replace(/(?<=.{1})./gi, "*");
 										val = val.LPLeftSubstr(1)+"**";
