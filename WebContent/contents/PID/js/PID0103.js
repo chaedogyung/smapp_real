@@ -1,11 +1,11 @@
 var page = {
-
+		
 		// api 호출 기본 형식
 		apiParam : {
 			id:"HTTP",						// 디바이스 콜 id
 			param:{							// 디바이스가 알아야할 데이터
 				task_id : "",				// 화면 ID 코드가 들어가기로함
-				//position : {},			// 사용여부 미확정
+				//position : {},			// 사용여부 미확정 
 				type : "",
 				baseUrl : "",
 				method : "POST",			// api 호출 형식(지정 안하면 'POST' 로 자동 셋팅)
@@ -20,21 +20,21 @@ var page = {
 		sum_fare_base_input : null,	// 최종기본운임(수정후)
 		air_fare : null,	// 항공운임
 		ship_fare : null,	// 도선료
-
+		
 		init:function()
 		{
 			page.initEvent();			// 페이지 이벤트 등록
 			page.initDpEvent();			// 화면 디스플레이 이벤트
 		},
-
+		
 		// 페이지 이벤트 등록
 		initEvent : function()
 		{
 			var _this = this;
-
+			
 			/* 최상단 탭 클릭 > 개인 택배 접수, 반품 접수*/
 			$(".tabBtn").click(function(){
-				var tab_cd = $(this).data('tabCd');		// 선택한 탭의 값 (rsrv, client, rtn)
+				var tab_cd = $(this).data('tabCd');		// 선택한 탭의 값 (rsrv,rtn)
 
 				var btnTab = $(".tabBtn");
 				var btnObj;
@@ -43,28 +43,28 @@ var page = {
 					var objTabCd = btnObj.data('tabCd');
 					if(tab_cd == objTabCd){
 						btnObj.closest('li').addClass( 'on' );
-						$("."+objTabCd+"Li").show();	//ex).rsrvLi, .clientLi.rtnLi
+						$("."+objTabCd+"Li").show();	//ex).rsrvLi,.rtnLi
 					}
 					else{
 						btnObj.closest('li').removeClass( 'on' );
 						$("."+objTabCd+"Li").hide();
 					}
 				});
-
+				
 			});
-
+			
 			/* 공통 > 휴대폰/회사번호 번호검색(하이픈'-' 자동입력) */
 			$(".autoHypenPhone").keyup(function(){
 				var phone = $(this).val();
 				phone = autoHypenPhone(phone);
 				$(this).val(phone);
 			});
-
+			
 			/* 공통 > 숫자만 입력 */
 			$(document).on('keypress', 'input.money', function(e){
 		        if(e.which && (e.which < 48 || e.which > 57) ) e.preventDefault();
 		    });
-
+			
 			/* 공통 > 화물가액은 최대 3,000,000원까지 입력 가능 */
 			$(document).on('keyup', '#rsrvArtcPrc', function(e){
 				var tmps = parseInt($(this).val().replace(/[^0-9]/g, '')) || 0;
@@ -76,47 +76,47 @@ var page = {
 				var numberToComma = String(tmps).LPToCommaNumber();
 				$(this).val(numberToComma);
 			});
-
+			
 			/* 공통 > 보내는 사람, 받는 사람 정보 저장*/
 			$("#rsrvSnperSave, #rsrvAcperSave, #rtnSnperSave").on('click', function(){
 				var id = $(this).attr("id");
-
+				
 				//접수 이벤트 실행시 saveInfo 클래스 하위에 있는 input은 초기화 되지 않음
 				if($(this).is(":checked") == true){
 					$("."+id).addClass("saveInfo");
 				}else{
 					$("."+id).removeClass("saveInfo");
 				}
-
+				
 			});
-
+			
 			/* 개인택배접수 > 보내는 사람 정보 받는 사람 정보에 복사  */
 			$(document).on('click', '#rsrvInfoCopy', function(e){
 				page.rsrvRtnCopy();
 			});
-
+			
 			$(document).on('keyup', '#rsrvSnperNm,#rsrvSnperTel,#rsrvSnperCpno', function(e){
 				page.rsrvRtnCopy();
 			});
-
+			
 			/* 반품접수 > 보내는 사람 정보 받는 사람 정보에 복사  */
 			$(document).on('click', '#rtnInfoCopy', function(e){
 				page.rtnRsrvCopy();
 			});
-
+			
 			$(document).on('keyup', '#rtnSnperNm,#rtnSnperTel,#rtnSnperCpno', function(e){
 				page.rtnRsrvCopy();
 			});
-
+			
 			/* 반품접수 > 반품지 선택  */
 			$(document).on('click', 'input[name="return"]', function(e){
 				page.returnChange();
 			});
-
+			
 			/* 공통 > 주소검색 */
 			$(".addressSearch").on('click', function(){
 				var type = $(this).data("type");
-
+				
 				var popUrl = smutil.getMenuProp("COM.COM0801","url");
 				LEMP.Window.open({
 					"_sPagePath" : popUrl,
@@ -128,7 +128,7 @@ var page = {
 					}
 				});
 			});
-
+			
 			/* 공통 > 상품 분류 팝업 */
 			$(document).on("click",".itemKnd",function(){
 				var popUrl = smutil.getMenuProp("COM.COM0901","url");
@@ -141,15 +141,15 @@ var page = {
 					}
 				});
 			});
-
+			
 			/* 공통 > 운임 계산 팝업 */
 			$(document).on("click",".fareCalcBtn",function(){
 				page.fareCalcSearch();
 			});
-
+			
 			/* 개인택배접수 > 플러스 마이너스 */
 			page.plusMinus(".inNum .btn.minus",".inNum .btn.plus2",30,1,".inNum .valNum");
-
+			
 			/* 개인택배접수 > 배송요청사항 팝업 */
 			$(document).on("click","#dlvMsg",function(){
 				var popUrl = smutil.getMenuProp("COM.COM0901","url");
@@ -162,7 +162,7 @@ var page = {
 					}
 				});
 			});
-
+			
 			/* 반품접수 > 원송장 번호 직접 입력 */
 			$('#rtnOrgInvNo').on('click', function() {
 				var popUrl = smutil.getMenuProp('COM.COM0102', 'url');
@@ -170,7 +170,7 @@ var page = {
 					"_sPagePath" : popUrl
 				});
 			});
-
+			
 			/* 반품접수 > 원송장 번호 조회 */
 			$('#orgInvNoSearch').on('click', function() {
 				if(smutil.isEmpty($("#rtnOrgInvNo").val())){
@@ -181,7 +181,7 @@ var page = {
 				}
 				page.invNoInfoSearch();
 			});
-
+			
 			/* 반품접수 > 반품사유 팝업 */
 			$(document).on("click","#rtgRsn",function(){
 				var popUrl = smutil.getMenuProp("COM.COM0901","url");
@@ -194,7 +194,7 @@ var page = {
 					}
 				});
 			});
-
+			
 			/* 동의하기 전문보기 */
 			$(document).on("click",".agreeView",function(){
 				var popUrl = smutil.getMenuProp("COM.COM1101","url");
@@ -206,30 +206,30 @@ var page = {
 					}
 				});
 			});
-
+			
 			/* 공통 > 접수버튼 클릭시 */
 			$("#sendBtn").on('click', function(){
-
+				
 				// 공통 > 현제 어느 탭에 있는지 검사 (예약/지시, 거래처출고)
 				var btnTab = $(".tabBtn");
 				var btnObj;
-
+				
 				_.forEach(btnTab, function(obj, key) {
 					btnObj = $(obj);
-
+					
 					if(btnObj.closest('li').is('.on')){
 						tab_btn = btnObj.data('tabCd');
 					}
 				});
-
-
+				
+				
 				if(tab_btn == "rsrv"){ // 개인택배접수
-
+					
 					//input check
 					var result = to_validation($(".rsrvLi"));
 					if(result == false)
 						return false;
-
+					
 					var rsrvArtcPrc = parseInt($("#rsrvArtcPrc").val().replace(/[^0-9]/g, '')) || 0;
 					if(rsrvArtcPrc < 10000){
 						LEMP.Window.alert({
@@ -238,7 +238,7 @@ var page = {
 						});
 						return false;
 					}
-
+					
 					if(rsrvArtcPrc > 3000000){
 						LEMP.Window.alert({
 							"_sTitle" : "",
@@ -247,7 +247,7 @@ var page = {
 						$("#rsrvArtcPrc").focus();
 						return false;
 					}
-
+					
 					var boxCnt = $("#rsrvQty").val();
 					if(boxCnt < 1){
 						LEMP.Window.alert({
@@ -257,7 +257,7 @@ var page = {
 						$("#rsrvQty").focus();
 						return false;
 					}
-
+					
 					// 개인정보 활용 동의
 					if($("#rsrvAgree").is(":checked") == false){
 						LEMP.Window.alert({
@@ -267,17 +267,17 @@ var page = {
 						$("#rsrvAgree").focus();
 						return false;
 					}
-
+					
 					// API에서 box수량만큼 등록
 					page.postPidRsrvRgst();
 
 				}else if(tab_btn == "rtn"){ //반품접수
-
+					
 					//input check
 					var result = to_validation($(".rtnLi"));
 					if(result == false)
 						return false;
-
+					
 					//개인정보 활용 동의
 					if($("#rtnAgree").is(":checked") == false){
 						LEMP.Window.alert({
@@ -287,24 +287,17 @@ var page = {
 						$("#rtnAgree").focus();
 						return false;
 					}
-
+					
 					page.postPidRtnRgst();
 				}
-
-
+				
+				
 			});
-
-			/* 거래처 > 거래처명 검색 */
-			$(".clientNmSearch").on('click', function(){
-				alert("거래처명")
-			});
-
-			/* 개인, 거래처 > 고정송수하주 검색 */
-			$(document).on("click",".fixedClient",function(){
-				alert("고정송수하주")
-			});
+			
+			
+			
 		},
-
+		
 		initDpEvent : function()
 		{
 			var _this = this;
@@ -312,32 +305,32 @@ var page = {
 			page.returnChange();
 			smutil.loadingOff();
 		},
-
+		
 		// ################### 상품분류, 배송요청사항  start
 		// 상품 분류, 배송요청사항 팝업 선택 후 callback
 		com0901Callback : function(result){
-
+			
 			try {
-
+				
 				var typ_cd = result.typ_cd;				// 구분코드
 				var dtl_cd = result.dtl_cd;				// 상세코드 (상품대분류코드)
-				var dtl_cd_nm = result.dtl_cd_nm;			// 상세코드명 (상품분류명)
-
+				var dtl_cd_nm = result.dtl_cd_nm;			// 상세코드명 (상품분류명)				
+				
 				if(!smutil.isEmpty(dtl_cd)){
 					if(typ_cd == "LRG_ITEM_KND_CD"){			// 상품 분류
-
+						
 						// 현제 어느 탭에 있는지 검사 (예약/지시, 거래처출고)
 						var btnTab = $(".tabBtn");
 						var btnObj;
-
+						
 						_.forEach(btnTab, function(obj, key) {
 							btnObj = $(obj);
-
+							
 							if(btnObj.closest('li').is('.on')){
 								tab_btn = btnObj.data('tabCd');
 							}
 						});
-
+						
 						if(tab_btn == "rsrv"){
 							$("#rsrvGdsCd").val(dtl_cd);
 							$("#rsrvGdsNm").text(dtl_cd_nm);
@@ -345,7 +338,7 @@ var page = {
 //							$("#rtnGdsCd").val(dtl_cd);
 //							$("#rtnGdsNm").text(dtl_cd_nm);
 						}
-
+						
 					}else if(typ_cd == "SMAPP_DLV_MSG_CD"){	// 배송요청사항
 						$("#dlvMsgCont").val(dtl_cd_nm);
 						$("#dlvMsgContText").text(dtl_cd_nm);
@@ -359,34 +352,34 @@ var page = {
 						"_sTitle" : "상품 분류 오류",
 						"_vMessage" : "선택된 상품이 없습니다."
 					});
-
+					
 					return false;
 				}
 			}
-			catch (e){}
+			catch (e){} 
 			finally{
 				page.apiParamInit();			// 파라메터 전역변수 초기화
 			}
-
+			
 		},
 		// ################### 상품분류, 배송요청사항  end
-
-
+		
+		
 		// ################### 원송장번호 start
 		// 원송장 번호 스캔된 후 callback
 		scanCallback : function(result){
 			$("#rtnOrgInvNo").val(result.barcode);
 		},
-
+		
 		// 원송장 번호 키패드 callback
 		InputCallback : function(result){
 			$("#rtnOrgInvNo").val(result.inv_no);
 		},
-
+		
 		// 원송장번호 정보 조회
 		invNoInfoSearch : function(){
 			var _this = this;
-
+			
 			_this.apiParam.param.baseUrl = "smapis/pid/rsrvDtl";			// api no
 			_this.apiParam.param.callback = "page.invNoInfoCallback";			// callback methode
 			_this.apiParam.data = {				// api 통신용 파라메터
@@ -395,25 +388,25 @@ var page = {
 					"rsrv_mgr_no" : ""
 				}
 			};
-
-			// 공통 api호출 함수
+			
+			// 공통 api호출 함수 
 			smutil.callApi(_this.apiParam);
 		},
 		invNoInfoCallback : function(result){
-
+			
 			try{
-
+				
 				if(result){
 					data = result.data.list[0];
 				}
-
+				
 				if(smutil.isEmpty(data)){
 					LEMP.Window.alert({
 						"_sTitle" : "원송장 조회 오류",
 						"_vMessage" : "조회하신 송장번호에 데이터가 없습니다."
 					});
 				}
-
+				
 				//보내는 사람
 				$("#rtnSnperNm").val(data.acper_nm);
 				$("#rtnSnperTel").val(data.acper_tel);
@@ -421,7 +414,7 @@ var page = {
 				$("#rtnSnperZipcd").val(data.acper_zipcd);
 				$("#rtnSnperBadr").val(data.acper_badr);
 				$("#rtnSnperDadr").val(data.acper_dadr);
-
+				
 				//받는 사람
 				$("#rtnAcperNm").val(data.snper_nm);
 				$("#rtnAcperTel").val(data.snper_tel);
@@ -429,30 +422,30 @@ var page = {
 				$("#rtnAcperZipcd").val(data.snper_zipcd);
 				$("#rtnAcperBadr").val(data.snper_badr);
 				$("#rtnAcperDadr").val(data.snper_dadr);
-
+				
 				$("#rtnGdsNm").val(data.gds_nm);
 				if(data.fres_yn == "Y"){
 					$("#rtnfresYn").prop('checked', true);
 				}else{
 					$("#rtnfresYn").prop('checked', false);
 				}
-
+				
 				$('input[name="rtnFareSctCd"]').removeAttr('checked');
 				$("input:radio[name=rtnFareSctCd]:radio[value=" + data.fare_sct_cd + "]").prop('checked', true);
 				$("#rtnSummFare").val(String(data.summ_fare).LPToCommaNumber());
 				$('input[name="rtnSvcCd"]').removeAttr('checked');
 				$("input:radio[name=rtnSvcCd]:radio[value=" + data.svc_cd + "]").prop('checked', true);
-
+				
 			}
 			catch(e){}
 			finally{
 				smutil.loadingOff();			// 로딩바 닫기
 				page.apiParamInit();			// 파라메터 전역변수 초기화
 			}
-
+			
 		},
 		// ################### 원송장번호 end
-
+		
 		// ################### 주소 start
 		// 주소 팝업 선택 후 callback
 		com0801Callback : function(result){
@@ -461,7 +454,7 @@ var page = {
 			var type = data.type;
 			$("#" + type + "Zipcd").val(data.zipcd);
 			$("#" + type + "BldMgrNo").val(data.bldMgrNo);
-
+			
 			if(data.adrSctCd == "J"){	//지번
 				$("#" + type + "Badr").val(data.badr);
 				$("#" + type + "Dadr").val(data.dadr);
@@ -469,28 +462,28 @@ var page = {
 				$("#" + type + "Badr").val(data.rdnmBadr);
 				$("#" + type + "Dadr").val(data.rdnmDadr);
 			}
-
+			
 			if(type == "rsrvSnper"){
 				page.rsrvRtnCopy();				// 개인택배접수
 			}else if(type == "rtnSnper"){
 				page.rtnRsrvCopy();				// 반품접수
 			}
-
+			
 		},
 		// ################### 주소 end
-
+		
 		// ################### 운임계산 start
 		// 운임 조회
-
+		
 		fareCalcSearch : function(){
 			var _this = this;
-
+			
 			var sqty = "0";
 			var mqty = "0";
 			var lqty = "0";
 			var rsrvQty = $("#rsrvQty").val();
 			var rsrvArtcPrc = parseInt($("#rsrvArtcPrc").val().replace(/[^0-9]/g, '')) || 0;
-
+			
 			// 필수값 체크 S
 			var message = "";
 			if($("#rsrvSnperZipcd").val() == ""){
@@ -523,16 +516,16 @@ var page = {
 			}
 			// 필수값 체크 E
 
-
+			
 			if($("#rsrvBoxTyp").val() == "A")
 				sqty = rsrvQty;
 			else if($("#rsrvBoxTyp").val() == "B")
 				mqty = rsrvQty;
 			else if($("#rsrvBoxTyp").val() == "C")
 				lqty = rsrvQty;
-
+			
 			var rsrvSvcCd = $("input[name=rsrvSvcCd]:checked").val(); //서비스구분(특화구분)
-
+			
 			_this.apiParam.param.baseUrl = "smapis/pid/fareCalc";			// api no
 			_this.apiParam.param.callback = "page.fareCalcCallback";			// callback methode
 			_this.apiParam.data = {
@@ -546,44 +539,44 @@ var page = {
 				    	"p_fcha_cd" : rsrvSvcCd							//서비스구분 (00:일반, 01:특화(의류), 04: 소형 [공통코드: SVC_CD]) 00
 				    }
 				};
-
-			// 공통 api호출 함수
+			
+			// 공통 api호출 함수 
 			smutil.callApi(_this.apiParam);
 		},
-
+		
 		// 운임 계산  callback
 		fareCalcCallback : function(result){
-
+			
 			try{
-
+				
 				// api 전송 성공
 				if(smutil.apiResValidChk(result) && result.code == "0000"){
-
+					
 					var popUrl = smutil.getMenuProp("PID.PID0104","url");
 					LEMP.Window.open({
 						"_sPagePath" : popUrl,
 						"_oMessage" : result
 					});
-
+					
 				}else{
-
+					
 					LEMP.Window.alert({
 						"_sTitle" : "운임 조회 오류",
 						"_vMessage" : "운임 계산 도중 오류가 발생하였습니다."
 					});
-
+					
 				}
-
+				
 			}
 			catch(e){}
 			finally{
 				smutil.loadingOff();			// 로딩바 닫기
 				page.apiParamInit();			// 파라메터 전역변수 초기화
 			}
-
+			
 		},
 		// ################### 원송장번호 end
-
+		
 		// 개인정보활용 동의 callback
 		com1101Callback : function(result){
 			if(result.agree == "true"){
@@ -592,19 +585,19 @@ var page = {
 				$("#" + result.etc + "Agree").prop("checked", false);
 			}
 		},
-
+		
 		// ################### 접수 start
 		// 개인택배 접수
 		postPidRsrvRgst : function(){
 			smutil.loadingOn();
 			var _this = this;
-
+			
 			var rsrvArtcPrc = $("#rsrvArtcPrc").val().replace(/[^0-9]/g, '') || "0";			// 화물가액
 			var rsrvFareSctCd = $("input[name=rsrvFareSctCd]:checked").val();					// 운임구분
 			var rsrvSvcCd = $("input[name=rsrvSvcCd]:checked").val();							// 서비스구분(특화구분)
 			var rsrvFresYn = $("#rsrvFresYn").is(":checked")?"Y":"N";							// 신선on/off여부
 			var rsrvSummFare = $("#rsrvSummFare").val().replace(/[^0-9]/g, '') || "0";			// 운임
-
+			
 			_this.apiParam.param.baseUrl = "smapis/pid/postPidRsrvRgst";			// api no
 			_this.apiParam.param.callback = "page.pidRsrvRgstCallback";				// callback methode
 			_this.apiParam.data = {										// api 통신용 파라메터
@@ -643,8 +636,8 @@ var page = {
 					"prsn_info_agrm_yn" : "Y"							//개인정보 활용동의 체크 여부
 				}
 			};
-
-			// 공통 api호출 함수
+			
+			// 공통 api호출 함수 
 			smutil.callApi(_this.apiParam);
 		},
 		// 개인택배 접수 callback
@@ -655,7 +648,7 @@ var page = {
 					"_sTitle" : "개인 택배 접수",
 					"_vMessage" : "접수되었습니다."
 				});
-
+				
 				// 공통 > 보내는사람, 받는사람 정보저장 체크 (saveInfo 클래스 하위에 있는 input은 초기화 되지 않음)
 				$("input[type='text']").not(".saveInfo input[type='text']").val("");	//text
 				$("input[type='checkbox']").not(".saveInfo input[type='checkbox']").prop('checked', false);	//checkbox
@@ -679,43 +672,43 @@ var page = {
 					"_vMessage" : "개인 택배 접수 도중 오류가 발생하였습니다."
 				});
 			}
-
+			
 		},
-
+		
 		// 반품 접수
 		postPidRtnRgst : function(){
 			smutil.loadingOn();
 			var _this = this;
-
+			
 			var rtnFareSctCd = $("input[name=rtnFareSctCd]:checked").val(); //운임구분
 			var rtnSvcCd = $("input[name=rtnSvcCd]:checked").val(); //서비스구분(특화구분)
-
+			
 			_this.apiParam.param.baseUrl = "smapis/pid/postPidRtnRgst";			// api no
 			_this.apiParam.param.callback = "page.pidRtnRgstCallback";			// callback methode
 			_this.apiParam.data = {				// api 통신용 파라메터
 				"parameters" : {
 					"orgl_inv_no" : $("#rtnOrgInvNo").val(),		// 원송장번호
 					"rtn_rsn_nm" : $("#rtnRsnNm").val(),			// 반품사유명
-
+					
 					"snper_nm" : $("#rtnSnperNm").val(),			// 보내는사람이름
 					"snper_tel" : $("#rtnSnperTel").val(),			// 보내는사람전화번호1
 					"snper_cpno" : $("#rtnSnperCpno").val(),		// 보내는사람전화번호2
 					"snper_zipcd" : $("#rtnSnperZipcd").val(),		// 보내는사람우편번호
 					"snper_badr" : $("#rtnSnperBadr").val(),		// 보내는사람주소
 					"snper_dadr" : $("#rtnSnperDadr").val(),		// 보내는사람상세주소
-
+					
 					"acper_nm" : $("#rtnAcperNm").val(),			// 받는사람이름
 					"acper_tel" : $("#rtnAcperTel").val(),			// 받는사람전화번호1
 					"acper_cpno" : $("#rtnAcperCpno").val(),		// 받는사람전화번호2
 					"acper_zipcd" : $("#rtnAcperZipcd").val(),		// 받는사람우편번호
 					"acper_badr" : $("#rtnAcperBadr").val(),		// 받는사람주소
 					"acper_dadr" : $("#rtnAcperDadr").val(),		// 받는사람상세주소
-
+					
 					"prsn_info_agrm_yn" : "Y"						// 개인정보활용동의체크여부(★)
 				}
 			};
-
-			// 공통 api호출 함수
+			
+			// 공통 api호출 함수 
 			smutil.callApi(_this.apiParam);
 		},
 		// 반품 접수 callback
@@ -726,7 +719,7 @@ var page = {
 					"_sTitle" : "반품 접수",
 					"_vMessage" : "접수되었습니다."
 				});
-
+				
 				// 공통 > 보내는사람, 받는사람 정보저장 체크 (saveInfo 클래스 하위에 있는 input은 초기화 되지 않음)
 				$("input[type='text']").not(".saveInfo input[type='text']").val("");	//text
 				$("input[type='checkbox']").not(".saveInfo input[type='checkbox']").prop('checked', false);	//checkbox
@@ -737,7 +730,7 @@ var page = {
 				});
 			}
 		},
-
+		
 		// 운임계산 callback
 		pid0104Callback : function(result){
 			page.sum_fare_final = result.sum_fare;					// 합계운임
@@ -749,7 +742,7 @@ var page = {
 			$("#rsrvSummFare").val(result.sum_fare);
 			$("#rsrvSummFareTxt").val((result.sum_fare+"").LPToCommaNumber());
 		},
-
+		
 		/* 반품접수 > 반품지 선택  */
 		returnChange : function(){
 			if($("input[name='return']:checked").val() == "direct"){	//직접입력
@@ -768,9 +761,9 @@ var page = {
 				$("#rtnAcperAddSrch").attr("disabled",true);
 			}
 		},
-
+		
 		// ################### 접수 조회 end
-
+		
 		// 개인택배접수 > 보내는 사람 정보 받는 사람 정보에 복사
 		rsrvRtnCopy : function() {
 			if($("#rsrvInfoCopy").is(":checked")){
@@ -783,7 +776,7 @@ var page = {
 				$("#rsrvAcperDadr").val($("#rsrvSnperDadr").val());
 			}
 		},
-
+		
 		// 반품접수 > 보내는 사람 정보 받는 사람 정보에 복사
 		rtnRsrvCopy : function() {
 			//보내는 사람 정보와 동일 체크시, 반품지 선택이 직접입력일 경우
@@ -797,7 +790,7 @@ var page = {
 				$("#rtnAcperDadr").val($("#rtnSnperDadr").val());
 			}
 		},
-
+		
 		// 플러스 마이너스
 		plusMinus : function(minBtn,plusBtn,max,min,inpu) {
 			var count = min;
@@ -812,14 +805,14 @@ var page = {
 				$(inpu).val(count);
 			});
 		},
-
-		// api 파람메터 초기화
+		
+		// api 파람메터 초기화 
 		apiParamInit : function(){
 			page.apiParam =  {
 				id:"HTTP",					// 디바이스 콜 id
 				param:{						// 디바이스가 알아야할 데이터
 					task_id : "",			// 화면 ID 코드가 들어가기로함
-					//position : {},		// 사용여부 미확정
+					//position : {},		// 사용여부 미확정 
 					type : "",
 					baseUrl : "",
 					method : "POST",		// api 호출 형식(지정 안하면 'POST' 로 자동 셋팅)
