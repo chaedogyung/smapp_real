@@ -164,7 +164,7 @@ var page = {
 
 		//지도 레벨의 한계를 제한합니다
 //		map.setMaxLevel(6);
-		map.setMinLevel(2);
+// 		map.setMinLevel(2);
 
 
 		// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
