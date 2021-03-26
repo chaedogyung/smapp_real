@@ -10,7 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
 	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
 	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
-	
+
 </head>
 
 <body>
@@ -29,18 +29,23 @@
 
 		<!--  contentSection  -->
 		<div class="contentSection" id="contentSection">
-		
+
 			<!-- contentBox -->
 			<div class="contentBox gathBox">
-				
+
 				<!-- tabBox -->
-				<div class="tabBox li2">
+				<div class="tabBox li3">
 					<ul>
 						<li class="on">
 							<button class="btn tabBtn" data-tab-cd="rsrv">
 								개인택배접수
 							</button>
 						</li>
+                        <li>
+                            <button class="btn tabBtn" data-tab-cd="client">
+                                거래처택배접수
+                            </button>
+                        </li>
 						<li>
 							<button class="btn tabBtn" data-tab-cd="rtn">
 								반품접수
@@ -69,7 +74,12 @@
 										<div class="infoBox">
 											<dl class="inBox tp1">
 												<dt>이름<i>★</i></dt>
-												<dd><input type="text" id="rsrvSnperNm" placeholder="이름을 입력해주세요." required hname="이름"/></dd>
+												<dd>
+                                                    <div class="inputBox pdr100">
+                                                        <input type="text" id="rsrvSnperNm" placeholder="이름을 입력해주세요." required hname="이름"/>
+                                                        <button class="btn red w95 fixedClient">고정송수하주</button>
+                                                    </div>
+                                                </dd>
 												<dt>전화번호1<i>★</i></dt>
 												<dd>
 													<input type="text" inputmode="numeric" id="rsrvSnperTel" class="autoHypenPhone" placeholder="전화번호를 입력해주세요." required hname="전화번호">
@@ -213,7 +223,7 @@
 											</dl>
 										</div>
 										<!-- //화물입력 -->
-										
+
 										<div class="topHead mgb10">
 											<span class="tit">개인정보활용 동의</span>
 											<button class="btn arrowR mgl10 agreeView" data-etc="rsrv">전문보기</button>
@@ -232,7 +242,197 @@
 								</ul>
 							</div>
 						</li>
-						<!-- //개인택배 -->
+						<!-- //거래처택배접수 -->
+                        <li class="clientLi" style="display:none;">
+                            <div class="infoListBox tp2">
+                                <ul>
+                                    <!-- 거래처택배 > 보내는사람 S-->
+                                    <li class="clientSnperSave">
+                                        <div class="topHead">
+                                            <span class="tit">보내는 사람</span>
+                                            <span class="chkBox m fr">
+												<input type="checkbox" id="clientSnperSave">
+												<label for="clientSnperSave">보내는 사람 정보 저장</label>
+											</span>
+                                        </div>
+                                        <div class="infoBox">
+                                            <dl class="inBox tp1">
+                                                <dt>거래처명<i>★</i></dt>
+                                                <dd>
+                                                    <div class="inputBox">
+                                                        <input type="text" id="clientNm" placeholder="거래처명을 입력해주세요." required hname="거래처명"/>
+                                                        <button class="btn glass clientNmSearch" data-type="rtnSnper">검색</button>
+                                                    </div>
+                                                </dd>
+                                                <dt>이름<i>★</i></dt>
+                                                <dd>
+                                                    <div class="inputBox pdr100">
+                                                        <input type="text" id="clientSnperNm" placeholder="이름을 입력해주세요." required hname="이름"/>
+                                                        <button class="btn red w95 fixedClient">고정송수하주</button>
+                                                    </div>
+                                                </dd>
+                                                <dt>전화번호1<i>★</i></dt>
+                                                <dd>
+                                                    <input type="text" inputmode="numeric" id="clientSnperTel" class="autoHypenPhone" placeholder="전화번호를 입력해주세요." required hname="전화번호">
+                                                </dd>
+                                                <dt>전화번호2</dt>
+                                                <dd>
+                                                    <input type="text" inputmode="numeric" id="clientSnperCpno" class="autoHypenPhone" placeholder="전화번호를 입력해주세요.">
+                                                </dd>
+                                                <dt>주소<i>★</i></dt>
+                                                <dd>
+                                                    <div class="inputBox">
+                                                        <input type="hidden" id="clientSnperZipcd"/>
+                                                        <input type="hidden" id="clientSnperBldMgrNo" />
+                                                        <input type="text" id="clientSnperBadr" placeholder="주소를 검색주세요." readonly required hname="주소"/>
+                                                        <button class="btn glass addressSearch" data-type="clientSnper">검색</button>
+                                                    </div>
+                                                </dd>
+                                                <dt>&nbsp;</dt>
+                                                <dd>
+                                                    <input type="text" id="clientSnperDadr" placeholder="상세주소를 입력해주세요." required hname="상세주소" />
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                    </li>
+                                    <!-- 거래처택배 > 보내는사람 S-->
+                                    <!-- 거래처택배 > 받는 사람 S-->
+                                    <li class="clientAcperSave">
+                                        <div class="topHead">
+                                            <span class="tit">받는 사람</span>
+                                            <div class="fr">
+												<span class="chkBox m mgr15">
+													<input type="checkbox" id="clientInfoCopy">
+													<label for="clientInfoCopy">보내는 사람 정보와 동일</label>
+												</span>
+                                                <span class="chkBox m">
+													<input type="checkbox" id="clientAcperSave">
+													<label for="clientAcperSave">받는 사람 정보 저장</label>
+												</span>
+                                            </div>
+                                        </div>
+                                        <div class="infoBox">
+                                            <dl class="inBox tp1">
+                                                <dt>이름<i>★</i></dt>
+                                                <dd><input type="text" id="clientAcperNm" placeholder="이름을 입력해주세요." required hname="이름"/></dd>
+                                                <dt>전화번호1<i>★</i></dt>
+                                                <dd>
+                                                    <input type="text" inputmode="numeric" id="clientAcperTel" class="autoHypenPhone" placeholder="전화번호를 입력해주세요." required hname="전화번호">
+                                                </dd>
+                                                <dt>전화번호2</dt>
+                                                <dd>
+                                                    <input type="text" inputmode="numeric" id="clientAcperCpno" class="autoHypenPhone" placeholder="전화번호를 입력해주세요." >
+                                                </dd>
+                                                <dt>주소<i>★</i></dt>
+                                                <dd>
+                                                    <div class="inputBox">
+                                                        <input type="hidden" id="clientAcperZipcd" />
+                                                        <input type="hidden" id="clientAcperBldMgrNo" />
+                                                        <input type="text" id="clientAcperBadr" placeholder="주소를 검색주세요." readonly required hname="주소" >
+                                                        <button class="btn glass addressSearch" data-type="clientAcper">검색</button>
+                                                    </div>
+                                                </dd>
+                                                <dt>&nbsp;</dt>
+                                                <dd>
+                                                    <input type="text" id="clientAcperDadr" placeholder="상세주소를 입력해주세요." required hname="상세주소" />
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                    </li>
+                                    <!-- 거래처택배 > 받는 사람 E-->
+                                    <!-- 거래처택배 > 화물정보 입력, 개인정보활용 동의 S-->
+                                    <li>
+                                        <div class="topHead">
+                                            <span class="tit">화물정보 입력</span>
+                                        </div>
+                                        <!-- 화물입력 -->
+                                        <div class="infoBox">
+                                            <dl class="inBox tp1">
+                                                <dt>상품명<i>★</i></dt>
+                                                <dd>
+                                                    <input type="hidden" id="clientGdsCd" required hname="상품명"/>
+                                                    <div class="txtBox tp3 plus itemKnd">
+                                                        <span id="clientGdsNm">상품 분류를 선택해주세요.</span>
+                                                        <button class="btn plus">추가</button>
+                                                    </div>
+                                                </dd>
+                                                <dt>신선식품</dt>
+                                                <dd class="lh">
+													<span class="switchBox vt">
+														<input type="checkbox" id="clientFresYn">
+														<label for="clientFresYn">&nbsp;</label>
+													</span>
+                                                    <span class="badge red s bing">신선</span>
+                                                </dd>
+                                                <dt>박스및규격<i>★</i></dt>
+                                                <dd class="lh">
+													<span class="selBox w110">
+														<select id="clientBoxTyp" class="pdl10">
+															<option value="A">A</option>
+															<option value="B">B</option>
+															<option value="C">C</option>
+                                                            <option value="D">D</option>
+                                                            <option value="E">E</option>
+                                                            <option value="F">F</option>
+														</select>
+													</span>
+
+                                                    <div class="inNum">
+                                                        <button class="btn minus">마이너스</button>
+                                                        <input type="number" id="clientQty" placeholder="" value="1" class="valNum"/>
+                                                        <button class="btn plus2">플러스</button>
+                                                    </div>
+                                                </dd>
+                                                <dt>특화구분<i>★</i></dt>
+                                                <dd class="lh">
+                                                    <span class="radioBox"><input type="radio" name="clientSvcCd" id="clientSvc00" value="00" checked/> <label for="clientSvc00">일반</label></span>
+                                                    <span class="radioBox mgl20"><input type="radio" name="clientSvcCd" id="clientSvc01" value="01" /> <label for="clientSvc01">특화</label></span>
+                                                </dd>
+                                                <dt>운임구분<i>★</i></dt>
+                                                <dd class="lh">
+                                                    <span class="radioBox"><input type="radio" name="clientFareSctCd" id="clientFareSct01" value="01" checked/> <label for="clientFareSct01">현불</label></span>
+                                                    <span class="radioBox mgl20"><input type="radio" name="clientFareSctCd" id="clientFareSct02" value="02"/> <label for="clientFareSct02">착불</label></span>
+                                                    <span class="radioBox mgl20"><input type="radio" name="clientFareSctCd" id="clientFareSct03" value="03"/> <label for="clientFareSct03">신용</label></span>
+                                                </dd>
+                                                <dt>운임<i>★</i></dt>
+                                                <dd>
+                                                    <div class="inputBox pdr90">
+                                                        <input type="hidden" id="clientSummFare" required hname="운임" />
+                                                        <input type="text" id="clientSummFareTxt" placeholder="" disabled>
+                                                        <button class="btn red w85 fareCalcBtn">운임계산</button>
+                                                    </div>
+                                                </dd>
+                                                <dt>배송요청사항<i>★</i></dt>
+                                                <dd>
+                                                    <div class="txtBox tp3 plus" id="dlvMsg">
+                                                        <input type="hidden" id="dlvMsgCont" required hname="배송요청사항">
+                                                        <span id="dlvMsgContText">요청사항을 선택해주세요.</span>
+                                                        <button class="btn plus">추가</button>
+                                                    </div>
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                        <!-- //화물입력 -->
+
+                                        <div class="topHead mgb10">
+                                            <span class="tit">개인정보활용 동의</span>
+                                            <button class="btn arrowR mgl10 agreeView" data-etc="client">전문보기</button>
+
+                                            <span class="chkBox m fr">
+												<input type="checkbox" id="clientAgree" >
+												<label for="clientAgree">동의</label>
+											</span>
+                                            <div class="clear mgt5">
+                                                고객님께서 읽고 직접 동의 선택을 하여야 합니다.
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                    <!-- 개인택배 > 화물정보 입력, 개인정보활용 동의 E-->
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- //거래처택배접수 -->
 						<!-- 반품접수 -->
 						<li class="rtnLi" style="display:none;">
 							<div class="infoListBox tp2">
@@ -283,7 +483,7 @@
 											<span class="tit">보내는 사람</span>
 											<div class="fr">
 												<span class="chkBox m">
-													<input type="checkbox" id="rtnSnperSave"> 
+													<input type="checkbox" id="rtnSnperSave">
 													<label for="rtnSnperSave">보내는 사람 정보 저장</label>
 												</span>
 											</div>
@@ -406,7 +606,7 @@
 									</li>
 								</ul>
 							</div>
-							
+
 							<div class="topHead mgb10">
 								<span class="tit">개인정보활용 동의</span>
 								<button class="btn arrowR mgl10 agreeView" data-etc="rtn">전문보기</button>
@@ -423,7 +623,7 @@
 					</ul>
 				</div>
 				<!-- //tabView -->
-				
+
 				<div class="btnBox">
 					<button class="btn red m w100p" id="sendBtn">접수</button>
 				</div>
