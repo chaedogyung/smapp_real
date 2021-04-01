@@ -97,6 +97,7 @@ var menuJsonJs =
 		"PID0102":{"menuTxt" : "상세화면", "parentMenuCd" : null, "menuDept" : 2, "url" : "PID/html/PID0102.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"PID0103":{"menuTxt" : "택배/반품접수", "parentMenuCd" : null, "menuDept" : 2, "url" : "PID/html/PID0103.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"PID0104":{"menuTxt" : "운임조회", "parentMenuCd" : null, "menuDept" : 2, "url" : "PID/html/PID0104.html", "mainImgSrc" : "", "gnbImgClass" : ""},
+		"PID0105":{"menuTxt" : "거래처 조회 팝업", "parentMenuCd" : null, "menuDept" : 2, "url" : "PID/html/PID0105.html", "mainImgSrc" : "../../common/img/icon-fa22.png", "gnbImgClass" : ""},
 		"PID0201":{"menuTxt" : "B2B접수", "parentMenuCd" : null, "menuDept" : 1, "url" : "PID/html/PID0201.html", "mainImgSrc" : "../../common/img/icon-fa22.png", "gnbImgClass" : ""},
 		"PID0202":{"menuTxt" : "매장 조회 팝업", "parentMenuCd" : null, "menuDept" : 2, "url" : "PID/html/PID0202.html", "mainImgSrc" : "../../common/img/icon-fa22.png", "gnbImgClass" : ""},
 		"PID0301":{"menuTxt" : "스마일픽업", "parentMenuCd" : null, "menuDept" : 1, "url" : "PID/html/PID0301.html", "mainImgSrc" : "../../common/img/icon-fa23.png", "gnbImgClass" : ""},
@@ -105,7 +106,7 @@ var menuJsonJs =
 		"PID0401":{"menuTxt" : "바로반품", "parentMenuCd" : null, "menuDept" : 1, "url" : "PID/html/PID0401.html", "mainImgSrc" : "../../common/img/icon-fa9.png", "gnbImgClass" : ""},
 		"PID0402":{"menuTxt" : "바로반품 상세정보", "parentMenuCd" : null, "menuDept" : 2, "url" : "PID/html/PID0402.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		// 스캔 출력 개발 추 후 진행 예정
-		// "PID0501":{"menuTxt" : "스캔출력", "parentMenuCd" : null, "menuDept" : 1, "url" : "PID/html/PID0501.html", "mainImgSrc" : "../../common/img/icon-fa27.png", "gnbImgClass" : ""}
+		"PID0501":{"menuTxt" : "스캔출력", "parentMenuCd" : null, "menuDept" : 1, "url" : "PID/html/PID0501.html", "mainImgSrc" : "../../common/img/icon-fa27.png", "gnbImgClass" : ""}
 	},
 	"ARI":{
 		"GNB":true,

@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css">
+
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/PID0501.js"></script>
+</head>
+
+<body>
+	<input type="hidden" name="menuId" id="menuId" value="PID0501" />
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection v2">
+			<div class="headerWrap">
+				<button class="btn back paL"></button>
+				<h1>스캔출력</h1>
+                <button class="btn barcode paR" id="openFrePop"></button>
+			</div>
+		</header>
+		<!--  //headerSection  -->
+
+		<!-- contentBox -->
+		<div class="contentBox pop freTracking">
+
+			<!-- infoListBox -->
+			<div class="infoListBox">
+				<ul>
+					<li>
+						<!-- infoBox -->
+						<div class="infoBox" id="infoBox_D">
+							<div class="inputBox pdl65 pdr80">
+								<span class="pa paL fs12 mgt7 tGray5">접수번호</span>
+								<input type="text" inputmode="numeric" value="" name="" id="inv_noNumber" placeholder="접수 번호를 입력해주세요." data-menu-id="" maxlength="20">
+								<p class='tRed fs11' style="display: none;">검색결과가 없습니다.</p>
+                                <button id="btn_search" class="btn glass addressSearch" data-type="rsrvAcper" style="margin-right: 40px">검색</button>
+                                <button class="btn scan">스캔</button>
+							</div>
+                            <span class="chkBox m">
+                                <input type="checkbox" name="chkAuto" id="checkAuto"/>
+                                <label for="checkAuto">&nbsp;&nbsp;자동출력</label>
+                            </span>
+						</div>
+						<!-- //infoBox -->
+					</li>
+					<li>
+						<!-- infoBox -->
+                        <div class="infoBox" id="result_view"></div>
+						<!-- //infoBox -->
+					</li>
+				</ul>
+			</div>
+			<!-- //infoListBox -->
+
+            <div class="ftMenu li1">
+                <li id="li">
+                    <button class="btn ftPrint" disabled>
+<!--                        <p class="badge red s num" id="printCount">0</p>-->
+                        <span class="txt">출력</span>
+                    </button>
+                </li>
+			</div>
+
+            <!-- 모달팝업 출력 -->
+            <div class="mpopBox img print">
+                <div class="popBody">
+                    <p class="img"><img src="../../common/img/icon-error.png" alt="" /></p>
+                    <p class="txt1">스캔 출력</p>
+                    <p class="txt2">조회된 송장을 출력하시겠습니까?</p>
+                </div>
+                <div class="popFooter">
+                    <div class="btnBox">
+                        <ul class="ul0 ul2">
+                            <li><button class="btn gray m w100p b-close">아니오</button></li>
+                            <li><button class="btn red m w100p b-close" id="invPrntYesBtn">예</button></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- 모달팝업 출력 -->
+		</div>
+		<!-- //contentBox -->
+
+		</div>
+		<!--  //contentSection  -->
+
+	</div>
+	<!--  //contents  -->
+
+    <!-- handlebars template start -->
+    <script id="pid0501_nolist_template" type="text/x-handlebars-template">
+        <li class="noList">
+            <div class="NoBox">
+                <p class="txt tc">조회된 결과가 없습니다.</p>
+            </div>
+        </li>
+    </script>
+
+    <!-- handlebars detail template start -->
+    <script id="pid0501_detail_template" type="text/x-handlebars-template">
+        <div class="topHead">
+            <P class="songNum">송장번호 <em>{{invNoTmpl inv_no}}</em></p>
+        </div>
+        <!--  contentSection  -->
+        <div class="contentSection" id="contentSection">
+            <!-- contentBox -->
+            <div class="contentBox pop popInfo">
+                <!-- infoListBox -->
+                <div class="infoListBox">
+                    <ul>
+                        <li>
+                            <div class="infoBox" id="A">
+                                <div class="tit"><span class="titBox">받는사람</span>{{acper_nm}}</div>
+                                <ul>
+                                    <li><span class="titBox">전화번호</span>{{acper_tel}}</li>
+                                    <li><span class="titBox">전화번호</span>{{acper_cpno}}</li>
+                                    <li class="map"><span class="titBox">기본</span><div class="add">{{acper_badr}} {{acper_dadr}} {{acper_etc_adr}}</div>{{mapBtn}}</li>
+                                    <li class="map"><span class="titBox">지번</span><div class="add">{{acper_ldno_adr}} {{acper_etc_adr}}</div>{{mapBtn}}</li>
+                                    <li class="map"><span class="titBox">도로</span><div class="add">{{acper_rdnm_adr}} {{acper_etc_adr}}</div>{{mapBtn}}</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="infoBox" id="S">
+                                <div class="tit"><span class="titBox">보내는사람</span>{{snper_nm}}</div>
+                                <ul>
+                                    <li><span class="titBox">전화번호</span>{{snper_tel}}</li>
+                                    <li><span class="titBox">전화번호</span>{{snper_cpno}}</li>
+                                    <li class="map"><span class="titBox">기본</span><div class="add">{{snper_badr}} {{snper_dadr}} {{snper_etc_adr}}</div>{{mapBtn}}</li>
+                                    <li class="map"><span class="titBox">지번</span><div class="add">{{snper_ldno_adr}} {{snper_etc_adr}}</div>{{mapBtn}}</li>
+                                    <li class="map"><span class="titBox">도로</span><div class="add">{{snper_rdnm_adr}} {{snper_etc_adr}}</div>{{mapBtn}}</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="infoBox">
+                                <div class="tit"><span class="titBox">상품명</span>{{gds_nm}}</div>
+                                <ul>
+                                    <li><span class="titBox">박스크기</span>{{boxMgntTml box_mgnt}}</li>
+                                    <li><span class="titBox">신선식품</span><span class="switchBox ti">
+                                                {{#fresYnChk}}
+                                                    <input type="checkbox"  name="" id="sw" checked disabled/>
+                                                {{else}}
+                                                    <input type="checkbox"  name="" id="sw" disabled/>
+                                                {{/fresYnChk}}
+                                                <label for="sw">스위치</label></span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="infoBox">
+                                <div class="tit"><span class="titBox">운임정보</span>합계<span class="tRed mgl5"><b>{{commaSummFare summ_fare}}</b>원</span></div>
+                                <ul>
+                                    <li><span class="titBox">기본운임</span>{{commaBscFare bsc_fare}}</li>
+                                    <li><span class="titBox">기타운임</span>{{commaEtcFare etc_summ_fare}}</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="infoBox">
+                                <div class="tit"><span class="titBox">배송요청사항</span></div>
+                                <div class="memo">
+                                    {{dlv_msg_cont}}
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- infoListBox -->
+            </div>
+            <!-- //contentBox -->
+
+        </div>
+        <!--  //contentSection  -->
+    </script>
+    <!-- handlebars detail template start -->
+</body>
+</html>
