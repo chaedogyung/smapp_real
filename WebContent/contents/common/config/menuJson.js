@@ -106,7 +106,7 @@ var menuJsonJs =
 		"PID0401":{"menuTxt" : "바로반품", "parentMenuCd" : null, "menuDept" : 1, "url" : "PID/html/PID0401.html", "mainImgSrc" : "../../common/img/icon-fa9.png", "gnbImgClass" : ""},
 		"PID0402":{"menuTxt" : "바로반품 상세정보", "parentMenuCd" : null, "menuDept" : 2, "url" : "PID/html/PID0402.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		// 스캔 출력 개발 추 후 진행 예정
-		"PID0501":{"menuTxt" : "스캔출력", "parentMenuCd" : null, "menuDept" : 1, "url" : "PID/html/PID0501.html", "mainImgSrc" : "../../common/img/icon-fa27.png", "gnbImgClass" : ""}
+		"PID0501":{"menuTxt" : "FedEx 스캔출력", "parentMenuCd" : null, "menuDept" : 1, "url" : "PID/html/PID0501.html", "mainImgSrc" : "../../common/img/icon-fa27.png", "gnbImgClass" : ""}
 	},
 	"ARI":{
 		"GNB":true,
