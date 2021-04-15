@@ -1,175 +1,190 @@
 <!doctype html>
 <html lang="ko">
 <head>
-	<meta charset="utf-8">
-	<title>롯데글로벌로지스</title>
-	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
-	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
-	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+    <meta charset="utf-8">
+    <title>롯데글로벌로지스</title>
+    <meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+    <meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+    <meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
 
-	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
-	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
-	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
-	
+    <link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+    <link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
+
 </head>
 
 <body>
 <input type="hidden" name="menuId" id="menuId" value="PID0103"/>
-	<!--  contents  -->
-	<div id="contents">
+<!--  contents  -->
+<div id="contents">
 
-		<!--  headerSection  -->
-		<header id="headerSection" class="headerSection">
-			<div class="headerWrap">
-				<button class="btn back paL"></button>
-				<h1>택배/반품접수</h1>
-			</div>
-		</header>
-		<!--  //headerSection  -->
+    <!--  headerSection  -->
+    <header id="headerSection" class="headerSection">
+        <div class="headerWrap">
+            <button class="btn back paL"></button>
+            <h1>택배/반품접수</h1>
+        </div>
+    </header>
+    <!--  //headerSection  -->
 
-		<!--  contentSection  -->
-		<div class="contentSection" id="contentSection">
-		
-			<!-- contentBox -->
-			<div class="contentBox gathBox">
-				
-				<!-- tabBox -->
-				<div class="tabBox li2">
-					<ul>
-						<li class="on">
-							<button class="btn tabBtn" data-tab-cd="rsrv">
-								개인택배접수
-							</button>
-						</li>
-						<li>
-							<button class="btn tabBtn" data-tab-cd="rtn">
-								반품접수
-							</button>
-						</li>
-					</ul>
-				</div>
-				<!-- //tabBox -->
+    <!--  contentSection  -->
+    <div class="contentSection" id="contentSection">
 
-				<!-- tabView -->
-				<div class="tabView">
-					<ul>
-						<!-- 개인택배 -->
-						<li class="rsrvLi">
-							<div class="infoListBox tp2">
-								<ul>
-									<!-- 개인택배 > 보내는사람 S-->
-									<li class="rsrvSnperSave">
-										<div class="topHead">
-											<span class="tit">보내는 사람</span>
-											<span class="chkBox m fr">
+        <!-- contentBox -->
+        <div class="contentBox gathBox">
+
+            <!-- tabBox -->
+            <div class="tabBox li3">
+                <ul>
+                    <li class="on">
+                        <button class="btn tabBtn" data-tab-cd="rsrv">
+                            개인택배접수
+                        </button>
+                    </li>
+                    <li>
+                        <button class="btn tabBtn" data-tab-cd="client">
+                            거래처택배접수
+                        </button>
+                    </li>
+                    <li>
+                        <button class="btn tabBtn" data-tab-cd="rtn">
+                            반품접수
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <!-- //tabBox -->
+
+            <!-- tabView -->
+            <div class="tabView">
+                <ul>
+                    <!-- 개인택배 -->
+                    <li class="rsrvLi">
+                        <div class="infoListBox tp2">
+                            <ul>
+                                <!-- 개인택배 > 보내는사람 S-->
+                                <li class="rsrvSnperSave">
+                                    <div class="topHead">
+                                        <span class="tit">보내는 사람</span>
+                                        <span class="chkBox m fr">
 												<input type="checkbox" id="rsrvSnperSave">
 												<label for="rsrvSnperSave">보내는 사람 정보 저장</label>
 											</span>
-										</div>
-										<div class="infoBox">
-											<dl class="inBox tp1">
-												<dt>이름<i>★</i></dt>
-												<dd><input type="text" id="rsrvSnperNm" placeholder="이름을 입력해주세요." required hname="이름"/></dd>
-												<dt>전화번호1<i>★</i></dt>
-												<dd>
-													<input type="text" inputmode="numeric" id="rsrvSnperTel" class="autoHypenPhone" placeholder="전화번호를 입력해주세요." required hname="전화번호">
-												</dd>
-												<dt>전화번호2</dt>
-												<dd>
-													<input type="text" inputmode="numeric" id="rsrvSnperCpno" class="autoHypenPhone" placeholder="전화번호를 입력해주세요.">
-												</dd>
-												<dt>주소<i>★</i></dt>
-												<dd>
-													<div class="inputBox">
-														<input type="hidden" id="rsrvSnperZipcd"/>
-														<input type="hidden" id="rsrvSnperBldMgrNo" />
-														<input type="text" id="rsrvSnperBadr" placeholder="주소를 검색주세요." readonly required hname="주소"/>
-														<button class="btn glass addressSearch" data-type="rsrvSnper">검색</button>
-													</div>
-												</dd>
-												<dt>&nbsp;</dt>
-												<dd>
-													<input type="text" id="rsrvSnperDadr" placeholder="상세주소를 입력해주세요." required hname="상세주소" />
-												</dd>
-											</dl>
-										</div>
-									</li>
-									<!-- 개인택배 > 보내는사람 S-->
-									<!-- 개인택배 > 받는 사람 S-->
-									<li class="rsrvAcperSave">
-										<div class="topHead">
-											<span class="tit">받는 사람</span>
-											<div class="fr">
+                                    </div>
+                                    <div class="infoBox">
+                                        <dl class="inBox tp1">
+                                            <dt>이름<i>★</i></dt>
+                                            <dd>
+                                                <div class="inputBox pdr100">
+                                                    <input type="text" id="rsrvSnperNm" placeholder="이름을 입력해주세요." required hname="이름"/>
+                                                    <button class="btn red w95 fixedClient" id="rsrvFixSnper">고정송수하주</button>
+                                                </div>
+                                            </dd>
+                                            <dt>전화번호1<i>★</i></dt>
+                                            <dd>
+                                                <input type="text" inputmode="numeric" id="rsrvSnperTel" class="autoHypenPhone" placeholder="전화번호를 입력해주세요." required hname="전화번호">
+                                            </dd>
+                                            <dt>전화번호2</dt>
+                                            <dd>
+                                                <input type="text" inputmode="numeric" id="rsrvSnperCpno" class="autoHypenPhone" placeholder="전화번호를 입력해주세요.">
+                                            </dd>
+                                            <dt>주소<i>★</i></dt>
+                                            <dd>
+                                                <div class="inputBox">
+                                                    <input type="hidden" id="rsrvSnperZipcd"/>
+                                                    <input type="hidden" id="rsrvSnperBldMgrNo" />
+                                                    <input type="text" id="rsrvSnperBadr" placeholder="주소를 검색주세요." readonly required hname="주소"/>
+                                                    <button class="btn glass addressSearch" data-type="rsrvSnper">검색</button>
+                                                </div>
+                                            </dd>
+                                            <dt>&nbsp;</dt>
+                                            <dd>
+                                                <input type="text" id="rsrvSnperDadr" placeholder="상세주소를 입력해주세요." required hname="상세주소" />
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </li>
+                                <!-- 개인택배 > 보내는사람 S-->
+                                <!-- 개인택배 > 받는 사람 S-->
+                                <li class="rsrvAcperSave">
+                                    <div class="topHead">
+                                        <span class="tit">받는 사람</span>
+                                        <div class="fr">
 												<span class="chkBox m mgr15">
 													<input type="checkbox" id="rsrvInfoCopy">
 													<label for="rsrvInfoCopy">보내는 사람 정보와 동일</label>
 												</span>
-												<span class="chkBox m">
+                                            <span class="chkBox m">
 													<input type="checkbox" id="rsrvAcperSave">
 													<label for="rsrvAcperSave">받는 사람 정보 저장</label>
 												</span>
-											</div>
-										</div>
-										<div class="infoBox">
-											<dl class="inBox tp1">
-												<dt>이름<i>★</i></dt>
-												<dd><input type="text" id="rsrvAcperNm" placeholder="이름을 입력해주세요." required hname="이름"/></dd>
-												<dt>전화번호1<i>★</i></dt>
-												<dd>
-													<input type="text" inputmode="numeric" id="rsrvAcperTel" class="autoHypenPhone" placeholder="전화번호를 입력해주세요." required hname="전화번호">
-												</dd>
-												<dt>전화번호2</dt>
-												<dd>
-													<input type="text" inputmode="numeric" id="rsrvAcperCpno" class="autoHypenPhone" placeholder="전화번호를 입력해주세요." >
-												</dd>
-												<dt>주소<i>★</i></dt>
-												<dd>
-													<div class="inputBox">
-														<input type="hidden" id="rsrvAcperZipcd" />
-														<input type="hidden" id="rsrvAcperBldMgrNo" />
-														<input type="text" id="rsrvAcperBadr" placeholder="주소를 검색주세요." readonly required hname="주소" >
-														<button class="btn glass addressSearch" data-type="rsrvAcper">검색</button>
-													</div>
-												</dd>
-												<dt>&nbsp;</dt>
-												<dd>
-													<input type="text" id="rsrvAcperDadr" placeholder="상세주소를 입력해주세요." required hname="상세주소" />
-												</dd>
-											</dl>
-										</div>
-									</li>
-									<!-- 개인택배 > 받는 사람 E-->
-									<!-- 개인택배 > 화물정보 입력, 개인정보활용 동의 S-->
-									<li>
-										<div class="topHead">
-											<span class="tit">화물정보 입력</span>
-										</div>
-										<!-- 화물입력 -->
-										<div class="infoBox">
-											<dl class="inBox tp1">
-												<dt>상품명<i>★</i></dt>
-												<dd>
-													<input type="hidden" id="rsrvGdsCd" required hname="상품명"/>
-													<div class="txtBox tp3 plus itemKnd">
-														<span id="rsrvGdsNm">상품 분류를 선택해주세요.</span>
-														<button class="btn plus">추가</button>
-													</div>
-												</dd>
-												<dt>신선식품</dt>
-												<dd class="lh">
+                                        </div>
+                                    </div>
+                                    <div class="infoBox">
+                                        <dl class="inBox tp1">
+                                            <dt>이름<i>★</i></dt>
+                                            <dd>
+                                                <div class="inputBox pdr100">
+                                                    <input type="text" id="rsrvAcperNm" placeholder="이름을 입력해주세요." required hname="이름"/>
+                                                    <button class="btn red w95 fixedClient" id="rsrvFixAcper">고정송수하주</button>
+                                                </div>
+                                            </dd>
+                                            <dt>전화번호1<i>★</i></dt>
+                                            <dd>
+                                                <input type="text" inputmode="numeric" id="rsrvAcperTel" class="autoHypenPhone" placeholder="전화번호를 입력해주세요." required hname="전화번호">
+                                            </dd>
+                                            <dt>전화번호2</dt>
+                                            <dd>
+                                                <input type="text" inputmode="numeric" id="rsrvAcperCpno" class="autoHypenPhone" placeholder="전화번호를 입력해주세요." >
+                                            </dd>
+                                            <dt>주소<i>★</i></dt>
+                                            <dd>
+                                                <div class="inputBox">
+                                                    <input type="hidden" id="rsrvAcperZipcd" />
+                                                    <input type="hidden" id="rsrvAcperBldMgrNo" />
+                                                    <input type="text" id="rsrvAcperBadr" placeholder="주소를 검색주세요." readonly required hname="주소" >
+                                                    <button class="btn glass addressSearch" data-type="rsrvAcper">검색</button>
+                                                </div>
+                                            </dd>
+                                            <dt>&nbsp;</dt>
+                                            <dd>
+                                                <input type="text" id="rsrvAcperDadr" placeholder="상세주소를 입력해주세요." required hname="상세주소" />
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </li>
+                                <!-- 개인택배 > 받는 사람 E-->
+                                <!-- 개인택배 > 화물정보 입력, 개인정보활용 동의 S-->
+                                <li>
+                                    <div class="topHead">
+                                        <span class="tit">화물정보 입력</span>
+                                    </div>
+                                    <!-- 화물입력 -->
+                                    <div class="infoBox">
+                                        <dl class="inBox tp1">
+                                            <dt>상품명<i>★</i></dt>
+                                            <dd>
+                                                <input type="hidden" id="rsrvGdsCd" required hname="상품명"/>
+                                                <div class="txtBox tp3 plus itemKnd">
+                                                    <span id="rsrvGdsNm">상품 분류를 선택해주세요.</span>
+                                                    <button class="btn plus">추가</button>
+                                                </div>
+                                            </dd>
+                                            <dt>신선식품</dt>
+                                            <dd class="lh">
 													<span class="switchBox vt">
 														<input type="checkbox" id="rsrvFresYn">
 														<label for="rsrvFresYn">&nbsp;</label>
 													</span>
-													<span class="badge red s bing">신선</span>
-												</dd>
-												<dt class="vt">화물가액<i>★</i></dt>
-												<dd>
-													<input type="text" inputmode="numeric" class="money" id="rsrvArtcPrc" placeholder="원 단위로 입력해주세요." required hname="화물가액">
-													<p class="tRed" style="display:none;" id="rsrvArtcPrcTxt">화물가액은 최대 3,000,000원까지 입력 가능합니다.</p>
-												</dd>
-												<dt>박스및규격<i>★</i></dt>
-												<dd class="lh">
+                                                <span class="badge red s bing">신선</span>
+                                            </dd>
+                                            <dt class="vt">화물가액<i>★</i></dt>
+                                            <dd>
+                                                <input type="text" inputmode="numeric" class="money" id="rsrvArtcPrc" placeholder="원 단위로 입력해주세요." required hname="화물가액">
+                                                <p class="tRed" style="display:none;" id="rsrvArtcPrcTxt">화물가액은 최대 3,000,000원까지 입력 가능합니다.</p>
+                                            </dd>
+                                            <dt>박스및규격<i>★</i></dt>
+                                            <dd class="lh">
 													<span class="selBox">
 														<select id="rsrvBoxTyp">
 															<option value="A">10kg 120cm 이하</option>
@@ -178,286 +193,482 @@
 														</select>
 													</span>
 
-													<div class="inNum">
-														<button class="btn minus">마이너스</button>
-														<input type="number" id="rsrvQty" placeholder="" value="1" class="valNum"/>
-														<button class="btn plus2">플러스</button>
-													</div>
-												</dd>
-												<dt>특화구분<i>★</i></dt>
-												<dd class="lh">
-													<span class="radioBox"><input type="radio" name="rsrvSvcCd" id="rsrvSvc00" value="00" checked/> <label for="rsrvSvc00">일반</label></span>
-													<span class="radioBox mgl20"><input type="radio" name="rsrvSvcCd" id="rsrvSvc01" value="01" /> <label for="rsrvSvc01">특화</label></span>
-												</dd>
-												<dt>운임구분<i>★</i></dt>
-												<dd class="lh">
-													<span class="radioBox"><input type="radio" name="rsrvFareSctCd" id="rsrvFareSct01" value="01" checked/> <label for="rsrvFareSct01">현불</label></span>
-													<span class="radioBox mgl20"><input type="radio" name="rsrvFareSctCd" id="rsrvFareSct02" value="02"/> <label for="rsrvFareSct02">착불</label></span>
-												</dd>
-												<dt>운임<i>★</i></dt>
-												<dd>
-													<div class="inputBox pdr90">
-														<input type="hidden" id="rsrvSummFare" required hname="운임" />
-														<input type="text" id="rsrvSummFareTxt" placeholder="" disabled>
-														<button class="btn red w85 fareCalcBtn">운임계산</button>
-													</div>
-												</dd>
-												<dt>배송요청사항<i>★</i></dt>
-												<dd>
-													<div class="txtBox tp3 plus" id="dlvMsg">
-														<input type="hidden" id="dlvMsgCont" required hname="배송요청사항">
-														<span id="dlvMsgContText">요청사항을 선택해주세요.</span>
-														<button class="btn plus">추가</button>
-													</div>
-												</dd>
-											</dl>
-										</div>
-										<!-- //화물입력 -->
-										
-										<div class="topHead mgb10">
-											<span class="tit">개인정보활용 동의</span>
-											<button class="btn arrowR mgl10 agreeView" data-etc="rsrv">전문보기</button>
+                                                <div class="inNum">
+                                                    <button class="btn minus">마이너스</button>
+                                                    <input type="number" id="rsrvQty" placeholder="" value="1" class="valNum"/>
+                                                    <button class="btn plus2">플러스</button>
+                                                </div>
+                                            </dd>
+                                            <dt>특화구분<i>★</i></dt>
+                                            <dd class="lh">
+                                                <span class="radioBox"><input type="radio" name="rsrvSvcCd" id="rsrvSvc00" value="00" checked/> <label for="rsrvSvc00">일반</label></span>
+                                                <span class="radioBox mgl20"><input type="radio" name="rsrvSvcCd" id="rsrvSvc01" value="01" /> <label for="rsrvSvc01">특화</label></span>
+                                            </dd>
+                                            <dt>운임구분<i>★</i></dt>
+                                            <dd class="lh">
+                                                <span class="radioBox"><input type="radio" name="rsrvFareSctCd" id="rsrvFareSct01" value="01" checked/> <label for="rsrvFareSct01">현불</label></span>
+                                                <span class="radioBox mgl20"><input type="radio" name="rsrvFareSctCd" id="rsrvFareSct02" value="02"/> <label for="rsrvFareSct02">착불</label></span>
+                                            </dd>
+                                            <dt>운임<i>★</i></dt>
+                                            <dd>
+                                                <div class="inputBox pdr90">
+                                                    <input type="hidden" id="rsrvSummFare" required hname="운임" />
+                                                    <input type="text" id="rsrvSummFareTxt" placeholder="" disabled>
+                                                    <button class="btn red w85 fareCalcBtn">운임계산</button>
+                                                </div>
+                                            </dd>
+                                            <dt>배송요청사항<i>★</i></dt>
+                                            <dd>
+                                                <div class="txtBox tp3 plus" id="dlvMsg">
+                                                    <input type="hidden" id="dlvMsgCont" required hname="배송요청사항">
+                                                    <span id="dlvMsgContText">요청사항을 선택해주세요.</span>
+                                                    <button class="btn plus">추가</button>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <!-- //화물입력 -->
 
-											<span class="chkBox m fr">
+                                    <div class="topHead mgb10">
+                                        <span class="tit">개인정보활용 동의</span>
+                                        <button class="btn arrowR mgl10 agreeView" data-etc="rsrv">전문보기</button>
+
+                                        <span class="chkBox m fr">
 												<input type="checkbox" id="rsrvAgree" >
 												<label for="rsrvAgree">동의</label>
 											</span>
-											<div class="clear mgt5">
-												고객님께서 읽고 직접 동의 선택을 하여야 합니다.
-											</div>
-										</div>
+                                        <div class="clear mgt5">
+                                            고객님께서 읽고 직접 동의 선택을 하여야 합니다.
+                                        </div>
+                                    </div>
 
-									</li>
-									<!-- 개인택배 > 화물정보 입력, 개인정보활용 동의 E-->
-								</ul>
-							</div>
-						</li>
-						<!-- //개인택배 -->
-						<!-- 반품접수 -->
-						<li class="rtnLi" style="display:none;">
-							<div class="infoListBox tp2">
-								<ul>
-									<li>
-										<div class="topHead">
-											<span class="tit">배송정보 입력</span>
-										</div>
-										<!-- 배송정보 -->
-										<div class="infoBox">
-											<dl class="inBox tp1">
-												<dt>원송장번호<i>★</i></dt>
-												<dd>
-													<div class="inputBox">
-														<input type="text" id="rtnOrgInvNo" placeholder="송장번호 입력"  required hname="원송장번호" readonly value="">
-														<button class="btn glass" id="orgInvNoSearch">조회</button>
-													</div>
-												</dd>
-												<dt>반품지선택<i>★</i></dt>
-												<dd class="lh">
+                                </li>
+                                <!-- 개인택배 > 화물정보 입력, 개인정보활용 동의 E-->
+                            </ul>
+                        </div>
+                    </li>
+                    <!-- //거래처택배접수 -->
+                    <li class="clientLi" style="display:none;">
+                        <div class="infoListBox tp2">
+                            <ul>
+                                <!-- 거래처택배 > 보내는사람 S-->
+                                <li class="clientSnperSave">
+                                    <div class="topHead">
+                                        <span class="tit">보내는 사람</span>
+                                        <span class="chkBox m fr">
+												<input type="checkbox" id="clientSnperSave">
+												<label for="clientSnperSave">보내는 사람 정보 저장</label>
+											</span>
+                                    </div>
+                                    <div class="infoBox">
+                                        <dl class="inBox tp1">
+                                            <dt>거래처명<i>★</i></dt>
+                                            <dd>
+                                                <div class="inputBox">
+                                                    <input type="text" id="clientSnperCustNm" placeholder="거래처명을 입력해주세요." required hname="거래처명"/>
+                                                    <input type="hidden" id="clientSnperCustCd" placeholder="거래처코드를 입력해주세요." required hname="거래처코드" />
+                                                    <button class="btn glass clientNmSearch" id ="clientSnperCustSearch" data-type="rtnSnper">검색</button>
+                                                </div>
+                                            </dd>
+                                            <dt>이름<i>★</i></dt>
+                                            <dd>
+                                                <div class="inputBox pdr100">
+                                                    <input type="text" id="clientSnperNm" placeholder="이름을 입력해주세요." required hname="이름"/>
+                                                    <button class="btn red w95 fixedClient" id="clientFixSnper">고정송수하주</button>
+                                                </div>
+                                            </dd>
+                                            <dt>전화번호1<i>★</i></dt>
+                                            <dd>
+                                                <input type="text" inputmode="numeric" id="clientSnperTel" class="autoHypenPhone" placeholder="전화번호를 입력해주세요." required hname="전화번호">
+                                            </dd>
+                                            <dt>전화번호2</dt>
+                                            <dd>
+                                                <input type="text" inputmode="numeric" id="clientSnperCpno" class="autoHypenPhone" placeholder="전화번호를 입력해주세요.">
+                                            </dd>
+                                            <dt>주소<i>★</i></dt>
+                                            <dd>
+                                                <div class="inputBox">
+                                                    <input type="hidden" id="clientSnperZipcd"/>
+                                                    <input type="hidden" id="clientSnperBldMgrNo" />
+                                                    <input type="hidden" id="clientSnperBasAreaCd" />
+                                                    <input type="hidden" id="clientSnperCldlBrshCd" />
+                                                    <input type="hidden" id="clientSnperCldlBrshNm" />
+                                                    <input type="text" id="clientSnperBadr" placeholder="주소를 검색주세요." readonly required hname="주소"/>
+                                                    <button class="btn glass addressSearch" data-type="clientSnper">검색</button>
+                                                </div>
+                                            </dd>
+                                            <dt>&nbsp;</dt>
+                                            <dd>
+                                                <input type="text" id="clientSnperDadr" placeholder="상세주소를 입력해주세요." required hname="상세주소" />
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </li>
+                                <!-- 거래처택배 > 보내는사람 S-->
+                                <!-- 거래처택배 > 받는 사람 S-->
+                                <li class="clientAcperSave">
+                                    <div class="topHead">
+                                        <span class="tit">받는 사람</span>
+                                        <div class="fr">
+												<span class="chkBox m mgr15">
+													<input type="checkbox" id="clientInfoCopy">
+													<label for="clientInfoCopy">보내는 사람 정보와 동일</label>
+												</span>
+                                            <span class="chkBox m">
+													<input type="checkbox" id="clientAcperSave">
+													<label for="clientAcperSave">받는 사람 정보 저장</label>
+												</span>
+                                        </div>
+                                    </div>
+                                    <div class="infoBox">
+                                        <dl class="inBox tp1">
+                                            <dt>이름<i>★</i></dt>
+                                            <dd>
+                                                <div class="inputBox pdr100">
+                                                    <input type="text" id="clientAcperNm" placeholder="이름을 입력해주세요." required hname="이름"/>
+                                                    <button class="btn red w95 fixedClient" id="clientFixAcper">고정송수하주</button>
+                                                </div>
+                                            </dd>
+                                            <dt>전화번호1<i>★</i></dt>
+                                            <dd>
+                                                <input type="text" inputmode="numeric" id="clientAcperTel" class="autoHypenPhone" placeholder="전화번호를 입력해주세요." required hname="전화번호">
+                                            </dd>
+                                            <dt>전화번호2</dt>
+                                            <dd>
+                                                <input type="text" inputmode="numeric" id="clientAcperCpno" class="autoHypenPhone" placeholder="전화번호를 입력해주세요." >
+                                            </dd>
+                                            <dt>주소<i>★</i></dt>
+                                            <dd>
+                                                <div class="inputBox">
+                                                    <input type="hidden" id="clientAcperZipcd" />
+                                                    <input type="hidden" id="clientAcperBldMgrNo" />
+                                                    <input type="hidden" id="clientAcperBasAreaCd" />
+                                                    <input type="hidden" id="clientAcperCldlBrshCd" />
+                                                    <input type="hidden" id="clientAcperCldlBrshNm" />
+                                                    <input type="text" id="clientAcperBadr" placeholder="주소를 검색주세요." readonly required hname="주소" >
+                                                    <button class="btn glass addressSearch" data-type="clientAcper">검색</button>
+                                                </div>
+                                            </dd>
+                                            <dt>&nbsp;</dt>
+                                            <dd>
+                                                <input type="text" id="clientAcperDadr" placeholder="상세주소를 입력해주세요." required hname="상세주소" />
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </li>
+                                <!-- 거래처택배 > 받는 사람 E-->
+                                <!-- 거래처택배 > 화물정보 입력, 개인정보활용 동의 S-->
+                                <li>
+                                    <div class="topHead">
+                                        <span class="tit">화물정보 입력</span>
+                                    </div>
+                                    <!-- 화물입력 -->
+                                    <div class="infoBox">
+                                        <dl class="inBox tp1">
+                                            <dt>상품명<i>★</i></dt>
+                                            <dd>
+                                                <input type="hidden" id="clientGdsCd" required hname="상품명"/>
+                                                <div class="txtBox tp3 plus itemKnd">
+                                                    <span id="clientGdsNm">상품 분류를 선택해주세요.</span>
+                                                    <button class="btn plus">추가</button>
+                                                </div>
+                                            </dd>
+                                            <dt>신선식품</dt>
+                                            <dd class="lh">
+													<span class="switchBox vt">
+														<input type="checkbox" id="clientFresYn">
+														<label for="clientFresYn">&nbsp;</label>
+													</span>
+                                                <span class="badge red s bing">신선</span>
+                                            </dd>
+                                            <dt>박스및규격<i>★</i></dt>
+                                            <dd class="lh">
+													<span class="selBox w110">
+														<select id="clientBoxTyp" class="pdl5">
+														</select>
+													</span>
+
+                                                <div class="inNum">
+                                                    <button class="btn minus">마이너스</button>
+                                                    <input type="number" id="clientQty" placeholder="" value="1" class="valNum"/>
+                                                    <button class="btn plus2">플러스</button>
+                                                </div>
+                                            </dd>
+                                            <dt>특화구분<i>★</i></dt>
+                                            <dd class="lh">
+                                                <span class="radioBox"><input type="radio" name="clientSvcCd" id="clientSvc00" value="00" checked/> <label for="clientSvc00">일반</label></span>
+                                                <span class="radioBox mgl20"><input type="radio" name="clientSvcCd" id="clientSvc01" value="01" /> <label for="clientSvc01">특화</label></span>
+                                            </dd>
+                                            <dt>운임구분<i>★</i></dt>
+                                            <dd class="lh">
+                                                <span class="radioBox"><input type="radio" name="clientFareSctCd" id="clientFareSct01" value="01" checked/> <label for="clientFareSct01">현불</label></span>
+                                                <span class="radioBox mgl20"><input type="radio" name="clientFareSctCd" id="clientFareSct02" value="02"/> <label for="clientFareSct02">착불</label></span>
+                                                <span class="radioBox mgl20"><input type="radio" name="clientFareSctCd" id="clientFareSct03" value="03"/> <label for="clientFareSct03">신용</label></span>
+                                            </dd>
+                                            <dt>운임<i>★</i></dt>
+                                            <dd>
+                                                <div class="inputBox pdr90">
+                                                    <input type="hidden" id="clientSummFare" required hname="운임" />
+                                                    <input type="text" inputmode="numeric" id="clientSummFareTxt" placeholder="">
+                                                    <button class="btn red w85 fareCalcBtn">운임계산</button>
+                                                </div>
+                                            </dd>
+                                            <dt>배송요청사항<i>★</i></dt>
+                                            <dd>
+                                                <div class="txtBox tp3 plus" id="dlvMsgClient">
+                                                    <input type="hidden" id="dlvMsgClientCont" required hname="배송요청사항">
+                                                    <span id="dlvMsgContClientText">요청사항을 선택해주세요.</span>
+                                                    <button class="btn plus">추가</button>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <!-- //화물입력 -->
+
+                                    <div class="topHead mgb10">
+                                        <span class="tit">개인정보활용 동의</span>
+                                        <button class="btn arrowR mgl10 agreeView" data-etc="client">전문보기</button>
+
+                                        <span class="chkBox m fr">
+												<input type="checkbox" id="clientAgree" >
+												<label for="clientAgree">동의</label>
+											</span>
+                                        <div class="clear mgt5">
+                                            고객님께서 읽고 직접 동의 선택을 하여야 합니다.
+                                        </div>
+                                    </div>
+
+                                </li>
+                                <!-- 개인택배 > 화물정보 입력, 개인정보활용 동의 E-->
+                            </ul>
+                        </div>
+                    </li>
+                    <!-- //거래처택배접수 -->
+                    <!-- 반품접수 -->
+                    <li class="rtnLi" style="display:none;">
+                        <div class="infoListBox tp2">
+                            <ul>
+                                <li>
+                                    <div class="topHead">
+                                        <span class="tit">배송정보 입력</span>
+                                    </div>
+                                    <!-- 배송정보 -->
+                                    <div class="infoBox">
+                                        <dl class="inBox tp1">
+                                            <dt>원송장번호<i>★</i></dt>
+                                            <dd>
+                                                <div class="inputBox">
+                                                    <input type="text" id="rtnOrgInvNo" placeholder="송장번호 입력"  required hname="원송장번호" readonly value="">
+                                                    <button class="btn glass" id="orgInvNoSearch">조회</button>
+                                                </div>
+                                            </dd>
+                                            <dt>반품지선택<i>★</i></dt>
+                                            <dd class="lh">
 													<span class="radioBox">
 														<input type="radio" name="return" id="invoice" value="invoice" checked/>
 														<label for="invoice">원송장 기준</label>
 													</span>
-													<span class="radioBox mgl10">
+                                                <span class="radioBox mgl10">
 														<input type="radio" name="return" id="direct" value="direct"/>
 														<label for="direct">직접입력</label>
 													</span>
-												</dd>
-												<dt>반품운송장</dt>
-												<dd class="lh">
-													출력 시 발급됩니다.
-												</dd>
-												<dt>반품사유<i>★</i></dt>
-												<dd>
-													<div class="txtBox tp3 plus" id="rtgRsn">
-														<input type="hidden" id="rtnRsnNm" required hname="반품사유" />
-														<span id="rtnRsnNmText">반품사유를 선택해주세요.</span>
-														<button class="btn plus">추가</button>
-													</div>
-												</dd>
-											</dl>
-										</div>
-										<!-- //배송정보 -->
-									</li>
-									<li class="rtnSnperSave">
-										<div class="topHead">
-											<span class="tit">보내는 사람</span>
-											<div class="fr">
+                                            </dd>
+                                            <dt>반품운송장</dt>
+                                            <dd class="lh">
+                                                출력 시 발급됩니다.
+                                            </dd>
+                                            <dt>반품사유<i>★</i></dt>
+                                            <dd>
+                                                <div class="txtBox tp3 plus" id="rtgRsn">
+                                                    <input type="hidden" id="rtnRsnNm" required hname="반품사유" />
+                                                    <span id="rtnRsnNmText">반품사유를 선택해주세요.</span>
+                                                    <button class="btn plus">추가</button>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <!-- //배송정보 -->
+                                </li>
+                                <li class="rtnSnperSave">
+                                    <div class="topHead">
+                                        <span class="tit">보내는 사람</span>
+                                        <div class="fr">
 												<span class="chkBox m">
-													<input type="checkbox" id="rtnSnperSave"> 
+													<input type="checkbox" id="rtnSnperSave">
 													<label for="rtnSnperSave">보내는 사람 정보 저장</label>
 												</span>
-											</div>
-										</div>
-										<!-- 보내는 사람 -->
-										<div class="infoBox">
-											<dl class="inBox tp1">
-												<dt>이름<i>★</i></dt>
-												<dd><input type="text" id="rtnSnperNm" placeholder="이름을 입력해주세요." required hname="이름"/></dd>
-												<dt>전화번호1<i>★</i></dt>
-												<dd>
-													<input type="text" inputmode="numeric" id="rtnSnperTel" class="autoHypenPhone" placeholder="전화번호를 입력해주세요." required hname="전화번호">
-												</dd>
-												<dt>전화번호2</dt>
-												<dd>
-													<input type="text" inputmode="numeric" id="rtnSnperCpno" class="autoHypenPhone" placeholder="전화번호를 입력해주세요.">
-												</dd>
-												<dt>주소<i>★</i></dt>
-												<dd>
-													<div class="inputBox">
-														<input type="hidden" id="rtnSnperZipcd" />
-														<input type="hidden" id="rtnSnperBldMgrNo" />
-														<input type="text" id="rtnSnperBadr" placeholder="주소를 검색주세요." readonly required hname="주소">
-														<button class="btn glass addressSearch" data-type="rtnSnper">검색</button>
-													</div>
-												</dd>
-												<dt>&nbsp;</dt>
-												<dd>
-													<input type="text" id="rtnSnperDadr" placeholder="상세주소를 입력해주세요." required hname="상세주소"/>
-												</dd>
-											</dl>
-										</div>
-										<!-- //보내는 사람 -->
-									</li>
-									<li>
-										<div class="topHead">
-											<span class="tit">받는 사람</span>
-											<div class="fr rtnSnperSaveToggle">
+                                        </div>
+                                    </div>
+                                    <!-- 보내는 사람 -->
+                                    <div class="infoBox">
+                                        <dl class="inBox tp1">
+                                            <dt>이름<i>★</i></dt>
+                                            <dd><input type="text" id="rtnSnperNm" placeholder="이름을 입력해주세요." required hname="이름"/></dd>
+                                            <dt>전화번호1<i>★</i></dt>
+                                            <dd>
+                                                <input type="text" inputmode="numeric" id="rtnSnperTel" class="autoHypenPhone" placeholder="전화번호를 입력해주세요." required hname="전화번호">
+                                            </dd>
+                                            <dt>전화번호2</dt>
+                                            <dd>
+                                                <input type="text" inputmode="numeric" id="rtnSnperCpno" class="autoHypenPhone" placeholder="전화번호를 입력해주세요.">
+                                            </dd>
+                                            <dt>주소<i>★</i></dt>
+                                            <dd>
+                                                <div class="inputBox">
+                                                    <input type="hidden" id="rtnSnperZipcd" />
+                                                    <input type="hidden" id="rtnSnperBldMgrNo" />
+                                                    <input type="text" id="rtnSnperBadr" placeholder="주소를 검색주세요." readonly required hname="주소">
+                                                    <button class="btn glass addressSearch" data-type="rtnSnper">검색</button>
+                                                </div>
+                                            </dd>
+                                            <dt>&nbsp;</dt>
+                                            <dd>
+                                                <input type="text" id="rtnSnperDadr" placeholder="상세주소를 입력해주세요." required hname="상세주소"/>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <!-- //보내는 사람 -->
+                                </li>
+                                <li>
+                                    <div class="topHead">
+                                        <span class="tit">받는 사람</span>
+                                        <div class="fr rtnSnperSaveToggle">
 												<span class="chkBox m">
 													<input type="checkbox" id="rtnInfoCopy">
 													<label for="rtnInfoCopy">보내는 사람 정보와 동일</label>
 												</span>
-											</div>
-										</div>
-										<!-- 받는 사람 -->
-										<div class="infoBox">
-											<dl class="inBox tp1">
-												<dt>이름<i>★</i></dt>
-												<dd><input type="text" id="rtnAcperNm" placeholder="이름을 입력해주세요." required hname="이름"/></dd>
-												<dt>전화번호1<i>★</i></dt>
-												<dd>
-													<input type="text" inputmode="numeric" id="rtnAcperTel" class="autoHypenPhone" placeholder="전화번호를 입력해주세요." required hname="전화번호">
-												</dd>
-												<dt>전화번호2</dt>
-												<dd>
-													<input type="text" inputmode="numeric" id="rtnAcperCpno" class="autoHypenPhone" placeholder="전화번호를 입력해주세요." >
-												</dd>
-												<dt>주소<i>★</i></dt>
-												<dd>
-													<div class="inputBox">
-														<input type="hidden" id="rtnAcperZipcd" />
-														<input type="hidden" id="rtnAcperBldMgrNo" />
-														<input type="text" id="rtnAcperBadr" placeholder="주소를 검색주세요."  required hname="주소" readonly>
-														<button class="btn glass addressSearch" id="rtnAcperAddSrch" data-type="rtnAcper">검색</button>
-													</div>
-												</dd>
-												<dt>&nbsp;</dt>
-												<dd>
-													<input type="text" id="rtnAcperDadr" placeholder="상세주소를 입력해주세요."  hname="상세주소"/>
-												</dd>
-											</dl>
-										</div>
-										<!-- //받는 사람 -->
-									</li>
-									<li>
-										<div class="topHead">
-											<span class="tit">화물정보 입력</span>
-										</div>
-										<!-- 화물입력 -->
-										<div class="infoBox">
-											<dl class="inBox tp1">
-												<dt>상품구분<i>★</i></dt>
-												<dd>
-													<!-- <input type="hidden" id="rtnGdsCd" required hname="상품구분"/>
-													<div class="txtBox tp3 plus">
-														<span id="rtnGdsNm">상품 분류를 선택해주세요.</span>
-														<button class="btn plus">추가</button>
-													</div> -->
-													<input type="text" id="rtnGdsNm" readonly>
-												</dd>
-												<dt>신선식품</dt>
-												<dd class="lh">
+                                        </div>
+                                    </div>
+                                    <!-- 받는 사람 -->
+                                    <div class="infoBox">
+                                        <dl class="inBox tp1">
+                                            <dt>이름<i>★</i></dt>
+                                            <dd><input type="text" id="rtnAcperNm" placeholder="이름을 입력해주세요." required hname="이름"/></dd>
+                                            <dt>전화번호1<i>★</i></dt>
+                                            <dd>
+                                                <input type="text" inputmode="numeric" id="rtnAcperTel" class="autoHypenPhone" placeholder="전화번호를 입력해주세요." required hname="전화번호">
+                                            </dd>
+                                            <dt>전화번호2</dt>
+                                            <dd>
+                                                <input type="text" inputmode="numeric" id="rtnAcperCpno" class="autoHypenPhone" placeholder="전화번호를 입력해주세요." >
+                                            </dd>
+                                            <dt>주소<i>★</i></dt>
+                                            <dd>
+                                                <div class="inputBox">
+                                                    <input type="hidden" id="rtnAcperZipcd" />
+                                                    <input type="hidden" id="rtnAcperBldMgrNo" />
+                                                    <input type="text" id="rtnAcperBadr" placeholder="주소를 검색주세요."  required hname="주소" readonly>
+                                                    <button class="btn glass addressSearch" id="rtnAcperAddSrch" data-type="rtnAcper">검색</button>
+                                                </div>
+                                            </dd>
+                                            <dt>&nbsp;</dt>
+                                            <dd>
+                                                <input type="text" id="rtnAcperDadr" placeholder="상세주소를 입력해주세요."  hname="상세주소"/>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <!-- //받는 사람 -->
+                                </li>
+                                <li>
+                                    <div class="topHead">
+                                        <span class="tit">화물정보 입력</span>
+                                    </div>
+                                    <!-- 화물입력 -->
+                                    <div class="infoBox">
+                                        <dl class="inBox tp1">
+                                            <dt>상품구분<i>★</i></dt>
+                                            <dd>
+                                                <!-- <input type="hidden" id="rtnGdsCd" required hname="상품구분"/>
+                                                <div class="txtBox tp3 plus">
+                                                    <span id="rtnGdsNm">상품 분류를 선택해주세요.</span>
+                                                    <button class="btn plus">추가</button>
+                                                </div> -->
+                                                <input type="text" id="rtnGdsNm" readonly>
+                                            </dd>
+                                            <dt>신선식품</dt>
+                                            <dd class="lh">
 													<span class="switchBox ti">
 														<input type="checkbox" id="rtnfresYn" disabled>
 														<label for="rtnfresYn">스위치</label>
 													</span>
-												</dd>
-												<dt>운임구분<i>★</i></dt>
-												<dd class="lh">
-													<span class="radioBox"><input type="radio" name="rtnFareSctCd" id="rtnFareSct03" value="03" disabled/><label for="rtnFareSct03">신용</label></span>
-													<span class="radioBox mgl20"><input type="radio" name="rtnFareSctCd" id="rtnFareSct01" value="01" disabled/><label for="rtnFareSct01">현불</label></span>
-													<span class="radioBox mgl20"><input type="radio" name="rtnFareSctCd" id="rtnFareSct02" value="02" disabled/><label for="rtnFareSct02">착불</label></span>
-												</dd>
-												<dt>운임<i>★</i></dt>
-												<dd>
-													<!-- <div class="inputBox pdr90">
-														<input type="text" id="" placeholder="" disabled required hname="운임">
-														<button class="btn red w85 fareCalcBtn">운임계산</button>
-													</div> -->
-													<input type="text" id="rtnSummFare" readonly>
-												</dd>
-												<dt>특화구분<i>★</i></dt>
-												<dd class="lh">
-													<span class="radioBox"><input type="radio" name="rtnSvcCd" id="rtnSvcCd00" value="00" disabled/><label for="rtnSvcCd00">일반</label></span>
-													<span class="radioBox mgl20"><input type="radio" name="rtnSvcCd" id="rtnSvcCd01" value="01" disabled/><label for="rtnSvcCd01">특화</label></span>
-												</dd>
-											</dl>
-										</div>
-										<!-- //화물입력 -->
-									</li>
-								</ul>
-							</div>
-							
-							<div class="topHead mgb10">
-								<span class="tit">개인정보활용 동의</span>
-								<button class="btn arrowR mgl10 agreeView" data-etc="rtn">전문보기</button>
-								<span class="chkBox m fr">
+                                            </dd>
+                                            <dt>운임구분<i>★</i></dt>
+                                            <dd class="lh">
+                                                <span class="radioBox"><input type="radio" name="rtnFareSctCd" id="rtnFareSct03" value="03" disabled/><label for="rtnFareSct03">신용</label></span>
+                                                <span class="radioBox mgl20"><input type="radio" name="rtnFareSctCd" id="rtnFareSct01" value="01" disabled/><label for="rtnFareSct01">현불</label></span>
+                                                <span class="radioBox mgl20"><input type="radio" name="rtnFareSctCd" id="rtnFareSct02" value="02" disabled/><label for="rtnFareSct02">착불</label></span>
+                                            </dd>
+                                            <dt>운임<i>★</i></dt>
+                                            <dd>
+                                                <!-- <div class="inputBox pdr90">
+                                                    <input type="text" id="" placeholder="" disabled required hname="운임">
+                                                    <button class="btn red w85 fareCalcBtn">운임계산</button>
+                                                </div> -->
+                                                <input type="text" id="rtnSummFare" readonly>
+                                            </dd>
+                                            <dt>특화구분<i>★</i></dt>
+                                            <dd class="lh">
+                                                <span class="radioBox"><input type="radio" name="rtnSvcCd" id="rtnSvcCd00" value="00" disabled/><label for="rtnSvcCd00">일반</label></span>
+                                                <span class="radioBox mgl20"><input type="radio" name="rtnSvcCd" id="rtnSvcCd01" value="01" disabled/><label for="rtnSvcCd01">특화</label></span>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <!-- //화물입력 -->
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="topHead mgb10">
+                            <span class="tit">개인정보활용 동의</span>
+                            <button class="btn arrowR mgl10 agreeView" data-etc="rtn">전문보기</button>
+                            <span class="chkBox m fr">
 									<input type="checkbox" id="rtnAgree">
 									<label for="rtnAgree">동의</label>
 								</span>
-								<div class="clear mgt5">
-									고객님께서 읽고 직접 동의 선택을 하여야 합니다.
-								</div>
-							</div>
-						</li>
-						<!-- //반품접수 -->
-					</ul>
-				</div>
-				<!-- //tabView -->
-				
-				<div class="btnBox">
-					<button class="btn red m w100p" id="sendBtn">접수</button>
-				</div>
+                            <div class="clear mgt5">
+                                고객님께서 읽고 직접 동의 선택을 하여야 합니다.
+                            </div>
+                        </div>
+                    </li>
+                    <!-- //반품접수 -->
+                </ul>
+            </div>
+            <!-- //tabView -->
 
-			</div>
-			<!-- //contentBox -->
+            <div class="btnBox">
+                <button class="btn red m w100p" id="sendBtn">접수</button>
+            </div>
 
-		</div>
-		<!--  //contentSection  -->
+        </div>
+        <!-- //contentBox -->
+
+    </div>
+    <!--  //contentSection  -->
 
 
 
-		<!-- 모달팝업 전송 -->
-		<div class="mpopBox send">
-			<div class="popBody">
-				<p class="img"><img src="../../common/img/icon-airplane.png" alt="" /></p>
-				<p class="txt1">전송완료</p>
-				<p class="txt2">스캔된 데이터 N건<br />데이터 전송이 완료되었습니다.</p>
-			</div>
-			<div class="popFooter">
-				<div class="btnBox">
-					<button class="btn red m w100p b-close">확인</button>
-				</div>
-			</div>
-		</div>
-		<!-- //모달팝업 전송 -->
+    <!-- 모달팝업 전송 -->
+    <div class="mpopBox send">
+        <div class="popBody">
+            <p class="img"><img src="../../common/img/icon-airplane.png" alt="" /></p>
+            <p class="txt1">전송완료</p>
+            <p class="txt2">스캔된 데이터 N건<br />데이터 전송이 완료되었습니다.</p>
+        </div>
+        <div class="popFooter">
+            <div class="btnBox">
+                <button class="btn red m w100p b-close">확인</button>
+            </div>
+        </div>
+    </div>
+    <!-- //모달팝업 전송 -->
 
-	</div>
-	<!--  //contents  -->
+</div>
+<!--  //contents  -->
 
 </body>
 
-	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
-	<script type="text/javascript" src="../js/PID0103.js"></script>
-	<script type="text/javascript" src="../../common/js/validator.js"></script>
+<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+<script type="text/javascript" src="../js/PID0103.js"></script>
+<script type="text/javascript" src="../../common/js/validator.js"></script>
 
 </html>
