@@ -2,7 +2,7 @@ LEMP.addEvent("backbutton", "page.callbackBackButton");		// 뒤로가기 버튼 
 var page = {
 	isPop : false, //심야 팝업여부
 	pInfo :{},
-	isPassed : false,		//기준날짜가 180일 이전인지 확인(false 개인정보 표시, true 표시하지 않음)
+	isPassed : false,		//기준날짜가 90일 이전인지 확인(false 개인정보 표시, true 표시하지 않음)
 	cnt : 0,
 	apiParam : {
 		id : "HTTP", // 디바이스 콜 id
@@ -198,8 +198,8 @@ var page = {
 	trclInfoCallback : function(res) {
 		try{
 			if(smutil.apiResValidChk(res) && res.code === "0000" && res.data_count!=0){
-				//기준날짜가 현재날짜로부터 180일 이전인지 확인
-				page.isPassed = smutil.isPassed(res.data.list[0].dlv_ymd, 180);
+				//기준날짜가 현재날짜로부터 90일 이전인지 확인
+				page.isPassed = smutil.isPassed(res.data.list[0].dlv_ymd, 90);
 				page.cnt = res.data.list[0].cnt;
 				$(".tRed.fs11").css("display","none");
 				var list = res.data.list[0];
