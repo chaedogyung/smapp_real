@@ -29,6 +29,8 @@ var page = {
 		custData : {},				// 선택된 거래처 데이터
 		fareAmtInfo : {},			// 거래처운임조회 결과 데이터,
 
+		isFare : false,				// 운임계산 클릭여부
+
 
 		init:function()
 		{
@@ -164,7 +166,17 @@ var page = {
 			/* 공통 > 운임 계산 팝업 */
 			$(document).on("click",".fareCalcBtn",function(){
 				if(page.tab_cd === 'client'){
-					page.getFareAmtInfo();
+					const fare = $("#clientSummFareTxt").val();
+					if(smutil.isEmpty(fare)){
+						LEMP.Window.alert({
+							"_sTitle" : "미입력",
+							"_vMessage" : "운임을 입력해주세요."
+						});
+						return false;
+					}else{
+						page.isFare = true;
+						page.getFareAmtInfo(fare);
+					}
 				}else{
 					page.fareCalcSearch();
 				}
@@ -378,6 +390,14 @@ var page = {
 					search = ""
 				}
 				page.fixShcnList(search);
+			});
+
+			//거래처 택배접수 / 박스타입이 변경될 경우 기본운임 세팅
+			$("#clientBoxTyp").change(function () {
+				if(page.tab_cd === "client"){
+					page.isFare = false;
+					page.getFareAmtInfo("0");
+				}
 			});
 		},
 
@@ -670,39 +690,38 @@ var page = {
 		// ################### 원송장번호 end
 
 		//거래처 택배 운임계산
-		getFareAmtInfo : function () {
+		getFareAmtInfo : function (fare) {
 			const clientQty = $("#clientQty").val();			//수량
 			const clientSnperZipcd = $("#clientSnperZipcd").val();			//보내는사람 우편번호
 			const clientAcperZipcd = $("#clientAcperZipcd").val();			//받는사람 우편번호
-			const clientSummFareTxt = $("#clientSummFareTxt").val();
+			const clientSummFareTxt = fare;
 
 			// 필수값 체크 S
 			if(smutil.isEmpty(page.custData)){
-				LEMP.Window.alert({
-					"_sTitle" : "미입력",
-					"_vMessage" : "거래처 검색을 해주세요"
-				});
+				if(fare !== "0"){
+					LEMP.Window.alert({
+						"_sTitle" : "미입력",
+						"_vMessage" : "거래처 검색을 해주세요"
+					});
+				}
 				return false;
 			}
 			if(smutil.isEmpty(clientSnperZipcd)){
-				LEMP.Window.alert({
-					"_sTitle" : "미입력",
-					"_vMessage" : "보내는 사람 주소를 입력해주세요."
-				});
+				if(fare !== "0"){
+					LEMP.Window.alert({
+						"_sTitle" : "미입력",
+						"_vMessage" : "보내는 사람 주소를 입력해주세요."
+					});
+				}
 				return false;
 			}
 			if(smutil.isEmpty(clientAcperZipcd)){
-				LEMP.Window.alert({
-					"_sTitle" : "미입력",
-					"_vMessage" : "받는 사람 주소를 입력해주세요."
-				});
-				return false;
-			}
-			if(smutil.isEmpty(clientSummFareTxt)){
-				LEMP.Window.alert({
-					"_sTitle" : "미입력",
-					"_vMessage" : "운임을 입력해주세요."
-				});
+				if(fare !== "0"){
+					LEMP.Window.alert({
+						"_sTitle" : "미입력",
+						"_vMessage" : "받는 사람 주소를 입력해주세요."
+					});
+				}
 				return false;
 			}
 
@@ -712,7 +731,7 @@ var page = {
 			page.apiParam.data = {
 				"parameters": {
 					"jobCustCd" : page.custData.job_cust_cd,						//거래처 코드
-					"picshCd" : $("#clientSnperCldlBrshCd").val(),								//집하 점소코드
+					"picshCd" : $("#clientSnperCldlBrshCd").val(),					//집하 점소코드
 					"dlvPlnBrshCd" : $("#clientAcperCldlBrshCd").val(),				//배달예정 점소코드
 					"fareSctCd" : $("input[name=clientFareSctCd]:checked").val(),	//운임구분
 					"ordSct" : "01",												//출고 01 고정
@@ -724,7 +743,7 @@ var page = {
 					"acperSvcCd" : "00",											//00 고정
 					"acperBasAreaCd" : $("#clientAcperBasAreaCd").val(),			//받는사람 지역코드
 					"acperZipcd" : clientAcperZipcd,								//받는사람 우편번호
-					"dlvFare" :  clientSummFareTxt,
+					"dlvFare" :  clientSummFareTxt,									//입력된 운임
 					"boxTypCd" : $("#clientBoxTyp").val(),
 					"pickYmd" : smutil.getToday().replaceAll("-",""),	//오늘날짜
 					"qty" : clientQty,
@@ -740,12 +759,17 @@ var page = {
 			if(smutil.apiResValidChk(result) && result.code === "0000"){
 				page.fareAmtInfo = result.list[0];
 				//운임등록
-				const clientSummFareTxt = $("#clientSummFareTxt").val();
-				$("#clientSummFare").val(clientSummFareTxt);
-				LEMP.Window.alert({
-					"_sTitle" : "운임계산",
-					"_vMessage" : "운임이 등록되었습니다"
-				});
+				if(page.isFare){
+					const clientSummFareTxt = $("#clientSummFareTxt").val();
+					$("#clientSummFare").val(clientSummFareTxt);
+					LEMP.Window.alert({
+						"_sTitle" : "운임계산",
+						"_vMessage" : "운임이 등록되었습니다"
+					});
+				}else{
+					$("#clientSummFare").val(page.fareAmtInfo.summFare);
+					$("#clientSummFareTxt").val(page.fareAmtInfo.summFare);
+				}
 			}
 		},
 
@@ -1306,6 +1330,7 @@ var page = {
 				if (!smutil.isEmpty(list) && list.length>0){
 					$('#clientBoxTyp').children('option').remove();
 					smutil.setSelectOptions("#clientBoxTyp", list);
+					$('#clientBoxTyp').val(list[0].dtl_cd).trigger('change');
 				}
 
 				//운임구분
