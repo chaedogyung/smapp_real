@@ -1330,7 +1330,8 @@ var page = {
 				if (!smutil.isEmpty(list) && list.length>0){
 					$('#clientBoxTyp').children('option').remove();
 					smutil.setSelectOptions("#clientBoxTyp", list);
-					$('#clientBoxTyp').val(list[0].dtl_cd).trigger('change');
+					//박스규격 기본으로 선택되지 않도록
+					$('#clientBoxTyp').val("");
 				}
 
 				//운임구분
