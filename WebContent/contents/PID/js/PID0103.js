@@ -691,6 +691,7 @@ var page = {
 
 		//거래처 택배 운임계산
 		getFareAmtInfo : function (fare) {
+			smutil.loadingOn();
 			const clientQty = $("#clientQty").val();			//수량
 			const clientSnperZipcd = $("#clientSnperZipcd").val();			//보내는사람 우편번호
 			const clientAcperZipcd = $("#clientAcperZipcd").val();			//받는사람 우편번호
@@ -756,6 +757,7 @@ var page = {
 
 		//거래처 택배 운임계산 콜백
 		getFareAmtInfoCallback : function (result){
+			smutil.loadingOff();
 			if(smutil.apiResValidChk(result) && result.code === "0000"){
 				page.fareAmtInfo = result.list[0];
 				//운임등록
@@ -770,6 +772,11 @@ var page = {
 					$("#clientSummFare").val(page.fareAmtInfo.summFare);
 					$("#clientSummFareTxt").val(page.fareAmtInfo.summFare);
 				}
+			} else {
+				LEMP.Window.toast({
+					"_sMessage" : "result.code : " + result.code,
+					"_sDuration" : "short"
+				});
 			}
 		},
 
