@@ -774,8 +774,8 @@ var page = {
 				}
 			} else {
 				LEMP.Window.toast({
-					"_sMessage" : "result.code : " + result.code,
-					"_sDuration" : "short"
+					"_sMessage" : "오류코드 : " + result.code,
+					"_sDuration" : "long"
 				});
 			}
 		},
