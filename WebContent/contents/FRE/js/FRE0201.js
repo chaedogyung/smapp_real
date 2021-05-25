@@ -160,7 +160,7 @@ var page = {
 		$('.btn.del4').on('click', function() {
 			$(this).css('display', 'none');
 			$(this).prev().css('display', 'block');
-			$(this).next().attr('src', '');
+			$(this).next().css('display', 'none');
 
 		
 			switch ($(this).prev().attr('id')) {
@@ -350,6 +350,7 @@ var page = {
 		
 		var num = page.pictureStatus.id.replace(/[^0-9]/g, '');
 		$('#' + page.pictureStatus.id).next().next().attr('src', data.param);
+		$('#' + page.pictureStatus.id).next().next().css('display', 'block');
 		$('#' + page.pictureStatus.id + "_D").css('display', 'block');
 		$('#' + page.pictureStatus.id).css('display', 'none');
 

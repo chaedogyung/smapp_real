@@ -42,6 +42,7 @@ ul.ul0{overflow:hidden;}
 ul.ul0 > li{float:left; box-sizing:border-box;}
 ul.ul2 > li{width:50%;} ul.ul3 > li{width:33.33%;} ul.ul4 > li{width:25%;}
 ul.ul5 > li{width:20%;} ul.ul6 > li{width:16.66%;} ul.ul7 > li{width:14.285%;}
+ul.ul-none > li{list-style: none; margin: 0px; padding: 0px;}
 
 li.li1 {width:10%;}
 li.li2{width:25%;} li.li3{width:35%;} li.li4{width:45%;} li.li5{width:55%;}
