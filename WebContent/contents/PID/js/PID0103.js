@@ -773,9 +773,9 @@ var page = {
 					$("#clientSummFareTxt").val(page.fareAmtInfo.summFare);
 				}
 			} else {
-				LEMP.Window.toast({
-					"_sMessage" : "오류코드 : " + result.code,
-					"_sDuration" : "long"
+				LEMP.Window.alert({
+					"_sTitle" : "오류코드 : " + result.code,
+					"_vMessage" : result.message
 				});
 			}
 		},
