@@ -78,6 +78,18 @@ var page = {
 			// native 기능 호출
 			smutil.nativeMothodCall(tr);
 		});
+
+		$(document).on('click','#initMmsMsg', function(){
+			LEMPCore.Module.logger("taegeon", "", "D", "initMmsMsg");
+			LEMP.Properties.set({
+				"_sKey" : "mmsMessage",
+				"_vValue" : ""
+			});
+			LEMP.Window.toast({
+				'_sMessage' : 'MMS메세지 초기화 완료',
+				'_sDuration' : 'short'
+			});
+		});
 	},
 	
 	smInfoList : function(){
