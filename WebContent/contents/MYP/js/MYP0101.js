@@ -86,7 +86,7 @@ var page = {
 				"_vValue" : ""
 			});
 			LEMP.Window.toast({
-				'_sMessage' : 'MMS메세지 초기화 완료',
+				'_sMessage' : '사진전송 메세지 초기화 완료',
 				'_sDuration' : 'short'
 			});
 		});
