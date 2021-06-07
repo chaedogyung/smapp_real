@@ -240,6 +240,24 @@ var page = {
 
 		});
 
+		$("#msgLock").change(function () {
+			var msgLockYn = $("#msgLock").is(":checked")?"Y":"N";
+			if (msgLockYn === "Y") {
+				document.getElementById("MMScont").readOnly = true;
+			} else {
+				document.getElementById("MMScont").removeAttribute("readonly");
+			}
+		});
+
+		document.getElementById("MMScont").addEventListener('touchend', function(e) {
+			var msgLockYn = $("#msgLock").is(":checked")?"Y":"N";
+			if (msgLockYn === "Y") {
+				LEMP.Window.toast({
+					'_sMessage' : '메세지잠금을 풀면 메세지 수정이 가능합니다.',
+					'_sDuration' : 'short'
+				});
+			}
+		});
 
 		page.InvNoAppend();
 	},

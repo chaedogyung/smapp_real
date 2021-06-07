@@ -120,6 +120,25 @@ var page = {
 
         // 전송 버튼 클릭
         $('#btnSend').click(page.send);
+
+        $("#msgLock").change(function () {
+            var msgLockYn = $("#msgLock").is(":checked")?"Y":"N";
+            if (msgLockYn === "Y") {
+                document.getElementById("mmsMessage").readOnly = true;
+            } else {
+                document.getElementById("mmsMessage").removeAttribute("readonly");
+            }
+        });
+
+        document.getElementById("mmsMessage").addEventListener('touchend', function(e) {
+            var msgLockYn = $("#msgLock").is(":checked")?"Y":"N";
+            if (msgLockYn === "Y") {
+                LEMP.Window.toast({
+                    '_sMessage' : '메세지잠금을 풀면 메세지 수정이 가능합니다.',
+                    '_sDuration' : 'short'
+                });
+            }
+        });
     },
 
     //////////////////////////////////////////////////
