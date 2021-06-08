@@ -15,6 +15,8 @@ var page = {
 			"parameters" : {}
 		},// api 통신용 파라메터
 	},
+	contentType : "Notice",
+	isYoutubeLinkContains : false, // 공지사항에 유튜브 링크 있을때는 영상 클릭해야만 확인버튼 클릭가능
 	init:function(data){
 		var data_r = data.data.param;
 		page.initInterface(data_r);
@@ -27,7 +29,8 @@ var page = {
 			}
 		});
 		Handlebars.registerHelper('content', function(options){
-			var html = '<div class="content">'+this.dtl_desc+ '</div>';
+			const html = '<div class="content">'+this.dtl_desc+ '</div>';
+			page.isYoutubeLinkContains = html.indexOf("externalLink") !== -1;
 			return new Handlebars.SafeString(html);
 		});
 		
@@ -38,6 +41,8 @@ var page = {
 				return new Handlebars.SafeString(html);
 			}
 		});
+
+		page.contentType = data_r.status;
 
 		var data_l = {
 			"notice" :[data_r]
@@ -57,8 +62,24 @@ var page = {
 		}
 		//확인버튼 click
 		$('#checkOkay').click(function(){
-			if(data_r.status==="Notice")LEMP.Window.close();
-			else{
+			if(data_r.status==="Notice") {
+				const isVideoLinkClicked = LEMP.Properties.get({
+					"_sKey" : "videoLinkClicked"
+				});
+
+				if (page.isYoutubeLinkContains && isVideoLinkClicked === false) {
+					LEMP.Window.toast({
+						'_sMessage' : '영상을 확인해주세요.',
+						'_sDuration' : 'short'
+					});
+				} else {
+					LEMP.Properties.set({
+						"_sKey" : "videoLinkClicked",
+						"_vValue" : false
+					});
+					LEMP.Window.close();
+				}
+			} else {
 				if(smutil.isEmpty(data_r.read_sct)){
 					page.readUpdate(data_r);
 				}else{
@@ -107,5 +128,34 @@ var page = {
 				url: url
 			}
 		});
-	}
+	},
+	externalLinkClicked : function(url) {
+		LEMP.Properties.set({
+			"_sKey" : "videoLinkClicked",
+			"_vValue" : true
+		});
+		LEMP.System.callBrowser({"_sURL": url});
+	},
+	callbackBackButton : function() {
+		if(page.contentType === "Notice") {
+			const isVideoLinkClicked = LEMP.Properties.get({
+				"_sKey" : "videoLinkClicked"
+			});
+
+			if (page.isYoutubeLinkContains && isVideoLinkClicked === false) {
+				LEMP.Window.toast({
+					'_sMessage' : '영상을 확인해주세요.',
+					'_sDuration' : 'short'
+				});
+			} else {
+				LEMP.Properties.set({
+					"_sKey" : "videoLinkClicked",
+					"_vValue" : false
+				});
+				LEMP.Window.close();
+			}
+		} else {
+			LEMP.Window.close();
+		}
+	},
 }

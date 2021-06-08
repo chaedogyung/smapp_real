@@ -40,6 +40,7 @@ var setPropKeys =
 		{"autoScanSend"		: "배달완료 스캔시 자동전송"},
 		{"autoCameraPop"		: "사진전송시 카메라 자동팝업"},
 		{"approval_yn"		: "대리점장 권한여부"},					//긴급사용 승인권한 확인시 사용
-		{"hpsrTmsl"			: "집배달 시간대역 순서"}
+		{"hpsrTmsl"			: "집배달 시간대역 순서"},
+		{"videoLinkClicked"	: "공지사항 유튜브 링크 클릭"}    			// 공지사항에 유튜브 링크 있을때는 영상 클릭해야만 확인버튼&백버튼 클릭가능
 	]
 };
