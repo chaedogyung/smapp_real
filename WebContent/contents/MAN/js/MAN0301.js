@@ -98,12 +98,6 @@ var page = {
 					"_sCallback" : "page.MAN0301Callback"
 				});
 			});
-
-			// 공지 내 영상 클릭하지 않고 강제종료할 경우를 대비한 처리
-			LEMP.Properties.set({
-				"_sKey" : "videoLinkClicked",
-				"_vValue" : false
-			});
 		},
 		//공지사항 목록
 		notiList : function(){

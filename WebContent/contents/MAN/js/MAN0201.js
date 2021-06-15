@@ -1,5 +1,6 @@
 LEMP.addEvent("backbutton", "page.callbackBackButton");
 var page = {
+	isYoutubeLinkContains : false, // 공지사항에 유튜브 링크 있을때는 영상 클릭해야만 확인버튼 클릭가능
 	init:function(data){
 		var data_r = data.data.param;
 		
@@ -27,7 +28,7 @@ var page = {
 		
 		//<br>태그 추가
 		data_r.dtl_desc = data_r.dtl_desc.split("\n").join("<br>");
-		
+
 		var data_l = {
 			"notice" :[data_r]
 		}
@@ -35,6 +36,7 @@ var page = {
 		
 		Handlebars.registerHelper('content', function(options){
 			var html = '<div class="content">'+this.dtl_desc+ '</div>';
+			page.isYoutubeLinkContains = html.indexOf("externalLink") !== -1;
 			return new Handlebars.SafeString(html); 
 		});
 		
@@ -106,14 +108,32 @@ var page = {
 				"_sKey" : "notice",
 				"_vValue" : noticeList
 			});
-			
-			
-			var noticeList2 = LEMP.Properties.get({
-				"_sKey" : "notice"
+
+
+			const isVideoLinkClicked = LEMP.Properties.get({
+				"_sKey" : "videoLinkClicked"
 			});
-			
-			LEMP.Window.close();
+
+			if (page.isYoutubeLinkContains && isVideoLinkClicked === false) {
+				LEMP.Window.toast({
+					'_sMessage' : '영상을 확인해주세요.',
+					'_sDuration' : 'short'
+				});
+			} else {
+				LEMP.Properties.set({
+					"_sKey" : "videoLinkClicked",
+					"_vValue" : false
+				});
+				LEMP.Window.close();
+			}
 		});
+	},
+	externalLinkClicked : function(url) {
+		LEMP.Properties.set({
+			"_sKey" : "videoLinkClicked",
+			"_vValue" : true
+		});
+		LEMP.System.callBrowser({"_sURL": url});
 	},
 	callbackBackButton : function(){
 		LEMP.Window.alert({
