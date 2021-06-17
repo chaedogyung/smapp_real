@@ -319,6 +319,29 @@ var page = {
 
 	// 공지사항 팝업 콜백
 	noticePopupCallback : function(res) {
+		// test notice, START
+		// LEMP.Window.open({
+		// 	"_sPagePath" : smutil.getMenuProp('MAN.MAN0201', 'url'),
+		// 	"_oMessage" : {
+		// 		"param" : {"seq_no":44,"sta_ymd":"20210615","end_ymd":"20210619","attfl_id":null,"img_path":null,"dtl_desc":"안녕하세요. ^^<br><br>2월 친절페스티벌에서 최다칭찬왕으로 선정되셨던<br>군산수송(대) 최성관 SM분에게<br>깜짝 방문을 하여 1등 포상지급을 하였습니다.<br><br><br>그 이야기가 궁금하시다면  ↓↓↓↓↓↓↓↓↓↓ 아래 영상을 눌러서 조회해주세요~~!!!<br><br><iframe id='youtube_player' width=100%   height=300 src=https://www.youtube.com/embed/QMNEFzEKGwE?version=3&enablejsapi=1 externalLink></iframe>","title":"앱내에서 유튜브 재생","sta_tme":"0912"}
+		// 	},
+		// });
+		// title=YouTube video player frameborder=0 allow=accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture allowfullscreen externalLink
+		// LEMP.Window.open({
+		// 	"_sPagePath" : smutil.getMenuProp('MAN.MAN0201', 'url'),
+		// 	"_oMessage" : {
+		// 		"param" : {"seq_no":43,"sta_ymd":"20210615","end_ymd":"20210619","attfl_id":null,"img_path":null,"dtl_desc":"안녕하세요. ^^<br><br>4월 친절페스티벌에서 최다칭찬왕으로 선정되셨던<br>남강릉(대) 최재형SM과 강릉집배센터내에 SM분들께<br>깜짝 방문을 하여 선물과 아침을 나눠 드렸습니다. ♥<br><br>그 이야기가 궁금하시다면  ↓↓↓↓↓↓↓↓↓↓ 아래를  눌러서 영상을 감상해주세요~~!!!<br><a href=\"\" onclick='page.externalLinkClicked(\"https://www.youtube.com/watch?v=QMNEFzEKGwE\"); return false;'>유튜브 보러 가기</a><br>https://www.youtube.com/watch?v=lrZG71qMYIo<br><br>* 페이지 이동을 하셔서 재생을 해주셔야 공지사항이 확인 완료됩니다 *","title":"URL 이동후 유튜브 조회","sta_tme":"0910"}
+		// 	},
+		// });
+		// LEMP.Window.open({
+		// 	"_sPagePath" : smutil.getMenuProp('MAN.MAN0201', 'url'),
+		// 	"_oMessage" : {
+		// 		"param" : {"seq_no":42,"sta_ymd":"20210615","end_ymd":"20210619","attfl_id":null,"img_path":null,"dtl_desc":"안녕하세요. ^^<br><br>4월 친절페스티벌에서 최다칭찬왕으로 선정되셨던<br>남강릉(대) 최재형SM과 강릉집배센터내에 SM분들께<br>깜짝 방문을 하여 선물과 아침을 나눠 드렸습니다. ♥<br><br>그 이야기가 궁금하시다면  ↓↓↓↓↓↓↓↓↓↓ 아래를  눌러서 영상을 감상해주세요~~!!!<br><br>* 페이지 이동을 하셔서 재생을 해주셔야 공지사항이 확인 완료됩니다 *","title":"일반텍스트","sta_tme":"0910"}
+		// 	},
+		// });
+		// return;
+		// test notice, END
+
 //		LEMP.Properties.remove({"_sKey" : "notice"});
 		var popCnt = 1;
 		try{
@@ -476,27 +499,6 @@ var page = {
 
 				// 확인한 공지사항 정보 삭제
 				LEMP.Properties.remove({"_sKey":"notice"});
-
-				// test notice, START
-				// LEMP.Window.open({
-				// 	"_sPagePath" : smutil.getMenuProp('MAN.MAN0201', 'url'),
-				// 	"_oMessage" : {
-				// 		"param" : {"seq_no":44,"sta_ymd":"20210615","end_ymd":"20210619","attfl_id":null,"img_path":null,"dtl_desc":"안녕하세요. ^^<br><br>2월 친절페스티벌에서 최다칭찬왕으로 선정되셨던<br>군산수송(대) 최성관 SM분에게<br>깜짝 방문을 하여 1등 포상지급을 하였습니다.<br><br><br>그 이야기가 궁금하시다면  ↓↓↓↓↓↓↓↓↓↓ 아래 영상을 눌러서 조회해주세요~~!!!<br><br><iframe width=100%   height=300 src=https://www.youtube.com/embed/QMNEFzEKGwE title=YouTube video player frameborder=0 allow=accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture allowfullscreen externalLink></iframe>","title":"앱내에서 유튜브 재생","sta_tme":"0912"}
-				// 	},
-				// });
-				// LEMP.Window.open({
-				// 	"_sPagePath" : smutil.getMenuProp('MAN.MAN0201', 'url'),
-				// 	"_oMessage" : {
-				// 		"param" : {"seq_no":43,"sta_ymd":"20210615","end_ymd":"20210619","attfl_id":null,"img_path":null,"dtl_desc":"안녕하세요. ^^<br><br>4월 친절페스티벌에서 최다칭찬왕으로 선정되셨던<br>남강릉(대) 최재형SM과 강릉집배센터내에 SM분들께<br>깜짝 방문을 하여 선물과 아침을 나눠 드렸습니다. ♥<br><br>그 이야기가 궁금하시다면  ↓↓↓↓↓↓↓↓↓↓ 아래를  눌러서 영상을 감상해주세요~~!!!<br><a href=\"\" onclick='page.externalLinkClicked(\"https://www.youtube.com/watch?v=QMNEFzEKGwE\"); return false;'>유튜브 보러 가기</a><br>https://www.youtube.com/watch?v=lrZG71qMYIo<br><br>* 페이지 이동을 하셔서 재생을 해주셔야 공지사항이 확인 완료됩니다 *","title":"URL 이동후 유튜브 조회","sta_tme":"0910"}
-				// 	},
-				// });
-				// LEMP.Window.open({
-				// 	"_sPagePath" : smutil.getMenuProp('MAN.MAN0201', 'url'),
-				// 	"_oMessage" : {
-				// 		"param" : {"seq_no":42,"sta_ymd":"20210615","end_ymd":"20210619","attfl_id":null,"img_path":null,"dtl_desc":"안녕하세요. ^^<br><br>4월 친절페스티벌에서 최다칭찬왕으로 선정되셨던<br>남강릉(대) 최재형SM과 강릉집배센터내에 SM분들께<br>깜짝 방문을 하여 선물과 아침을 나눠 드렸습니다. ♥<br><br>그 이야기가 궁금하시다면  ↓↓↓↓↓↓↓↓↓↓ 아래를  눌러서 영상을 감상해주세요~~!!!<br><br>* 페이지 이동을 하셔서 재생을 해주셔야 공지사항이 확인 완료됩니다 *","title":"일반텍스트","sta_tme":"0910"}
-				// 	},
-				// });
-				// test notice, END
 			}
 
 		}catch(e){}

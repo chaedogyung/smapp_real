@@ -127,6 +127,11 @@ var page = {
 				LEMP.Window.close();
 			}
 		});
+
+		const tag = document.createElement('script');
+		tag.src = "https://www.youtube.com/iframe_api";
+		const firstScriptTag = document.getElementsByTagName('script')[0];
+		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 	},
 	externalLinkClicked : function(url) {
 		LEMP.Properties.set({
@@ -139,6 +144,23 @@ var page = {
 		LEMP.Window.alert({
 			'_sTitle' : "공지사항 확인",
 			'_vMessage' : "공지사항을 확인해주세요"
+		});
+	}
+}
+
+function onYouTubeIframeAPIReady() {
+	new YT.Player('youtube_player', {
+		events: {
+			'onStateChange': onPlayerStateChange
+		}
+	});
+}
+
+function onPlayerStateChange(event) {
+	if (event.data === YT.PlayerState.PLAYING) {
+		LEMP.Properties.set({
+			"_sKey" : "videoLinkClicked",
+			"_vValue" : true
 		});
 	}
 }
