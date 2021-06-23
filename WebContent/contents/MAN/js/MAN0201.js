@@ -42,8 +42,17 @@ var page = {
 		
 		//이미지 태그 추가
 		Handlebars.registerHelper('img_path', function(options){
+			const parser = new DOMParser();
+			var dom = parser.parseFromString(this.dtl_desc, "text/html");
+			var imageLink = dom.getElementById("imageLink");
+
 			if (!smutil.isEmpty(this.img_path)) {
-				var html = '<img src="'+this.img_path+ '">';
+				var html;
+				if (!smutil.isEmpty(imageLink.innerHTML)) {
+					html = '<a href="" onClick=\'LEMP.System.callBrowser({"_sURL": "'+imageLink.innerHTML+'"}); return false;\'><img src="'+this.img_path+'"></a>';
+				} else {
+					html = '<img src="'+this.img_path+ '">';
+				}
 				return new Handlebars.SafeString(html);
 			}
 		});

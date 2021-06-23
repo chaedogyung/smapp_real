@@ -339,6 +339,12 @@ var page = {
 		// 		"param" : {"seq_no":42,"sta_ymd":"20210615","end_ymd":"20210619","attfl_id":null,"img_path":null,"dtl_desc":"안녕하세요. ^^<br><br>4월 친절페스티벌에서 최다칭찬왕으로 선정되셨던<br>남강릉(대) 최재형SM과 강릉집배센터내에 SM분들께<br>깜짝 방문을 하여 선물과 아침을 나눠 드렸습니다. ♥<br><br>그 이야기가 궁금하시다면  ↓↓↓↓↓↓↓↓↓↓ 아래를  눌러서 영상을 감상해주세요~~!!!<br><br>* 페이지 이동을 하셔서 재생을 해주셔야 공지사항이 확인 완료됩니다 *","title":"일반텍스트","sta_tme":"0910"}
 		// 	},
 		// });
+		// LEMP.Window.open({
+		// 	"_sPagePath" : smutil.getMenuProp('MAN.MAN0201', 'url'),
+		// 	"_oMessage" : {
+		// 		"param" : {"seq_no":26,"sta_ymd":"20210615","end_ymd":"20210719","attfl_id":null,"img_path":"https://imgdb.in/iI8p.png","dtl_desc":"이미지 테스트<br/><div id='imageLink' style='display: none'>https://www.naver.com/</div><br/>","title":"앱내에서 유튜브 재생","sta_tme":"1356","date":"2021.07.04","status":"Notice"}
+		// 	},
+		// });
 		// return;
 		// test notice, END
 

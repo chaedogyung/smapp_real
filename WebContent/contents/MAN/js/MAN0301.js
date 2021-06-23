@@ -142,14 +142,15 @@ var page = {
 				}
 			}catch(e){}
 			finally{
-				// START : dummy notice
+				// test notice, START
 				// var list = [
 				// 	{"seq_no":24,"sta_ymd":"20210604","end_ymd":"20210704","attfl_id":null,"img_path":null,"dtl_desc":"공지사항입니다.","title":"안녕하세요1","sta_tme":"1356","date":"2021.06.04","status":"Notice"},
-				// 	{"seq_no":25,"sta_ymd":"20210605","end_ymd":"20210705","attfl_id":null,"img_path":null,"dtl_desc":'공지사항입니다.1 <a href="" onclick=\'page.externalLinkClicked("https://www.youtube.com/watch?v=QMNEFzEKGwE"); return false;\'>유튜브 보러 가기</a>',"title":"안녕하세요2","sta_tme":"1356","date":"2021.06.04","status":"Notice"}
+				// 	{"seq_no":25,"sta_ymd":"20210605","end_ymd":"20210705","attfl_id":null,"img_path":null,"dtl_desc":'공지사항입니다.1 <a href="" onclick=\'page.externalLinkClicked("https://www.youtube.com/watch?v=QMNEFzEKGwE"); return false;\'>유튜브 보러 가기</a>',"title":"안녕하세요2","sta_tme":"1356","date":"2021.06.04","status":"Notice"},
+				// 	{"seq_no":26,"sta_ymd":"20210615","end_ymd":"20210719","attfl_id":null,"img_path":"https://imgdb.in/iI8p.png","dtl_desc":"이미지 테스트<br/><div id='imageLink' style='display: none'>https://www.naver.com/</div><br/>","title":"앱내에서 유튜브 재생","sta_tme":"1356","date":"2021.07.04","status":"Notice"}
 				// ];
 				// var list_r = {"list":list};
 				// page.notice = list_r.list;
-				// END : dummy notice
+				// test notice, END
 
 				var source = $("#MAN0301_notice_template").html();
 				var template = Handlebars.compile(source);
