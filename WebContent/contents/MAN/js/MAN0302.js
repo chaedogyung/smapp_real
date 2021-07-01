@@ -39,12 +39,10 @@ var page = {
 			const parser = new DOMParser();
 			var dom = parser.parseFromString(this.dtl_desc, "text/html");
 			var imageLink = dom.getElementById("imageLink");
-			LEMPCore.Module.logger("taegeon", "", "D", "this.dtl_desc : " + this.dtl_desc);
-			// LEMPCore.Module.logger("taegeon", "", "D", "innerHTML : " + imageLink.innerHTML);
 
 			if (!smutil.isEmpty(this.img_path)) {
 				var html;
-				if (!smutil.isEmpty(imageLink) && !smutil.isEmpty(imageLink.innerHTML)) {
+				if (imageLink != null && !smutil.isEmpty(imageLink.innerHTML)) {
 					html = '<a href="" onClick=\'LEMP.System.callBrowser({"_sURL": "'+imageLink.innerHTML+'"}); return false;\'><img src="'+this.img_path+'"></a>';
 				} else {
 					html = '<img src="'+this.img_path+ '">';
@@ -99,7 +97,10 @@ var page = {
 			}
 		});
 
-
+		const tag = document.createElement('script');
+		tag.src = "https://www.youtube.com/iframe_api";
+		const firstScriptTag = document.getElementsByTagName('script')[0];
+		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 	},
 	//쪽지일경우 읽음처리
 	readUpdate : function(data_r){
@@ -169,4 +170,21 @@ var page = {
 			LEMP.Window.close();
 		}
 	},
+}
+
+function onYouTubeIframeAPIReady() {
+	new YT.Player('youtube_player', {
+		events: {
+			'onStateChange': onPlayerStateChange
+		}
+	});
+}
+
+function onPlayerStateChange(event) {
+	if (event.data === YT.PlayerState.PLAYING) {
+		LEMP.Properties.set({
+			"_sKey" : "videoLinkClicked",
+			"_vValue" : true
+		});
+	}
 }
