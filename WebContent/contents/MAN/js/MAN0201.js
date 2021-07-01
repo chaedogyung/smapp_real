@@ -20,7 +20,7 @@ var page = {
 	},
 	initInterface : function(data_r)
 	{
-		
+
 		//날짜 형식 변경
 		data_r.sta_ymd = data_r.sta_ymd.substring(0,4)+"."
 						+data_r.sta_ymd.substring(4,6)+"."
@@ -48,7 +48,7 @@ var page = {
 
 			if (!smutil.isEmpty(this.img_path)) {
 				var html;
-				if (!smutil.isEmpty(imageLink.innerHTML)) {
+				if (!smutil.isEmpty(imageLink) && !smutil.isEmpty(imageLink.innerHTML)) {
 					html = '<a href="" onClick=\'LEMP.System.callBrowser({"_sURL": "'+imageLink.innerHTML+'"}); return false;\'><img src="'+this.img_path+'"></a>';
 				} else {
 					html = '<img src="'+this.img_path+ '">';

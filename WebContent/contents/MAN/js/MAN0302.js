@@ -40,11 +40,11 @@ var page = {
 			var dom = parser.parseFromString(this.dtl_desc, "text/html");
 			var imageLink = dom.getElementById("imageLink");
 			LEMPCore.Module.logger("taegeon", "", "D", "this.dtl_desc : " + this.dtl_desc);
-			LEMPCore.Module.logger("taegeon", "", "D", "innerHTML : " + imageLink.innerHTML);
+			// LEMPCore.Module.logger("taegeon", "", "D", "innerHTML : " + imageLink.innerHTML);
 
 			if (!smutil.isEmpty(this.img_path)) {
 				var html;
-				if (!smutil.isEmpty(imageLink.innerHTML)) {
+				if (!smutil.isEmpty(imageLink) && !smutil.isEmpty(imageLink.innerHTML)) {
 					html = '<a href="" onClick=\'LEMP.System.callBrowser({"_sURL": "'+imageLink.innerHTML+'"}); return false;\'><img src="'+this.img_path+'"></a>';
 				} else {
 					html = '<img src="'+this.img_path+ '">';
