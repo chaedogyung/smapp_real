@@ -40,6 +40,21 @@ var page = {
     //////////////////////////////////////////////////
     // 이벤트 초기화
     initEvent: function() {
+        // 메세지 lock 확인
+        var msgLockYn = LEMP.Properties.get({
+                            "_sKey" : "msgLockYn"
+                        });
+
+        if (msgLockYn == "N") {
+            $("#mmsMessage").attr("readonly", false);
+            $('#msgLockGuide').hide();
+        } else {
+            $('#msgLock').attr('checked', true).trigger('change');
+            $("#mmsMessage").attr("readonly", true);
+            $('#msgLockGuide').show();
+        }
+
+
         // 뒤로가기 버튼 클릭
         $('#btnBack').click(function() {
             page.onBack();
@@ -121,16 +136,25 @@ var page = {
         // 전송 버튼 클릭
         $('#btnSend').click(page.send);
 
-        $("#msgLock").change(function () {
-            var msgLockYn = $("#msgLock").is(":checked")?"Y":"N";
-            if (msgLockYn === "Y") {
-                document.getElementById("mmsMessage").readOnly = true;
-            } else {
-                document.getElementById("mmsMessage").removeAttribute("readonly");
-            }
-        });
+       	$("#msgLock").change(function () {
+       			var msgLockYn = $("#msgLock").is(":checked") ? "Y" : "N";
 
-        document.getElementById("mmsMessage").addEventListener('touchend', function(e) {
+       			LEMP.Properties.set({
+                       "_sKey" : "msgLockYn",
+                       "_vValue" : msgLockYn
+                   });
+
+
+       			if (msgLockYn === "Y") {
+                   $("#mmsMessage").attr("readonly", true);
+                   $('#msgLockGuide').show();
+       			} else {
+                    $("#mmsMessage").attr("readonly", false);
+       			    $('#msgLockGuide').hide();
+       			}
+       		});
+
+        /*document.getElementById("mmsMessage").addEventListener('touchend', function(e) {
             var msgLockYn = $("#msgLock").is(":checked")?"Y":"N";
             if (msgLockYn === "Y") {
                 LEMP.Window.toast({
@@ -138,7 +162,7 @@ var page = {
                     '_sDuration' : 'short'
                 });
             }
-        });
+        });*/
     },
 
     //////////////////////////////////////////////////
