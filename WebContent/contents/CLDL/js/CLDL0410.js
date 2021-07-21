@@ -31,6 +31,21 @@ var page = {
 
 	initInterface : function()
 	{
+	    // 메세지 lock 확인
+	    var msgLockYn = LEMP.Properties.get({
+        			        "_sKey" : "msgLockYn"
+        		        });
+
+        if (msgLockYn == "N") {
+            $("#mmsMessage").attr("readonly", false);
+            $('#msgLockGuide').hide();
+        } else {
+            $('#msgLock').attr('checked', true).trigger('change');
+
+            $("#mmsMessage").attr("readonly", true);
+            $('#msgLockGuide').show();
+        }
+
 		// 닫기 버튼
 		$(".btn.closeW.paR").click(function(){
 			LEMP.Window.close();
@@ -102,7 +117,7 @@ var page = {
 
 		//전송 버튼 클릭
 		$("#confirm").click(function(){
-			var conCheck = $("#MMScont").val();			// mms 메세지
+			var conCheck = $("#mmsMessage").val();	    // mms 메세지
 			var insujaTxt = $("#insujaTxt").text();		// 인수자
 			var invNoTxt = $("#invNoTxt").text();		// 송장번호
 
@@ -241,15 +256,25 @@ var page = {
 		});
 
 		$("#msgLock").change(function () {
-			var msgLockYn = $("#msgLock").is(":checked")?"Y":"N";
+			var msgLockYn = $("#msgLock").is(":checked") ? "Y" : "N";
+
+			LEMP.Properties.set({
+                "_sKey" : "msgLockYn",
+                "_vValue" : msgLockYn
+            });
+
+
 			if (msgLockYn === "Y") {
-				document.getElementById("MMScont").readOnly = true;
+                $("#mmsMessage").attr("readonly", true);
+                $('#msgLockGuide').show();
 			} else {
-				document.getElementById("MMScont").removeAttribute("readonly");
+                $("#mmsMessage").attr("readonly", false);
+			    $('#msgLockGuide').hide();
 			}
 		});
 
-		document.getElementById("MMScont").addEventListener('touchend', function(e) {
+
+		/*document.getElementById("mmsMessage").addEventListener('touchend', function(e) {
 			var msgLockYn = $("#msgLock").is(":checked")?"Y":"N";
 			if (msgLockYn === "Y") {
 				LEMP.Window.toast({
@@ -257,7 +282,7 @@ var page = {
 					'_sDuration' : 'short'
 				});
 			}
-		});
+		});*/
 
 		page.InvNoAppend();
 	},
@@ -341,29 +366,29 @@ var page = {
 		// 핸들바 템플릿에 데이터를 바인딩해서 생성된 HTML을 DOM에 주입
 		$('#cldl0410LstUl').append(template(page.cldl0410));
 
-		/*var MMScont = "딩동\u266C\n진심을 다하는 롯데택배입니다.\n고객님의 소중한 상품이 " +
+		/*var mmsMessage = "딩동\u266C\n진심을 다하는 롯데택배입니다.\n고객님의 소중한 상품이 " +
 				smutil.nullToValue(page.cldl0410.acpr_nm,'') + "에(게) 도착되었다는 소식을 알려드립니다.\n" +
 				"불편사항 있으시면 언제든지 연락바라며, 항상 최고의 서비스를 위해 노력하겠습니다."
 		if ($("#cldl0410LstUl > li").length === 1) {
-			$("#MMScont").val(MMScont+"\n송장번호 : "+page.cldl0410.list[0].invNo);
+			$("#mmsMessage").val(mmsMessage+"\n송장번호 : "+page.cldl0410.list[0].invNo);
 		}else {
-			$("#MMScont").val(MMScont);
+			$("#mmsMessage").val(mmsMessage);
 		}*/
 
 		// 기사가 발송한 사진전송 메세지
 		var mmsMessage = LEMP.Properties.get({
 			"_sKey" : "mmsMessage"
 		});
-		var MMScont = page.mmsMessage;						// 기본 메세지
+		var mmsMessage = page.mmsMessage;						// 기본 메세지
 		var invNo = page.cldl0410.list[0].invNo;			// 송장번호
 		var acprNm = page.cldl0410.acpr_nm;					// 인수자명
 
 		// 설정 되어있는 메세지가 있으면 기본 메세지 설정
 		if(!smutil.isEmpty(mmsMessage)){
-			MMScont = mmsMessage;
+			mmsMessage = mmsMessage;
 		}
 		// 전송할 메세지 셋팅
-		$("#MMScont").val(MMScont);
+		$("#mmsMessage").val(mmsMessage);
 
 		// 인수자 셋팅
 		if(!smutil.isEmpty(acprNm)){
@@ -444,7 +469,7 @@ var page = {
 	, mmsCallback : function(statusCode){
 		if(statusCode){
 			// 기사가 입력한 메세지
-			var mmsMessage = smutil.nullToValue($("#MMScont").val(),'');
+			var mmsMessage = smutil.nullToValue($("#mmsMessage").val(),'');
 
 			// 기사가 입력한 메세지를 properties 에 저장
 			LEMP.Properties.set({
