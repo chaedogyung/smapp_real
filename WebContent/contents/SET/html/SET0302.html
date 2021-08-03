@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
+
+	
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/SET0302.js"></script>
+	<script type="text/javascript">
+
+// 		window.onload = function() {
+// 			/* li 이동 */
+// 			$("#sortable > li").each(function(){
+// 					$(this).find('input[name=num]').val($(this).index()+1);
+// 				});
+// 			$("#sortable").sortable({
+// 				disabled:false,
+// 				handle:".move",
+// 				stop: function() {
+// 					$("#sortable > li").each(function(){
+// 						$(this).find('input[name=num]').val($(this).index()+1);
+// 					});
+// 				},
+// 				cancel:"",
+// 				axis:'y'
+// 			});
+// 		};
+	</script>
+	<script src="../../common/config/setPropKeys.js"></script>
+	<!-- //JS Global  -->
+
+</head>
+
+<body>
+	<input type="hidden" name="menuId" id="menuId" value="SET0301"/>
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection headFx">
+			<div class="headerWrap">
+				<h1>미배달/미회수 사유 편집</h1>
+				<button class="btn closeW paR">닫기</button>
+			</div>		
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+			<!-- contentBox -->
+			<div class="contentBox mypage mypageEdit">
+
+				<div class="topFx">
+					<div class="topHead">
+						<span class="tit">드래그하여 순서를 변경해주세요.</span>
+					</div>
+				</div>				
+				
+				<!-- boxList -->
+				<div class="boxList tp2">
+					<ul id="sortable">
+					</ul>
+				</div>
+				<!-- //boxList -->
+
+<!--				<div class="txtBox tp2 mgr10 mgl10" id="append">-->
+<!--					<span>인수자 항목 추가</span>-->
+<!--					<button class="btn arrowR fr">&nbsp;</button>-->
+<!--				</div>-->
+
+				<!-- btnBox -->
+				<div class="btnBox pxB">
+					<ul>
+						<li><button class="btn red w100p m" id="propReg">저장</button></li>
+					</ul>
+				</div>
+				<!-- //btnBox -->
+
+			</div>
+			<!-- //contentBox -->
+
+		</div>
+		<!--  //contentSection  -->
+
+	</div>
+	<!--  //contents  -->
+
+	<!-- 모달팝업 전송 -->
+<!-- 	<div class="mpopBox img usrOk"> -->
+<!-- 		<div class="popBody"> -->
+<!-- 			<p class="img"><img src="../../common/img/icon-man2.png" alt="" /></p> -->
+<!-- 			<p class="txt1">사용자 인증</p> -->
+<!-- 			<p class="txt2">인증이 완료되었습니다.<br />로그인을 진행해주세요.</p> -->
+<!-- 		</div> -->
+<!-- 		<div class="popFooter"> -->
+<!-- 			<div class="btnBox"> -->
+<!-- 				<button class="btn red w100p m b-close">확인</button> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+	
+	<div class="mpopBox img delete">
+		<div class="popBody">			
+			<p class="txt1">삭제</p>
+			<p class="txt2">삭제하시겠습니까?</p>
+		</div>
+		<div class="popFooter">
+			<div class="btnBox">
+				<ul class="ul0 ul2">
+					<li><button class="btn gray m w100p b-close" id="cancel">취소</button></li>
+					<li><button class="btn red m w100p" id="confirm">확인</button></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- //모달팝업 전송 -->
+</body>
+<script type="text/x-handlebars-template" id="SET0301_list_template">
+{{#each list}}
+	<li id="{{liCnt @key}}" data-dtl-cd="{{dtl_cd}}" data-code-status="{{code_status}}">
+		<div class="box">
+			<button class="btn move mgr10">이동</button>
+			<span class="txt">{{dtl_cd_nm}}</span>
+			{{#delFunc}}
+			<button class="btn del2">삭제</button>
+			{{/delFunc}}
+		</div>
+	</li>
+{{/each}}
+</script>
+</html>
