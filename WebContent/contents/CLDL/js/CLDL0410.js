@@ -273,17 +273,6 @@ var page = {
 			}
 		});
 
-
-		/*document.getElementById("mmsMessage").addEventListener('touchend', function(e) {
-			var msgLockYn = $("#msgLock").is(":checked")?"Y":"N";
-			if (msgLockYn === "Y") {
-				LEMP.Window.toast({
-					'_sMessage' : '메세지잠금을 풀면 메세지 수정이 가능합니다.',
-					'_sDuration' : 'short'
-				});
-			}
-		});*/
-
 		page.InvNoAppend();
 	},
 	
