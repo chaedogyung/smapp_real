@@ -129,7 +129,7 @@ var page = {
             $(this).closest('li').remove();         // 송장 아이템 삭제
             $('#btnRcv').removeClass('disabled');   // 인수자 선택 활성화
             $('#mmsInvNo').text('송장번호 : ');       // 송장 번호 초기화
-            $('#mmsSnper_nm').text('보내는분 : ');       // 보내는분 초기화
+            $('#mmsSnper_nm').text('보내는분 : ');    // 보내는분 초기화
             $('#mmsArtc_nm').text('상품명 : ');       // 상품명 초기화
         });
 
@@ -152,7 +152,7 @@ var page = {
                     $("#mmsMessage").attr("readonly", false);
        			    $('#msgLockGuide').hide();
        			}
-       		});
+       		});   
     },
 
     //////////////////////////////////////////////////

@@ -272,7 +272,6 @@ var page = {
 			    $('#msgLockGuide').hide();
 			}
 		});
-
 		page.InvNoAppend();
 	},
 	
