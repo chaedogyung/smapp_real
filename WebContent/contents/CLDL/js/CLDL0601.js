@@ -432,7 +432,7 @@ var page = {
         };
 
         // 배달 완료 처리 & 스캔/사진 일괄 전송
-        if (cnfYn === 'Y') {
+        if (cnfYn === 'Y') {    // Y : 배달완료 확정송장, N : 배달완료 미확정송장, S : 스캔송장
             page.cmptPhtgTrsmPic();
         } else {
             page.cmptPhtgTrsmPop();
