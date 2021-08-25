@@ -138,7 +138,8 @@ var smutil = (function(window, document, $) {
 	var ajaxApiCall = function(apiParam){
 
 		var result;
-
+		console.log(apiParam.param.baseUrl);
+		console.log(JSON.stringify(apiParam.data));
 		// 통신 호출
 		$.ajax({
 //			'headers': {"Authorization": token},		/** TO-DO 나중에는 꼭 토큰이 있는 서비스로 가야함**/

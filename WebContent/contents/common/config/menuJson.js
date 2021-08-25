@@ -84,7 +84,8 @@ var menuJsonJs =
 		"CLDL0501":{"menuTxt" : "집배달현황", "parentMenuCd" : null, "menuDept" : 1, "url" : "CLDL/html/CLDL0501.html", "mainImgSrc" : "../../common/img/icon-fa20.png", "gnbImgClass" : ""},
 		"CLDL0502":{"menuTxt" : "집하완료현황", "parentMenuCd" : null, "menuDept" : 2, "url" : "CLDL/html/CLDL0502.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"CLDL0503":{"menuTxt" : "배달완료현황", "parentMenuCd" : null, "menuDept" : 2, "url" : "CLDL/html/CLDL0503.html", "mainImgSrc" : "", "gnbImgClass" : ""},
-		"BCGT0101":{"menuTxt" : "바코드생성리스트", "parentMenuCd" : null, "menuDept" : 2, "url" : "CLDL/html/BCGT0101.html", "mainImgSrc" : "", "gnbImgClass" : ""}
+		"BCGT0101":{"menuTxt" : "바코드생성리스트", "parentMenuCd" : null, "menuDept" : 2, "url" : "CLDL/html/BCGT0101.html", "mainImgSrc" : "", "gnbImgClass" : ""},
+		"CLDL0302":{"menuTxt" : "분류코드 검색", "parentMenuCd" : null, "menuDept" : 1, "url" : "CLDL/html/CLDL0302.html", "mainImgSrc" : "../../common/img/icon-fa7.png", "gnbImgClass" : ""}
 	},
 	"PID" :{
 		"GNB":true,

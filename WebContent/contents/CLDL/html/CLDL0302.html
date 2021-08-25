@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>롯데글로벌로지스</title>
+<meta
+	content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1"
+	name="viewport">
+<meta name="theme-color" content="#e8463a">
+<!-- 안드로드 헤드 칼라 -->
+<meta name="format-detection" content="telephone=no">
+<!-- IOS 전화번호 자동색상 방지 -->
+
+<link rel="stylesheet" type="text/css" href="../../common/css/style.css" />
+<link rel="stylesheet" type="text/css"
+	href="../../common/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="../../common/css/sub.css">
+
+<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+<script type="text/javascript" src="../js/CLDL0302.js"></script>
+
+</head>
+
+<body>
+	<input type="hidden" name="menuId" id="menuId" value="CLDL0302" />
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection">
+			<div class="headerWrap black">
+				<h1>분류코드 검색</h1>
+				<button class="btn closeW paR">닫기</button>
+			</div>
+			<div class="topHead tr">
+				<span class="chkBox"></span>
+			</div>
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+
+			<!-- contentBox -->
+			<div class="contentBox pop popOption">
+
+				<!-- infoListBox -->
+				<div class="infoListBox">
+					<ul>
+						<li>
+							<div class="infoBox">
+
+								<div class="tit">
+									<em>분류코드 검색</em>
+								</div>
+
+								<div class="selArea mgt10">
+									<input type="text" id="addr_input" value="" name=""
+										placeholder="전체 주소를 입력해주세요" style="width: 100%;">
+
+								</div>
+								<div class="inputBox">
+									<!--우번번호 입력 -->
+									<input type="text" id="zip_no_input" value="" name=""
+										placeholder="우편번호를 입력해주세요(생략가능)" style="width: 75%;">
+									<button class="btn glass" id="addrSearch">검색</button>
+								</div>
+							</div>
+						</li>
+						<li>
+							<!-- 검색탭 -->
+							<div class="infoBox">
+								<!-- addArea -->
+								<div class="addArea">
+									<ul>
+										<li>
+											<!-- 지번 -->
+											<div class="addList tp2">
+												<ul id="cldl0302Ul">
+												</ul>
+											</div> <!-- //지번 -->
+										</li>
+									</ul>
+								</div>
+								<!-- addArea -->
+							</div> <!-- //검색탭 -->
+						</li>
+					</ul>
+				</div>
+				<!-- //infoListBox -->
+
+			</div>
+			<!-- //contentBox -->
+
+		</div>
+		<!--  //contentSection  -->
+
+	</div>
+	<!--  //contents  -->
+	<script type="text/x-handlebars-template" id="cldl0302_list_template">
+		<li style="border-top: none; margin-top: -25px;">
+			<div class="addList tp2">
+				<ul>
+					<li style="border-bottom: 1px solid #e1e1e1;">
+						<div class="addTxt">
+	                        <span class="" style="font-size: 100%; color: #da291c; float: left;">{{data.brnshp_nm}}<span class="radioBox" style="font-size: 13px; float: right;	color: black;">&nbsp/&nbsp{{data.dong}}</span></span>
+						</div>
+
+						<div class="addTxt" style="clear: both; text-align: center">
+							<span class="" style="font-size: 35px; display: inline-block">{{data.tml_nm}}</span>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</li>
+	</script>
+
+	<script type="text/x-handlebars-template" id="no_list_template">	
+		<li class="noList">
+			<div class="NoBox">
+				<p class="txt tc">조회된 결과가 없습니다.</p>
+			</div>
+		</li>
+	</script>
+
+</body>
+
+</html>
