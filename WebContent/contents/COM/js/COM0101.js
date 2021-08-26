@@ -186,6 +186,7 @@ var page={
 				break;
 
 			case 'CLDL0301':
+			case 'CLDL0302':
 			case 'CLDL0306':
 			case 'CLDL0401':
 
@@ -226,6 +227,7 @@ var page={
 				break;
 
 			case 'CLDL0301':
+			case 'CLDL0302':
 			case 'CLDL0306':
 			case 'CLDL0401':
 
