@@ -35,24 +35,27 @@ var page = {
 			
 			var addr = $("#addr_input").val();
 			
-				if (smutil.isEmpty(addr)) {
-					LEMP.Window.alert({
-						"_sTitle" : "도착지 검색",
-						"_vMessage" : "상세주소가 입력되지 않았습니다.\n법정동 단위로 입력 해주세요."
-					});
-				}else if ($("#addr_input").val().length < 2) {
-					LEMP.Window.alert({
-						"_sTitle" : "도착지 검색",
-						"_vMessage" : "상세주소가 입력되지 않았습니다.\n2글자 이상 입력 해주세요."
-					});
-				}else {
-					data = {
-						"network": "00",
-						"address":addr
-					}
-					
-					page.addr(data);
+			var zip_no = ($("#zip_no_input").val()).replace(/\-/gi,"");
+			
+			if (smutil.isEmpty(addr)) {
+				LEMP.Window.alert({
+					"_sTitle" : "분류코드 검색",
+					"_vMessage" : "상세주소가 입력되지 않았습니다.\n법정동 단위로 입력 해주세요."
+				});
+			}else if ($("#addr_input").val().length < 2) {
+				LEMP.Window.alert({
+					"_sTitle" : "분류코드 검색",
+					"_vMessage" : "상세주소가 입력되지 않았습니다.\n2글자 이상 입력 해주세요."
+				});
+			}else {
+				data = {
+					"network": "00",
+					"address": addr,
+					"zip_no": zip_no
 				}
+				
+				page.addr(data);
+			}
 			
 		});
 	}
@@ -69,18 +72,19 @@ var page = {
 	}
 	,addrCallback:function(data){
 		try{
-			console.log(data);
-			var res = {
-					"data": data.api_msg
-			}
-			console.log(JSON.stringify(res));
+			var res = data.api_msg;
+			
 			if (smutil.apiResValidChk(data) && data.code=="0000") {
 				
-				if(res.data.result === "success"){
+				if(res.result === "success"){
 					var template = Handlebars.compile($("#cldl0302_list_template").html());
 					$("#cldl0302Ul").html(template(res));
 				}
 				else {
+					LEMP.Window.alert({
+						"_sTitle" : "분류코드 검색",
+						"_vMessage" : res.message
+					});
 					var template = Handlebars.compile($("#no_list_template").html());
 					$("#cldl0302Ul").html(template(res));
 				}
