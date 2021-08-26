@@ -27,7 +27,7 @@ var page = {
             callback: '',       // API CALLBACK
             contentType: 'application/json; charset=utf-8'
         },
-        data: {parameters: {}}  // API용 데이터
+        data: {parameters: {}}  // API용 데이터  
     },
 
     //////////////////////////////////////////////////

@@ -8,7 +8,7 @@ var page = {
 		page.cldl0410.list=arg.data.param.list;
 		page.cldl0410.acpr_nm = arg.data.param.acpr_nm;
 		page.initInterface();
-
+ 
 	},
 	cldl0410:{},
 
