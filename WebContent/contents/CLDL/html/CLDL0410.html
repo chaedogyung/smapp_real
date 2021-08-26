@@ -1,132 +1,127 @@
 <!doctype html>
 <html lang="ko">
 <head>
-	<meta charset="utf-8">
-	<title>롯데글로벌로지스</title>
-	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
-	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
-	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+    <meta charset="utf-8">
+    <title>롯데글로벌로지스</title>
+    <meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+    <meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+    <meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
 
-	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
-	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
-	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css">
+    <link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+    <link rel="stylesheet" type="text/css" href="../../common/css/sub.css">
 
-	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
-	<script type="text/javascript" src="../js/CLDL0410.js"></script>
+    <script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+    <script type="text/javascript" src="../js/CLDL0410.js"></script>
 </head>
 
 <body>
 <input type="hidden" name="menuId" id="menuId" value="CLDL0410"/>
-	<!--  contents  -->
-	<div id="contents">
+    <!--  contents  -->
+    <div id="contents">
 
-		<!--  headerSection  -->
-		<header id="headerSection" class="headerSection">
-			<div class="headerWrap black">
-				<h1>사진촬영 / 서명</h1>
-				<button class="btn closeW paR">닫기</button>
-			</div>
-		</header>
-		<!--  //headerSection  -->
+        <!--  headerSection  -->
+        <header id="headerSection" class="headerSection">
+            <div class="headerWrap black">
+                <h1>사진촬영 / 서명</h1>
+                <button class="btn closeW paR">닫기</button>
+            </div>
+        </header>
+        <!--  //headerSection  -->
 
-		<!--  contentSection  -->
-		<div class="contentSection" id="contentSection">
-		
-		<!-- contentBox -->
-		<div class="contentBox pop popShot">
-			
-			<div class="infoListBox">
-				<ul>
-					<li>
-					</li>
-					<li>
-						<div class="infoBox">
-							<!-- numList -->
-							<div class="numList numListFluid">
-								<ul id="cldl0410LstUl">
-								</ul>
-							</div>
-							<!-- //numList -->
-						</div>
-					</li>
-					<li>
-						<div class="infoBox">
-							<div class="imgBox">
-								<button class="btn camera">카메라</button>
-								<button class="btn img">이미지</button>
-								<button class="btn sign">서명</button>
-								<img src="" style="max-width: 100%; height: auto; min-height: 215px;">
-							</div>
-						</div>
-					</li>
-					<div class="textBox">
-						<div class="textBoxContent">
-							<div style="width: 100%; height:40px; background-color:#e9f1f6; padding:7px; margin-bottom:5px;">
-								<div align="right" class="switchBox">
-									<span>메세지 잠금</span>
-									<input type="checkbox" id="msgLock">
-									<label for="msgLock">&nbsp;</label>
-								</div>   
-								
-								<div id="msgLockGuide" class="fs13 tBlue" style="text-align:right; margin-top:-2px; padding-right:10px; display:none;"> 메세지 잠금을 풀면 메세지 수정이 가능합니다. </div>
-							</div>
+        <!--  contentSection  -->
+        <div class="contentSection" id="contentSection">
+        
+        <!-- contentBox -->
+        <div class="contentBox pop popShot">
+            
+            <div class="infoListBox">
+                <ul>
+                    <li>
+                    </li>
+                    <li>
+                        <div class="infoBox">
+                            <!-- numList -->
+                            <div class="numList numListFluid">
+                                <ul id="cldl0410LstUl">
+                                </ul>
+                            </div>
+                            <!-- //numList -->
+                        </div>
+                    </li>
+                    <li>
+                        <div class="infoBox">
+                            <div class="imgBox">
+                                <button class="btn camera">카메라</button>
+                                <button class="btn img">이미지</button>
+                                <button class="btn sign">서명</button>
+                                <img src="" style="max-width: 100%; height: auto; min-height: 215px;">
+                            </div>
+                        </div>
+                    </li>
+                    <div class="textBox">
+                        <div class="textBoxContent">
+                            <div style="width: 100%; margin-top: 6px; margin-bottom: 8px">
+                                <div align="right" class="switchBox">
+                                    <span>메세지 잠금</span>
+                                    <input type="checkbox" id="msgLock" checked="checked">
+                                    <label for="msgLock">&nbsp;</label>
+                                </div>
+                            </div>
+                            <textarea name="" id="MMScont" cols="30" rows="10" class="mgt5" readonly></textarea>
+                            <!-- <div class="textBoxArticle">
+                                딩 ~ 동<br>
+                                진심을 다하는 롯데택배입니다.<br>
+                                고객님의 소중한 상품이 도착되었다는 소식을 알려드립니다.<br>
+                                불편사항 있으시면 언제든지 연락바라며, 항상 최고의 서비스를 위해 노력하겠습니다.
+                            </div> -->
+                            <ul>
+                                <li id="insujaTxt"></li>
+                                <li id="invNoTxt"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- <li>
+                        <div id="MMSseq" class="txtBox tp2">문자전송</div>
+                        <textarea name="" id="MMScont" cols="30" rows="10" class="mgt5"></textarea>
+                    </li> -->
+                </ul>
 
+                <div class="btnBox pxB">
+                    <ul>
+                        <li><button class="btn red w100p m" id="confirm">전송</button></li>
+                    </ul>
+                </div>
+            </div>
 
-							<textarea name="" id="MMScont" cols="30" rows="10" class="mgt5" readonly></textarea>
-						
-							<!-- <div class="textBoxArticle">
-								딩 ~ 동<br>
-								진심을 다하는 롯데택배입니다.<br>
-								고객님의 소중한 상품이 도착되었다는 소식을 알려드립니다.<br>
-								불편사항 있으시면 언제든지 연락바라며, 항상 최고의 서비스를 위해 노력하겠습니다.
-							</div> -->
-							<ul>
-								<li id="insujaTxt"></li>
-								<li id="invNoTxt"></li>
-							</ul>
-						</div>
-					</div>
-					<!-- <li>
-						<div id="MMSseq" class="txtBox tp2">문자전송</div>
-						<textarea name="" id="MMScont" cols="30" rows="10" class="mgt5"></textarea>
-					</li> -->
-				</ul>
-
-				<div class="btnBox pxB">
-					<ul>
-						<li><button class="btn red w100p m" id="confirm">전송</button></li>
-					</ul>
-				</div>
-			</div>
-
-		</div>
-		<!-- //contentBox -->
-		
-		</div>
-		<!--  //contentSection  -->
+        </div>
+        <!-- //contentBox -->
+        
+        </div>
+        <!--  //contentSection  -->
 
 
-	</div>
-	<!--  //contents  -->
+    </div>
+    <!--  //contents  -->
 
 </body>
 <script type="text/x-handlebars-template" id="cldl0410_list_template">
-	{{#each list}}
-		<li id="{{@key}}">
-			<div class="item">
-				<div class="phon">
-					<button id="inv_no" class="btn phonNum" data-inv-no="{{inv_no}}" data-snper-nm="{{snper_nm}}" data-artc-nm="{{artc_nm}}"  data-rcv-date="{{rcv_date}}" data-acpr-nm="{{acpr_nm}}">
-						<em>송장번호</em>
-						<span>{{invNo}}</span>
-					</button>
-					<button id="tel_num" class="btn phonNum" data-tel-num="{{tel_num}}" >
-						<em>전화번호</em>
-						<span>{{telNum}}</span>
-					</button>
-					<button class="btn del2">삭제</button>
-				</div>
-			</div>
-		</li>
-	{{/each}}
+    {{#each list}}
+        <li id="{{@key}}">
+            <div class="item">
+                <div class="phon">
+                    <button id="inv_no" class="btn phonNum" data-inv-no="{{inv_no}}" data-snper-nm="{{snper_nm}}" data-artc-nm="{{artc_nm}}"  data-rcv-date="{{rcv_date}}" data-acpr-nm="{{acpr_nm}}">
+                        <em>송장번호</em>
+                        <span>{{invNo}}</span>
+                    </button>
+                    <button id="tel_num" class="btn phonNum" data-tel-num="{{tel_num}}" >
+                        <em>전화번호</em>
+                        <span>{{telNum}}</span>
+                    </button>
+                    <button class="btn del2">삭제</button>
+                </div>
+            </div>
+        </li>
+    {{/each}}
 </script>
 </html>
