@@ -27,7 +27,7 @@ var page = {
             callback: '',       // API CALLBACK
             contentType: 'application/json; charset=utf-8'
         },
-        data: {parameters: {}}  // API용 데이터
+        data: {parameters: {}}  // API용 데이터  
     },
 
     //////////////////////////////////////////////////
@@ -40,21 +40,6 @@ var page = {
     //////////////////////////////////////////////////
     // 이벤트 초기화
     initEvent: function() {
-        // 메세지 lock 확인
-        var msgLockYn = LEMP.Properties.get({
-                            "_sKey" : "msgLockYn"
-                        });
-
-        if (msgLockYn == "N") {
-            $("#mmsMessage").attr("readonly", false);
-            $('#msgLockGuide').hide();
-        } else {
-            $('#msgLock').attr('checked', true).trigger('change');
-            $("#mmsMessage").attr("readonly", true);
-            $('#msgLockGuide').show();
-        }
-
-
         // 뒤로가기 버튼 클릭
         $('#btnBack').click(function() {
             page.onBack();
@@ -129,30 +114,31 @@ var page = {
             $(this).closest('li').remove();         // 송장 아이템 삭제
             $('#btnRcv').removeClass('disabled');   // 인수자 선택 활성화
             $('#mmsInvNo').text('송장번호 : ');       // 송장 번호 초기화
-            $('#mmsSnper_nm').text('보내는분 : ');    // 보내는분 초기화
+            $('#mmsSnper_nm').text('보내는분 : ');       // 보내는분 초기화
             $('#mmsArtc_nm').text('상품명 : ');       // 상품명 초기화
         });
 
         // 전송 버튼 클릭
         $('#btnSend').click(page.send);
 
-       	$("#msgLock").change(function () {
-       			var msgLockYn = $("#msgLock").is(":checked") ? "Y" : "N";
+        $("#msgLock").change(function () {
+            var msgLockYn = $("#msgLock").is(":checked")?"Y":"N";
+            if (msgLockYn === "Y") {
+                document.getElementById("mmsMessage").readOnly = true;
+            } else {
+                document.getElementById("mmsMessage").removeAttribute("readonly");
+            }
+        });
 
-       			LEMP.Properties.set({
-                       "_sKey" : "msgLockYn",
-                       "_vValue" : msgLockYn
-                   });
-
-
-       			if (msgLockYn === "Y") {
-                   $("#mmsMessage").attr("readonly", true);
-                   $('#msgLockGuide').show();
-       			} else {
-                    $("#mmsMessage").attr("readonly", false);
-       			    $('#msgLockGuide').hide();
-       			}
-       		});   
+        document.getElementById("mmsMessage").addEventListener('touchend', function(e) {
+            var msgLockYn = $("#msgLock").is(":checked")?"Y":"N";
+            if (msgLockYn === "Y") {
+                LEMP.Window.toast({
+                    '_sMessage' : '메세지잠금을 풀면 메세지 수정이 가능합니다.',
+                    '_sDuration' : 'short'
+                });
+            }
+        });
     },
 
     //////////////////////////////////////////////////
@@ -432,7 +418,7 @@ var page = {
         };
 
         // 배달 완료 처리 & 스캔/사진 일괄 전송
-        if (cnfYn === 'Y') {    // Y : 배달완료 확정송장, N : 배달완료 미확정송장, S : 스캔송장
+        if (cnfYn === 'Y') {
             page.cmptPhtgTrsmPic();
         } else {
             page.cmptPhtgTrsmPop();

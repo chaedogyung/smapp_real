@@ -8,7 +8,7 @@ var page = {
 		page.cldl0410.list=arg.data.param.list;
 		page.cldl0410.acpr_nm = arg.data.param.acpr_nm;
 		page.initInterface();
-
+ 
 	},
 	cldl0410:{},
 
@@ -31,21 +31,6 @@ var page = {
 
 	initInterface : function()
 	{
-	    // 메세지 lock 확인
-	    var msgLockYn = LEMP.Properties.get({
-        			        "_sKey" : "msgLockYn"
-        		        });
-
-        if (msgLockYn == "N") {
-            $("#MMScont").attr("readonly", false);
-            $('#msgLockGuide').hide();
-        } else {
-            $('#msgLock').attr('checked', true).trigger('change');
-
-            $("#MMScont").attr("readonly", true);
-            $('#msgLockGuide').show();
-        }
-
 		// 닫기 버튼
 		$(".btn.closeW.paR").click(function(){
 			LEMP.Window.close();
@@ -256,22 +241,24 @@ var page = {
 		});
 
 		$("#msgLock").change(function () {
-			var msgLockYn = $("#msgLock").is(":checked") ? "Y" : "N";
-
-			LEMP.Properties.set({
-                "_sKey" : "msgLockYn",
-                "_vValue" : msgLockYn
-            });
-
-
+			var msgLockYn = $("#msgLock").is(":checked")?"Y":"N";
 			if (msgLockYn === "Y") {
-                $("#MMScont").attr("readonly", true);
-                $('#msgLockGuide').show();
+				document.getElementById("MMScont").readOnly = true;
 			} else {
-                $("#MMScont").attr("readonly", false);
-			    $('#msgLockGuide').hide();
+				document.getElementById("MMScont").removeAttribute("readonly");
 			}
 		});
+
+		document.getElementById("MMScont").addEventListener('touchend', function(e) {
+			var msgLockYn = $("#msgLock").is(":checked")?"Y":"N";
+			if (msgLockYn === "Y") {
+				LEMP.Window.toast({
+					'_sMessage' : '메세지잠금을 풀면 메세지 수정이 가능합니다.',
+					'_sDuration' : 'short'
+				});
+			}
+		});
+
 		page.InvNoAppend();
 	},
 	
