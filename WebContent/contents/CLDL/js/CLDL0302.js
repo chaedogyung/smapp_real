@@ -35,23 +35,45 @@ var page = {
 			
 			var addr = $("#addr_input").val();
 			
-			var zip_no = ($("#zip_no_input").val()).replace(/\-/gi,"");
+			var zip_no_input = ($("#zip_no_input").val()).replace(/\-/gi,"");
+			var area_no;		//새우편번호
+			var zip_no;			//구우편번호
+			
+			if(zip_no_input.length == 5){
+				area_no = zip_no_input;
+				zip_no = "";
+			}else if(zip_no_input.length == 6){
+				area_no = "";
+				zip_no = zip_no_input;
+			}else if(zip_no_input.length == 0){
+				area_no = "";
+				zip_no = "";
+			}else{
+				LEMP.Window.alert({
+					"_sTitle" : "분류코드 검색",
+					"_vMessage" : "유효하지 않은 우편번호"
+				});
+				
+				$("#cldl0302Ul").html("");
+				return;
+			}
 			
 			if (smutil.isEmpty(addr)) {
 				LEMP.Window.alert({
 					"_sTitle" : "분류코드 검색",
-					"_vMessage" : "상세주소가 입력되지 않았습니다.\n법정동 단위로 입력 해주세요."
+					"_vMessage" : "전체 주소를 입력해주세요."
 				});
 			}else if ($("#addr_input").val().length < 2) {
 				LEMP.Window.alert({
 					"_sTitle" : "분류코드 검색",
-					"_vMessage" : "상세주소가 입력되지 않았습니다.\n2글자 이상 입력 해주세요."
+					"_vMessage" : "전체 주소를 입력해주세요."
 				});
 			}else {
 				data = {
 					"network": "00",
 					"address": addr,
-					"zip_no": zip_no
+					"zip_no": zip_no,
+					"area_no": area_no
 				}
 				
 				page.addr(data);

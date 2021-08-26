@@ -62,7 +62,8 @@
 								<div class="inputBox">
 									<!--우번번호 입력 -->
 									<input type="text" id="zip_no_input" value="" name=""
-										placeholder="우편번호를 입력해주세요(생략가능)" style="width: 75%;">
+										placeholder="우편번호를 입력해주세요(생략가능)" style="width: 75%;"
+										onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');">
 									<button class="btn glass" id="addrSearch">검색</button>
 								</div>
 							</div>
