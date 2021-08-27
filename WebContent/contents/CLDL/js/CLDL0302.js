@@ -34,6 +34,7 @@ var page = {
 			var data = {};
 			
 			var addr = $("#addr_input").val();
+			var network = $("input[type=radio][id$=SVC_CD]:checked").val();
 			
 			var zip_no_input = ($("#zip_no_input").val()).replace(/\-/gi,"");
 			var area_no;		//새우편번호
@@ -70,7 +71,7 @@ var page = {
 				});
 			}else {
 				data = {
-					"network": "00",
+					"network": network,
 					"address": addr,
 					"zip_no": zip_no,
 					"area_no": area_no
