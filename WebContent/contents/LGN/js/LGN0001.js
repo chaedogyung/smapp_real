@@ -136,7 +136,7 @@ var page = {
 		});
 
 		// 최초 개인정보 동의를 하지 않거나 동의했지만 id가 없는경우는 무조건 동의페이지 띄우기
-		if(smutil.isEmpty(personalInfo) || smutil.isEmpty(personalInfo.principal)){
+		if(smutil.isEmpty(personalInfo) || smutil.isEmpty(personalInfo.principal) || personalInfo.new_accept_yn !== "Y"){
 			var popUrl = smutil.getMenuProp("LGN.LGN0006","url");
 
 			LEMP.Window.open({
