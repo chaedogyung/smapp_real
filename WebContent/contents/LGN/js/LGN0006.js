@@ -73,7 +73,8 @@ var page = {
 				// 개인정보 동의값 properties 에 저장
 				var personalInfo = {
 						"term_id" : page.term_id,
-						"accept_yn" : "Y"
+						"accept_yn" : "Y",
+						"new_accept_yn" : "Y"
 				}
 				
 				// id 저장(로그인 페이지 셋팅용)
@@ -197,7 +198,8 @@ var page = {
 			var personalInfo = {
 				"term_id" : page.term_id,
 				"principal" : smutil.nullToValue(principal,''),
-				"accept_yn" : "Y"
+				"accept_yn" : "Y",
+				"new_accept_yn" : "Y"
 			}
 			
 			
