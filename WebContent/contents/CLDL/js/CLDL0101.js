@@ -123,7 +123,6 @@ var page = {
 			$(".btn.ftScan").click(function(){
 
 				var _this = this;
-				debugger;
 				//현제 어느 탭에 있는지 상태체크
 				var tab_sct_cd = page.returnTabSctCd();
 				var cldl_sct_cd = $('#cldl_sct_cd').val();			// 업무구분
