@@ -1070,9 +1070,49 @@ var page = {
 			// api 결과 성공여부 검사
 			if(smutil.apiResValidChk(result) && result.code == "0000"){
 			
+				var list = {
+					    "list": [
+					             {
+					            	 "cldl_tmsl_cd": null,
+					                 "sat_pick_cnt": 0,
+					                 "sat_dlvy_cnt": 0,
+					                 "tmsl_pick_cnt": 0,
+					                 "tmsl_dlv_cnt": 72,
+					                 "svc_cd": null,
+					                 "cldl_tmsl_nm": '06시~08시',
+					                 "mbl_dlv_area": null,
+					                 "bld_annm_area": null,
+					                 "bld_mgr_no": null
+					             },
+					             {
+					            	 "cldl_tmsl_cd": null,
+					                 "sat_pick_cnt": 0,
+					                 "sat_dlvy_cnt": 0,
+					                 "tmsl_pick_cnt": 0,
+					                 "tmsl_dlv_cnt": 53,
+					                 "svc_cd": null,
+					                 "cldl_tmsl_nm": '07시~09시',
+					                 "mbl_dlv_area": "B",
+					                 "bld_annm_area": null,
+					                 "bld_mgr_no": null
+					             },
+					             {
+					            	 "cldl_tmsl_cd": null,
+					                 "sat_pick_cnt": 0,
+					                 "sat_dlvy_cnt": 0,
+					                 "tmsl_pick_cnt": 11,
+					                 "tmsl_dlv_cnt": 0,
+					                 "svc_cd": null,
+					                 "cldl_tmsl_nm": '09시~11시',
+					                 "mbl_dlv_area": "C",
+					                 "bld_annm_area": null,
+					                 "bld_mgr_no": null
+					             }
+					         ]
+					     }
 				// 조회 결과 데이터가 있으면 옵션 생성
 				if(result.data_count > 0){
-					var data = result.data;
+					var data = list;//result.data;
 					_.forEach(data.list, function(e, key) {
 						
 						if(e.mbl_dlv_area == null){
