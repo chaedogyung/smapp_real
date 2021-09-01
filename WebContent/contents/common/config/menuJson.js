@@ -178,6 +178,7 @@ var menuJsonJs =
 		"SET0302":{"menuTxt" : "미배달/미회수 사유 편집", "parentMenuCd" : null, "menuDept" : 1, "url" : "SET/html/SET0302.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"SET0401":{"menuTxt" : "자동문자발송 미동의/동의", "parentMenuCd" : null, "menuDept" : 1, "url" : "SET/html/SET0401.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"SET0501":{"menuTxt" : "집배달 시간대역 편집", "parentMenuCd" : null, "menuDept" : 1, "url" : "SET/html/SET0501.html", "mainImgSrc" : "", "gnbImgClass" : ""},
+		"SET0303":{"menuTxt" : "업무별 기능 설정", "parentMenuCd" : null, "menuDept" : 1, "url" : "SET/html/SET0303.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		// "SET0601":{"menuTxt" : "기타 설정", "parentMenuCd" : null, "menuDept" : 1, "url" : "SET/html/SET0601.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 	},
 	"MYP":{

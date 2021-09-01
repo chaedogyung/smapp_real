@@ -82,8 +82,8 @@ var page = {
 		$("#propReg").click(function() {
 			page.listCheck();
 			LEMP.Window.alert({
-				"_sTitle" : "미배달/미회수 사유 목록",
-				"_vMessage" : "미배달/미회수 사유 목록이 설정되었습니다."
+				"_sTitle" : "인수자 목록",
+				"_vMessage" : "인수자 목록이 설정되었습니다."
 			});
 			LEMP.Window.close();
 		});
@@ -112,26 +112,26 @@ var page = {
 			});
 		});
 
-		// $("#append").click(function() {
-		// 	var popUrl = smutil.getMenuProp("COM.COM0602", "url");
-		// 	LEMP.Window.open({
-		// 		"_sPagePath" : popUrl
-		// 	});
-		// });
+		$("#append").click(function() {
+			var popUrl = smutil.getMenuProp("COM.COM0602", "url");
+			LEMP.Window.open({
+				"_sPagePath" : popUrl
+			});
+		});
 		page.codeListPopup();
 	}
-	// 미배달/미회수 사유 리스트 조회
+	// 인수자 리스트 조회
 	,
 	codeListPopup : function() {
 		smutil.loadingOn();
 		page.apiParam.param.baseUrl = "smapis/cmn/codeListPopup";
 		page.apiParam.param.callback = "page.codeListPopupCallback";
 		page.apiParam.data.parameters = {
-			"typ_cd" : "UDLV_RSN_CD"
+			"typ_cd" : "ACPT_SCT_CD"
 		};
 		smutil.callApi(page.apiParam);
 	}
-	// 미배달/미회수 사유 리스트 콜백
+	// 인수자 리스트 콜백
 	,
 	codeListPopupCallback : function(res) {
 		try {
@@ -237,7 +237,7 @@ var page = {
 	,
 	setProp : function(res) {
 		LEMP.Properties.set({
-			"_sKey" : "nonDeliveryReason",
+			"_sKey" : "receiver",
 			"_vValue" : res
 		});
 
@@ -248,7 +248,7 @@ var page = {
 	,
 	getProp : function() {
 		var obj = LEMP.Properties.get({
-			"_sKey" : "nonDeliveryReason"
+			"_sKey" : "receiver"
 		});
 		return obj;
 	}

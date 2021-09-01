@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>롯데글로벌로지스</title>
+<meta
+	content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1"
+	name="viewport">
+<meta name="theme-color" content="#e8463a">
+<!-- 안드로드 헤드 칼라 -->
+<meta name="format-detection" content="telephone=no">
+<!-- IOS 전화번호 자동색상 방지 -->
+
+<link rel="stylesheet" type="text/css" href="../../common/css/style.css" />
+<link rel="stylesheet" type="text/css"
+	href="../../common/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="../../common/css/sub.css">
+
+<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+<script type="text/javascript" src="../js/SET0303.js"></script>
+</head>
+
+<body>
+	<input type="hidden" name="menuId" id="menuId" value="SET0201"/>
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection v2">
+			<div class="headerWrap black">
+				<h1>개인별 기능설정</h1>
+				<button class="btn closeW paR">닫기</button>
+			</div>
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+				
+			<!-- contentBox -->
+			<div class="contentBox pop popSmsop">
+				<div class="topFx">
+					<div class="divisionBox">
+					<ul id="cmptTmListUl" style="transition: all 200ms linear 0s; transform: translate3d(0px, 0px, 0px);">
+								<li name="timeLstLi" class="on">
+									<div class="itemBox">
+										<p class="txt tc" id="timeCnt_P_19"></p>
+										<p class="txt tc" id="timeCnt_P_19"></p>
+									</div>
+								</li>
+							</ul>
+				
+<!-- 				<div class="radioList" > -->
+					<ul class="radio" id="set0201H">
+					</ul>
+					<div class="radiobx1" style="margin-left:5px;">
+						<span class="selectTitle">1.집배달예정 시간설정</span>
+							<dd class="lh">
+		                        <span class="radioBox"><input type="radio"  name="area_sct_cd" id="ra1" value="Y" /> <label for="ra1">자동</label></span>
+								<span class="radioBox mgl20"><input type="radio"  name="area_sct_cd" value="N" id="ra2" checked/> <label for="ra2">수동</label></span>
+		                    </dd>
+		                    </br>
+                    </div>
+                    
+                    <div class="radiobx2" style="margin-left:5px;">
+	                    <span class="selectTitle">2.배달완료 자동전송</span>
+		                    <dd class="2h">
+		                        <span class="radioBox"><input type="radio"  name="area_sct_cd2" id="ra3" value="A" /> <label for="ra3">자동</label></span>
+		                        <span class="radioBox mgl10"><input type="radio"  name="area_sct_cd2" value="M" id="ra5" checked/> <label for="ra5">수동</label></span>
+		                    </dd>
+		                    </br>
+                    </div>
+                    <div class="radiobx3" style="margin-left:5px;">
+	                    <span class="selectTitle">3.사진전송 카메라 자동 작동</span>
+		                    <dd class="3h">
+		                        <span class="radioBox"><input type="radio"  name="area_sct_cd3" id="ra6" value="Y" /> <label for="ra6">자동</label></span>
+								<span class="radioBox mgl20"><input type="radio"  name="area_sct_cd3" value="N" id="ra7" checked/> <label for="ra7">수동</label></span>
+		                    </dd>
+		                    </br>
+                    </div>
+                   	</div>
+				</div>
+				</div>
+
+				<div class="btnBox pxB">
+					<button class="btn red w100p m">확인 </button>
+				</div>
+
+			</div>
+			<!-- //contentBox -->
+
+		</div>
+		<!--  //contentSection  -->
+
+	</div>
+	<!--  //contents  -->
+
+</body>
+<!-- <script type="text/x-handlebars-template" id="SET0201_list_template">
+	{{#each	list}}
+	<li>
+		<p class="tit">{{msg_titl}}</p>
+		<div class="ovf mgb10">	
+			{{#change}} 
+			<button class="btn arrowR fr" id={{msg_no}}>문구 수정</button>
+			{{/change}}
+		</div>
+		<div class="txtBox">
+				{{msg_cont}}
+		</div>
+	</li>
+	{{/each}}
+</script>
+ -->
+
+</html>

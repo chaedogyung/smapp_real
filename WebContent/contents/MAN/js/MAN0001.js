@@ -93,12 +93,40 @@ var page = {
 	// },
 
 	initInterface : function() {
+		
+		smutil.loadingOn();
+		page.apiParamInit();		// 파라메터 초기화
+		page.apiParam.param.baseUrl = "/smapis/cmn/getTevSmSeiReport";
+		page.apiParam.param.method = "POST";
+		page.apiParam.param.callback = "page.getTevSmSeiReportCallback";
+		page.apiParam.data.parameters = {
+				"brshCd" : "30920",
+				"empNo" : "31909351",
+				"mscYm" : "202106",
+		};
+		console.log(page.apiParam);
+		smutil.callApi(page.apiParam);
+	
+		
+		
+		
+		
+		
 		var tr = {
 			id : "INIT",
 		};
 		// native 기능 호출
 		smutil.nativeMothodCall(tr);
-
+		
+		$(function() {
+			var setPopCheck = LEMP.Storage.get({ "_sKey" : "setPopCheck"});
+			if(_.isUndefined(setPopCheck)){
+				var popUrl = smutil.getMenuProp('SET.SET0303', 'url');
+				LEMP.Window.open({
+					"_sPagePath" : popUrl,
+				});
+			}
+		});
 
 		// $('.grade').show();
 
@@ -314,7 +342,9 @@ var page = {
 			smutil.loadingOff();
 		}
 	},
-
+	getTevSmSeiReportCallback : function(res){
+		console.log(res);
+	},
 	// ############################# 롯데홈쇼핑 인증키 생성 end
 
 	// 공지사항 팝업 콜백

@@ -31,6 +31,8 @@ var smutil = (function(window, document, $) {
 
 	// api 관련
 	var apiUrl = "https://devsmapis.llogis.com";		// 개발 api url
+	
+//	var apiUrl = "10.134.232.49:8700";
 	// ###################################################### end properties
 
 
@@ -138,8 +140,7 @@ var smutil = (function(window, document, $) {
 	var ajaxApiCall = function(apiParam){
 
 		var result;
-		console.log(apiParam.param.baseUrl);
-		console.log(JSON.stringify(apiParam.data));
+		console.log(apiParam);
 		// 통신 호출
 		$.ajax({
 //			'headers': {"Authorization": token},		/** TO-DO 나중에는 꼭 토큰이 있는 서비스로 가야함**/
@@ -531,7 +532,7 @@ var smutil = (function(window, document, $) {
 
 				apiParam.param.baseUrl = apiFullUrl;
 			}
-
+			console.log(apiParam)
 			smutil.apiResult = smutil.ajaxApiCall(apiParam);
 
 			// function 호출
