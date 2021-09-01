@@ -41,7 +41,7 @@
 						<ul>
 							<li class="on">
 								<button class="btn lstSchBtn on" data-sch-sct-cd="A">
-									<span class="badge gray m">전체</span><br />
+ 									<span class="badge gray m">전체</span><br /> 
 									<div id="A_cldl0201Cnt">0</div>
 								</button>
 							</li>
@@ -63,26 +63,68 @@
 					
 					<!-- divisionBox -->
 					<div class="divisionBox">
+					<ul id="cmptTmListUl" style="transition: all 200ms linear 0s; transform: translate3d(0px, 0px, 0px);">
+							
+							</ul>
 						<div class="selectBox">
 							<ul id="dprtTmListUl">
 							</ul>
 						</div>
 					</div>
-					<!-- //divisionBox -->
-
-					<!-- topHead -->
+					
 					<div class="topHead">
-						<span class="chkBox m"><input type="checkbox" name="chkall" id="checkall" /> <label for="checkall">구분</label></span>
-						<span class="selBox v1 mgl15">
+						<span class="chkBox m"><input type="checkbox" name="chkall" id="checkall" /> <label for="checkall">전체</label></span>
+						<span class="selBox v1 mgl14">
 							<select name="fltr_sct_cd" id="fltr_sct_cd">
+								<option value="0000">전체</option>
+								<option value="1000">현불</option>
+								<option value="1100">착불</option>
+								<option value="2000">홈쇼핑</option>
+								<option value="2100">편의점</option>
+								<option value="2200">스마일픽업</option>
+								<option value="3000">롯데그룹</option>
+								<option value="4100">롯데백화점몰</option>
 							</select>
 						</span>
+
+						<span class="selBox v1 mgr14" id="span_cldl_sct_cd">
+							<select name="cldl_tmsl_cd" id="cldl_tmsl_cd">
+								<!-- <option value="">예정시간선택</option> -->
+								<option value="10">06~08시</option>
+								<option value="30">07~09시</option>
+								<option value="11">08~10시</option>
+								<option value="31">09~11시</option>
+								<option value="12">10~12시</option>
+								<option value="32">11~13시</option>
+								<option value="13">12~14시</option>
+								<option value="14">13~15시</option>
+								<option value="15">14~16시</option>
+								<option value="16">15~17시</option>
+								<option value="17">16~18시</option>
+								<option value="18">17~19시</option>
+								<option value="19">18~20시</option>
+								<option value="20">19~21시</option>
+								<option value="21">20~22시</option>
+								<option value="37">21~23시</option>
+								<option value="22">22~00시</option>
+								<option value="27">토요휴무</option>
+								<option value="28">지정일 집하/배송</option>
+							</select>
+							
+						</span>
+						<input type="hidden" id="dsgt_dd_cldl_ymd">
+						<button class="btn red lstSch" id="chngTme" data-prnt-sct-cd="A">시간변경</button>
+						
 					</div>
-					<!-- //topHead -->
-					
 					<div class="topHeadCal">
 						<button class="btn btnCal" id="cldlBtnCal"></button>
 					</div>
+					
+					<!-- //topHead -->
+					
+					<!-- <div class="topHeadCal">
+						<button class="btn btnCal" id="cldlBtnCal"></button>
+					</div> -->
 					<!-- // topHeadCal -->
 					
 				</div>
@@ -90,7 +132,7 @@
 				
 				
 				<!-- tabView -->
-				<div class="tabView deliveryTy1 deliveryTy1Cal">
+				<div class="tabView deliveryTy1 deliveryTy1Cal" style="margin-top:300px; margin-bottom: 110px;">
 					<ul>
 						<li>						
 							<!-- baedalListBox -->
@@ -113,6 +155,48 @@
 		
 		<!-- ftMenu -->
 		<div class="ftMenu li3">
+		<div class="divisionBox">
+						<div class="selectBox">
+								<div class="topHead">
+			<!-- 					<span class="chkBox m"><input type="checkbox" name="chkall" id="checkall" /> <label for="checkall">전체</label></span> -->
+									<span class="selBox v1 mgl14" id="span_cldl_sct_cd" style="width: 100px">
+										<select name="cldl_tmsl_cd" id="cldl_area_cd">
+											<!-- <option value="">예정시간선택</option> -->
+											<option value="A">A</option>
+											<option value="B">B</option>
+											<option value="C">C</option>
+											<option value="D">D</option>
+											<option value="E">E</option>
+											<option value="F">F</option>
+											<option value="G">G</option>
+											<option value="G">H</option>
+											<option value="G">I</option>
+											<option value="G">J</option>
+											<option value="G">K</option>
+											<option value="G">L</option>
+											<option value="G">M</option>
+											<option value="G">N</option>
+											<option value="G">O</option>
+											<!-- <option value="28">지정일 집하/배송</option> -->
+										</select>
+										
+									</span>
+									<input type="hidden" id="dsgt_dd_cldl_ymd">
+									<button class="btn red lstSch" id="chngArea" data-prnt-sct-cd="A">구역변경</button>
+								</div>
+						</div>
+					</div>
+					<!-- //divisionBox -->
+
+					<!-- topHead -->
+					<!-- <div class="topHead">
+						<span class="chkBox m"><input type="checkbox" name="chkall" id="checkall" /> <label for="checkall"></label></span>
+						<span class="selBox v1 mgl15">
+							<select name="fltr_sct_cd" id="fltr_sct_cd">
+							</select>
+						</span>
+					</div> -->
+				
 			<ul>
 				<li>
 					<button class="btn ftMap"><span class="txt">지도</span></button>
@@ -184,10 +268,16 @@
 	<!-- 상단 설정시간 리스트 li -->
 	<script id="cldl0201_timeLst_template" type="text/x-handlebars-template">
 	{{#each list}}
-		<li name="timeLstLi" data-time-li="{{cldl_tmsl_cd}}" data-time-txt='{{cldl_tmsl_nm}}'>
+		<li name="timeLstLi" data-time-li="{{mbl_dlv_area}}" data-time-txt='{{mbl_dlv_area}}'>
 			<div class="itemBox">
+			{{#bldAnnmArea}}
+				<p class="top">{{mbl_dlv_area}}</p>
+			{{else}}
+				<p class="top">{{bld_annm_area}}</p>
+			{{/bldAnnmArea}}
 				<p class="top">{{cldl_tmsl_nm}}</p>
 				<p class="txt tc">집{{tmsl_pick_cnt}} / 배{{tmsl_dlv_cnt}}</p>
+				
 			</div>
 		</li>
 	{{/each}}
@@ -215,6 +305,9 @@
 					<p class="tit">
 						{{!-- 송장번호형식표시 helper invNoTmpl --}}
 						<span class="dsin vm invNoSpan">{{invNoTmpl inv_no}}</span>
+						{{#cldlSctCdTabChk}}
+							<button class="btn move" style="position:static;float:right;margin-top: 10px;">무브</button>
+						{{/cldlSctCdTabChk}}
 
 						{{#prcsMemoYn}}		{{!-- 기사 메모 내용이 있는지 없는지 확인하는 if --}}
 						<button class="btn pen" data-memo-inv-no='{{inv_no}}'></button>
@@ -248,10 +341,11 @@
 					<p class="addRed">{{dlv_msg_cont}}</p>
 				</div>
 
-				{{#cldlSctCdTabChk}}
-					<button class="btn move">무브</button>
-				{{/cldlSctCdTabChk}}
+
+				{{!-- #chkScanCmptYn --}}
+				<button class="btn cancel" data-cancel-inv-no='{{inv_no}}' data-cancle-sct-cd='{{cldl_sct_cd}}'>캔슬</button>
 				{{setSubBoxBtn subBoxBtn}}		{{!-- 보조송장 등록버튼 셋팅 --}}
+				{{!-- /chkScanCmptYn--}}
 			</div>
 			<div class="btnBox">
 				{{setPhoneNumber phoneNumber}}		<!-- 전화걸기 버튼 -->

@@ -27,7 +27,7 @@ var page = {
 			var curDate = new Date();
 			curDate = curDate.getFullYear() + "." + ("0"+(curDate.getMonth()+1)).slice(-2) + "." + ("0"+curDate.getDate()).slice(-2);
 			$('#cldlBtnCal').text(curDate);
-
+			
 			page.initEvent();			// 페이지 이벤트 등록
 			page.initDpEvent();			// 화면 디스플레이 이벤트
 		},
@@ -117,6 +117,7 @@ var page = {
 				var btnObj;
 
 				_.forEach(btnLst, function(obj, key) {
+					debugger;
 					btnObj = $(obj);
 					if(pick_sct_cd == btnObj.data('pickSctCd')){
 						btnObj.addClass( 'on' );

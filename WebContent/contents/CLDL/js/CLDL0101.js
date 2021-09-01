@@ -115,18 +115,34 @@ var page = {
 				});
 
 			});
-
+			
+			
 
 
 			// 스캔버튼을 누른경우
 			$(".btn.ftScan").click(function(){
 
 				var _this = this;
-
+				debugger;
 				//현제 어느 탭에 있는지 상태체크
 				var tab_sct_cd = page.returnTabSctCd();
 				var cldl_sct_cd = $('#cldl_sct_cd').val();			// 업무구분
-				var cldl_tmsl_cd = $('#cldl_tmsl_cd').val();		// 예정시간선택
+//				var cldl_tmsl_cd = $('#cldl_tmsl_cd').val();		// 예정시간선택
+				var cldl_tmsl_cd = "";
+				var tmptime = page.fnGetToDayCd();
+				var dlvyCompl = LEMP.Storage.get({ "_sKey" : "autoMenual"});
+				if(dlvyCompl.area_sct_cd == "Y"){
+					//TO-DO 현재시간 기준 코드 값 리턴 단, 토요일일경우 토요휴무 신청
+					if($('#cldl_set_cd').val() == "" && $('#cldl_set_cd').val() == null){
+						cldl_tmsl_cd = page.fnGetToDayCd();
+					}else{
+						cldl_tmsl_cd = $('#cldl_set_cd').val();
+					}
+					
+				}else{
+					cldl_tmsl_cd = $('#cldl_tmsl_cd').val();
+				}
+				
 				var dsgt_dd_cldl_ymd = $('#dsgt_dd_cldl_ymd').val();	// 지정일집하/배송 일자
 
 				// 전체 텝에서 스캔한 경우가 아니면 업무구분을 텝에 맞도록 셋팅
@@ -142,7 +158,7 @@ var page = {
 
 					return false;
 				}
-				else if(smutil.isEmpty(cldl_tmsl_cd)){
+				/*else if(smutil.isEmpty(cldl_tmsl_cd)){
 					LEMP.Window.alert({
 						"_sTitle":"스캔오류",
 						"_vMessage":"예정시간을 선택해 주세요."
@@ -157,7 +173,7 @@ var page = {
 					});
 
 					return false;
-				}
+				}*/
 
 				// 스캔 팝업 url 호출
 				var popUrl = smutil.getMenuProp('COM.COM0101', 'url');
@@ -175,8 +191,8 @@ var page = {
 				});
 			});	// end 스캔버튼을 누른경우 종료
 
-
-
+			//
+		
 			// 상단 조회 탭 클릭
 			$(".lstSchBtn").click(function(){
 				var cldl_sct_cd = $(this).data('schSctCd');		// 선택한 탭의 값 (A,P,D)
@@ -882,6 +898,18 @@ var page = {
 			var _this = this;
 			smutil.loadingOn();
 			_this.plnFltrListSerch();			// 필터 리스트 조회
+			
+			$(function(){
+				var dlvyCompl = LEMP.Storage.get({ "_sKey" : "autoMenual"});
+				if(dlvyCompl.area_sct_cd == "Y"){
+					$("#cldl_tmsl_cd").hide();
+					
+				}else{
+					$("#cldl_tmsl_cd").show();
+					
+				}
+				
+			});
 		},
 
 
@@ -2029,6 +2057,25 @@ var page = {
 
 		return obj;
 	},
+	
+	/*//현재 시간 기준 코드 조회
+	fnGetToDayCd : function(){
+		var today = new Date();
+		debugger;
+		var Dayof = today.getDay();   //요일
+		var behours = today.getHours()-1;
+		var hours = today.getHours(); // 시
+		var fohours = today.getHours()+1;
+		var minutes = today.getMinutes();  // 분
+		var seconds = today.getSeconds();  // 초
+		
+		var setHoursCheck = hours;
+		
+		console.log(setHoursCheck, fohours, behours);
+		
+		return setHoursCheck;
+	}*/
+
 
 };
 

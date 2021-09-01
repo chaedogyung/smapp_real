@@ -462,7 +462,7 @@ var page = {
 
 					return false;
 				}
-
+				
 				// 스캔 팝업 url 호출
 				var popUrl = smutil.getMenuProp('CLDL.CLDL0402', 'url');
 
@@ -825,7 +825,17 @@ var page = {
 					return options.inverse(this);
 				}
 			});
-
+			$(function(){
+				var dlvyCompl = LEMP.Storage.get({ "_sKey" : "autoMenual"});
+				if(!_.isUndefined(dlvyCompl)){
+					if(dlvyCompl.area_sct_cd2 == "A"){
+						$(".topHeadCal .setDlvyCom").text('자동');
+					}else{
+						$(".topHeadCal .setDlvyCom").text('수동');
+					}
+					
+				}
+			})
 			// ###################################### handlebars helper 등록 end
 
 		},
@@ -1164,9 +1174,28 @@ var page = {
 				});
 				return false;
 			}
-
+			
+//			var _this = this;
+			//TO-DO
 			smutil.loadingOn();				// 로딩바 시작
 			page.cmptTmList();				// 상단 시간별 카운트 조회
+			page.cmptTrsm();
+			smutil.loadingOff();
+//			var dlvyCompl = LEMP.Storage.get({ "_sKey" : "autoMenual"});
+//			if(!_.isUndefined(dlvyCompl)){
+//				if(dlvyCompl.area_sct_cd2 == "A"){
+//					console.log(1);
+////					page.dprtTrsm();
+//					//즉시 전송
+//					
+//					
+//				}else if(dlvyCompl.area_sct_cd2 == "A1"){
+//					console.log(2);
+////					page.dprtTrsm();
+//					//1시간 뒤 전송
+//					page.cmptTrsm();
+//				}
+//			}
 		},
 
 
@@ -1315,6 +1344,7 @@ var page = {
 
 				// 사진전송 로직 시작~!!!
 				var popUrl = smutil.getMenuProp("CLDL.CLDL0410","url");
+				console.log(paramObj);
 				LEMP.Window.open({
 					"_sPagePath":popUrl,
 					"_oMessage":{"param":{"list" : paramObj, "acpr_nm" : acpr_nm}}		// 인수자명 셋팅
@@ -1730,6 +1760,8 @@ var page = {
 
 		// 스캔 api 호출 callback
 		cmptScanRgstCallback : function(result){
+			console.log(result);
+			debugger;
 			var message = smutil.nullToValue(result.message,'');
 			var acnt = 0;
 			var dcnt = 0;
@@ -1838,6 +1870,7 @@ var page = {
 						}
 
 						timeLiCdCnt.text(scancnt+"");
+						
 					}
 
 					// 카운트가 500이 넘어가면 1로 초기화
@@ -1853,7 +1886,10 @@ var page = {
 							scanCnt = resetCnt
 						}
 					}
-
+					
+					//TO-DO
+					console.log(data);
+					
 					// 성공 tts 호출
 					smutil.callTTS("1", "2", scanCnt, result.isBackground);
 
@@ -2233,6 +2269,7 @@ var page = {
 			var acpt_sct_cd = $('#insujaCode').val();		// 인수자 코드
 			var acpr_nm = $('#insujaTxt').val();			// 인수자명
 
+			
 			if(smutil.isEmpty(base_ymd)){
 				LEMP.Window.alert({
 					"_sTitle":"배달 전송 오류",
@@ -2299,21 +2336,32 @@ var page = {
 			_this.apiParam.param.baseUrl = "smapis/cldl/dlvCmptScanTrsm";		// api no
 			_this.apiParam.param.callback = "page.cmptTrsmCallback";			// callback methode
 			_this.apiParam.data = {				// api 통신용 파라메터
-				"parameters" : {
-					"base_ymd" : base_ymd,				// 기준일자
-					"cldl_sct_cd" : cldl_sct_cd, 		// 집하 / 배달 업무 구분코드
-					"cldl_tmsl_cd" : cldl_tmsl_cd, 		// 예정시간 구분코드
-					"acpt_sct_cd" : acpt_sct_cd, 		// 인수자 구분코드
-					"acpr_nm" : acpr_nm,				// 인수자 명
-					"param_list" : param_list			// 전송할 송장정보 {송장번호 : 스캔여부}
+					"parameters" : {
+						"base_ymd" : base_ymd,				// 기준일자
+						"cldl_sct_cd" : cldl_sct_cd, 		// 집하 / 배달 업무 구분코드
+						"cldl_tmsl_cd" : cldl_tmsl_cd, 		// 예정시간 구분코드
+						"acpt_sct_cd" : acpt_sct_cd, 		// 인수자 구분코드
+						"acpr_nm" : acpr_nm,				// 인수자 명
+						"param_list" : param_list			// 전송할 송장정보 {송장번호 : 스캔여부}
+					}
+			}
+			var dlvyCompl = LEMP.Storage.get({ "_sKey" : "autoMenual"});
+			if(!_.isUndefined(dlvyCompl)){
+				if(dlvyCompl.area_sct_cd2 == "A"){
+					// 공통 api호출 함수
+					console.log(2);
+//					smutil.callApi(_this.apiParam);
+				}else if(dlvyCompl.area_sct_cd2 == "A1"){
+				console.log(1111);
+//				smutil.callApi(_this.apiParam);
+				
+				
 				}
-			};
-
+			}
+			
 			smutil.loadingOn();			// 로딩바 on
-
-			// 공통 api호출 함수
-			smutil.callApi(_this.apiParam);
-
+			
+			
 			page.apiParamInit();		// 파라메터 전역변수 초기화
 
 		},

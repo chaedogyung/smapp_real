@@ -6,7 +6,8 @@ var page = {
 		changeTimeInvNo : null,		// 시간 변경을 선택한 invNo
 		changeTimeSctCd : null,		// 시간 변경을 선택한 송장의 배달, 집하코드
 		reqAcptRgstInvNo : null,	// 인수자 변경을 선택한 송장번호
-
+		mbl_dlv_area: null,
+		mbl_dlv_nm : null,
 		// api 호출 기본 형식
 		apiParam : {
 			id:"HTTP",			// 디바이스 콜 id
@@ -36,8 +37,8 @@ var page = {
 
 
 		// 페이지 이벤트 등록
-		initEvent : function()
-		{
+		initEvent : function(){
+   
 			var _this = this;
 
 			/* 체크박스 전체선택 */
@@ -117,6 +118,7 @@ var page = {
 					}
 				});
 			});
+			
 			$(thisN).trigger("click");
 			/* //제스쳐 */
 
@@ -200,13 +202,12 @@ var page = {
 
 			// 상단 시간선택 클릭이벤트 등록
 			$(document).on('click', "li[name='timeLstLi']", function(e){
-
 				$("li[name='timeLstLi']").removeClass('on');
 				$(this).addClass('on');
 
 				// 선택한 시간목록값 전역변수로 셋팅
 				page.selectedSchTime = $(this).data('timeLi')+"";
-
+				
 				// 리스트 제조회
 				page.listReLoad();
 			});
@@ -223,9 +224,12 @@ var page = {
 			$(document).on('click', '.btn.cancel', function(e){
 				var inv_no = $(this).data('cancelInvNo');
 				var cldl_sct_cd = $(this).data('cancleSctCd');
-
+				var curDate = new Date();
+				curDate = curDate.getFullYear() + ("0"+(curDate.getMonth()+1)).slice(-2) + ("0"+curDate.getDate()).slice(-2);
+				var scanYmd = smutil.nullToValue($('#cldlBtnCal').text(),curDate);
+				scanYmd = scanYmd.split('.').join('');
 				// 스켄 취소 전문 호출
-				_this.plnScanCcl(inv_no, cldl_sct_cd);
+				_this.plnScanCcl(inv_no, cldl_sct_cd, scanYmd);
 
 			});
 
@@ -462,7 +466,19 @@ var page = {
 					return options.inverse(this);
 				}
 			});
+			Handlebars.registerHelper('bldAnnmArea', function(options) {
+				if(this.bld_annm_area === null){	// 집하
+					// options.fn == if(true)
+					
+					return options.fn(this)
+				}
+				else{	// 배달
+					// options.inverse == else
+					return options.inverse(this);
+				}
+			});
 
+			
 
 			// 집하, 배달 구분(집하 = if true, 배달은=else)
 			Handlebars.registerHelper('cldlSctCdChkTag', function(options) {
@@ -815,7 +831,6 @@ var page = {
 				}
 			});
 
-
 			// 사고 여부 체크
 			Handlebars.registerHelper('acdYnChk', function(options) {
 				if(this.acd_yn === "Y"){	// 사고
@@ -828,22 +843,103 @@ var page = {
 				}
 			});
 
-			// ###################################### handlebars helper 등록 end
+			
+			
+			//시간변경 이벤트 
+			$("#chngTme").click(function(){
+				var scanCnt = 0;
+				var selList = [];
+				var _this = this;
+				var chkLst = [];
+				var invNoLst = [];
 
+				$("input[name=chk]:checked").each(function() {
+					var invNo = $(this).attr("id").split("_");
+					invNoLst.push(invNo[0]);
+				});
+				
+				var cldl_sct_cd = page.returnTabSctCd();		// 업무구분 (전체 : A, 집하 : P, 배달 : D)
+				var dprtTrsmCnt = Number($('#'+cldl_sct_cd+'_cldl0201Cnt').text());
+				
+				// nodata 표시인경우
+				if(dprtTrsmCnt == 0 || smutil.isEmpty(dprtTrsmCnt)){
+					LEMP.Window.alert({
+						"_sTitle":"집배달 출발 확정 오류",
+						"_vMessage":"전송할 데이터가 없습니다.",
+					});
+
+					return false;
+				}
+				//TO-DO 변경 API 구성 후 호출
+				page.changeDlvyTime(invNoLst);
+			});
+			
+			//구역변경 이벤트
+			$("#chngArea").click(function(){
+				var cldl_sct_cd = page.returnTabSctCd();		// 업무구분 (전체 : A, 집하 : P, 배달 : D)
+				var scanCnt = 0;
+				var selList = [];
+				var _this = this;
+				var chkLst = [];
+				var invNoLst = [];
+				var chngArea = $("#cldl_area_cd").val();
+				$("input[name=chk]:checked").each(function() {
+					var invNo = $(this).attr("id").split("_");
+					invNoLst.push(invNo[0]);
+				});
+				
+//				var cldl_sct_cd = page.returnTabSctCd();		// 업무구분 (전체 : A, 집하 : P, 배달 : D)
+				var dprtTrsmCnt = Number($('#'+cldl_sct_cd+'_cldl0201Cnt').text());
+				
+
+				$("input[name=chk]:checked").each(function() {
+					var cpNo = $(this).val();
+
+					chkLst.push($(this).val());
+//					invNoLst.push($(this).attr("id"));
+				});
+				
+				
+				// nodata 표시인경우
+				if(dprtTrsmCnt == 0 || smutil.isEmpty(dprtTrsmCnt)){
+					LEMP.Window.alert({
+						"_sTitle":"집배달 출발 확정 오류",
+						"_vMessage":"전송할 데이터가 없습니다.",
+					});
+
+					return false;
+				}
+				//TO-DO 변경 API 구성 후 호출
+			
+				page.changeDlvyArea(invNoLst, chngArea);
+			});
+			
+			//설정여부에 따라 시간 선택 여부 노출
+			/*$(function(){
+				var dlvyCompl = LEMP.Storage.get({ "_sKey" : "autoMenual"});
+				if(dlvyCompl.area_sct_cd == "Y"){
+					$("#span_cldl_sct_cd").hide();
+					$("#chngTme").hide();
+				}
+				
+			});*/
+			
+			
+			// ###################################### handlebars helper 등록 end
 		},
 
 
 		// 화면 디스플레이 이벤트
 		initDpEvent : function(){
 			var _this = this;
-
-			if(smutil.isEmpty($("#cldlBtnCal").text())){
+			
+				if(smutil.isEmpty($("#cldlBtnCal").text())){
 				LEMP.Window.alert({
 					"_sTitle":"리스트 조회오류",
 					"_vMessage":"조회할 날짜를 선택해 주세요"
 				});
 				return false;
-			}
+				}
 
 			smutil.loadingOn();
 			_this.plnFltrListSerch();		// 필터 리스트 조회
@@ -959,7 +1055,7 @@ var page = {
 			base_ymd = base_ymd.split('.').join('');
 
 			_this.apiParam.data = {"parameters" : {"base_ymd":base_ymd}};				// api 통신용 파라메터
-
+		
 			// 공통 api호출 함수
 			smutil.callApi(_this.apiParam);
 
@@ -969,19 +1065,34 @@ var page = {
 
 		// 시간대별 조회건수 callback
 		dprtTmListCallback : function(result){
-
+	
 			page.apiParamInit();		// 파라메터 전역변수 초기화
-
 			// api 결과 성공여부 검사
 			if(smutil.apiResValidChk(result) && result.code == "0000"){
-
+			
 				// 조회 결과 데이터가 있으면 옵션 생성
 				if(result.data_count > 0){
 					var data = result.data;
+					_.forEach(data.list, function(e, key) {
+						
+						if(e.mbl_dlv_area == null){
+							data.list[key].mbl_dlv_area = "기타";
+						}else{
+							data.list[key].mbl_dlv_area = e.mbl_dlv_area;
+						}
+					});
+					
+					
+					
 					//오름차순 정렬
 					data.list.sort(function(a, b) {
-						return a.cldl_tmsl_nm < b.cldl_tmsl_nm ? -1 : a.cldl_tmsl_nm > b.cldl_tmsl_nm ? 1 : 0;
+						return a.mbl_dlv_area;
 					});
+					
+					/*//오름차순 정렬
+					data.list.sort(function(a, b) {
+						return a.mbl_dlv_area < b.mbl_dlv_area ? -1 : a.mbl_dlv_area > b.mbl_dlv_area ? 1 : 0;
+					});*/
 
 					// 핸들바 템플릿 가져오기
 					var source = $("#cldl0201_timeLst_template").html();
@@ -1002,10 +1113,9 @@ var page = {
 					// 선택한 값이 없을경우는 시간리스트의 첫번째 순서를 on 상태로 만든다
 					// 최초에 들어온 경우만 이벤트 등록
 					if(smutil.isEmpty(page.selectedSchTime)){
-
-						// 현제 어느 시간데를 선택했는지 검사
+						
+						// 현제 어느 구역을 선택했는지 검사
 						var timeLstLi = $("li[name='timeLstLi']");
-
 						_.forEach(timeLstLi, function(obj, key) {
 							$(obj).addClass('on');
 
@@ -1021,10 +1131,12 @@ var page = {
 						var timeObj;
 						_.forEach(timeLstLi, function(obj, key) {
 							timeObj = $(obj);
-
-							if((timeObj.data('timeLi')+"") == page.selectedSchTime){
+							
+							if(timeObj.data('timeLi') == page.selectedSchTime){
 								timeObj.addClass('on');
-
+								if(page.selectedSchTime == "기타"){
+									page.selectedSchTime = "";
+								}
 								return false;
 							}
 						});
@@ -1063,9 +1175,11 @@ var page = {
 			var _this = this;
 			var cldl_sct_cd = _this.returnTabSctCd();		// 업무구분 (전체 : A, 집하 : P, 배달 : D)
 			var fltr_sct_cd = $('#fltr_sct_cd').val();		// 필터구분
-			var cldl_tmsl_cd = _this.returnTimeCd();			// 현제 어느 시간을 선택했는지 검사
-
-
+			
+			var mbl_dlv_area = _this.returnTimeCd();			// 현제 어느 시간을 선택했는지 검사
+			if(mbl_dlv_area == "기타"){
+				mbl_dlv_area = "";
+			}
 			_this.apiParam.param.baseUrl = "smapis/cldl/dprtList";				// api no
 			_this.apiParam.param.callback = "page.dprtListCallback";			// callback methode
 
@@ -1079,11 +1193,11 @@ var page = {
 				"parameters" : {
 					"cldl_sct_cd" : smutil.nullToValue(cldl_sct_cd,"A"),		// 업무구분
 					"fltr_sct_cd" : smutil.nullToValue(fltr_sct_cd,""),			// 필터구분
-					"cldl_tmsl_cd" : smutil.nullToValue(cldl_tmsl_cd,""),		// 시간코드
+					"mbl_dlv_area" : smutil.nullToValue(mbl_dlv_area,""),		// 시간코드
 					"base_ymd" : base_ymd
 				}
 			};
-
+			
 			// 공통 api호출 함수
 			smutil.callApi(_this.apiParam);
 
@@ -1093,6 +1207,7 @@ var page = {
 
 		// 리스트 조회후 그리기
 		dprtListCallback : function(result){
+			console.log(result);
 			page.apiParamInit();		// 파라메터 전역변수 초기화
 
 			try{
@@ -1158,9 +1273,9 @@ var page = {
 
 			var _this = this;
 			var cldl_sct_cd = _this.returnTabSctCd();		// 업무구분 (전체 : A, 집하 : P, 배달 : D)
-			var cldl_tmsl_cd = _this.returnTimeCd();		// 시간구분코드
+			var mbl_dlv_area = _this.returnTimeCd();		// 시간구분코드
 			var base_ymd = $('#cldlBtnCal').text();
-
+			
 			if(smutil.isEmpty(base_ymd)){
 
 				LEMP.Window.alert({
@@ -1174,7 +1289,7 @@ var page = {
 			base_ymd = base_ymd.split('.').join('');
 
 			// 시간대별 전송이 아닌 전체 전송으로 수정(20200121 : 수정사항 반영)
-			//if(!smutil.isEmpty(cldl_sct_cd) && !smutil.isEmpty(cldl_tmsl_cd)){
+			//if(!smutil.isEmpty(cldl_sct_cd) && !smutil.isEmpty(mbl_dlv_area)){
 			if(!smutil.isEmpty(cldl_sct_cd)){
 				_this.apiParamInit();		// 파라메터 전역변수 초기화
 				_this.apiParam.param.baseUrl = "smapis/cldl/dprtTrsm";			// api no
@@ -1182,11 +1297,11 @@ var page = {
 				_this.apiParam.data = {						// api 통신용 파라메터
 					"parameters" : {
 						"cldl_sct_cd" : cldl_sct_cd			// 업무구분
-						//, "cldl_tmsl_cd" : cldl_tmsl_cd
+						//, "mbl_dlv_area" : mbl_dlv_area
 						, "base_ymd" : base_ymd				// 기준일자
 					}
 				};
-
+				
 				smutil.loadingOn();				// 로딩바 on
 
 				// 공통 api호출 함수
@@ -1199,7 +1314,7 @@ var page = {
 		// 배달출발전송 콜백
 		dprtTrsmCallback : function(result){
 			var _this = this;
-
+			
 			try{
 
 				// api 전송 성공
@@ -1209,6 +1324,11 @@ var page = {
 						"_sDuration" : "short"
 					});
 					page.listReLoad();					// 리스트 제조회
+				}else if(smutil.apiResValidChk(result) && result.code == "9999"){
+					LEMP.Window.toast({
+						"_sMessage" : "시간대를 설정해 주세요.",
+						"_sDuration" : result.message
+					});
 				}
 			}
 			catch(e){}
@@ -1399,8 +1519,7 @@ var page = {
 						}
 
 					}
-
-
+				
 					// 문자발송 기능 호출
 					LEMP.System.callSMS({
 						"_aNumber":single,
@@ -1446,7 +1565,7 @@ var page = {
 						page.apiParam.param.callback = "page.areaTmslRgstCallback";		// callback methode
 						page.apiParam.data = {				// api 통신용 파라메터
 							"parameters" : {
-								"cldl_tmsl_cd" : res.selectedCode,
+								"mbl_dlv_area" : res.selectedCode,
 								"cldl_sct_cd" : page.changeTimeSctCd,					// 업무구분
 								"inv_no" : page.changeTimeInvNo+""
 							}
@@ -1649,7 +1768,7 @@ var page = {
 						page.apiParam.param.callback = "page.areaTmslRgstCallback";		// callback methode
 						page.apiParam.data = {				// api 통신용 파라메터
 							"parameters" : {
-								"cldl_tmsl_cd" : res.selectedCode,
+								"mbl_dlv_area" : res.selectedCode,
 								"cldl_sct_cd" : page.changeTimeSctCd,					// 업무구분
 								"inv_no" : page.changeTimeInvNo+""
 							}
@@ -1706,17 +1825,17 @@ var page = {
 
 			//현제 어느 탭에 있는지 상태체크
 			var btnObj;
-			var cldl_tmsl_cd;
+			var mbl_dlv_area;
 			_.forEach(timeLst, function(obj, key) {
 				btnObj = $(obj);
 
 				if(btnObj.is('.on')){
-					cldl_tmsl_cd = btnObj.data('timeLi');
+					mbl_dlv_area = btnObj.data('timeLi');
 					return false;
 				}
 			});
 
-			return cldl_tmsl_cd;
+			return mbl_dlv_area;
 		},
 
 
@@ -1741,6 +1860,108 @@ var page = {
 		},
 
 
+		//집배달 출발 시간변경
+		changeDlvyTime : function(param){
+			var setParam = [];
+			var setObject = {invNo : ""};
+			//현재 시간 기준
+//			var mbl_dlv_area = $('#mbl_dlv_area').val();
+			var mbl_dlv_area = $('#mbl_dlv_area').val();
+			//넘겨받은 체크 대상 리스트
+			var chngInvNoList = param;
+			for(var i = 0; i < param.length; i++){
+				
+				setObject.invNo = param[i];
+				if(param != null && param != undefined && param != ""){
+					  setParam.push({"invNo":param[i]});
+				}
+			}
+			
+			
+			var _this = this;
+			_this.apiParam.param.baseUrl = "smapis/cldl/changedlvytme";					// api no
+			_this.apiParam.param.callback = "page.changeDlvyTimeCallback";			// callback methode
+			_this.apiParam.data = {"parameters" : {
+				"mbl_dlv_area" : mbl_dlv_area,
+				"chngInvNoList" : setParam
+			}};
+			console.log(_this.apiParam);
+			// 공통 api호출 함수
+			smutil.callApi(page.apiParam);
+		},
+		//성공여부 콜백
+		changeDlvyTimeCallback: function(res){
+			page.listReLoad();
+		},
+		
+		//집배달 출발 구역변경
+		changeDlvyArea : function(param, param2){
+			//현재 시간 기준
+			var timeCheck = page.returnTimeCd();
+			var setParam = [];
+			var setObject = {invNo : ""};
+			//현재 시간 기준
+//			var mbl_dlv_area = $('#mbl_dlv_area').val();
+			var cldl_tmsl_cd = $('#cldl_tmsl_cd').val();
+			//넘겨받은 체크 대상 리스트
+			var chngInvNoList = param;
+			for(var i = 0; i < param.length; i++){
+				
+				setObject.invNo = param[i];
+				if(param != null && param != undefined && param != ""){
+					  setParam.push({"invNo":param[i]});
+				}
+			}
+			var chngArea = $("#cldl_area_cd").val();
+			
+			var _this = this;
+			_this.apiParam.param.baseUrl = "smapis/cldl/changedlvyarea";					// api no
+			_this.apiParam.param.callback = "page.changeDlvyAreaCallback";			// callback methode
+			_this.apiParam.data = {"parameters" : {
+				"chngInvNoList" : setParam,
+				"chngArea" : chngArea
+			}};
+			console.log(_this.apiParam);
+			// 공통 api호출 함수
+			smutil.callApi(page.apiParam);
+		},
+		//성공여부 콜백
+		changeDlvyTimeCallback: function(res){
+			if(res.code == 0000){
+				LEMP.Window.alert({
+					"_sTitle":"성공",
+					"_vMessage":res.message
+				});
+			}else if(res.code == 0001){
+				LEMP.Window.alert({
+					"_sTitle":"구역 오류",
+					"_vMessage": res.message
+				});
+			}
+			console.log(res);
+			page.listReLoad();
+		},
+		
+		changeDlvyAreaCallback : function(){
+			if(res.code == 0000){
+				LEMP.Window.alert({
+					"_sTitle":"성공",
+					"_vMessage":res.message
+				});
+			}else if(res.code == 0001){
+				LEMP.Window.alert({
+					"_sTitle":"구역 오류",
+					"_vMessage": res.message
+				});
+			}else if(res.code == 0002){
+				LEMP.Window.alert({
+					"_sTitle":"구역변경 오류",
+					"_vMessage": res.message
+				});
+			}
+			page.listReLoad();
+		},
+		
 		// api 파람메터 초기화
 		apiParamInit : function(){
 			page.apiParam =  {
@@ -1805,6 +2026,95 @@ var page = {
 
 		},
 
+		// ################### 스캔취소 start
+		plnScanCcl : function(inv_no, cldl_sct_cd, scanYmd){
+
+			var _this = this;
+
+			if(smutil.isEmpty(inv_no)){
+				LEMP.Window.toast({
+					'_sMessage' : '송장번호가 없습니다.',
+					'_sDuration' : 'short'
+				});
+
+				return false;
+			}
+			else if(smutil.isEmpty(cldl_sct_cd)){
+				LEMP.Window.toast({
+					'_sMessage' : '업무구분이 없습니다.',
+					'_sDuration' : 'short'
+				});
+
+				return false;
+			}
+
+
+			var btnCancel = LEMP.Window.createElement({ _sElementName:"TextButton" });
+			btnCancel.setProperty({
+				_sText : "취소",
+				_fCallback : function(){}
+			});
+
+			var btnConfirm = LEMP.Window.createElement({ _sElementName:"TextButton" });
+			btnConfirm.setProperty({
+				_sText : "확인",
+				_fCallback : function(){
+
+					// 스캔 취소 전문 호출
+					_this.apiParamInit();		// 파라메터 초기화
+					_this.apiParam.param.baseUrl = "/smapis/cldl/changedlvywait";			// api no
+					_this.apiParam.param.callback = "page.changedlvywaitCallback";			// callback methode
+					_this.apiParam.data = {				// api 통신용 파라메터
+						"parameters" : {
+							"inv_no" : inv_no+"",			// 송장번호
+							"cldlSctCd" : cldl_sct_cd,	// 업무구분
+							"scanYmd" : scanYmd
+						}
+					};
+
+					// 공통 api호출 함수
+					smutil.callApi(_this.apiParam);
+				}
+			});
+
+			LEMP.Window.confirm({
+				"_sTitle":"스캔취소",
+				_vMessage : "선택한 송장정보의 \n스캔을 취소하시겠습니까?",
+				_aTextButton : [btnConfirm, btnCancel]
+			});
+
+		},
+
+
+		// 스캔취소 콜백
+		changedlvywaitCallback : function(result){
+			var _this = this;
+
+			// api 전송 성공
+			if(smutil.apiResValidChk(result) && result.code == "0000"){
+				LEMP.Window.toast({
+					'_sMessage' : '스캔정보가 취소되었습니다.',
+					'_sDuration' : 'short'
+				});
+
+				page.listReLoad();				// 리스트 제조회
+			}
+			else if(result.code == "9000"){
+				page.listReLoad();				// 이미 삭제된 리스트이기 때문에 바로 리스트 제조회
+			}
+			else{
+				var message = smutil.nullToValue(result.message,'');
+
+				LEMP.Window.alert({
+					"_sTitle":"스캔취소 오류",
+					"_vMessage":message
+				});
+			}
+
+			page.apiParamInit();			// 파라메터 전역변수 초기화
+		},
+		// ################### 스캔취소 end
+		
 		// 물리적 뒤로가기 버튼 및 뒤로가기 화살표 버튼 클릭시 스캔 체크해서 전송여부 결정
 		callbackBackButton : function(){
 			LEMP.Window.close({
