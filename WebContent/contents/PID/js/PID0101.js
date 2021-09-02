@@ -12,6 +12,7 @@ var page = {
 		prntCclDataArr : null,			// 출력취소 정보 배열
 		prntCclInv : null,				// 출력 취소 송장번호
 
+													 
 		// api 호출 기본 형식
 		apiParam : {
 			id:"HTTP",					// 디바이스 콜 id
@@ -274,9 +275,52 @@ var page = {
 
 					return false;
 				}
-
 				$('.mpopBox.cancel').bPopup();
 			});
+			/* 선택된건에대한 문자발송 */
+			$(document).on('click',".ftSms",function(){
+				var inv_no = $(this).parent().data('inv');
+				var corp_sct_cd = $(this).parent().data('corp');
+
+				var ChkCnt = $('.checkBoxSelect:checked').length;
+				if(ChkCnt < 1){ //최소 1건이상 출력취소 가능
+					LEMP.Window.alert({
+						"_sTitle" : "알림",
+						"_vMessage" : "메시지 발송 할 송장을 선택해주십시오."
+					});
+
+					return false;
+				}
+				console.log(corp_sct_cd);
+				console.log(inv_no);
+				$('.mpopBox.sms').bPopup();
+				
+				
+			});
+			
+			/* 문자메시지 발송 > 예 */
+			$('#invSendMsgBtn').click(function(){
+				var tag;
+				prntSmsDataArr = [];
+				_.forEach($('.checkBoxSelect:checked'),function(value,index,array){
+					var tag = $('.checkBoxSelect:checked')[index].closest('.baedalBox');
+					/*if(tag.dataset.prntYn == "N"){
+						LEMP.Window.alert({
+							"_sTitle" : "알림",
+							"_vMessage" : "발송이 불가능한 문자가 있습니다."
+						});
+
+						return false;
+					}*/
+					prntSmsDataArr.push(tag.dataset);
+				});
+
+				if(prntSmsDataArr.length > 0){
+					smutil.loadingOn();
+					page.sendMsg();
+				}
+
+			});   
 
 			/* 운송장 출력 취소 > 예 */
 			$('#invPrntCclYesBtn').click(function(){
@@ -860,10 +904,33 @@ var page = {
 					"inv_no" : String(prntCclInv)			// 송장번호
 				}
 			};
-
+			   
 			// 공통 api호출 함수
 			smutil.callApi(_this.apiParam);
 		},
+		sendMsg : function(){
+
+			prntSmsInv = prntSmsDataArr[0].inv;
+
+			var _this = this;
+			_this.apiParam.param.baseUrl = "smapis/pid/sendwaitmsg";				// api no
+			_this.apiParam.param.callback = "page.sendwaitmsg";			// callback methode
+			_this.apiParam.data = {				// api 통신용 파라메터
+				"parameters" : {
+					"inv_no" : prntSmsDataArr[0].inv,
+					"rsrv_mgr_no" : prntSmsDataArr[0].rsrv,
+					"rsrv_mgr_list" : prntSmsDataArr
+				}
+			};
+			console.log(_this.apiParam);
+			// 공통 api호출 함수
+			smutil.callApi(_this.apiParam);
+		},
+		sendwaitmsg : function(result){
+			console.log(result);
+		},					 
+					   
+	
 
 		// 운송장 출력 취소 callback
 		invPrntCclCallback : function(result){

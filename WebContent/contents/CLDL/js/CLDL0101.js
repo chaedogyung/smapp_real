@@ -144,7 +144,6 @@ var page = {
 
 						return false;
 					}
-					
 				}else{
 					cldl_tmsl_cd = $('#cldl_tmsl_cd').val();
 					if(smutil.isEmpty(cldl_sct_cd)){

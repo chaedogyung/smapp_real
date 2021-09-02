@@ -1181,21 +1181,16 @@ var page = {
 			page.cmptTmList();				// 상단 시간별 카운트 조회
 			page.cmptTrsm();
 			smutil.loadingOff();
-//			var dlvyCompl = LEMP.Storage.get({ "_sKey" : "autoMenual"});
-//			if(!_.isUndefined(dlvyCompl)){
-//				if(dlvyCompl.area_sct_cd2 == "A"){
-//					console.log(1);
-////					page.dprtTrsm();
-//					//즉시 전송
-//					
-//					
-//				}else if(dlvyCompl.area_sct_cd2 == "A1"){
-//					console.log(2);
-////					page.dprtTrsm();
-//					//1시간 뒤 전송
-//					page.cmptTrsm();
-//				}
-//			}
+			var dlvyCompl = LEMP.Storage.get({ "_sKey" : "autoMenual"});
+			if(!_.isUndefined(dlvyCompl)){
+				if(dlvyCompl.area_sct_cd2 == "A"){
+					console.log(1);
+					page.dprtTrsm();
+					//즉시 전송
+					
+					
+				}
+			}
 		},
 
 
@@ -1233,7 +1228,7 @@ var page = {
 			var _this = this;
 
 			try{
-
+				debugger;
 				// api 전송 성공
 				if(smutil.apiResValidChk(result) && result.code == "0000"){
 
