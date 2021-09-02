@@ -53,8 +53,8 @@ var page = {
 				var date = new Date();
 				var curTime = date.LPToFormatDate("yyyymmddHHnnss");
 				var fileName = "000000000000_cdlv_"+curTime+".jpg";
-				smutil.callGallery(fileName, 'page.imageCallback');
-				console.log(2);
+				smutil.callCamera(fileName, 'page.imageCallback');
+
 			}else{
 				$('#autoPic').text("수동");
 			}
