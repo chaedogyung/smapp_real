@@ -147,10 +147,13 @@
 		<!--  //contentSection  -->
 
 		<!-- ftMenu -->
-		<div class="ftMenu li3">
+		<div class="ftMenu li4">
 			<ul>
 				<li>
 					<button class="btn ftMemo" id="receipt"><span class="txt">택배/반품접수</span></button>
+				</li>
+				<li>
+					<button class="btn ftSms" id="sendSms"><span class="txt">문자</span></button>
 				</li>
 				<li>
 					<button class="btn ftPrintCancel">
@@ -185,7 +188,23 @@
 			</div>
 		</div>
 		<!-- 모달팝업 출력 -->
-
+		<!-- 모달팝업 메시지 전송-->
+		<div class="mpopBox img sms">
+			<div class="popBody">
+				<p class="img"><img src="../../common/img/icon-error.png" alt="" /></p>
+				<p class="txt1">문자 발송 확인</p>
+				<p class="txt2">문자발송을 하시겠습니까?</p>
+			</div>
+			<div class="popFooter">
+				<div class="btnBox">
+					<ul class="ul0 ul2">
+						<li><button class="btn gray m w100p b-close">아니오</button></li>
+						<li><button class="btn red m w100p b-close" id="invSendMsgBtn">예</button></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- 모달팝업 메시지지 전송 -->
 		<!-- 모달팝업 출력 취소 -->
 		<div class="mpopBox img cancel">
 			<div class="popBody">
