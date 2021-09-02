@@ -1185,7 +1185,7 @@ var page = {
 			if(!_.isUndefined(dlvyCompl)){
 				if(dlvyCompl.area_sct_cd2 == "A"){
 					console.log(1);
-					page.dprtTrsm();
+					/*page.dprtTrsm();*/
 					//즉시 전송
 					
 					
