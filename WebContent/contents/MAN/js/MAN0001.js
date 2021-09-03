@@ -892,7 +892,7 @@ var page = {
 		smutil.loadingOn();
 		page.apiParamInit();		// 파라메터 초기화
 		page.apiParam.param.task_id = "MAN0001";
-		page.apiParam.param.baseUrl = "/smapis/getTevSmSeiReport";
+		page.apiParam.param.baseUrl = "/smapis/cmn/getTevSmSeiReport";
 		page.apiParam.param.callback = "page.getTevSmSeiReportCallback";
 		page.apiParam.data.parameters = {
 				"brshCd" : data.brsh_cd, //점소코드
