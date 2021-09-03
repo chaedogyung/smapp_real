@@ -141,7 +141,7 @@ var page = {
 				"_sKey" : "videoLinkClicked",
 				"_vValue" : false
 			});
-			
+			debugger;
 			
 			//monthpicker
 			var currentYear = (new Date()).getFullYear();
@@ -155,7 +155,7 @@ var page = {
 					disableMonths : [ ]
 			};
 			
-			
+			 
 			//이달의 실적현황 달력 버튼
 			$("#cur_monF").monthpicker(options);
 			
@@ -168,7 +168,6 @@ var page = {
 				if(year != 'undefined' || month != 'undefined'){
 					$('#cur_monF').val(year+"년"+month+"월");				
 				}
-				
 				var bscYm = year + month,
 					brsh_cd = $("#brsh_cd_hid").val(),
 					emp_no = $("#empno").text();
@@ -178,7 +177,6 @@ var page = {
 						"brsh_cd" : brsh_cd,
 						"emp_no" : emp_no
 				}
-				
 				e.stopPropagation();
 				page.getTevSmSeiReport(grdData);
 			})
@@ -632,7 +630,7 @@ var page = {
 				$('#empno').text(res.empno);
 				$('#vhc_no').text(res.vhc_no);
 				$('#emp_img_path').attr('src',res.emp_img_path);
-				$('#cur_monF').text(fir+"년"+lat+"월");
+				$('#cur_monF').val(fir+"년"+lat+"월");
 				$('#cur_pick_rate').text(res.cur_pick_rate+"건");
 				$('#cur_dlv_rate').text(res.cur_dlv_rate+"건");
 				$('#cur_sum').text(Number(res.cur_pick_rate)+Number(res.cur_dlv_rate)+"건");
