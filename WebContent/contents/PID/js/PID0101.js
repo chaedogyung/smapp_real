@@ -927,7 +927,14 @@ var page = {
 			smutil.callApi(_this.apiParam);
 		},
 		sendwaitmsg : function(result){
-			console.log(result);
+			try{
+				console.log(result);
+			}
+			catch(e){}
+			finally{
+				smutil.loadingOff();			// 로딩바 닫기
+				page.apiParamInit();			// 파라메터 전역변수 초기화
+			}
 		},					 
 					   
 	
