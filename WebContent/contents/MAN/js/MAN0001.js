@@ -94,80 +94,96 @@ var page = {
 
 	initInterface : function() {
 		
-		smutil.loadingOn();
-		page.apiParamInit();		// 파라메터 초기화
-		page.apiParam.param.baseUrl = "/smapis/cmn/getTevSmSeiReport";
-		page.apiParam.param.method = "POST";
-		page.apiParam.param.callback = "page.getTevSmSeiReportCallback";
-		page.apiParam.data.parameters = {
-				"brshCd" : "30920",
-				"empNo" : "31909351",
-				"mscYm" : "202106",
-		};
-		console.log(page.apiParam);
-		smutil.callApi(page.apiParam);
-	
-		
-		
-		
-		
-		
 		var tr = {
-			id : "INIT",
-		};
-		// native 기능 호출
-		smutil.nativeMothodCall(tr);
-		
-		$(function() {
-			var setPopCheck = LEMP.Storage.get({ "_sKey" : "setPopCheck"});
-			if(_.isUndefined(setPopCheck)){
-				var popUrl = smutil.getMenuProp('SET.SET0303', 'url');
+				id : "INIT",
+			};
+			// native 기능 호출
+			smutil.nativeMothodCall(tr);
+
+
+			// $('.grade').show();
+
+			// 알림 버튼 클릭
+			$('#alim').on('click', function() {
+				var popUrl = smutil.getMenuProp('MAN.MAN0301', 'url');
 				LEMP.Window.open({
 					"_sPagePath" : popUrl,
 				});
-			}
-		});
-
-		// $('.grade').show();
-
-		// 알림 버튼 클릭
-		$('#alim').on('click', function() {
-			var popUrl = smutil.getMenuProp('MAN.MAN0301', 'url');
-			LEMP.Window.open({
-				"_sPagePath" : popUrl,
 			});
-		});
 
-		//즐겨찾기 이동
-		$(document).on('click','.frevPage',function(){
-			var id = $(this).attr('id');
-			var index = id.indexOf('0');
-			var pre = id.substring(0,index);
-			var popUrl = smutil.getMenuProp(pre+"."+id, 'url');
-			LEMP.Window.open({
-				"_sPagePath" : popUrl,
+			//즐겨찾기 이동
+			$(document).on('click','.frevPage',function(){
+				var id = $(this).attr('id');
+				var index = id.indexOf('0');
+				var pre = id.substring(0,index);
+				var popUrl = smutil.getMenuProp(pre+"."+id, 'url');
+				LEMP.Window.open({
+					"_sPagePath" : popUrl,
+				});
 			});
-		});
 
 
-		// 메인 롯데택배 로그클릭(페이지 리로드)
-		$('#mainLogo').on('click',function(e) {
-			page.resumeInfo();
-		});
-
-		// 메시지 대량발송 미동의 버튼 클릭
-		$('#btnSms').on('click', function() {
-			var popUrl = smutil.getMenuProp('SET.SET0401', 'url');
-			LEMP.Window.open({
-				"_sPagePath" : popUrl
+			// 메인 롯데택배 로그클릭(페이지 리로드)
+			$('#mainLogo').on('click',function(e) {
+				page.resumeInfo();
 			});
-		});
 
-		// 공지 내 영상 클릭하지 않고 강제종료할 경우를 대비한 처리
-		LEMP.Properties.set({
-			"_sKey" : "videoLinkClicked",
-			"_vValue" : false
-		});
+			// 메시지 대량발송 미동의 버튼 클릭
+			$('#btnSms').on('click', function() {
+				var popUrl = smutil.getMenuProp('SET.SET0401', 'url');
+				LEMP.Window.open({
+					"_sPagePath" : popUrl
+				});
+			});
+
+			// 공지 내 영상 클릭하지 않고 강제종료할 경우를 대비한 처리
+			LEMP.Properties.set({
+				"_sKey" : "videoLinkClicked",
+				"_vValue" : false
+			});
+			
+			
+			//monthpicker
+			var currentYear = (new Date()).getFullYear();
+			var options = {
+					pattern: 'yyyy mm', // Default is 'mm/yyyy' and separator char is not mandatory
+					selectedYear: currentYear,
+					startYear: currentYear-10,
+					finalYear: currentYear,
+					monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']	,
+					openOnFocus: true,
+					disableMonths : [ ]
+			};
+			
+			
+			//이달의 실적현황 달력 버튼
+			$("#cur_monF").monthpicker(options);
+			
+			$(".mtz-monthpicker-month").on('click', function(e){
+				/*alert($(this).attr('data-month'));
+				alert($(".mtz-monthpicker-year").val());*/
+				var year = $(".mtz-monthpicker-year").val();
+				var month  = $(this).attr('data-month') > 9 ? $(this).attr('data-month') : "0" + $(this).attr('data-month');
+				
+				if(year != 'undefined' || month != 'undefined'){
+					$('#cur_monF').val(year+"년"+month+"월");				
+				}
+				
+				var bscYm = year + month,
+					brsh_cd = $("#brsh_cd_hid").val(),
+					emp_no = $("#empno").text();
+				
+				var grdData = {
+						"bscYm" : bscYm,
+						"brsh_cd" : brsh_cd,
+						"emp_no" : emp_no
+				}
+				
+				e.stopPropagation();
+				page.getTevSmSeiReport(grdData);
+			})
+
+
 	},
 	//공지사항 팝업
 	noticePopup : function() {
@@ -342,9 +358,7 @@ var page = {
 			smutil.loadingOff();
 		}
 	},
-	getTevSmSeiReportCallback : function(res){
-		console.log(res);
-	},
+	
 	// ############################# 롯데홈쇼핑 인증키 생성 end
 
 	// 공지사항 팝업 콜백
@@ -626,7 +640,7 @@ var page = {
 				$('#tod_pick_rslt').text(res.tod_pick_rslt+"건");
 				$('#tod_dlv_rslt').text(res.tod_dlv_rslt+"건");
 				$('#tod_sum').text(Number(res.tod_pick_rslt)+Number(res.tod_dlv_rslt)+"건");
-
+						
 				LEMP.Properties.set({
 					"_sKey" : "approval_yn",
 					"_vValue" : res.approval_yn
@@ -872,6 +886,48 @@ var page = {
 			},
 			data:{"parameters" : {}}// api 통신용 파라메터
 		};
+	}
+	//월별등급조회
+	,getTevSmSeiReport : function(data) {
+		smutil.loadingOn();
+		page.apiParamInit();		// 파라메터 초기화
+		page.apiParam.param.task_id = "MAN0001";
+		page.apiParam.param.baseUrl = "/smapis/getTevSmSeiReport";
+		page.apiParam.param.callback = "page.getTevSmSeiReportCallback";
+		page.apiParam.data.parameters = {
+				"brshCd" : data.brsh_cd, //점소코드
+				"empNo" : data.emp_no, //사원번호
+				"bscYm" : data.bscYm, //조회월
+		};
+		smutil.callApi(page.apiParam);
+	}
+	
+	
+	,getTevSmSeiReportCallback : function(data){
+		
+		try{
+			if(data[0]){
+				var fir = data[0].bsc_ym.substring(0,4);
+				var lat = data[0].bsc_ym.substring(4,6);
+				
+				var grade = $('#grade' + data[0].grd);
+				var index = $('.grade div').index(grade);
+
+				grade.removeClass('disabled');
+				page.gradeSlider.goToSlide(index);
+
+			}else {
+				LEMP.Window.alert({"_vMessage" : "해당 달의 등급이 없습니다." });
+				for(var i = 0; i < $(".grade").children().length; i++) {
+					$(".grade").children().eq(i).addClass('disabled')
+				}
+				
+			}
+
+		}catch(e){}
+		finally{
+			smutil.loadingOff();
+		}
 	}
 
 	// 페이지 resume 될때마다 실행되는 함수

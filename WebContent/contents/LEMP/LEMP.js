@@ -47,7 +47,8 @@
 		"common/js/jquery.bxslider.min.js",
 		"common/js/handlebars-v4.4.3.js",
 		"common/js/lodash.js",
-		"common/js/smutil.js"
+		"common/js/smutil.js",
+		"common/js/jquery.ui.monthpicker.js"
 	);
 
 	var JsList="";
