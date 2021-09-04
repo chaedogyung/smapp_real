@@ -141,7 +141,6 @@ var page = {
 				"_sKey" : "videoLinkClicked",
 				"_vValue" : false
 			});
-			debugger;
 			
 			//monthpicker
 			var currentYear = (new Date()).getFullYear();
@@ -904,11 +903,13 @@ var page = {
 	,getTevSmSeiReportCallback : function(data){
 		
 		try{
-			if(data[0]){
-				var fir = data[0].bsc_ym.substring(0,4);
-				var lat = data[0].bsc_ym.substring(4,6);
+			var dataSet;
+			dataSet = data;
+			if(dataSet.data[0]){
+				var fir = dataSet.data[0].bsc_ym.substring(0,4);
+				var lat = dataSet.data[0].bsc_ym.substring(4,6);
 				
-				var grade = $('#grade' + data[0].grd);
+				var grade = $('#grade' + dataSet.data[0].grd);
 				var index = $('.grade div').index(grade);
 
 				grade.removeClass('disabled');
