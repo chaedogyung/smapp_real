@@ -28,8 +28,9 @@
 .cardBox.ranking .tit{background:url('../../common/img/icon-man.png') no-repeat 0px 3px; background-size:21px;}
 
 /* 실적 */
-.cardBox.chart .tit .num{color:#da291c; font-weight:400; float:right; border: 0; width : 50%; font-size: 14pt; padding-bottom: 11px; padding-left: 27px;}
+.cardBox.chart .tit .num{color:#da291c; font-weight:400; float:right;}
 .cardBox.chart .tit{background:url('../../common/img/icon-chart.png') no-repeat 0px 3px; background-size:21px; border-bottom:2px solid #8d9090;}
+.cardBox.chart .tit .num{color:#da291c; font-weight:400; float:right; border: 0; width : 50%; font-size: 14pt; padding-bottom: 11px; padding-left: 27px;}
 .cardBox.chart .boxBody{padding-top:20px; margin-bottom:10px;}
 .cardBox.chart .boxBody .rightBox .photo{height:70px; text-align:center; box-sizing:border-box; padding-top:10px; background-color:#f7f7f7;}
 .cardBox.chart .boxBody .rightBox .photo em{color:#b15700;}
