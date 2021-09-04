@@ -180,6 +180,15 @@ var page = {
 				page.getTevSmSeiReport(grdData);
 			})
 
+			$(function() {
+				var setPopCheck = LEMP.Storage.get({ "_sKey" : "setPopCheck"});
+				if(_.isUndefined(setPopCheck)){
+					var popUrl = smutil.getMenuProp('SET.SET0303', 'url');
+					LEMP.Window.open({
+						"_sPagePath" : popUrl,
+					});
+				}
+			});
 
 	},
 	//공지사항 팝업
