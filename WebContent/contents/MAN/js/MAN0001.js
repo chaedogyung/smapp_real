@@ -910,15 +910,16 @@ var page = {
 	
 	
 	,getTevSmSeiReportCallback : function(data){
-		
+
 		try{
+			
 			var dataSet;
 			dataSet = data;
-			if(dataSet.data[0]){
-				var fir = dataSet.data[0].bsc_ym.substring(0,4);
-				var lat = dataSet.data[0].bsc_ym.substring(4,6);
+			if(dataSet.data.list[0]){
+				var fir = dataSet.data.list[0].bsc_ym.substring(0,4);
+				var lat = dataSet.data.list[0].bsc_ym.substring(4,6);
 				
-				var grade = $('#grade' + dataSet.data[0].grd);
+				var grade = $('#grade' + dataSet.data.list[0].grd);
 				var index = $('.grade div').index(grade);
 
 				grade.removeClass('disabled');
@@ -929,7 +930,6 @@ var page = {
 				for(var i = 0; i < $(".grade").children().length; i++) {
 					$(".grade").children().eq(i).addClass('disabled')
 				}
-				
 			}
 
 		}catch(e){}
