@@ -125,7 +125,7 @@ var page = {
 			});
 
 			// inito 화면 초기화
-			$(".intro").fadeOut(800);
+//			$(".intro").fadeOut(800);
 
 		}
 
@@ -169,22 +169,22 @@ var page = {
 		$("#loginBtn").click(function(){
 			//###################################################### test 용 start
 //			 햄버거 메뉴 생성
-			 LEMP.SideView.create({
-			 	"_sPosition" : "left",  // or right
-			 	"_sPagePath" : "GNB/html/GNB0001.html",
-			 	"_sWidth" : "100",
-			 	"_oMessage" : {
-			 		"param" : ""
-			 	}
-			 });
-			
-			 var popUrl = smutil.getMenuProp("MAN.MAN0001","url");
-			
-			 LEMP.Window.open({
-			 	"_sPagePath":popUrl,
-			 });
-			
-			 return;
+//			 LEMP.SideView.create({
+//			 	"_sPosition" : "left",  // or right
+//			 	"_sPagePath" : "GNB/html/GNB0001.html",
+//			 	"_sWidth" : "100",
+//			 	"_oMessage" : {
+//			 		"param" : ""
+//			 	}
+//			 });
+//			
+//			 var popUrl = smutil.getMenuProp("MAN.MAN0001","url");
+//			
+//			 LEMP.Window.open({
+//			 	"_sPagePath":popUrl,
+//			 });
+//			
+//			 return;
 			//###################################################### test 용 end
 			// 안드로이드 혹은 웹
 			if(page.deviceInfo !== "smios"){
