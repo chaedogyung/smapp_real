@@ -424,7 +424,9 @@ var page={
 		try {
 			if (smutil.apiResValidChk(res) &&
 					(res.code ==="0000" || res.code==="1000")) {
-			
+				LEMP.Window.close({
+					"_sCallback" : "page.listReLoad"
+				})
 			}
 			if(res.code ==="1100" ){
 				smutil.loadingOff();
