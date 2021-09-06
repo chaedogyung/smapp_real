@@ -1719,9 +1719,6 @@ var page = {
 			if(dlvyCompl.area_sct_cd2 == "A"){
 				$("#span_cldl_sct_cd").hide();
 				$("#chngTme").hide();
-				for (var i = 0; i < Object.keys(data).length; i++) {
-					data[Object.keys(data)[i]] = data[Object.keys(data)[i]]+"";
-				}
 				var baseUrl = "smapis/cldl/dlvCmptScanTrsm"
 				if(!smutil.isEmpty(baseUrl)){
 					smutil.loadingOn();
@@ -1734,11 +1731,6 @@ var page = {
 					param_list.push(invNoObj);
 
 					
-				    if(param_list.length == 0){
-                    	LEMP.Window.close({
-							"_sCallback" : "page.listReLoad"
-						})
-                    }
 					var curDate = new Date();
 					curDate = curDate.getFullYear() + ("0"+(curDate.getMonth()+1)).slice(-2) + ("0"+curDate.getDate()).slice(-2);
 					var base_ymd = smutil.nullToValue($('#cldlBtnCal').text(),curDate);
