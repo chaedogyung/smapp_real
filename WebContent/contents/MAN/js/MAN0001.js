@@ -177,7 +177,7 @@ var page = {
 						"emp_no" : emp_no
 				}
 				e.stopPropagation();
-				/*page.getTevSmSeiReport(grdData);*/
+				page.getTevSmSeiReport(grdData);
 			})
 
 			$(function() {
@@ -894,7 +894,7 @@ var page = {
 		};
 	}
 	//월별등급조회
-	/*,getTevSmSeiReport : function(data) {
+	,getTevSmSeiReport : function(data) {
 		smutil.loadingOn();
 		page.apiParamInit();		// 파라메터 초기화
 		page.apiParam.param.task_id = "MAN0001";
@@ -936,7 +936,7 @@ var page = {
 		finally{
 			smutil.loadingOff();
 		}
-	}*/
+	}
 
 	// 페이지 resume 될때마다 실행되는 함수
 	, resumeInfo : function(){
