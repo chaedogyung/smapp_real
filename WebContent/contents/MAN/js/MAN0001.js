@@ -33,12 +33,28 @@ var page = {
 
 		page.initInterface();
 
+		var year = $(".mtz-monthpicker-year").val();
+		var month  = $(this).attr('data-month') > 9 ? $(this).attr('data-month') : "0" + $(this).attr('data-month');
+		
+		if(year != 'undefined' || month != 'undefined'){
+			$('#cur_monF').val(year+"년"+month+"월");				
+		}
+		var bscYm = year + month,
+			brsh_cd = $("#brsh_cd_hid").val(),
+			emp_no = $("#empno").text();
+		
+		var grdData = {
+				"bscYm" : bscYm,
+				"brsh_cd" : brsh_cd,
+				"emp_no" : emp_no
+		}
+		
 		//기사정보
 		page.smInfo();
 		// 메시지 대량발송 동의 조회
 		page.getMsgCnf();
 		// 등급 조회
-		page.getTevSmSeiReport();
+		page.getTevSmSeiReport(grdData);
 		//공지사항
 		page.noticePopup();
 		// 일일 친절페스티벌
@@ -154,7 +170,7 @@ var page = {
 					disableMonths : [ ]
 			};
 			
-			 
+			 debugger;
 			//이달의 실적현황 달력 버튼
 			$("#cur_monF").monthpicker(options);
 			
@@ -163,7 +179,7 @@ var page = {
 				alert($(".mtz-monthpicker-year").val());*/
 				var year = $(".mtz-monthpicker-year").val();
 				var month  = $(this).attr('data-month') > 9 ? $(this).attr('data-month') : "0" + $(this).attr('data-month');
-				
+				debugger;
 				if(year != 'undefined' || month != 'undefined'){
 					$('#cur_monF').val(year+"년"+month+"월");				
 				}
@@ -894,6 +910,7 @@ var page = {
 	//월별등급조회
 	,getTevSmSeiReport : function(data) {
 		smutil.loadingOn();
+		page.apiParamInit();
 		if(_.isUndefined(data)){
 			var year = $(".mtz-monthpicker-year").val();
 			var month  = $(this).attr('data-month') > 9 ? $(this).attr('data-month') : "0" + $(this).attr('data-month');
