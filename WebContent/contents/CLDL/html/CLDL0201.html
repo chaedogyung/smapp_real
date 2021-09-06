@@ -76,14 +76,6 @@
 						<span class="chkBox m"><input type="checkbox" name="chkall" id="checkall" /> <label for="checkall">전체</label></span>
 						<span class="selBox v1 mgl14">
 							<select name="fltr_sct_cd" id="fltr_sct_cd">
-								<option value="0000">전체</option>
-								<option value="1000">현불</option>
-								<option value="1100">착불</option>
-								<option value="2000">홈쇼핑</option>
-								<option value="2100">편의점</option>
-								<option value="2200">스마일픽업</option>
-								<option value="3000">롯데그룹</option>
-								<option value="4100">롯데백화점몰</option>
 							</select>
 						</span>
 
@@ -108,7 +100,7 @@
 								<option value="37">21~23시</option>
 								<option value="22">22~00시</option>
 								<option value="27">토요휴무</option>
-								<option value="28">지정일 집하/배송</option>
+<!-- 								<option value="28">지정일 집하/배송</option> -->
 							</select>
 							
 						</span>
@@ -268,7 +260,7 @@
 	<!-- 상단 설정시간 리스트 li -->
 	<script id="cldl0201_timeLst_template" type="text/x-handlebars-template">
 	{{#each list}}
-		<li name="timeLstLi" data-time-li="{{mbl_dlv_area}}" data-time-txt='{{mbl_dlv_area}}'>
+		<li name="timeLstLi" data-time-li="{{cldl_tmsl_cd}}" data-time-txt='{{cldl_tmsl_nm}}'>
 			<div class="itemBox">
 			{{#bldAnnmArea}}
 				<p class="top">{{mbl_dlv_area}}</p>
@@ -282,6 +274,8 @@
 		</li>
 	{{/each}}
 	</script>
+	
+	
 	
 	<!-- 리스트 li -->
 	<script id="cldl0201_list_template" type="text/x-handlebars-template">

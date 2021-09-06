@@ -32,7 +32,7 @@ var smutil = (function(window, document, $) {
 	// api 관련
 	var apiUrl = "https://devsmapis.llogis.com";		// 개발 api url
 	// ###################################################### end properties
-
+//	var apiUrl = "http://localhost:8700";
 
 	// ###################################################### add global event start
 

@@ -128,48 +128,18 @@ var page = {
 				var cldl_sct_cd = $('#cldl_sct_cd').val();			// 업무구분
 //				var cldl_tmsl_cd = $('#cldl_tmsl_cd').val();		// 예정시간선택
 				var cldl_tmsl_cd = "";
+				var tmptime = page.fnGetToDayCd();
 				var dlvyCompl = LEMP.Storage.get({ "_sKey" : "autoMenual"});
 				if(dlvyCompl.area_sct_cd == "Y"){
 					//TO-DO 현재시간 기준 코드 값 리턴 단, 토요일일경우 토요휴무 신청
 					if($('#cldl_set_cd').val() == "" && $('#cldl_set_cd').val() == null){
-						cldl_tmsl_cd = "";
+						cldl_tmsl_cd = page.fnGetToDayCd();
 					}else{
 						cldl_tmsl_cd = $('#cldl_set_cd').val();
 					}
-					if(smutil.isEmpty(cldl_sct_cd)){
-						LEMP.Window.alert({
-							"_sTitle":"스캔오류",
-							"_vMessage":"업무구분을 선택해 주세요."
-						});
-
-						return false;
-					}
+					
 				}else{
 					cldl_tmsl_cd = $('#cldl_tmsl_cd').val();
-					if(smutil.isEmpty(cldl_sct_cd)){
-						LEMP.Window.alert({
-							"_sTitle":"스캔오류",
-							"_vMessage":"업무구분을 선택해 주세요."
-						});
-
-						return false;
-					}
-					else if(smutil.isEmpty(cldl_tmsl_cd)){
-						LEMP.Window.alert({
-							"_sTitle":"스캔오류",
-							"_vMessage":"예정시간을 선택해 주세요."
-						});
-
-						return false;
-					}
-					else if(cldl_tmsl_cd === '28' && smutil.isEmpty(dsgt_dd_cldl_ymd)) {
-						LEMP.Window.alert({
-							"_sTitle":"스캔오류",
-							"_vMessage":"지정일자를 선택해 주세요."
-						});
-
-						return false;
-					}
 				}
 				
 				var dsgt_dd_cldl_ymd = $('#dsgt_dd_cldl_ymd').val();	// 지정일집하/배송 일자
@@ -177,6 +147,31 @@ var page = {
 				// 전체 텝에서 스캔한 경우가 아니면 업무구분을 텝에 맞도록 셋팅
 				if(tab_sct_cd != 'A'){
 					cldl_sct_cd = tab_sct_cd;
+				}
+
+				if(smutil.isEmpty(cldl_sct_cd)){
+					LEMP.Window.alert({
+						"_sTitle":"스캔오류",
+						"_vMessage":"업무구분을 선택해 주세요."
+					});
+
+					return false;
+				}
+				else if(smutil.isEmpty(cldl_tmsl_cd) && dlvyCompl.area_sct_cd == "N"){
+					LEMP.Window.alert({
+						"_sTitle":"스캔오류",
+						"_vMessage":"예정시간을 선택해 주세요."
+					});
+
+					return false;
+				}
+				else if(cldl_tmsl_cd === '28' && smutil.isEmpty(dsgt_dd_cldl_ymd)) {
+					LEMP.Window.alert({
+						"_sTitle":"스캔오류",
+						"_vMessage":"지정일자를 선택해 주세요."
+					});
+
+					return false;
 				}
 
 				// 스캔 팝업 url 호출
@@ -2062,5 +2057,23 @@ var page = {
 		return obj;
 	},
 	
+	//현재 시간 기준 코드 조회
+	fnGetToDayCd : function(){
+		var today = new Date();
+		var Dayof = today.getDay();   //요일
+		var behours = today.getHours()-1;
+		var hours = today.getHours(); // 시
+		var fohours = today.getHours()+1;
+		var minutes = today.getMinutes();  // 분
+		var seconds = today.getSeconds();  // 초
+		
+		var setHoursCheck = hours;
+		
+		console.log(setHoursCheck, fohours, behours);
+		
+		return setHoursCheck;
+	}
+
+
 };
 

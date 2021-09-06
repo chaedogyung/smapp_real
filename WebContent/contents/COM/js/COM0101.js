@@ -137,6 +137,10 @@ var page={
 							})
 						}
 							
+					}else{
+						LEMP.Window.close({
+							"_sCallback" : "page.listReLoad"
+						})
 					};
 				}
 			});

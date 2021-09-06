@@ -912,7 +912,6 @@ var page = {
 	,getTevSmSeiReportCallback : function(data){
 
 		try{
-			
 			var dataSet;
 			dataSet = data;
 			if(dataSet.data.list[0]){
