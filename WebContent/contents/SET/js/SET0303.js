@@ -27,14 +27,11 @@ var page = {
 			var getParam = LEMP.Storage.get({ "_sKey" : "autoMenual"});
 			if(getParam){
 				$('input[name="area_sct_cd"]').each(function() {
-					console.log($(this));
-					
-					    if($(this).val() == getParam.area_sct_cd){
-					    	$(this).prop('checked', true);
-					    }else{
-					    	$(this).prop('checked', false);
-					    }
-					
+                    if($(this).val() == getParam.area_sct_cd){
+                        $(this).prop('checked', true);
+                    }else{
+                        $(this).prop('checked', false);
+                    }
 				});
 			
 				$('input[name="area_sct_cd2"]').each(function() {
@@ -53,10 +50,18 @@ var page = {
 					}
 				});
 			}
+
+            // push 음성
+	        var isSpeak = LEMP.Properties.get({"_sKey" : "push_speak_yn"});
+
+	        if(!smutil.isEmpty(isSpeak) && isSpeak == "Y") {
+                $("#ra8").prop('checked', true);
+	        } else {
+	            $("#ra8").prop('checked', false);
+	        }
+
 		});
-		
-		
-		
+
 		//추가 버튼 클릭
 		$('.btn.red.w100p.m').click(function(){
 			
@@ -71,7 +76,11 @@ var page = {
 			LEMP.Storage.set({ "_sKey" : "autoMenual", "_vValue" : setParameter });
 			//메인 팝업 체크
 			LEMP.Storage.set({ "_sKey" : "setPopCheck", "_vValue" : "Y"});
-			
+
+            // push 음성
+            LEMP.Properties.set({ "_sKey"   : "push_speak_yn"
+                                , "_vValue" :  $("input[name='area_sct_cd4']:checked").val() });
+
 			LEMP.Window.close();
 			
 		});
