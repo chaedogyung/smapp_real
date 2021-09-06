@@ -177,7 +177,7 @@ var page = {
 						"emp_no" : emp_no
 				}
 				e.stopPropagation();
-				page.getTevSmSeiReport(grdData);
+				/*page.getTevSmSeiReport(grdData);*/
 			})
 
 			$(function() {
