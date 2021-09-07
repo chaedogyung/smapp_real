@@ -1176,10 +1176,9 @@ var page = {
 			}
 			
 //			var _this = this;
-			//TO-DO
 			smutil.loadingOn();				// 로딩바 시작
 			page.cmptTmList();				// 상단 시간별 카운트 조회
-			page.cmptTrsm();
+			
 			smutil.loadingOff();
 			
 		},
