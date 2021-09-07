@@ -1780,6 +1780,8 @@ var page = {
 				smutil.callApi(page.apiParam);
 			}
 		},
+		
+
 
 		// 스캔 api 호출 callback
 		cmptScanRgstCallback : function(result){
@@ -2372,6 +2374,7 @@ var page = {
 			
 			smutil.loadingOn();			// 로딩바 on
 			
+			smutil.callApi(_this.apiParam);
 			
 			page.apiParamInit();		// 파라메터 전역변수 초기화
 
