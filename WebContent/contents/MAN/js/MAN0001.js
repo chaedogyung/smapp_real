@@ -170,7 +170,6 @@ var page = {
 					disableMonths : [ ]
 			};
 			
-			 debugger;
 			//이달의 실적현황 달력 버튼
 			$("#cur_monF").monthpicker(options);
 			
@@ -179,7 +178,6 @@ var page = {
 				alert($(".mtz-monthpicker-year").val());*/
 				var year = $(".mtz-monthpicker-year").val();
 				var month  = $(this).attr('data-month') > 9 ? $(this).attr('data-month') : "0" + $(this).attr('data-month');
-				debugger;
 				if(year != 'undefined' || month != 'undefined'){
 					$('#cur_monF').val(year+"년"+month+"월");				
 				}
