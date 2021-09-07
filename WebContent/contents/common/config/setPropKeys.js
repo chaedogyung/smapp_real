@@ -30,7 +30,8 @@ var setPropKeys =
 		{"notice"			: "확인한 공지사항 리스트"},
 		{"authCertInfo"		: "인증정보"},
 		{"receiver"			: "인수자설정 목록"},
-		{"nonDeliveryReason": "미배달/미회수 사유 목록"},
+		{"nonDeliveryReason": "미배달 사유 목록"},
+		{"nonPickUpReason"	: "미집하 사유 목록"},
 		{"lotteCerk"		: "롯데홈쇼핑 인증키"},					//바로반품 입찰,입찰취소시 사용
 		{"acptSctInfo"		: "인수자 정보(단건)"},					//배달 완료 리스트에서만 사용
 		{"acptSctInfo2"		: "인수자 정보(단건)"},					//사진 전송에서만 사용

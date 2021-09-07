@@ -21,12 +21,38 @@ var page = {
 			"parameters" : {}
 		}
 	}
+	// api 파람메터 초기화 
+	,apiParamInit : function(){
+		page.apiParam =  {
+			id:"HTTP",			// 디바이스 콜 id
+			param:{				// 디바이스가 알아야할 데이터
+				task_id : "",										// 화면 ID 코드가 들어가기로함
+				//position : {},									// 사용여부 미확정 
+				type : "",
+				baseUrl : "",
+				method : "POST",									// api 호출 형식(지정 안하면 'POST' 로 자동 셋팅)
+				callback : "",					// api 호출후 callback function
+				contentType : "application/json; charset=utf-8"
+			},
+			data:{"parameters" : {}}// api 통신용 파라메터
+		};
+	}
 	,cldl0302:{}
 	,initInterface : function()
 	{
 		// 닫기 버튼
 		$(".btn.closeW.paR").click(function(){
 			LEMP.Window.close();
+		});
+
+		//마이크 버튼
+		$("#micBtn").click(function(){
+			page.callStt();
+		});
+
+		// ios 음성인식 완료버튼을 클릭한경우 
+		$(".btn.gray3.m.w100p.b-close").click(function(){
+			page.callSttIos();
 		});
 		
 		// 검색버튼 클릭
@@ -81,6 +107,87 @@ var page = {
 			}
 			
 		});
+	}
+	// ################### 음성인식 호출 start
+	,callStt : function(){
+		page.apiParamInit();		// 파라메터 전역변수 초기화
+		page.apiParam.id = "STT";
+		
+		// ios 기기인경우 시작과 종료 파라메터를 셋팅해 줘야함
+		if(smutil.deviceInfo == "smios"){
+			page.apiParam.param = {				// api 통신용 파라메터
+				"type" : "connect"
+			};
+		}
+		else{
+			page.apiParam.data = {				// api 통신용 파라메터
+				"parameters" : {}
+			};
+		}
+		
+		if(smutil.deviceInfo == "smios"){		// ios
+			// 종료 버튼이 있는 음성인식 바 넣기
+			$('.mpopBox.sms2').bPopup({modalClose: false});
+		}
+		else {		// android
+			// 음성인식 바 넣기
+			$('.mpopBox.sms').bPopup({modalClose: false});
+		}
+		
+		// 공통 api호출 함수
+		smutil.nativeMothodCall(page.apiParam);
+		
+		page.apiParamInit();			// 파라메터 전역변수 초기화
+		
+	}
+	// ios 음성인식 완료로직
+	,callSttIos : function(){
+		page.apiParamInit();		// 파라메터 전역변수 초기화
+		page.apiParam.id = "STT";
+
+		// ios 기기인경우 시작과 종료 파라메터를 셋팅해 줘야함
+		page.apiParam.param = {				// api 통신용 파라메터
+			"type" : "disConnect"
+		};
+		
+		// 공통 api호출 함수
+		smutil.nativeMothodCall(page.apiParam);
+		
+		page.apiParamInit();			// 파라메터 전역변수 초기화
+		
+	}
+	// 음성인식 콜백 
+	,sttCallback : function(result){
+		try{
+			
+			if(!smutil.isEmpty(result)){
+				// api 전송 성공
+				if(result.status == "true"){
+					var resultText = result.resultText;		// 검색어
+					
+					$('#addr_input').val(result.resultText);
+				}
+				else if(result.status == "false"){
+					LEMP.Window.alert({
+						"_sTitle" : "알림",
+						"_vMessage" : "음성인식에 실패했습니다."
+					});
+				}
+			}
+			
+		}
+		catch(e){}
+		finally{
+			
+			if(smutil.deviceInfo == "smios"){		// ios
+				$('.mpopBox.sms2').bPopup().close();
+			}
+			else {		// android
+				$('.mpopBox.sms').bPopup().close();
+			}
+			
+			page.apiParamInit();			// 파라메터 전역변수 초기화
+		}
 	}
 	,addr:function(data){
 		
