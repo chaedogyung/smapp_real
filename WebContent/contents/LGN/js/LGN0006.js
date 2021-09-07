@@ -89,7 +89,9 @@ var page = {
 				});
 				
 				
-				LEMP.Window.close({});
+				LEMP.Window.close({
+					"_sCallback" : "page.lgn0006Callback"
+				});
 			}
 		});
 	},

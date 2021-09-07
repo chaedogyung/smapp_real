@@ -901,6 +901,7 @@ var page = {
 
 					// 모두 동의한 경우 정상 로그인 처리
 					if(page.isTermAgree && page.isLmsAgree){
+						page.accept();
 						// 메인페이지 이동
 						LEMP.Window.open({
 							"_sPagePath" : "MAN/html/MAN0001.html",
@@ -1221,6 +1222,34 @@ var page = {
 
 	},
 	// ################### 개인정보 동의여부 전송 end
+	
+	// 개인정보 동의후 사용자 id가 없는경우
+	lgn0006Callback : function(){
+		// 설치권한 동의정보
+		var installAuthConfirmYn = LEMP.Properties.get({
+			"_sKey" : "installAuthConfirmYn"
+		});
+
+		// 설치 권한동의 값이 있을경우 토큰 벨리데이션해서 자동로그인 여부 결정
+		if(!smutil.isEmpty(installAuthConfirmYn) && installAuthConfirmYn === "Y"){
+			page.isvalid();						// 토큰 사용여부 확인
+		}
+		else{	// 권한정보가 없으면 토큰 삭제하고 권한동의 페이지를 띄운다
+			// 토큰 삭제
+			LEMP.Properties.remove({"_sKey":"accessToken"});
+
+			// 권한동의 팝업오픈
+			var popUrl = smutil.getMenuProp("LGN.LGN0004","url");
+
+			LEMP.Window.open({
+				"_sPagePath":popUrl,
+			});
+
+			// inito 화면 초기화
+//			$(".intro").fadeOut(800);
+
+		}
+	},
 
 	// 개인정보 동의결과를 전송하고 로그인도 완료된 후에 메인페이지로 이동되는 함수
 	termPopupCallback : function(){
