@@ -1737,7 +1737,7 @@ var page = {
 					base_ymd = base_ymd.split('.').join('');
 					
 					page.apiParam.param.baseUrl=baseUrl;
-					page.apiParam.param.callback="page.dlvCmptScanTrsmCallback";
+					page.apiParam.param.callback="page.cmptTrsmCallback";
 					page.apiParam.data = {				// api 통신용 파라메터
 							"parameters" : {
 								"base_ymd" : base_ymd,				// 기준일자
@@ -1780,22 +1780,6 @@ var page = {
 				smutil.callApi(page.apiParam);
 			}
 		},
-		dlvCmptScanTrsmCallback:function(res){
-			try {
-				if (smutil.apiResValidChk(res) &&
-						(res.code ==="0000" || res.code==="1000")) {
-				
-				}
-				if(res.code ==="1100" ){
-					smutil.loadingOff();
-					
-				}
-			} catch (e) {}
-			finally{
-				smutil.loadingOff();
-			}
-		},
-
 
 		// 스캔 api 호출 callback
 		cmptScanRgstCallback : function(result){
