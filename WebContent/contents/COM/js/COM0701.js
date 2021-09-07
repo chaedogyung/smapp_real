@@ -27,6 +27,7 @@ var page = {
 			// 그외
 			}else {
 				page.com0701.typ_cd = "UPICK_RSN_CD";
+				page.com0701.properties_cd = "nonPickUpReason";
 				page.com0701.menu_title = "미집하처리 사유 등록";
 			}
 			break;
@@ -40,6 +41,7 @@ var page = {
 		// 배달완료에서 넘어온 경우
 		case "CLDL0401":
 			page.com0701.typ_cd = "UDLV_RSN_CD";
+			page.com0701.properties_cd = "nonDeliveryReason";
 			page.com0701.menu_title = "미배달처리 사유 등록";
 			break;
 		default:
@@ -92,7 +94,8 @@ var page = {
 		$(".btn.red.w100p.m").click(function(){
 			// 넘길 데이터 생성
 			var code = $("input[name=ra]:checked").attr("id");
-			var name = $("input[name=ra]:checked").labels().text();
+			var name = $("label[for='" + code + "']").text();
+
 			var obj = {
 					"corp_sct_cd":page.com0701.corp_sct_cd,
 					"cldl_sct_cd":page.com0701.cldl_sct_cd,
@@ -186,7 +189,7 @@ var page = {
 				"_oMessage":{
 					"param":inv_no
 				}
-			})
+			});
 		});
 
 
@@ -265,7 +268,7 @@ var page = {
 	,codeListPopupCallback:function(res){
 		try{
 			var result_reason = [];
-			var properties_arr = LEMP.Properties.get({"_sKey" : "nonDeliveryReason"});
+			var properties_arr = LEMP.Properties.get({"_sKey" : page.com0701.properties_cd});
 			if (smutil.apiResValidChk(res) && res.code==="0000") {
 				for (var i = 0; i < res.data.list.length; i++) {
 					res.data.list[i].code_status = "S";
@@ -306,17 +309,17 @@ var page = {
 						}
 					}
 
-					for (var i = 0; i < temp_reason_l.length; i++) {
-						for (var j = 0; j < temp_reason_p.length; j++) {
-							// 변경
-							if ((temp_reason_l[i].dtl_cd == temp_reason_p[j].dtl_cd)&&
-								(temp_reason_l[i].dtl_cd_nm != temp_reason_p[j].dtl_cd_nm)&&
-								temp_reason_p.code_status ==="S") {
-								temp_reason_p[j].dtl_cd_nm = temp_reason_l[i].dtl_cd_nm;
-								break;
-							}
-						}
-					}
+//					for (var i = 0; i < temp_reason_l.length; i++) {
+//						for (var j = 0; j < temp_reason_p.length; j++) {
+//							// 변경
+//							if ((temp_reason_l[i].dtl_cd == temp_reason_p[j].dtl_cd)&&
+//								(temp_reason_l[i].dtl_cd_nm != temp_reason_p[j].dtl_cd_nm)&&
+//								temp_reason_p.code_status ==="S") {
+//								temp_reason_p[j].dtl_cd_nm = temp_reason_l[i].dtl_cd_nm;
+//								break;
+//							}
+//						}
+//					}
 
 					// result배열에 출력할 결과물을 저장
 					// 삭제는 result에 반영하지 않으면 됨.
@@ -331,14 +334,14 @@ var page = {
 					// 추가는 result의 후미에 추가
 					result_reason = result_temp.concat(append_reason);
 					LEMP.Properties.set({
-						"_sKey" : "nonDeliveryReason",
+						"_sKey" : page.com0701.properties_cd,
 						"_vValue" : result_reason
 					});
 				}
 				// properties에 데이터가 없음
 				else {
 					LEMP.Properties.set({
-						"_sKey" : "nonDeliveryReason",
+						"_sKey" : page.com0701.properties_cd,
 						"_vValue" : res.data.list
 					});
 //					return false;
