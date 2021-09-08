@@ -909,7 +909,8 @@ var page = {
 			smutil.callApi(_this.apiParam);
 		},
 		sendMsg : function(){
-
+			smutil.loadingOn();
+			
 			prntSmsInv = prntSmsDataArr[0].inv;
 
 			var _this = this;
@@ -932,7 +933,9 @@ var page = {
 			}
 			catch(e){}
 			finally{
+				
 				smutil.loadingOff();			// 로딩바 닫기
+				page.listReLoad();
 				page.apiParamInit();			// 파라메터 전역변수 초기화
 			}
 		},					 
