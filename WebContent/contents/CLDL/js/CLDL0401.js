@@ -1879,6 +1879,46 @@ var page = {
 					// 성공 tts 호출
 					smutil.callTTS("1", "2", scanCnt, result.isBackground);
 
+					var dlvyCompl = LEMP.Storage.get({ "_sKey" : "autoMenual"});
+					if(dlvyCompl.area_sct_cd2 == "A"){
+						$("#span_cldl_sct_cd").hide();
+						$("#chngTme").hide();
+						var baseUrl = "smapis/cldl/dlvCmptScanTrsm"
+						if(!smutil.isEmpty(baseUrl)){
+							smutil.loadingOn();
+							
+							var liLst = $(".li.list")
+							var param_list = [];						// 전송할 리스트 배열
+							var invNoObj = {};
+								
+							invNoObj = {"inv_no":inv_no, "scan_yn":"Y"};
+							param_list.push(invNoObj);
+
+							
+							var curDate = new Date();
+							curDate = curDate.getFullYear() + ("0"+(curDate.getMonth()+1)).slice(-2) + ("0"+curDate.getDate()).slice(-2);
+							var base_ymd = smutil.nullToValue($('#cldlBtnCal').text(),curDate);
+							base_ymd = base_ymd.split('.').join('');
+							
+							page.apiParam.param.baseUrl=baseUrl;
+							page.apiParam.param.callback="page.cmptTrsmCallback";
+							page.apiParam.data = {				// api 통신용 파라메터
+									"parameters" : {
+										"base_ymd" : base_ymd,				// 기준일자
+										"cldl_sct_cd" : cldl_sct_cd, 		// 집하 / 배달 업무 구분코드
+										"cldl_tmsl_cd" : page.returnTimeCd(), 		// 예정시간 구분코드
+										"acpt_sct_cd" :  $('#insujaCode').val(), 		// 인수자 구분코드
+										"acpr_nm" : acpr_nm,				// 인수자 명
+										"param_list" : param_list			// 전송할 송장정보 {송장번호 : 스캔여부}
+									}
+							};
+							smutil.loadingOn();
+							
+							// 공통 api호출 함수
+							smutil.callApi(page.apiParam);
+						}
+					}
+					
 				}
 			}
 			else{		// 스캔 실패
@@ -1948,45 +1988,7 @@ var page = {
 //				}
 
 			}
-			var dlvyCompl = LEMP.Storage.get({ "_sKey" : "autoMenual"});
-			if(dlvyCompl.area_sct_cd2 == "A"){
-				$("#span_cldl_sct_cd").hide();
-				$("#chngTme").hide();
-				var baseUrl = "smapis/cldl/dlvCmptScanTrsm"
-				if(!smutil.isEmpty(baseUrl)){
-					smutil.loadingOn();
-					
-					var liLst = $(".li.list")
-					var param_list = [];						// 전송할 리스트 배열
-					var invNoObj = {};
-						
-					invNoObj = {"inv_no":inv_no, "scan_yn":"Y"};
-					param_list.push(invNoObj);
-
-					
-					var curDate = new Date();
-					curDate = curDate.getFullYear() + ("0"+(curDate.getMonth()+1)).slice(-2) + ("0"+curDate.getDate()).slice(-2);
-					var base_ymd = smutil.nullToValue($('#cldlBtnCal').text(),curDate);
-					base_ymd = base_ymd.split('.').join('');
-					
-					page.apiParam.param.baseUrl=baseUrl;
-					page.apiParam.param.callback="page.cmptTrsmCallback";
-					page.apiParam.data = {				// api 통신용 파라메터
-							"parameters" : {
-								"base_ymd" : base_ymd,				// 기준일자
-								"cldl_sct_cd" : cldl_sct_cd, 		// 집하 / 배달 업무 구분코드
-								"cldl_tmsl_cd" : cldl_tmsl_cd, 		// 예정시간 구분코드
-								"acpt_sct_cd" : acpt_sct_cd, 		// 인수자 구분코드
-								"acpr_nm" : acpr_nm,				// 인수자 명
-								"param_list" : param_list			// 전송할 송장정보 {송장번호 : 스캔여부}
-							}
-					};
-					smutil.loadingOn();
-					
-					// 공통 api호출 함수
-					smutil.callApi(page.apiParam);
-				}
-			}
+			
 			
 		},
 		// ################### 스캔 전송  end
