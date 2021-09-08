@@ -70,14 +70,16 @@
 
 								<div class="selArea mgt10">
 									<input type="text" id="addr_input" value="" name=""
-										placeholder="전체 주소를 입력해주세요" style="width: 100%;">
-
+										placeholder="상세주소를 입력해주세요" style="width: 100%;">
+									<span style="font-size: 12px; margin-left: 10px; color: #268bcd;">예) 서울특별시 중구 남대문로 5가 84-11</span>
 								</div>
 								<div class="inputBox">
 									<!--우번번호 입력 -->
 									<input type="text" id="zip_no_input" value="" name=""
 										placeholder="우편번호를 입력해주세요(생략가능)" style="width: 75%;"
 										onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');">
+									<button class="btn mic fr" id="micBtn" style="right: 45px; background-size: 17px;
+    																	width: 35px; height: 35px; ">마이크</button>
 									<button class="btn glass" id="addrSearch">검색</button>
 								</div>
 							</div>
@@ -110,6 +112,27 @@
 		</div>
 		<!--  //contentSection  -->
 
+		<div class="mpopBox img sms">
+			<div class="popBody">
+				<p class="img"><img src="../../common/img/icon-voice.png" alt="" /></p>
+				<p class="txt1 tRed2">음성인식 중</p>
+				<p class="txt2">2초 ~ 3초 이내 말씀이 없으시면 자동 종료됩니다.</p>
+			</div>
+		</div>
+	
+		<div class="mpopBox img sms2">
+			<div class="popBody">
+				<p class="img"><img src="../../common/img/icon-voice.png" alt="" /></p>
+				<p class="txt1 tRed2">음성인식 중</p>
+				<p class="txt2">음성인식 완료를 원하시면 완료버튼을 눌러주세요.</p>
+			</div>
+			<div class="popFooter">
+				<div class="btnBox">
+					<button class="btn gray3 m w100p b-close">완료</button>
+				</div>
+			</div>
+		</div>
+		
 	</div>
 	<!--  //contents  -->
 	<script type="text/x-handlebars-template" id="cldl0302_list_template">

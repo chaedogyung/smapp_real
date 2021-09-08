@@ -229,11 +229,11 @@ var page = {
 				var scanYmd = smutil.nullToValue($('#cldlBtnCal').text(),curDate);
 				scanYmd = scanYmd.split('.').join('');
 				// 스켄 취소 전문 호출
-				_this.plnScanCcl(inv_no, cldl_sct_cd, scanYmd);
+				page.plnScanCcl(inv_no, cldl_sct_cd, scanYmd);
 
 			});
 
-
+			
 
 			// 송장번호 누른경우 (상세보기 연결)
 			$(document).on('click', '.invNoSpan', function(event){
@@ -1046,6 +1046,95 @@ var page = {
 			}
 
 		},
+		
+
+		// ################### 스캔취소 start
+		plnScanCcl : function(inv_no, cldl_sct_cd, scanYmd){
+
+			var _this = this;
+
+			if(smutil.isEmpty(inv_no)){
+				LEMP.Window.toast({
+					'_sMessage' : '송장번호가 없습니다.',
+					'_sDuration' : 'short'
+				});
+
+				return false;
+			}
+			else if(smutil.isEmpty(cldl_sct_cd)){
+				LEMP.Window.toast({
+					'_sMessage' : '업무구분이 없습니다.',
+					'_sDuration' : 'short'
+				});
+
+				return false;
+			}
+
+
+			var btnCancel = LEMP.Window.createElement({ _sElementName:"TextButton" });
+			btnCancel.setProperty({
+				_sText : "취소",
+				_fCallback : function(){}
+			});
+
+			var btnConfirm = LEMP.Window.createElement({ _sElementName:"TextButton" });
+			btnConfirm.setProperty({
+				_sText : "확인",
+				_fCallback : function(){
+
+					// 스캔 취소 전문 호출
+					_this.apiParamInit();		// 파라메터 초기화
+					_this.apiParam.param.baseUrl = "/smapis/cldl/changedlvywait";			// api no
+					_this.apiParam.param.callback = "page.changedlvywaitCallback";			// callback methode
+					_this.apiParam.data = {				// api 통신용 파라메터
+						"parameters" : {
+							"inv_no" : inv_no+"",			// 송장번호
+							"cldlSctCd" : cldl_sct_cd,	// 업무구분
+							"scanYmd" : scanYmd
+						}
+					};
+
+					// 공통 api호출 함수
+					smutil.callApi(_this.apiParam);
+				}
+			});
+
+			LEMP.Window.confirm({
+				"_sTitle":"스캔취소",
+				_vMessage : "선택한 송장정보의 \n스캔을 취소하시겠습니까?",
+				_aTextButton : [btnConfirm, btnCancel]
+			});
+
+		},
+
+
+		// 스캔취소 콜백
+		changedlvywaitCallback : function(result){
+			var _this = this;
+
+			// api 전송 성공
+			if(smutil.apiResValidChk(result) && result.code == "0000"){
+				LEMP.Window.toast({
+					'_sMessage' : '스캔정보가 취소되었습니다.',
+					'_sDuration' : 'short'
+				});
+
+				page.listReLoad();				// 리스트 제조회
+			}
+			else if(result.code == "9000"){
+				page.listReLoad();				// 이미 삭제된 리스트이기 때문에 바로 리스트 제조회
+			}
+			else{
+				var message = smutil.nullToValue(result.message,'');
+				LEMP.Window.alert({
+					"_sTitle":"스캔취소 오류",
+					"_vMessage":message
+				});
+			}
+
+			page.apiParamInit();			// 파라메터 전역변수 초기화
+		},
+		
 		// ################### 최상단 집배달 리스트 카운트 조회 end
 		dprtAreaList : function(){
 			var _this = this;
@@ -1205,7 +1294,6 @@ var page = {
 						console.log(b);
 						return a.mbl_dlv_area;
 					});
-debugger;
 					// 핸들바 템플릿 가져오기
 					var source = $("#cldl0201_timeLst_template").html();
 

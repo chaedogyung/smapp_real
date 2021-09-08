@@ -18,11 +18,11 @@ var page = {
 
 	,
 	init : function() {
-		page.set0302 = page.getProp();
+		page.set0304 = page.getProp();
 		page.publishCode();
 		page.initEvent();
 	},
-	set0302 : {}
+	set0304 : {}
 
 	,
 	publishCode : function() {
@@ -47,7 +47,7 @@ var page = {
 							"span").text();
 					arr.push(JSONobj);
 				}
-				page.set0302.sortable = arr;
+				page.set0304.sortable = arr;
 			},
 			cancel : "",
 			axis : 'y'
@@ -64,7 +64,7 @@ var page = {
 				return key;
 			}
 		});
-		
+
 		// 닫기 버튼
 		$(".btn.closeW.paR").click(function() {
 			LEMP.Window.close();
@@ -75,12 +75,12 @@ var page = {
 		$("#propReg").click(function() {
 			page.listCheck();
 			LEMP.Window.alert({
-				"_sTitle" : "미배달 사유 목록",
-				"_vMessage" : "미배달 사유 목록이 설정되었습니다."
+				"_sTitle" : "미집하 사유 목록",
+				"_vMessage" : "미집하 사유 목록이 설정되었습니다."
 			});
 			LEMP.Window.close();
 		});
-		
+
 		page.codeListPopup();
 	}
 	// 미배달/미회수 사유 리스트 조회
@@ -90,7 +90,7 @@ var page = {
 		page.apiParam.param.baseUrl = "smapis/cmn/codeListPopup";
 		page.apiParam.param.callback = "page.codeListPopupCallback";
 		page.apiParam.data.parameters = {
-			"typ_cd" : "UDLV_RSN_CD"
+			"typ_cd" : "UPICK_RSN_CD"
 		};
 		smutil.callApi(page.apiParam);
 	}
@@ -98,7 +98,7 @@ var page = {
 	,
 	codeListPopupCallback : function(res) {
 		try {
-			var result_insu = [];
+			var result_reason = [];
 
 			// 통신성공
 			if (smutil.apiResValidChk(res) && res.code === "0000") {
@@ -108,68 +108,56 @@ var page = {
 				// properties에 데이터가 있음
 				if (!smutil.isEmpty(page.getProp())) {
 
-					var temp_insu_l = [];
-					var temp_insu_p = [];
-					var append_insu = [];
-					var delete_insu = [];
+					var temp_reason_l = [];
+					var temp_reason_p = [];
+					var append_reason = [];
+					var delete_reason = [];
 					var result_temp = [];
 
 					// 결과에 추가해야할 코드 탐색 후 append배열에 저장
 					for (var i = 0; i < res.data.list.length; i++) {
-						temp_insu_l.push(JSON.parse(JSON
+						temp_reason_l.push(JSON.parse(JSON
 								.stringify(res.data.list[i])));
-						var check = _.find(page.set0302, {
-							"dtl_cd" : temp_insu_l[i].dtl_cd
+						var check = _.find(page.set0304, {
+							"dtl_cd" : temp_reason_l[i].dtl_cd
 						});
 						if (smutil.isEmpty(check)) {
-							append_insu.push(JSON.parse(JSON
-									.stringify(temp_insu_l[i])));
+							append_reason.push(JSON.parse(JSON
+									.stringify(temp_reason_l[i])));
 						}
 					}
 
 					// Properties의 값중 code_status가 S인 코드만 temp배열에 저장
-					for (var i = 0; i < page.set0302.length; i++) {
-						if (page.set0302[i].code_status==="S") {
-							temp_insu_p.push(JSON.parse(JSON
-									.stringify(page.set0302[i])));
+					for (var i = 0; i < page.set0304.length; i++) {
+						if (page.set0304[i].code_status==="S") {
+							temp_reason_p.push(JSON.parse(JSON
+									.stringify(page.set0304[i])));
 						}
 					}
 
 					// 결과에서 삭제해야할 코드 탐색 후 delete배열에 저장
-					for (var i = 0; i < temp_insu_p.length; i++) {
+					for (var i = 0; i < temp_reason_p.length; i++) {
 						var check = _.find(res.data.list, {
-							"dtl_cd" : temp_insu_p[i].dtl_cd
+							"dtl_cd" : temp_reason_p[i].dtl_cd
 						});
 						if (smutil.isEmpty(check)) {
-							delete_insu.push(JSON.parse(JSON
-									.stringify(temp_insu_p[i])));
+							delete_reason.push(JSON.parse(JSON
+									.stringify(temp_reason_p[i])));
 						}
 					}
 
-//					for (var i = 0; i < temp_insu_l.length; i++) {
-//						for (var j = 0; j < temp_insu_p.length; j++) {
-//							// 변경
-//							if ((temp_insu_l[i].dtl_cd == temp_insu_p[j].dtl_cd)&&
-//									(temp_insu_l[i].dtl_cd_nm != temp_insu_p[j].dtl_cd_nm)&&
-//									temp_insu_p.code_status ==="S") {
-//								temp_insu_p[j].dtl_cd_nm = temp_insu_l[i].dtl_cd_nm
-//								break;
-//							}
-//						}
-//					}
-					
 					// result배열에 출력할 결과물을 저장
 					// 삭제는 result에 반영하지 않으면 됨.
-					for (var i = 0; i < page.set0302.length; i++) {
-						var check = _.find(delete_insu, {
-							"dtl_cd" : page.set0302[i].dtl_cd
+					for (var i = 0; i < page.set0304.length; i++) {
+						var check = _.find(delete_reason, {
+							"dtl_cd" : page.set0304[i].dtl_cd
 						});
 						if (smutil.isEmpty(check)) {
-							result_temp.push(page.set0302[i]);
+							result_temp.push(page.set0304[i]);
 						}
 					}
 					// 추가는 result의 후미에 추가
-					result_insu = result_temp.concat(append_insu);
+					result_reason = result_temp.concat(append_reason);
 					// properties에 데이터가 없음
 				} else {
 					page.drawCodeList(res.data.list);
@@ -179,16 +167,16 @@ var page = {
 			} else {
 				// properties에 데이터가 있음
 				if (!smutil.isEmpty(page.getProp())) {
-					for (var i = 0; i < page.set0302.length; i++) {
-						if (page.set0302[i].code_status == "P") {
-							result_insu.push(page.set0302[i]);
+					for (var i = 0; i < page.set0304.length; i++) {
+						if (page.set0304[i].code_status == "P") {
+							result_reason.push(page.set0304[i]);
 						}
 					}
 					// properties에 데이터가 없음
 				}
 				// else {}
 			}
-			page.drawCodeList(result_insu);
+			page.drawCodeList(result_reason);
 		} catch (e) {
 		} finally {
 			page.listCheck();
@@ -200,18 +188,18 @@ var page = {
 	,
 	setProp : function(res) {
 		LEMP.Properties.set({
-			"_sKey" : "nonDeliveryReason",
+			"_sKey" : "nonPickUpReason",
 			"_vValue" : res
 		});
 
-		page.set0302 = page.getProp();
+		page.set0304 = page.getProp();
 	}
 
 	// 저장되어있는 properties를 불러옴
 	,
 	getProp : function() {
 		var obj = LEMP.Properties.get({
-			"_sKey" : "nonDeliveryReason"
+			"_sKey" : "nonPickUpReason"
 		});
 		return obj;
 	}
@@ -239,9 +227,9 @@ var page = {
 		var data = {
 			"list" : res
 		};
-		var source = $("#SET0302_list_template").html();
+		var source = $("#SET0304_list_template").html();
 		var template = Handlebars.compile(source);
 		$("#sortable").append(template(data));
 	}
-	
+
 }
