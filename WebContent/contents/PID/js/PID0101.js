@@ -284,24 +284,22 @@ var page = {
 				var prntSmsDataArr = [];
 				var msgList = $('.checkBoxSelect:checked');
 				var tag;
-			
+				debugger;
 				_.forEach(msgList,function(value,index,array){
-					var tag = $('.checkBoxSelect:checked')[index].closest('.baedalBox');
-					if(tag.dataset.inv != "" && tag.dataset.inv != null){
-												
+					tag = $('.checkBoxSelect:checked')[index].closest('.baedalBox');
+					if(tag.dataset.inv != '' && tag.dataset.inv != null){
+						LEMP.Window.alert({
+							"_sTitle" : "알림",
+							"_vMessage" : "발송이 불가능한 문자가 있습니다."
+						});
+						return false;						
 					}else{
 						prntSmsDataArr.push(tag.dataset);
 					}
 					
 				});
 				var chkCnt = prntSmsDataArr.length
-				if(chkCnt < 1){
-					LEMP.Window.alert({
-						"_sTitle" : "알림",
-						"_vMessage" : "발송이 불가능한 문자가 있습니다."
-					});
-					return false;
-				}else{
+				if(chkCnt > 0){
 					$('.mpopBox.sms').bPopup();
 				}
 			});
