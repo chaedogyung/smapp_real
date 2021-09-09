@@ -37,28 +37,21 @@ var page = {
 						
 					
 				});
-					
 				
 				$('input[name="area_sct_cd2"]').each(function() {
-					if(!_.isundefined(getParam.area_sct_cd2)){
-						
-					
-						if($(this).val() == getParam.area_sct_cd2){
-							$(this).prop('checked', true);
-						}else{
-							$(this).prop('checked', false);
-						}
+					if($(this).val() == getParam.area_sct_cd2){
+						$(this).prop('checked', true);
+					}else{
+						$(this).prop('checked', false);
 					}
 				});
 					
 				
 				$('input[name="area_sct_cd3"]').each(function() {
-					if(!_.isundefined(getParam.area_sct_cd2)){
-						if($(this).val() == getParam.area_sct_cd3){
-							$(this).prop('checked', true);
-						}else{
-							$(this).prop('checked', false);
-						}
+					if($(this).val() == getParam.area_sct_cd3){
+						$(this).prop('checked', true);
+					}else{
+						$(this).prop('checked', false);
 					}
 				});
 			}
@@ -80,7 +73,7 @@ var page = {
 			var setParameter = {};
 			
 			setParameter = {
-				area_sct_cd : $("input[name='area_sct_cd']:checked").val(),
+//				area_sct_cd : $("input[name='area_sct_cd']:checked").val(),
 				area_sct_cd2 : $("input[name='area_sct_cd2']:checked").val(),
 				area_sct_cd3 : $("input[name='area_sct_cd3']:checked").val()
 			};
