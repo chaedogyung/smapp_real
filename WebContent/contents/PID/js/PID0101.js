@@ -300,18 +300,19 @@ var page = {
 			
 			/* 문자메시지 발송 > 예 */
 			$('#invSendMsgBtn').click(function(){
+				var msgList = $('.checkBoxSelect:checked');
 				var tag;
 				prntSmsDataArr = [];
-				_.forEach($('.checkBoxSelect:checked'),function(value,index,array){
+				_.forEach(msgList,function(value,index,array){
 					var tag = $('.checkBoxSelect:checked')[index].closest('.baedalBox');
-					/*if(tag.dataset.prntYn == "N"){
+					if(tag.dataset.inv != "" && tag.dataset.inv != null){
 						LEMP.Window.alert({
 							"_sTitle" : "알림",
 							"_vMessage" : "발송이 불가능한 문자가 있습니다."
 						});
 
 						return false;
-					}*/
+					}
 					prntSmsDataArr.push(tag.dataset);
 				});
 
@@ -915,7 +916,8 @@ var page = {
 			
 			var tag;
 			prntDataArr = [];		//출력한 송장 배열 초기화
-			_.forEach(printList,function(value,index,array){
+			var ChkCnt = $('.checkBoxSelect:checked');
+			/*_.forEach(,function(value,index,array){
 				tag = $('.checkBoxSelect:checked')[index].closest('.baedalBox');
 				if(!_.isUndefind(tag.dataset.inv_no) && tag.dataset.inv_no == null){
 					LEMP.Window.alert({
@@ -927,7 +929,7 @@ var page = {
 				}
 				prntDataArr.push(tag.dataset);
 				console.log(prntDataArr);
-			});
+			});*/
 			
 			
 			var _this = this;
