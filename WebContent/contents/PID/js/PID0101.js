@@ -931,8 +931,8 @@ var page = {
 			try{
 				console.log(result);
 				LEMP.Window.alert({
-					"_sTitle":"문자 발송 결과",
-					"_vMessage" : "발송 완료  :   \n이미 발송 완료  : "
+					"_sTitle" : "메시지 발송 성공",
+					"_vMessage" : "성공건" + result.successSendCnt + "기발송건" result.alreadyMsgList
 				});
 			}
 			catch(e){}
@@ -969,7 +969,7 @@ var page = {
 
 				LEMP.Window.alert({
 					"_sTitle" : "운송장 출력취소 오류",
-					"_vMessage" : "성공건" + result.successSendCnt + "기발송건" result.alreadyMsgList
+					"_vMessage" : "출력취소 중 오류가 발생하였습니다."
 				});
 				page.listReLoad();
 
