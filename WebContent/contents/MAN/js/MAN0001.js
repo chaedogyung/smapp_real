@@ -195,10 +195,25 @@ var page = {
 			$(function() {
 				var setPopCheck = LEMP.Storage.get({ "_sKey" : "setPopCheck"});
 				if(_.isUndefined(setPopCheck)){
-					var popUrl = smutil.getMenuProp('SET.SET0303', 'url');
-					LEMP.Window.open({
-						"_sPagePath" : popUrl,
-					});
+					var autoMenual = LEMP.Storage.get({ "_sKey" : "autoMenual"});
+					if(_.isUndefined(autoMenual.area_sct_cd1)){
+						var popUrl = smutil.getMenuProp('SET.SET0303', 'url');
+						LEMP.Window.open({
+							"_sPagePath" : popUrl,
+						});
+					}
+					if(_.isUndefined(autoMenual.area_sct_cd2)){
+						var popUrl = smutil.getMenuProp('SET.SET0303', 'url');
+						LEMP.Window.open({
+							"_sPagePath" : popUrl,
+						});
+					}
+					if(_.isUndefined(autoMenual.area_sct_cd3)){
+						var popUrl = smutil.getMenuProp('SET.SET0303', 'url');
+						LEMP.Window.open({
+							"_sPagePath" : popUrl,
+						});
+					}
 				}
 			});
 
