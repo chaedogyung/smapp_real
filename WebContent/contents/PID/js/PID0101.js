@@ -281,31 +281,29 @@ var page = {
 			$(document).on('click',".ftSms",function(){
 				var inv_no = $(this).parent().data('inv');
 				var corp_sct_cd = $(this).parent().data('corp');
-
+				var prntSmsDataArr = [];
 				var msgList = $('.checkBoxSelect:checked');
 				var tag;
 			
 				_.forEach(msgList,function(value,index,array){
 					var tag = $('.checkBoxSelect:checked')[index].closest('.baedalBox');
 					if(tag.dataset.inv != "" && tag.dataset.inv != null){
-						LEMP.Window.alert({
-							"_sTitle" : "알림",
-							"_vMessage" : "발송이 불가능한 문자가 있습니다."
-						});
-
-						return false;
+												
+					}else{
+						prntSmsDataArr.push(tag.dataset);
 					}
-					prntSmsDataArr.push(tag.dataset);
+					
 				});
-				
-				if(tag.dataset.inv != "" && tag.dataset.inv != null){
+				var chkCnt = prntSmsDataArr.length
+				if(chkCnt < 1){
+					LEMP.Window.alert({
+						"_sTitle" : "알림",
+						"_vMessage" : "발송이 불가능한 문자가 있습니다."
+					});
 					return false;
 				}else{
-				$('.mpopBox.sms').bPopup();
+					$('.mpopBox.sms').bPopup();
 				}
-				
-				
-				
 			});
 			
 			/* 문자메시지 발송 > 예 */
