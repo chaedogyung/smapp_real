@@ -27,13 +27,12 @@ var page = {
 			var getParam = LEMP.Storage.get({ "_sKey" : "autoMenual"});
 			if(getParam){
 				$('input[name="area_sct_cd"]').each(function() {
-					if(!_.isundefined(getParam.area_sct_cd)){
-						if($(this).val() == getParam.area_sct_cd){
-	                        $(this).prop('checked', true);
-	                    }else{
-	                        $(this).prop('checked', false);
-	                    }
-					}
+					if($(this).val() == getParam.area_sct_cd){
+						$(this).prop('checked', true);
+	                }else{
+	                	$(this).prop('checked', false);
+	                }
+					
 						
 					
 				});
@@ -57,13 +56,13 @@ var page = {
 			}
 
             // push 음성
-//	        var isSpeak = LEMP.Properties.get({"_sKey" : "push_speak_yn"});
-//
-//	        if(!smutil.isEmpty(isSpeak) && isSpeak == "Y") {
-//                $("#ra8").prop('checked', true);
-//	        } else {
-//	            $("#ra8").prop('checked', false);
-//	        }
+	        var isSpeak = LEMP.Properties.get({"_sKey" : "push_speak_yn"});
+
+	        if(!smutil.isEmpty(isSpeak) && isSpeak == "Y") {
+                $("#ra8").prop('checked', true);
+	        } else {
+	            $("#ra8").prop('checked', false);
+	        }
 
 		});
 
@@ -73,7 +72,7 @@ var page = {
 			var setParameter = {};
 			
 			setParameter = {
-//				area_sct_cd : $("input[name='area_sct_cd']:checked").val(),
+				area_sct_cd : $("input[name='area_sct_cd']:checked").val(),
 				area_sct_cd2 : $("input[name='area_sct_cd2']:checked").val(),
 				area_sct_cd3 : $("input[name='area_sct_cd3']:checked").val()
 			};
@@ -83,8 +82,8 @@ var page = {
 			LEMP.Storage.set({ "_sKey" : "setPopCheck", "_vValue" : "Y"});
 
             // push 음성
-//            LEMP.Properties.set({ "_sKey"   : "push_speak_yn"
-//                                , "_vValue" :  $("input[name='area_sct_cd4']:checked").val() });
+            LEMP.Properties.set({ "_sKey"   : "push_speak_yn"
+                                , "_vValue" :  $("input[name='area_sct_cd4']:checked").val() });
 
 			LEMP.Window.close();
 			
