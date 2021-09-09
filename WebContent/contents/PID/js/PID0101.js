@@ -932,7 +932,7 @@ var page = {
 				console.log(result);
 				LEMP.Window.alert({
 					"_sTitle" : "메시지 발송 성공",
-					"_vMessage" : "성공건" + result.successSendCnt + "기발송건" result.alreadyMsgList
+					"_vMessage" : "성공건" + result.successSendCnt + "기발송건" + result.alreadyMsgList
 				});
 			}
 			catch(e){}

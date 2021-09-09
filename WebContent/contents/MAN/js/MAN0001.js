@@ -968,7 +968,7 @@ var page = {
 				page.gradeSlider.goToSlide(index);
 
 			}else {
-				LEMP.Window.alert({"_vMessage" : "해당 달의 등급이 없습니다." });
+				//LEMP.Window.alert({"_vMessage" : "해당 달의 등급이 없습니다." });
 				for(var i = 0; i < $(".grade").children().length; i++) {
 					$(".grade").children().eq(i).addClass('disabled')
 				}
