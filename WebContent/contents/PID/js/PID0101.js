@@ -918,8 +918,8 @@ var page = {
 			_this.apiParam.param.callback = "page.sendwaitmsg";			// callback methode
 			_this.apiParam.data = {				// api 통신용 파라메터
 				"parameters" : {
-					"inv_no" : prntSmsDataArr[0].inv,
-					"rsrv_mgr_no" : prntSmsDataArr[0].rsrv,
+					"inv_no" : "",
+					"rsrv_mgr_no" : "",
 					"rsrv_mgr_list" : prntSmsDataArr
 				}
 			};
@@ -930,6 +930,10 @@ var page = {
 		sendwaitmsg : function(result){
 			try{
 				console.log(result);
+				LEMP.Window.alert({
+					"_sTitle":"문자 발송 결과",
+					"_vMessage" : "발송 완료  :   \n이미 발송 완료  : "
+				});
 			}
 			catch(e){}
 			finally{
@@ -965,7 +969,7 @@ var page = {
 
 				LEMP.Window.alert({
 					"_sTitle" : "운송장 출력취소 오류",
-					"_vMessage" : "출력취소 중 오류가 발생하였습니다."
+					"_vMessage" : "성공건" + result.successSendCnt + "기발송건" result.alreadyMsgList
 				});
 				page.listReLoad();
 
