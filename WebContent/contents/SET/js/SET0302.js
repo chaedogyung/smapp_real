@@ -64,13 +64,6 @@ var page = {
 				return key;
 			}
 		});
-
-		Handlebars.registerHelper('delFunc', function(options) {
-			if (this.code_status === "P") { // 집하
-				// options.fn == if(true)
-				return options.fn(this)
-			}
-		});
 		
 		// 닫기 버튼
 		$(".btn.closeW.paR").click(function() {
@@ -87,37 +80,7 @@ var page = {
 			});
 			LEMP.Window.close();
 		});
-
-		$(document).on('click', ".btn.del2", function() {
-			if ($(this).parents("li").data("codeStatus") !== "S") {
-				var index = $(this).parents("li").index();
-				$('.mpopBox.delete').bPopup(function() {
-					$("#confirm").attr("data-sel-li", index);
-				});
-			}
-		});
-
-		$('#confirm').click(function() {
-			var index = $(this).attr("data-sel-li");
-			$("#sortable > li").eq(index).remove();
-			$('.mpopBox.delete').bPopup().close();
-
-			var arr = [];
-			$("#sortable > li").each(function() {
-				var obj = {};
-				obj.dtl_cd_nm = $(this).find("span").text();
-				obj.dtl_cd = String($(this).data("dtlCd"));
-				obj.code_status = $(this).data("codeStatus");
-				arr.push(obj);
-			});
-		});
-
-		// $("#append").click(function() {
-		// 	var popUrl = smutil.getMenuProp("COM.COM0602", "url");
-		// 	LEMP.Window.open({
-		// 		"_sPagePath" : popUrl
-		// 	});
-		// });
+		
 		page.codeListPopup();
 	}
 	// 미배달/미회수 사유 리스트 조회
@@ -280,17 +243,5 @@ var page = {
 		var template = Handlebars.compile(source);
 		$("#sortable").append(template(data));
 	}
-
-	,
-	COM0602Callback : function(res) {
-		var arr = [];
-		var obj = {
-			"dtl_cd_nm" : res.param.value,
-			"dtl_cd" : "99",
-			"code_status" : "P"
-		};
-		arr.push(obj);
-		page.drawCodeList(arr);
-		$("li[data-dtl-cd='99'][data-code-status='S']").insertAfter($("#sortable > li").last());
-	}
+	
 }
