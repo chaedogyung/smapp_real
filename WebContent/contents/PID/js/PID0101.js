@@ -282,27 +282,9 @@ var page = {
 				var inv_no = $(this).parent().data('inv');
 				var corp_sct_cd = $(this).parent().data('corp');
 
-				var ChkCnt = $('.checkBoxSelect:checked').length;
-				if(ChkCnt < 1){ //최소 1건이상 출력취소 가능
-					LEMP.Window.alert({
-						"_sTitle" : "알림",
-						"_vMessage" : "메시지 발송 할 송장을 선택해주십시오."
-					});
-
-					return false;
-				}
-				console.log(corp_sct_cd);
-				console.log(inv_no);
-				$('.mpopBox.sms').bPopup();
-				
-				
-			});
-			
-			/* 문자메시지 발송 > 예 */
-			$('#invSendMsgBtn').click(function(){
 				var msgList = $('.checkBoxSelect:checked');
 				var tag;
-				prntSmsDataArr = [];
+			
 				_.forEach(msgList,function(value,index,array){
 					var tag = $('.checkBoxSelect:checked')[index].closest('.baedalBox');
 					if(tag.dataset.inv != "" && tag.dataset.inv != null){
@@ -315,7 +297,23 @@ var page = {
 					}
 					prntSmsDataArr.push(tag.dataset);
 				});
+				
+				if(tag.dataset.inv != "" && tag.dataset.inv != null){
+					return false;
+				}else{
+				$('.mpopBox.sms').bPopup();
+				}
+				
+				
+				
+			});
+			
+			/* 문자메시지 발송 > 예 */
+			$('#invSendMsgBtn').click(function(){
+		
 
+				prntSmsDataArr = [];
+				
 				if(prntSmsDataArr.length > 0){
 					smutil.loadingOn();
 					page.sendMsg();
