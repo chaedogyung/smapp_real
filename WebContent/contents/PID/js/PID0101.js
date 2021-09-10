@@ -11,7 +11,9 @@ var page = {
 		prntRsrv : null,				// 출력 접수번호
 		prntCclDataArr : null,			// 출력취소 정보 배열
 		prntCclInv : null,				// 출력 취소 송장번호
-
+		
+		prntSmsDataArr : null,
+		
 													 
 		// api 호출 기본 형식
 		apiParam : {
@@ -281,7 +283,7 @@ var page = {
 			$(document).on('click',".ftSms",function(){
 				var inv_no = $(this).parent().data('inv');
 				var corp_sct_cd = $(this).parent().data('corp');
-				var prntSmsDataArr = [];
+				prntSmsDataArr = [];
 				var msgList = $('.checkBoxSelect:checked');
 				var tag;
 				_.forEach(msgList,function(value,index,array){
@@ -307,10 +309,7 @@ var page = {
 			/* 문자메시지 발송 > 예 */
 			$('#invSendMsgBtn').click(function(){
 		
-
-				prntSmsDataArr = [];
-				
-				if(prntSmsDataArr.length > 0){
+				if(prntSmsDataArr.length == 0){
 					smutil.loadingOn();
 					page.sendMsg();
 				}
@@ -906,11 +905,9 @@ var page = {
 		sendMsg : function(){
 			smutil.loadingOn();
 			
-			prntSmsInv = prntSmsDataArr[0].rsrv;
-			
 			var inv_no = $(this).parent().data('inv');
 			var corp_sct_cd = $(this).parent().data('corp');
-			var prntSmsDataArr = [];
+			prntSmsDataArr = [];
 			var msgList = $('.checkBoxSelect:checked');
 			var tag;
 			_.forEach(msgList,function(value,index,array){
@@ -920,9 +917,6 @@ var page = {
 				}
 				
 			});
-			var tag;
-			prntDataArr = [];		//출력한 송장 배열 초기화
-			var ChkCnt = $('.checkBoxSelect:checked');
 			
 			var _this = this;
 			_this.apiParam.param.baseUrl = "smapis/pid/sendwaitmsg";				// api no
