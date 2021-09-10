@@ -289,6 +289,7 @@ var page = {
 					if(tag.dataset.inv != '' && tag.dataset.inv != null){
 						prntSmsDataArr.push(tag.dataset);				
 					}
+					
 				});
 				var chkCnt = prntSmsDataArr.length
 				if(chkCnt > 0){
@@ -305,10 +306,14 @@ var page = {
 			
 			/* 문자메시지 발송 > 예 */
 			$('#invSendMsgBtn').click(function(){
+		
+
+				prntSmsDataArr = [];
 				
-				smutil.loadingOn();
-				page.sendMsg();
-				
+				if(prntSmsDataArr.length > 0){
+					smutil.loadingOn();
+					page.sendMsg();
+				}
 
 			});   
 
@@ -901,8 +906,20 @@ var page = {
 		sendMsg : function(){
 			smutil.loadingOn();
 			
-			prntSmsInv = prntSmsDataArr[0].inv;
+			prntSmsInv = prntSmsDataArr[0].rsrv;
 			
+			var inv_no = $(this).parent().data('inv');
+			var corp_sct_cd = $(this).parent().data('corp');
+			var prntSmsDataArr = [];
+			var msgList = $('.checkBoxSelect:checked');
+			var tag;
+			_.forEach(msgList,function(value,index,array){
+				tag = $('.checkBoxSelect:checked')[index].closest('.baedalBox');
+				if(tag.dataset.rsrv != '' && tag.dataset.rsrv != null){
+					prntSmsDataArr.push(tag.dataset);				
+				}
+				
+			});
 			var tag;
 			prntDataArr = [];		//출력한 송장 배열 초기화
 			var ChkCnt = $('.checkBoxSelect:checked');
