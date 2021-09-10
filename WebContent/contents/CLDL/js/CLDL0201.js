@@ -201,7 +201,6 @@ var page = {
 
 			// 상단 시간선택 클릭이벤트 등록
 			$(document).on('click', "li[name='timeLstLi']", function(e){
-				debugger;
 				var dlvyCompl = LEMP.Storage.get({ "_sKey" : "autoMenual"});
 				if(dlvyCompl.area_sct_cd == "N"){
 					$("li[name='timeLstLi']").removeClass('on');
@@ -212,8 +211,9 @@ var page = {
 				}else{
 					$("li[name='timeLstLi']").removeClass('on');
 					$(this).addClass('on');
-					
-					page.selectedSchTime = "";
+
+					page.mbl_dlv_area = $(this).find('p.top:eq(0)').text();
+//					page.selectedSchTime = "";
 				}
 								// 리스트 제조회
 				page.listReLoad();
@@ -1158,7 +1158,7 @@ var page = {
 			_this.apiParam.data = {
 					"parameters" : {
 						"base_ymd":base_ymd,
-						"mbl_dlv_area" : ""
+						"mbl_dlv_area" : page.mbl_dlv_area
 						
 						}
 			};				// api 통신용 파라메터
@@ -1230,7 +1230,7 @@ var page = {
 
 						// 현제 어느 시간데를 선택했는지 검사
 						var timeLstLi = $("li[name='timeLstLi']");
-							debugger;	
+						
 						_.forEach(timeLstLi, function(obj, key) {
 							
 							$(obj).addClass('on');
@@ -1291,45 +1291,40 @@ var page = {
 				// 조회 결과 데이터가 있으면 옵션 생성
 				if(result.data_count > 0){
 					var data = result.data;
-					result.data.list[0].mbl_dlv_area = "A";
-					//오름차순 정렬
-					_.forEach(data.list, function(e, key) {
-						
-						if(e.mbl_dlv_area == null){
-							data.list[key].mbl_dlv_area = "기타";
-						}else{
-							data.list[key].mbl_dlv_area = e.mbl_dlv_area;
-						}
-						
 					
-						
-					});
-					
-					//오름차순 정렬
-					data.list.sort(function(a, b) {
-						console.log(a);
-						console.log(b);
-						return a.mbl_dlv_area;
-					});
-					// 핸들바 템플릿 가져오기
-					var source = $("#cldl0201_timeLst_template").html();
-
-					// 핸들바 템플릿 컴파일
-					var template = Handlebars.compile(source);
-
-					// 핸들바 템플릿에 데이터를 바인딩해서 HTML 생성
-					var liHtml = template(data);
-
-					// 생성된 HTML을 DOM에 주입
-					$('#dprtTmListUl').html(liHtml);
-
-
-					/* touchFlow 등록*/
-					$(".divisionBox .selectBox").touchFlow();
-
 					// 선택한 값이 없을경우는 시간리스트의 첫번째 순서를 on 상태로 만든다
 					// 최초에 들어온 경우만 이벤트 등록
 					if(smutil.isEmpty(page.selectedSchTime)){
+						//오름차순 정렬
+						_.forEach(data.list, function(e, key) {
+							
+							if(e.mbl_dlv_area == null){
+								data.list[key].mbl_dlv_area = "기타";
+							}else{
+								data.list[key].mbl_dlv_area = e.mbl_dlv_area;
+							}
+							
+						});
+						
+						//오름차순 정렬
+						data.list.sort(function(a, b) {
+							return a.mbl_dlv_area;
+						});
+						// 핸들바 템플릿 가져오기
+						var source = $("#cldl0201_timeLst_template").html();
+	
+						// 핸들바 템플릿 컴파일
+						var template = Handlebars.compile(source);
+	
+						// 핸들바 템플릿에 데이터를 바인딩해서 HTML 생성
+						var liHtml = template(data);
+	
+						// 생성된 HTML을 DOM에 주입
+						$('#dprtTmListUl').html(liHtml);
+	
+	
+						/* touchFlow 등록*/
+						$(".divisionBox .selectBox").touchFlow();
 
 						// 현제 어느 시간데를 선택했는지 검사
 						var timeLstLi = $("li[name='timeLstLi']");
@@ -1338,42 +1333,41 @@ var page = {
 							$(obj).addClass('on');
 
 							// 선택한 시간구간 등록
-							page.selectedSchTime = $(obj).data('timeLi')+"";
+							page.selectedSchTime = $(obj).find('p.top:eq(0)').text();
+							page.mbl_dlv_area = $(obj).find('p.top:eq(0)').text();
 							// 한번만 셋팅하고 바로 루프 나감
 							return false;
 						});
 					}
 					else {
-						
-						
 						var timeLstLi = $("li[name='timeLstLi']");
 						var timeObj;
-						_.forEach(timeLstLi, function(obj, key) {
-							timeObj = $(obj);
-							if(timeObj.data('timeLi') == page.mbl_dlvy_area){
-								timeObj.addClass('on');
-								if(page.mbl_dlvy_area == "기타"){
-									page.mbl_dlvy_area = "";
-								}else{
-									page.mbl_dlvy_area = mbl_dlv_area;
-								}
-								return false;
-							}
-						});
+//						_.forEach(timeLstLi, function(obj, key) {
+//							timeObj = $(obj);
+//							if(timeObj.find('p.top:eq(0)').text() == page.mbl_dlv_area){
+//								timeObj.addClass('on');
+//								if(page.mbl_dlv_area == "기타"){
+//									page.mbl_dlv_area = "";
+//								}else{
+//									page.mbl_dlv_area = mbl_dlv_area;
+//								}
+//								return false;
+//							}
+//						});
 						// 활성화된 시간구간코드가 없으면 첫번째 리스트를 선택
-						if(smutil.isEmpty(page.returnTimeCd())){
-							// 현제 어느 시간데를 선택했는지 검사
-							var timeLstLi = $("li[name='timeLstLi']");
-
-							_.forEach(timeLstLi, function(obj, key) {
-								$(obj).addClass('on');
-
-								// 선택한 시간구간 등록
-								page.selectedSchTime = $(obj).data('timeLi')+"";
-								// 한번만 셋팅하고 바로 루프 나감
-								return false;
-							});
-						}
+//						if(smutil.isEmpty(page.returnTimeCd())){
+//							// 현제 어느 시간데를 선택했는지 검사
+//							var timeLstLi = $("li[name='timeLstLi']");
+//							
+//							_.forEach(timeLstLi, function(obj, key) {
+//								$(obj).addClass('on');
+//
+//								// 선택한 시간구간 등록
+//								page.selectedSchTime = $(obj).data('timeLi')+"";
+//								// 한번만 셋팅하고 바로 루프 나감
+//								return false;
+//							});
+//						}
 					}
 				}
 				else{
