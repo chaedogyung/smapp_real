@@ -289,7 +289,6 @@ var page = {
 					if(tag.dataset.inv != '' && tag.dataset.inv != null){
 						prntSmsDataArr.push(tag.dataset);				
 					}
-					
 				});
 				var chkCnt = prntSmsDataArr.length
 				if(chkCnt > 0){
@@ -306,14 +305,10 @@ var page = {
 			
 			/* 문자메시지 발송 > 예 */
 			$('#invSendMsgBtn').click(function(){
-		
-
-				prntSmsDataArr = [];
 				
-				if(prntSmsDataArr.length > 0){
-					smutil.loadingOn();
-					page.sendMsg();
-				}
+				smutil.loadingOn();
+				page.sendMsg();
+				
 
 			});   
 
@@ -911,20 +906,6 @@ var page = {
 			var tag;
 			prntDataArr = [];		//출력한 송장 배열 초기화
 			var ChkCnt = $('.checkBoxSelect:checked');
-			/*_.forEach(,function(value,index,array){
-				tag = $('.checkBoxSelect:checked')[index].closest('.baedalBox');
-				if(!_.isUndefind(tag.dataset.inv_no) && tag.dataset.inv_no == null){
-					LEMP.Window.alert({
-						"_sTitle" : "알림",
-						"_vMessage" : "메시지 발송 제외 대상이 포함되어 있습니다. 제외 후 출력해주십시오."
-					});
-
-					return false;
-				}
-				prntDataArr.push(tag.dataset);
-				console.log(prntDataArr);
-			});*/
-			
 			
 			var _this = this;
 			_this.apiParam.param.baseUrl = "smapis/pid/sendwaitmsg";				// api no
