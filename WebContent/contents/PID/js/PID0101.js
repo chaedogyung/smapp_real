@@ -286,33 +286,41 @@ var page = {
 				prntSmsDataArr = [];
 				var msgList = $('.checkBoxSelect:checked');
 				var tag;
-				_.forEach(msgList,function(value,index,array){
-					tag = $('.checkBoxSelect:checked')[index].closest('.baedalBox');
-					if(tag.dataset.inv != '' && tag.dataset.inv != null){
-						prntSmsDataArr.push(tag.dataset);				
-					}
-					
-				});
-				var chkCnt = prntSmsDataArr.length
-				if(chkCnt > 0){
+				
+				if(msgList.length > 0){
+//					_.forEach(msgList,function(value,index,array){
+//						tag = $('.checkBoxSelect:checked')[index].closest('.baedalBox');
+//						if(tag.dataset.inv != '' && tag.dataset.inv != null){
+//							prntSmsDataArr.push(tag.dataset);				
+//						}
+//						
+//					});
+//					var chkCnt = prntSmsDataArr.length
+//					if(chkCnt > 0){
+//						LEMP.Window.alert({
+//							"_sTitle" : "알림",
+//							"_vMessage" : "발송이 불가능한 문자가 있습니다."
+//						});
+//						
+//						return false;
+//					}else{
+						$('.mpopBox.sms').bPopup();
+//					}
+				}else{
 					LEMP.Window.alert({
 						"_sTitle" : "알림",
-						"_vMessage" : "발송이 불가능한 문자가 있습니다."
+						"_vMessage" : "문자 발송 할 예약지시를 선택해주세요."
 					});
-					
-					return false;
-				}else{
-					$('.mpopBox.sms').bPopup();
 				}
 			});
 			
 			/* 문자메시지 발송 > 예 */
 			$('#invSendMsgBtn').click(function(){
 		
-				if(prntSmsDataArr.length == 0){
+//				if(prntSmsDataArr.length == 0){
 					smutil.loadingOn();
 					page.sendMsg();
-				}
+//				}
 
 			});   
 
@@ -912,7 +920,7 @@ var page = {
 			var tag;
 			_.forEach(msgList,function(value,index,array){
 				tag = $('.checkBoxSelect:checked')[index].closest('.baedalBox');
-				if(tag.dataset.rsrv != '' && tag.dataset.rsrv != null){
+				if((tag.dataset.rsrv != '' && tag.dataset.rsrv != null) && !(tag.dataset.inv != '' && tag.dataset.inv != null)){
 					prntSmsDataArr.push(tag.dataset);				
 				}
 				
@@ -936,8 +944,8 @@ var page = {
 			try{
 				console.log(result);
 				LEMP.Window.alert({
-					"_sTitle" : "메시지 발송 성공",
-					"_vMessage" : "성공건" + result.successMsg + "기발송건" + result.alreadyMsg
+					"_sTitle" : "문자 발송 성공 알림",
+					"_vMessage" : "성공건 : " + result.successMsg + "\n기발송건 : " + result.alreadyMsg
 				});
 			}
 			catch(e){}
