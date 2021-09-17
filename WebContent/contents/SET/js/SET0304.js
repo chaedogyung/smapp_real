@@ -146,6 +146,18 @@ var page = {
 						}
 					}
 
+					for (var i = 0; i < temp_reason_l.length; i++) {
+						for (var j = 0; j <  page.set0304.length; j++) {
+							// 변경
+							if ((temp_reason_l[i].dtl_cd == page.set0304[j].dtl_cd)&&
+									(temp_reason_l[i].dtl_cd_nm != page.set0304[j].dtl_cd_nm)&&
+									page.set0304[j].code_status === 'S') {
+								page.set0304[j].dtl_cd_nm = temp_reason_l[i].dtl_cd_nm
+								break;
+							}
+						}
+					}
+					
 					// result배열에 출력할 결과물을 저장
 					// 삭제는 result에 반영하지 않으면 됨.
 					for (var i = 0; i < page.set0304.length; i++) {

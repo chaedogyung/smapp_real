@@ -146,17 +146,17 @@ var page = {
 						}
 					}
 
-//					for (var i = 0; i < temp_insu_l.length; i++) {
-//						for (var j = 0; j < temp_insu_p.length; j++) {
-//							// 변경
-//							if ((temp_insu_l[i].dtl_cd == temp_insu_p[j].dtl_cd)&&
-//									(temp_insu_l[i].dtl_cd_nm != temp_insu_p[j].dtl_cd_nm)&&
-//									temp_insu_p.code_status ==="S") {
-//								temp_insu_p[j].dtl_cd_nm = temp_insu_l[i].dtl_cd_nm
-//								break;
-//							}
-//						}
-//					}
+					for (var i = 0; i < res.data.list.length; i++) {
+						for (var j = 0; j <  page.set0302.length; j++) {
+							// 변경
+							if ((res.data.list[i].dtl_cd == page.set0302[j].dtl_cd)&&
+									(res.data.list[i].dtl_cd_nm != page.set0302[j].dtl_cd_nm)&&
+									page.set0302[j].code_status === 'S') {
+								page.set0302[j].dtl_cd_nm = res.data.list[i].dtl_cd_nm
+								break;
+							}
+						}
+					}
 					
 					// result배열에 출력할 결과물을 저장
 					// 삭제는 result에 반영하지 않으면 됨.
