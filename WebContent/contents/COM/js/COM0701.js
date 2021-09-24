@@ -267,107 +267,118 @@ var page = {
 	}
 	,codeListPopupCallback:function(res){
 		try{
-			var result_reason = [];
-			var properties_arr = LEMP.Properties.get({"_sKey" : page.com0701.properties_cd});
 			if (smutil.apiResValidChk(res) && res.code==="0000") {
-				for (var i = 0; i < res.data.list.length; i++) {
-					res.data.list[i].code_status = "S";
-				}
-				// properties에 데이터가 있음
-				if (!smutil.isEmpty(properties_arr)) {
-					var temp_reason_l = [];
-					var temp_reason_p = []
-					var append_reason = [];
-					var delete_reason = [];
-					var result_temp = [];
-
-					// 결과에 추가해야할 코드 탐색 후 append배열에 저장
+				if(page.com0701.corp_sct_cd == "2201"){
+					var data = {
+							"list" : res.data.list
+					};
+					// 가져온 핸들바 템플릿 컴파일
+					var template = Handlebars.compile($("#com0701_list_template").html());
+					// 핸들바 템플릿에 데이터를 바인딩해서 생성된 HTML을 DOM에 주입
+					$('#com0701LstUl').append(template(data));
+				}else{
+					var result_reason = [];
+					var properties_arr = LEMP.Properties.get({"_sKey" : page.com0701.properties_cd});
+					
 					for (var i = 0; i < res.data.list.length; i++) {
-						temp_reason_l.push(JSON.parse(JSON.stringify(res.data.list[i])));
-						var check = _.find(properties_arr, {
-							"dtl_cd" : temp_reason_l[i].dtl_cd
-						});
-						if (smutil.isEmpty(check)) {
-							append_reason.push(JSON.parse(JSON.stringify(temp_reason_l[i])));
-						}
+						res.data.list[i].code_status = "S";
 					}
-
-					// Properties의 값중 code_status가 S인 코드만 temp배열에 저장
-					for (var i = 0; i < properties_arr.length; i++) {
-						if (properties_arr[i].code_status==="S") {
-							temp_reason_p.push(JSON.parse(JSON.stringify(properties_arr[i])));
-						}
-					}
-
-					// 결과에서 삭제해야할 코드 탐색 후 delete배열에 저장
-					for (var i = 0; i < temp_reason_p.length; i++) {
-						var check = _.find(res.data.list, {
-							"dtl_cd" : temp_reason_p[i].dtl_cd
-						});
-						if (smutil.isEmpty(check)) {
-							delete_reason.push(JSON.parse(JSON.stringify(temp_reason_p[i])));
-						}
-					}
-
-					for (var i = 0; i < temp_reason_l.length; i++) {
-						for (var j = 0; j < properties_arr.length; j++) {
-							// 변경
-							if ((temp_reason_l[i].dtl_cd == properties_arr[j].dtl_cd)&&
-								(temp_reason_l[i].dtl_cd_nm != properties_arr[j].dtl_cd_nm)&&
-								properties_arr[j].code_status === 'S') {
-								properties_arr[j].dtl_cd_nm = temp_reason_l[i].dtl_cd_nm;
-								break;
+					// properties에 데이터가 있음
+					if (!smutil.isEmpty(properties_arr)) {
+						var temp_reason_l = [];
+						var temp_reason_p = []
+						var append_reason = [];
+						var delete_reason = [];
+						var result_temp = [];
+	
+						// 결과에 추가해야할 코드 탐색 후 append배열에 저장
+						for (var i = 0; i < res.data.list.length; i++) {
+							temp_reason_l.push(JSON.parse(JSON.stringify(res.data.list[i])));
+							var check = _.find(properties_arr, {
+								"dtl_cd" : temp_reason_l[i].dtl_cd
+							});
+							if (smutil.isEmpty(check)) {
+								append_reason.push(JSON.parse(JSON.stringify(temp_reason_l[i])));
 							}
 						}
-					}
-
-					// result배열에 출력할 결과물을 저장
-					// 삭제는 result에 반영하지 않으면 됨.
-					for (var i = 0; i < properties_arr.length; i++) {
-						var check = _.find(delete_reason, {
-							"dtl_cd" : properties_arr[i].dtl_cd
-						});
-						if (smutil.isEmpty(check)) {
-							result_temp.push(properties_arr[i]);
+	
+						// Properties의 값중 code_status가 S인 코드만 temp배열에 저장
+						for (var i = 0; i < properties_arr.length; i++) {
+							if (properties_arr[i].code_status==="S") {
+								temp_reason_p.push(JSON.parse(JSON.stringify(properties_arr[i])));
+							}
 						}
+	
+						// 결과에서 삭제해야할 코드 탐색 후 delete배열에 저장
+						for (var i = 0; i < temp_reason_p.length; i++) {
+							var check = _.find(res.data.list, {
+								"dtl_cd" : temp_reason_p[i].dtl_cd
+							});
+							if (smutil.isEmpty(check)) {
+								delete_reason.push(JSON.parse(JSON.stringify(temp_reason_p[i])));
+							}
+						}
+	
+						for (var i = 0; i < temp_reason_l.length; i++) {
+							for (var j = 0; j < properties_arr.length; j++) {
+								// 변경
+								if ((temp_reason_l[i].dtl_cd == properties_arr[j].dtl_cd)&&
+									(temp_reason_l[i].dtl_cd_nm != properties_arr[j].dtl_cd_nm)&&
+									properties_arr[j].code_status === 'S') {
+									properties_arr[j].dtl_cd_nm = temp_reason_l[i].dtl_cd_nm;
+									break;
+								}
+							}
+						}
+	
+						// result배열에 출력할 결과물을 저장
+						// 삭제는 result에 반영하지 않으면 됨.
+						for (var i = 0; i < properties_arr.length; i++) {
+							var check = _.find(delete_reason, {
+								"dtl_cd" : properties_arr[i].dtl_cd
+							});
+							if (smutil.isEmpty(check)) {
+								result_temp.push(properties_arr[i]);
+							}
+						}
+						// 추가는 result의 후미에 추가
+						result_reason = result_temp.concat(append_reason);
+						LEMP.Properties.set({
+							"_sKey" : page.com0701.properties_cd,
+							"_vValue" : result_reason
+						});
 					}
-					// 추가는 result의 후미에 추가
-					result_reason = result_temp.concat(append_reason);
-					LEMP.Properties.set({
-						"_sKey" : page.com0701.properties_cd,
-						"_vValue" : result_reason
-					});
+					// properties에 데이터가 없음
+					else {
+						LEMP.Properties.set({
+							"_sKey" : page.com0701.properties_cd,
+							"_vValue" : res.data.list
+						});
+	//					return false;
+					}
+	
+					var data;
+					if (!smutil.isEmpty(result_reason)) {
+						data = {
+							"list" : result_reason
+						};
+					} else {
+						data = {
+							"list" : res.data.list
+						};
+					}
+	
+					//8시30분 이전인경우 심야배송(42) 노출하지 않음
+					if(page.com0701.typ_cd === "UDLV_RSN_CD" && !smutil.isMidnight()){
+						const idx = data.list.findIndex(function(item) {return item.dtl_cd === "42"})
+						if (idx > -1) data.list.splice(idx, 1)
+					}
+	
+					// 가져온 핸들바 템플릿 컴파일
+					var template = Handlebars.compile($("#com0701_list_template").html());
+					// 핸들바 템플릿에 데이터를 바인딩해서 생성된 HTML을 DOM에 주입
+					$('#com0701LstUl').append(template(data));
 				}
-				// properties에 데이터가 없음
-				else {
-					LEMP.Properties.set({
-						"_sKey" : page.com0701.properties_cd,
-						"_vValue" : res.data.list
-					});
-//					return false;
-				}
-
-				var data;
-				if (!smutil.isEmpty(result_reason)) {
-					data = {
-						"list" : result_reason
-					};
-				} else {
-					data = {
-						"list" : res.data.list
-					};
-				}
-
-				//8시30분 이전인경우 심야배송(42) 노출하지 않음
-				if(page.com0701.typ_cd === "UDLV_RSN_CD" && !smutil.isMidnight()){
-					const idx = data.list.findIndex(function(item) {return item.dtl_cd === "42"})
-					if (idx > -1) data.list.splice(idx, 1)
-				}
-
-				// 가져온 핸들바 템플릿 컴파일
-				var template = Handlebars.compile($("#com0701_list_template").html());
-				// 핸들바 템플릿에 데이터를 바인딩해서 생성된 HTML을 DOM에 주입
-				$('#com0701LstUl').append(template(data));
 			}else {
 				LEMP.Window.alert({
 					"_sTitle" : "알림",
