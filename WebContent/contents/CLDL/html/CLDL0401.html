@@ -47,7 +47,7 @@
 					<!-- //divisionBox -->
 
 					<!-- topHead -->
-					<div class="topHead">
+					<div class="topHead" style="padding: 5px 10px;">
 						<!-- <span class="fs13">구분</span> -->
 						<span class="chkBox m">
 							<input type="checkbox" name="chkall" id="checkall" /> 
@@ -293,11 +293,24 @@
 	{{#each list}}
 		<li name="timeLstLi" data-time-li="{{cldl_tmsl_cd}}" data-time-txt='{{cldl_tmsl_nm}}'>
 			<div class="itemBox">
-				<p class="top">{{cldl_tmsl_nm}}</p>
+				<p class="top cldl">{{cldl_tmsl_nm}}</p>
 				<p class="txt tc" id="timeCnt_D_{{cldl_tmsl_cd}}">{{tmsl_dlv_cnt}}</p>
 			</div>
 		</li>
 	{{/each}}
 	</script>
 
+	<!-- 상단 설정구역 리스트 li -->
+	<script id="cldl0401_mblLst_template" type="text/x-handlebars-template">
+	{{#each list}}
+		<li name="timeLstLi" data-time-li="{{mbl_area}}" data-time-txt='{{mbl_area}}'>
+			<div class="itemBox">
+				<p class="top mbl">{{mbl_area}}</p>
+				<p class="top cldl">{{min_nm}}~{{max_nm}}</p>
+				<p class="txt tc" id="timeCnt_D_{{mbl_area}}">{{cnt}}</p>
+			</div>
+		</li>
+	{{/each}}
+	</script>
+	
 </html>

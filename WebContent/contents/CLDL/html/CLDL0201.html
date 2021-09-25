@@ -74,13 +74,13 @@
 					
 					<div class="topHead">
 						<span class="chkBox m"><input type="checkbox" name="chkall" id="checkall" /> <label for="checkall">전체</label></span>
-						<span class="selBox v1 mgl14">
-							<select name="fltr_sct_cd" id="fltr_sct_cd">
+						<span class="selBox v1 mgl14" style="max-width: 115px;">
+							<select name="fltr_sct_cd" id="fltr_sct_cd" style="width: 115px;">
 							</select>
 						</span>
 
 						<span class="selBox v1 mgr14" id="span_cldl_sct_cd">
-							<select name="cldl_tmsl_cd" id="cldl_tmsl_cd">
+							<select name="cldl_tmsl_cd" id="cldl_tmsl_cd" style="width: 110px;">
 								<!-- <option value="">예정시간선택</option> -->
 								<option value="10">06~08시</option>
 								<option value="30">07~09시</option>
@@ -105,7 +105,7 @@
 							
 						</span>
 						<input type="hidden" id="dsgt_dd_cldl_ymd">
-						<button class="btn red lstSch" id="chngTme" data-prnt-sct-cd="A">시간변경</button>
+						<button class="btn red lstSch" id="chngTme" data-prnt-sct-cd="A" style="float: right;">시간변경</button>
 						
 					</div>
 					<div class="topHeadCal">
@@ -124,7 +124,7 @@
 				
 				
 				<!-- tabView -->
-				<div class="tabView deliveryTy1 deliveryTy1Cal" style="margin-top:300px; margin-bottom: 110px;">
+				<div class="tabView deliveryTy1 deliveryTy1Cal" style="margin-bottom: 110px;">
 					<ul>
 						<li>						
 							<!-- baedalListBox -->
@@ -258,12 +258,12 @@
 	<!-- handlebars template start -->
 	
 	<!-- 상단 설정시간 리스트 li -->
-	<script id="cldl0201_timeLst_template" type="text/x-handlebars-template">
+	<script id="cldl0201_mblLst_template" type="text/x-handlebars-template">
 	{{#each list}}
-		<li name="timeLstLi" data-time-li="{{cldl_tmsl_cd}}" data-time-txt='{{cldl_tmsl_nm}}'>
+		<li name="timeLstLi" data-time-li="{{mbl_area}}" data-time-txt='{{mbl_area}}'>
 			<div class="itemBox">
-				<p class="top">{{mbl_dlv_area}}</p>
-				<p class="top">{{cldl_tmsl_nm}}</p>
+				<p class="top mbl">{{mbl_area}}</p>
+				<p class="top cldl">{{cldl_tmsl_nm}}</p>
 				<p class="txt tc">집{{tmsl_pick_cnt}} / 배{{tmsl_dlv_cnt}}</p>
 				
 			</div>
@@ -271,7 +271,18 @@
 	{{/each}}
 	</script>
 	
-	
+	<!-- 상단 설정시간 리스트 li -->
+	<script id="cldl0201_timeLst_template" type="text/x-handlebars-template">
+	{{#each list}}
+		<li name="timeLstLi" data-time-li="{{cldl_tmsl_cd}}" data-time-txt='{{cldl_tmsl_nm}}'>
+			<div class="itemBox">
+				<p class="top cldl">{{cldl_tmsl_nm}}</p>
+				<p class="txt tc">집{{tmsl_pick_cnt}} / 배{{tmsl_dlv_cnt}}</p>
+				
+			</div>
+		</li>
+	{{/each}}
+	</script>
 	
 	<!-- 리스트 li -->
 	<script id="cldl0201_list_template" type="text/x-handlebars-template">
@@ -290,6 +301,7 @@
 				</div>
 				<div class="thumb">
 					<span class="{{corpLogoReturn corplogo}}"></span>
+					{{cldlTmslNmTag resultTag}}
 				</div>
 				<div class="infoBox">
 					<p class="tit">

@@ -2,6 +2,7 @@ LEMP.addEvent("backbutton", "page.callbackBackButton");		// 뒤로가기 버튼 
 
 var page = {
 		curDate:"",
+		dlvyCompl : null,
 		// api 호출 기본 형식
 		apiParam : {
 			id:"HTTP",			// 디바이스 콜 id
@@ -25,6 +26,10 @@ var page = {
 			curDate = curDate.getFullYear() + "." + ("0"+(curDate.getMonth()+1)).slice(-2) + "." + ("0"+curDate.getDate()).slice(-2);
 			$('#cldlBtnCal').text(curDate);
 
+			dlvyCompl = LEMP.Storage.get({
+				"_sKey" : "autoMenual"
+			});
+			
 			page.initEvent();			// 페이지 이벤트 등록
 			page.initDpEvent();			// 화면 디스플레이 이벤트
 		},
@@ -1201,7 +1206,7 @@ var page = {
 			var scanCallYn = "Y";
 			var tab_sct_cd = page.returnTabSctCd();				//현제 어느 탭에 있는지 상태체크
 			var cldl_sct_cd = $('#cldl_sct_cd').val();			// 업무구분
-			var cldl_tmsl_cd = $('#cldl_tmsl_cd').val();		// 예정시간선택
+			var cldl_tmsl_cd = "";		// 예정시간선택
 			var dsgt_dd_cldl_ymd = $('#dsgt_dd_cldl_ymd').val();				// 지정일집하/배송 일자
 			var inv_no = result.barcode;
 			inv_no = inv_no+"";
@@ -1210,7 +1215,11 @@ var page = {
 			if(tab_sct_cd != 'A'){
 				cldl_sct_cd = tab_sct_cd;
 			}
-
+			
+			if(dlvyCompl.area_sct_cd == 'N'){
+				cldl_tmsl_cd = $('#cldl_tmsl_cd').val();
+			}
+			
 			// 중복 스캔 방지
 			if(page.chkScanYn(inv_no, cldl_sct_cd)){
 				LEMP.Window.toast({
@@ -1233,7 +1242,7 @@ var page = {
 
 				scanCallYn = "N";
 			}
-			else if(smutil.isEmpty(cldl_tmsl_cd)){
+			else if(smutil.isEmpty(cldl_tmsl_cd) && dlvyCompl.area_sct_cd == 'N'){
 				LEMP.Window.toast({
 					'_sMessage' : '예정시간을 선택해 주세요.',
 					'_sDuration' : 'short'
