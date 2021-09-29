@@ -117,7 +117,6 @@ var page = {
 				var btnObj;
 
 				_.forEach(btnLst, function(obj, key) {
-					debugger;
 					btnObj = $(obj);
 					if(pick_sct_cd == btnObj.data('pickSctCd')){
 						btnObj.addClass( 'on' );

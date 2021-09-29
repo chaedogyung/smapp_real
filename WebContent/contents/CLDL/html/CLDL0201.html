@@ -73,40 +73,41 @@
 					</div>
 					
 					<div class="topHead">
-						<span class="chkBox m"><input type="checkbox" name="chkall" id="checkall" /> <label for="checkall">전체</label></span>
-						<span class="selBox v1 mgl14" style="max-width: 115px;">
-							<select name="fltr_sct_cd" id="fltr_sct_cd" style="width: 115px;">
-							</select>
-						</span>
-
-						<span class="selBox v1 mgr14" id="span_cldl_sct_cd">
-							<select name="cldl_tmsl_cd" id="cldl_tmsl_cd" style="width: 110px;">
-								<!-- <option value="">예정시간선택</option> -->
-								<option value="10">06~08시</option>
-								<option value="30">07~09시</option>
-								<option value="11">08~10시</option>
-								<option value="31">09~11시</option>
-								<option value="12">10~12시</option>
-								<option value="32">11~13시</option>
-								<option value="13">12~14시</option>
-								<option value="14">13~15시</option>
-								<option value="15">14~16시</option>
-								<option value="16">15~17시</option>
-								<option value="17">16~18시</option>
-								<option value="18">17~19시</option>
-								<option value="19">18~20시</option>
-								<option value="20">19~21시</option>
-								<option value="21">20~22시</option>
-								<option value="37">21~23시</option>
-								<option value="22">22~00시</option>
-								<option value="27">토요휴무</option>
-<!-- 								<option value="28">지정일 집하/배송</option> -->
-							</select>
-							
-						</span>
-						<input type="hidden" id="dsgt_dd_cldl_ymd">
-						<button class="btn red lstSch" id="chngTme" data-prnt-sct-cd="A" style="float: right;">시간변경</button>
-						
+						<span class="chkBox m"><input type="checkbox" name="chkall" id="checkall" /> <label for="checkall" style="margin-top: 3px;">전체</label></span>
+<!-- 						<span class="selBox v1 mgl14" style="max-width: 115px;"> -->
+<!-- 							<select name="fltr_sct_cd" id="fltr_sct_cd" style="width: 115px;"> -->
+<!-- 							</select> -->
+<!-- 						</span> -->
+						<div style="float: right;">
+							<span class="selBox v1 mgr14" id="span_cldl_sct_cd" style="display: inline; font-size: 15px;">
+								<span>시간설정</span>
+								<select name="cldl_tmsl_cd" id="cldl_tmsl_cd" style="width: 150px;">
+									<!-- <option value="">예정시간선택</option> -->
+									<option value="10">06~08시</option>
+									<option value="30">07~09시</option>
+									<option value="11">08~10시</option>
+									<option value="31">09~11시</option>
+									<option value="12">10~12시</option>
+									<option value="32">11~13시</option>
+									<option value="13">12~14시</option>
+									<option value="14">13~15시</option>
+									<option value="15">14~16시</option>
+									<option value="16">15~17시</option>
+									<option value="17">16~18시</option>
+									<option value="18">17~19시</option>
+									<option value="19">18~20시</option>
+									<option value="20">19~21시</option>
+									<option value="21">20~22시</option>
+									<option value="37">21~23시</option>
+									<option value="22">22~00시</option>
+									<option value="27">토요휴무</option>
+	<!-- 								<option value="28">지정일 집하/배송</option> -->
+								</select>
+								
+							</span>
+							<input type="hidden" id="dsgt_dd_cldl_ymd">
+							<button class="btn red lstSch" id="chngTme" data-prnt-sct-cd="A" style="width: 60px;">저장</button>
+						</div>
 					</div>
 					<div class="topHeadCal">
 						<button class="btn btnCal" id="cldlBtnCal"></button>
@@ -301,7 +302,7 @@
 				</div>
 				<div class="thumb">
 					<span class="{{corpLogoReturn corplogo}}"></span>
-					{{cldlTmslNmTag resultTag}}
+					{{!--{{cldlTmslNmTag resultTag}}--}}
 				</div>
 				<div class="infoBox">
 					<p class="tit">

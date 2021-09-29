@@ -308,7 +308,7 @@ background-position:100% 40px, 50% ,0 95%;
 .divisionBox .selectBox .itemBox{width:85px; vertical-align:top;border-radius:5px; overflow:hidden; border:1px solid #d8d8d8; margin-top:10px; float:right; background-color:#e3e8ec; font-size:12px; box-sizing:border-box;}
 .divisionBox .top{background-color:#dadee1; height:23px; line-height:23px; font-size:11px; padding:0px 5px; overflow:hidden; color:#7b7b7b; text-align:center;}
 .divisionBox .top .num{float:right; font-size:10px;}
-.divisionBox .top.mbl{font-weight: bold;}
+.divisionBox .top.mbl{font-weight: bold; overflow: hidden; text-overflow: ellipsis;}
 .divisionBox .txt{padding:3px 5px; box-sizing:border-box; color:#7d7f82;}
 .divisionBox .plus{float:right; font-size:18px; color:#c7c9cb; line-height:17px;}
 
