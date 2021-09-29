@@ -32,10 +32,14 @@ var page = {
 		page.curDate = curDate.LPToFormatDate("yyyymmdd");
 
 		page.initInterface();
-
-		var year = $(".mtz-monthpicker-year").val();
-		var month  = $(this).attr('data-month') > 9 ? $(this).attr('data-month') : "0" + $(this).attr('data-month');
+		//기사정보
+		page.smInfo();
 		
+		//var year = $(".mtz-monthpicker-year").val();
+		//var month  = $(this).attr('data-month') > 9 ? $(this).attr('data-month') : "0" + $(this).attr('data-month');
+		var year = page.curDate.substring(0,4);
+		var month = page.curDate.substring(4,6);
+
 		if(year != 'undefined' || month != 'undefined'){
 			$('#cur_monF').val(year+"년"+month+"월");				
 		}
@@ -49,8 +53,6 @@ var page = {
 				"emp_no" : emp_no
 		}
 		
-		//기사정보
-		page.smInfo();
 		// 메시지 대량발송 동의 조회
 		page.getMsgCnf();
 		// 등급 조회
@@ -75,7 +77,9 @@ var page = {
 		page.FrevMenu();
 		//배달사진카운트
 		page.getCdlvPicCnt();
-
+		//주간 근무 팝업
+		//TO-DO
+//		page.weekTmPopup();
 		/**
 		 * 출력 테스트용 코드
 		 * 나중에 꼭 삭제 해야함~~~~~~~~!!!!!!!!!!!!!!!!
@@ -980,6 +984,32 @@ var page = {
 			smutil.loadingOff();
 		}
 	}
+	
+//	//주간 근무 팝업
+//	,weekTmPopup : function(){
+//		var date = new Date();
+//		var day = date.getDate();
+//		
+//		console.log(day);
+//		
+//		var weekTM = LEMP.Properties.get({
+//			"_sKey" : "weekTM"
+//		});
+//
+//		console.log(weekTM);
+//		
+//		if(smutil.isEmpty(weekTM) || weekTM != day){
+//			LEMP.Properties.set({
+//				"_sKey" : "weekTM",
+//				"_vValue" : day
+//			});
+//			
+//			var popUrl = smutil.getMenuProp('MAN.TEST_chart', 'url');
+//			LEMP.Window.open({
+//				"_sPagePath": popUrl
+//			});
+//		}
+//	}
 
 	// 페이지 resume 될때마다 실행되는 함수
 	, resumeInfo : function(){
@@ -1005,6 +1035,9 @@ var page = {
 		page.FrevMenu();
 		//배달사진카운트
 		page.getCdlvPicCnt();
+		//주간 근무 팝업
+		//TO-DO
+		//page.weekTmPopup();
 	}
 }
 
