@@ -26,59 +26,57 @@ var page = {
 		$(function(){
 			var getParam = LEMP.Storage.get({ "_sKey" : "autoMenual"});
 			if(getParam){
-				if(!_.isUndefined(getParam.area_sct_cd)){
-					$('input[name="area_sct_cd"]').each(function() {
-						if($(this).val() == getParam.area_sct_cd){
-							$(this).prop('checked', true);
-		                }else{
-		                	$(this).prop('checked', false);
-		                }
-					});
-				}
-				
-				if(!_.isUndefined(getParam.area_sct_cd2)){
-					$('input[name="area_sct_cd2"]').each(function() {
-						if($(this).val() == getParam.area_sct_cd2){
-							$(this).prop('checked', true);
-						}else{
-							$(this).prop('checked', false);
-						}
-					});
-				}	
-				
-				if(!_.isUndefined(getParam.area_sct_cd3)){
-					$('input[name="area_sct_cd3"]').each(function() {
-						if($(this).val() == getParam.area_sct_cd3){
-							$(this).prop('checked', true);
-						} else{
-							$(this).prop('checked', false);
-						}
-					});
-				}
+				$('input[name="area_sct_cd"]').each(function() {
+					if($(this).val() == getParam.area_sct_cd){
+						$(this).prop('checked', true);
+	                }else{
+	                	$(this).prop('checked', false);
+	                }
+
+
+
+				});
+
+				$('input[name="area_sct_cd2"]').each(function() {
+					if($(this).val() == getParam.area_sct_cd2){
+						$(this).prop('checked', true);
+					}else{
+						$(this).prop('checked', false);
+					}
+				});
+
+
+				$('input[name="area_sct_cd3"]').each(function() {
+					if($(this).val() == getParam.area_sct_cd3){
+						$(this).prop('checked', true);
+					}else{
+						$(this).prop('checked', false);
+					}
+				});
 			}
 
             // push 음성
 	        var isSpeak = LEMP.Properties.get({"_sKey" : "push_speak_yn"});
 
 	        if(!smutil.isEmpty(isSpeak) && isSpeak == "Y") {
-                $("#ra8").prop('checked', true);
+                $("#ra7").prop('checked', true);
 	        } else {
-	            $("#ra8").prop('checked', false);
+	            $("#ra7").prop('checked', false);
 	        }
 
 		});
 
-		//추가 버튼 클릭
+        //닫기버튼
 		$('.btn.red.w100p.m').click(function(){
-			
+
 			var setParameter = {};
-			
+
 			setParameter = {
 				area_sct_cd : $("input[name='area_sct_cd']:checked").val(),
 				area_sct_cd2 : $("input[name='area_sct_cd2']:checked").val(),
 				area_sct_cd3 : $("input[name='area_sct_cd3']:checked").val()
 			};
-			
+
 			LEMP.Storage.set({ "_sKey" : "autoMenual", "_vValue" : setParameter });
 			//메인 팝업 체크
 			LEMP.Storage.set({ "_sKey" : "setPopCheck", "_vValue" : "Y"});
@@ -86,20 +84,10 @@ var page = {
             // push 음성
             LEMP.Properties.set({ "_sKey"   : "push_speak_yn"
                                 , "_vValue" :  $("input[name='area_sct_cd4']:checked").val() });
+			LEMP.Window.close();
 
-			LEMP.Window.close();
-			
 		});
-		
-		//닫기버튼
-		$('.btn.closeW.paR').click(function(){
-			//메인 팝업 체크
-			LEMP.Storage.set({ "_sKey" : "setPopCheck", "_vValue" : "Y"});
-			
-			LEMP.Window.close();
-		});
-//		
-		
+
 		
 	},
 	contList : function(){

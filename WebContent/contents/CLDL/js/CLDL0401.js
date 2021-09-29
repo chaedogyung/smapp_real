@@ -39,7 +39,17 @@ var page = {
 			if(smutil.isEmpty(page.order)){
 				page.order = "01";
 			}
-			$("#select_order").val(page.order).prop("selected", true);
+
+            if (page.order == "01") {
+                $("#select_order").text("일반정렬");
+                $("#select_order").data("value", "01");
+                $("#select_order").attr("class", "selBox sort1 mgl15");
+			} else {
+                $("#select_order").text("역순정렬");
+                $("#select_order").data("value", "02");
+                $("#select_order").attr("class", "selBox sort2 mgl15");
+			}
+
 
 			dlvyCompl = LEMP.Storage.get({
 				"_sKey" : "autoMenual"
@@ -147,9 +157,21 @@ var page = {
 			});
 
 			// 배달완료 정렬방식 변경
-			$("#select_order").on('change', function(){
-				LEMP.Properties.set({"_sKey" : "order", "_vValue" : $('#select_order').val()});
-				page.order = $('#select_order').val();
+			$("#select_order").click(function(e) {
+
+			   if ($(this).data("value") == "01") {
+			      $("#select_order").text("역순정렬");
+                  $("#select_order").data("value", "02");
+                  $("#select_order").attr("class", "selBox sort2 mgl15");
+               } else {
+                  $("#select_order").text("일반정렬");
+                  $("#select_order").data("value", "01");
+                  $("#select_order").attr("class", "selBox sort1 mgl15");
+               }
+
+                var selOrder =  $(this).data("value");
+				LEMP.Properties.set({"_sKey" : "order", "_vValue" : selOrder});
+				page.order = selOrder;
 
 				page.listReLoad();					// 리스트 제조회
 			});
@@ -841,12 +863,30 @@ var page = {
 					return options.inverse(this);
 				}
 			});
-			$(function(){
-				if(!_.isUndefined(dlvyCompl)){
-					if(dlvyCompl.area_sct_cd2 == "A"){
-						$(".topHeadCal .setDlvyCom").text('자동');
-					}else{
-						$(".topHeadCal .setDlvyCom").text('수동');
+
+
+			$(function() {
+				var dlvyCompl = LEMP.Storage.get({ "_sKey" : "autoMenual"});
+				if (!_.isUndefined(dlvyCompl)) {
+                    // 구역별 시간별
+
+				    if(dlvyCompl.area_sct_cd == "Y") {
+                        $("#setDlvyCom1").text('구역');
+                        $("#setDlvyCom1").attr('class', 'red badge option outline');
+                    } else {
+                        $("#setDlvyCom1").text('시간');
+                        $("#setDlvyCom1").attr('class', 'green badge option outline');
+                    }
+
+
+                    // 자동전송 여부
+
+					if(dlvyCompl.area_sct_cd2 == "A") {
+						$("#setDlvyCom2").text('자동');
+						$("#setDlvyCom2").attr('class', 'blue badge option outline');
+					} else {
+						$("#setDlvyCom2").text('수동');
+                        $("#setDlvyCom2").attr('class', 'gray2 badge option outline');
 					}
 					
 				}
@@ -1146,8 +1186,9 @@ var page = {
 						return a.cldl_tmsl_nm < b.cldl_tmsl_nm ? -1 : a.cldl_tmsl_nm > b.cldl_tmsl_nm ? 1 : 0;
 					});
 
-					var source = $("#cldl0401_timeLst_template").html();;
-					
+					// 핸들바 템플릿 가져오기
+					var source = $("#cldl0401_timeLst_template").html();
+
 					// 핸들바 템플릿 컴파일
 					var template = Handlebars.compile(source);
 
@@ -1214,6 +1255,8 @@ var page = {
 						"cldl_tmsl_cd": "19",
 						"tmsl_dlv_cnt" : 0
 					}]};
+
+					// 핸들바 템플릿 가져오기
 					var source = $("#cldl0401_timeLst_template").html();
 					
 					// 핸들바 템플릿 컴파일

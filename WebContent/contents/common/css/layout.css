@@ -568,12 +568,18 @@ button:disabled{background-color:#b5b5b5; color:#dcdcdc;}
 .badge.gray2{background-color:#8d9090; color:#fff;}
 .badge.red{background-color:#da291c; color:#fff;}
 .badge.black{background-color:#000; color:#fff;}
+.badge.purple{background-color:#966CD2; color:#fff;}
+.badge.green{background-color:#008299; color:#fff;}
 .badge.bd.black{border:1px solid #000; background-color:#fff; color:#000;}
 
 /* 뱃지 이미지 */
 .badge.imgNum{background:#da291c url("../../common/img/icon-money.png")no-repeat 2.5px 50%; background-size:10px; padding-left:15px; color:#fff;}
 .badge.blue{background-color:#015182;}
 .badge.bing{background:#fff url("../../common/img/icon-bing.png")no-repeat 2px 50%; background-size:10px; border:1px solid #da291c; color:#da291c; padding-left:15px; line-height:13px;}
+
+/* 자동 수동 */
+.badge.option{border-radius:5px; margin-top: 5px; font-weight: bold; height:30px; color:#fff; font-size:13px; line-height:30px;}
+
 /****  // button 디자인 //  ****/
 
 
@@ -629,6 +635,15 @@ button:disabled{background-color:#b5b5b5; color:#dcdcdc;}
 .selBoxFixed { max-width:100px; }
 .selBoxCenter { text-align-last:center; }
 .topHead .selBox { max-width:100px;}
+
+
+/* 정렬 */
+.selBox.sort1 {background:#fff url('../../common/img/img_status_red.png') no-repeat calc(100% - 6px) 53%; background-size:9px; padding:5px 20px 5px 10px;  vertical-align: middle;color:#535454;-moz-appearance:none;-webkit-appearance:none;appearance:none;​ box-sizing:border-box; font-size:13px; border:1px solid #d8d8d8; border-radius: 5px;}
+.selBox.sort2 {background:#fff url('../../common/img/img_status_blue.png') no-repeat calc(100% - 6px) 53%; background-size:9px; padding:5px 20px 5px 10px;  vertical-align: middle;color:#535454;-moz-appearance:none;-webkit-appearance:none;appearance:none;​ box-sizing:border-box; font-size:13px; border:1px solid #d8d8d8; border-radius: 5px;}
+
+
+
+
 
 .inNum{overflow:hidden; display:inline-block; font-size:0; vertical-align:middle;}
 .inNum input[type="number"]{width:40px; border-left:none; border-right:none; padding:0px 5px;}
