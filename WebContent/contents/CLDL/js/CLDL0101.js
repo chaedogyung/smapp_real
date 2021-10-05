@@ -905,20 +905,14 @@ var page = {
 			
 			$(function(){
 				var dlvyCompl = LEMP.Storage.get({ "_sKey" : "autoMenual"});
-
-				if (!_.isUndefined(dlvyCompl)) {
-                    // 구역별 시간별
-
-                    if(dlvyCompl.area_sct_cd == "Y") {
-                        $("#setDlvyCom1").text('구역');
-                        $("#setDlvyCom1").attr('class', 'red badge option outline');
-                        $("#cldl_tmsl_cd").hide();
-                    } else {
-                        $("#setDlvyCom1").text('시간');
-                        $("#setDlvyCom1").attr('class', 'green badge option outline');
-                        $("#cldl_tmsl_cd").show();
-                    }
-                }
+				if(dlvyCompl.area_sct_cd == "Y"){
+					$("#cldl_tmsl_cd").hide();
+					
+				}else{
+					$("#cldl_tmsl_cd").show();
+					
+				}
+				
 			});
 		},
 

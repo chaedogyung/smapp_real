@@ -422,6 +422,35 @@ var page = {
 					$('#pop2Txt2').html(dprtTrsmCnt + '건의 집배달 출발을 전송합니다.');
 					$('.mpopBox.pop2').bPopup();
 				}
+				// nodata 표시인경우
+//				if(dprtTrsmCnt == 0 || smutil.isEmpty(dprtTrsmCnt)){
+//					LEMP.Window.alert({
+//						"_sTitle":"집배달 출발 확정 오류",
+//						"_vMessage":"전송할 데이터가 없습니다.",
+//					});
+//
+//					return false;
+//				}
+//				
+//				base_ymd = base_ymd.split('.').join('');
+//
+//				// 시간대별 전송이 아닌 전체 전송으로 수정(20200121 : 수정사항 반영)
+//				//if(!smutil.isEmpty(cldl_sct_cd) && !smutil.isEmpty(cldl_tmsl_cd)){
+//				if(!smutil.isEmpty(cldl_sct_cd)){
+//					page.apiParamInit();		// 파라메터 전역변수 초기화
+//					page.apiParam.param.baseUrl = "smapis/cldl/test";			// api no
+//					page.apiParam.param.callback = "page.testCallback";		// callback methode
+//					page.apiParam.data = {						// api 통신용 파라메터
+//						"parameters" : {
+//							"cldl_sct_cd" : cldl_sct_cd,		// 업무구분
+//							"base_ymd" : base_ymd				// 기준일자
+//						}
+//					}
+//				}
+//				
+//				page.testCallback("성공");
+//				// 공통 api호출 함수
+//				smutil.callApi(_this.apiParam);
 			});
 
 
@@ -497,7 +526,7 @@ var page = {
 				
 				if(this.cldl_sct_cd === "P"){	// 집하
 					if(!smutil.isEmpty(this.snper_nm)){
-						html = html + '<li class="name">' + this.snper_nm + '</li>';
+						html = html + '<li>' + this.snper_nm + '</li>';
 					}
 
 					var snper_tel = smutil.nullToValue(this.snper_tel,"");
@@ -511,7 +540,7 @@ var page = {
 				}
 				else{	// 배달
 					if(!smutil.isEmpty(this.acper_nm)){
-						html = html + '<li class="name">' + this.acper_nm + '</li>';
+						html = html + '<li>' + this.acper_nm + '</li>';
 					}
 
 					var acper_tel = smutil.nullToValue(this.acper_tel,"");
@@ -520,7 +549,7 @@ var page = {
 					phoneNumber = page.getCpNo(acper_tel, acper_cpno);
 
 					if(!smutil.isEmpty(phoneNumber)){
-						html = html + '<li>' + "010-4043-8553"+ '</li>';
+						html = html + '<li>' + phoneNumber + '</li>';
 					}
 
 				}
@@ -540,7 +569,7 @@ var page = {
 				}
  
 				if(!smutil.isEmpty(html)){
-					html = '<div class="infoList" style="overflow: scroll;"><ul>' + html + '</ul>' + span + '</div>';
+					html = '<div class="infoList" style="overflow: scroll;"><ul>' + html + '</ul></div>';
 				}
 
 
@@ -548,15 +577,15 @@ var page = {
 			});
 
 			// 배달예정 시간 표시
-//			Handlebars.registerHelper('cldlTmslNmTag', function(options) {
-//				var html = "";
-//				
-//				if(dlvyCompl.area_sct_cd == 'Y' && !smutil.isEmpty(this.cldl_tmsl_nm)){
-//					html = '<br><span style="float: left; padding: 4px 5px; margin-left: -5px; margin-top: 5px; font-size: 12px; color: #fff; border: 1px solid #015182; background-color: #015182; border-radius: 20px;">' + (this.cldl_tmsl_nm).replace('시', '') + '</span>'
-//				}
-//
-//				return new Handlebars.SafeString(html); // mark as already escaped
-//			});
+			Handlebars.registerHelper('cldlTmslNmTag', function(options) {
+				var html = "";
+				
+				if(dlvyCompl.area_sct_cd == 'Y' && !smutil.isEmpty(this.cldl_tmsl_nm)){
+					html = '<br><span style="float: left; padding: 0px 5px; margin-left: -2px; margin-top: 5px; font-size: 10px; color: #fff; border: 1px solid #015182; background-color: #015182; border-radius: 20px;">' + (this.cldl_tmsl_nm).replace('시', '') + '</span>'
+				}
+
+				return new Handlebars.SafeString(html); // mark as already escaped
+			});
 
 			// 송장번호가 없을경우 접수번호 반환
 			Handlebars.registerHelper('returnKey', function(options) {
@@ -977,67 +1006,59 @@ var page = {
 			}
 
 			smutil.loadingOn();
-			page.dprtCnt();		// 리스트 조회
-//			_this.plnFltrListSerch();		// 필터 리스트 조회
+			_this.plnFltrListSerch();		// 필터 리스트 조회
 			
-			if(dlvyCompl.area_sct_cd == 'N') {
+			if(dlvyCompl.area_sct_cd == 'N'){
 				$(".deliveryTy1Cal").css({"margin-top": "275px"});
-                $('#span_txt_time').hide();
- 				$('#cldl_tmsl_cd').hide();
+				$('#cldl_tmsl_cd').hide();
 				$('#chngTme').hide();
-
-				$("#setDlvyCom1").text('시간');
-                $("#setDlvyCom1").attr('class', 'green badge option outline');
 			}else{
 				$(".deliveryTy1Cal").css({"margin-top": "300px"});
-                $('#span_txt_time').show();
- 				$('#cldl_tmsl_cd').show();
+				$('#cldl_tmsl_cd').show();
 				$('#chngTme').show();
-
-			    $("#setDlvyCom1").text('구역');
-                $("#setDlvyCom1").attr('class', 'red badge option outline');
 			}
-
 		},
+
+
 
 
 		// ################### 필터조건 조회 start
 		// 필터조건 조회
-//		plnFltrListSerch : function(){
-//			var _this = this;
-//
-//			_this.apiParam.param.baseUrl = "smapis/cmn/codeListPopup";					// api no
-//			_this.apiParam.param.callback = "page.plnFltrListSerchCallback";			// callback methode
-//			_this.apiParam.data = {"parameters" : {
-//				"typ_cd" : "SMAPP_CLDL_FLTR_CD"
-//			}};									// api 통신용 파라메터
-//
-//			// 공통 api호출 함수
-//			smutil.callApi(_this.apiParam);
-//
-//			page.apiParamInit();		// 파라메터 전역변수 초기화
-//		},
+		plnFltrListSerch : function(){
+			var _this = this;
+
+			_this.apiParam.param.baseUrl = "smapis/cmn/codeListPopup";					// api no
+			_this.apiParam.param.callback = "page.plnFltrListSerchCallback";			// callback methode
+			_this.apiParam.data = {"parameters" : {
+				"typ_cd" : "SMAPP_CLDL_FLTR_CD"
+			}};									// api 통신용 파라메터
+
+			// 공통 api호출 함수
+			smutil.callApi(_this.apiParam);
+
+			page.apiParamInit();		// 파라메터 전역변수 초기화
+		},
 
 
 		// 필터조건 조회 callback
-//		plnFltrListSerchCallback : function(result){
-//
-//			page.apiParamInit();		// 파라메터 전역변수 초기화
-//
-//			// api 결과 성공여부 검사
-//			if(smutil.apiResValidChk(result) && result.code == "0000"){
-//
-//				// 조회 결과 데이터가 있으면 옵션 생성
-//				if(result.data_count > 0){
-//					var list = result.data.list;
-//
-//					// select box 셋팅
-//					smutil.setSelectOptions("#fltr_sct_cd", list);
-//				}
-//
-//				page.dprtCnt();		// 리스트 조회
-//			}
-//		},
+		plnFltrListSerchCallback : function(result){
+
+			page.apiParamInit();		// 파라메터 전역변수 초기화
+
+			// api 결과 성공여부 검사
+			if(smutil.apiResValidChk(result) && result.code == "0000"){
+
+				// 조회 결과 데이터가 있으면 옵션 생성
+				if(result.data_count > 0){
+					var list = result.data.list;
+
+					// select box 셋팅
+					smutil.setSelectOptions("#fltr_sct_cd", list);
+				}
+
+				page.dprtCnt();		// 리스트 조회
+			}
+		},
 		// ################### 필터조건 조회 end
 
 
@@ -1351,10 +1372,7 @@ var page = {
 					
 					//오름차순 정렬
 					data.list.sort(function(a, b) {
-						if(b.mbl_area == "기타"){
-							return -1;
-						}
-						return 0;
+						return a.mbl_area;
 					});
 					// 핸들바 템플릿 가져오기
 					var source = $("#cldl0201_mblLst_template").html();
@@ -1395,8 +1413,11 @@ var page = {
 							timeObj = $(obj);
 							if(timeObj.find('p.top:eq(0)').text() == page.mbl_dlv_area){
 								timeObj.addClass('on');
-								
-								page.mbl_dlv_area = timeObj.find('p.top:eq(0)').text();
+								if(page.mbl_dlv_area == "기타"){
+									page.mbl_dlv_area = "";
+								}else{
+									page.mbl_dlv_area = timeObj.find('p.top:eq(0)').text();
+								}
 								return false;
 							}
 						});
@@ -1433,6 +1454,10 @@ var page = {
 			var fltr_sct_cd = $('#fltr_sct_cd').val();		// 필터구분
 //			var cldl_tmsl_cd = _this.returnTimeCd();			// 현제 어느 시간을 선택했는지 검사
 			var mbl_dlv_area = page.mbl_dlv_area;
+			
+			if(mbl_dlv_area == '기타'){
+				mbl_dlv_area = "";
+			}
 			
 			_this.apiParam.param.baseUrl = "smapis/cldl/autoDprtList";				// api no
 			_this.apiParam.param.callback = "page.dprtListCallback";			// callback methode
@@ -2230,7 +2255,7 @@ var page = {
 			if(res.code == 0000){
 				LEMP.Window.alert({
 					"_sTitle":"성공",
-					"_vMessage":res.message
+					"_vMessage":res
 				});
 			}else if(res.code == 0001){
 				LEMP.Window.alert({
@@ -2238,7 +2263,7 @@ var page = {
 					"_vMessage": res.message
 				});
 			}
-			
+			console.log(res);
 			page.listReLoad();
 		},
 		
