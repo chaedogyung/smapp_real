@@ -5,7 +5,8 @@ var page = {
 		selectedSchTime : null,		// 선택한 시간구분값
 		rsnRgstInvNo : null,		// 미집하처리를 선택한 invNo
 		tab_pick_sct_cd : null,		// 현재 활성화 되어있는 탭 코드(일반집하 : G, 전산집하 : C)
-		scanParam : null,				// 스캔완료한 송장파라메터
+		scanParam : null,			// 스캔완료한 송장파라메터
+		dlvyCompl : null,			// 구역,시간 기준
 		// api 호출 기본 형식
 		apiParam : {
 			id:"HTTP",			// 디바이스 콜 id
@@ -27,6 +28,10 @@ var page = {
 			var curDate = new Date();
 			curDate = curDate.getFullYear() + "." + ("0"+(curDate.getMonth()+1)).slice(-2) + "." + ("0"+curDate.getDate()).slice(-2);
 			$('#cldlBtnCal').text(curDate);
+
+			dlvyCompl = LEMP.Storage.get({
+				"_sKey" : "autoMenual"
+			});
 			
 			page.initEvent();			// 페이지 이벤트 등록
 			page.initDpEvent();			// 화면 디스플레이 이벤트
@@ -909,7 +914,15 @@ var page = {
 		// 화면 디스플레이 이벤트
 		initDpEvent : function(){
 
-			if(smutil.isEmpty($("#cldlBtnCal").text())){
+	        if(dlvyCompl.area_sct_cd == 'N') {
+				$("#setDlvyCom1").text('시간');
+                $("#setDlvyCom1").attr('class', 'green badge option outline');
+			} else {
+				$("#setDlvyCom1").text('구역');
+                $("#setDlvyCom1").attr('class', 'red badge option outline');
+			}
+
+			if(smutil.isEmpty($("#cldlBtnCal").text())) {
 				LEMP.Window.alert({
 					"_sTitle":"리스트 조회오류",
 					"_vMessage":"조회할 날짜를 선택해 주세요"

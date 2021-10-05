@@ -82,8 +82,10 @@ var page = {
 			var dlvyCompl = LEMP.Storage.get({ "_sKey" : "autoMenual"});
 			if(dlvyCompl.area_sct_cd3 == "Y"){
 				$('#autoPic').text("자동");
+                $("#autoPic").attr('class', 'blue badge option outline');
 			}else{
 				$('#autoPic').text("수동");
+                $("#autoPic").attr('class', 'gray2 badge option outline');
 			}
 			
 		});

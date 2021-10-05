@@ -50,6 +50,8 @@ var page = {
 			var dlvyCompl = LEMP.Storage.get({ "_sKey" : "autoMenual"});
 			if(dlvyCompl.area_sct_cd3 == "Y"){
 				$('#autoPic').text("자동");
+				$("#autoPic").attr('class', 'blue badge option outline');
+
 				var date = new Date();
 				var curTime = date.LPToFormatDate("yyyymmddHHnnss");
 				var fileName = "000000000000_cdlv_"+curTime+".jpg";
@@ -57,6 +59,7 @@ var page = {
 
 			}else{
 				$('#autoPic').text("수동");
+                $("#autoPic").attr('class', 'gray2 badge option outline');
 			}
 			
 		});

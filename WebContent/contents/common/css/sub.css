@@ -106,7 +106,7 @@
 
 .insuja{float:right; overflow:hidden; position:relative; font-size:13px; line-height: 24px;}
 .insuja .txt{max-width:115px;overflow:hidden;white-space:nowrap; margin-left:5px; text-overflow:ellipsis; border:1px solid #e1e1e1; display:inline-block; vertical-align:middle; background-color:#fff; padding:5px 10px; padding-right:25px; font-size:12px; color:#000; box-sizing: border-box;}
-.insuja .btn.plus{position:absolute; right:3px; top:10px; background-size:9px; font-size:0; line-height: 1;}
+.insuja .btn.plus{position:absolute; right:3px; top:13px; background-size:9px; font-size:0; line-height: 1;}
 
 .bdCancel{float:right; overflow:hidden; position:relative; font-size:12px;}
 .bdCancel .txt{max-width:200px;overflow:hidden;white-space:nowrap; margin-left:5px; text-overflow:ellipsis; border:1px solid #e1e1e1; display:inline-block; vertical-align:middle; background-color:#fff; padding:5px 10px; padding-right:25px; font-size:12px; color:#000; box-sizing: border-box;}

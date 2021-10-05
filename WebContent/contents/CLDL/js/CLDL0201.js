@@ -986,13 +986,21 @@ var page = {
 //			_this.plnFltrListSerch();		// 필터 리스트 조회
 			
 			if(dlvyCompl.area_sct_cd == 'N'){
-				$(".deliveryTy1Cal").css({"margin-top": "270px"});
+				$(".deliveryTy1Cal").css({"margin-top": "240px"});
 				$('#span_cldl_sct_cd').hide();
 				$('#chngTme').hide();
+
+				$("#setDlvyCom1").text('시간');
+                $("#setDlvyCom1").attr('class', 'green badge option outline');
+                $("#span_check_all").hide();
 			}else{
 				$(".deliveryTy1Cal").css({"margin-top": "300px"});
 				$('#span_cldl_sct_cd').show();
 				$('#chngTme').show();
+
+				$("#setDlvyCom1").text('구역');
+                $("#setDlvyCom1").attr('class', 'red badge option outline');
+                 $("#span_check_all").show();
 			}
 		},
 
