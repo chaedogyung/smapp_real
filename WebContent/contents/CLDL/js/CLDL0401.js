@@ -254,11 +254,20 @@ var page = {
 			$('#cmptTrsmBtn').click(function(e){
 				var _this = this;
 				var cldl_sct_cd = "D";							// 업무구분
-				var cldl_tmsl_cd = page.returnTimeCd();			// 예정시간코드
+				var cldl_tmsl_cd = "";							// 예정시간코드
+				var mbl_dlv_area = "";
 				var base_ymd = $('#cldlBtnCal').text();			// 기준일자
 				var acpt_sct_cd = $('#insujaCode').val();		// 인수자 코드
 				var acpr_nm = $('#insujaTxt').val();			// 인수자명
 
+				if(dlvyCompl.area_sct_cd == 'N'){
+					cldl_tmsl_cd = page.returnTimeCd();
+					mbl_dlv_area = "";
+				}else{
+					cldl_tmsl_cd = "";
+					mbl_dlv_area = page.mbl_dlv_area;
+				}
+				
 				if(smutil.isEmpty(base_ymd)){
 					LEMP.Window.alert({
 						"_sTitle":"배달 전송 오류",
@@ -284,7 +293,7 @@ var page = {
 
 					return false;
 				}
-				else if(smutil.isEmpty(cldl_tmsl_cd)){
+				else if(smutil.isEmpty(cldl_tmsl_cd) && dlvyCompl.area_sct_cd == "N"){
 					LEMP.Window.alert({
 						"_sTitle":"배달 전송 오류",
 						"_vMessage":"배달 완료시간을 선택해 주세요.",
@@ -583,7 +592,7 @@ var page = {
 
 				console.log(this);
 				if(!smutil.isEmpty(this.acper_nm)){
-					html = html + '<li>' + this.acper_nm + '</li>';
+					html = html + '<li class="name">' + this.acper_nm + '</li>';
 				}
 
 				var acper_tel = smutil.nullToValue(this.acper_tel,"");
@@ -611,6 +620,8 @@ var page = {
 
 				if(!smutil.isEmpty(html)){
 					html = '<div class="infoList"><ul>' + html + '</ul>' + span + '</div>';
+				}else if(!smutil.isEmpty(span)){
+					html = '<div class="infoList" style="margin-left: 5px; overflow: visible;">' + span + '</div>';
 				}
 
 				return new Handlebars.SafeString(html); // mark as already escaped
@@ -1027,11 +1038,20 @@ var page = {
 							data.list[key].mbl_area = e.mbl_area;
 						}
 						
+						if(e.min_nm != "-"){
+							data.list[key].cldl_tmsl_nm = e.min_nm + "~" + e.max_nm + "시";
+						}else{
+							data.list[key].cldl_tmsl.nm = "";
+						}
 					});
 					
 					//오름차순 정렬
 					data.list.sort(function(a, b) {
-						return a.mbl_area;
+						if(b.mbl_area == "기타"){
+							return -1;
+						}
+						
+						return 0;
 					});
 
 					// 핸들바 템플릿 가져오기
@@ -1052,7 +1072,7 @@ var page = {
 
 					// 선택한 값이 없을경우는 시간리스트의 첫번째 순서를 on 상태로 만든다
 					// 최초에 들어온 경우만 이벤트 등록
-					if(smutil.isEmpty(page.selectedSchTime)){
+					if(smutil.isEmpty(page.mbl_dlv_area)){
 						// 현제 어느 시간데를 선택했는지 검사
 						var timeLstLi = $("li[name='timeLstLi']");
 
@@ -1060,40 +1080,46 @@ var page = {
 							$(obj).addClass('on');
 
 							// 선택한 시간구간 등록
-							page.selectedSchTime = $(obj).find('p.top:eq(0)').text();
+//							page.selectedSchTime = $(obj).find('p.top:eq(0)').text();
 							page.mbl_dlv_area = $(obj).find('p.top:eq(0)').text();
 							// 한번만 셋팅하고 바로 루프 나감
 							return false;
 						});
 					}
 					else {		// 선택한 시간 구간이 있을경우에는 그 시간을 on 시켜줌
+						var timeLstLi_on;
 						// 현제 어느 시간구간을 선택했는지 검사
 						var timeLstLi = $("li[name='timeLstLi']");
 						var timeObj;
 						_.forEach(timeLstLi, function(obj, key) {
 							timeObj = $(obj);
-
-							if((timeObj.data('timeLi')+"") == page.selectedSchTime){
+							if(timeObj.is('.on')){
+								timeLstLi_on = btnObj.data('timeTxt');
+							}
+							
+							if(timeObj.find('p.top:eq(0)').text() == page.mbl_dlv_area){
 								timeObj.addClass('on');
 
+								page.mbl_dlv_area = timeObj.find('p.top:eq(0)').text();
 								return false;
 							}
 						});
-//
-//						// 활성화된 시간구간코드가 없으면 첫번째 리스트를 선택
-//						if(smutil.isEmpty(page.returnTimeCd())){
-//							// 현제 어느 시간데를 선택했는지 검사
-//							var timeLstLi = $("li[name='timeLstLi']");
-//
-//							_.forEach(timeLstLi, function(obj, key) {
-//								$(obj).addClass('on');
-//
+
+						// 활성화된 시간구간코드가 없으면 첫번째 리스트를 선택
+						if(smutil.isEmpty(timeLstLi_on)){
+							// 현제 어느 시간데를 선택했는지 검사
+							var timeLstLi = $("li[name='timeLstLi']");
+
+							_.forEach(timeLstLi, function(obj, key) {
+								$(obj).addClass('on');
+
+								page.mbl_dlv_area = $(obj).find('p.top:eq(0)').text();
 //								// 선택한 시간구간 등록
 //								page.selectedSchTime = $(obj).data('timeLi')+"";
-//								// 한번만 셋팅하고 바로 루프 나감
-//								return false;
-//							});
-//						}
+								// 한번만 셋팅하고 바로 루프 나감
+								return false;
+							});
+						}
 					}
 				}
 				else{
@@ -1101,9 +1127,9 @@ var page = {
 					var data = {"list" : [{
 						"mbl_area": "기타",
 						"min_nm": "18",
-						"max_nm": "20시",
-//						"cldl_tmsl_nm": "18~20시",
-//						"cldl_tmsl_cd": "19",
+						"max_nm": "20",
+						"cldl_tmsl_nm": "18~20시",
+						"cldl_tmsl_cd": "19",
 						"cnt" : 0
 					}]};
 					var source = $("#cldl0401_mblLst_template").html();
@@ -1302,12 +1328,8 @@ var page = {
 			var fltr_sct_cd = $('#fltr_sct_cd').val();		// 필터구분
 			var mbl_dlv_area = page.mbl_dlv_area;			// 현제 어느 시간을 선택했는지 검사
 
-			if(mbl_dlv_area == '기타'){
-				mbl_dlv_area = "";
-			}
-
 			_this.apiParam.param.baseUrl = "smapis/cldl/autoCmptList";				// api no
-			_this.apiParam.param.callback = "page.autoCmptListCallback";			// callback methode
+			_this.apiParam.param.callback = "page.cmptListCallback";			// callback methode
 
 			// 날짜셋팅
 			var curDate = new Date();
@@ -1329,68 +1351,6 @@ var page = {
 
 			page.apiParamInit();		// 파라메터 전역변수 초기화
 		},
-
-		// 리스트 조회후 그리기
-		autoCmptListCallback : function(result){
-
-			page.apiParamInit();		// 파라메터 전역변수 초기화
-
-			try{
-				// 스캔건수
-				var scanLstCnt = $('#scanLstCnt');
-
-				// 조회한 결과가 있을경우
-//				if(false && smutil.apiResValidChk(result) && result.code == "0000"
-//						&& result.data_count > 0){
-				if(smutil.apiResValidChk(result) && result.code == "0000"){
-
-					var data = {};
-
-					if(result){
-						data = result.data;
-						//2020-08-06 배달완료리스트 역순정렬
-						if(page.order == "02"){
-							data.list.reverse();
-						}
-					}
-					//data = [];
-
-					// 핸들바 템플릿 가져오기
-					var source = $("#cldl0401_list_template").html();
-
-					// 핸들바 템플릿 컴파일
-					var template = Handlebars.compile(source);
-
-					// 핸들바 템플릿에 데이터를 바인딩해서 HTML 생성
-					var liHtml = template(data);
-
-					// 생성된 HTML을 DOM에 주입
-					$('#cldl0401LstUl').html(liHtml);
-
-					// 스캔건수 표시
-					if(!smutil.isEmpty(result.data.scan_cnt)
-						&& result.data.scan_cnt > 0){
-						scanLstCnt.text(result.data.scan_cnt);
-						scanLstCnt.show();
-					}
-					else{	// 스캔건수 숨김
-						scanLstCnt.text('0');
-						scanLstCnt.hide();
-					}
-
-				}
-				else{		// 조회 결과 없음
-					scanLstCnt.hide();		// 전체 스캔건수 숨김
-				}
-			}
-			catch(e){}
-			finally{
-				smutil.loadingOff();			// 로딩바 닫기
-				page.apiParamInit();			// 파라메터 전역변수 초기화
-			}
-
-		},
-		// ################### 페이지 리스트 조회 end
 
 		// ################### 시간별 페이지 리스트 조회 start
 		cmptList : function(){
@@ -1502,15 +1462,9 @@ var page = {
 //			var _this = this;
 			smutil.loadingOn();				// 로딩바 시작
 			
-			if(!_.isUndefined(dlvyCompl)){
-				if(dlvyCompl.area_sct_cd == "Y"){
-					page.autoCmptTmList();            // 구역별 조회건수 조회
-				}else{
-					page.cmptTmList();				// 시간대별 조회건수 조회
-				}
-			}
+			page.plnFltrListSerch();
 			
-			smutil.loadingOff();
+//			smutil.loadingOff();
 		},
 
 
@@ -1968,17 +1922,16 @@ var page = {
 			var _this = this;
 			var scanCallYn = "Y";
 			var cldl_sct_cd = 'D';								// 업무구분 (배달 : D)
-			var cldl_tmsl_cd;									// 예정시간
-			var mbl_dlv_area = "";
+			var cldl_tmsl_cd = "";								// 예정시간
+			var mbl_dlv_area = "";								// 구역
 			var inv_no = result.barcode;
 			var acpt_sct_cd = $('#insujaCode').val();			// 인수자 코드
 			var acpr_nm = $('#insujaTxt').val();				// 인수자명
 			
-			if(dlvyCompl == 'N'){
+			if(dlvyCompl.area_sct_cd == 'N'){
 				cldl_tmsl_cd = page.returmTimeCd();
-			}else {
-				cldl_tmsl_cd = "19";
 			}
+			
 			inv_no = inv_no+"";
 			// 중복 스캔 방지
 			if(page.chkScanYn(inv_no)){
@@ -1995,7 +1948,7 @@ var page = {
 			}
 
 
-			if(smutil.isEmpty(cldl_tmsl_cd)){
+			if(smutil.isEmpty(cldl_tmsl_cd) && dlvyCompl.area_sct_cd == 'N'){
 				LEMP.Window.alert({
 					"_sTitle":"스캔오류",
 					"_vMessage":"예정시간을 선택해 주세요."
@@ -2064,7 +2017,6 @@ var page = {
 						"inv_no":inv_no+"",
 						"scan_dtm":scan_dtm+"",
 						"cldl_tmsl_cd":cldl_tmsl_cd+"",
-						"mbl_dlv_area":mbl_dlv_area+"",
 						"cldl_sct_cd":cldl_sct_cd+"",
 						"acpt_sct_cd" : acpt_sct_cd+"",
 						"acpr_nm" : acpr_nm+""
@@ -2103,7 +2055,46 @@ var page = {
 				if(result.code == "1000"){
 					message = "이미 취소된 송장입니다."
 				}
+				
+				if(dlvyCompl.area_sct_cd2 == "A"){
+					$("#span_cldl_sct_cd").hide();
+					$("#chngTme").hide();
+					var baseUrl = "smapis/cldl/dlvCmptScanTrsm"
+					if(!smutil.isEmpty(baseUrl)){
+						smutil.loadingOn();
+						
+						var liLst = $(".li.list")
+						var param_list = [];						// 전송할 리스트 배열
+						var invNoObj = {};
+							
+						invNoObj = {"inv_no":inv_no, "scan_yn":"Y"};
+						param_list.push(invNoObj);
 
+						
+						var curDate = new Date();
+						curDate = curDate.getFullYear() + ("0"+(curDate.getMonth()+1)).slice(-2) + ("0"+curDate.getDate()).slice(-2);
+						var base_ymd = smutil.nullToValue($('#cldlBtnCal').text(),curDate);
+						base_ymd = base_ymd.split('.').join('');
+						
+						page.apiParam.param.baseUrl=baseUrl;
+						page.apiParam.param.callback="page.cmptTrsmCallback";
+						page.apiParam.data = {				// api 통신용 파라메터
+								"parameters" : {
+									"base_ymd" : base_ymd,				// 기준일자
+									"cldl_sct_cd" : cldl_sct_cd, 		// 집하 / 배달 업무 구분코드
+									"cldl_tmsl_cd" : page.returnTimeCd(), 		// 예정시간 구분코드
+									"acpt_sct_cd" :  $('#insujaCode').val(), 		// 인수자 구분코드
+									"acpr_nm" : acpr_nm,				// 인수자 명
+									"param_list" : param_list			// 전송할 송장정보 {송장번호 : 스캔여부}
+								}
+						};
+						smutil.loadingOn();
+						
+						// 공통 api호출 함수
+						smutil.callApi(page.apiParam);
+					}
+				}
+				
 				// 송장번호가 있는경우
 				if(!smutil.isEmpty(inv_no)){
 
@@ -2145,52 +2136,52 @@ var page = {
 
 					}
 					else {	// 스캔한 정보가 리스트에 없는경우는 li 추가
-						var data = {"inv_no" : inv_no+"", "cldl_sct_cd" : cldl_sct_cd, "acpr_nm" : acpr_nm};
-
-						// 핸들바스 템플릿 가져오기
-						var source = $("#cldl0401_li_template").html();
-
-						// 핸들바 템플릿 컴파일
-						var template = Handlebars.compile(source);
-
-						// 핸들바스 템플릿에 데이터를 바인딩해서 HTML 생성
-						var liHtml = template(data);
-
-						// noList 일경우 li 삭제
-						if($('.noList').length > 0){
-							$('.noList').remove();
-						}
-
-						// 생성된 HTML을 DOM에 주입
-						$('#cldl0401LstUl').prepend(liHtml);
-
-
-						if(smutil.isEmpty(scanLstCnt.text())){
-							scancnt = 1;
-						}
-						else {
-							scancnt = Number(scanLstCnt.text()) + 1;
-						}
-
-						// 버튼위에 스캔건수 증가
-						scanLstCnt.show();
-						scanLstCnt.text(scancnt+"");
-
-
-						// 상단에 time 리스트 카운트 증가
-						var timeLiCd = page.returnTimeCd();
-						var timeLiCdCnt = $('#timeCnt_D_'+timeLiCd);
-						scancnt = 0;
-
-						if(smutil.isEmpty(timeLiCdCnt.text())){
-							scancnt = 1;
-						}
-						else {
-							scancnt = Number(timeLiCdCnt.text()) + 1;
-						}
-
-						timeLiCdCnt.text(scancnt+"");
-						
+//						var data = {"inv_no" : inv_no+"", "cldl_sct_cd" : cldl_sct_cd, "acpr_nm" : acpr_nm};
+//
+//						// 핸들바스 템플릿 가져오기
+//						var source = $("#cldl0401_li_template").html();
+//
+//						// 핸들바 템플릿 컴파일
+//						var template = Handlebars.compile(source);
+//
+//						// 핸들바스 템플릿에 데이터를 바인딩해서 HTML 생성
+//						var liHtml = template(data);
+//
+//						// noList 일경우 li 삭제
+//						if($('.noList').length > 0){
+//							$('.noList').remove();
+//						}
+//
+//						// 생성된 HTML을 DOM에 주입
+//						$('#cldl0401LstUl').prepend(liHtml);
+//
+//
+//						if(smutil.isEmpty(scanLstCnt.text())){
+//							scancnt = 1;
+//						}
+//						else {
+//							scancnt = Number(scanLstCnt.text()) + 1;
+//						}
+//
+//						// 버튼위에 스캔건수 증가
+//						scanLstCnt.show();
+//						scanLstCnt.text(scancnt+"");
+//
+//
+//						// 상단에 time 리스트 카운트 증가
+//						var timeLiCd = page.returnTimeCd();
+//						var timeLiCdCnt = $('#timeCnt_D_'+timeLiCd);
+//						scancnt = 0;
+//
+//						if(smutil.isEmpty(timeLiCdCnt.text())){
+//							scancnt = 1;
+//						}
+//						else {
+//							scancnt = Number(timeLiCdCnt.text()) + 1;
+//						}
+//
+//						timeLiCdCnt.text(scancnt+"");
+						page.listReLoad();
 					}
 
 					// 카운트가 500이 넘어가면 1로 초기화
@@ -2213,44 +2204,44 @@ var page = {
 					// 성공 tts 호출
 					smutil.callTTS("1", "2", scanCnt, result.isBackground);
 
-					if(dlvyCompl.area_sct_cd2 == "A"){
-						$("#span_cldl_sct_cd").hide();
-						$("#chngTme").hide();
-						var baseUrl = "smapis/cldl/dlvCmptScanTrsm"
-						if(!smutil.isEmpty(baseUrl)){
-							smutil.loadingOn();
-							
-							var liLst = $(".li.list")
-							var param_list = [];						// 전송할 리스트 배열
-							var invNoObj = {};
-								
-							invNoObj = {"inv_no":inv_no, "scan_yn":"Y"};
-							param_list.push(invNoObj);
-
-							
-							var curDate = new Date();
-							curDate = curDate.getFullYear() + ("0"+(curDate.getMonth()+1)).slice(-2) + ("0"+curDate.getDate()).slice(-2);
-							var base_ymd = smutil.nullToValue($('#cldlBtnCal').text(),curDate);
-							base_ymd = base_ymd.split('.').join('');
-							
-							page.apiParam.param.baseUrl=baseUrl;
-							page.apiParam.param.callback="page.cmptTrsmCallback";
-							page.apiParam.data = {				// api 통신용 파라메터
-									"parameters" : {
-										"base_ymd" : base_ymd,				// 기준일자
-										"cldl_sct_cd" : cldl_sct_cd, 		// 집하 / 배달 업무 구분코드
-										"cldl_tmsl_cd" : page.returnTimeCd(), 		// 예정시간 구분코드
-										"acpt_sct_cd" :  $('#insujaCode').val(), 		// 인수자 구분코드
-										"acpr_nm" : acpr_nm,				// 인수자 명
-										"param_list" : param_list			// 전송할 송장정보 {송장번호 : 스캔여부}
-									}
-							};
-							smutil.loadingOn();
-							
-							// 공통 api호출 함수
-							smutil.callApi(page.apiParam);
-						}
-					}
+//					if(dlvyCompl.area_sct_cd2 == "A"){
+//						$("#span_cldl_sct_cd").hide();
+//						$("#chngTme").hide();
+//						var baseUrl = "smapis/cldl/dlvCmptScanTrsm"
+//						if(!smutil.isEmpty(baseUrl)){
+//							smutil.loadingOn();
+//							
+//							var liLst = $(".li.list")
+//							var param_list = [];						// 전송할 리스트 배열
+//							var invNoObj = {};
+//								
+//							invNoObj = {"inv_no":inv_no, "scan_yn":"Y"};
+//							param_list.push(invNoObj);
+//
+//							
+//							var curDate = new Date();
+//							curDate = curDate.getFullYear() + ("0"+(curDate.getMonth()+1)).slice(-2) + ("0"+curDate.getDate()).slice(-2);
+//							var base_ymd = smutil.nullToValue($('#cldlBtnCal').text(),curDate);
+//							base_ymd = base_ymd.split('.').join('');
+//							
+//							page.apiParam.param.baseUrl=baseUrl;
+//							page.apiParam.param.callback="page.cmptTrsmCallback";
+//							page.apiParam.data = {				// api 통신용 파라메터
+//									"parameters" : {
+//										"base_ymd" : base_ymd,				// 기준일자
+//										"cldl_sct_cd" : cldl_sct_cd, 		// 집하 / 배달 업무 구분코드
+//										"cldl_tmsl_cd" : page.returnTimeCd(), 		// 예정시간 구분코드
+//										"acpt_sct_cd" :  $('#insujaCode').val(), 		// 인수자 구분코드
+//										"acpr_nm" : acpr_nm,				// 인수자 명
+//										"param_list" : param_list			// 전송할 송장정보 {송장번호 : 스캔여부}
+//									}
+//							};
+//							smutil.loadingOn();
+//							
+//							// 공통 api호출 함수
+//							smutil.callApi(page.apiParam);
+//						}
+//					}
 					
 				}
 			}
@@ -2625,11 +2616,19 @@ var page = {
 
 			var _this = this;
 			var cldl_sct_cd = "D";							// 업무구분
-			var cldl_tmsl_cd = page.returnTimeCd();			// 예정시간코드
+			var cldl_tmsl_cd = "";							// 예정시간코드
+			var mbl_dlv_area = "";							// 선택된 구역
 			var base_ymd = $('#cldlBtnCal').text();			// 기준일자
 			var acpt_sct_cd = $('#insujaCode').val();		// 인수자 코드
 			var acpr_nm = $('#insujaTxt').val();			// 인수자명
 
+			if(dlvyCompl.area_sct_cd == 'N'){
+				cldl_tmsl_cd = page.returnTimeCd();
+				mbl_dlv_area = "";
+			}else{
+				cldl_tmsl_cd = "";
+				mbl_dlv_area = page.mbl_dlv_area;
+			}
 			
 			if(smutil.isEmpty(base_ymd)){
 				LEMP.Window.alert({
@@ -2656,7 +2655,7 @@ var page = {
 
 				return false;
 			}
-			else if(smutil.isEmpty(cldl_tmsl_cd)){
+			else if(smutil.isEmpty(cldl_tmsl_cd) && dlvyCompl.area_sct_cd == "N"){
 				LEMP.Window.alert({
 					"_sTitle":"배달 전송 오류",
 					"_vMessage":"배달 완료시간을 선택해 주세요.",
@@ -2701,6 +2700,7 @@ var page = {
 						"base_ymd" : base_ymd,				// 기준일자
 						"cldl_sct_cd" : cldl_sct_cd, 		// 집하 / 배달 업무 구분코드
 						"cldl_tmsl_cd" : cldl_tmsl_cd, 		// 예정시간 구분코드
+						"mbl_area" : mbl_dlv_area,		// 선택된 구역
 						"acpt_sct_cd" : acpt_sct_cd, 		// 인수자 구분코드
 						"acpr_nm" : acpr_nm,				// 인수자 명
 						"param_list" : param_list			// 전송할 송장정보 {송장번호 : 스캔여부}
@@ -2848,7 +2848,8 @@ var page = {
 		//com0301에서 날짜 선택 한 후 실행되는 콜백 함수
 		COM0301Callback:function(res){
 			$("#cldlBtnCal").text(res.param.date);
-
+			page.selectedSchTime = "";
+			page.mbl_dlv_area = "";
 			page.listReLoad();					// 리스트 제조회
 		},
 
