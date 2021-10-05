@@ -176,6 +176,40 @@ var page = {
 				page.listReLoad();					// 리스트 제조회
 			});
 
+			// 송장 체크 변경시 하단 스캔건수 변경
+			$(document).on('change', 'input[name="chk"]', function(){
+				// 하단 스캔건수
+				var scanLstCnt = $('#scanLstCnt');
+				var scancnt = 0;
+				
+				if($(this).is(':checked')){
+					if(smutil.isEmpty(scanLstCnt.text())){
+						scancnt = 1;
+					}
+					else {
+						scancnt = Number(scanLstCnt.text()) + 1;
+					}
+				}else{
+					if(smutil.isEmpty(scanLstCnt.text())){
+						scancnt = 0;
+					}
+					else {
+						scancnt = Number(scanLstCnt.text()) - 1;
+					}
+				}
+				
+				// 스캔건수 표시
+				if(!smutil.isEmpty(scancnt)
+					&& scancnt > 0){
+					// 버튼위에 스캔건수 증가
+					scanLstCnt.text(scancnt+"");
+					scanLstCnt.show();
+				}
+				else{	// 스캔건수 숨김
+					scanLstCnt.text('0');
+					scanLstCnt.hide();
+				}
+			});
 
 			// 지도버튼 클릭
 			$('.btn.ftMap').click(function(e){
@@ -1933,7 +1967,7 @@ var page = {
 			var acpr_nm = $('#insujaTxt').val();				// 인수자명
 			
 			if(dlvyCompl.area_sct_cd == 'N'){
-				cldl_tmsl_cd = page.returmTimeCd();
+				cldl_tmsl_cd = page.returnTimeCd();
 			}
 			
 			inv_no = inv_no+"";

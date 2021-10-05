@@ -992,7 +992,7 @@ var page = {
 
 				$("#setDlvyCom1").text('시간');
                 $("#setDlvyCom1").attr('class', 'green badge option outline');
-                $("#span_check_all").hide();
+                $(".chkBox").hide();
 			}else{
 				$(".deliveryTy1Cal").css({"margin-top": "300px"});
 				$('#span_cldl_sct_cd').show();
@@ -1000,7 +1000,7 @@ var page = {
 
 				$("#setDlvyCom1").text('구역');
                 $("#setDlvyCom1").attr('class', 'red badge option outline');
-                 $("#span_check_all").show();
+                 $(".chkBox").show();
 			}
 		},
 
