@@ -1395,15 +1395,10 @@ var page = {
 						});
 					}
 					else {
-						var timeLstLi_on;
 						var timeLstLi = $("li[name='timeLstLi']");
 						var timeObj;
 						_.forEach(timeLstLi, function(obj, key) {
 							timeObj = $(obj);
-							
-							if(timeObj.is('.on')){
-								timeLstLi_on = btnObj.data('timeTxt');
-							}
 							
 							if(timeObj.find('p.top:eq(0)').text() == page.mbl_dlv_area){
 								timeObj.addClass('on');
@@ -1414,7 +1409,7 @@ var page = {
 						});
 						
 						// 활성화된 시간구간코드가 없으면 첫번째 리스트를 선택
-						if(smutil.isEmpty(timeLstLi_on)){
+						if(smutil.isEmpty(page.returnAreaCd())){
 							// 현제 어느 시간데를 선택했는지 검사
 							var timeLstLi = $("li[name='timeLstLi']");
 							
@@ -2180,6 +2175,23 @@ var page = {
 			return cldl_tmsl_cd;
 		},
 
+		//현재 활성화 구역코드 리턴
+		returnAreaCd : function(){
+			var timeLst = $("li[name='timeLstLi']");
+
+			//현제 어느 탭에 있는지 상태체크
+			var btnObj;
+			var mbl_dlv_area;
+			_.forEach(timeLst, function(obj, key) {
+				btnObj = $(obj);
+
+				if(btnObj.is('.on')){
+					mbl_dlv_area = btnObj.data('timeLi');
+					return false;
+				}
+			});
+			return mbl_dlv_area;
+		},
 
 		// 현재 활성화 되어있는 텝 코드 리턴( 전체, 배달, 집하)
 		returnTabSctCd : function(){
