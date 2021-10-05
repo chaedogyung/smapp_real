@@ -422,35 +422,6 @@ var page = {
 					$('#pop2Txt2').html(dprtTrsmCnt + '건의 집배달 출발을 전송합니다.');
 					$('.mpopBox.pop2').bPopup();
 				}
-				// nodata 표시인경우
-//				if(dprtTrsmCnt == 0 || smutil.isEmpty(dprtTrsmCnt)){
-//					LEMP.Window.alert({
-//						"_sTitle":"집배달 출발 확정 오류",
-//						"_vMessage":"전송할 데이터가 없습니다.",
-//					});
-//
-//					return false;
-//				}
-//				
-//				base_ymd = base_ymd.split('.').join('');
-//
-//				// 시간대별 전송이 아닌 전체 전송으로 수정(20200121 : 수정사항 반영)
-//				//if(!smutil.isEmpty(cldl_sct_cd) && !smutil.isEmpty(cldl_tmsl_cd)){
-//				if(!smutil.isEmpty(cldl_sct_cd)){
-//					page.apiParamInit();		// 파라메터 전역변수 초기화
-//					page.apiParam.param.baseUrl = "smapis/cldl/test";			// api no
-//					page.apiParam.param.callback = "page.testCallback";		// callback methode
-//					page.apiParam.data = {						// api 통신용 파라메터
-//						"parameters" : {
-//							"cldl_sct_cd" : cldl_sct_cd,		// 업무구분
-//							"base_ymd" : base_ymd				// 기준일자
-//						}
-//					}
-//				}
-//				
-//				page.testCallback("성공");
-//				// 공통 api호출 함수
-//				smutil.callApi(_this.apiParam);
 			});
 
 
@@ -526,7 +497,7 @@ var page = {
 				
 				if(this.cldl_sct_cd === "P"){	// 집하
 					if(!smutil.isEmpty(this.snper_nm)){
-						html = html + '<li>' + this.snper_nm + '</li>';
+						html = html + '<li class="name">' + this.snper_nm + '</li>';
 					}
 
 					var snper_tel = smutil.nullToValue(this.snper_tel,"");
@@ -540,7 +511,7 @@ var page = {
 				}
 				else{	// 배달
 					if(!smutil.isEmpty(this.acper_nm)){
-						html = html + '<li>' + this.acper_nm + '</li>';
+						html = html + '<li class="name">' + this.acper_nm + '</li>';
 					}
 
 					var acper_tel = smutil.nullToValue(this.acper_tel,"");
@@ -569,7 +540,9 @@ var page = {
 				}
  
 				if(!smutil.isEmpty(html)){
-					html = '<div class="infoList" style="overflow: scroll;"><ul>' + html + '</ul></div>';
+					html = '<div class="infoList"><ul>' + html + '</ul>' + span + '</div>';
+				}else if(!smutil.isEmpty(span)){
+					html = '<div class="infoList" style="margin-left: 5px; overflow: visible;">' + span + '</div>';
 				}
 
 
@@ -577,15 +550,15 @@ var page = {
 			});
 
 			// 배달예정 시간 표시
-			Handlebars.registerHelper('cldlTmslNmTag', function(options) {
-				var html = "";
-				
-				if(dlvyCompl.area_sct_cd == 'Y' && !smutil.isEmpty(this.cldl_tmsl_nm)){
-					html = '<br><span style="float: left; padding: 0px 5px; margin-left: -2px; margin-top: 5px; font-size: 10px; color: #fff; border: 1px solid #015182; background-color: #015182; border-radius: 20px;">' + (this.cldl_tmsl_nm).replace('시', '') + '</span>'
-				}
-
-				return new Handlebars.SafeString(html); // mark as already escaped
-			});
+//			Handlebars.registerHelper('cldlTmslNmTag', function(options) {
+//				var html = "";
+//				
+//				if(dlvyCompl.area_sct_cd == 'Y' && !smutil.isEmpty(this.cldl_tmsl_nm)){
+//					html = '<br><span style="float: left; padding: 4px 5px; margin-left: -5px; margin-top: 5px; font-size: 12px; color: #fff; border: 1px solid #015182; background-color: #015182; border-radius: 20px;">' + (this.cldl_tmsl_nm).replace('시', '') + '</span>'
+//				}
+//
+//				return new Handlebars.SafeString(html); // mark as already escaped
+//			});
 
 			// 송장번호가 없을경우 접수번호 반환
 			Handlebars.registerHelper('returnKey', function(options) {
@@ -904,12 +877,15 @@ var page = {
 				var _this = this;
 				var chkLst = [];
 				var invNoLst = [];
+				var cldlSctCdLst = [];
 
 				$("input[name=chk]:checked").each(function() {
 					var invNo = $(this).attr("id").split("_");
+					var cldl_sct_cd = $(this).parents("li").data("liSctCd");
+					
 					invNoLst.push(invNo[0]);
+					cldlSctCdLst.push(cldl_sct_cd);
 				});
-				
 				var cldl_sct_cd = page.returnTabSctCd();		// 업무구분 (전체 : A, 집하 : P, 배달 : D)
 				var dprtTrsmCnt = Number($('#'+cldl_sct_cd+'_cldl0201Cnt').text());
 				
@@ -934,7 +910,7 @@ var page = {
 				}
 				
 				//TO-DO 변경 API 구성 후 호출
-				page.changeDlvyTime(invNoLst);
+				page.changeDlvyTime(invNoLst, cldlSctCdLst);
 			});
 			
 			//구역변경 이벤트
@@ -1006,15 +982,16 @@ var page = {
 			}
 
 			smutil.loadingOn();
-			_this.plnFltrListSerch();		// 필터 리스트 조회
+			page.dprtCnt();		// 리스트 조회
+//			_this.plnFltrListSerch();		// 필터 리스트 조회
 			
 			if(dlvyCompl.area_sct_cd == 'N'){
-				$(".deliveryTy1Cal").css({"margin-top": "275px"});
-				$('#cldl_tmsl_cd').hide();
+				$(".deliveryTy1Cal").css({"margin-top": "270px"});
+				$('#span_cldl_sct_cd').hide();
 				$('#chngTme').hide();
 			}else{
 				$(".deliveryTy1Cal").css({"margin-top": "300px"});
-				$('#cldl_tmsl_cd').show();
+				$('#span_cldl_sct_cd').show();
 				$('#chngTme').show();
 			}
 		},
@@ -1024,41 +1001,41 @@ var page = {
 
 		// ################### 필터조건 조회 start
 		// 필터조건 조회
-		plnFltrListSerch : function(){
-			var _this = this;
-
-			_this.apiParam.param.baseUrl = "smapis/cmn/codeListPopup";					// api no
-			_this.apiParam.param.callback = "page.plnFltrListSerchCallback";			// callback methode
-			_this.apiParam.data = {"parameters" : {
-				"typ_cd" : "SMAPP_CLDL_FLTR_CD"
-			}};									// api 통신용 파라메터
-
-			// 공통 api호출 함수
-			smutil.callApi(_this.apiParam);
-
-			page.apiParamInit();		// 파라메터 전역변수 초기화
-		},
+//		plnFltrListSerch : function(){
+//			var _this = this;
+//
+//			_this.apiParam.param.baseUrl = "smapis/cmn/codeListPopup";					// api no
+//			_this.apiParam.param.callback = "page.plnFltrListSerchCallback";			// callback methode
+//			_this.apiParam.data = {"parameters" : {
+//				"typ_cd" : "SMAPP_CLDL_FLTR_CD"
+//			}};									// api 통신용 파라메터
+//
+//			// 공통 api호출 함수
+//			smutil.callApi(_this.apiParam);
+//
+//			page.apiParamInit();		// 파라메터 전역변수 초기화
+//		},
 
 
 		// 필터조건 조회 callback
-		plnFltrListSerchCallback : function(result){
-
-			page.apiParamInit();		// 파라메터 전역변수 초기화
-
-			// api 결과 성공여부 검사
-			if(smutil.apiResValidChk(result) && result.code == "0000"){
-
-				// 조회 결과 데이터가 있으면 옵션 생성
-				if(result.data_count > 0){
-					var list = result.data.list;
-
-					// select box 셋팅
-					smutil.setSelectOptions("#fltr_sct_cd", list);
-				}
-
-				page.dprtCnt();		// 리스트 조회
-			}
-		},
+//		plnFltrListSerchCallback : function(result){
+//
+//			page.apiParamInit();		// 파라메터 전역변수 초기화
+//
+//			// api 결과 성공여부 검사
+//			if(smutil.apiResValidChk(result) && result.code == "0000"){
+//
+//				// 조회 결과 데이터가 있으면 옵션 생성
+//				if(result.data_count > 0){
+//					var list = result.data.list;
+//
+//					// select box 셋팅
+//					smutil.setSelectOptions("#fltr_sct_cd", list);
+//				}
+//
+//				page.dprtCnt();		// 리스트 조회
+//			}
+//		},
 		// ################### 필터조건 조회 end
 
 
@@ -1372,7 +1349,10 @@ var page = {
 					
 					//오름차순 정렬
 					data.list.sort(function(a, b) {
-						return a.mbl_area;
+						if(b.mbl_area == "기타"){
+							return -1;
+						}
+						return 0;
 					});
 					// 핸들바 템플릿 가져오기
 					var source = $("#cldl0201_mblLst_template").html();
@@ -1392,49 +1372,54 @@ var page = {
 
 					// 선택한 값이 없을경우는 시간리스트의 첫번째 순서를 on 상태로 만든다
 					// 최초에 들어온 경우만 이벤트 등록
-					if(smutil.isEmpty(page.selectedSchTime)){
+					if(smutil.isEmpty(page.mbl_dlv_area)){
 						// 현제 어느 시간데를 선택했는지 검사
 						var timeLstLi = $("li[name='timeLstLi']");
 
 						_.forEach(timeLstLi, function(obj, key) {
 							$(obj).addClass('on');
 
-							// 선택한 시간구간 등록
-							page.selectedSchTime = $(obj).find('p.top:eq(0)').text();
+//							// 선택한 시간구간 등록
+//							page.selectedSchTime = $(obj).find('p.top:eq(0)').text();
 							page.mbl_dlv_area = $(obj).find('p.top:eq(0)').text();
 							// 한번만 셋팅하고 바로 루프 나감
 							return false;
 						});
 					}
 					else {
+						var timeLstLi_on;
 						var timeLstLi = $("li[name='timeLstLi']");
 						var timeObj;
 						_.forEach(timeLstLi, function(obj, key) {
 							timeObj = $(obj);
+							
+							if(timeObj.is('.on')){
+								timeLstLi_on = btnObj.data('timeTxt');
+							}
+							
 							if(timeObj.find('p.top:eq(0)').text() == page.mbl_dlv_area){
 								timeObj.addClass('on');
-								if(page.mbl_dlv_area == "기타"){
-									page.mbl_dlv_area = "";
-								}else{
-									page.mbl_dlv_area = timeObj.find('p.top:eq(0)').text();
-								}
+								
+								page.mbl_dlv_area = timeObj.find('p.top:eq(0)').text();
 								return false;
 							}
 						});
+						
 						// 활성화된 시간구간코드가 없으면 첫번째 리스트를 선택
-//						if(smutil.isEmpty(page.returnTimeCd())){
-//							// 현제 어느 시간데를 선택했는지 검사
-//							var timeLstLi = $("li[name='timeLstLi']");
-//							
-//							_.forEach(timeLstLi, function(obj, key) {
-//								$(obj).addClass('on');
-//
+						if(smutil.isEmpty(timeLstLi_on)){
+							// 현제 어느 시간데를 선택했는지 검사
+							var timeLstLi = $("li[name='timeLstLi']");
+							
+							_.forEach(timeLstLi, function(obj, key) {
+								$(obj).addClass('on');
+
+								page.mbl_dlv_area = $(obj).find('p.top:eq(0)').text();
 //								// 선택한 시간구간 등록
 //								page.selectedSchTime = $(obj).data('timeLi')+"";
-//								// 한번만 셋팅하고 바로 루프 나감
-//								return false;
-//							});
-//						}
+								// 한번만 셋팅하고 바로 루프 나감
+								return false;
+							});
+						}
 					}
 				}
 				else{
@@ -1454,10 +1439,6 @@ var page = {
 			var fltr_sct_cd = $('#fltr_sct_cd').val();		// 필터구분
 //			var cldl_tmsl_cd = _this.returnTimeCd();			// 현제 어느 시간을 선택했는지 검사
 			var mbl_dlv_area = page.mbl_dlv_area;
-			
-			if(mbl_dlv_area == '기타'){
-				mbl_dlv_area = "";
-			}
 			
 			_this.apiParam.param.baseUrl = "smapis/cldl/autoDprtList";				// api no
 			_this.apiParam.param.callback = "page.dprtListCallback";			// callback methode
@@ -1886,22 +1867,48 @@ var page = {
 					// 시간 변경을 위한 송장번호와 타임 배달, 집하 구분코드가 전부 있으면 변경
 					if(!smutil.isEmpty(page.changeTimeInvNo)
 							&& !smutil.isEmpty(page.changeTimeSctCd)){
+						var setObject = {invNo : page.changeTimeInvNo, cldl_sct_cd : changeTimeSctCd};
 
-						page.apiParamInit();		// 파라메터 전역변수 초기화
-						page.apiParam.param.baseUrl = "smapis/cldl/areaTmslRgst";			// api no
-						page.apiParam.param.callback = "page.areaTmslRgstCallback";		// callback methode
-						page.apiParam.data = {				// api 통신용 파라메터
-							"parameters" : {
-								"cldl_tmsl_cd" : res.selectedCode,
-								"cldl_sct_cd" : page.changeTimeSctCd,					// 업무구분
-								"inv_no" : page.changeTimeInvNo+""
+						var cldl_tmsl_cd = res.selectedCode;
+						//넘겨받은 체크 대상 리스트
+						var chngInvNoList = param;
+						for(var i = 0; i < param.length; i++){
+							setObject.invNo = param[i];
+							setObject.cldl_sct_cd = cldlSctCdLst[i];
+							if(param != null && param != undefined && param != ""){
+								  setParam.push({
+									  "invNo":param[i],
+									  "cldl_sct_cd": cldlSctCdLst[i]
+								  });
 							}
-						};
-
-						smutil.loadingOn();				// 로딩바 on
-
+						}
+						
+						
+						var _this = this;
+						_this.apiParam.param.baseUrl = "smapis/cldl/changedlvytme";					// api no
+						_this.apiParam.param.callback = "page.changeDlvyTimeCallback";			// callback methode
+						_this.apiParam.data = {"parameters" : {
+							"cldl_tmsl_cd" : cldl_tmsl_cd,
+							"chngInvNoList" : setParam
+						}};
+						console.log(_this.apiParam);
 						// 공통 api호출 함수
 						smutil.callApi(page.apiParam);
+//						page.apiParamInit();		// 파라메터 전역변수 초기화
+//						page.apiParam.param.baseUrl = "smapis/cldl/areaTmslRgst";			// api no
+//						page.apiParam.param.callback = "page.areaTmslRgstCallback";		// callback methode
+//						page.apiParam.data = {				// api 통신용 파라메터
+//							"parameters" : {
+//								"cldl_tmsl_cd" : res.selectedCode,
+//								"cldl_sct_cd" : page.changeTimeSctCd,					// 업무구분
+//								"inv_no" : page.changeTimeInvNo+""
+//							}
+//						};
+//
+//						smutil.loadingOn();				// 로딩바 on
+//
+//						// 공통 api호출 함수
+//						smutil.callApi(page.apiParam);
 					}
 					else{
 						LEMP.Window.alert({
@@ -2186,19 +2193,22 @@ var page = {
 			return smutil.nullToValue(tab_sct_cd,'A');
 		},
 	//집배달 출발 시간변경
-		changeDlvyTime : function(param){
+		changeDlvyTime : function(param, cldlSctCdLst){
 			var setParam = [];
-			var setObject = {invNo : ""};
+			var setObject = {invNo : "", cldl_sct_cd : ""};
 			//현재 시간 기준
 //			var mbl_dlv_area = $('#mbl_dlv_area').val();
 			var cldl_tmsl_cd = $('#cldl_tmsl_cd').val();
 			//넘겨받은 체크 대상 리스트
 			var chngInvNoList = param;
 			for(var i = 0; i < param.length; i++){
-				
 				setObject.invNo = param[i];
+				setObject.cldl_sct_cd = cldlSctCdLst[i];
 				if(param != null && param != undefined && param != ""){
-					  setParam.push({"invNo":param[i]});
+					  setParam.push({
+						  "invNo":param[i],
+						  "cldl_sct_cd": cldlSctCdLst[i]
+					  });
 				}
 			}
 			
@@ -2255,7 +2265,7 @@ var page = {
 			if(res.code == 0000){
 				LEMP.Window.alert({
 					"_sTitle":"성공",
-					"_vMessage":res
+					"_vMessage":res.message
 				});
 			}else if(res.code == 0001){
 				LEMP.Window.alert({
@@ -2263,7 +2273,7 @@ var page = {
 					"_vMessage": res.message
 				});
 			}
-			console.log(res);
+			
 			page.listReLoad();
 		},
 		
@@ -2310,6 +2320,7 @@ var page = {
 		COM0301Callback:function(res){
 			$("#cldlBtnCal").text(res.param.date);
 			page.selectedSchTime = "";
+			page.mbl_dlv_area = "";
 			page.listReLoad();					// 리스트 제조회
 		},
 

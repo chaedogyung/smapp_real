@@ -14,17 +14,19 @@ var page = {
 			"parameters" : {}
 		},
 		// api 통신용 파라메터
-	},	
+	},
+	getParam: null,
+	trans_yn: null,		//집배달출발 기준 변경 가능여부
 	init:function()
 	{
 		page.initInterface();
-		page.contList();
+		//page.transInfo();
 	},
 	
 	initInterface : function(){
 		
 		$(function(){
-			var getParam = LEMP.Storage.get({ "_sKey" : "autoMenual"});
+			getParam = LEMP.Storage.get({ "_sKey" : "autoMenual"});
 			if(getParam){
 				$('input[name="area_sct_cd"]').each(function() {
 					if($(this).val() == getParam.area_sct_cd){
@@ -66,67 +68,101 @@ var page = {
 
 		});
 
-        //닫기버튼
+        //확인버튼
 		$('.btn.red.w100p.m').click(function(){
-
-			var setParameter = {};
-
-			setParameter = {
-				area_sct_cd : $("input[name='area_sct_cd']:checked").val(),
-				area_sct_cd2 : $("input[name='area_sct_cd2']:checked").val(),
-				area_sct_cd3 : $("input[name='area_sct_cd3']:checked").val()
-			};
-
-			LEMP.Storage.set({ "_sKey" : "autoMenual", "_vValue" : setParameter });
-			//메인 팝업 체크
-			LEMP.Storage.set({ "_sKey" : "setPopCheck", "_vValue" : "Y"});
-
-            // push 음성
-            LEMP.Properties.set({ "_sKey"   : "push_speak_yn"
-                                , "_vValue" :  $("input[name='area_sct_cd4']:checked").val() });
-			LEMP.Window.close();
-
+			var area_sct_cd = $('input[name="area_sct_cd"]:checked').val();
+			
+			if(!smutil.isEmpty(getParam) && getParam.area_sct_cd != area_sct_cd){
+				page.transInfo();
+				
+			}else{
+				var setParameter = {};
+	
+				setParameter = {
+					area_sct_cd : $("input[name='area_sct_cd']:checked").val(),
+					area_sct_cd2 : $("input[name='area_sct_cd2']:checked").val(),
+					area_sct_cd3 : $("input[name='area_sct_cd3']:checked").val()
+				};
+	
+				LEMP.Storage.set({ "_sKey" : "autoMenual", "_vValue" : setParameter });
+				//메인 팝업 체크
+				LEMP.Storage.set({ "_sKey" : "setPopCheck", "_vValue" : "Y"});
+	
+	            // push 음성
+	            LEMP.Properties.set({ "_sKey"   : "push_speak_yn"
+	                                , "_vValue" :  $("input[name='area_sct_cd4']:checked").val() });
+				LEMP.Window.close();
+			}
 		});
-
 		
 	},
-	contList : function(){
+	//구역/시간 변경 가능 여부 확인
+	transInfo : function(){
 		smutil.loadingOn();
 		
-		page.apiParam.param.baseUrl="/smapis/cmn/smsContList";
-		page.apiParam.param.callback="page.contCallback";
+		page.apiParam.param.baseUrl="/smapis/transInfo";
+		page.apiParam.param.callback="page.transInfoCallback";
 		page.apiParam.data.parameters={
 				
 		};
 		
 		smutil.callApi(page.apiParam);
 	},
-	//문자 발송 설정 리스트 콜백
-	contCallback : function(data){
-		$('#set0201H').empty();
-		var list_d = data.data;
-	
+	//구역/시간 변경 가능 여부 콜백
+	transInfoCallback : function(result){
+		page.trans_yn = result.trans_yn;
+		
 		try{
-			if(smutil.apiResValidChk(data) && data.code === "0000" && data.data_count!=0){
-				
-				Handlebars.registerHelper('change', function(options){
+			if(smutil.apiResValidChk(result) && result.code === "0000"){
+				if(page.trans_yn == "N"){
+//					$('input[name="area_sct_cd"]').prop('disabled', true);
+//					
+//					$('.area_sct_cd').click(function(){
+//						LEMP.Window.alert({
+//							"_sTitle": "집배달출발 기준 설정",
+//							"_vMessage": "집배달출발 기준 설정 불가능 합니다.\n스캔 취소 후 다시 시도해 주세요."
+//						});
+//					});
+					
+					LEMP.Window.alert({
+						"_sTitle": "집배달출발 기준 설정",
+						"_vMessage": "집배달출발 기준 설정 불가능 합니다.\n스캔 취소 후 다시 시도해 주세요."
+					});
+					
+					$('input[name="area_sct_cd"]').each(function() {
+						if($(this).val() == getParam.area_sct_cd){
+							$(this).prop('checked', true);
+		                }else{
+		                	$(this).prop('checked', false);
+		                }
 
-					if (this.msg_typ !== "A") {
-						return options.fn(this);
-					}
-				});
+					});
+					
+				}else{
+//					$('input[name="area_sct_cd"]').prop('disabled', false);
+					
+					var setParameter = {};
+					
+					setParameter = {
+						area_sct_cd : $("input[name='area_sct_cd']:checked").val(),
+						area_sct_cd2 : $("input[name='area_sct_cd2']:checked").val(),
+						area_sct_cd3 : $("input[name='area_sct_cd3']:checked").val()
+					};
+		
+					LEMP.Storage.set({ "_sKey" : "autoMenual", "_vValue" : setParameter });
+					//메인 팝업 체크
+					LEMP.Storage.set({ "_sKey" : "setPopCheck", "_vValue" : "Y"});
+		
+		            // push 음성
+		            LEMP.Properties.set({ "_sKey"   : "push_speak_yn"
+		                                , "_vValue" :  $("input[name='area_sct_cd4']:checked").val() });
+					LEMP.Window.close();
+				}
 				
-				var source = $("#SET0201_list_template").html();
-				var template = Handlebars.compile(source);
-				$("#set0201H").append(template(list_d));	
 			}
 		}catch(e){}
 		finally{
 			smutil.loadingOff();
 		}
-	},
-	//전송 과 삭제후 reload
-	confirmCallback : function(){
-		page.contList();
 	}
 }

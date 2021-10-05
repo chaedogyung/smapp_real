@@ -183,7 +183,7 @@
 	<!-- handlebars template start -->
 	<script id="cldl0401_list_template" type="text/x-handlebars-template">
 		{{#each list}}
-		<li id="{{inv_no}}" class='row-four cldlSctCd_D' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}'>
+		<li id="{{inv_no}}" class='row-four cldlSctCd_D' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}' data-li-tmsl-cd='{{cldl_tmsl_cd}}'>
 			<div class="baedalBox {{scanYnClass scanYn}} baeBox" data-scn-inv-no='{{inv_no}}'>
 				<div class="chk">
 					<span class="chkBox m ti">
@@ -193,6 +193,7 @@
 				</div>
 				<div class="thumb">
 					<span class="{{corpLogoReturn corplogo}}"></span>
+					{{!--{{cldlTmslNmTag resultTag}}--}}
 				</div>
 				<div class="infoBox">
 					<p class="tit">
@@ -262,7 +263,7 @@
 	
 	<!-- 리스트에 없는 데이터 스켄 송장 li -->
 	<script id="cldl0401_li_template" type="text/x-handlebars-template">
-		<li id="{{inv_no}}" class='row-four cldlSctCd_D' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}'>
+		<li id="{{inv_no}}" class='row-four cldlSctCd_D' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}' data-li-tmsl-cd='{{cldl_tmsl_cd}}'>
 			<div class="baedalBox baeBox"  data-scn-inv-no='{{inv_no}}'>
 				<div class="chk">
 					<span class="chkBox m ti">
@@ -278,6 +279,7 @@
 						{{!-- 송장번호형식표시 helper invNoTmpl --}}
 						<span class="dsin vm invNoSpan">{{invNoTmpl inv_no}}</span>
 					</p>
+					{{cldlSctCdChkTag resultTag}}
 				</div>
 				<button class="btn cancel" data-cancel-inv-no='{{inv_no}}' data-cancle-sct-cd='{{cldl_sct_cd}}' data-li-status='noData'>캔슬</button>
 			</div>
@@ -305,10 +307,10 @@
 	<!-- 상단 설정구역 리스트 li -->
 	<script id="cldl0401_mblLst_template" type="text/x-handlebars-template">
 	{{#each list}}
-		<li name="timeLstLi" data-time-li="{{mbl_area}}" data-time-txt='{{mbl_area}}'>
+		<li name="timeLstLi" data-time-li="{{cldl_tmsl_cd}}" data-time-txt='{{mbl_area}}'>
 			<div class="itemBox">
 				<p class="top mbl">{{mbl_area}}</p>
-				<p class="top cldl">{{min_nm}}~{{max_nm}}</p>
+				<p class="top cldl">{{cldl_tmsl_nm}}</p>
 				<p class="txt tc" id="timeCnt_D_{{mbl_area}}">{{cnt}}</p>
 			</div>
 		</li>
