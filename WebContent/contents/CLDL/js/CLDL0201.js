@@ -381,8 +381,8 @@ var page = {
 				var cldl_sct_cd = $(this).data('sctCd')+"";
 				page.changeTimeInvNo = inv_no;					// 시간수정을 하기위한 송장번호 전역변수로 셋팅
 				page.changeTimeSctCd = cldl_sct_cd;				// 시간수정버튼을 클릭한 송장번호의 배달, 집하 구분코드 전역변수로 셋팅
-
-				// 기사 메모 팝업 호출
+				
+				// 시간수정 팝업 호출
 				var popUrl = smutil.getMenuProp('COM.COM0501', 'url');
 
 				LEMP.Window.open({
@@ -1854,49 +1854,30 @@ var page = {
 		// 시간변경 api 호출	start
 		// 시간설정 팝업 닫을때 callback 함수
 		com0501Callback : function(res){
+			if(!smutil.isEmpty(res.selectedCode)){
+				// 시간 변경을 위한 송장번호와 타임 배달, 집하 구분코드가 전부 있으면 변경
+				if(!smutil.isEmpty(page.changeTimeInvNo)
+						&& !smutil.isEmpty(page.changeTimeSctCd)){
+					var setObject = [{invNo : page.changeTimeInvNo, cldl_sct_cd : page.changeTimeSctCd}];
 
-			if(!smutil.isEmpty(page.selectedSchTime)
-					&& !smutil.isEmpty(res.selectedCode)){
+					var cldl_tmsl_cd = res.selectedCode;
+					//넘겨받은 체크 대상 리스트
+					var chngInvNoList = setObject;
 
-				if(page.selectedSchTime == res.selectedCode){
-					LEMP.Window.alert({
-						"_sTitle":"시간수정 오류",
-						"_vMessage":'선택한 시간구간이\n현제 운송장의 시간구간과 동일합니다.'
-					});
-					return false;
-				}
-				else {
-
-					// 시간 변경을 위한 송장번호와 타임 배달, 집하 구분코드가 전부 있으면 변경
-					if(!smutil.isEmpty(page.changeTimeInvNo)
-							&& !smutil.isEmpty(page.changeTimeSctCd)){
-						var setObject = {invNo : page.changeTimeInvNo, cldl_sct_cd : changeTimeSctCd};
-
-						var cldl_tmsl_cd = res.selectedCode;
-						//넘겨받은 체크 대상 리스트
-						var chngInvNoList = param;
-						for(var i = 0; i < param.length; i++){
-							setObject.invNo = param[i];
-							setObject.cldl_sct_cd = cldlSctCdLst[i];
-							if(param != null && param != undefined && param != ""){
-								  setParam.push({
-									  "invNo":param[i],
-									  "cldl_sct_cd": cldlSctCdLst[i]
-								  });
-							}
-						}
-						
-						
-						var _this = this;
-						_this.apiParam.param.baseUrl = "smapis/cldl/changedlvytme";					// api no
-						_this.apiParam.param.callback = "page.changeDlvyTimeCallback";			// callback methode
-						_this.apiParam.data = {"parameters" : {
+					page.apiParamInit();
+					page.apiParam.param.baseUrl = "smapis/cldl/changedlvytme";					// api no
+					page.apiParam.param.callback = "page.changeDlvyTimeCallback";			// callback methode
+					page.apiParam.data = {
+						"parameters" : {
 							"cldl_tmsl_cd" : cldl_tmsl_cd,
-							"chngInvNoList" : setParam
-						}};
-						console.log(_this.apiParam);
-						// 공통 api호출 함수
-						smutil.callApi(page.apiParam);
+							"chngInvNoList" : chngInvNoList
+						}
+					};
+					
+					smutil.loadingOn();				// 로딩바 on
+					
+					// 공통 api호출 함수
+					smutil.callApi(page.apiParam);
 //						page.apiParamInit();		// 파라메터 전역변수 초기화
 //						page.apiParam.param.baseUrl = "smapis/cldl/areaTmslRgst";			// api no
 //						page.apiParam.param.callback = "page.areaTmslRgstCallback";		// callback methode
@@ -1912,50 +1893,45 @@ var page = {
 //
 //						// 공통 api호출 함수
 //						smutil.callApi(page.apiParam);
-					}
-					else{
-						LEMP.Window.alert({
-							"_sTitle":"시간수정 오류",
-							"_vMessage":'시간변경을 위한 필수값이 없습니다.'
-						});
-
-						return false;
-					}
 				}
-			}
-
-		},
-
-		// 시간변경 api 콜백
-		areaTmslRgstCallback : function(result){
-			try{
-				// api 전송 성공
-				if(smutil.apiResValidChk(result) && result.code == "0000"){
-
-					LEMP.Window.toast({
-						"_sMessage" : "시간변경 성공",
-						"_sDuration" : "short"
+				else{
+					LEMP.Window.alert({
+						"_sTitle":"시간수정 오류",
+						"_vMessage":'시간변경을 위한 필수값이 없습니다.'
 					});
 
-					page.listReLoad();					// 리스트 제조회
+					return false;
 				}
-			}
-			catch(e){}
-			finally{
-				smutil.loadingOff();			// 로딩바 닫기
-				page.apiParamInit();			// 파라메터 전역변수 초기화
 			}
 
 		},
-		// 시간변경 api 호출 end
-		//##########################################################################
+//
+//		// 시간변경 api 콜백
+//		areaTmslRgstCallback : function(result){
+//			try{
+//				// api 전송 성공
+//				if(smutil.apiResValidChk(result) && result.code == "0000"){
+//
+//					LEMP.Window.toast({
+//						"_sMessage" : "시간변경 성공",
+//						"_sDuration" : "short"
+//					});
+//
+//					page.listReLoad();					// 리스트 제조회
+//				}
+//			}
+//			catch(e){}
+//			finally{
+//				smutil.loadingOff();			// 로딩바 닫기
+//				page.apiParamInit();			// 파라메터 전역변수 초기화
+//			}
+//
+//		},
+//		// 시간변경 api 호출 end
+//		//##########################################################################
 
 
-
-
-
-
-
+		
 		//##########################################################################
 		// 고객요청(인수자변경) api 호출	start
 		// 인수자 팝업 닫을때 callback 함수
@@ -2076,85 +2052,6 @@ var page = {
 		},
 		// 집배달출발 리스트 순서변경 api 호출 end
 		//##########################################################################
-
-
-
-		//##########################################################################
-		// 시간변경 api 호출	start
-		// 시간설정 팝업 닫을때 callback 함수
-		como0501Callback : function(res){
-
-			if(!smutil.isEmpty(page.selectedSchTime)
-					&& !smutil.isEmpty(res.selectedCode)){
-
-				if(page.selectedSchTime == res.selectedCode){
-					LEMP.Window.alert({
-						"_sTitle":"시간수정 오류",
-						"_vMessage":'선택한 시간구간이\n현제 운송장의 시간구간과 동일합니다.'
-					});
-					return false;
-				}
-				else {
-
-					// 시간 변경을 위한 송장번호와 타임 배달, 집하 구분코드가 전부 있으면 변경
-					if(!smutil.isEmpty(page.changeTimeInvNo)
-							&& !smutil.isEmpty(page.changeTimeSctCd)){
-
-						page.apiParamInit();		// 파라메터 전역변수 초기화
-						page.apiParam.param.baseUrl = "smapis/cldl/areaTmslRgst";			// api no
-						page.apiParam.param.callback = "page.areaTmslRgstCallback";		// callback methode
-						page.apiParam.data = {				// api 통신용 파라메터
-							"parameters" : {
-								"cldl_tmsl_cd" : res.selectedCode,
-								"cldl_sct_cd" : page.changeTimeSctCd,					// 업무구분
-								"inv_no" : page.changeTimeInvNo+""
-							}
-						};
-
-						smutil.loadingOn();				// 로딩바 on
-
-						// 공통 api호출 함수
-						smutil.callApi(page.apiParam);
-					}
-					else{
-						LEMP.Window.alert({
-							"_sTitle":"시간수정 오류",
-							"_vMessage":'시간변경을 위한 필수값이 없습니다.'
-						});
-
-						return false;
-					}
-				}
-			}
-
-		},
-
-		// 시간변경 api 콜백
-		areaTmslRgstCallback : function(result){
-			try{
-				// api 전송 성공
-				if(smutil.apiResValidChk(result) && result.code == "0000"){
-
-					LEMP.Window.toast({
-						"_sMessage" : "시간변경 성공",
-						"_sDuration" : "short"
-					});
-
-					page.listReLoad();					// 리스트 제조회
-				}
-			}
-			catch(e){}
-			finally{
-				smutil.loadingOff();			// 로딩바 닫기
-				page.apiParamInit();			// 파라메터 전역변수 초기화
-			}
-
-		},
-		// 시간변경 api 호출 end
-		//##########################################################################
-
-
-
 
 		// 현재 활성화 시간구간코드 리턴
 		returnTimeCd : function(){

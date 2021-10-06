@@ -1966,9 +1966,9 @@ var page = {
 			var acpt_sct_cd = $('#insujaCode').val();			// 인수자 코드
 			var acpr_nm = $('#insujaTxt').val();				// 인수자명
 			
-			if(dlvyCompl.area_sct_cd == 'N'){
-				cldl_tmsl_cd = page.returnTimeCd();
-			}
+//			if(dlvyCompl.area_sct_cd == 'N'){
+//				cldl_tmsl_cd = page.returnTimeCd();
+//			}
 			
 			inv_no = inv_no+"";
 			// 중복 스캔 방지
@@ -1986,7 +1986,7 @@ var page = {
 			}
 
 
-			if(smutil.isEmpty(cldl_tmsl_cd) && dlvyCompl.area_sct_cd == 'N'){
+			/*if(smutil.isEmpty(cldl_tmsl_cd) && dlvyCompl.area_sct_cd == 'N'){
 				LEMP.Window.alert({
 					"_sTitle":"스캔오류",
 					"_vMessage":"예정시간을 선택해 주세요."
@@ -1994,7 +1994,7 @@ var page = {
 
 				scanCallYn = "N";
 			}
-			else if(smutil.isEmpty(inv_no)){
+			else*/ if(smutil.isEmpty(inv_no)){
 				LEMP.Window.alert({
 					"_sTitle":"스캔오류",
 					"_vMessage":"송장번호가 없습니다."

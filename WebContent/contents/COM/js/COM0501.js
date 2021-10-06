@@ -25,7 +25,7 @@ var page = {
 
 			if(!smutil.isEmpty(selectedCode)){
 				LEMP.Window.close({
-					"_sCallback" : "page.como0501Callback",
+					"_sCallback" : "page.com0501Callback",
 				 	"_oMessage": {"selectedCode" : selectedCode}
 				});
 			}
