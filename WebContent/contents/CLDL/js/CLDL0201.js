@@ -1358,7 +1358,7 @@ var page = {
 					//오름차순 정렬
 					data.list.sort(function(a, b) {
 						if(b.mbl_area == "기타"){
-							return -1;
+							return 1;
 						}
 						return 0;
 					});

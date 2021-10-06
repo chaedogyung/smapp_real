@@ -534,9 +534,16 @@ var page = {
 				//현제 어느 탭에 있는지 상태체크
 				var cldl_sct_cd = "D";						// 업무구분
 				var cldl_tmsl_cd = "";						// 예정시간선택
+				var mbl_dlv_area = "";						// 선택된 구역
+				var max_nm = "";							// 일괄전송을 위한 max 시간 값
 
 				if(dlvyCompl.area_sct_cd == 'N'){
 					cldl_tmsl_cd = _this.returnTimeCd();
+					mbl_dlv_area = "";
+				}else{
+					cldl_tmsl_cd = "";
+					max_nm = $("li[name='timeLstLi'].on").data('maxNm');
+					mbl_dlv_area = _this.returnAreaCd();
 				}
 
 				if(smutil.isEmpty(cldl_tmsl_cd) && dlvyCompl.area_sct_cd == 'N'){
@@ -556,6 +563,8 @@ var page = {
 						"param" : {
 							"cldl_sct_cd" : cldl_sct_cd,
 							"cldl_tmsl_cd" : cldl_tmsl_cd,
+							"mbl_dlv_area" : mbl_dlv_area,
+							"max_nm" : max_nm,
 							"menu_id" : "CLDL0401"
 						}
 					},
@@ -1091,7 +1100,7 @@ var page = {
 					//오름차순 정렬
 					data.list.sort(function(a, b) {
 						if(b.mbl_area == "기타"){
-							return -1;
+							return 1;
 						}
 						
 						return 0;
@@ -2670,12 +2679,14 @@ var page = {
 			var base_ymd = $('#cldlBtnCal').text();			// 기준일자
 			var acpt_sct_cd = $('#insujaCode').val();		// 인수자 코드
 			var acpr_nm = $('#insujaTxt').val();			// 인수자명
+			var max_nm = "";								//일괄전송을 위한 max 시간 값
 
 			if(dlvyCompl.area_sct_cd == 'N'){
 				cldl_tmsl_cd = page.returnTimeCd();
 				mbl_dlv_area = "";
 			}else{
 				cldl_tmsl_cd = "";
+				max_nm = $("li[name='timeLstLi'].on").data('maxNm');
 				mbl_dlv_area = page.mbl_dlv_area;
 			}
 			
@@ -2740,7 +2751,6 @@ var page = {
 				}
 			});
 
-
 			_this.apiParamInit();		// 파라메터 전역변수 초기화
 			_this.apiParam.param.baseUrl = "smapis/cldl/dlvCmptScanTrsm";		// api no
 			_this.apiParam.param.callback = "page.cmptTrsmCallback";			// callback methode
@@ -2750,6 +2760,7 @@ var page = {
 						"cldl_sct_cd" : cldl_sct_cd, 		// 집하 / 배달 업무 구분코드
 						"cldl_tmsl_cd" : cldl_tmsl_cd, 		// 예정시간 구분코드
 						"mbl_area" : mbl_dlv_area,			// 선택된 구역
+						"max_nm" : max_nm,					// 일괄전송을 위한 max 시간값 
 						"acpt_sct_cd" : acpt_sct_cd, 		// 인수자 구분코드
 						"acpr_nm" : acpr_nm,				// 인수자 명
 						"param_list" : param_list			// 전송할 송장정보 {송장번호 : 스캔여부}

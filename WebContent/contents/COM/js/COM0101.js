@@ -120,13 +120,15 @@ var page={
 											"base_ymd" : base_ymd,				// 기준일자
 											"cldl_sct_cd" : data.cldl_sct_cd, 		// 집하 / 배달 업무 구분코드
 											"cldl_tmsl_cd" : data.cldl_tmsl_cd, 		// 예정시간 구분코드
+											"mbl_area" : data.mbl_dlv_area,			// 설정된 구역
+											"max_nm" : data.max_nm,						// 일괄전송을 위한 max 시간 값
 											"acpt_sct_cd" : data.acpt_sct_cd, 		// 인수자 구분코드
 											"acpr_nm" : data.acpr_nm,				// 인수자 명
 											"param_list" : param_list			// 전송할 송장정보 {송장번호 : 스캔여부}
 										}
 								};
 								smutil.loadingOn();
-								
+
 								// 공통 api호출 함수
 								smutil.callApi(page.apiParam);
 							}
