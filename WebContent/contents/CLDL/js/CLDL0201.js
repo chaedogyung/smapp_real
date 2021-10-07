@@ -1546,7 +1546,7 @@ var page = {
 				if(dlvyCompl.area_sct_cd == 'N'){
 	                $(".chk").hide();
 				}else{
-					$$(".chk").show();
+					$(".chk").show();
 				}
 				smutil.loadingOff();			// 로딩바 닫기
 			}

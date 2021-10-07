@@ -539,6 +539,7 @@ var page = {
 
 				if(dlvyCompl.area_sct_cd == 'N'){
 					cldl_tmsl_cd = _this.returnTimeCd();
+					max_nm = "";
 					mbl_dlv_area = "";
 				}else{
 					cldl_tmsl_cd = "";
@@ -1205,8 +1206,8 @@ var page = {
 					_.forEach(timeLstLi, function(obj, key) {
 						$(obj).addClass('on');
 
-						// 선택한 시간구간 등록
-						page.selectedSchTime = $(obj).data('timeLi')+"";
+						// 선택한 구역 등록
+						page.mbl_dlv_area = $(obj).data('timeLi')+"";
 						// 한번만 셋팅하고 바로 루프 나감
 						return false;
 					});
@@ -1219,7 +1220,7 @@ var page = {
 				page.autoCmptList();		// 페이지 리스트 조회
 			}
 		},
-		// ################### 시간대별 조회건수 조회 end
+		// ################### 구역별 조회건수 조회 end
 
 		// ################### 시간대별 조회건수 조회 start
 		cmptTmList : function(){
@@ -2121,9 +2122,11 @@ var page = {
 						
 						if(dlvyCompl.area_sct_cd == 'N'){
 							cldl_tmsl_cd = page.returnTimeCd();
+							max_nm = "";
 							mbl_dlv_area = "";
 						}else{
 							cldl_tmsl_cd = "";
+							max_nm = $("li[name='timeLstLi'].on").data('maxNm');
 							mbl_dlv_area = page.mbl_dlv_area;
 						}
 						var liLst = $(".li.list")
@@ -2690,6 +2693,7 @@ var page = {
 
 			if(dlvyCompl.area_sct_cd == 'N'){
 				cldl_tmsl_cd = page.returnTimeCd();
+				max_nm = "";
 				mbl_dlv_area = "";
 			}else{
 				cldl_tmsl_cd = "";
