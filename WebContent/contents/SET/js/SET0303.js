@@ -28,33 +28,35 @@ var page = {
 		$(function(){
 			getParam = LEMP.Storage.get({ "_sKey" : "autoMenual"});
 			if(getParam){
-				$('input[name="area_sct_cd"]').each(function() {
-					if($(this).val() == getParam.area_sct_cd){
-						$(this).prop('checked', true);
-	                }else{
-	                	$(this).prop('checked', false);
-	                }
+				if(!_.isUndefined(getParam.area_sct_cd)){
+					$('input[name="area_sct_cd"]').each(function() {
+						if($(this).val() == getParam.area_sct_cd){
+							$(this).prop('checked', true);
+		                }else{
+		                	$(this).prop('checked', false);
+		                }
+					});
+				}
 
+				if(!_.isUndefined(getParam.area_sct_cd2)){
+					$('input[name="area_sct_cd2"]').each(function() {
+						if($(this).val() == getParam.area_sct_cd2){
+							$(this).prop('checked', true);
+						}else{
+							$(this).prop('checked', false);
+						}
+					});
+				}
 
-
-				});
-
-				$('input[name="area_sct_cd2"]').each(function() {
-					if($(this).val() == getParam.area_sct_cd2){
-						$(this).prop('checked', true);
-					}else{
-						$(this).prop('checked', false);
-					}
-				});
-
-
-				$('input[name="area_sct_cd3"]').each(function() {
-					if($(this).val() == getParam.area_sct_cd3){
-						$(this).prop('checked', true);
-					}else{
-						$(this).prop('checked', false);
-					}
-				});
+				if(!_.isUndefined(getParam.area_sct_cd3)){
+					$('input[name="area_sct_cd3"]').each(function() {
+						if($(this).val() == getParam.area_sct_cd3){
+							$(this).prop('checked', true);
+						}else{
+							$(this).prop('checked', false);
+						}
+					});
+				}
 			}
 
             // push 음성

@@ -198,6 +198,8 @@ var page = {
 
 			$(function() {
 				var setPopCheck = LEMP.Storage.get({ "_sKey" : "setPopCheck"});
+				
+				//SET0303 설정을 안한경우
 				if(_.isUndefined(setPopCheck)){
 					LEMP.Storage.set({
 						 "_sKey" : "autoMenual",
@@ -207,9 +209,11 @@ var page = {
 							 area_sct_cd3 : "N"
 						 } 
 					});
+					
 					LEMP.Storage.set({
 						"_sKey" : "setPopCheck", "_vValue" : "Y"
 					});
+					
 					LEMP.Properties.set({
 						"_sKey"   : "push_speak_yn",
                         "_vValue" : "N"
@@ -219,6 +223,36 @@ var page = {
 					LEMP.Window.open({
 						"_sPagePath" : popUrl,
 					});
+					
+				}else{		//autoMenual 각 설정 체크
+					var autoMenual = LEMP.Storage.get({ "_sKey": "autoMenual"});
+					var isSpeak = LEMP.Properties.get({"_sKey" : "push_speak_yn"});
+					
+					if(_.isUndefined(autoMenual) ||
+							_.isUndefined(autoMenual.area_sct_cd) ||
+							_.isUndefined(autoMenual.area_sct_cd2) ||
+							_.isUndefined(autoMenual.area_sct_cd3) ||
+							_.isUndefined(isSpeak)){
+						LEMP.Storage.set({
+							 "_sKey" : "autoMenual",
+							 "_vValue" : {
+								 area_sct_cd : smutil.nullToValue(autoMenual.area_sct_cd,"N"),
+								 area_sct_cd2 : smutil.nullToValue(autoMenual.area_sct_cd2,"M"),
+								 area_sct_cd3 : smutil.nullToValue(autoMenual.area_sct_cd3,"N")
+							 } 
+						});
+						
+						// push 음성
+			            LEMP.Properties.set({
+			            	"_sKey"   : "push_speak_yn",
+			            	"_vValue" :  smutil.nullToValue(isSpeak,"N")
+			            });
+						
+						var popUrl = smutil.getMenuProp('SET.SET0303', 'url');
+						LEMP.Window.open({
+							"_sPagePath" : popUrl,
+						});
+					}
 				}
 			});
 
