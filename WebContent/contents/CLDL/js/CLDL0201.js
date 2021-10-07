@@ -1555,6 +1555,7 @@ var page = {
 				return false;
 			}
 
+			$("#checkall").prop("checked", false);
 			smutil.loadingOn();				// 로딩바 시작
 			page.dprtCnt();					// 상단 카운트 조회
 		},

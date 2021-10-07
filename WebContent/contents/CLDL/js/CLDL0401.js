@@ -1507,6 +1507,7 @@ var page = {
 				return false;
 			}
 			
+			$("#checkall").prop("checked", false);
 //			var _this = this;
 			smutil.loadingOn();				// 로딩바 시작
 			
