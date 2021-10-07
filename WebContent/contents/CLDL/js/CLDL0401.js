@@ -1099,6 +1099,10 @@ var page = {
 					
 					//오름차순 정렬
 					data.list.sort(function(a, b) {
+						if(a.mbl_area == "기타"){
+							return -1;
+						}
+						
 						if(b.mbl_area == "기타"){
 							return 1;
 						}
@@ -1976,9 +1980,9 @@ var page = {
 			var acpt_sct_cd = $('#insujaCode').val();			// 인수자 코드
 			var acpr_nm = $('#insujaTxt').val();				// 인수자명
 			
-//			if(dlvyCompl.area_sct_cd == 'N'){
-//				cldl_tmsl_cd = page.returnTimeCd();
-//			}
+			if(dlvyCompl.area_sct_cd == 'N'){
+				cldl_tmsl_cd = page.returnTimeCd();
+			}
 			
 			inv_no = inv_no+"";
 			// 중복 스캔 방지
@@ -1996,7 +2000,7 @@ var page = {
 			}
 
 
-			/*if(smutil.isEmpty(cldl_tmsl_cd) && dlvyCompl.area_sct_cd == 'N'){
+			if(smutil.isEmpty(cldl_tmsl_cd) && dlvyCompl.area_sct_cd == 'N'){
 				LEMP.Window.alert({
 					"_sTitle":"스캔오류",
 					"_vMessage":"예정시간을 선택해 주세요."
@@ -2004,7 +2008,7 @@ var page = {
 
 				scanCallYn = "N";
 			}
-			else*/ if(smutil.isEmpty(inv_no)){
+			else if(smutil.isEmpty(inv_no)){
 				LEMP.Window.alert({
 					"_sTitle":"스캔오류",
 					"_vMessage":"송장번호가 없습니다."
@@ -2109,7 +2113,8 @@ var page = {
 					$("#chngTme").hide();
 					var cldl_tmsl_cd = "";		//시간코드
 					var mbl_dlv_area = "";		//선택된 구역
-					
+					var max_nm = "";			//일괄전송을 위한 max 시간 값
+
 					var baseUrl = "smapis/cldl/dlvCmptScanTrsm"
 					if(!smutil.isEmpty(baseUrl)){
 						smutil.loadingOn();
@@ -2142,8 +2147,9 @@ var page = {
 									"cldl_sct_cd" : cldl_sct_cd, 		// 집하 / 배달 업무 구분코드
 									"cldl_tmsl_cd" : cldl_tmsl_cd, 		// 예정시간 구분코드
 									"mbl_area" : mbl_dlv_area,			// 선택된 구역
+									"max_nm" : max_nm,					// 일괄전송을 위한 max 시간값 
 									"acpt_sct_cd" :  $('#insujaCode').val(), 		// 인수자 구분코드
-									"acpr_nm" : acpr_nm,				// 인수자 명
+									"acpr_nm" : acpr_nm,	
 									"param_list" : param_list			// 전송할 송장정보 {송장번호 : 스캔여부}
 								}
 						};

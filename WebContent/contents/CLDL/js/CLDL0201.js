@@ -1000,7 +1000,7 @@ var page = {
 
 				$("#setDlvyCom1").text('구역');
                 $("#setDlvyCom1").attr('class', 'red badge option outline');
-                 $(".chkBox").show();
+                $(".chkBox").show();
 			}
 		},
 
@@ -1357,9 +1357,14 @@ var page = {
 					
 					//오름차순 정렬
 					data.list.sort(function(a, b) {
+						if(a.mbl_area == "기타"){
+							return -1;
+						}
+						
 						if(b.mbl_area == "기타"){
 							return 1;
 						}
+						
 						return 0;
 					});
 					// 핸들바 템플릿 가져오기
@@ -1538,6 +1543,11 @@ var page = {
 			}
 			catch(e){}
 			finally{
+				if(dlvyCompl.area_sct_cd == 'N'){
+	                $(".chk").hide();
+				}else{
+					$$(".chk").show();
+				}
 				smutil.loadingOff();			// 로딩바 닫기
 			}
 
