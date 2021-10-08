@@ -182,32 +182,34 @@ var page = {
 				var scanLstCnt = $('#scanLstCnt');
 				var scancnt = 0;
 				
-				if($(this).is(':checked')){
-					if(smutil.isEmpty(scanLstCnt.text())){
-						scancnt = 1;
+				if($(this).parents(".baedalBox").is(".off")){
+					if($(this).is(':checked')){
+						if(smutil.isEmpty(scanLstCnt.text())){
+							scancnt = 1;
+						}
+						else {
+							scancnt = Number(scanLstCnt.text()) + 1;
+						}
+					}else{
+						if(smutil.isEmpty(scanLstCnt.text())){
+							scancnt = 0;
+						}
+						else {
+							scancnt = Number(scanLstCnt.text()) - 1;
+						}
 					}
-					else {
-						scancnt = Number(scanLstCnt.text()) + 1;
+					
+					// 스캔건수 표시
+					if(!smutil.isEmpty(scancnt)
+						&& scancnt > 0){
+						// 버튼위에 스캔건수 증가
+						scanLstCnt.text(scancnt+"");
+						scanLstCnt.show();
 					}
-				}else{
-					if(smutil.isEmpty(scanLstCnt.text())){
-						scancnt = 0;
+					else{	// 스캔건수 숨김
+						scanLstCnt.text('0');
+						scanLstCnt.hide();
 					}
-					else {
-						scancnt = Number(scanLstCnt.text()) - 1;
-					}
-				}
-				
-				// 스캔건수 표시
-				if(!smutil.isEmpty(scancnt)
-					&& scancnt > 0){
-					// 버튼위에 스캔건수 증가
-					scanLstCnt.text(scancnt+"");
-					scanLstCnt.show();
-				}
-				else{	// 스캔건수 숨김
-					scanLstCnt.text('0');
-					scanLstCnt.hide();
 				}
 			});
 
@@ -643,7 +645,6 @@ var page = {
 				var html = "";
 				var span = "";
 
-				console.log(this);
 				if(!smutil.isEmpty(this.acper_nm)){
 					html = html + '<li class="name">' + this.acper_nm + '</li>';
 				}
@@ -1983,6 +1984,8 @@ var page = {
 			
 			if(dlvyCompl.area_sct_cd == 'N'){
 				cldl_tmsl_cd = page.returnTimeCd();
+			}else{
+				cldl_tmsl_cd = "";
 			}
 			
 			inv_no = inv_no+"";
@@ -2178,7 +2181,7 @@ var page = {
 					if(liKey.length > 0){
 
 						// 스켄하지 않은건이면 하단 카운트 증가(상단카운트는 증가할 필요 없음)
-						if(!page.chkScanYn(inv_no)){
+						if(!page.chkScanYn(inv_no) && !$('#'+inv_no+'_chk').is(':checked')){
 
 							if(smutil.isEmpty(scanLstCnt.text())){
 								scancnt = 1;
