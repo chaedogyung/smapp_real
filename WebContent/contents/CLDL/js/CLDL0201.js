@@ -408,7 +408,17 @@ var page = {
 				var cldl_sct_cd = page.returnTabSctCd();		// 업무구분 (전체 : A, 집하 : P, 배달 : D)
 				var base_ymd = $('#cldlBtnCal').text();
 				var dprtTrsmCnt = Number($('#'+cldl_sct_cd+'_cldl0201Cnt').text());
+				
+				// nodata 표시인경우
+                if(dprtTrsmCnt == 0 || smutil.isEmpty(dprtTrsmCnt)){
+                    LEMP.Window.alert({
+                        "_sTitle":"집배달 출발 확정 오류",
+                        "_vMessage":"전송할 데이터가 없습니다.",
+                    });
 
+                    return false;
+                }
+                
 				if(smutil.isEmpty(base_ymd)){
 					LEMP.Window.alert({
 						"_sTitle":"집배달 출발 전송 오류",
