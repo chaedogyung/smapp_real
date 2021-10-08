@@ -377,23 +377,30 @@ var page = {
 
 			// 시간수정 팝업호출
 			$(document).on('click', '.btn.bdM.blue4.bdClock.mgl1', function(e){
-				var inv_no = $(this).data('invNo')+"";
-				var cldl_sct_cd = $(this).data('sctCd')+"";
-				page.changeTimeInvNo = inv_no;					// 시간수정을 하기위한 송장번호 전역변수로 셋팅
-				page.changeTimeSctCd = cldl_sct_cd;				// 시간수정버튼을 클릭한 송장번호의 배달, 집하 구분코드 전역변수로 셋팅
-				
-				// 시간수정 팝업 호출
-				var popUrl = smutil.getMenuProp('COM.COM0501', 'url');
-
-				LEMP.Window.open({
-					"_sPagePath":popUrl
-					/*, "_oMessage" : {
-						"param" : {
-							"inv_no" : inv_no+"",
-							"menuId" : "CLDL0201"
-						}
-					}*/
-				});
+				if(page.mbl_dlv_area != '토요휴무'){
+					var inv_no = $(this).data('invNo')+"";
+					var cldl_sct_cd = $(this).data('sctCd')+"";
+					page.changeTimeInvNo = inv_no;					// 시간수정을 하기위한 송장번호 전역변수로 셋팅
+					page.changeTimeSctCd = cldl_sct_cd;				// 시간수정버튼을 클릭한 송장번호의 배달, 집하 구분코드 전역변수로 셋팅
+					
+					// 시간수정 팝업 호출
+					var popUrl = smutil.getMenuProp('COM.COM0501', 'url');
+	
+					LEMP.Window.open({
+						"_sPagePath":popUrl
+						/*, "_oMessage" : {
+							"param" : {
+								"inv_no" : inv_no+"",
+								"menuId" : "CLDL0201"
+							}
+						}*/
+					});
+				}else{
+					LEMP.Window.alert({
+						"_sTitle":"시간 변경오류",
+						"_vMessage":"토요휴무는 시간변경이 불가능합니다.",
+					});
+				}
 
 			});
 
@@ -916,6 +923,15 @@ var page = {
 						"_vMessage":"변경할 데이터가 없습니다.\n체크박스를 선택해주세요.",
 					});
 
+					return false;
+				}
+				
+				if(page.mbl_dlv_area == '토요휴무'){
+					LEMP.Window.alert({
+						"_sTitle":"시간 변경오류",
+						"_vMessage":"토요휴무는 시간변경이 불가능합니다.",
+					});
+					
 					return false;
 				}
 				
