@@ -26,7 +26,7 @@ var page = {
 	initInterface : function(){
 		
 		$(function(){
-			getParam = LEMP.Storage.get({ "_sKey" : "autoMenual"});
+			getParam = LEMP.Properties.get({ "_sKey" : "autoMenual"});
 			if(getParam){
 				if(!_.isUndefined(getParam.area_sct_cd)){
 					$('input[name="area_sct_cd"]').each(function() {
@@ -86,9 +86,9 @@ var page = {
 					area_sct_cd3 : $("input[name='area_sct_cd3']:checked").val()
 				};
 	
-				LEMP.Storage.set({ "_sKey" : "autoMenual", "_vValue" : setParameter });
+				LEMP.Properties.set({ "_sKey" : "autoMenual", "_vValue" : setParameter });
 				//메인 팝업 체크
-				LEMP.Storage.set({ "_sKey" : "setPopCheck", "_vValue" : "Y"});
+				LEMP.Properties.set({ "_sKey" : "setPopCheck", "_vValue" : "Y"});
 	
 //	            // push 음성
 //	            LEMP.Properties.set({ "_sKey"   : "push_speak_yn"
@@ -151,9 +151,9 @@ var page = {
 						area_sct_cd3 : $("input[name='area_sct_cd3']:checked").val()
 					};
 		
-					LEMP.Storage.set({ "_sKey" : "autoMenual", "_vValue" : setParameter });
+					LEMP.Properties.set({ "_sKey" : "autoMenual", "_vValue" : setParameter });
 					//메인 팝업 체크
-					LEMP.Storage.set({ "_sKey" : "setPopCheck", "_vValue" : "Y"});
+					LEMP.Properties.set({ "_sKey" : "setPopCheck", "_vValue" : "Y"});
 		
 		            // push 음성
 //		            LEMP.Properties.set({ "_sKey"   : "push_speak_yn"

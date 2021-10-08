@@ -26,7 +26,7 @@ var page = {
 			curDate = curDate.getFullYear() + "." + ("0"+(curDate.getMonth()+1)).slice(-2) + "." + ("0"+curDate.getDate()).slice(-2);
 			$('#cldlBtnCal').text(curDate);
 
-			dlvyCompl = LEMP.Storage.get({
+			dlvyCompl = LEMP.Properties.get({
 				"_sKey" : "autoMenual"
 			});
 			
@@ -134,7 +134,7 @@ var page = {
 //				var cldl_tmsl_cd = $('#cldl_tmsl_cd').val();		// 예정시간선택
 				var cldl_tmsl_cd = "";
 				var tmptime = page.fnGetToDayCd();
-				var dlvyCompl = LEMP.Storage.get({ "_sKey" : "autoMenual"});
+				var dlvyCompl = LEMP.Properties.get({ "_sKey" : "autoMenual"});
 				if(dlvyCompl.area_sct_cd == "Y"){
 					//TO-DO 현재시간 기준 코드 값 리턴 단, 토요일일경우 토요휴무 신청
 					if($('#cldl_set_cd').val() == "" && $('#cldl_set_cd').val() == null){
@@ -904,7 +904,7 @@ var page = {
 			_this.plnFltrListSerch();			// 필터 리스트 조회
 			
 			$(function(){
-				var dlvyCompl = LEMP.Storage.get({ "_sKey" : "autoMenual"});
+				var dlvyCompl = LEMP.Properties.get({ "_sKey" : "autoMenual"});
 
 				if (!_.isUndefined(dlvyCompl)) {
                     // 구역별 시간별

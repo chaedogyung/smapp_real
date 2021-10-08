@@ -76,7 +76,7 @@ var page={
 				"_sText":"확인",
 				"_fCallback":function(){
 					if(page.param.menu_id == "CLDL0401"){
-						var dlvyCompl = LEMP.Storage.get({ "_sKey" : "autoMenual"});
+						var dlvyCompl = LEMP.Properties.get({ "_sKey" : "autoMenual"});
 						if(dlvyCompl.area_sct_cd2 == "A"){
 							$("#span_cldl_sct_cd").hide();
 							$("#chngTme").hide();

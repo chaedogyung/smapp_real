@@ -79,7 +79,7 @@ var page = {
         });
 
         $(function(){
-			var dlvyCompl = LEMP.Storage.get({ "_sKey" : "autoMenual"});
+			var dlvyCompl = LEMP.Properties.get({ "_sKey" : "autoMenual"});
 			if(dlvyCompl.area_sct_cd3 == "Y"){
 				$('#autoPic').text("자동");
                 $("#autoPic").attr('class', 'blue badge option outline');
@@ -302,7 +302,7 @@ var page = {
             // 성공 TTS 호출
             smutil.callTTS("1", "0", null, page.isBackground);
             
-            var dlvyCompl = LEMP.Storage.get({ "_sKey" : "autoMenual"});
+            var dlvyCompl = LEMP.Properties.get({ "_sKey" : "autoMenual"});
     		if(dlvyCompl.area_sct_cd3 == "Y"){
     			var date = new Date();
             var curTime = date.LPToFormatDate('yyyymmddHHnnss');

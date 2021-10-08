@@ -31,7 +31,7 @@ var page = {
 			curDate = curDate.getFullYear() + "." + ("0"+(curDate.getMonth()+1)).slice(-2) + "." + ("0"+curDate.getDate()).slice(-2);
 			$('#cldlBtnCal').text(curDate);
 			
-			dlvyCompl = LEMP.Storage.get({
+			dlvyCompl = LEMP.Properties.get({
 				"_sKey" : "autoMenual"
 			});
 
@@ -981,7 +981,7 @@ var page = {
 			
 			//설정여부에 따라 시간 선택 여부 노출
 			/*$(function(){
-				var dlvyCompl = LEMP.Storage.get({ "_sKey" : "autoMenual"});
+				var dlvyCompl = LEMP.Properties.get({ "_sKey" : "autoMenual"});
 				if(dlvyCompl.area_sct_cd == "Y"){
 					$("#span_cldl_sct_cd").hide();
 					$("#chngTme").hide();

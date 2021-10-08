@@ -51,7 +51,7 @@ var page = {
 			}
 
 
-			dlvyCompl = LEMP.Storage.get({
+			dlvyCompl = LEMP.Properties.get({
 				"_sKey" : "autoMenual"
 			});
 			
@@ -931,7 +931,7 @@ var page = {
 
 
 			$(function() {
-				var dlvyCompl = LEMP.Storage.get({ "_sKey" : "autoMenual"});
+				var dlvyCompl = LEMP.Properties.get({ "_sKey" : "autoMenual"});
 				if (!_.isUndefined(dlvyCompl)) {
                     // 구역별 시간별
 

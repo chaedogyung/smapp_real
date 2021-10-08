@@ -197,11 +197,11 @@ var page = {
 			})
 
 			$(function() {
-				var setPopCheck = LEMP.Storage.get({ "_sKey" : "setPopCheck"});
+				var setPopCheck = LEMP.Properties.get({ "_sKey" : "setPopCheck"});
 				
 				//SET0303 설정을 안한경우
 				if(_.isUndefined(setPopCheck)){
-					LEMP.Storage.set({
+					LEMP.Properties.set({
 						 "_sKey" : "autoMenual",
 						 "_vValue" : {
 							 area_sct_cd : "N",
@@ -210,7 +210,7 @@ var page = {
 						 } 
 					});
 					
-					LEMP.Storage.set({
+					LEMP.Properties.set({
 						"_sKey" : "setPopCheck", "_vValue" : "Y"
 					});
 					
@@ -225,7 +225,7 @@ var page = {
 //					});
 					
 				}else{		//autoMenual 각 설정 체크
-					var autoMenual = LEMP.Storage.get({ "_sKey": "autoMenual"});
+					var autoMenual = LEMP.Properties.get({ "_sKey": "autoMenual"});
 //					var isSpeak = LEMP.Properties.get({"_sKey" : "push_speak_yn"});
 					
 					if(_.isUndefined(autoMenual) ||
@@ -233,7 +233,7 @@ var page = {
 							_.isUndefined(autoMenual.area_sct_cd2) ||
 							_.isUndefined(autoMenual.area_sct_cd3) /*||
 							_.isUndefined(isSpeak)*/){
-						LEMP.Storage.set({
+						LEMP.Properties.set({
 							 "_sKey" : "autoMenual",
 							 "_vValue" : {
 								 area_sct_cd : smutil.nullToValue(autoMenual.area_sct_cd,"N"),
