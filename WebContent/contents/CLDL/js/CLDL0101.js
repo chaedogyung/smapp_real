@@ -135,6 +135,8 @@ var page = {
 				var cldl_tmsl_cd = "";
 				var tmptime = page.fnGetToDayCd();
 				var dlvyCompl = LEMP.Properties.get({ "_sKey" : "autoMenual"});
+				var area_sct_cd = dlvyCompl.area_sct_cd;			//구역(Y) 시간(N) 구분
+				
 				if(dlvyCompl.area_sct_cd == "Y"){
 					//TO-DO 현재시간 기준 코드 값 리턴 단, 토요일일경우 토요휴무 신청
 					if($('#cldl_set_cd').val() == "" && $('#cldl_set_cd').val() == null){
@@ -188,6 +190,7 @@ var page = {
 							"cldl_sct_cd" : cldl_sct_cd,
 							"cldl_tmsl_cd" : cldl_tmsl_cd,
 							"dsgt_dd_cldl_ymd": dsgt_dd_cldl_ymd,
+							"area_sct_cd": area_sct_cd,
 							"menu_id" : "CLDL0101"
 						}
 					},
@@ -1215,6 +1218,7 @@ var page = {
 			var cldl_tmsl_cd = "";		// 예정시간선택
 			var dsgt_dd_cldl_ymd = $('#dsgt_dd_cldl_ymd').val();				// 지정일집하/배송 일자
 			var inv_no = result.barcode;
+			var area_sct_cd = dlvyCompl.area_sct_cd;			//구역(Y) 시간(N) 기준 
 			inv_no = inv_no+"";
 
 			// 전체 텝에서 스캔한 경우가 아니면 업무구분을 텝에 맞도록 셋팅
@@ -1314,7 +1318,8 @@ var page = {
 					"scan_dtm":scan_dtm,
 					"cldl_tmsl_cd":cldl_tmsl_cd,
 					"cldl_sct_cd":cldl_sct_cd,
-					"dsgt_dd_cldl_ymd":dsgt_dd_cldl_ymd
+					"dsgt_dd_cldl_ymd":dsgt_dd_cldl_ymd,
+					"area_sct_cd":area_sct_cd
 				}
 			};			// api 통신용 파라메터
 
