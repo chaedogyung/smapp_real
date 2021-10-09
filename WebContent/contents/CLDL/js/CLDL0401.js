@@ -2252,7 +2252,7 @@ var page = {
 //						}
 //
 //						timeLiCdCnt.text(scancnt+"");
-						page.listReLoad();
+//						page.listReLoad();
 					}
 
 					// 카운트가 500이 넘어가면 1로 초기화
@@ -2275,6 +2275,9 @@ var page = {
 					// 성공 tts 호출
 					smutil.callTTS("1", "2", scanCnt, result.isBackground);
 
+					if(liKey.length == 0){
+						page.listReLoad();
+					}
 //					if(dlvyCompl.area_sct_cd2 == "A"){
 //						$("#span_cldl_sct_cd").hide();
 //						$("#chngTme").hide();
