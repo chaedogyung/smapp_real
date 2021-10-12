@@ -541,7 +541,11 @@ var page = {
 					}
 
 				}
-
+				
+				if(dlvyCompl.area_sct_cd == 'Y' && !smutil.isEmpty(this.cldl_tmsl_nm)){
+					html = html + '<li><span style="padding: 0px 5px; font-size: 10px; color: #fff; border: 1px solid #015182; background-color: #015182; border-radius: 20px;">' + (this.cldl_tmsl_nm).replace('시', '') + '</span></li>'
+				}
+				
 				// 고객요청 인수자 정보 셋팅
 				if(!smutil.isEmpty(this.req_acpr_nm)){
 					if(this.req_acpt_rgst_sct_cd == "01"){		// 고객요청
@@ -551,15 +555,8 @@ var page = {
 						html = html + '<li id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tRed">' + this.req_acpr_nm + '</span></li>';
 					}
 				}
-				
-				if(dlvyCompl.area_sct_cd == 'Y' && !smutil.isEmpty(this.cldl_tmsl_nm)){
-					span = '<span style="float: left; padding: 0px 5px; margin-left: -5px; font-size: 10px; color: #fff; border: 1px solid #015182; background-color: #015182; border-radius: 20px;">' + (this.cldl_tmsl_nm).replace('시', '') + '</span>'
-				}
- 
 				if(!smutil.isEmpty(html)){
-					html = '<div class="infoList"><ul>' + html + '</ul>' + span + '</div>';
-				}else if(!smutil.isEmpty(span)){
-					html = '<div class="infoList" style="margin-left: 5px; overflow: visible;">' + span + '</div>';
+					html = '<div class="infoList"><ul>' + html + '</ul></div>';
 				}
 
 
@@ -1018,7 +1015,7 @@ var page = {
 
 				$("#setDlvyCom1").text('시간');
                 $("#setDlvyCom1").attr('class', 'green badge option outline');
-                $(".chkBox").hide();
+                $("#span_check_all").hide();
 			}else{
 				$(".deliveryTy1Cal").css({"margin-top": "300px"});
 				$('#span_cldl_sct_cd').show();
@@ -1026,7 +1023,7 @@ var page = {
 
 				$("#setDlvyCom1").text('구역');
                 $("#setDlvyCom1").attr('class', 'red badge option outline');
-                $(".chkBox").show();
+                $("#span_check_all").show();
 			}
 		},
 
@@ -1569,11 +1566,6 @@ var page = {
 			}
 			catch(e){}
 			finally{
-				if(dlvyCompl.area_sct_cd == 'N'){
-	                $(".chk").hide();
-				}else{
-					$(".chk").show();
-				}
 				smutil.loadingOff();			// 로딩바 닫기
 			}
 

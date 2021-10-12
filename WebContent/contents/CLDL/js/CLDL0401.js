@@ -658,30 +658,38 @@ var page = {
 					html = html + '<li>' + phoneNumber + '</li>';
 				}
 
+				if(dlvyCompl.area_sct_cd == 'Y' && !smutil.isEmpty(this.cldl_tmsl_nm)){
+					html = html + '<li><span style="padding: 0px 5px; font-size: 10px; color: #fff; border: 1px solid #015182; background-color: #015182; border-radius: 20px;">' + (this.cldl_tmsl_nm).replace('시', '') + '</span></li>'
+				}
+
 				// 고객요청 인수자 정보 셋팅
 				if(!smutil.isEmpty(this.req_acpr_nm)){
 					if(this.req_acpt_rgst_sct_cd == "01"){		// 고객요청
-						html = html + '<li style="display: inline-block; position: absolute;" id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tGreenBold">' + this.req_acpr_nm + '</span></li>';
+						html = html + '<li style="display: inline-block;" id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tGreenBold">' + this.req_acpr_nm + '</span></li>';
 					}
 					else if(this.req_acpt_rgst_sct_cd == "02"){		// 기사변경
-						html = html + '<li style="display: inline-block; position: absolute;" id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tRed">' + this.req_acpr_nm + '</span></li>';
+						html = html + '<li style="display: inline-block;" id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tRed">' + this.req_acpr_nm + '</span></li>';
 					}
-				}
-
-				if(dlvyCompl.area_sct_cd == 'Y' && !smutil.isEmpty(this.cldl_tmsl_nm)){
-					span = '<span style="float: left; padding: 0px 5px; margin-left: -5px; font-size: 10px; color: #fff; border: 1px solid #015182; background-color: #015182; border-radius: 20px;">' + (this.cldl_tmsl_nm).replace('시', '') + '</span>'
 				}
 
 				if(!smutil.isEmpty(html)){
-					html = '<div class="infoList"><ul>' + html + '</ul>' + span + '</div>';
-				}else if(!smutil.isEmpty(span)){
-					html = '<div class="infoList" style="margin-left: 5px; overflow: visible;">' + span + '</div>';
+					html = '<div class="infoList"><ul>' + html + '</ul></div>';
 				}
 
 				return new Handlebars.SafeString(html); // mark as already escaped
 			});
 
-
+			// 배달예정 시간 표시
+//			Handlebars.registerHelper('cldlTmslNmTag', function(options) {
+//				var html = "";
+//				
+//				if(dlvyCompl.area_sct_cd == 'Y' && !smutil.isEmpty(this.cldl_tmsl_nm)){
+//					html = '<span style="height: 22px; line-height: 20px; padding: 2px 5px; margin-top: 5px; font-size: 10px; color: #fff; border: 1px solid #015182; background-color: #015182; border-radius: 20px;">' + (this.cldl_tmsl_nm).replace('시', '') + '</span>'
+//				}
+//
+//				return new Handlebars.SafeString(html); // mark as already escaped
+//			});
+			
 			// 스캔한 데이터인지 판단해서 if else 반환
 			Handlebars.registerHelper('chkScanCmptYn', function(options) {
 				var scan_cmpt_yn = this.scan_cmpt_yn;				// 스캔여부
@@ -2112,60 +2120,6 @@ var page = {
 					message = "이미 취소된 송장입니다."
 				}
 				
-				if(dlvyCompl.area_sct_cd2 == "A"){
-					$("#span_cldl_sct_cd").hide();
-					$("#chngTme").hide();
-					var cldl_tmsl_cd = "";		//시간코드
-					var mbl_dlv_area = "";		//선택된 구역
-					var max_nm = "";			//일괄전송을 위한 max 시간 값
-
-					var baseUrl = "smapis/cldl/dlvCmptScanTrsm"
-					if(!smutil.isEmpty(baseUrl)){
-						smutil.loadingOn();
-						
-						if(dlvyCompl.area_sct_cd == 'N'){
-							cldl_tmsl_cd = page.returnTimeCd();
-							max_nm = "";
-							mbl_dlv_area = "";
-						}else{
-							cldl_tmsl_cd = "";
-							max_nm = $("li[name='timeLstLi'].on").data('maxNm');
-							mbl_dlv_area = page.mbl_dlv_area;
-						}
-						var liLst = $(".li.list")
-						var param_list = [];						// 전송할 리스트 배열
-						var invNoObj = {};
-							
-						invNoObj = {"inv_no":inv_no, "scan_yn":"Y"};
-						param_list.push(invNoObj);
-
-						
-						var curDate = new Date();
-						curDate = curDate.getFullYear() + ("0"+(curDate.getMonth()+1)).slice(-2) + ("0"+curDate.getDate()).slice(-2);
-						var base_ymd = smutil.nullToValue($('#cldlBtnCal').text(),curDate);
-						base_ymd = base_ymd.split('.').join('');
-						
-						page.apiParam.param.baseUrl=baseUrl;
-						page.apiParam.param.callback="page.cmptTrsmCallback";
-						page.apiParam.data = {				// api 통신용 파라메터
-								"parameters" : {
-									"base_ymd" : base_ymd,				// 기준일자
-									"cldl_sct_cd" : cldl_sct_cd, 		// 집하 / 배달 업무 구분코드
-									"cldl_tmsl_cd" : cldl_tmsl_cd, 		// 예정시간 구분코드
-									"mbl_area" : mbl_dlv_area,			// 선택된 구역
-									"max_nm" : max_nm,					// 일괄전송을 위한 max 시간값 
-									"acpt_sct_cd" :  $('#insujaCode').val(), 		// 인수자 구분코드
-									"acpr_nm" : acpr_nm,	
-									"param_list" : param_list			// 전송할 송장정보 {송장번호 : 스캔여부}
-								}
-						};
-						smutil.loadingOn();
-						
-						// 공통 api호출 함수
-						smutil.callApi(page.apiParam);
-					}
-				}
-				
 				// 송장번호가 있는경우
 				if(!smutil.isEmpty(inv_no)){
 
@@ -2173,6 +2127,9 @@ var page = {
 						"_sMessage" : message,
 						"_sDuration" : "short"
 					});
+
+					// 성공 tts 호출
+					smutil.callTTS("1", "2", scanCnt, result.isBackground);
 
 					// 리스트에 송장정보가 있는지 체크
 					var liKey = $('#'+inv_no);
@@ -2252,7 +2209,6 @@ var page = {
 //						}
 //
 //						timeLiCdCnt.text(scancnt+"");
-//						page.listReLoad();
 					}
 
 					// 카운트가 500이 넘어가면 1로 초기화
@@ -2271,52 +2227,49 @@ var page = {
 					
 					//TO-DO
 					console.log(data);
-					
-					// 성공 tts 호출
-					smutil.callTTS("1", "2", scanCnt, result.isBackground);
 
+					if(dlvyCompl.area_sct_cd2 == "A"){
+						$("#span_cldl_sct_cd").hide();
+						$("#chngTme").hide();
+						var baseUrl = "smapis/cldl/dlvCmptScanTrsm"
+						if(!smutil.isEmpty(baseUrl)){
+							smutil.loadingOn();
+							
+							var liLst = $(".li.list")
+							var param_list = [];						// 전송할 리스트 배열
+							var invNoObj = {};
+								
+							invNoObj = {"inv_no":inv_no, "scan_yn":"Y"};
+							param_list.push(invNoObj);
+
+							
+							var curDate = new Date();
+							curDate = curDate.getFullYear() + ("0"+(curDate.getMonth()+1)).slice(-2) + ("0"+curDate.getDate()).slice(-2);
+							var base_ymd = smutil.nullToValue($('#cldlBtnCal').text(),curDate);
+							base_ymd = base_ymd.split('.').join('');
+							
+							page.apiParam.param.baseUrl=baseUrl;
+							page.apiParam.param.callback="page.cmptTrsmCallback";
+							page.apiParam.data = {				// api 통신용 파라메터
+									"parameters" : {
+										"base_ymd" : base_ymd,				// 기준일자
+										"cldl_sct_cd" : cldl_sct_cd, 		// 집하 / 배달 업무 구분코드
+										"cldl_tmsl_cd" : page.returnTimeCd(), 		// 예정시간 구분코드
+										"acpt_sct_cd" :  $('#insujaCode').val(), 		// 인수자 구분코드
+										"acpr_nm" : acpr_nm,				// 인수자 명
+										"param_list" : param_list			// 전송할 송장정보 {송장번호 : 스캔여부}
+									}
+							};
+							smutil.loadingOn();
+							
+							// 공통 api호출 함수
+							smutil.callApi(page.apiParam);
+						}
+					}
+					
 					if(liKey.length == 0){
 						page.listReLoad();
 					}
-//					if(dlvyCompl.area_sct_cd2 == "A"){
-//						$("#span_cldl_sct_cd").hide();
-//						$("#chngTme").hide();
-//						var baseUrl = "smapis/cldl/dlvCmptScanTrsm"
-//						if(!smutil.isEmpty(baseUrl)){
-//							smutil.loadingOn();
-//							
-//							var liLst = $(".li.list")
-//							var param_list = [];						// 전송할 리스트 배열
-//							var invNoObj = {};
-//								
-//							invNoObj = {"inv_no":inv_no, "scan_yn":"Y"};
-//							param_list.push(invNoObj);
-//
-//							
-//							var curDate = new Date();
-//							curDate = curDate.getFullYear() + ("0"+(curDate.getMonth()+1)).slice(-2) + ("0"+curDate.getDate()).slice(-2);
-//							var base_ymd = smutil.nullToValue($('#cldlBtnCal').text(),curDate);
-//							base_ymd = base_ymd.split('.').join('');
-//							
-//							page.apiParam.param.baseUrl=baseUrl;
-//							page.apiParam.param.callback="page.cmptTrsmCallback";
-//							page.apiParam.data = {				// api 통신용 파라메터
-//									"parameters" : {
-//										"base_ymd" : base_ymd,				// 기준일자
-//										"cldl_sct_cd" : cldl_sct_cd, 		// 집하 / 배달 업무 구분코드
-//										"cldl_tmsl_cd" : page.returnTimeCd(), 		// 예정시간 구분코드
-//										"acpt_sct_cd" :  $('#insujaCode').val(), 		// 인수자 구분코드
-//										"acpr_nm" : acpr_nm,				// 인수자 명
-//										"param_list" : param_list			// 전송할 송장정보 {송장번호 : 스캔여부}
-//									}
-//							};
-//							smutil.loadingOn();
-//							
-//							// 공통 api호출 함수
-//							smutil.callApi(page.apiParam);
-//						}
-//					}
-					
 				}
 			}
 			else{		// 스캔 실패
