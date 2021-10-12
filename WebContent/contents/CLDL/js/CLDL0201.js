@@ -826,7 +826,7 @@ var page = {
 
 			// 전체 , (집하, 배달) 구분
 			Handlebars.registerHelper('cldlSctCdTabChk', function(options) {
-				if(page.returnTabSctCd() != "A"){	// 전체가 아니면 true
+				if(page.returnTabSctCd() != "A" && dlvyCompl.area_sct_cd != 'Y'){	// 전체가 아니면 true
 					// options.fn == if(true)
 					return options.fn(this)
 				}

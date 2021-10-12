@@ -2161,51 +2161,51 @@ var page = {
 
 					}
 					else {	// 스캔한 정보가 리스트에 없는경우는 li 추가
-//						var data = {"inv_no" : inv_no+"", "cldl_sct_cd" : cldl_sct_cd, "acpr_nm" : acpr_nm};
-//
-//						// 핸들바스 템플릿 가져오기
-//						var source = $("#cldl0401_li_template").html();
-//
-//						// 핸들바 템플릿 컴파일
-//						var template = Handlebars.compile(source);
-//
-//						// 핸들바스 템플릿에 데이터를 바인딩해서 HTML 생성
-//						var liHtml = template(data);
-//
-//						// noList 일경우 li 삭제
-//						if($('.noList').length > 0){
-//							$('.noList').remove();
-//						}
-//
-//						// 생성된 HTML을 DOM에 주입
-//						$('#cldl0401LstUl').prepend(liHtml);
-//
-//
-//						if(smutil.isEmpty(scanLstCnt.text())){
-//							scancnt = 1;
-//						}
-//						else {
-//							scancnt = Number(scanLstCnt.text()) + 1;
-//						}
-//
-//						// 버튼위에 스캔건수 증가
-//						scanLstCnt.show();
-//						scanLstCnt.text(scancnt+"");
-//
-//
-//						// 상단에 time 리스트 카운트 증가
-//						var timeLiCd = page.returnTimeCd();
-//						var timeLiCdCnt = $('#timeCnt_D_'+timeLiCd);
-//						scancnt = 0;
-//
-//						if(smutil.isEmpty(timeLiCdCnt.text())){
-//							scancnt = 1;
-//						}
-//						else {
-//							scancnt = Number(timeLiCdCnt.text()) + 1;
-//						}
-//
-//						timeLiCdCnt.text(scancnt+"");
+						var data = {"inv_no" : inv_no+"", "cldl_sct_cd" : cldl_sct_cd, "acpr_nm" : acpr_nm};
+
+						// 핸들바스 템플릿 가져오기
+						var source = $("#cldl0401_li_template").html();
+
+						// 핸들바 템플릿 컴파일
+						var template = Handlebars.compile(source);
+
+						// 핸들바스 템플릿에 데이터를 바인딩해서 HTML 생성
+						var liHtml = template(data);
+
+						// noList 일경우 li 삭제
+						if($('.noList').length > 0){
+							$('.noList').remove();
+						}
+
+						// 생성된 HTML을 DOM에 주입
+						$('#cldl0401LstUl').prepend(liHtml);
+
+
+						if(smutil.isEmpty(scanLstCnt.text())){
+							scancnt = 1;
+						}
+						else {
+							scancnt = Number(scanLstCnt.text()) + 1;
+						}
+
+						// 버튼위에 스캔건수 증가
+						scanLstCnt.show();
+						scanLstCnt.text(scancnt+"");
+
+
+						// 상단에 time 리스트 카운트 증가
+						var timeLiCd = page.returnTimeCd();
+						var timeLiCdCnt = $('#timeCnt_D_'+timeLiCd);
+						scancnt = 0;
+
+						if(smutil.isEmpty(timeLiCdCnt.text())){
+							scancnt = 1;
+						}
+						else {
+							scancnt = Number(timeLiCdCnt.text()) + 1;
+						}
+
+						timeLiCdCnt.text(scancnt+"");
 					}
 
 					// 카운트가 500이 넘어가면 1로 초기화
@@ -2267,7 +2267,7 @@ var page = {
 						}
 					}
 					
-					if(liKey.length == 0){
+					if(liKey.length == 0 && dlvyCompl.area_sct_cd == 'Y'){
 						page.listReLoad();
 					}
 				}
