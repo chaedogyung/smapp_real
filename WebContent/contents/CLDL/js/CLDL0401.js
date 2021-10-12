@@ -2128,9 +2128,6 @@ var page = {
 						"_sDuration" : "short"
 					});
 
-					// 성공 tts 호출
-					smutil.callTTS("1", "2", scanCnt, result.isBackground);
-
 					// 리스트에 송장정보가 있는지 체크
 					var liKey = $('#'+inv_no);
 
@@ -2224,9 +2221,12 @@ var page = {
 							scanCnt = resetCnt
 						}
 					}
-					
+
 					//TO-DO
-					console.log(data);
+//					console.log(data);
+
+					// 성공 tts 호출
+					smutil.callTTS("1", "2", scanCnt, result.isBackground);
 
 					if(dlvyCompl.area_sct_cd2 == "A"){
 						$("#span_cldl_sct_cd").hide();
