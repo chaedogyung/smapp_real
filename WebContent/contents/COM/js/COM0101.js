@@ -80,6 +80,8 @@ var page={
 						if(dlvyCompl.area_sct_cd2 == "A"){
 							$("#span_cldl_sct_cd").hide();
 							$("#chngTme").hide();
+							var area_sct_cd = dlvyCompl.area_sct_cd;	//구역시간 구분
+
 							for (var i = 0; i < Object.keys(data).length; i++) {
 								data[Object.keys(data)[i]] = data[Object.keys(data)[i]]+"";
 							}
@@ -122,6 +124,7 @@ var page={
 											"cldl_tmsl_cd" : data.cldl_tmsl_cd, 		// 예정시간 구분코드
 											"mbl_area" : data.mbl_dlv_area,			// 설정된 구역
 											"max_nm" : data.max_nm,						// 일괄전송을 위한 max 시간 값
+											"area_sct_cd" : area_sct_cd,
 											"acpt_sct_cd" : data.acpt_sct_cd, 		// 인수자 구분코드
 											"acpr_nm" : data.acpr_nm,				// 인수자 명
 											"param_list" : param_list			// 전송할 송장정보 {송장번호 : 스캔여부}

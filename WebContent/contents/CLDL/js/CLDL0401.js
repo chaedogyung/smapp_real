@@ -2241,7 +2241,8 @@ var page = {
 							var cldl_tmsl_cd = page.returnTimeCd();
 							var mbl_dlv_area = page.mbl_dlv_area;
 							var max_nm;
-							
+							var area_sct_cd = page.dlvyCompl.area_sct_cd;	//구역시간 구분
+
 							if(page.dlvyCompl.area_sct_cd == 'Y'){
 								mbl_dlv_area = page.mbl_dlv_area;
 								cldl_tmsl_cd = "";
@@ -2270,6 +2271,7 @@ var page = {
 										"cldl_tmsl_cd" : cldl_tmsl_cd, 		// 예정시간 구분코드
 										"mbl_area" : mbl_dlv_area,			// 선택된 구역
 										"max_nm" : max_nm,					// 일괄전송을 위한 max 시간값 
+										"area_sct_cd" : area_sct_cd,
 										"acpt_sct_cd" : $('#insujaCode').val(), 		// 인수자 구분코드
 										"acpr_nm" : acpr_nm,				// 인수자 명
 										"param_list" : param_list			// 전송할 송장정보 {송장번호 : 스캔여부}
@@ -2664,6 +2666,7 @@ var page = {
 			var acpt_sct_cd = $('#insujaCode').val();		// 인수자 코드
 			var acpr_nm = $('#insujaTxt').val();			// 인수자명
 			var max_nm = "";								//일괄전송을 위한 max 시간 값
+			var area_sct_cd = page.dlvyCompl.area_sct_cd;	//구역시간 구분
 
 			if(!_.isUndefined(page.dlvyCompl.area_sct_cd) && page.dlvyCompl.area_sct_cd == 'Y'){
 				cldl_tmsl_cd = "";
@@ -2746,6 +2749,7 @@ var page = {
 						"cldl_tmsl_cd" : cldl_tmsl_cd, 		// 예정시간 구분코드
 						"mbl_area" : mbl_dlv_area,			// 선택된 구역
 						"max_nm" : max_nm,					// 일괄전송을 위한 max 시간값 
+						"area_sct_cd" : area_sct_cd,
 						"acpt_sct_cd" : acpt_sct_cd, 		// 인수자 구분코드
 						"acpr_nm" : acpr_nm,				// 인수자 명
 						"param_list" : param_list			// 전송할 송장정보 {송장번호 : 스캔여부}
