@@ -243,7 +243,7 @@ var page = {
 				var cldl_sct_cd = $(this).data('cancleSctCd');
 				var cldl_tmsl_cd = _this.returnTimeCd();
 				
-				if(!_.isUndefined(dlvyCompl.area_sct_cd) && dlvyCompl.area_sct_cd == 'Y'){
+				if(!_.isUndefined(page.dlvyCompl.area_sct_cd) && page.dlvyCompl.area_sct_cd == 'Y'){
 					cldl_tmsl_cd = $(this).data('cancleTmslCd');
 				}else{
 					cldl_tmsl_cd = _this.returnTimeCd();
@@ -302,7 +302,7 @@ var page = {
 				var acpt_sct_cd = $('#insujaCode').val();		// 인수자 코드
 				var acpr_nm = $('#insujaTxt').val();			// 인수자명
 
-				if(!_.isUndefined(dlvyCompl.area_sct_cd) && dlvyCompl.area_sct_cd == 'Y'){
+				if(!_.isUndefined(page.dlvyCompl.area_sct_cd) && page.dlvyCompl.area_sct_cd == 'Y'){
 					cldl_tmsl_cd = "";
 					mbl_dlv_area = page.mbl_dlv_area;
 				}else{
@@ -335,7 +335,7 @@ var page = {
 
 					return false;
 				}
-				else if(smutil.isEmpty(cldl_tmsl_cd) && dlvyCompl.area_sct_cd == "N"){
+				else if(smutil.isEmpty(cldl_tmsl_cd) && page.dlvyCompl.area_sct_cd == "N"){
 					LEMP.Window.alert({
 						"_sTitle":"배달 전송 오류",
 						"_vMessage":"배달 완료시간을 선택해 주세요.",
@@ -538,9 +538,9 @@ var page = {
 				var cldl_tmsl_cd = _this.returnTimeCd();						// 예정시간선택
 				var mbl_dlv_area = "";						// 선택된 구역
 				var max_nm = "";							// 일괄전송을 위한 max 시간 값
-				var area_sct_cd = dlvyCompl.area_sct_cd;			//구역(Y) 시간(N) 기준 
+				var area_sct_cd = page.dlvyCompl.area_sct_cd;			//구역(Y) 시간(N) 기준 
 				
-				if(!_.isUndefined(dlvyCompl.area_sct_cd) && dlvyCompl.area_sct_cd == 'Y'){
+				if(!_.isUndefined(page.dlvyCompl.area_sct_cd) && page.dlvyCompl.area_sct_cd == 'Y'){
 					cldl_tmsl_cd = "";
 					max_nm = $("li[name='timeLstLi'].on").data('maxNm');
 					mbl_dlv_area = _this.returnAreaCd();					
@@ -550,7 +550,7 @@ var page = {
 					mbl_dlv_area = "";
 				}
 
-				if(smutil.isEmpty(cldl_tmsl_cd) && dlvyCompl.area_sct_cd == 'N'){
+				if(smutil.isEmpty(cldl_tmsl_cd) && page.dlvyCompl.area_sct_cd == 'N'){
 					LEMP.Window.alert({
 						"_sTitle":"스캔오류",
 						"_vMessage":"예정시간을 선택해 주세요."
@@ -660,7 +660,7 @@ var page = {
 					html = html + '<li>' + phoneNumber + '</li>';
 				}
 
-				if(dlvyCompl.area_sct_cd == 'Y' && !smutil.isEmpty(this.cldl_tmsl_nm)){
+				if(page.dlvyCompl.area_sct_cd == 'Y' && !smutil.isEmpty(this.cldl_tmsl_nm)){
 					html = html + '<li><span style="padding: 0px 5px; font-size: 10px; color: #fff; border: 1px solid #015182; background-color: #015182; border-radius: 20px;">' + (this.cldl_tmsl_nm).replace('시', '') + '</span></li>'
 				}
 
@@ -685,7 +685,7 @@ var page = {
 //			Handlebars.registerHelper('cldlTmslNmTag', function(options) {
 //				var html = "";
 //				
-//				if(dlvyCompl.area_sct_cd == 'Y' && !smutil.isEmpty(this.cldl_tmsl_nm)){
+//				if(page.dlvyCompl.area_sct_cd == 'Y' && !smutil.isEmpty(this.cldl_tmsl_nm)){
 //					html = '<span style="height: 22px; line-height: 20px; padding: 2px 5px; margin-top: 5px; font-size: 10px; color: #fff; border: 1px solid #015182; background-color: #015182; border-radius: 20px;">' + (this.cldl_tmsl_nm).replace('시', '') + '</span>'
 //				}
 //
@@ -939,33 +939,6 @@ var page = {
 				}
 			});
 
-
-			$(function() {
-				var dlvyCompl = LEMP.Properties.get({ "_sKey" : "autoMenual"});
-				if (!_.isUndefined(dlvyCompl)) {
-                    // 구역별 시간별
-
-				    if(dlvyCompl.area_sct_cd == "Y") {
-                        $("#setDlvyCom1").text('구역');
-                        $("#setDlvyCom1").attr('class', 'red badge option outline');
-                    } else {
-                        $("#setDlvyCom1").text('시간');
-                        $("#setDlvyCom1").attr('class', 'green badge option outline');
-                    }
-
-
-                    // 자동전송 여부
-
-					if(dlvyCompl.area_sct_cd2 == "A") {
-						$("#setDlvyCom2").text('자동');
-						$("#setDlvyCom2").attr('class', 'blue badge option outline');
-					} else {
-						$("#setDlvyCom2").text('수동');
-                        $("#setDlvyCom2").attr('class', 'gray2 badge option outline');
-					}
-					
-				}
-			})
 			// ###################################### handlebars helper 등록 end
 
 		},
@@ -973,7 +946,30 @@ var page = {
 
 		// 화면 디스플레이 이벤트
 		initDpEvent : function(){
+			if (!_.isUndefined(page.dlvyCompl)) {
+                // 구역별 시간별
 
+			    if(page.dlvyCompl.area_sct_cd == "Y") {
+                    $("#setDlvyCom1").text('구역');
+                    $("#setDlvyCom1").attr('class', 'red badge option outline');
+                } else {
+                    $("#setDlvyCom1").text('시간');
+                    $("#setDlvyCom1").attr('class', 'green badge option outline');
+                }
+
+
+                // 자동전송 여부
+
+				if(page.dlvyCompl.area_sct_cd2 == "A") {
+					$("#setDlvyCom2").text('자동');
+					$("#setDlvyCom2").attr('class', 'blue badge option outline');
+				} else {
+					$("#setDlvyCom2").text('수동');
+                    $("#setDlvyCom2").attr('class', 'gray2 badge option outline');
+				}
+				
+			}
+			
 			// 인수자 정보 셋팅
 			var acptSctInfo = LEMP.Properties.get({
 				"_sKey" : "acptSctInfo",
@@ -1000,7 +996,7 @@ var page = {
 //			_this.cmptTmList();				// 예정시간리스트 조회
 			//_this.cmptList();				// 리스트 목록 조회
 			
-			if(dlvyCompl.area_sct_cd == 'N'){
+			if(page.dlvyCompl.area_sct_cd == 'N'){
 				$(".deliveryTy3Cal").css({"margin-top": "205px"});
 			}else{
 				$(".deliveryTy3Cal").css({"margin-top": "225px"});
@@ -1043,8 +1039,8 @@ var page = {
 					smutil.setSelectOptions("#fltr_sct_cd", list);
 				}
 
-				if(!_.isUndefined(dlvyCompl)){
-					if(dlvyCompl.area_sct_cd == "Y"){
+				if(!_.isUndefined(page.dlvyCompl)){
+					if(page.dlvyCompl.area_sct_cd == "Y"){
 						page.autoCmptTmList();            // 구역별 조회건수 조회
 					}else{
 						page.cmptTmList();				// 시간대별 조회건수 조회
@@ -1991,9 +1987,9 @@ var page = {
 			var inv_no = result.barcode;
 			var acpt_sct_cd = $('#insujaCode').val();			// 인수자 코드
 			var acpr_nm = $('#insujaTxt').val();				// 인수자명
-			var area_sct_cd = dlvyCompl.area_sct_cd;			//구역(Y) 시간(N) 기준 
+			var area_sct_cd = page.dlvyCompl.area_sct_cd;			//구역(Y) 시간(N) 기준 
 			
-			if(!_.isUndefined(dlvyCompl.area_sct_cd) && dlvyCompl.area_sct_cd == 'Y'){
+			if(!_.isUndefined(page.dlvyCompl.area_sct_cd) && page.dlvyCompl.area_sct_cd == 'Y'){
 				cldl_tmsl_cd = "";
 			}else{
 				cldl_tmsl_cd = page.returnTimeCd();
@@ -2015,7 +2011,7 @@ var page = {
 			}
 
 
-			if(smutil.isEmpty(cldl_tmsl_cd) && dlvyCompl.area_sct_cd == 'N'){
+			if(smutil.isEmpty(cldl_tmsl_cd) && page.dlvyCompl.area_sct_cd == 'N'){
 				LEMP.Window.alert({
 					"_sTitle":"스캔오류",
 					"_vMessage":"예정시간을 선택해 주세요."
@@ -2246,7 +2242,7 @@ var page = {
 							var mbl_dlv_area = page.mbl_dlv_area;
 							var max_nm;
 							
-							if(dlvyCompl.area_sct_cd == 'Y'){
+							if(page.dlvyCompl.area_sct_cd == 'Y'){
 								mbl_dlv_area = page.mbl_dlv_area;
 								cldl_tmsl_cd = "";
 								max_nm = $("li[name='timeLstLi'].on").data('maxNm');
@@ -2286,7 +2282,7 @@ var page = {
 						}
 					}
 					
-					if(liKey.length == 0 && dlvyCompl.area_sct_cd == 'Y'){
+					if(liKey.length == 0 && page.dlvyCompl.area_sct_cd == 'Y'){
 						page.listReLoad();
 					}
 				}
@@ -2669,7 +2665,7 @@ var page = {
 			var acpr_nm = $('#insujaTxt').val();			// 인수자명
 			var max_nm = "";								//일괄전송을 위한 max 시간 값
 
-			if(!_.isUndefined(dlvyCompl.area_sct_cd) && dlvyCompl.area_sct_cd == 'Y'){
+			if(!_.isUndefined(page.dlvyCompl.area_sct_cd) && page.dlvyCompl.area_sct_cd == 'Y'){
 				cldl_tmsl_cd = "";
 				max_nm = $("li[name='timeLstLi'].on").data('maxNm');
 				mbl_dlv_area = page.mbl_dlv_area;
@@ -2704,7 +2700,7 @@ var page = {
 
 				return false;
 			}
-			else if(smutil.isEmpty(cldl_tmsl_cd) && dlvyCompl.area_sct_cd == "N"){
+			else if(smutil.isEmpty(cldl_tmsl_cd) && page.dlvyCompl.area_sct_cd == "N"){
 				LEMP.Window.alert({
 					"_sTitle":"배달 전송 오류",
 					"_vMessage":"배달 완료시간을 선택해 주세요.",
