@@ -131,13 +131,12 @@ var page = {
 				//현제 어느 탭에 있는지 상태체크
 				var tab_sct_cd = page.returnTabSctCd();
 				var cldl_sct_cd = $('#cldl_sct_cd').val();			// 업무구분
-//				var cldl_tmsl_cd = $('#cldl_tmsl_cd').val();		// 예정시간선택
-				var cldl_tmsl_cd = "";
+				var cldl_tmsl_cd = $('#cldl_tmsl_cd').val();		// 예정시간선택
 				var tmptime = page.fnGetToDayCd();
 				var dlvyCompl = LEMP.Properties.get({ "_sKey" : "autoMenual"});
 				var area_sct_cd = dlvyCompl.area_sct_cd;			//구역(Y) 시간(N) 구분
 				
-				if(dlvyCompl.area_sct_cd == "Y"){
+				if(!_.isUndefined(dlvyCompl.area_sct_cd) && dlvyCompl.area_sct_cd == "Y"){
 					//TO-DO 현재시간 기준 코드 값 리턴 단, 토요일일경우 토요휴무 신청
 					if($('#cldl_set_cd').val() == "" && $('#cldl_set_cd').val() == null){
 						cldl_tmsl_cd = page.fnGetToDayCd();
@@ -1215,7 +1214,7 @@ var page = {
 			var scanCallYn = "Y";
 			var tab_sct_cd = page.returnTabSctCd();				//현제 어느 탭에 있는지 상태체크
 			var cldl_sct_cd = $('#cldl_sct_cd').val();			// 업무구분
-			var cldl_tmsl_cd = "";		// 예정시간선택
+			var cldl_tmsl_cd = $('#cldl_tmsl_cd').val();		// 예정시간선택
 			var dsgt_dd_cldl_ymd = $('#dsgt_dd_cldl_ymd').val();				// 지정일집하/배송 일자
 			var inv_no = result.barcode;
 			var area_sct_cd = dlvyCompl.area_sct_cd;			//구역(Y) 시간(N) 기준 
@@ -1226,7 +1225,9 @@ var page = {
 				cldl_sct_cd = tab_sct_cd;
 			}
 			
-			if(dlvyCompl.area_sct_cd == 'N'){
+			if(!_.isUndefined(dlvyCompl.area_sct_cd) && dlvyCompl.area_sct_cd == 'Y'){
+				cldl_tmsl_cd = "";
+			}else{
 				cldl_tmsl_cd = $('#cldl_tmsl_cd').val();
 			}
 			

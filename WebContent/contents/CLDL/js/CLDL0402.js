@@ -84,6 +84,7 @@ var page = {
 			res.cldl_tmsl_cd = page.param.cldl_tmsl_cd;
 			res.mbl_dlv_area = page.param.mbl_dlv_area;
 			res.max_nm = page.param.max_nm;
+			res.area_sct_cd = page.param.area_sct_cd;
 
 //			smutil.loadingOn();
 			var popUrl = smutil.getMenuProp('COM.COM0101', 'url');

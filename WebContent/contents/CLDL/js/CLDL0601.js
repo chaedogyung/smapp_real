@@ -550,7 +550,8 @@ var page = {
         page.apiParam.data.parameters.scan_dtm = scan_dtm;                  // PARAM: 스캔 시간
         page.apiParam.data.parameters.acpt_sct_cd = $('#rcvCode').val();    // PARAM: 인수자 구분 코드
         page.apiParam.data.parameters.acpr_nm = $('#rcvName').val();        // PARAM: 인수자 명
-
+        page.apiParam.data.parameters.area_sct_cd = 'N';
+        
         smutil.callApi(page.apiParam);
     },
 

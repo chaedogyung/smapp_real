@@ -177,41 +177,41 @@ var page = {
 			});
 
 			// 송장 체크 변경시 하단 스캔건수 변경
-			$(document).on('change', 'input[name="chk"]', function(){
-				// 하단 스캔건수
-				var scanLstCnt = $('#scanLstCnt');
-				var scancnt = 0;
-				
-				if($(this).parents(".baedalBox").is(".off")){
-					if($(this).is(':checked')){
-						if(smutil.isEmpty(scanLstCnt.text())){
-							scancnt = 1;
-						}
-						else {
-							scancnt = Number(scanLstCnt.text()) + 1;
-						}
-					}else{
-						if(smutil.isEmpty(scanLstCnt.text())){
-							scancnt = 0;
-						}
-						else {
-							scancnt = Number(scanLstCnt.text()) - 1;
-						}
-					}
-					
-					// 스캔건수 표시
-					if(!smutil.isEmpty(scancnt)
-						&& scancnt > 0){
-						// 버튼위에 스캔건수 증가
-						scanLstCnt.text(scancnt+"");
-						scanLstCnt.show();
-					}
-					else{	// 스캔건수 숨김
-						scanLstCnt.text('0');
-						scanLstCnt.hide();
-					}
-				}
-			});
+//			$(document).on('change', 'input[name="chk"]', function(){
+//				// 하단 스캔건수
+//				var scanLstCnt = $('#scanLstCnt');
+//				var scancnt = 0;
+//				
+//				if($(this).parents(".baedalBox").is(".off")){
+//					if($(this).is(':checked')){
+//						if(smutil.isEmpty(scanLstCnt.text())){
+//							scancnt = 1;
+//						}
+//						else {
+//							scancnt = Number(scanLstCnt.text()) + 1;
+//						}
+//					}else{
+//						if(smutil.isEmpty(scanLstCnt.text())){
+//							scancnt = 0;
+//						}
+//						else {
+//							scancnt = Number(scanLstCnt.text()) - 1;
+//						}
+//					}
+//					
+//					// 스캔건수 표시
+//					if(!smutil.isEmpty(scancnt)
+//						&& scancnt > 0){
+//						// 버튼위에 스캔건수 증가
+//						scanLstCnt.text(scancnt+"");
+//						scanLstCnt.show();
+//					}
+//					else{	// 스캔건수 숨김
+//						scanLstCnt.text('0');
+//						scanLstCnt.hide();
+//					}
+//				}
+//			});
 
 			// 지도버튼 클릭
 			$('.btn.ftMap').click(function(e){
@@ -241,12 +241,12 @@ var page = {
 
 				var inv_no = $(this).data('cancelInvNo');
 				var cldl_sct_cd = $(this).data('cancleSctCd');
-				var cldl_tmsl_cd = "";
+				var cldl_tmsl_cd = _this.returnTimeCd();
 				
-				if(dlvyCompl.area_sct_cd == 'N'){
-					cldl_tmsl_cd = _this.returnTimeCd();
-				}else{
+				if(!_.isUndefined(dlvyCompl.area_sct_cd) && dlvyCompl.area_sct_cd == 'Y'){
 					cldl_tmsl_cd = $(this).data('cancleTmslCd');
+				}else{
+					cldl_tmsl_cd = _this.returnTimeCd();
 				}
 
 				// 송장번호가 있고 스캔된 데이터인지 체크
@@ -296,18 +296,18 @@ var page = {
 			$('#cmptTrsmBtn').click(function(e){
 				var _this = this;
 				var cldl_sct_cd = "D";							// 업무구분
-				var cldl_tmsl_cd = "";							// 예정시간코드
-				var mbl_dlv_area = "";							// 선택된 구역
+				var cldl_tmsl_cd = page.returnTimeCd();			// 예정시간코드
+				var mbl_dlv_area = page.mbl_dlv_area;			// 선택된 구역
 				var base_ymd = $('#cldlBtnCal').text();			// 기준일자
 				var acpt_sct_cd = $('#insujaCode').val();		// 인수자 코드
 				var acpr_nm = $('#insujaTxt').val();			// 인수자명
 
-				if(dlvyCompl.area_sct_cd == 'N'){
-					cldl_tmsl_cd = page.returnTimeCd();
-					mbl_dlv_area = "";
-				}else{
+				if(!_.isUndefined(dlvyCompl.area_sct_cd) && dlvyCompl.area_sct_cd == 'Y'){
 					cldl_tmsl_cd = "";
 					mbl_dlv_area = page.mbl_dlv_area;
+				}else{
+					cldl_tmsl_cd = page.returnTimeCd();
+					mbl_dlv_area = "";
 				}
 				
 				if(smutil.isEmpty(base_ymd)){
@@ -535,18 +535,19 @@ var page = {
 
 				//현제 어느 탭에 있는지 상태체크
 				var cldl_sct_cd = "D";						// 업무구분
-				var cldl_tmsl_cd = "";						// 예정시간선택
+				var cldl_tmsl_cd = _this.returnTimeCd();						// 예정시간선택
 				var mbl_dlv_area = "";						// 선택된 구역
 				var max_nm = "";							// 일괄전송을 위한 max 시간 값
-
-				if(dlvyCompl.area_sct_cd == 'N'){
+				var area_sct_cd = dlvyCompl.area_sct_cd;			//구역(Y) 시간(N) 기준 
+				
+				if(!_.isUndefined(dlvyCompl.area_sct_cd) && dlvyCompl.area_sct_cd == 'Y'){
+					cldl_tmsl_cd = "";
+					max_nm = $("li[name='timeLstLi'].on").data('maxNm');
+					mbl_dlv_area = _this.returnAreaCd();					
+				}else{
 					cldl_tmsl_cd = _this.returnTimeCd();
 					max_nm = "";
 					mbl_dlv_area = "";
-				}else{
-					cldl_tmsl_cd = "";
-					max_nm = $("li[name='timeLstLi'].on").data('maxNm');
-					mbl_dlv_area = _this.returnAreaCd();
 				}
 
 				if(smutil.isEmpty(cldl_tmsl_cd) && dlvyCompl.area_sct_cd == 'N'){
@@ -568,6 +569,7 @@ var page = {
 							"cldl_tmsl_cd" : cldl_tmsl_cd,
 							"mbl_dlv_area" : mbl_dlv_area,
 							"max_nm" : max_nm,
+							"area_sct_cd" : area_sct_cd,
 							"menu_id" : "CLDL0401"
 						}
 					},
@@ -1985,15 +1987,16 @@ var page = {
 			var _this = this;
 			var scanCallYn = "Y";
 			var cldl_sct_cd = 'D';								// 업무구분 (배달 : D)
-			var cldl_tmsl_cd = "";								// 예정시간
+			var cldl_tmsl_cd = page.returnTimeCd();								// 예정시간
 			var inv_no = result.barcode;
 			var acpt_sct_cd = $('#insujaCode').val();			// 인수자 코드
 			var acpr_nm = $('#insujaTxt').val();				// 인수자명
+			var area_sct_cd = dlvyCompl.area_sct_cd;			//구역(Y) 시간(N) 기준 
 			
-			if(dlvyCompl.area_sct_cd == 'N'){
-				cldl_tmsl_cd = page.returnTimeCd();
-			}else{
+			if(!_.isUndefined(dlvyCompl.area_sct_cd) && dlvyCompl.area_sct_cd == 'Y'){
 				cldl_tmsl_cd = "";
+			}else{
+				cldl_tmsl_cd = page.returnTimeCd();
 			}
 			
 			inv_no = inv_no+"";
@@ -2083,7 +2086,8 @@ var page = {
 						"cldl_tmsl_cd":cldl_tmsl_cd+"",
 						"cldl_sct_cd":cldl_sct_cd+"",
 						"acpt_sct_cd" : acpt_sct_cd+"",
-						"acpr_nm" : acpr_nm+""
+						"acpr_nm" : acpr_nm+"",
+						"area_sct_cd" : area_sct_cd+""
 					}
 				};	// api 통신용 파라메터
 	
@@ -2135,7 +2139,7 @@ var page = {
 					if(liKey.length > 0){
 
 						// 스켄하지 않은건이면 하단 카운트 증가(상단카운트는 증가할 필요 없음)
-						if(!page.chkScanYn(inv_no) && !$('#'+inv_no+'_chk').is(':checked')){
+						if(!page.chkScanYn(inv_no)){
 
 							if(smutil.isEmpty(scanLstCnt.text())){
 								scancnt = 1;
@@ -2238,7 +2242,20 @@ var page = {
 							var liLst = $(".li.list")
 							var param_list = [];						// 전송할 리스트 배열
 							var invNoObj = {};
-								
+							var cldl_tmsl_cd = page.returnTimeCd();
+							var mbl_dlv_area = page.mbl_dlv_area;
+							var max_nm;
+							
+							if(dlvyCompl.area_sct_cd == 'Y'){
+								mbl_dlv_area = page.mbl_dlv_area;
+								cldl_tmsl_cd = "";
+								max_nm = $("li[name='timeLstLi'].on").data('maxNm');
+							}else{
+								mbl_dlv_area = "";
+								cldl_tmsl_cd = page.returnTimeCd();
+								max_nm = "";
+							}
+							
 							invNoObj = {"inv_no":inv_no, "scan_yn":"Y"};
 							param_list.push(invNoObj);
 
@@ -2254,8 +2271,10 @@ var page = {
 									"parameters" : {
 										"base_ymd" : base_ymd,				// 기준일자
 										"cldl_sct_cd" : cldl_sct_cd, 		// 집하 / 배달 업무 구분코드
-										"cldl_tmsl_cd" : page.returnTimeCd(), 		// 예정시간 구분코드
-										"acpt_sct_cd" :  $('#insujaCode').val(), 		// 인수자 구분코드
+										"cldl_tmsl_cd" : cldl_tmsl_cd, 		// 예정시간 구분코드
+										"mbl_area" : mbl_dlv_area,			// 선택된 구역
+										"max_nm" : max_nm,					// 일괄전송을 위한 max 시간값 
+										"acpt_sct_cd" : $('#insujaCode').val(), 		// 인수자 구분코드
 										"acpr_nm" : acpr_nm,				// 인수자 명
 										"param_list" : param_list			// 전송할 송장정보 {송장번호 : 스캔여부}
 									}
@@ -2643,21 +2662,21 @@ var page = {
 
 			var _this = this;
 			var cldl_sct_cd = "D";							// 업무구분
-			var cldl_tmsl_cd = "";							// 예정시간코드
-			var mbl_dlv_area = "";							// 선택된 구역
+			var cldl_tmsl_cd = page.returnTimeCd();			// 예정시간코드
+			var mbl_dlv_area = page.mbl_dlv_area;			// 선택된 구역
 			var base_ymd = $('#cldlBtnCal').text();			// 기준일자
 			var acpt_sct_cd = $('#insujaCode').val();		// 인수자 코드
 			var acpr_nm = $('#insujaTxt').val();			// 인수자명
 			var max_nm = "";								//일괄전송을 위한 max 시간 값
 
-			if(dlvyCompl.area_sct_cd == 'N'){
-				cldl_tmsl_cd = page.returnTimeCd();
-				max_nm = "";
-				mbl_dlv_area = "";
-			}else{
+			if(!_.isUndefined(dlvyCompl.area_sct_cd) && dlvyCompl.area_sct_cd == 'Y'){
 				cldl_tmsl_cd = "";
 				max_nm = $("li[name='timeLstLi'].on").data('maxNm');
 				mbl_dlv_area = page.mbl_dlv_area;
+			}else{
+				cldl_tmsl_cd = page.returnTimeCd();
+				max_nm = "";
+				mbl_dlv_area = "";
 			}
 			
 			if(smutil.isEmpty(base_ymd)){

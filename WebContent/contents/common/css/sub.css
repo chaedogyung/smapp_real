@@ -148,7 +148,7 @@
 /* 내용 */
 .baedalBox .infoBox{overflow:hidden; padding-left:5px;}
 .baedalBox .infoBox .tit{font-size:16px; color:#000; margin-bottom:4px;}
-.baedalBox .infoBox .infoList{overflow:hidden; height:17px; }
+.baedalBox .infoBox .infoList{overflow:hidden; height:20px; }
 .baedalBox .infoBox .infoList li.name{overflow:hidden;  text-overflow: ellipsis; max-width: 90px;}
 .baedalBox .infoBox .infoList li{float:left; color:#535454; font-size:13px; padding-right:10px; white-space:nowrap; overflow:hidden;  text-overflow:ellipsis; position:relative;}
 .baedalBox .infoBox .infoList li em{color:#da291c; font-weight:500;}
