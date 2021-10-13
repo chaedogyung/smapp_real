@@ -31,7 +31,7 @@ var page = {
 			curDate = curDate.getFullYear() + "." + ("0"+(curDate.getMonth()+1)).slice(-2) + "." + ("0"+curDate.getDate()).slice(-2);
 			$('#cldlBtnCal').text(curDate);
 			
-			dlvyCompl = LEMP.Properties.get({
+			page.dlvyCompl = LEMP.Properties.get({
 				"_sKey" : "autoMenual"
 			});
 
@@ -206,7 +206,7 @@ var page = {
 
 			// 상단 시간/구역 선택 클릭이벤트 등록
 			$(document).on('click', "li[name='timeLstLi']", function(e){
-				if(dlvyCompl.area_sct_cd == "N"){
+				if(page.dlvyCompl.area_sct_cd == "N"){
 					$("li[name='timeLstLi']").removeClass('on');
 					$(this).addClass('on');
 
@@ -542,7 +542,7 @@ var page = {
 
 				}
 				
-				if(dlvyCompl.area_sct_cd == 'Y' && !smutil.isEmpty(this.cldl_tmsl_nm)){
+				if(page.dlvyCompl.area_sct_cd == 'Y' && !smutil.isEmpty(this.cldl_tmsl_nm)){
 					html = html + '<li><span style="padding: 0px 5px; font-size: 10px; color: #fff; border: 1px solid #015182; background-color: #015182; border-radius: 20px;">' + (this.cldl_tmsl_nm).replace('시', '') + '</span></li>'
 				}
 				
@@ -826,7 +826,7 @@ var page = {
 
 			// 전체 , (집하, 배달) 구분
 			Handlebars.registerHelper('cldlSctCdTabChk', function(options) {
-				if(page.returnTabSctCd() != "A" && dlvyCompl.area_sct_cd != 'Y'){	// 전체가 아니면 true
+				if(page.returnTabSctCd() != "A" && page.dlvyCompl.area_sct_cd != 'Y'){	// 전체가 아니면 true
 					// options.fn == if(true)
 					return options.fn(this)
 				}
@@ -1008,7 +1008,7 @@ var page = {
 			page.dprtCnt();		// 리스트 조회
 //			_this.plnFltrListSerch();		// 필터 리스트 조회
 			
-			if(dlvyCompl.area_sct_cd == 'N'){
+			if(page.dlvyCompl.area_sct_cd == 'N'){
 				$(".deliveryTy1Cal").css({"margin-top": "240px"});
 				$('#span_cldl_sct_cd').hide();
 				$('#chngTme').hide();
@@ -1114,8 +1114,8 @@ var page = {
 					});
 				}
 
-				if(!_.isUndefined(dlvyCompl)){
-					if(dlvyCompl.area_sct_cd == "Y"){
+				if(!_.isUndefined(page.dlvyCompl)){
+					if(page.dlvyCompl.area_sct_cd == "Y"){
 						page.dprtAreaList();            // 구역기준조회
 					}else{
 						page.dprtTmList();				// 예정시간리스트 조회

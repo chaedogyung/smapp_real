@@ -51,7 +51,7 @@ var page = {
 			}
 
 
-			dlvyCompl = LEMP.Properties.get({
+			page.dlvyCompl = LEMP.Properties.get({
 				"_sKey" : "autoMenual"
 			});
 			
@@ -134,7 +134,7 @@ var page = {
 
 			// 상단 시간/구역 선택 클릭이벤트 등록
 			$(document).on('click', "li[name='timeLstLi']", function(e){
-				if(dlvyCompl.area_sct_cd == "N"){
+				if(page.dlvyCompl.area_sct_cd == "N"){
 					$("li[name='timeLstLi']").removeClass('on');
 					$(this).addClass('on');
 
@@ -2232,7 +2232,7 @@ var page = {
 					// 성공 tts 호출
 					smutil.callTTS("1", "2", scanCnt, result.isBackground);
 
-					if(dlvyCompl.area_sct_cd2 == "A"){
+					if(page.dlvyCompl.area_sct_cd2 == "A"){
 						$("#span_cldl_sct_cd").hide();
 						$("#chngTme").hide();
 						var baseUrl = "smapis/cldl/dlvCmptScanTrsm"
@@ -2832,7 +2832,7 @@ var page = {
 				btnObj = $(obj);
 
 				if(btnObj.is('.on')){
-					mbl_dlv_area = btnObj.data('timeLi');
+					mbl_dlv_area = btnObj.data('areaLi');
 					return false;
 				}
 			});
