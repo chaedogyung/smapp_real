@@ -2832,7 +2832,7 @@ var page = {
 				btnObj = $(obj);
 
 				if(btnObj.is('.on')){
-					mbl_dlv_area = btnObj.data('areaLi');
+					mbl_dlv_area = btnObj.data('timeLi');
 					return false;
 				}
 			});
