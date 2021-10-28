@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
+
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+	<script type="text/javascript" src="../js/MAN0601.js"></script>
+</head>
+
+<body>
+	<input type="hidden" name="menuId" id="menuId" value="MAN0601"/>
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection">
+			<div class="headerWrap" style="height: 30%; margin-bottom: 45px; padding: 0; border-bottom: 2px solid #e1e1e1">				
+				<h1 class="title" style="height: 90px; line-height: 90px; background-color : #E9F1F6; font-size: 20px">
+					<span id="emp_nm" style="color: #065281; font-size: 25px;"></span> 님의 금주 근무시간 현황
+				</h1>
+			</div>
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection_1">
+			<div class="contentBox mypage pop">
+				<div style="width : 90%; height : 350px;">
+					<canvas id="workTime"></canvas>
+				</div>
+				
+				<div class="tableBox tp1" style="margin-top: 20px">
+					<table>
+						<colgroup>
+							<col style="width:33.33%">
+							<col style="width:33.33%">
+							<col style="width:33.33%">
+						</colgroup>
+						<thead>
+							<tr class="view1Tr">
+								<th>구분</th>
+								<th>근무시간</th>
+								<th>잔여시간</th>
+							</tr>
+						</thead>
+						<tbody id="view3Tbody">
+							<tr>
+								<td>주간</td>
+								<td id="tot_tme"></td>
+								<td id="remind_tme"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!--  //contentSection  -->
+		<div class="btnBox pxB">
+			<button class="btn m red w100p" id="checkOkay">확인</button>
+		</div>
+	</div>
+	<!--  //contents  -->
+
+</body>
+</html>
