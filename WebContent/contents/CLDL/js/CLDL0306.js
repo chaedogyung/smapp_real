@@ -62,10 +62,14 @@ var page = {
 			//선택할 수 있는 li가 없을때
 			if (liCheck) {
 				// 문구 전달받으면 수정
-				LEMP.Window.alert({
-					"_sTitle" : "알림",
-					"_vMessage" : "터미널 정보가 검색되지 않았습니다\n터미널 정보를 검색 후 확인해주세요"
+				LEMP.Window.toast({
+					"_sMessage":"터미널 정보가 검색되지 않았습니다\n터미널 정보를 검색 후 확인해주세요",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle" : "알림",
+//					"_vMessage" : "터미널 정보가 검색되지 않았습니다\n터미널 정보를 검색 후 확인해주세요"
+//				});
 				return false;
 			}
 			
@@ -92,10 +96,14 @@ var page = {
 					if (rCheck4) {
 						page.cldl0306.box_typ=$("input[type='radio'][id$='BOX_TYP']:checked").val();
 					}else {
-						LEMP.Window.alert({
-							"_sTitle" : "알림",
-							"_vMessage" : "박스규격을 선택하지 않았습니다.\n버튼을 선택 해주세요."
+						LEMP.Window.toast({
+							"_sMessage":"박스규격을 선택하지 않았습니다.\n버튼을 선택 해주세요.",
+							'_sDuration' : 'short'
 						});
+//						LEMP.Window.alert({
+//							"_sTitle" : "알림",
+//							"_vMessage" : "박스규격을 선택하지 않았습니다.\n버튼을 선택 해주세요."
+//						});
 						return false;
 					}
 				}
@@ -118,10 +126,14 @@ var page = {
 					});
 				}
 			}else {
-				LEMP.Window.alert({
-					"_sTitle" : "알림",
-					"_vMessage" : "터미널 주소가 선택 되지 않았습니다.\n선택 후 확인을 눌러주세요."
+				LEMP.Window.toast({
+					"_sMessage":"터미널 주소가 선택 되지 않았습니다.\n선택 후 확인을 눌러주세요.",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle" : "알림",
+//					"_vMessage" : "터미널 주소가 선택 되지 않았습니다.\n선택 후 확인을 눌러주세요."
+//				});
 				return false;
 			};
 		});
@@ -151,10 +163,14 @@ var page = {
 							if (rCheck4) {
 								page.cldl0306.box_typ=$("input[type='radio'][id$='BOX_TYP']:checked").val();
 							}else {
-								LEMP.Window.alert({
-									"_sTitle" : "알림",
-									"_vMessage" : "박스규격을 선택하지 않았습니다.\n버튼을 선택 해주세요."
+								LEMP.Window.toast({
+									"_sMessage":"박스규격을 선택하지 않았습니다.\n버튼을 선택 해주세요.",
+									'_sDuration' : 'short'
 								});
+//								LEMP.Window.alert({
+//									"_sTitle" : "알림",
+//									"_vMessage" : "박스규격을 선택하지 않았습니다.\n버튼을 선택 해주세요."
+//								});
 								return false;
 							}
 						}
@@ -178,10 +194,14 @@ var page = {
 						}
 					}else {
 						smutil.callTTS("0", "0", null, page.isBackground);
-						LEMP.Window.alert({
-							"_sTitle" : "도착지조회",
-							"_vMessage" : "정상적인 도착지 코드가 아닙니다."
+						LEMP.Window.toast({
+							"_sMessage":"정상적인 도착지 코드가 아닙니다.",
+							'_sDuration' : 'short'
 						});
+//						LEMP.Window.alert({
+//							"_sTitle" : "도착지조회",
+//							"_vMessage" : "정상적인 도착지 코드가 아닙니다."
+//						});
 					}
 				}
 			})
@@ -240,15 +260,23 @@ var page = {
 					gungu_text="";
 				}
 				if (smutil.isEmpty(addr)) {
-					LEMP.Window.alert({
-						"_sTitle" : "도착지 검색",
-						"_vMessage" : "상세주소가 입력되지 않았습니다.\n법정동 단위로 입력 해주세요."
+					LEMP.Window.toast({
+						"_sMessage":"상세주소가 입력되지 않았습니다.\n법정동 단위로 입력 해주세요.",
+						'_sDuration' : 'short'
 					});
+//					LEMP.Window.alert({
+//						"_sTitle" : "도착지 검색",
+//						"_vMessage" : "상세주소가 입력되지 않았습니다.\n법정동 단위로 입력 해주세요."
+//					});
 				}else if ($("#addr_input").val().length < 2) {
-					LEMP.Window.alert({
-						"_sTitle" : "도착지 검색",
-						"_vMessage" : "상세주소가 입력되지 않았습니다.\n2글자 이상 입력 해주세요."
+					LEMP.Window.toast({
+						"_sMessage":"상세주소가 입력되지 않았습니다.\n2글자 이상 입력 해주세요.",
+						'_sDuration' : 'short'
 					});
+//					LEMP.Window.alert({
+//						"_sTitle" : "도착지 검색",
+//						"_vMessage" : "상세주소가 입력되지 않았습니다.\n2글자 이상 입력 해주세요."
+//					});
 				}else {
 					data = {
 						"city_do":sido_text,
@@ -262,20 +290,32 @@ var page = {
 				}
 			}else {
 				if (check_sido.val()==="default") {
-					LEMP.Window.alert({
-						"_sTitle" : "도착지 검색",
-						"_vMessage" : "시,도를 선택 해주세요."
+					LEMP.Window.toast({
+						"_sMessage":"시,도를 선택 해주세요.",
+						'_sDuration' : 'short'
 					});
+//					LEMP.Window.alert({
+//						"_sTitle" : "도착지 검색",
+//						"_vMessage" : "시,도를 선택 해주세요."
+//					});
 				}else if (check_gungu.val()==="default") {
-					LEMP.Window.alert({
-						"_sTitle" : "도착지 검색",
-						"_vMessage" : "군,구를 선택 해주세요."
+					LEMP.Window.toast({
+						"_sMessage":"군,구를 선택 해주세요.",
+						'_sDuration' : 'short'
 					});
+//					LEMP.Window.alert({
+//						"_sTitle" : "도착지 검색",
+//						"_vMessage" : "군,구를 선택 해주세요."
+//					});
 				}else if (smutil.isEmpty(addr)) {
-					LEMP.Window.alert({
-						"_sTitle" : "도착지 검색",
-						"_vMessage" : "상세주소가 입력되지 않았습니다.\n법정동 단위로 입력 해주세요."
+					LEMP.Window.toast({
+						"_sMessage":"상세주소가 입력되지 않았습니다.\n법정동 단위로 입력 해주세요.",
+						'_sDuration' : 'short'
 					});
+//					LEMP.Window.alert({
+//						"_sTitle" : "도착지 검색",
+//						"_vMessage" : "상세주소가 입력되지 않았습니다.\n법정동 단위로 입력 해주세요."
+//					});
 				}else {
 					data = {
 						"city_do":sido_text,
@@ -325,10 +365,14 @@ var page = {
 				var template = Handlebars.compile($("#cldl0306_sido_template").html());
 				$("#cldl0306SidoSel").html(template(res));
 			}else {
-				LEMP.Window.alert({
-					"_sTitle" : "알림",
-					"_vMessage" : "통신에 실패했습니다.\n문제가 지속되면 담당자에게 연락하세요."
+				LEMP.Window.toast({
+					"_sMessage":"통신에 실패했습니다.\n문제가 지속되면 담당자에게 연락하세요.",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle" : "알림",
+//					"_vMessage" : "통신에 실패했습니다.\n문제가 지속되면 담당자에게 연락하세요."
+//				});
 			}
 		}
 		catch(e){}
@@ -362,10 +406,14 @@ var page = {
 				var template = Handlebars.compile($("#cldl0306_gungu_template").html());
 				$("#cldl0306GunguSel").html(template(res));
 			}else {
-				LEMP.Window.alert({
-					"_sTitle" : "알림",
-					"_vMessage" : "통신에 실패했습니다.\n문제가 지속되면 담당자에게 연락하세요."
+				LEMP.Window.toast({
+					"_sMessage":"통신에 실패했습니다.\n문제가 지속되면 담당자에게 연락하세요.",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle" : "알림",
+//					"_vMessage" : "통신에 실패했습니다.\n문제가 지속되면 담당자에게 연락하세요."
+//				});
 			}
 		}
 		catch(e){}
@@ -422,10 +470,14 @@ var page = {
 				if (rCheck4) {
 					page.cldl0306.box_typ=$("input[type='radio'][id$='BOX_TYP']:checked").val();
 				}else {
-					LEMP.Window.alert({
-						"_sTitle" : "알림",
-						"_vMessage" : "박스규격을 선택하지 않았습니다.\n버튼을 선택 해주세요."
+					LEMP.Window.toast({
+						"_sMessage":"박스규격을 선택하지 않았습니다.\n버튼을 선택 해주세요.",
+						'_sDuration' : 'short'
 					});
+//					LEMP.Window.alert({
+//						"_sTitle" : "알림",
+//						"_vMessage" : "박스규격을 선택하지 않았습니다.\n버튼을 선택 해주세요."
+//					});
 					return false;
 				}
 			}
@@ -449,10 +501,14 @@ var page = {
 			}
 		}else {
 			smutil.callTTS("0", "0", null, page.isBackground);
-			LEMP.Window.alert({
-				"_sTitle" : "도착지조회",
-				"_vMessage" : "정상적인 도착지 코드가 아닙니다."
+			LEMP.Window.toast({
+				"_sMessage":"정상적인 도착지 코드가 아닙니다.",
+				'_sDuration' : 'short'
 			});
+//			LEMP.Window.alert({
+//				"_sTitle" : "도착지조회",
+//				"_vMessage" : "정상적인 도착지 코드가 아닙니다."
+//			});
 		}
 	}
 	

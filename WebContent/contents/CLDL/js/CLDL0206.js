@@ -71,10 +71,14 @@ var page = {
 					"_sCallback":"page.smsMsgSeletPopCallback"
 				});
 			}else {
-				LEMP.Window.alert({
-					"_sTitle" : "알림",
-					"_vMessage" : "문구를 선택해주세요"
+				LEMP.Window.toast({
+					"_sMessage":"문구를 선택해주세요",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle" : "알림",
+//					"_vMessage" : "문구를 선택해주세요"
+//				});
 			};
 		});
 		
@@ -102,10 +106,14 @@ var page = {
 				$('#cldl0206LstUl').append(template(res.data));
 				
 			}else {
-				LEMP.Window.alert({
-					"_sTitle" : "알림",
-					"_vMessage" : "문구 정보를 받아오지 못했습니다.\n오류가 지속 될 시 담당자에게 연락 바랍니다."
+				LEMP.Window.toast({
+					"_sMessage":"문구 정보를 받아오지 못했습니다.\n오류가 지속 될 시 담당자에게 연락 바랍니다.",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle" : "알림",
+//					"_vMessage" : "문구 정보를 받아오지 못했습니다.\n오류가 지속 될 시 담당자에게 연락 바랍니다."
+//				});
 				LEMP.Window.close();
 			}
 		}
@@ -209,17 +217,25 @@ var page = {
 						});
 					}
 					else {
-						LEMP.Window.alert({
-							"_sTitle" : "알림",
-							"_vMessage" : "'"+result.resultText+"'\n해당 문구가 존재하지 않습니다."
+						LEMP.Window.toast({
+							"_sMessage":"'"+result.resultText+"'\n해당 문구가 존재하지 않습니다.",
+							'_sDuration' : 'short'
 						});
+//						LEMP.Window.alert({
+//							"_sTitle" : "알림",
+//							"_vMessage" : "'"+result.resultText+"'\n해당 문구가 존재하지 않습니다."
+//						});
 					}
 				}
 				else if(result.status == "false"){
-					LEMP.Window.alert({
-						"_sTitle" : "알림",
-						"_vMessage" : "음성인식에 실패했습니다."
+					LEMP.Window.toast({
+						"_sMessage":"음성인식에 실패했습니다.",
+						'_sDuration' : 'short'
 					});
+//					LEMP.Window.alert({
+//						"_sTitle" : "알림",
+//						"_vMessage" : "음성인식에 실패했습니다."
+//					});
 				}
 				/*else if(result.status == "fail"){
 					LEMP.Window.alert({

@@ -148,10 +148,14 @@ var page = {
 			var cldl_sct_cd = $(this).data('cldlSctCd');		// 집배달 구분 (P:집하, D:배달)
 
 			if(smutil.isEmpty(inv_no) || smutil.isEmpty(cldl_sct_cd)){
-				LEMP.Window.alert({
-					"_sTitle" : "문자발송 오류",
-					"_vMessage" : "송장번호 혹은\n집배달 구분코드가 없습니다.\n관리자에게 문의해주세요."
+				LEMP.Window.toast({
+					"_sMessage":"송장번호 혹은\n집배달 구분코드가 없습니다.\n관리자에게 문의해주세요.",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle" : "문자발송 오류",
+//					"_vMessage" : "송장번호 혹은\n집배달 구분코드가 없습니다.\n관리자에게 문의해주세요."
+//				});
 
 				return false;
 			}
@@ -464,10 +468,14 @@ var page = {
 				$("#Y_cldl0501Cnt").text(Y_cnt);
 				$("#N_cldl0501Cnt").text(N_cnt);
 			} else {
-				LEMP.Window.alert({
-					"_sTitle" : "알림",
-					"_vMessage" : "완료 현황 데이터 조회에 실패 했습니다."
+				LEMP.Window.toast({
+					"_sMessage":"완료 현황 데이터 조회에 실패 했습니다.",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle" : "알림",
+//					"_vMessage" : "완료 현황 데이터 조회에 실패 했습니다."
+//				});
 				$("#Y_cldl0501Cnt").text("0");
 				$("#N_cldl0501Cnt").text("0");
 			}
@@ -596,10 +604,14 @@ var page = {
 			});
 		}
 		else{
-			LEMP.Window.alert({
-				"_sTitle":"문자발송 오류",
-				"_vMessage":"선택한 문자발송 문구가 없습니다."
+			LEMP.Window.toast({
+				"_sMessage":"선택한 문자발송 문구가 없습니다.",
+				'_sDuration' : 'short'
 			});
+//			LEMP.Window.alert({
+//				"_sTitle":"문자발송 오류",
+//				"_vMessage":"선택한 문자발송 문구가 없습니다."
+//			});
 
 			return false;
 		}

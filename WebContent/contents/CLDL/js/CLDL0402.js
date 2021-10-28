@@ -64,10 +64,14 @@ var page = {
 				}
 				
 			}else {
-				LEMP.Window.alert({
-					"_sTitle" : "경고",
-					"_vMessage" : "버튼을 선택해주세요"
+				LEMP.Window.toast({
+					"_sMessage":"버튼을 선택해주세요",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle" : "경고",
+//					"_vMessage" : "버튼을 선택해주세요"
+//				});
 			}
 		});
 		
@@ -97,10 +101,14 @@ var page = {
 //			smutil.loadingOff();
 		}
 		else{
-			LEMP.Window.alert({
-				"_sTitle":"스캔오류",
-				"_vMessage":"스캔 처리 구분값이 없습니다."
+			LEMP.Window.toast({
+				"_sMessage":"스캔 처리 구분값이 없습니다.",
+				'_sDuration' : 'short'
 			});
+//			LEMP.Window.alert({
+//				"_sTitle":"스캔오류",
+//				"_vMessage":"스캔 처리 구분값이 없습니다."
+//			});
 		}
 		
 	}

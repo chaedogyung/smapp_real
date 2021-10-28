@@ -204,10 +204,14 @@ var page = {
 				
 				page.rsnDtl();
 			}else {
-				LEMP.Window.alert({
-					"_sTitle" : "알림",
-					"_vMessage" : "상세정보 데이터가 없습니다."
+				LEMP.Window.toast({
+					"_sMessage":"상세정보 데이터가 없습니다.",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle" : "알림",
+//					"_vMessage" : "상세정보 데이터가 없습니다."
+//				});
 				LEMP.Window.close();
 			}
 		}

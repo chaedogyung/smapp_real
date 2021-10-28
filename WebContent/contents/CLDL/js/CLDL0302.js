@@ -76,25 +76,37 @@ var page = {
 				area_no = "";
 				zip_no = "";
 			}else{
-				LEMP.Window.alert({
-					"_sTitle" : "분류코드 검색",
-					"_vMessage" : "유효하지 않은 우편번호"
+				LEMP.Window.toast({
+					"_sMessage":"유효하지 않은 우편번호",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle" : "분류코드 검색",
+//					"_vMessage" : "유효하지 않은 우편번호"
+//				});
 				
 				$("#cldl0302Ul").html("");
 				return;
 			}
 			
 			if (smutil.isEmpty(addr)) {
-				LEMP.Window.alert({
-					"_sTitle" : "분류코드 검색",
-					"_vMessage" : "전체 주소를 입력해주세요."
+				LEMP.Window.toast({
+					"_sMessage":"전체 주소를 입력해주세요.",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle" : "분류코드 검색",
+//					"_vMessage" : "전체 주소를 입력해주세요."
+//				});
 			}else if ($("#addr_input").val().length < 2) {
-				LEMP.Window.alert({
-					"_sTitle" : "분류코드 검색",
-					"_vMessage" : "전체 주소를 입력해주세요."
+				LEMP.Window.toast({
+					"_sMessage":"전체 주소를 입력해주세요.",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle" : "분류코드 검색",
+//					"_vMessage" : "전체 주소를 입력해주세요."
+//				});
 			}else {
 				data = {
 					"network": network,
@@ -168,10 +180,14 @@ var page = {
 					$('#addr_input').val(result.resultText);
 				}
 				else if(result.status == "false"){
-					LEMP.Window.alert({
-						"_sTitle" : "알림",
-						"_vMessage" : "음성인식에 실패했습니다."
+					LEMP.Window.toast({
+						"_sMessage":"음성인식에 실패했습니다.",
+						'_sDuration' : 'short'
 					});
+//					LEMP.Window.alert({
+//						"_sTitle" : "알림",
+//						"_vMessage" : "음성인식에 실패했습니다."
+//					});
 				}
 			}
 			
@@ -211,10 +227,14 @@ var page = {
 					$("#cldl0302Ul").html(template(res));
 				}
 				else {
-					LEMP.Window.alert({
-						"_sTitle" : "분류코드 검색",
-						"_vMessage" : res.message
+					LEMP.Window.toast({
+						"_sMessage":res.message,
+						'_sDuration' : 'short'
 					});
+//					LEMP.Window.alert({
+//						"_sTitle" : "분류코드 검색",
+//						"_vMessage" : res.message
+//					});
 					var template = Handlebars.compile($("#no_list_template").html());
 					$("#cldl0302Ul").html(template(res));
 				}

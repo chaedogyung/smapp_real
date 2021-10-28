@@ -3,10 +3,14 @@ var page = {
 	init : function(arg) {
 		var obj = {};
 		if (arg.data == "" || arg.data == undefined) {
-			LEMP.Window.alert({
-				"_sTitle" : "메모 오류",
-				"_vMessage" : "송장번호가 없습니다.\n관리자에게 문의해주세요."
+			LEMP.Window.toast({
+				"_sMessage":"송장번호가 없습니다.\n관리자에게 문의해주세요.",
+				'_sDuration' : 'short'
 			});
+//			LEMP.Window.alert({
+//				"_sTitle" : "메모 오류",
+//				"_vMessage" : "송장번호가 없습니다.\n관리자에게 문의해주세요."
+//			});
 			LEMP.Window.close();
 			
 		} else {
@@ -71,10 +75,14 @@ var page = {
 				}
 			}
 			if (rbyte > 100) {
-				LEMP.Window.alert({
-					"_sTitle" : "경고",
-					"_vMessage" : "메세지는 최대 100byte를 \n초과 할 수 없습니다."
+				LEMP.Window.toast({
+					"_sMessage":"메세지는 최대 100byte를 \n초과 할 수 없습니다.",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle" : "경고",
+//					"_vMessage" : "메세지는 최대 100byte를 \n초과 할 수 없습니다."
+//				});
 				str2 = str.substr(0, rlen); // 문자열 자르기
 				obj.val(str2);
 //				return false;

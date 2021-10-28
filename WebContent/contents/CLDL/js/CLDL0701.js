@@ -143,10 +143,14 @@ var page = {
 			// 등록(전송) 버튼 클릭
 			$('#cmptTrsmBtn').click(function(e){
 				if(smutil.isEmpty(page.dlay_rsn_cd)){
-					LEMP.Window.alert({
-						"_sTitle":"미배달 전송 오류",
-						"_vMessage":"미배달 사유를 선택해주세요",
+					LEMP.Window.toast({
+						"_sMessage":"미배달 사유를 선택해주세요",
+						'_sDuration' : 'short'
 					});
+//					LEMP.Window.alert({
+//						"_sTitle":"미배달 전송 오류",
+//						"_vMessage":"미배달 사유를 선택해주세요",
+//					});
 					return false;
 				}
 
@@ -179,10 +183,14 @@ var page = {
 					$('.mpopBox.pop2').bPopup();
 				}
 				else{
-					LEMP.Window.alert({
-						"_sTitle":"미배달 전송오류",
-						"_vMessage":"전송할 데이터가 없습니다.\n체크박스를 선택해주세요.",
+					LEMP.Window.toast({
+						"_sMessage":"전송할 데이터가 없습니다.\n체크박스를 선택해주세요.",
+						'_sDuration' : 'short'
 					});
+//					LEMP.Window.alert({
+//						"_sTitle":"미배달 전송오류",
+//						"_vMessage":"전송할 데이터가 없습니다.\n체크박스를 선택해주세요.",
+//					});
 				}
 			});
 
@@ -215,10 +223,14 @@ var page = {
 		// 화면 디스플레이 이벤트
 		initDpEvent : function(){
 			if(smutil.isEmpty($("#cldlBtnCal").text())){
-				LEMP.Window.alert({
-					"_sTitle":"리스트 조회오류",
-					"_vMessage":"조회할 날짜를 선택해 주세요"
+				LEMP.Window.toast({
+					"_sMessage":"조회할 날짜를 선택해 주세요",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle":"리스트 조회오류",
+//					"_vMessage":"조회할 날짜를 선택해 주세요"
+//				});
 				return false;
 			}
 
@@ -591,10 +603,14 @@ var page = {
 		// 리스트 제조회 함수
 		listReLoad : function(){
 			if(smutil.isEmpty($("#cldlBtnCal").text())){
-				LEMP.Window.alert({
-					"_sTitle":"리스트 조회오류",
-					"_vMessage":"조회할 날짜를 선택해 주세요"
+				LEMP.Window.toast({
+					"_sMessage":"조회할 날짜를 선택해 주세요",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle":"리스트 조회오류",
+//					"_vMessage":"조회할 날짜를 선택해 주세요"
+//				});
 				return false;
 			}
 
@@ -608,10 +624,14 @@ var page = {
 				//심야배송 선택했을경우 시간체크
 				if(res.param.code === "42"){
 					if(!smutil.isMidnight()){
-						LEMP.Window.alert({
-							"_sTitle":"미배달 사유 선택 오류",
-							"_vMessage":"심야배송으로 인한 익일배송은 20시 30분 이후에 선택 가능합니다."
+						LEMP.Window.toast({
+							"_sMessage":"심야배송으로 인한 익일배송은 20시 30분 이후에 선택 가능합니다.",
+							'_sDuration' : 'short'
 						});
+//						LEMP.Window.alert({
+//							"_sTitle":"미배달 사유 선택 오류",
+//							"_vMessage":"심야배송으로 인한 익일배송은 20시 30분 이후에 선택 가능합니다."
+//						});
 						return false;
 					}
 				}
@@ -656,10 +676,14 @@ var page = {
 				smutil.callApi(page.apiParam);
 			}
 			else {
-				LEMP.Window.alert({
-					"_sTitle":"미배달 처리 오류",
-					"_vMessage":"선택한 미배달 송장번호 혹은 \n미배달 사유가 없습니다."
+				LEMP.Window.toast({
+					"_sMessage":"선택한 미배달 송장번호 혹은 \n미배달 사유가 없습니다.",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle":"미배달 처리 오류",
+//					"_vMessage":"선택한 미배달 송장번호 혹은 \n미배달 사유가 없습니다."
+//				});
 
 				return false;
 			}

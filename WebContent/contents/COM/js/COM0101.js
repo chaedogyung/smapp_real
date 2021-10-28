@@ -191,10 +191,14 @@ var page={
 
 					// 집하에서 5번으로 시작하는 송장은 스캔할수 없게 한다.
 					if(data.cldl_sct_cd == "P" && ((invNo).LPStartsWith("5"))){
-						LEMP.Window.alert({
-							"_sTitle":"스캔오류",
-							"_vMessage":"의류특화 보조송장은 \n집하업무에선 스캔할수 없습니다."
+						LEMP.Window.toast({
+							"_sMessage":"의류특화 보조송장은 \n집하업무에선 스캔할수 없습니다.",
+							'_sDuration' : 'short'
 						});
+//						LEMP.Window.alert({
+//							"_sTitle":"스캔오류",
+//							"_vMessage":"의류특화 보조송장은 \n집하업무에선 스캔할수 없습니다."
+//						});
 
 						obj.val(invNo.replace(/([0-9]{4})([0-9]{4})([0-9]{4})/,"$1-$2-$3"));
 
@@ -207,10 +211,14 @@ var page={
 						page.plnScanRgst(data);
 					}
 				}else {
-					LEMP.Window.alert({
-						"_sTitle" : "경고",
-						"_vMessage" : "정상적인 바코드번호가 아닙니다."
+					LEMP.Window.toast({
+						"_sMessage":"정상적인 바코드번호가 아닙니다.",
+						'_sDuration' : 'short'
 					});
+//					LEMP.Window.alert({
+//						"_sTitle" : "경고",
+//						"_vMessage" : "정상적인 바코드번호가 아닙니다."
+//					});
 
 					obj.val(invNo.replace(/([0-9]{4})([0-9]{4})([0-9]{4})/,"$1-$2-$3"));
 
@@ -278,10 +286,14 @@ var page={
 			smutil.callApi(page.apiParam);
 		}
 		else {
-			LEMP.Window.alert({
-				"_sTitle":"스캔오류",
-				"_vMessage":"스캔 처리 구분값이 없습니다."
+			LEMP.Window.toast({
+				"_sMessage":"스캔 처리 구분값이 없습니다.",
+				'_sDuration' : 'short'
 			});
+//			LEMP.Window.alert({
+//				"_sTitle":"스캔오류",
+//				"_vMessage":"스캔 처리 구분값이 없습니다."
+//			});
 		}
 
 	}
@@ -316,10 +328,14 @@ var page={
 			smutil.callApi(page.apiParam);
 		}
 		else {
-			LEMP.Window.alert({
-				"_sTitle":"스캔오류",
-				"_vMessage":"스캔 처리 구분값이 없습니다."
+			LEMP.Window.toast({
+				"_sMessage":"스캔 처리 구분값이 없습니다.",
+				'_sDuration' : 'short'
 			});
+//			LEMP.Window.alert({
+//				"_sTitle":"스캔오류",
+//				"_vMessage":"스캔 처리 구분값이 없습니다."
+//			});
 		}
 	}
 
@@ -459,16 +475,24 @@ var page={
 						$('#scan').val(res.data);
 						$('#scan').trigger("change");
 					}else {
-						LEMP.Window.alert({
-							"_sTitle" : "경고",
-							"_vMessage" : "정상적인 바코드번호가 아닙니다."
+						LEMP.Window.toast({
+							"_sMessage":"정상적인 바코드번호가 아닙니다.",
+							'_sDuration' : 'short'
 						});
+//						LEMP.Window.alert({
+//							"_sTitle" : "경고",
+//							"_vMessage" : "정상적인 바코드번호가 아닙니다."
+//						});
 					}
 				}else {
-					LEMP.Window.alert({
-						"_sTitle" : "경고",
-						"_vMessage" : "바코드를 읽지 못했습니다."
+					LEMP.Window.toast({
+						"_sMessage":"바코드를 읽지 못했습니다.",
+						'_sDuration' : 'short'
 					});
+//					LEMP.Window.alert({
+//						"_sTitle" : "경고",
+//						"_vMessage" : "바코드를 읽지 못했습니다."
+//					});
 				}
 			}
 		});

@@ -351,40 +351,56 @@ var page = {
 
         // 인수자 정보 유효성 체크
         if (smutil.isEmpty(rcvName) || smutil.isEmpty(rcvCode)) {
-            LEMP.Window.alert({
-                '_sTitle' : '사진전송',
-                '_vMessage' : '인수자 정보가 없습니다.\n인수자를 확인해주세요'
-            });
+        	LEMP.Window.toast({
+				"_sMessage":"인수자 정보가 없습니다.\n인수자를 확인해주세요",
+				'_sDuration' : 'short'
+			});
+//        	LEMP.Window.alert({
+//                '_sTitle' : '사진전송',
+//                '_vMessage' : '인수자 정보가 없습니다.\n인수자를 확인해주세요'
+//            });
 
             return false;
         }
 
         // 송장 번호 유효성 체크
         if ($('#invNoItem').length === 0) {
-            LEMP.Window.alert({
-                '_sTitle' : '사진전송',
-                '_vMessage' : '스캔된 송장번호가 없습니다.\n송장번호를 확인해주세요'
-            });
+        	LEMP.Window.toast({
+				"_sMessage":"스캔된 송장번호가 없습니다.\n송장번호를 확인해주세요",
+				'_sDuration' : 'short'
+			});
+//        	LEMP.Window.alert({
+//                '_sTitle' : '사진전송',
+//                '_vMessage' : '스캔된 송장번호가 없습니다.\n송장번호를 확인해주세요'
+//            });
 
             return false;
         }
 
         // 메시지 유효성 체크
         if (smutil.isEmpty(mmsMessage)) {
-            LEMP.Window.alert({
-                '_sTitle' : '사진전송',
-                '_vMessage' : '배송문구 내용이 입력 되지 않았습니다\n내용을 확인해주세요'
-            });
+        	LEMP.Window.toast({
+				"_sMessage":"배송문구 내용이 입력 되지 않았습니다\n내용을 확인해주세요",
+				'_sDuration' : 'short'
+			});
+//        	LEMP.Window.alert({
+//                '_sTitle' : '사진전송',
+//                '_vMessage' : '배송문구 내용이 입력 되지 않았습니다\n내용을 확인해주세요'
+//            });
 
             return false;
         }
 
         // 사진 유효성 체크
         if (smutil.isEmpty(mmsImage)) {
-            LEMP.Window.alert({
-                '_sTitle' : '사진전송',
-                '_vMessage' : '이미지가 선택 되지 않았습니다\n내용을 확인해주세요'
-            });
+        	LEMP.Window.toast({
+				"_sMessage":"이미지가 선택 되지 않았습니다\n내용을 확인해주세요",
+				'_sDuration' : 'short'
+			});
+//        	LEMP.Window.alert({
+//                '_sTitle' : '사진전송',
+//                '_vMessage' : '이미지가 선택 되지 않았습니다\n내용을 확인해주세요'
+//            });
 
             return false;
         }
@@ -540,7 +556,9 @@ var page = {
     cmptScanRgst: function() {
         var date = new Date();
         var scan_dtm = date.LPToFormatDate("yyyymmddHHnnss");
-
+        var dlvyCompl = LEMP.Properties.get({ "_sKey" : "autoMenual"});
+        var area_sct_cd = dlvyCompl.area_sct_cd;
+        
         page.apiParam.id = 'HTTP';
         page.apiParam.param.baseUrl = '/smapis/cldl/cmptScanRgst';          // API NO
         page.apiParam.param.callback = 'page.cmptScanRgstCallback';         // API CALLBACK
@@ -550,7 +568,7 @@ var page = {
         page.apiParam.data.parameters.scan_dtm = scan_dtm;                  // PARAM: 스캔 시간
         page.apiParam.data.parameters.acpt_sct_cd = $('#rcvCode').val();    // PARAM: 인수자 구분 코드
         page.apiParam.data.parameters.acpr_nm = $('#rcvName').val();        // PARAM: 인수자 명
-        page.apiParam.data.parameters.area_sct_cd = 'N';
+        page.apiParam.data.parameters.area_sct_cd = area_sct_cd;
         
         smutil.callApi(page.apiParam);
     },
@@ -584,10 +602,14 @@ var page = {
         if (smutil.apiResValidChk(res) && res.code === '0000') {
             page.mms();
         } else if (res.code === 'SMAPP_BAD_PARAMETER') {
-            LEMP.Window.alert({
-                '_sTitle' : '사진전송',
-                '_vMessage' : res.message
-            });
+        	LEMP.Window.toast({
+				"_sMessage":res.message,
+				'_sDuration' : 'short'
+			});
+//        	LEMP.Window.alert({
+//                '_sTitle' : '사진전송',
+//                '_vMessage' : res.message
+//            });
         }
     },
 
@@ -614,10 +636,14 @@ var page = {
         if (smutil.apiResValidChk(res) && res.code === '0000') {
             page.mms();
         } else if (res.code === 'SMAPP_BAD_PARAMETER') {
-            LEMP.Window.alert({
-                '_sTitle' : '사진전송',
-                '_vMessage' : res.message
-            });
+        	LEMP.Window.toast({
+				"_sMessage":res.message,
+				'_sDuration' : 'short'
+			});
+//        	LEMP.Window.alert({
+//                '_sTitle' : '사진전송',
+//                '_vMessage' : res.message
+//            });
         }
     },
 
@@ -634,10 +660,14 @@ var page = {
                 page.cmptPhtgTrsmCheck();
             }
         } else {
-            LEMP.Window.alert({
-                "_sTitle" : "경고",
-                "_vMessage" : "바코드를 읽지 못했습니다."
-            });
+        	LEMP.Window.toast({
+				"_sMessage":"바코드를 읽지 못했습니다.",
+				'_sDuration' : 'short'
+			});
+//        	LEMP.Window.alert({
+//                "_sTitle" : "경고",
+//                "_vMessage" : "바코드를 읽지 못했습니다."
+//            });
 
             // 실패 TTS 호출
             smutil.callTTS("0", "0", null, page.isBackground);
@@ -670,10 +700,14 @@ var page = {
         if (res.result) {
             $('.imgBox > img').attr('src', res.target_path);
         }else {
-            LEMP.Window.alert({
-                '_sTitle' : '사진전송',
-                '_vMessage' : '이미지를 가져올 수 없습니다.'
-            });
+        	LEMP.Window.toast({
+				"_sMessage":"이미지를 가져올 수 없습니다.",
+				'_sDuration' : 'short'
+			});
+//        	LEMP.Window.alert({
+//                '_sTitle' : '사진전송',
+//                '_vMessage' : '이미지를 가져올 수 없습니다.'
+//            });
         }
     },
 
@@ -722,10 +756,14 @@ var page = {
 
             smutil.loadingOff();
         } else{
-            LEMP.Window.alert({
-                '_sTitle' : '사진전송 mms발송 실패',
-                '_vMessage' : 'MMS 문자발송에 실패했습니다.'
-            });
+        	LEMP.Window.toast({
+				"_sMessage":"MMS 문자발송에 실패했습니다.",
+				'_sDuration' : 'short'
+			});
+//        	LEMP.Window.alert({
+//                '_sTitle' : '사진전송 mms발송 실패',
+//                '_vMessage' : 'MMS 문자발송에 실패했습니다.'
+//            });
 
             smutil.loadingOff();
         }

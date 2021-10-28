@@ -155,26 +155,38 @@ var page = {
 				}
 
 				if(smutil.isEmpty(cldl_sct_cd)){
-					LEMP.Window.alert({
-						"_sTitle":"스캔오류",
-						"_vMessage":"업무구분을 선택해 주세요."
+					LEMP.Window.toast({
+						"_sMessage":"업무구분을 선택해 주세요.",
+						'_sDuration' : 'short'
 					});
+//					LEMP.Window.alert({
+//						"_sTitle":"스캔오류",
+//						"_vMessage":"업무구분을 선택해 주세요."
+//					});
 
 					return false;
 				}
 				else if(smutil.isEmpty(cldl_tmsl_cd) && page.dlvyCompl.area_sct_cd == "N"){
-					LEMP.Window.alert({
-						"_sTitle":"스캔오류",
-						"_vMessage":"예정시간을 선택해 주세요."
+					LEMP.Window.toast({
+						"_sMessage":"예정시간을 선택해 주세요.",
+						'_sDuration' : 'short'
 					});
+//					LEMP.Window.alert({
+//						"_sTitle":"스캔오류",
+//						"_vMessage":"예정시간을 선택해 주세요."
+//					});
 
 					return false;
 				}
 				else if(cldl_tmsl_cd === '28' && smutil.isEmpty(dsgt_dd_cldl_ymd)) {
-					LEMP.Window.alert({
-						"_sTitle":"스캔오류",
-						"_vMessage":"지정일자를 선택해 주세요."
+					LEMP.Window.toast({
+						"_sMessage":"지정일자를 선택해 주세요.",
+						'_sDuration' : 'short'
 					});
+//					LEMP.Window.alert({
+//						"_sTitle":"스캔오류",
+//						"_vMessage":"지정일자를 선택해 주세요."
+//					});
 
 					return false;
 				}
@@ -344,10 +356,14 @@ var page = {
 					$('.mpopBox.pop2').bPopup();
 				}
 				else{
-					LEMP.Window.alert({
-						"_sTitle":"집배달 출발 확정 오류",
-						"_vMessage":"스캔한 데이터가 없습니다.",
+					LEMP.Window.toast({
+						"_sMessage":"스캔한 데이터가 없습니다.",
+						'_sDuration' : 'short'
 					});
+//					LEMP.Window.alert({
+//						"_sTitle":"집배달 출발 확정 오류",
+//						"_vMessage":"스캔한 데이터가 없습니다.",
+//					});
 
 					return ;
 				}
@@ -427,10 +443,14 @@ var page = {
 				var cldl_sct_cd = $(this).data('cldlSctCd');		// 집배달 구분코드(P:집하, D:배달)
 
 				if(smutil.isEmpty(inv_no) || smutil.isEmpty(cldl_sct_cd)){
-					LEMP.Window.alert({
-						"_sTitle" : "메모 오류",
-						"_vMessage" : "송장번호 혹은\n집배달 구분코드가 없습니다.\n관리자에게 문의해주세요."
+					LEMP.Window.toast({
+						"_sMessage":"송장번호 혹은\n집배달 구분코드가 없습니다.\n관리자에게 문의해주세요.",
+						'_sDuration' : 'short'
 					});
+//					LEMP.Window.alert({
+//						"_sTitle" : "메모 오류",
+//						"_vMessage" : "송장번호 혹은\n집배달 구분코드가 없습니다.\n관리자에게 문의해주세요."
+//					});
 
 					return false;
 				}
@@ -451,10 +471,14 @@ var page = {
 					});
 				}
 				else{
-					LEMP.Window.alert({
-						"_sTitle":"미집하 처리 오류",
-						"_vMessage":"미스캔 데이터 입니다."
+					LEMP.Window.toast({
+						"_sMessage":"미스캔 데이터 입니다.",
+						'_sDuration' : 'short'
 					});
+//					LEMP.Window.alert({
+//						"_sTitle":"미집하 처리 오류",
+//						"_vMessage":"미스캔 데이터 입니다."
+//					});
 
 					return false;
 				}
@@ -471,10 +495,14 @@ var page = {
 				var cldl_sct_cd = $(this).data('cldlSctCd');		// 집배달 구분 (P:집하, D:배달)
 
 				if(smutil.isEmpty(inv_no) || smutil.isEmpty(cldl_sct_cd)){
-					LEMP.Window.alert({
-						"_sTitle" : "문자발송 오류",
-						"_vMessage" : "송장번호 혹은\n집배달 구분코드가 없습니다.\n관리자에게 문의해주세요."
+					LEMP.Window.toast({
+						"_sMessage":"송장번호 혹은\n집배달 구분코드가 없습니다.\n관리자에게 문의해주세요.",
+						'_sDuration' : 'short'
 					});
+//					LEMP.Window.alert({
+//						"_sTitle" : "문자발송 오류",
+//						"_vMessage" : "송장번호 혹은\n집배달 구분코드가 없습니다.\n관리자에게 문의해주세요."
+//					});
 
 					return false;
 				}
@@ -893,34 +921,34 @@ var page = {
 		initDpEvent : function(){
 
 			if(smutil.isEmpty($("#cldlBtnCal").text())){
-				LEMP.Window.alert({
-					"_sTitle":"리스트 조회오류",
-					"_vMessage":"조회할 날짜를 선택해 주세요"
+				LEMP.Window.toast({
+					"_sMessage":"조회할 날짜를 선택해 주세요",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle":"리스트 조회오류",
+//					"_vMessage":"조회할 날짜를 선택해 주세요"
+//				});
 				return false;
 			}
+			
+			if (!_.isUndefined(page.dlvyCompl)) {
+                // 구역별 시간별
 
+                if(page.dlvyCompl.area_sct_cd == "Y") {
+                    $("#setDlvyCom1").text('구역');
+                    $("#setDlvyCom1").attr('class', 'red badge option outline');
+                    $("#cldl_tmsl_cd").hide();
+                } else {
+                    $("#setDlvyCom1").text('시간');
+                    $("#setDlvyCom1").attr('class', 'green badge option outline');
+                    $("#cldl_tmsl_cd").show();
+                }
+            }
+			
 			var _this = this;
 			smutil.loadingOn();
 			_this.plnFltrListSerch();			// 필터 리스트 조회
-			
-			$(function(){
-				var dlvyCompl = LEMP.Properties.get({ "_sKey" : "autoMenual"});
-
-				if (!_.isUndefined(dlvyCompl)) {
-                    // 구역별 시간별
-
-                    if(dlvyCompl.area_sct_cd == "Y") {
-                        $("#setDlvyCom1").text('구역');
-                        $("#setDlvyCom1").attr('class', 'red badge option outline');
-                        $("#cldl_tmsl_cd").hide();
-                    } else {
-                        $("#setDlvyCom1").text('시간');
-                        $("#setDlvyCom1").attr('class', 'green badge option outline');
-                        $("#cldl_tmsl_cd").show();
-                    }
-                }
-			});
 		},
 
 
@@ -1190,10 +1218,14 @@ var page = {
 		listReLoad : function(){
 
 			if(smutil.isEmpty($("#cldlBtnCal").text())){
-				LEMP.Window.alert({
-					"_sTitle":"리스트 조회오류",
-					"_vMessage":"조회할 날짜를 선택해 주세요"
+				LEMP.Window.toast({
+					"_sMessage":"조회할 날짜를 선택해 주세요",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle":"리스트 조회오류",
+//					"_vMessage":"조회할 날짜를 선택해 주세요"
+//				});
 				return false;
 			}
 
@@ -1620,10 +1652,14 @@ var page = {
 			else{
 				var message = smutil.nullToValue(result.message,'');
 
-				LEMP.Window.alert({
-					"_sTitle":"스캔취소 오류",
-					"_vMessage":message
+				LEMP.Window.toast({
+					"_sMessage": message,
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle":"스캔취소 오류",
+//					"_vMessage":message
+//				});
 			}
 
 			page.apiParamInit();			// 파라메터 전역변수 초기화
@@ -1640,10 +1676,14 @@ var page = {
 			var base_ymd = $('#cldlBtnCal').text();
 
 			if(smutil.isEmpty(base_ymd)){
-				LEMP.Window.alert({
-					"_sTitle":"집배달 출발 확정 오류",
-					"_vMessage":"날짜를 선택해 주세요.",
+				LEMP.Window.toast({
+					"_sMessage":"날짜를 선택해 주세요.",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle":"집배달 출발 확정 오류",
+//					"_vMessage":"날짜를 선택해 주세요.",
+//				});
 
 				return ;
 			}
@@ -1672,10 +1712,14 @@ var page = {
 					smutil.callApi(_this.apiParam);
 				}
 				else{
-					LEMP.Window.alert({
-						"_sTitle":"집배달 출발 확정 오류",
-						"_vMessage":"스캔한 데이터가 없습니다.",
+					LEMP.Window.toast({
+						"_sMessage":"스캔한 데이터가 없습니다.",
+						'_sDuration' : 'short'
 					});
+//					LEMP.Window.alert({
+//						"_sTitle":"집배달 출발 확정 오류",
+//						"_vMessage":"스캔한 데이터가 없습니다.",
+//					});
 
 					return ;
 				}
@@ -1796,10 +1840,14 @@ var page = {
 							$('.mpopBox.pop2').bPopup();
 						}
 						else{
-							LEMP.Window.alert({
-								"_sTitle":"집배달 출발 확정 오류",
-								"_vMessage":"스캔한 데이터가 없습니다.",
+							LEMP.Window.toast({
+								"_sMessage":"스캔한 데이터가 없습니다.",
+								'_sDuration' : 'short'
 							});
+//							LEMP.Window.alert({
+//								"_sTitle":"집배달 출발 확정 오류",
+//								"_vMessage":"스캔한 데이터가 없습니다.",
+//							});
 
 							return false;
 						}
@@ -1891,10 +1939,14 @@ var page = {
 				//심야배송 선택했을경우 시간체크
 				if(res.param.code == 42){
 					if(!smutil.isMidnight()){
-						LEMP.Window.alert({
-							"_sTitle":"미배달 사유 선택 오류",
-							"_vMessage":"심야배송으로 인한 익일배송은 20시 30분 이후에 선택 가능합니다."
+						LEMP.Window.toast({
+							"_sMessage":"심야배송으로 인한 익일배송은 20시 30분 이후에 선택 가능합니다.",
+							'_sDuration' : 'short'
 						});
+//						LEMP.Window.alert({
+//							"_sTitle":"미배달 사유 선택 오류",
+//							"_vMessage":"심야배송으로 인한 익일배송은 20시 30분 이후에 선택 가능합니다."
+//						});
 						return false;
 					}
 				}
@@ -1974,10 +2026,14 @@ var page = {
 
 			}
 			else {
-				LEMP.Window.alert({
-					"_sTitle":"미 집배달 처리 오류",
-					"_vMessage":"선택한 송장번호 혹은 사유가 없습니다."
+				LEMP.Window.toast({
+					"_sMessage":"선택한 송장번호 혹은 사유가 없습니다.",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle":"미 집배달 처리 오류",
+//					"_vMessage":"선택한 송장번호 혹은 사유가 없습니다."
+//				});
 
 				return false;
 			}
@@ -2004,10 +2060,14 @@ var page = {
 
 			// api 전송 성공
 			if(smutil.apiResValidChk(result) && result.code == "0000"){
-				LEMP.Window.alert({
-					"_sTitle" : str+" 처리 완료",
-					"_vMessage" : str+" 처리가 완료되었습니다."
+				LEMP.Window.toast({
+					"_sMessage": str+" 처리가 완료되었습니다.",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle" : str+" 처리 완료",
+//					"_vMessage" : str+" 처리가 완료되었습니다."
+//				});
 
 				page.listReLoad();				// 리스트 제조회
 			}
@@ -2055,10 +2115,14 @@ var page = {
 				});
 			}
 			else{
-				LEMP.Window.alert({
-					"_sTitle":"문자발송 오류",
-					"_vMessage":"선택한 문자발송 문구가 없습니다."
+				LEMP.Window.toast({
+					"_sMessage":"선택한 문자발송 문구가 없습니다.",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle":"문자발송 오류",
+//					"_vMessage":"선택한 문자발송 문구가 없습니다."
+//				});
 
 				return false;
 			}

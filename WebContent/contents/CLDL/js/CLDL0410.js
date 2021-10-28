@@ -94,10 +94,14 @@ var page = {
 
 			}
 			else{
-				LEMP.Window.alert({
-					"_sTitle":"서명 오류",
-					"_vMessage":"스캔후 가능합니다.",
+				LEMP.Window.toast({
+					"_sMessage":"스캔후 가능합니다.",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle":"서명 오류",
+//					"_vMessage":"스캔후 가능합니다.",
+//				});
 			}
 
 		});
@@ -139,18 +143,26 @@ var page = {
 			var usrCpnoApi = [];
 
 			if (smutil.isEmpty(conCheck)) {
-				 LEMP.Window.alert({
-					 "_sTitle" : "사진전송",
-					 "_vMessage" : "배송문구 내용이 입력 되지 않았습니다\n내용을 확인해주세요"
-				 });
+				LEMP.Window.toast({
+					"_sMessage":"배송문구 내용이 입력 되지 않았습니다\n내용을 확인해주세요",
+					'_sDuration' : 'short'
+				});
+//				LEMP.Window.alert({
+//					 "_sTitle" : "사진전송",
+//					 "_vMessage" : "배송문구 내용이 입력 되지 않았습니다\n내용을 확인해주세요"
+//				 });
 				 return false;
 			};
 
 			if (smutil.isEmpty(imgCheck)) {
-				 LEMP.Window.alert({
-					 "_sTitle" : "사진전송",
-					 "_vMessage" : "이미지가 선택 되지 않았습니다\n내용을 확인해주세요"
-				 });
+				LEMP.Window.toast({
+					"_sMessage":"이미지가 선택 되지 않았습니다\n내용을 확인해주세요",
+					'_sDuration' : 'short'
+				});
+//				LEMP.Window.alert({
+//					 "_sTitle" : "사진전송",
+//					 "_vMessage" : "이미지가 선택 되지 않았습니다\n내용을 확인해주세요"
+//				 });
 				 return false;
 			};
 
@@ -211,10 +223,14 @@ var page = {
 			});
 
 			if (plag) {
-				LEMP.Window.alert({
-					"_sTitle" : "사진전송",
-					"_vMessage" : "MMS를 발송할 수 없는 번호가 있습니다\n전화번호를 변경해주세요"
+				LEMP.Window.toast({
+					"_sMessage":"MMS를 발송할 수 없는 번호가 있습니다\n전화번호를 변경해주세요",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle" : "사진전송",
+//					"_vMessage" : "MMS를 발송할 수 없는 번호가 있습니다\n전화번호를 변경해주세요"
+//				});
 				return false;
 			}
 
@@ -315,10 +331,14 @@ var page = {
 			page.signInvNo = null;
 		}
 		else{
-			LEMP.Window.alert({
-				"_sTitle":"서명이미지 저장오류",
-				"_vMessage":"서명이미지를 저장하지 못했습니다.\n 관리자에게문의해 주세요."
+			LEMP.Window.toast({
+				"_sMessage":"서명이미지를 저장하지 못했습니다.\n 관리자에게문의해 주세요.",
+				'_sDuration' : 'short'
 			});
+//			LEMP.Window.alert({
+//				"_sTitle":"서명이미지 저장오류",
+//				"_vMessage":"서명이미지를 저장하지 못했습니다.\n 관리자에게문의해 주세요."
+//			});
 		}
 
 	},
@@ -330,18 +350,26 @@ var page = {
 
 		// api 전송 성공
 		if(smutil.apiResValidChk(result) && result.code == "0000"){
-			LEMP.Window.alert({
-				"_sTitle":"서명이미지 저장",
-				"_vMessage":"서명이미지 저장처리가 완료되었습니다."
+			LEMP.Window.toast({
+				"_sMessage":"서명이미지 저장처리가 완료되었습니다.",
+				'_sDuration' : 'short'
 			});
+//			LEMP.Window.alert({
+//				"_sTitle":"서명이미지 저장",
+//				"_vMessage":"서명이미지 저장처리가 완료되었습니다."
+//			});
 			//서명이미지 전송후 종료
 			LEMP.Window.close();
 		}
 		else{
-			LEMP.Window.alert({
-				"_sTitle":"서명이미지 저장오류",
-				"_vMessage":smutil.nullToValue(result.message,'')
+			LEMP.Window.toast({
+				"_sMessage":smutil.nullToValue(result.message,''),
+				'_sDuration' : 'short'
 			});
+//			LEMP.Window.alert({
+//				"_sTitle":"서명이미지 저장오류",
+//				"_vMessage":smutil.nullToValue(result.message,'')
+//			});
 		}
 
 	}
@@ -427,10 +455,14 @@ var page = {
 			if (smutil.apiResValidChk(res) && res.code=="0000") {
 				page.MMSLIbTestFunction();
 			}else if (res.code=="SMAPP_BAD_PARAMETER"){
-				LEMP.Window.alert({
-					"_sTitle" : "사진전송",
-					"_vMessage" : res.message
+				LEMP.Window.toast({
+					"_sMessage":res.message,
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle" : "사진전송",
+//					"_vMessage" : res.message
+//				});
 			}
 		}
 		catch(e){}
@@ -444,10 +476,14 @@ var page = {
 		if (res.result) {
 			$(".imgBox > img").attr("src",res.target_path);
 		}else {
-			LEMP.Window.alert({
-				"_sTitle" : "사진전송",
-				"_vMessage" : "이미지를 가져올 수 없습니다."
+			LEMP.Window.toast({
+				"_sMessage":"이미지를 가져올 수 없습니다.",
+				'_sDuration' : 'short'
 			});
+//			LEMP.Window.alert({
+//				"_sTitle" : "사진전송",
+//				"_vMessage" : "이미지를 가져올 수 없습니다."
+//			});
 		}
 
 	}
@@ -498,10 +534,14 @@ var page = {
 			});
 		}
 		else{
-			LEMP.Window.alert({
-				"_sTitle" : "사진전송 mms발송 실패",
-				"_vMessage" : "MMS 문자발송에 실패했습니다."
+			LEMP.Window.toast({
+				"_sMessage":"MMS 문자발송에 실패했습니다.",
+				'_sDuration' : 'short'
 			});
+//			LEMP.Window.alert({
+//				"_sTitle" : "사진전송 mms발송 실패",
+//				"_vMessage" : "MMS 문자발송에 실패했습니다."
+//			});
 
 			smutil.loadingOff();			// 로딩바 닫기
 		}

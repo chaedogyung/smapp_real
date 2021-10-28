@@ -112,22 +112,34 @@ var page = {
 						page.asstInvScanRgst();
 					}
 					else{
-						LEMP.Window.alert({
-							"_sTitle":"스캔오류",
-							"_vMessage":"보조 송장번호가 아닙니다."
+						LEMP.Window.toast({
+							"_sMessage":"보조 송장번호가 아닙니다.",
+							'_sDuration' : 'short'
 						});
+//						LEMP.Window.alert({
+//							"_sTitle":"스캔오류",
+//							"_vMessage":"보조 송장번호가 아닙니다."
+//						});
 					}
 				}else {
-					LEMP.Window.alert({
-						"_sTitle" : "경고",
-						"_vMessage" : "정상적인 바코드번호가 아닙니다."
+					LEMP.Window.toast({
+						"_sMessage":"정상적인 바코드번호가 아닙니다.",
+						'_sDuration' : 'short'
 					});
+//					LEMP.Window.alert({
+//						"_sTitle" : "경고",
+//						"_vMessage" : "정상적인 바코드번호가 아닙니다."
+//					});
 				}
 			}else {
-				LEMP.Window.alert({
-					"_sTitle" : "경고",
-					"_vMessage" : "중복된 송장번호 입니다."
+				LEMP.Window.toast({
+					"_sMessage":"중복된 송장번호 입니다.",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle" : "경고",
+//					"_vMessage" : "중복된 송장번호 입니다."
+//				});
 			}
 		}
 		$("#scan").val("");
@@ -226,16 +238,24 @@ var page = {
 						$('#scan').val(res.data);
 						$('#scan').trigger("change");
 					}else {
-						LEMP.Window.alert({
-							"_sTitle" : "경고",
-							"_vMessage" : "정상적인 바코드번호가 아닙니다."
+						LEMP.Window.toast({
+							"_sMessage":"정상적인 바코드번호가 아닙니다.",
+							'_sDuration' : 'short'
 						});
+//						LEMP.Window.alert({
+//							"_sTitle" : "경고",
+//							"_vMessage" : "정상적인 바코드번호가 아닙니다."
+//						});
 					}
 				}else {
-					LEMP.Window.alert({
-						"_sTitle" : "경고",
-						"_vMessage" : "바코드를 읽지 못했습니다."
+					LEMP.Window.toast({
+						"_sMessage":"바코드를 읽지 못했습니다.",
+						'_sDuration' : 'short'
 					});
+//					LEMP.Window.alert({
+//						"_sTitle" : "경고",
+//						"_vMessage" : "바코드를 읽지 못했습니다."
+//					});
 				}
 			}
 		});

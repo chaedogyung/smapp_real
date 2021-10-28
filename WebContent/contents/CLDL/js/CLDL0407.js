@@ -19,19 +19,27 @@ var page = {
 			var num1 = phoneNumber.substr(0,3);
 			
 			if(smutil.isEmpty(phoneNumber)){
-				LEMP.Window.alert({ 
-					_sTitle : "전화번호 입력오류",
-					_vMessage : "전화번호를 입력해주세요."
+				LEMP.Window.toast({
+					"_sMessage":"전화번호를 입력해주세요.",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({ 
+//					_sTitle : "전화번호 입력오류",
+//					_vMessage : "전화번호를 입력해주세요."
+//				});
 				
 				return false;
 			}
 			else if(phoneNumber.length < 10){
 				
-				LEMP.Window.alert({ 
-					_sTitle : "전화번호 입력오류",
-					_vMessage : "문자발송이 가능한\n전화번호가 아닙니다."
+				LEMP.Window.toast({
+					"_sMessage":"문자발송이 가능한\n전화번호가 아닙니다.",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({ 
+//					_sTitle : "전화번호 입력오류",
+//					_vMessage : "문자발송이 가능한\n전화번호가 아닙니다."
+//				});
 				
 				return false;
 			}
@@ -43,10 +51,14 @@ var page = {
 						&& num1 != "019"
 						&& num1 != "050"){
 				
-				LEMP.Window.alert({ 
-					_sTitle : "전화번호 입력오류",
-					_vMessage : "휴대폰 혹은 안심번호를 입력해주세요."
+				LEMP.Window.toast({
+					"_sMessage":"휴대폰 혹은 안심번호를 입력해주세요.",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({ 
+//					_sTitle : "전화번호 입력오류",
+//					_vMessage : "휴대폰 혹은 안심번호를 입력해주세요."
+//				});
 				
 				return false;
 			}
