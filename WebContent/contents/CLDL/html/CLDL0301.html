@@ -220,7 +220,7 @@
 	<!-- 일반집하 탬플릿 -->
 	<script id="cldl0301_list_template" type="text/x-handlebars-template">
 		{{#each list}}
-		<li id="{{inv_no}}" class='row-four cldlSctCd_P' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}'>
+		<li id="{{inv_no}}" class='row-four cldlSctCd_P' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}' data-li-tmsl-cd='{{cldl_tmsl_cd}}'>
 			<div class="baedalBox {{scanYnClass scanYn}} jibBox noChk" data-scn-inv-no='{{inv_no}}'>
 				{{!--
 				<div class="chk">
@@ -268,7 +268,7 @@
 				</div>
 
 				{{!-- #chkScanCmptYn --}}
-				<button class="btn cancel" data-cancel-inv-no='{{inv_no}}' data-cancle-sct-cd='{{cldl_sct_cd}}'>캔슬</button>
+				<button class="btn cancel" data-cancel-inv-no='{{inv_no}}' data-cancle-sct-cd='{{cldl_sct_cd}}' data-cancle-tmsl-cd='{{cldl_tmsl_cd}}'>캔슬</button>
 				<div id="subBoxBtnDiv_{{inv_no}}">{{setSubBoxBtn subBoxBtn}}		{{!-- 보조송장 등록버튼 셋팅 --}}</div>
 				{{!-- /chkScanCmptYn--}}
 			</div>
@@ -299,7 +299,7 @@
 	
 	<!-- 리스트에 없는 데이터 스켄 송장 li -->
 	<script id="cldl0301_li_template" type="text/x-handlebars-template">
-		<li id="{{inv_no}}" class='row-four cldlSctCd_P' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}'>
+		<li id="{{inv_no}}" class='row-four cldlSctCd_P' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}' data-li-tmsl-cd='{{cldl_tmsl_cd}}'>
 			<div class="baedalBox jibBox noChk">
 				{{!--
 				<div class="chk">
@@ -317,8 +317,9 @@
 						{{!-- 송장번호형식표시 helper invNoTmpl --}}
 						<span class="dsin vm invNoSpan">{{invNoTmpl inv_no}}</span>
 					</p>
+					{{cldlSctCdChkTag resultTag}}
 				</div>
-				<button class="btn cancel" data-cancel-inv-no='{{inv_no}}' data-cancle-sct-cd='{{cldl_sct_cd}}' data-li-status='noData'>캔슬</button>
+				<button class="btn cancel" data-cancel-inv-no='{{inv_no}}' data-cancle-sct-cd='{{cldl_sct_cd}}' data-cancle-tmsl-cd='{{cldl_tmsl_cd}}' data-li-status='noData'>캔슬</button>
 				<div id="subBoxBtnDiv_{{inv_no}}">{{setSubBoxBtn subBoxBtn}}{{!-- 보조송장 등록버튼 셋팅 --}}</div>
 			</div>
 			<div class="btnBox">
@@ -333,11 +334,23 @@
 	{{#each list}}
 		<li name="timeLstLi" data-time-li="{{cldl_tmsl_cd}}" data-time-txt='{{cldl_tmsl_nm}}'>
 			<div class="itemBox">
-				<p class="top">{{cldl_tmsl_nm}}</p>
+				<p class="top cldl">{{cldl_tmsl_nm}}</p>
 				<p class="txt tc" id="timeCnt_P_{{cldl_tmsl_cd}}">{{tmsl_pick_cnt}}</p>
 			</div>
 		</li>
 	{{/each}}
 	</script>
-
+	
+	<!-- 상단 설정구역 리스트 li -->
+	<script id="cldl0301_mblLst_template" type="text/x-handlebars-template">
+	{{#each list}}
+		<li name="timeLstLi" data-time-li="{{mbl_area}}" data-time-txt='{{mbl_area}}' data-max-nm='{{max_nm}}'>
+			<div class="itemBox">
+				<p class="top mbl">{{mbl_area}}</p>
+				<p class="top cldl">{{cldl_tmsl_nm}}</p>
+				<p class="txt tc" id="timeCnt_P_{{mbl_area}}">{{cnt}}</p>
+			</div>
+		</li>
+	{{/each}}
+	</script>
 </html>
