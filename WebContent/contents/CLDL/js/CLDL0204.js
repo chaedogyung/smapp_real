@@ -146,10 +146,14 @@ var page = {
 		try {
 			if (smutil.apiResValidChk(data) && data.code === "0000"
 					&& data.data_count !== 0) {
-				LEMP.Window.alert({
-					"_sTitle" : "알림",
-					"_vMessage" : "메모가 성공적으로 전송되었습니다."
-				})
+				LEMP.Window.toast({
+					"_sMessage":"메모가 성공적으로 전송되었습니다.",
+					'_sDuration' : 'short'
+				});
+//				LEMP.Window.alert({
+//					"_sTitle" : "알림",
+//					"_vMessage" : "메모가 성공적으로 전송되었습니다."
+//				})
 				
 				LEMP.Window.close({
 					"_sCallback" : "page.listReLoad"

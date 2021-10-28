@@ -2310,20 +2310,32 @@ var page = {
 		
 		changeDlvyAreaCallback : function(res){
 			if(res.code == 0000){
-				LEMP.Window.alert({
-					"_sTitle":"성공",
-					"_vMessage":res.message
+				LEMP.Window.toast({
+					"_sMessage":res.message,
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle":"성공",
+//					"_vMessage":res.message
+//				});
 			}else if(res.code == 0001){
-				LEMP.Window.alert({
-					"_sTitle":"구역 오류",
-					"_vMessage": res.message
+				LEMP.Window.toast({
+					"_sMessage":res.message,
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle":"구역 오류",
+//					"_vMessage": res.message
+//				});
 			}else if(res.code == 0002){
-				LEMP.Window.alert({
-					"_sTitle":"구역변경 오류",
-					"_vMessage": res.message
+				LEMP.Window.toast({
+					"_sMessage":res.message,
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle":"구역변경 오류",
+//					"_vMessage": res.message
+//				});
 			}
 			page.listReLoad();
 		},
