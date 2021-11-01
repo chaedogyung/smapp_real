@@ -101,13 +101,18 @@ var page = {
 					    options: {
 					        maintainAspectRatio: false, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
 					        scales: {
-					        	x:{
-					        		
-					        	},
+					        	xAxes:[{
+					        		gridLines: {			//눈금선 표시여부
+					        			display: false
+					        		}
+					        	}],
 					            yAxes: [{
+					            	gridLines: {			//눈금선 표시여부
+					        			display: false
+					        		},
 					                ticks: {
 					                    beginAtZero: true,	// 시작값 0
-					                    suggestedMax: 15
+					                    suggestedMax: 15	// max 값
 					                }
 					            }]
 					        },
@@ -116,6 +121,7 @@ var page = {
 						    },
 						    animation: {
 				                duration : 1,
+				                //막대 상단 값 표시
 				                onComplete : function() {
 				                    var chartInstance = this.chart,
 				                    ctx = chartInstance.ctx;
