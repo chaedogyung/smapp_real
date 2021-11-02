@@ -23,6 +23,14 @@ var page = {
 		{
 			//확인 버튼 click
 			$('#checkOkay').click(function(){
+				var date = new Date();
+				var day = date.getDate();
+				
+				LEMP.Properties.set({
+					"_sKey" : "weekTM",
+					"_vValue" : day
+				});
+				
 				LEMP.Window.close();
 			});
 		},
@@ -171,6 +179,14 @@ var page = {
 		
 		// 물리적 뒤로가기 버튼 및 뒤로가기 화살표 버튼 클릭시 스캔 체크해서 전송여부 결정
 		callbackBackButton : function(){
+			var date = new Date();
+			var day = date.getDate();
+			
+			LEMP.Properties.set({
+				"_sKey" : "weekTM",
+				"_vValue" : day
+			});
+			
 			LEMP.Window.close({
 				"_oMessage" : {
 					"param" : ""

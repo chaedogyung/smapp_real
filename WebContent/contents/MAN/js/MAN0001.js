@@ -1029,10 +1029,10 @@ var page = {
 		});
 
 		if(smutil.isEmpty(weekTM) || weekTM != day){
-			LEMP.Properties.set({
-				"_sKey" : "weekTM",
-				"_vValue" : day
-			});
+//			LEMP.Properties.set({
+//				"_sKey" : "weekTM",
+//				"_vValue" : day
+//			});
 			
 			var popUrl = smutil.getMenuProp('MAN.MAN0601', 'url');
 			LEMP.Window.open({
@@ -1066,7 +1066,7 @@ var page = {
 		//배달사진카운트
 		page.getCdlvPicCnt();
 		//주간 근무 팝업
-		page.weekTmPopup();
+//		page.weekTmPopup();
 	}
 }
 
