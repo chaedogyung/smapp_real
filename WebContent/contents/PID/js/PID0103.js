@@ -18,6 +18,7 @@ var page = {
 		sum_fare_final : null,	// 합계운임
 		sum_fare_base : null,	// 최종기본운임(수정전)
 		sum_fare_base_input : null,	// 최종기본운임(수정후)
+//		social_fare : null,		// 사합금
 		air_fare : null,	// 항공운임
 		ship_fare : null,	// 도선료
 
@@ -691,14 +692,13 @@ var page = {
 
 		//거래처 택배 운임계산
 		getFareAmtInfo : function (fare) {
-			smutil.loadingOn();
 			const clientQty = $("#clientQty").val();			//수량
 			const clientSnperZipcd = $("#clientSnperZipcd").val();			//보내는사람 우편번호
 			const clientAcperZipcd = $("#clientAcperZipcd").val();			//받는사람 우편번호
 			const clientSummFareTxt = fare;
 
 			// 필수값 체크 S
-			if(smutil.isEmpty(page.custData)){
+			if(_.isUndefined(page.custData.job_cust_cd) || smutil.isEmpty(page.custData.job_cust_cd)){
 				if(fare !== "0"){
 					LEMP.Window.alert({
 						"_sTitle" : "미입력",
@@ -707,7 +707,7 @@ var page = {
 				}
 				return false;
 			}
-			if(smutil.isEmpty(clientSnperZipcd)){
+			if(_.isUndefined(clientSnperZipcd) || smutil.isEmpty(clientSnperZipcd)){
 				if(fare !== "0"){
 					LEMP.Window.alert({
 						"_sTitle" : "미입력",
@@ -716,7 +716,7 @@ var page = {
 				}
 				return false;
 			}
-			if(smutil.isEmpty(clientAcperZipcd)){
+			if(_.isUndefined(clientAcperZipcd) || smutil.isEmpty(clientAcperZipcd)){
 				if(fare !== "0"){
 					LEMP.Window.alert({
 						"_sTitle" : "미입력",
@@ -750,6 +750,8 @@ var page = {
 					"qty" : clientQty,
 				}
 			};
+
+			smutil.loadingOn();
 			// 공통 api호출 함수
 			smutil.callApi(page.apiParam);
 
@@ -832,6 +834,7 @@ var page = {
 					"summ_fare" : rsrvSummFare,							//합계운임
 					"sum_fare_base" : page.sum_fare_base,				//최종기본운임(수정전)
 					"sum_fare_base_input" : page.sum_fare_base_input,	//최종기본운임(수정후)
+//					"social_fare" : page.social_fare,					//사합금
 					"air_fare" : page.air_fare,							//항공운임
 					"ship_fare" : page.ship_fare,						//도선료
 
@@ -1078,6 +1081,7 @@ var page = {
 			page.sum_fare_final = result.sum_fare;					// 합계운임
 			page.sum_fare_base = result.sum_fare_base;				//최종기본운임(수정전)
 			page.sum_fare_base_input = result.sum_fare_base_input;	// 최종기본운임(수정후)
+//			page.social_fare = result.social_fare;					// 사합금
 			page.air_fare = result.air_fare;						// 항공운임
 			page.ship_fare = result.ship_fare;						// 도선료
 
