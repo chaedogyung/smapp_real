@@ -213,10 +213,11 @@ var page = {
 						"_sKey" : "setPopCheck", "_vValue" : "Y"
 					});
 					
-//					LEMP.Properties.set({
-//						"_sKey"   : "push_speak_yn",
-//                        "_vValue" : "N"
-//					});
+					// push 음성
+					LEMP.Properties.set({
+						"_sKey"   : "push_speak_yn",
+                        "_vValue" : "N"
+					});
 					
 //					var popUrl = smutil.getMenuProp('SET.SET0303', 'url');
 //					LEMP.Window.open({
@@ -230,8 +231,8 @@ var page = {
 					if(_.isUndefined(autoMenual) ||
 							_.isUndefined(autoMenual.area_sct_cd) ||
 							_.isUndefined(autoMenual.area_sct_cd2) ||
-							_.isUndefined(autoMenual.area_sct_cd3) /*||
-							_.isUndefined(isSpeak)*/){
+							_.isUndefined(autoMenual.area_sct_cd3) ||
+							_.isUndefined(isSpeak)){
 						LEMP.Properties.set({
 							 "_sKey" : "autoMenual",
 							 "_vValue" : {
@@ -242,10 +243,10 @@ var page = {
 						});
 						
 						// push 음성
-//			            LEMP.Properties.set({
-//			            	"_sKey"   : "push_speak_yn",
-//			            	"_vValue" :  smutil.nullToValue(isSpeak,"N")
-//			            });
+			            LEMP.Properties.set({
+			            	"_sKey"   : "push_speak_yn",
+			            	"_vValue" :  smutil.nullToValue(isSpeak,"N")
+			            });
 						
 //						var popUrl = smutil.getMenuProp('SET.SET0303', 'url');
 //						LEMP.Window.open({

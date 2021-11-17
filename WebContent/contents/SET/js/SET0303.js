@@ -60,13 +60,13 @@ var page = {
 			}
 
             // push 음성
-//	        var isSpeak = LEMP.Properties.get({"_sKey" : "push_speak_yn"});
-//
-//	        if(!smutil.isEmpty(isSpeak) && isSpeak == "Y") {
-//                $("#ra7").prop('checked', true);
-//	        } else {
-//	            $("#ra7").prop('checked', false);
-//	        }
+	        var isSpeak = LEMP.Properties.get({"_sKey" : "push_speak_yn"});
+
+	        if(!smutil.isEmpty(isSpeak) && isSpeak == "Y") {
+                $("#ra7").prop('checked', true);
+	        } else {
+	            $("#ra7").prop('checked', false);
+	        }
 
 		});
 
@@ -91,8 +91,8 @@ var page = {
 				LEMP.Properties.set({ "_sKey" : "setPopCheck", "_vValue" : "Y"});
 	
 //	            // push 음성
-//	            LEMP.Properties.set({ "_sKey"   : "push_speak_yn"
-//	                                , "_vValue" :  $("input[name='area_sct_cd4']:checked").val() });
+	            LEMP.Properties.set({ "_sKey"   : "push_speak_yn"
+	                                , "_vValue" :  $("input[name='area_sct_cd4']:checked").val() });
 				LEMP.Window.close();
 			}
 		});
@@ -156,8 +156,8 @@ var page = {
 					LEMP.Properties.set({ "_sKey" : "setPopCheck", "_vValue" : "Y"});
 		
 		            // push 음성
-//		            LEMP.Properties.set({ "_sKey"   : "push_speak_yn"
-//		                                , "_vValue" :  $("input[name='area_sct_cd4']:checked").val() });
+		            LEMP.Properties.set({ "_sKey"   : "push_speak_yn"
+		                                , "_vValue" :  $("input[name='area_sct_cd4']:checked").val() });
 					LEMP.Window.close();
 				}
 				
