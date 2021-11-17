@@ -226,7 +226,7 @@ var page = {
 					
 				}else{		//autoMenual 각 설정 체크
 					var autoMenual = LEMP.Properties.get({ "_sKey": "autoMenual"});
-//					var isSpeak = LEMP.Properties.get({"_sKey" : "push_speak_yn"});
+					var isSpeak = LEMP.Properties.get({"_sKey" : "push_speak_yn"});
 					
 					if(_.isUndefined(autoMenual) ||
 							_.isUndefined(autoMenual.area_sct_cd) ||
