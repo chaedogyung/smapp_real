@@ -78,7 +78,7 @@ var page = {
 		//배달사진카운트
 		page.getCdlvPicCnt();
 		//주간 근무 팝업
-		page.weekTmPopup();
+//		page.weekTmPopup();
 		/**
 		 * 출력 테스트용 코드
 		 * 나중에 꼭 삭제 해야함~~~~~~~~!!!!!!!!!!!!!!!!
@@ -1021,26 +1021,26 @@ var page = {
 	}
 	
 	//주간 근무 팝업
-	,weekTmPopup : function(){
-		var date = new Date();
-		var day = date.getDate();
-
-		var weekTM = LEMP.Properties.get({
-			"_sKey" : "weekTM"
-		});
-
-		if(smutil.isEmpty(weekTM) || weekTM != day){
-//			LEMP.Properties.set({
-//				"_sKey" : "weekTM",
-//				"_vValue" : day
+//	,weekTmPopup : function(){
+//		var date = new Date();
+//		var day = date.getDate();
+//
+//		var weekTM = LEMP.Properties.get({
+//			"_sKey" : "weekTM"
+//		});
+//
+//		if(smutil.isEmpty(weekTM) || weekTM != day){
+////			LEMP.Properties.set({
+////				"_sKey" : "weekTM",
+////				"_vValue" : day
+////			});
+//			
+//			var popUrl = smutil.getMenuProp('MAN.MAN0601', 'url');
+//			LEMP.Window.open({
+//				"_sPagePath": popUrl
 //			});
-			
-			var popUrl = smutil.getMenuProp('MAN.MAN0601', 'url');
-			LEMP.Window.open({
-				"_sPagePath": popUrl
-			});
-		}
-	}
+//		}
+//	}
 
 	// 페이지 resume 될때마다 실행되는 함수
 	, resumeInfo : function(){
@@ -1066,8 +1066,6 @@ var page = {
 		page.FrevMenu();
 		//배달사진카운트
 		page.getCdlvPicCnt();
-		//주간 근무 팝업
-//		page.weekTmPopup();
 	}
 }
 
