@@ -2211,7 +2211,7 @@ var page = {
 			var dcnt = 0;
 			var pcnt = 0;
 			var cldl_sct_cd = "D";			// 업무구분
-			var message = "스캔성공";
+//			var message = "스캔성공";
 			var acpr_nm = $('#insujaTxt').val();				// 인수자명
 
 			// api 결과 성공여부 1차 검사
