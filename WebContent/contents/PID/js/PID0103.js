@@ -696,8 +696,16 @@ var page = {
 			const clientSnperZipcd = $("#clientSnperZipcd").val();			//보내는사람 우편번호
 			const clientAcperZipcd = $("#clientAcperZipcd").val();			//받는사람 우편번호
 			const clientSummFareTxt = fare;
+			const boxTyp = $("#clientBoxTyp").val();			// 선택된 박스 타입
 
 			// 필수값 체크 S
+			if(_.isUndefined(clientSummFareTxt) || smutil.isEmpty(clientSummFareTxt)){
+				LEMP.Window.alert({
+					"_sTitle" : "미입력",
+					"_vMessage" : "운임을 입력해주세요."
+				});
+				return false;
+			}
 			if(_.isUndefined(page.custData.job_cust_cd) || smutil.isEmpty(page.custData.job_cust_cd)){
 				if(fare !== "0"){
 					LEMP.Window.alert({
@@ -725,6 +733,13 @@ var page = {
 				}
 				return false;
 			}
+			if(_.isUndefined(boxTyp) || smutil.isEmpty(boxTyp)){
+				LEMP.Window.alert({
+					"_sTitle" : "미입력",
+					"_vMessage" : "박스 및 규격을 선택해주세요"
+				});
+				return false;
+			}
 
 			// 필수값 체크 E
 			page.apiParam.param.baseUrl = "smapis/pid/getFareAmtInfo";			// api no
@@ -746,7 +761,7 @@ var page = {
 					"acperZipcd" : clientAcperZipcd,								//받는사람 우편번호
 					"dlvFare" :  clientSummFareTxt,									//입력된 운임
 					"boxTypCd" : $("#clientBoxTyp").val(),
-					"pickYmd" : smutil.getToday().replaceAll("-",""),	//오늘날짜
+					"pickYmd" : page.replaceAll(smutil.getToday(),"-"),	//오늘날짜
 					"qty" : clientQty,
 				}
 			};
@@ -1455,7 +1470,11 @@ var page = {
 				$(inpu).val(count);
 			});
 		},
-
+		
+		replaceAll : function(string,change){
+			return string.split(change).join('');
+		},
+		
 		// api 파람메터 초기화
 		apiParamInit : function(){
 			page.apiParam =  {
