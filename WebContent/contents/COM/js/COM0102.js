@@ -16,20 +16,24 @@ var page = {
 			switch(keyPad) {
 				case 'cancel':
 					num = '';
-					txtBox.text('');
+					txtBox.val('');
 				break;
 				case 'del':
 					num = num.substr(0, num.length - 1);
-					txtBox.text(_this.numberFormat(num));
+					txtBox.val(_this.numberFormat(num));
 				break;
 				default:
 					if(num.length > priceMaxLength) return;
 					num = num + keyPad;
-					txtBox.text(_this.numberFormat(num));
+					txtBox.val(_this.numberFormat(num));
 				break;
 			}
 		});
 		
+		$('.txtBox.tp2.numBox').on('change input',function(){
+			num = $(this).val().replace(/[^0-9]/g, "");
+			$(this).val(page.numberFormat(num));
+		});
 		
 		/*var liLst = document.querySelectorAll('.numLi');
 		var priceMaxLength = 11;
@@ -69,7 +73,7 @@ var page = {
 			LEMP.Window.close();
 		});
 		$(".btn.red.m.w100p").click(function(){
-			var str = $(".txtBox.tp2.numBox").text().replace(/\-/gi,"");
+			var str = $(".txtBox.tp2.numBox").val().replace(/\-/gi,"");
 			if (str.length === 12 &&
 					(str.substr(0,11)%7 == str.substr(11,1))) {
 				LEMP.Window.close({
