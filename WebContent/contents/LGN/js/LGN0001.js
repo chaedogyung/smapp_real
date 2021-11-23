@@ -903,12 +903,12 @@ var page = {
 					if(page.isTermAgree && page.isLmsAgree){
 						page.accept();
 						// 메인페이지 이동
-						LEMP.Window.open({
-							"_sPagePath" : "MAN/html/MAN0001.html",
-							"_oMessage":{"param":{
-									"term_accept_yn" : res.term_accept_yn
-								}}
-						});
+//						LEMP.Window.open({
+//							"_sPagePath" : "MAN/html/MAN0001.html",
+//							"_oMessage":{"param":{
+//									"term_accept_yn" : res.term_accept_yn
+//								}}
+//						});
 					}
 					else if(!page.isTermAgree){	// 개인정보 동의가 필요한 사람
 						page.term();
