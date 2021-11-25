@@ -2755,6 +2755,11 @@ var page = {
 				mbl_dlv_area = "";
 			}
 			
+			if(pick_sct_cd == "C"){
+				cldl_tmsl_cd = "";
+				mbl_dlv_area = "";
+			}
+			
 			base_ymd = base_ymd.split('.').join('');
 
 			if((pick_sct_cd == "G" && (!smutil.isEmpty(cldl_tmsl_cd) || page.dlvyCompl.area_sct_cd == 'Y'))
