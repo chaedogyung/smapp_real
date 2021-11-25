@@ -975,7 +975,7 @@ var page = {
 			_this.apiParam.data = {										// api 통신용 파라메터
 				"parameters" : {
 					"ifof_sct_cd":"60",								//예약접수처 코드 고정값(SMAPP:60)
-					"pick_ymd":smutil.getToday().replaceAll("-",""),	//오늘날짜
+					"pick_ymd":page.replaceAll(smutil.getToday(),"-"),	//오늘날짜
 					"box_prtt":"Y",                     					//고정
 					"ord_sct":"01",                    					//출고 고정
 					"job_cust_cd":page.custData.job_cust_cd,					//거래처 코드
