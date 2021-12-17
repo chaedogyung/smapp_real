@@ -137,11 +137,13 @@ background-position:100% 40px, 50% ,0 95%;
 .gnbBox .gnbH h1{font-size:20px; text-align:center;}
 .gnbBox .gnbH .paR{position:absolute; right:15px; top:13px;}
 
+
 .gnbBox .gnbTopH{background-color:#e9f1f6; padding:7px 10px; box-sizing:border-box; font-size:17px;  border-bottom:1px solid #e1e1e1; letter-spacing:-1px;}
 .gnbBox .gnbTopH .btn.alim3 .num{position:absolute; top:9px; right:15%;  text-indent:0px;  padding:0px 4px; }
 .gnbBox .gnbTopH .service{vertical-align:top; color:#7d7d7d; font-size:13px;}
 .gnbBox .gnbTopH .service .phonNum{margin-left:10px; letter-spacing:-1.5px; display:inline-block; vertical-align:middle; height:32px; font-size:19px; color:#000;}
 .gnbBox .gnbTopH .time{margin-left:10px; font-size:13px; color:#535454;}
+
 
 .gnbBox .gnbList{overflow:hidden;}
 .gnbBox .gnbList > ul > li{border-bottom:1px solid #f2f2f2; overflow:hidden; background:url('../../common/img/icon-arrow-down-v1.png') no-repeat calc(100% - 25px) 18px; background-size:10px;}
