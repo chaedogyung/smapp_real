@@ -746,6 +746,8 @@ var page = {
 			Handlebars.registerHelper('scanYnClass', function(options) {
 				if(this.scan_cmpt_yn == 'N'){
 					return 'off';
+				}else {
+					return 'scan';
 				}
 			});
 
@@ -1428,6 +1430,7 @@ var page = {
 
 						// 스캔 완료상태로 변경
 						liKey.children('.baedalBox').removeClass('off');
+						liKey.children('.baedalBox').addClass('scan');
 
 						// 화면 가장 상단으로 li 이동
 						liKey.prependTo('#cldl0101LstUl');

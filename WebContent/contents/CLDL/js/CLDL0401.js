@@ -467,7 +467,7 @@ var page = {
 
 
 			// 서명 싸인패드 호출
-			$(document).on('click', '.btn.blue2.bdM.bdMemo.mgl1', function(e){
+			$(document).on('click', '.btn.blue2.bdM.bdSign.mgl1', function(e){
 				var inv_no = $(this).data('invNo')+"";
 
 				if(_this.chkScanYn(inv_no)){
@@ -490,10 +490,55 @@ var page = {
 				}
 
 			});
+			
+			// 기사메모 팝업 호출
+			$(document).on('click', '.btn.bdM.blue4.bdMemo.mgl1', function(e){
+				var inv_no = $(this).data('invNo')+"";				// 송장번호
+				
+				if(smutil.isEmpty(inv_no)){
+					LEMP.Window.toast({
+						"_sMessage":"송장번호가 없습니다.\n관리자에게 문의해주세요.",
+						'_sDuration' : 'short'
+					});
+//					LEMP.Window.alert({
+//						"_sTitle" : "메모 오류",
+//						"_vMessage" : "송장번호 혹은\n집배달 구분코드가 없습니다.\n관리자에게 문의해주세요."
+//					});
 
+					return false;
+				}
+				
+				// 스캔된 데이터만 메모 가능
+				if(_this.chkScanYn(inv_no)){
+					// 기사 메모 팝업 호출
+					var popUrl = smutil.getMenuProp('CLDL.CLDL0204', 'url');
+
+					LEMP.Window.open({
+						"_sPagePath":popUrl,
+						"_oMessage" : {
+							"param" : {
+								"inv_no" : inv_no+""
+							}
+						}
+					});
+				}
+				else{
+					LEMP.Window.toast({
+						"_sMessage":"미스캔 데이터 입니다.",
+						'_sDuration' : 'short'
+					});
+//					LEMP.Window.alert({
+//						"_sTitle":"미집하 처리 오류",
+//						"_vMessage":"미스캔 데이터 입니다."
+//					});
+
+					return false;
+				}
+
+			});
 
 			// 미배달 처리
-			$(document).on('click', '.btn.blue3.bdM.bdCancle.mgl1', function(e){
+			$(document).on('click', '.btn.blue5.bdM.bdCancle.mgl1', function(e){
 
 				var inv_no = $(this).data('invNo');
 
@@ -532,7 +577,7 @@ var page = {
 
 
 			// 스와이프해서 스캔버튼 클릭한 경우
-			$(document).on('click', '.btn.blue4.bdM.bdScan.mgl1', function(e){
+			$(document).on('click', '.btn.blue6.bdM.bdScan.mgl1', function(e){
 
 				var inv_no = $(this).data('invNo');
 				inv_no = inv_no+"";
@@ -858,6 +903,8 @@ var page = {
 			Handlebars.registerHelper('scanYnClass', function(options) {
 				if(this.scan_cmpt_yn == 'N'){
 					return 'off';
+				}else {
+					return 'scan';
 				}
 //				else {
 //					return 'bg-v2';
@@ -1772,21 +1819,19 @@ var page = {
 			var invNoLst = [];
 			var chkYn = false;
 
-			$("input[name=chk]:checked").each(function(idx, Obj) {
-				var inv_no = $(this).attr("id");
-				inv_no = (inv_no.split("_"))[0];
+			$("input[name=chk]:checked").each(function() {
+				var inv_no = ($(this).attr("id")).replace('_chk', '');
 
 				// 스캔 된 데이터만 문자가능
 				if(_this.chkScanYn(inv_no)){
 					chkLst.push($(this).val());
-					invNoLst.push($(this).attr("id"));
+					invNoLst.push(inv_no);
 				}
 				else{
 					chkYn = true;
 					return false;
 				}
 			});
-
 
 			// 다건 전송을 고려해서 스캔 안되있는 송장이 있을경우 문자발송 불가
 			if(chkYn){
@@ -1802,7 +1847,6 @@ var page = {
 				return false;
 			}
 
-
 			if(chkLst.length > 20){
 				LEMP.Window.toast({
 					"_sMessage":"문자발송은 20건까지만 선택 가능합니다.",
@@ -1817,26 +1861,30 @@ var page = {
 			}
 
 
-			// 스캔한 송장을 선택해야 문자 가능 (20200104)
+			// 전화번호가 없어도 문자 발송 가능하도록 기능 수정(20200204)
 			if(chkLst.length > 0){
 				var single = [];
 				var timeTxt = "";
 
-				// 전화번호 중복제거
+				// 중복 전화번호 제거
 //				$.each(chkLst, function(i, el){
 //					if($.inArray(el, single) === -1) single.push(el);
 //				});
 
+				if(page.dlvyCompl.area_sct_cd == "Y"){
+					timeTxt = $('#' + invNoLst[0]).data('liTmslNm');
+				}else{
+					// 선택한 시간 구분text 셋팅
+					$("li[name=timeLstLi]").each(function() {
+						if($(this).is('.on')){
+							timeTxt = $(this).data('timeTxt');
+							return false;
+						}
+					});
+				}
 
-				// 선택한 시간 구분text 셋팅
-				$("li[name=timeLstLi]").each(function() {
-					if($(this).is('.on')){
-						timeTxt = $(this).data('timeTxt');
-						return false;
-					}
-				});
-
-				if(smutil.isEmpty(timeTxt)){
+				if((smutil.isEmpty(timeTxt) && page.dlvyCompl.area_sct_cd == "N")
+						|| (smutil.isEmpty(timeTxt) && page.dlvyCompl.area_sct_cd == "Y" && chkLst.length == 1)){
 					LEMP.Window.toast({
 						"_sMessage":"선택한 시간 구간이 없습니다.",
 						'_sDuration' : 'short'
@@ -1856,14 +1904,14 @@ var page = {
 //
 //					return false;
 //				}
-//				else if(single.length == 1 && smutil.isEmpty(single[0])){
-//					LEMP.Window.alert({
-//						"_sTitle":"문자발송 오류",
-//						"_vMessage":'문자를 발송할 전화번호가 없습니다.'
-//					});
-//
-//					return false;
-//				}
+				/*else if(single.length == 1 && smutil.isEmpty(single[0])){
+					LEMP.Window.alert({
+						"_sTitle":"문자발송 오류",
+						"_vMessage":'문자를 발송할 전화번호가 없습니다.'
+					});
+
+					return false;
+				}*/
 //				(20200129 : 전화번호 체크를 안하고 기사들이 변경 가능하게 모두 앱으로 넘어가도록 로직변경)
 //				else if(single.length == 1 && !(single[0].LPStartsWith("010"))){
 //					LEMP.Window.alert({
@@ -1873,8 +1921,8 @@ var page = {
 //
 //					return false;
 //				}
-//				else if(single.length == 1 && !smutil.isEmpty(single[0])){
-				else {
+				//else if(single.length == 1 && !smutil.isEmpty(single[0])){
+				else{
 					// 문자 발송 로직 시작~!!!
 					var popUrl = smutil.getMenuProp("CLDL.CLDL0206","url");
 					LEMP.Window.open({
@@ -1906,13 +1954,10 @@ var page = {
 			var _this = this;
 			var chkLst = [];
 			var invNoLst = [];
-			var inv_no;
 			var chkYn = false;
 
 			$("input[name=chk]:checked").each(function() {
-
-				inv_no = $(this).attr("id");
-				inv_no = (inv_no.split("_"))[0];
+				var inv_no = ($(this).attr("id")).replace('_chk', '');
 
 				// 스캔 된 데이터만 문자가능
 				if(page.chkScanYn(inv_no)){
@@ -1923,9 +1968,7 @@ var page = {
 					chkYn = true;
 					return false;
 				}
-
 			});
-
 
 			// 다건 전송을 고려해서 스캔 안되있는 송장이 있을경우 문자발송 불가
 			if(chkYn){
@@ -1941,7 +1984,6 @@ var page = {
 				return false;
 			}
 
-
 			if(chkLst.length > 20){
 				LEMP.Window.toast({
 					"_sMessage":"문자발송은 20건까지만 선택 가능합니다.",
@@ -1956,8 +1998,7 @@ var page = {
 			}
 
 
-
-			// 스캔한 송장을 선택해야 문자 가능 (20200104)
+			// 전화번호가 없어도 문자 발송 가능하도록 기능 수정(20200204)
 			if(chkLst.length > 0){
 				var single = [];
 				var timeTxt = "";
@@ -1968,17 +2009,23 @@ var page = {
 					if(!smutil.isEmpty(el)){
 						if($.inArray(el, single) === -1) single.push(el);
 					}
-				});
 
-				// 선택한 시간 구분text 셋팅
-				$("li[name=timeLstLi]").each(function() {
-					if($(this).is('.on')){
-						timeTxt = $(this).data('timeTxt');
-						return false;
-					}
 				});
-
-				if(smutil.isEmpty(timeTxt)){
+				
+				if(page.dlvyCompl.area_sct_cd == "Y"){
+					timeTxt = $('#' + invNoLst[0]).data('liTmslNm');
+				}else{
+					// 선택한 시간 구분text 셋팅
+					$("li[name=timeLstLi]").each(function() {
+						if($(this).is('.on')){
+							timeTxt = $(this).data('timeTxt');
+							return false;
+						}
+					});
+				}
+				
+				if((smutil.isEmpty(timeTxt) && page.dlvyCompl.area_sct_cd == "N")
+						|| (smutil.isEmpty(timeTxt) && page.dlvyCompl.area_sct_cd == "Y" && chkLst.length == 1)){
 					LEMP.Window.toast({
 						"_sMessage":"선택한 시간 구간이 없습니다.",
 						'_sDuration' : 'short'
@@ -1993,11 +2040,16 @@ var page = {
 				else {
 					var text= res.msg_cont;			// 선택한 메세지
 
-					// 리스트에서 고른 시간구분text
-					// 문구에 시간관련정보 삭제하기로 결정(20200305)
-//					if(!smutil.isEmpty(timeTxt)){
-//						text += "\n도착예정시간 : " + timeTxt ;
-//					}
+					if(chkLst.length == 1 && page.dlvyCompl.area_sct_cd == 'Y'){
+						text += "\n도착예정시간 : " + timeTxt ;
+					}
+					
+					if(page.dlvyCompl.area_sct_cd == 'N'){
+						// 리스트에서 고른 시간구분text
+						if(!smutil.isEmpty(timeTxt)){
+							text += "\n도착예정시간 : " + timeTxt ;
+						}
+					}
 
 					// 문자 발송 대상이 1건일 경우만 송장번호를 붙인다
 					if(single.length == 1){
@@ -2013,6 +2065,7 @@ var page = {
 								text+=invNoStr+", ";
 							}
 						}
+
 					}
 
 
@@ -2022,6 +2075,7 @@ var page = {
 						"_sMessage":text
 					});
 				}
+
 			}
 			else{
 				LEMP.Window.toast({
@@ -2264,6 +2318,7 @@ var page = {
 
 						// 스캔 완료상태로 변경
 						liKey.children('.baedalBox').removeClass('off');
+						liKey.children('.baedalBox').addClass('scan');
 
 						// 화면 가장 상단으로 li 이동
 						liKey.prependTo('#cldl0401LstUl');

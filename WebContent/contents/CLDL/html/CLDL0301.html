@@ -65,7 +65,10 @@
 
 					<!-- topHead -->
 					<div class="topHead">
-						<span class="fs13">구분</span>
+						<span class="chkBox m">
+							<input type="checkbox" name="chkall" id="checkall" /> 
+							<label for="checkall">구분</label>
+						</span>
 						<span class="selBox v1 mgl15">
 							<select name="fltr_sct_cd" id="fltr_sct_cd">
 							</select>
@@ -114,7 +117,7 @@
 		<!--  //contentSection  -->
 		
 		<!-- ftMenu 일반집하 하단-->
-		<div class="ftMenu li4" id="bottomDivG">
+		<div class="ftMenu li5" id="bottomDivG">
 			<ul>
 				<li>
 					<button class="btn ftMap"><span class="txt">지도</span></button>
@@ -123,6 +126,9 @@
 					<button class="btn ftShip">
 						<span class="txt">도선료조회</span>
 					</button>
+				</li>
+				<li>
+					<button class="btn ftSms"><span class="txt">문자</span></button>
 				</li>
 				<li>
 					<button class="btn ftScan" id="scnBtnG">
@@ -220,16 +226,14 @@
 	<!-- 일반집하 탬플릿 -->
 	<script id="cldl0301_list_template" type="text/x-handlebars-template">
 		{{#each list}}
-		<li id="{{inv_no}}" class='row-four cldlSctCd_P' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}' data-li-tmsl-cd='{{cldl_tmsl_cd}}'>
+		<li id="{{inv_no}}" class='row-four cldlSctCd_P' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}' data-li-tmsl-cd='{{cldl_tmsl_cd}}' data-li-tmsl-nm='{{cldl_tmsl_nm}}'>
 			<div class="baedalBox {{scanYnClass scanYn}} jibBox noChk" data-scn-inv-no='{{inv_no}}'>
-				{{!--
 				<div class="chk">
 					<span class="chkBox m ti">
 						<input type="checkbox" name="chk" id="{{inv_no}}_chk" value="{{returnSctCdTel tellNo}}" /> 
 						<label for="{{inv_no}}_chk">&nbsp;</label>
 					</span>
 				</div>
-				--}}
 				<div class="thumb">
 					<span class="{{corpLogoReturn corplogo}}"></span>
 				</div>
@@ -299,16 +303,14 @@
 	
 	<!-- 리스트에 없는 데이터 스켄 송장 li -->
 	<script id="cldl0301_li_template" type="text/x-handlebars-template">
-		<li id="{{inv_no}}" class='row-four cldlSctCd_P' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}' data-li-tmsl-cd='{{cldl_tmsl_cd}}'>
-			<div class="baedalBox jibBox noChk">
-				{{!--
+		<li id="{{inv_no}}" class='row-four cldlSctCd_P' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}' data-li-tmsl-cd='{{cldl_tmsl_cd}}' data-li-tmsl-nm='{{cldl_tmsl_nm}}'>
+			<div class="baedalBox scan jibBox noChk">
 				<div class="chk">
 					<span class="chkBox m ti">
 						<input type="checkbox" name="chk" id="{{inv_no}}_chk" value="{{returnSctCdTel tellNo}}" /> 
 						<label for="{{inv_no}}_chk">&nbsp;</label>
 					</span>
 				</div>
-				--}}
 				<div class="thumb">
 					<span class="img df">&nbsp;</span>
 				</div>

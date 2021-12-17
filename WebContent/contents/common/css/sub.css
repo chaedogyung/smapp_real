@@ -177,6 +177,9 @@
 .baedalBox .infoBox .blue.outline { background-color:#fff; border:1px solid #015182; color:#015182;  }
 .baedalBox .infoBox .purple.outline { background-color:#fff; border:1px solid #3905b3; color:#3905b3;  }
 
+/* SCAN */
+.baedalBox.scan .infoBox .tit{color:#0383d2; font-weight:bold;}
+
 /* OFF */
 /* .baedalBox.off{padding-left:30px;} */
 .baedalBox.off.noChk{padding-left:10px;}

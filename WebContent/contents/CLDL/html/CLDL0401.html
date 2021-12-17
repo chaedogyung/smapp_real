@@ -183,7 +183,7 @@
 	<!-- handlebars template start -->
 	<script id="cldl0401_list_template" type="text/x-handlebars-template">
 		{{#each list}}
-		<li id="{{inv_no}}" class='row-four cldlSctCd_D' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}' data-li-tmsl-cd='{{cldl_tmsl_cd}}'>
+		<li id="{{inv_no}}" class='row-four cldlSctCd_D' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}' data-li-tmsl-cd='{{cldl_tmsl_cd}}' data-li-tmsl-nm='{{cldl_tmsl_nm}}'>
 			<div class="baedalBox {{scanYnClass scanYn}} baeBox" data-scn-inv-no='{{inv_no}}'>
 				<div class="chk">
 					<span class="chkBox m ti">
@@ -236,9 +236,10 @@
 			</div>
 			<div class="btnBox">
 				{{setPhoneNumber phoneNumber}}		<!-- 전화걸기 버튼 -->
-				<button class="btn blue2 bdM bdMemo mgl1" data-inv-no='{{inv_no}}'>서명</button>
-				<button class="btn blue3 bdM bdCancle mgl1" data-inv-no='{{inv_no}}'>미배달</button>
-				<button class="btn blue4 bdM bdScan mgl1" data-inv-no='{{inv_no}}'>스캔</button>
+				<button class="btn blue2 bdM bdSign mgl1" data-inv-no='{{inv_no}}'>서명</button>
+				<button class="btn blue4 bdM bdMemo mgl1" data-inv-no='{{inv_no}}'>메모</button>
+				<button class="btn blue5 bdM bdCancle mgl1" data-inv-no='{{inv_no}}'>미배달</button>
+				<button class="btn blue6 bdM bdScan mgl1" data-inv-no='{{inv_no}}'>스캔</button>
 			</div>
 		</li>
 		{{else}}
@@ -263,8 +264,8 @@
 	
 	<!-- 리스트에 없는 데이터 스켄 송장 li -->
 	<script id="cldl0401_li_template" type="text/x-handlebars-template">
-		<li id="{{inv_no}}" class='row-four cldlSctCd_D' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}' data-li-tmsl-cd='{{cldl_tmsl_cd}}'>
-			<div class="baedalBox baeBox"  data-scn-inv-no='{{inv_no}}'>
+		<li id="{{inv_no}}" class='row-four cldlSctCd_D' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}' data-li-tmsl-cd='{{cldl_tmsl_cd}}' data-li-tmsl-nm='{{cldl_tmsl_nm}}'>
+			<div class="baedalBox scan baeBox"  data-scn-inv-no='{{inv_no}}'>
 				<div class="chk">
 					<span class="chkBox m ti">
 						<input type="checkbox" name="chk" id="{{inv_no}}_chk" value="{{returnSctCdTel tellNo}}" data-acpr-nm="{{acpr_nm}}" data-snper-nm="{{snper_nm}}" data-artc-nm="{{artc_nm}}"/>
@@ -284,9 +285,10 @@
 				<button class="btn cancel" data-cancel-inv-no='{{inv_no}}' data-cancle-sct-cd='{{cldl_sct_cd}}' data-cancle-tmsl-cd='{{cldl_tmsl_cd}}' data-li-status='noData'>캔슬</button>
 			</div>
 			<div class="btnBox">
-				<button class="btn blue2 bdM bdMemo mgl1" data-inv-no='{{inv_no}}'>서명</button>
-				<button class="btn blue3 bdM bdCancle mgl1" data-inv-no='{{inv_no}}'>미배달</button>
-				<button class="btn blue4 bdM bdScan mgl1" data-inv-no='{{inv_no}}'>스캔</button>
+				<button class="btn blue2 bdM bdSign mgl1" data-inv-no='{{inv_no}}'>서명</button>
+				<button class="btn blue4 bdM bdMemo mgl1" data-inv-no='{{inv_no}}'>메모</button>
+				<button class="btn blue5 bdM bdCancle mgl1" data-inv-no='{{inv_no}}'>미배달</button>
+				<button class="btn blue6 bdM bdScan mgl1" data-inv-no='{{inv_no}}'>스캔</button>
 			</div>
 		</li>
 	</script>

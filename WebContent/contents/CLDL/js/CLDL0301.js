@@ -585,7 +585,12 @@ var page = {
 
 			});	// end 스캔버튼을 누른경우 종료
 
+			// 문자버튼 클릭
+			$('.btn.ftSms').click(function(e){
+				// 문자발송 이벤트 호출
+				_this.sendSms();
 
+			});
 
 			// 문자발송 스와이프 버튼클릭
 			$(document).on('click', '.btn.blue5.bdM.bdMsg', function(e){
@@ -804,6 +809,8 @@ var page = {
 			Handlebars.registerHelper('scanYnClass', function(options) {
 				if(this.scan_cmpt_yn == 'N'){
 					return 'off';
+				}else {
+					return 'scan';
 				}
 //				else {
 //					return 'bg-v2';
@@ -1692,7 +1699,8 @@ var page = {
 //				});
 				return false;
 			}
-
+			
+			$("#checkall").prop("checked", false);
 			smutil.loadingOn();				// 로딩바 시작
 			page.apiParamInit();			// 파라메터 전역변수 초기화
 
@@ -2268,6 +2276,7 @@ var page = {
 
 						// 스캔완료로 변경
 						liKey.children('.baedalBox').removeClass('off');
+						liKey.children('.baedalBox').addClass('scan');
 
 						// 화면 가장 상단으로 li 이동
 						liKey.prependTo('#cldl0301LstUl');
@@ -3363,50 +3372,284 @@ var page = {
 
 		//############################################ 스캔 전체취소 로직 종료~!!!!
 
+		// 문자발송 서비스 호출
+		sendSms : function(){
+			var _this = this;
+			var chkLst = [];
+			var invNoLst = [];
+			var chkYn = false;
 
+			$("input[name=chk]:checked").each(function() {
+				var inv_no = ($(this).attr("id")).replace('_chk', '');
+
+				// 스캔 된 데이터만 문자가능
+				if(_this.chkScanYn(inv_no)){
+					chkLst.push($(this).val());
+					invNoLst.push(inv_no);
+				}
+				else{
+					chkYn = true;
+					return false;
+				}
+			});
+
+			// 다건 전송을 고려해서 스캔 안되있는 송장이 있을경우 문자발송 불가
+			if(chkYn){
+				LEMP.Window.toast({
+					"_sMessage":"문자발송은 송장 스캔후 가능합니다.",
+					'_sDuration' : 'short'
+				});
+//				LEMP.Window.alert({
+//					"_sTitle":"문자발송 오류",
+//					"_vMessage":'문자발송은 송장 스캔후 가능합니다.'
+//				});
+
+				return false;
+			}
+
+			if(chkLst.length > 20){
+				LEMP.Window.toast({
+					"_sMessage":"문자발송은 20건까지만 선택 가능합니다.",
+					'_sDuration' : 'short'
+				});
+//				LEMP.Window.alert({
+//					"_sTitle":"문자발송 오류",
+//					"_vMessage":'문자발송은 20건까지만 선택 가능합니다.'
+//				});
+
+				return false;
+			}
+
+
+			// 전화번호가 없어도 문자 발송 가능하도록 기능 수정(20200204)
+			if(chkLst.length > 0){
+				var single = [];
+				var timeTxt = "";
+
+				// 중복 전화번호 제거
+//				$.each(chkLst, function(i, el){
+//					if($.inArray(el, single) === -1) single.push(el);
+//				});
+
+				if(page.dlvyCompl.area_sct_cd == "Y"){
+					timeTxt = $('#' + invNoLst[0]).data('liTmslNm');
+				}else{
+					// 선택한 시간 구분text 셋팅
+					$("li[name=timeLstLi]").each(function() {
+						if($(this).is('.on')){
+							timeTxt = $(this).data('timeTxt');
+							return false;
+						}
+					});
+				}
+
+				if((smutil.isEmpty(timeTxt) && page.dlvyCompl.area_sct_cd == "N")
+						|| (smutil.isEmpty(timeTxt) && page.dlvyCompl.area_sct_cd == "Y" && chkLst.length == 1)){
+					LEMP.Window.toast({
+						"_sMessage":"선택한 시간 구간이 없습니다.",
+						'_sDuration' : 'short'
+					});
+//					LEMP.Window.alert({
+//						"_sTitle":"문자발송 오류",
+//						"_vMessage":'선택한 시간 구간이 없습니다.'
+//					});
+
+					return false;
+				}
+//				if(single.length > 1){
+//					LEMP.Window.alert({
+//						"_sTitle":"문자발송 오류",
+//						"_vMessage":'문자발송은 전화번호 하나만 가능합니다.'
+//					});
+//
+//					return false;
+//				}
+				/*else if(single.length == 1 && smutil.isEmpty(single[0])){
+					LEMP.Window.alert({
+						"_sTitle":"문자발송 오류",
+						"_vMessage":'문자를 발송할 전화번호가 없습니다.'
+					});
+
+					return false;
+				}*/
+//				(20200129 : 전화번호 체크를 안하고 기사들이 변경 가능하게 모두 앱으로 넘어가도록 로직변경)
+//				else if(single.length == 1 && !(single[0].LPStartsWith("010"))){
+//					LEMP.Window.alert({
+//						"_sTitle":"문자발송 오류",
+//						"_vMessage":'핸드폰 번호가 아닙니다.'
+//					});
+//
+//					return false;
+//				}
+				//else if(single.length == 1 && !smutil.isEmpty(single[0])){
+				else{
+					// 문자 발송 로직 시작~!!!
+					var popUrl = smutil.getMenuProp("CLDL.CLDL0206","url");
+					LEMP.Window.open({
+						"_sPagePath":popUrl,
+						"_oMessage":{"param":{}}
+					});
+				}
+
+
+			}
+			else{
+				LEMP.Window.toast({
+					"_sMessage":"문자를 발송할 송장을 선택해주세요.",
+					'_sDuration' : 'short'
+				});
+//				LEMP.Window.alert({
+//					"_sTitle":"문자발송 오류",
+//					"_vMessage":'문자를 발송할 송장을 선택해주세요.'
+//				});
+				return false;
+			}
+
+		},
 
 
 		// sms 문구 선택 후에 콜백되는 함수
 		// sms 문자발송
-//		smsMsgSeletPopCallback : function(res){
-//			var _this = this;
-//
-//			if(!smutil.isEmpty(res.msg_cont)){
-//
-//				var text= res.msg_cont;			// 선택한 메세지
-//				var inv_no = res.inv_no;		// 송장번호
-//				var phoneNumber = res.phoneNumber;
-//				var aNumber = [];
-//
-//				// 공백 전화번호는 저장 안함
-//				if(!smutil.isEmpty(phoneNumber)){
-//					phoneNumber = phoneNumber.split('-').join('').replace(/\-/g,'');
-//					aNumber.push(phoneNumber);
-//				}
-//
-//				// 송장번호 추가
-//				if(!smutil.isEmpty(res.msg_cont)){
-//					text += "\n송장번호 : "+inv_no;
-//				}
-//
-//				// 문자발송 기능 호출
-//				LEMP.System.callSMS({
-//					"_aNumber":aNumber,
-//					"_sMessage":text
-//				});
-//			}
-//			else{
+		smsMsgSeletPopCallback : function(res){
+			var _this = this;
+			var chkLst = [];
+			var invNoLst = [];
+			var chkYn = false;
+
+			$("input[name=chk]:checked").each(function() {
+				var inv_no = ($(this).attr("id")).replace('_chk', '');
+
+				// 스캔 된 데이터만 문자가능
+				if(page.chkScanYn(inv_no)){
+					chkLst.push($(this).val());
+					invNoLst.push(inv_no);
+				}
+				else{
+					chkYn = true;
+					return false;
+				}
+			});
+
+			// 다건 전송을 고려해서 스캔 안되있는 송장이 있을경우 문자발송 불가
+			if(chkYn){
+				LEMP.Window.toast({
+					"_sMessage":"문자발송은 송장 스캔후 가능합니다.",
+					'_sDuration' : 'short'
+				});
 //				LEMP.Window.alert({
 //					"_sTitle":"문자발송 오류",
-//					"_vMessage":"선택한 문자발송 문구가 없습니다."
+//					"_vMessage":'문자발송은 송장 스캔후 가능합니다.'
 //				});
-//
-//				return false;
-//			}
-//
-//
-//
-//		},
+
+				return false;
+			}
+
+			if(chkLst.length > 20){
+				LEMP.Window.toast({
+					"_sMessage":"문자발송은 20건까지만 선택 가능합니다.",
+					'_sDuration' : 'short'
+				});
+//				LEMP.Window.alert({
+//					"_sTitle":"문자발송 오류",
+//					"_vMessage":'문자발송은 20건까지만 선택 가능합니다.'
+//				});
+
+				return false;
+			}
+
+
+			// 전화번호가 없어도 문자 발송 가능하도록 기능 수정(20200204)
+			if(chkLst.length > 0){
+				var single = [];
+				var timeTxt = "";
+
+				// 선택한 전화번호리스트 중복제거
+				$.each(chkLst, function(i, el){
+					// 공백 전화번호는 저장 안함
+					if(!smutil.isEmpty(el)){
+						if($.inArray(el, single) === -1) single.push(el);
+					}
+
+				});
+				
+				if(page.dlvyCompl.area_sct_cd == "Y"){
+					timeTxt = $('#' + invNoLst[0]).data('liTmslNm');
+				}else{
+					// 선택한 시간 구분text 셋팅
+					$("li[name=timeLstLi]").each(function() {
+						if($(this).is('.on')){
+							timeTxt = $(this).data('timeTxt');
+							return false;
+						}
+					});
+				}
+				
+				if((smutil.isEmpty(timeTxt) && page.dlvyCompl.area_sct_cd == "N")
+						|| (smutil.isEmpty(timeTxt) && page.dlvyCompl.area_sct_cd == "Y" && chkLst.length == 1)){
+					LEMP.Window.toast({
+						"_sMessage":"선택한 시간 구간이 없습니다.",
+						'_sDuration' : 'short'
+					});
+//					LEMP.Window.alert({
+//						"_sTitle":"문자발송 오류",
+//						"_vMessage":'선택한 시간 구간이 없습니다.'
+//					});
+
+					return false;
+				}
+				else {
+					var text= res.msg_cont;			// 선택한 메세지
+
+					if(chkLst.length == 1 && page.dlvyCompl.area_sct_cd == 'Y'){
+						text += "\n도착예정시간 : " + timeTxt ;
+					}
+					
+					if(page.dlvyCompl.area_sct_cd == 'N'){
+						// 리스트에서 고른 시간구분text
+						if(!smutil.isEmpty(timeTxt)){
+							text += "\n도착예정시간 : " + timeTxt ;
+						}
+					}
+
+					// 문자 발송 대상이 1건일 경우만 송장번호를 붙인다
+					if(single.length == 1){
+						// 송장번호 추가
+						var invNoStr;
+						text += "\n송장번호 : ";
+						for (var i = 0; i < invNoLst.length; i++) {
+							invNoStr = invNoLst[i];
+							invNoStr = (invNoStr.split("_"))[0];
+							if (invNoLst.length-1 === i) {
+								text+=invNoStr;
+							}else {
+								text+=invNoStr+", ";
+							}
+						}
+
+					}
+
+
+					// 문자발송 기능 호출
+					LEMP.System.callSMS({
+						"_aNumber":single,
+						"_sMessage":text
+					});
+				}
+
+			}
+			else{
+				LEMP.Window.toast({
+					"_sMessage":"문자를 발송할 송장을 선택해주세요.",
+					'_sDuration' : 'short'
+				});
+//				LEMP.Window.alert({
+//					"_sTitle":"문자발송 오류",
+//					"_vMessage":'문자를 발송할 송장을 선택해주세요.'
+//				});
+				return false;
+			}
+
+		}
 
 };
 

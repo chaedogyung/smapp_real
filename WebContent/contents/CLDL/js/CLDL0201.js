@@ -746,6 +746,8 @@ var page = {
 			Handlebars.registerHelper('scanYnClass', function(options) {
 				if(this.scan_cmpt_yn == 'N'){
 					return 'off';
+				}else {
+					return 'scan';
 				}
 //				else {
 //					return 'bg-v2';

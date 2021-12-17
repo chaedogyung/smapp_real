@@ -491,6 +491,7 @@ button:hover{cursor:pointer; outline:none;}
 .btn.blue3{background-color:#0875b8; color:#fff;}
 .btn.blue4{background-color:#07649d; color:#fff;}
 .btn.blue5{background-color:#065281; color:#fff;}
+.btn.blue6{background-color:#0A476E; color:#fff;}
 
 /* 라인 */
 .btn.bd{background-color:#fff; border:1px solid #757676; color:#535454;}
@@ -544,6 +545,7 @@ button:disabled{background-color:#b5b5b5; color:#dcdcdc;}
 .btn.bdM{background-repeat:no-repeat;  background-position:50% 40px ; background-size:16px; height:115px; width:52px; font-size:11px; padding:20px 0 0 0; line-height:1; box-sizing: border-box;}
 .btn.bdPhone{background-image:url("../../common/img/icon-phone.png");}
 .btn.bdMemo{background-image:url("../../common/img/icon-pen.png"); }
+.btn.bdSign{background-image:url("../../common/img/icon-pen-v5.png"); }
 .btn.bdCancle{background-image:url("../../common/img/icon-x2.png");}
 .btn.bdMic{background-image:url("../../common/img/icon-mic.png"); }
 .btn.bdMsg{background-image:url("../../common/img/icon-msg.png"); }
