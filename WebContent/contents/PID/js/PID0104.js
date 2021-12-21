@@ -1,6 +1,7 @@
 var page = {
 		
 		bsc_fare : null,		// 기본운임
+		social_fare : null,		// 사합금
 		air_fare : null,		// 항공운임
 		ship_fare : null,		// 도선료
 		sur_fare : null,		// 할증료
@@ -28,6 +29,7 @@ var page = {
 		init:function(arg)
 		{
 			bsc_fare = arg.data.bsc_fare;					// 기본운임
+			social_fare = 0;								// 사합금
 			air_fare = arg.data.air_fare;					// 항공운임
 			ship_fare = arg.data.ship_fare;					// 도선료
 			sur_fare = arg.data.sur_fare;					// 할증료
@@ -37,6 +39,7 @@ var page = {
 			sum_fare_final = sum_fare_base + sum_fare_etc;	// 합계운임(신규) : 최종기본운임 + 기타운임(수정불가)
 
 			$("#bscFare").text(String(bsc_fare).LPToCommaNumber() + "원");
+			$("#socFare").text(String(social_fare).LPToCommaNumber() + "원");
 			$("#airFare").text(String(air_fare).LPToCommaNumber() + "원");
 			$("#shipFare").text(String(ship_fare).LPToCommaNumber() + "원");
 			$("#surFare").text(String(sur_fare).LPToCommaNumber() + "원");
@@ -77,6 +80,7 @@ var page = {
 					LEMP.Window.close({
 						"_oMessage" : {
 							"sum_fare" : sum_fare_final,		// 합계운임
+							"social_fare" : social_fare,		// 사합금
 							"sum_fare_base" : sum_fare_base,	// 최종기본운임(수정전)
 							"sum_fare_base_input" : setSumFare,	// 최종기본운임(수정후)
 							"air_fare" : air_fare,				// 항공운임
@@ -104,6 +108,18 @@ var page = {
 
 				//최종기본운임이 수정될 경우 합계운임도 변경
 				sum_fare_final = tmps + sum_fare_etc;
+				
+				//사합금 계산
+				var social = tmps - 5000;
+				if((social >= 0) && (social <= 170)){
+					social_fare = social;
+				}else if(social < 0){
+					social_fare = 0;
+				}else {
+					social_fare = 170;
+				}
+				
+				$("#socFare").text(String(social_fare).LPToCommaNumber() + "원");
 				$("#sumFareFinal").val(String(sum_fare_final).LPToCommaNumber());
 
 			});

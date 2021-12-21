@@ -18,7 +18,7 @@ var page = {
 		sum_fare_final : null,	// 합계운임
 		sum_fare_base : null,	// 최종기본운임(수정전)
 		sum_fare_base_input : null,	// 최종기본운임(수정후)
-//		social_fare : null,		// 사합금
+		social_fare : null,		// 사합금
 		air_fare : null,	// 항공운임
 		ship_fare : null,	// 도선료
 
@@ -849,7 +849,7 @@ var page = {
 					"summ_fare" : rsrvSummFare,							//합계운임
 					"sum_fare_base" : page.sum_fare_base,				//최종기본운임(수정전)
 					"sum_fare_base_input" : page.sum_fare_base_input,	//최종기본운임(수정후)
-//					"social_fare" : page.social_fare,					//사합금
+					"social_fare" : page.social_fare,					//사합금
 					"air_fare" : page.air_fare,							//항공운임
 					"ship_fare" : page.ship_fare,						//도선료
 
@@ -1096,7 +1096,7 @@ var page = {
 			page.sum_fare_final = result.sum_fare;					// 합계운임
 			page.sum_fare_base = result.sum_fare_base;				//최종기본운임(수정전)
 			page.sum_fare_base_input = result.sum_fare_base_input;	// 최종기본운임(수정후)
-//			page.social_fare = result.social_fare;					// 사합금
+			page.social_fare = result.social_fare;					// 사합금
 			page.air_fare = result.air_fare;						// 항공운임
 			page.ship_fare = result.ship_fare;						// 도선료
 
