@@ -2040,16 +2040,16 @@ var page = {
 				else {
 					var text= res.msg_cont;			// 선택한 메세지
 
-					if(chkLst.length == 1 && page.dlvyCompl.area_sct_cd == 'Y'){
-						text += "\n도착예정시간 : " + timeTxt ;
-					}
+//					if(chkLst.length == 1 && page.dlvyCompl.area_sct_cd == 'Y'){
+//						text += "\n도착예정시간 : " + timeTxt ;
+//					}
 					
-					if(page.dlvyCompl.area_sct_cd == 'N'){
-						// 리스트에서 고른 시간구분text
-						if(!smutil.isEmpty(timeTxt)){
-							text += "\n도착예정시간 : " + timeTxt ;
-						}
-					}
+//					if(page.dlvyCompl.area_sct_cd == 'N'){
+//						// 리스트에서 고른 시간구분text
+//						if(!smutil.isEmpty(timeTxt)){
+//							text += "\n도착예정시간 : " + timeTxt ;
+//						}
+//					}
 
 					// 문자 발송 대상이 1건일 경우만 송장번호를 붙인다
 					if(single.length == 1){
