@@ -92,6 +92,10 @@ var page = {
 							continue;
 						}
 					}
+					//SM별 정산은 즐겨찾기에 표시하지 않음
+					if(target_obj.url === 'MYP/html/MYP0501.html'){
+						continue;
+					}
 					target_obj.menuId=menu_id;
 					one_dept_list.push(target_obj);
 				}

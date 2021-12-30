@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>롯데글로벌로지스</title>
+<meta
+	content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1"
+	name="viewport">
+<meta name="theme-color" content="#e8463a">
+<!-- 안드로드 헤드 칼라 -->
+<meta name="format-detection" content="telephone=no">
+<!-- IOS 전화번호 자동색상 방지 -->
+
+<link rel="stylesheet" type="text/css" href="../../common/css/style.css" />
+<link rel="stylesheet" type="text/css"
+	href="../../common/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="../../common/css/sub.css">
+
+<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+<script type="text/javascript" src="../js/MYP0501.js"></script>
+
+</head>
+
+<body>
+	<input type="hidden" name="menuId" id="menuId" value="MYP0501" />
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection v2">
+			<div class="headerWrap black">
+				<button class="btn back paL ti">버튼</button>
+				<h1><span id="emp_nm" style="color: #065281; font-size: 25px;"></span> SM 님의 정산</h1>
+			</div>
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+
+			<!-- contentBox -->
+			<div class="contentBox pop mypage">
+
+				<!-- infoListBox -->
+				<div class="infoListBox" style="background-color : #e9f1f6;">
+					<ul>
+						<li>
+							<div class="infoBox">
+								<dl class="inBox tp3">
+									<dt>정산년월</dt>
+									<dd>
+										<div class="cardBox chart pdr90">
+											<input type="text" class="num" id="sel_ym">
+										</div>
+									</dd>
+									<dt>대리점명</dt>
+									<dd>
+										<div class="inputBox pdr90">
+											<input type="text" id="brsh_nm" disabled>
+											<button class="btn red w85" id="search">조회</button>
+										</div>
+									</dd>
+<!-- 									<dt>SM명</dt> -->
+<!-- 									<dd> -->
+<!-- 										<div class="inputBox pdr90"> -->
+<!-- 											<input type="text" disabled> -->
+<!-- 											<button class="btn red w85">조회</button> -->
+<!-- 										</div> -->
+<!-- 									</dd> -->
+								</dl>
+								<span id="etc_cnf" style="font-size: 12px; float: right; color: #da291c; display: none;">SM별 수수료 정산이 미확정 되었습니다.<br>ALPS에서 정산을 확정하여 주세요.</span>
+							</div>
+						</li>
+						<li>
+							<div class="tableBox tp1">
+								<table>
+									<colgroup>
+										<col style="width:25%;">
+										<col style="width:20%;">
+										<col style="width:20%;">
+										<col style="width:20%;">
+										<col style="width:15%;">
+									</colgroup>
+									<thead>
+										<tr>
+											<th class="tl pdl10">구분</th>
+											<th>수량</th>
+											<th>운임</th>
+											<th>수수료</th>
+											<th>비고</th>
+										</tr>
+									</thead>
+									<tbody id="view1Tbody">
+										
+									</tbody>
+								</table>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<!-- //infoListBox -->
+
+			</div>
+			<!-- //contentBox -->
+
+		</div>
+		<!--  //contentSection  -->
+		
+		<!-- 모달팝업 전송 -->
+		<div class="mpopBox send pop">
+			<div class="popBody">
+				<p class="img"><img src="../../common/img/icon-fa29.png"></p>
+				<p class="txt1" id="popTxt"></p>
+			</div>
+			<div class="popFooter">
+				<div class="btnBox">
+					<button class="btn red m w100p b-close" id="checkBtn">확인</button>
+				</div>
+			</div>
+		</div>
+		<!-- //모달팝업 전송 -->
+	</div>
+
+</body>
+<script type="text/x-handlebars-template" id="MYP0501_tr_template">
+	<tr class="view1Tr mypage">
+		<th>합계</th>
+		<td>{{tot_count}}</td><td>{{moneyForm tot_amt}}</td><td>{{moneyForm tot_cmsn}}</td><td></td>
+	</tr>
+	<tr class="view1Tr mypage">
+		<th>개발</th>
+		<td>{{dev_qty}}</td><td>{{moneyForm dev_fare}}</td><td>{{moneyForm dev_cmsn}}</td><td></td>
+	</tr>
+	<tr class="view1Tr mypage">
+		<th>집하</th>
+		<td>{{pick_qty}}</td><td>{{moneyForm pick_fare}}</td><td>{{moneyForm pick_cmsn}}</td><td></td>
+	</tr>
+	<tr class="view1Tr mypage">
+		<th>배송</th>
+		<td>{{dlv_qty}}</td><td>{{moneyForm dlv_fare}}</td><td>{{moneyForm dlv_cmsn}}</td><td></td>
+	</tr>
+	<tr class="view1Tr mypage">
+		<th>기본급</th>
+		<td></td><td></td><td>{{moneyForm bsc_amt}}</td><td></td>
+	</tr>
+	<tr class="view1Tr mypage">
+		<th>사회보장비</th>
+		<td></td><td></td><td>{{moneyForm so_sec_fare}}</td><td></td>
+	</tr>
+	<tr class="view1Tr mypage">
+		<th>화물사고</th>
+		<td></td><td></td><td>{{moneyForm now_shex_amt}}</td><td></td>
+	</tr>
+	<tr class="view1Tr mypage">
+		<th>추가정산</th>
+		<td></td><td></td><td>{{moneyForm add_exadj_amt}}</td><td></td>
+	</tr>
+	<tr class="view1Tr mypage">
+		<th>기타1</th>
+		<td></td><td></td><td>{{moneyForm etc1_amt}}</td>
+		<td>
+		{{#etc1_rmk}}
+			<button class="btn gray2 info" data-rmk={{this}}>상세</button>
+		{{/etc1_rmk}}
+		</td>
+	</tr>
+	<tr class="view1Tr mypage">
+		<th>기타2</th>
+		<td></td><td></td><td>{{moneyForm etc2_amt}}</td>
+		<td>
+		{{#etc2_rmk}}
+			<button class="btn gray2 info" data-rmk={{this}}>상세</button>
+		{{/etc2_rmk}}
+		</td>
+	</tr>
+	<tr class="view1Tr mypage">
+		<th>기타3</th>
+		<td></td><td></td><td>{{moneyForm etc3_amt}}</td>
+		<td>
+		{{#etc3_rmk}}
+			<button class="btn gray2 info" data-rmk={{this}}>상세</button>
+		{{/etc3_rmk}}
+		</td>
+	</tr>
+	<tr class="view1Tr mypage">
+		<th>기타4</th>
+		<td></td><td></td><td>{{moneyForm etc4_amt}}</td>
+		<td>
+		{{#etc4_rmk}}
+			<button class="btn gray2 info" data-rmk={{this}}>상세</button>
+		{{/etc4_rmk}}
+		</td>
+	</tr>
+	<tr class="view1Tr mypage">
+		<th>기타5</th>
+		<td></td><td></td><td>{{moneyForm etc5_amt}}</td>
+		<td>
+		{{#etc5_rmk}}
+			<button class="btn gray2 info" data-rmk={{this}}>상세</button>
+		{{/etc5_rmk}}
+		</td>
+	</tr>
+	<tr class="view1Tr mypage">
+		<th>기타6</th>
+		<td></td><td></td><td>{{moneyForm etc6_amt}}</td>
+		<td>
+		{{#etc6_rmk}}
+			<button class="btn gray2 info" data-rmk={{this}}>상세</button>
+		{{/etc6_rmk}}
+		</td>
+	</tr>
+</script>
+
+<script type="text/x-handlebars-template" id="MYP0501_noTr_template">
+	<tr>
+		<td colspan="5">
+			<div class="NoBox">
+				<p class="txt tc">조회된 결과가 없습니다.</p>
+			</div>
+		<td>
+	</tr>
+</script>
+</html>

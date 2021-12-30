@@ -735,6 +735,7 @@ ul.li30 > li:first-child{padding-left:0px;} ul.li30 > li{padding-left:30px; floa
 .tableBox table{width:100%;}
 .tableBox thead th{height:50px; line-height:50px; text-align:center; font-weight:500; font-size:12px;}
 .tableBox tbody tr:nth-child(2n-1) th, .tableBox tbody tr:nth-child(2n-1) td{background-color:#f7f7f7;}
+.tableBox tbody .mypage th, td{background-color:#fff;}
 .tableBox tbody th{height:50px; line-height:50px; font-weight:500; font-size:14px; color:#535454; padding-left:10px; border-bottom:1px solid #f2f2f2; border-top:1px solid #f2f2f2;}
 .tableBox tbody td{height:50px; line-height:50px; text-align:center; font-weight:500; font-size:14px; color:#535454; border-bottom:1px solid #f2f2f2; border-top:1px solid #f2f2f2;}
 /******* // tableBox // *******/

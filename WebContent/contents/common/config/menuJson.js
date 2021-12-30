@@ -195,6 +195,7 @@ var menuJsonJs =
 		"MYP0201":{"menuTxt" : "마일리지 교환신청", "parentMenuCd" : null, "menuDept" : 1, "url" : "MYP/html/MYP0201.html", "mainImgSrc" : "../../common/img/icon-fa18.png", "gnbImgClass" : ""},
 		"MYP0301":{"menuTxt" : "마일리지 이력조회", "parentMenuCd" : null, "menuDept" : 1, "url" : "MYP/html/MYP0301.html", "mainImgSrc" : "../../common/img/icon-fa18.png", "gnbImgClass" : ""},
 		"MYP0401":{"menuTxt" : "긴급사용 승인", "parentMenuCd" : null, "menuDept" : 1, "url" : "MYP/html/MYP0401.html", "mainImgSrc" : "../../common/img/icon-fa18.png", "gnbImgClass" : ""},
+		"MYP0501":{"menuTxt" : "SM별 정산", "parentMenuCd" : null, "menuDept" : 1, "url" : "MYP/html/MYP0501.html", "mainImgSrc" : "../../common/img/icon-fa18.png", "gnbImgClass" : ""},
 	},
 	"PAY":{
 		"GNB":true,
