@@ -525,7 +525,22 @@ var page = {
 
 				return this.snper_adr;
 			});
-
+			
+			// 거래처 집하 거래처명 출력
+			Handlebars.registerHelper('jobCust', function(options) {
+				// 예약/지시(R) / 거래처 집하(A) 구분
+				var tabCd;
+				$('.lstTabBtn').each(function() {
+					if ($(this).closest('li').hasClass('on')) {
+						tabCd = $(this).data('tabCd');
+					}
+				});
+				
+				if(tabCd == 'A'){
+					return this.job_cust_nm;
+				}
+			});
+			
 			// 출력취소 버튼 활성화
 			Handlebars.registerHelper('prntCclChk', function(options) {
 				if(this.prnt_yn === "Y" && this.corp_sct_cd != "2101"){ //출력이면서 편의점(2101)이 아닌 경우 true
