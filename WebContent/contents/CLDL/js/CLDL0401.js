@@ -508,8 +508,8 @@ var page = {
 					return false;
 				}
 				
-				// 스캔된 데이터만 메모 가능
-				if(_this.chkScanYn(inv_no)){
+//				// 스캔된 데이터만 메모 가능
+//				if(_this.chkScanYn(inv_no)){
 					// 기사 메모 팝업 호출
 					var popUrl = smutil.getMenuProp('CLDL.CLDL0204', 'url');
 
@@ -521,19 +521,19 @@ var page = {
 							}
 						}
 					});
-				}
-				else{
-					LEMP.Window.toast({
-						"_sMessage":"미스캔 데이터 입니다.",
-						'_sDuration' : 'short'
-					});
-//					LEMP.Window.alert({
-//						"_sTitle":"미집하 처리 오류",
-//						"_vMessage":"미스캔 데이터 입니다."
+//				}
+//				else{
+//					LEMP.Window.toast({
+//						"_sMessage":"미스캔 데이터 입니다.",
+//						'_sDuration' : 'short'
 //					});
-
-					return false;
-				}
+////					LEMP.Window.alert({
+////						"_sTitle":"미집하 처리 오류",
+////						"_vMessage":"미스캔 데이터 입니다."
+////					});
+//
+//					return false;
+//				}
 
 			});
 
