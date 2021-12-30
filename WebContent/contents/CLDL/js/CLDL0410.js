@@ -513,24 +513,33 @@ var page = {
 				"_vValue" : mmsMessage
 			});
 
-			var textButton = LEMP.Window.createElement({
-				"_sElementName" : "TextButton"
+//			var textButton = LEMP.Window.createElement({
+//				"_sElementName" : "TextButton"
+//			});
+//
+//			textButton.setProperty({
+//				"_sText" : "확인",
+//				"_fCallback" : function()   {
+//					LEMP.Window.close({
+//						"_sCallback":"page.listReLoad"
+//					});
+//				}
+//			});
+//
+//			//page.cldl0410.sendmmscontext
+//			LEMP.Window.alert({
+//				"_sTitle" : "사진전송",
+//				"_vMessage" : "송장번호와 사진을 서버로 전송했습니다.",
+//				"_eTextButton" : textButton
+//			});
+			
+			LEMP.Window.toast({
+				"_sMessage":"송장번호와 사진을 서버로 전송했습니다.",
+				'_sDuration' : 'short'
 			});
-
-			textButton.setProperty({
-				"_sText" : "확인",
-				"_fCallback" : function()   {
-					LEMP.Window.close({
-						"_sCallback":"page.listReLoad"
-					});
-				}
-			});
-
-			//page.cldl0410.sendmmscontext
-			LEMP.Window.alert({
-				"_sTitle" : "사진전송",
-				"_vMessage" : "송장번호와 사진을 서버로 전송했습니다.",
-				"_eTextButton" : textButton
+			
+			LEMP.Window.close({
+				"_sCallback":"page.listReLoad"
 			});
 		}
 		else{

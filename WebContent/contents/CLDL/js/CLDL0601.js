@@ -736,24 +736,32 @@ var page = {
                 '_vValue': mmsMessage
             });
 
-            // MMS 전송 후 Alert
-            var textButton = LEMP.Window.createElement({
-                '_sElementName': 'TextButton'
-            });
+//            // MMS 전송 후 Alert
+//            var textButton = LEMP.Window.createElement({
+//                '_sElementName': 'TextButton'
+//            });
+//
+//            textButton.setProperty({
+//                _sText: '확인',
+//                _fCallback: function() {
+//                    page.reset();
+//                }
+//            });
+//
+//            LEMP.Window.alert({
+//                '_sTitle' : '사진전송',
+//                '_vMessage' : '송장번호와 사진을 서버로 전송했습니다.',
+//                '_eTextButton' : textButton
+//            });
+            
+            //MMS 전송 후 TOAST
+            LEMP.Window.toast({
+				"_sMessage":"송장번호와 사진을 서버로 전송했습니다.",
+				'_sDuration' : 'short'
+			});
 
-            textButton.setProperty({
-                _sText: '확인',
-                _fCallback: function() {
-                    page.reset();
-                }
-            });
-
-            LEMP.Window.alert({
-                '_sTitle' : '사진전송',
-                '_vMessage' : '송장번호와 사진을 서버로 전송했습니다.',
-                '_eTextButton' : textButton
-            });
-
+            page.reset();
+            
             smutil.loadingOff();
         } else{
         	LEMP.Window.toast({
