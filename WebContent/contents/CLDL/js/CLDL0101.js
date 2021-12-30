@@ -65,7 +65,15 @@ var page = {
 			$(thisN).trigger("click");
 			/* //제스쳐 */
 
-
+			/* 체크박스 전체선택 */
+			$("#checkall").click(function(){
+				if($("#checkall").prop("checked")){
+					$("input[name=chk]").prop("checked",true);
+				}else{
+					$("input[name=chk]").prop("checked",false);
+				}
+			});
+			
 			// 화면 상단의 화물추적 버튼을 누른경우
 			$("#openFrePop").click(function(){
 				var popUrl = smutil.getMenuProp("FRE.FRE0301","url");
@@ -485,42 +493,46 @@ var page = {
 
 			});
 
-
+			// 문자버튼 클릭
+			$('.btn.ftSms').click(function(e){
+				// 문자발송 이벤트 호출
+				_this.sendSms();
+			});
 
 
 			// 문자발송 스와이프 버튼클릭
-			$(document).on('click', '.btn.blue5.bdM.bdMsg', function(e){
-				var inv_no = $(this).data('invNo')+"";				// 송장번호
-				var phoneNumber = $(this).data('phoneNumber');		// 전화번호
-				var cldl_sct_cd = $(this).data('cldlSctCd');		// 집배달 구분 (P:집하, D:배달)
-
-				if(smutil.isEmpty(inv_no) || smutil.isEmpty(cldl_sct_cd)){
-					LEMP.Window.toast({
-						"_sMessage":"송장번호 혹은\n집배달 구분코드가 없습니다.\n관리자에게 문의해주세요.",
-						'_sDuration' : 'short'
-					});
-//					LEMP.Window.alert({
-//						"_sTitle" : "문자발송 오류",
-//						"_vMessage" : "송장번호 혹은\n집배달 구분코드가 없습니다.\n관리자에게 문의해주세요."
+//			$(document).on('click', '.btn.blue5.bdM.bdMsg', function(e){
+//				var inv_no = $(this).data('invNo')+"";				// 송장번호
+//				var phoneNumber = $(this).data('phoneNumber');		// 전화번호
+//				var cldl_sct_cd = $(this).data('cldlSctCd');		// 집배달 구분 (P:집하, D:배달)
+//
+//				if(smutil.isEmpty(inv_no) || smutil.isEmpty(cldl_sct_cd)){
+//					LEMP.Window.toast({
+//						"_sMessage":"송장번호 혹은\n집배달 구분코드가 없습니다.\n관리자에게 문의해주세요.",
+//						'_sDuration' : 'short'
 //					});
-
-					return false;
-				}
-
-
-				// 스캔 안된 데이터도 문자발송 가능
-				// 문자 발송 로직 시작~!!!
-				var popUrl = smutil.getMenuProp("CLDL.CLDL0206","url");
-				LEMP.Window.open({
-					"_sPagePath":popUrl,
-					"_oMessage":{"param":{
-						"inv_no" : inv_no,				// 송장번호
-						"phoneNumber" : phoneNumber,	// 전화번호
-						"cldl_sct_cd" : cldl_sct_cd		// 집배달 구분 (P:집하, D:배달)
-					}}
-				});
-
-			});
+////					LEMP.Window.alert({
+////						"_sTitle" : "문자발송 오류",
+////						"_vMessage" : "송장번호 혹은\n집배달 구분코드가 없습니다.\n관리자에게 문의해주세요."
+////					});
+//
+//					return false;
+//				}
+//
+//
+//				// 스캔 안된 데이터도 문자발송 가능
+//				// 문자 발송 로직 시작~!!!
+//				var popUrl = smutil.getMenuProp("CLDL.CLDL0206","url");
+//				LEMP.Window.open({
+//					"_sPagePath":popUrl,
+//					"_oMessage":{"param":{
+//						"inv_no" : inv_no,				// 송장번호
+//						"phoneNumber" : phoneNumber,	// 전화번호
+//						"cldl_sct_cd" : cldl_sct_cd		// 집배달 구분 (P:집하, D:배달)
+//					}}
+//				});
+//
+//			});
 
 
 
@@ -802,7 +814,33 @@ var page = {
 				return smutil.corpLogoReturn(this.corp_sct_cd);
 			});
 
+			// 체크박스에 전화번호 리턴
+			Handlebars.registerHelper('returnSctCdTel', function(options) {
+				var telNum;
 
+				if(this.cldl_sct_cd === "P"){	// 집하
+
+					var snper_tel = smutil.nullToValue(this.snper_tel,"");
+					var snper_cpno = smutil.nullToValue(this.snper_cpno,"");
+
+					telNum = page.getCpNo(snper_tel, snper_cpno);
+				}
+				else{	// 배달
+
+					var acper_tel = smutil.nullToValue(this.acper_tel,"");
+					var acper_cpno = smutil.nullToValue(this.acper_cpno,"");
+
+					telNum = page.getCpNo(acper_tel, acper_cpno);
+
+				}
+
+				if(!smutil.isEmpty(telNum)){
+					return (telNum).split('-').join('');
+				}
+				else{
+					return "";
+				}
+			});
 
 			// 기사 메모가 있는지 없는지 if else
 			Handlebars.registerHelper('prcsMemoYn', function(options) {
@@ -854,29 +892,29 @@ var page = {
 
 
 			// 문자발송 버튼 표시 (집하 = 보낸사람, 배달 = 받는사람)
-			Handlebars.registerHelper('setSmsBtn', function(options) {
-				var telNum;
-
-				if(this.cldl_sct_cd === "P"){	// 집하
-
-					var snper_tel = smutil.nullToValue(this.snper_tel,"");
-					var snper_cpno = smutil.nullToValue(this.snper_cpno,"");
-
-					telNum = page.getCpNo(snper_tel, snper_cpno);
-				}
-				else{	// 배달
-
-					var acper_tel = smutil.nullToValue(this.acper_tel,"");
-					var acper_cpno = smutil.nullToValue(this.acper_cpno,"");
-
-					telNum = page.getCpNo(acper_tel, acper_cpno);
-
-				}
-
-				var html = '<button class="btn bdM blue5 bdM bdMsg mgl1" data-cldl-sct-cd="'+this.cldl_sct_cd+'" data-inv-no="'+this.inv_no+'" data-phone-number="'+telNum+'">문자</button>';
-				return new Handlebars.SafeString(html); // mark as already escaped
-
-			});
+//			Handlebars.registerHelper('setSmsBtn', function(options) {
+//				var telNum;
+//
+//				if(this.cldl_sct_cd === "P"){	// 집하
+//
+//					var snper_tel = smutil.nullToValue(this.snper_tel,"");
+//					var snper_cpno = smutil.nullToValue(this.snper_cpno,"");
+//
+//					telNum = page.getCpNo(snper_tel, snper_cpno);
+//				}
+//				else{	// 배달
+//
+//					var acper_tel = smutil.nullToValue(this.acper_tel,"");
+//					var acper_cpno = smutil.nullToValue(this.acper_cpno,"");
+//
+//					telNum = page.getCpNo(acper_tel, acper_cpno);
+//
+//				}
+//
+//				var html = '<button class="btn bdM blue5 bdM bdMsg mgl1" data-cldl-sct-cd="'+this.cldl_sct_cd+'" data-inv-no="'+this.inv_no+'" data-phone-number="'+telNum+'">문자</button>';
+//				return new Handlebars.SafeString(html); // mark as already escaped
+//
+//			});
 
 
 
@@ -1230,7 +1268,7 @@ var page = {
 //				});
 				return false;
 			}
-
+			$("#checkall").prop("checked", false);
 			smutil.loadingOn();
 			page.plnCnt();						// 상단 카운트 조회
 
@@ -2086,51 +2124,148 @@ var page = {
 		},
 		// ################### 미집배달 처리 end
 
-
-
-		// sms 문구 선택 후에 콜백되는 함수
-		// sms 문자발송
-		smsMsgSeletPopCallback : function(res){
+		// 문자발송 서비스 호출
+		sendSms : function(){
 			var _this = this;
+			var chkLst = [];
+			var invNoLst = [];
 
-			if(!smutil.isEmpty(res.msg_cont)){
+			$("input[name=chk]:checked").each(function() {
+				var cpNo = $(this).val();
 
-				var text= res.msg_cont;			// 선택한 메세지
-				var inv_no = res.inv_no;		// 송장번호
-				var phoneNumber = res.phoneNumber;
-				var aNumber = [];
+				chkLst.push($(this).val());
+				invNoLst.push(($(this).attr("id")).replace('_chk', ''));
+			});
 
-				// 공백 전화번호는 저장 안함
-				if(!smutil.isEmpty(phoneNumber)){
-					phoneNumber = phoneNumber.split('-').join('').replace(/\-/g,'');
-					aNumber.push(phoneNumber);
-				}
 
-				// 송장번호 추가
-				if(!smutil.isEmpty(res.msg_cont)){
-					text += "\n송장번호 : "+inv_no;
-				}
-
-				// 문자발송 기능 호출
-				LEMP.System.callSMS({
-					"_aNumber":aNumber,
-					"_sMessage":text
-				});
-			}
-			else{
+			if(chkLst.length > 20){
 				LEMP.Window.toast({
-					"_sMessage":"선택한 문자발송 문구가 없습니다.",
+					"_sMessage":"문자발송은 20건까지만 선택 가능합니다.",
 					'_sDuration' : 'short'
 				});
 //				LEMP.Window.alert({
 //					"_sTitle":"문자발송 오류",
-//					"_vMessage":"선택한 문자발송 문구가 없습니다."
+//					"_vMessage":'문자발송은 20건까지만 선택 가능합니다.'
 //				});
 
 				return false;
 			}
 
 
+			// 전화번호가 없어도 문자 발송 가능하도록 기능 수정(20200204)
+			if(chkLst.length > 0){
+				var single = [];
+
+				// 중복 전화번호 제거
+//				$.each(chkLst, function(i, el){
+//					if($.inArray(el, single) === -1) single.push(el);
+//				});
+
+				
+				// 문자 발송 로직 시작~!!!
+				var popUrl = smutil.getMenuProp("CLDL.CLDL0206","url");
+				LEMP.Window.open({
+					"_sPagePath":popUrl,
+					"_oMessage":{"param":{}}
+				});
+
+
+			}
+			else{
+				LEMP.Window.toast({
+					"_sMessage":"문자를 발송할 송장을 선택해주세요.",
+					'_sDuration' : 'short'
+				});
+//				LEMP.Window.alert({
+//					"_sTitle":"문자발송 오류",
+//					"_vMessage":'문자를 발송할 송장을 선택해주세요.'
+//				});
+				return false;
+			}
+
+		},
+
+		// sms 문구 선택 후에 콜백되는 함수
+		// sms 문자발송
+		smsMsgSeletPopCallback : function(res){
+			var _this = this;
+			var chkLst = [];
+			var invNoLst = [];
+
+
+			$("input[name=chk]:checked").each(function() {
+				chkLst.push($(this).val());
+				invNoLst.push(($(this).attr("id")).replace('_chk', ''));
+			});
+
+
+			if(chkLst.length > 20){
+				LEMP.Window.toast({
+					"_sMessage":"문자발송은 20건까지만 선택 가능합니다.",
+					'_sDuration' : 'short'
+				});
+//				LEMP.Window.alert({
+//					"_sTitle":"문자발송 오류",
+//					"_vMessage":'문자발송은 20건까지만 선택 가능합니다.'
+//				});
+
+				return false;
+			}
+
+
+			// 전화번호가 없어도 문자 발송 가능하도록 기능 수정(20200204)
+			if(chkLst.length > 0){
+				var single = [];
+				var timeTxt = "";
+
+				// 선택한 전화번호리스트 중복제거
+				$.each(chkLst, function(i, el){
+					// 공백 전화번호는 저장 안함
+					if(!smutil.isEmpty(el)){
+						if($.inArray(el, single) === -1) single.push(el);
+					}
+
+				});
+				
+				var text= res.msg_cont;			// 선택한 메세지
+
+				// 문자 발송 대상이 1건일 경우만 송장번호를 붙인다
+				if(single.length == 1){
+					// 송장번호 추가
+					var invNoStr;
+					text += "\n송장번호 : ";
+					for (var i = 0; i < invNoLst.length; i++) {
+						invNoStr = invNoLst[i];
+						invNoStr = (invNoStr.split("_"))[0];
+						if (invNoLst.length-1 === i) {
+							text+=invNoStr;
+						}else {
+							text+=invNoStr+", ";
+						}
+					}
+
+				}
+
+
+				// 문자발송 기능 호출
+				LEMP.System.callSMS({
+					"_aNumber":single,
+					"_sMessage":text
+				});
+			
+
+			}
+			else{
+				LEMP.Window.toast({
+					"_sMessage":"문자를 발송할 송장을 선택해주세요.",
+					'_sDuration' : 'short'
+				});
+//				LEMP.Window.alert({
+//					"_sTitle":"문자발송 오류",
+//					"_vMessage":'문자를 발송할 송장을 선택해주세요.'
+//				});
+				return false;
+			}
 
 		},
 
