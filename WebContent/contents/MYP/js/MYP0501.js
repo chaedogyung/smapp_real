@@ -69,9 +69,11 @@ var page = {
 			//이달의 실적현황 달력 버튼
 			$("#sel_ym").monthpicker(options);
 			
-			// 금액에는 콤마 추가
+			// 금액, 수량에  콤마 추가
 			Handlebars.registerHelper('moneyForm', function(options) {
-				return options.toString().LPToCommaNumber();
+				if(options != null){
+					return options.toString().LPToCommaNumber();					
+				}
 			});
 		},
 		
@@ -112,8 +114,8 @@ var page = {
 			
 			page.apiParam.data = {
 					"parameters" : {
-						"srchYm" : srchYm,
-						"empno" : loginId	//test "31902410", "31600488"
+						"srchYm" : srchYm,		//정산년월
+						"empno" : loginId	//정산사번 test "31902410", "31600488", "32104938"
 					}
 			};
 
@@ -129,7 +131,7 @@ var page = {
 				if(smutil.apiResValidChk(result) && result.code === "0000"){
 					var res_data = result.data;
 
-					if(result.count != "0"){
+					if(result.count != "0" && res_data.etc_cnf_yn == 'Y'){
 						// 핸들바 템플릿 가져오기
 						var source = $("#MYP0501_tr_template").html();
 						
@@ -139,6 +141,9 @@ var page = {
 						}else{
 							$('#etc_cnf').show();
 						}
+					}else if(result.count != "0" && (res_data.etc_cnf_yn == 'N' || res_data.etc_cnf_yn == null)){
+						// 핸들바 템플릿 가져오기
+						var source = $("#MYP0501_req_template").html();
 					}else{
 						// 핸들바 템플릿 가져오기
 						var source = $("#MYP0501_noTr_template").html();

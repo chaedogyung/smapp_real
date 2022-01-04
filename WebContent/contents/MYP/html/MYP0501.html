@@ -68,7 +68,6 @@
 <!-- 										</div> -->
 <!-- 									</dd> -->
 								</dl>
-								<span id="etc_cnf" style="font-size: 12px; float: right; color: #da291c; display: none;">SM별 수수료 정산이 미확정 되었습니다.<br>ALPS에서 정산을 확정하여 주세요.</span>
 							</div>
 						</li>
 						<li>
@@ -125,19 +124,19 @@
 <script type="text/x-handlebars-template" id="MYP0501_tr_template">
 	<tr class="view1Tr mypage">
 		<th>합계</th>
-		<td>{{tot_count}}</td><td>{{moneyForm tot_amt}}</td><td>{{moneyForm tot_cmsn}}</td><td></td>
+		<td>{{moneyForm tot_count}}</td><td>{{moneyForm tot_amt}}</td><td>{{moneyForm tot_cmsn}}</td><td></td>
 	</tr>
 	<tr class="view1Tr mypage">
 		<th>개발</th>
-		<td>{{dev_qty}}</td><td>{{moneyForm dev_fare}}</td><td>{{moneyForm dev_cmsn}}</td><td></td>
+		<td>{{moneyForm dev_qty}}</td><td>{{moneyForm dev_fare}}</td><td>{{moneyForm dev_cmsn}}</td><td></td>
 	</tr>
 	<tr class="view1Tr mypage">
 		<th>집하</th>
-		<td>{{pick_qty}}</td><td>{{moneyForm pick_fare}}</td><td>{{moneyForm pick_cmsn}}</td><td></td>
+		<td>{{moneyForm pick_qty}}</td><td>{{moneyForm pick_fare}}</td><td>{{moneyForm pick_cmsn}}</td><td></td>
 	</tr>
 	<tr class="view1Tr mypage">
 		<th>배송</th>
-		<td>{{dlv_qty}}</td><td>{{moneyForm dlv_fare}}</td><td>{{moneyForm dlv_cmsn}}</td><td></td>
+		<td>{{moneyForm dlv_qty}}</td><td>{{moneyForm dlv_fare}}</td><td>{{moneyForm dlv_cmsn}}</td><td></td>
 	</tr>
 	<tr class="view1Tr mypage">
 		<th>기본급</th>
@@ -160,7 +159,7 @@
 		<td></td><td></td><td>{{moneyForm etc1_amt}}</td>
 		<td>
 		{{#etc1_rmk}}
-			<button class="btn gray2 info" data-rmk={{this}}>상세</button>
+			<button class="btn gray2 info" data-rmk="{{this}}">상세</button>
 		{{/etc1_rmk}}
 		</td>
 	</tr>
@@ -169,7 +168,7 @@
 		<td></td><td></td><td>{{moneyForm etc2_amt}}</td>
 		<td>
 		{{#etc2_rmk}}
-			<button class="btn gray2 info" data-rmk={{this}}>상세</button>
+			<button class="btn gray2 info" data-rmk="{{this}}">상세</button>
 		{{/etc2_rmk}}
 		</td>
 	</tr>
@@ -178,7 +177,7 @@
 		<td></td><td></td><td>{{moneyForm etc3_amt}}</td>
 		<td>
 		{{#etc3_rmk}}
-			<button class="btn gray2 info" data-rmk={{this}}>상세</button>
+			<button class="btn gray2 info" data-rmk="{{this}}">상세</button>
 		{{/etc3_rmk}}
 		</td>
 	</tr>
@@ -187,7 +186,7 @@
 		<td></td><td></td><td>{{moneyForm etc4_amt}}</td>
 		<td>
 		{{#etc4_rmk}}
-			<button class="btn gray2 info" data-rmk={{this}}>상세</button>
+			<button class="btn gray2 info" data-rmk="{{this}}">상세</button>
 		{{/etc4_rmk}}
 		</td>
 	</tr>
@@ -196,7 +195,7 @@
 		<td></td><td></td><td>{{moneyForm etc5_amt}}</td>
 		<td>
 		{{#etc5_rmk}}
-			<button class="btn gray2 info" data-rmk={{this}}>상세</button>
+			<button class="btn gray2 info" data-rmk="{{this}}">상세</button>
 		{{/etc5_rmk}}
 		</td>
 	</tr>
@@ -205,9 +204,19 @@
 		<td></td><td></td><td>{{moneyForm etc6_amt}}</td>
 		<td>
 		{{#etc6_rmk}}
-			<button class="btn gray2 info" data-rmk={{this}}>상세</button>
+			<button class="btn gray2 info" data-rmk="{{this}}">상세</button>
 		{{/etc6_rmk}}
 		</td>
+	</tr>
+</script>
+
+<script type="text/x-handlebars-template" id="MYP0501_req_template">
+	<tr>
+		<td colspan="5">
+			<div class="NoBox">
+				<p class="txt tc" style="color: #da291c; line-height: 2; margin-top: 60px;">SM별 수수료 정산이 미확정 되었습니다.<br>ALPS에서 정산을 확정하여 주세요.</p>
+			</div>
+		<td>
 	</tr>
 </script>
 
