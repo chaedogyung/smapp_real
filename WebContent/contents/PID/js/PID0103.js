@@ -400,6 +400,14 @@ var page = {
 					page.getFareAmtInfo("0");
 				}
 			});
+			
+			//거래처 택배접수 - 운임구분 변경 시 기본운임 세팅
+			$("input[name='clientFareSctCd']").change(function(){
+				if(page.tab_cd === "client"){
+					page.isFare = false;
+					page.getFareAmtInfo("0");
+				}
+			});
 		},
 
 		initDpEvent : function()
