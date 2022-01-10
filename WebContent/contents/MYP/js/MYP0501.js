@@ -134,19 +134,18 @@ var page = {
 					if(result.count != "0" && res_data.etc_cnf_yn == 'Y'){
 						// 핸들바 템플릿 가져오기
 						var source = $("#MYP0501_tr_template").html();
-						
-						//정산  여부
-						if(res_data.etc_cnf_yn == 'Y'){
-							$('#etc_cnf').hide();
-						}else{
-							$('#etc_cnf').show();
-						}
+						//세부요율
+						$('#info_txt').show();
 					}else if(result.count != "0" && (res_data.etc_cnf_yn == 'N' || res_data.etc_cnf_yn == null)){
 						// 핸들바 템플릿 가져오기
 						var source = $("#MYP0501_req_template").html();
+						//세부요율
+						$('#info_txt').hide();
 					}else{
 						// 핸들바 템플릿 가져오기
 						var source = $("#MYP0501_noTr_template").html();
+						//세부요율
+						$('#info_txt').hide();
 					}
 					
 					// 핸들바 템플릿 컴파일
