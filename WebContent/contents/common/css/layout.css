@@ -646,6 +646,7 @@ button:disabled{background-color:#b5b5b5; color:#dcdcdc;}
 .selBox.sort1 {background:#fff url('../../common/img/img_status_red.png') no-repeat calc(100% - 6px) 53%; background-size:9px; padding:5px 20px 5px 10px;  vertical-align: middle;color:#535454;-moz-appearance:none;-webkit-appearance:none;appearance:none;​ box-sizing:border-box; font-size:13px; border:1px solid #d8d8d8; border-radius: 5px;}
 .selBox.sort2 {background:#fff url('../../common/img/img_status_blue.png') no-repeat calc(100% - 6px) 53%; background-size:9px; padding:5px 20px 5px 10px;  vertical-align: middle;color:#535454;-moz-appearance:none;-webkit-appearance:none;appearance:none;​ box-sizing:border-box; font-size:13px; border:1px solid #d8d8d8; border-radius: 5px;}
 
+.selBox.gubun {background:#fff url('../../common/img/icon-arrow-down-v1.png') no-repeat calc(100% - 6px) 53%; background-size:9px; padding:5px 20px 5px 10px; color:#535454;-moz-appearance:none;-webkit-appearance:none;appearance:none;​ box-sizing:border-box; font-size:13px; border:1px solid #d8d8d8; border-radius: 5px; height:30px; vertical-align: middle;}
 
 
 
