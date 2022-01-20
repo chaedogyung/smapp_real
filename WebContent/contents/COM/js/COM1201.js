@@ -16,7 +16,24 @@ var page = {
 		}
 		// api 통신용 파라메터
 	},
-
+	
+	// api 파람메터 초기화
+	apiParamInit : function(){
+		page.apiParam =  {
+			id:"HTTP",			// 디바이스 콜 id
+			param:{				// 디바이스가 알아야할 데이터
+				task_id : "",										// 화면 ID 코드가 들어가기로함
+				//position : {},									// 사용여부 미확정
+				type : "",
+				baseUrl : "",
+				method : "POST",									// api 호출 형식(지정 안하면 'POST' 로 자동 셋팅)
+				callback : "",					// api 호출후 callback function
+				contentType : "application/json; charset=utf-8"
+			},
+			data:{"parameters" : {}}// api 통신용 파라메터
+		};
+	},
+	
 	init : function(){
 		page.initInterface();
 		page.getUseStatus();
@@ -31,10 +48,7 @@ var page = {
 
 		//긴급사용 신청버튼 클릭
 		$(document).on('click','#requestBtn', function(e){
-			// 긴급사용 신청 컴펌창 호출
-			$('#pop2Txt2').html("1시간"+'<br /> 긴급사용을 신청합니다.');
-			$('.mpopBox.pop').bPopup();
-			$('.popFooter').show();
+			page.timeCheck();
 		});
 
 		// 긴급사용 'yes' 버튼 클릭
@@ -148,6 +162,36 @@ var page = {
 		}
 	},
 
+	//서버 시간 체크
+	timeCheck : function(){
+		page.apiParamInit();		// 파라메터 초기화
+		page.apiParam.param.baseUrl = "/smapis/use/tmChk";
+		page.apiParam.param.callback = "page.timeCheckCallback";
+		page.apiParam.data.parameters = {};
+		
+		smutil.callApi(page.apiParam);
+	},
+	
+	timeCheckCallback : function(result){
+		var cur_time = parseInt(result.cur_tm);
+		if(cur_time.length == 5){
+			cur_time = parseInt("0" + cur_time);
+		}
+		
+		//10시 이후 신청 불가
+		if(cur_time < 220000){
+			// 긴급사용 신청 컴펌창 호출
+			$('#pop2Txt2').html("1시간"+'<br /> 긴급사용을 신청합니다.');
+			$('.mpopBox.pop').bPopup();
+			$('.popFooter').show();
+		}else{
+			LEMP.Window.toast({
+				'_sMessage' : '10시 이후는 긴급사용 신청이 불가능합니다.',
+				'_sDuration' : 'short'
+			});
+		}
+	},
+	
 	callbackBackButton : function(){
 		var btnCancel = LEMP.Window.createElement({
 			_sElementName : "TextButton"
