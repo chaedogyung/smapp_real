@@ -174,14 +174,12 @@ var page = {
 	
 	timeCheckCallback : function(result){
 		var cur_time = parseInt(result.cur_tm);
-		if(cur_time.length == 5){
-			cur_time = parseInt("0" + cur_time);
-		}
 		
-		//10시 이후 신청 불가
-		if(cur_time < 220000){
+		//10시 이후 신청 불가(4시까지)
+		if(cur_time < 220000 && cur_time >= 40000){
 			// 긴급사용 신청 컴펌창 호출
-			$('#pop2Txt2').html("1시간"+'<br /> 긴급사용을 신청합니다.');
+//			$('#pop2Txt2').html("1시간"+'<br /> 긴급사용을 신청합니다.');
+			$('#pop2Txt2').html('긴급사용을 신청합니다.');
 			$('.mpopBox.pop').bPopup();
 			$('.popFooter').show();
 		}else{
