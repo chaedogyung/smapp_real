@@ -172,13 +172,25 @@ var page = {
 		smutil.callApi(page.apiParam);
 	},
 	
+	//서버 시간 체크 이후 긴급사용 신청
 	timeCheckCallback : function(result){
 		try{
 			if(smutil.apiResValidChk(result) && result.code === "0000"){
-				var cur_time = parseInt(result.cur_tm);
+				var cur_ymd = result.cur_ymd;
+				var cur_tm = result.cur_tm;
 				
-				//10시 이후 신청 불가(4시까지)
-				if(cur_time < 220000 && cur_time >= 40000){
+				if(cur_tm.lenght == 5){
+					cur_tm = "0" + cur_tm;
+				}
+				
+				var cur_date = new Date(cur_ymd.substring(0,4), cur_ymd.substring(4,6)-1, cur_ymd.substring(6,8),
+										cur_tm.substring(0,2), cur_tm.substring(2,4), cur_tm.substring(4,6));
+				
+				var min_date = new Date(cur_ymd.substring(0,4), cur_ymd.substring(4,6)-1, cur_ymd.substring(6,8), 4);
+				var max_date = new Date(cur_ymd.substring(0,4), cur_ymd.substring(4,6)-1, cur_ymd.substring(6,8), 22);
+
+				// 4시부터 22시까지 신청 가능
+				if(cur_date.getTime() > min_date.getTime() && cur_date.getTime() < max_date.getTime()){
 					// 긴급사용 신청 컴펌창 호출
 //					$('#pop2Txt2').html("1시간"+'<br /> 긴급사용을 신청합니다.');
 					$('#pop2Txt2').html('긴급사용을 신청합니다.');
