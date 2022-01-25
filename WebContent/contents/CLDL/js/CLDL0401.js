@@ -2,7 +2,6 @@ LEMP.addEvent("backbutton", "page.callbackBackButton");		// 뒤로가기 버튼 
 
 var page = {
 
-		tmChk_yn : null,			// 스캔, 전송 가능 여부(y: 가능, n: 불가능)
 		dprtCnt : null,				// 최상단 전체, 배달, 집하 조회 건수
 		plnTmList : null,			// 시간 선택 리스트
 		plnFltrList : null,			// 배달 예정 리스트 필터
@@ -295,28 +294,6 @@ var page = {
 
 			// 배달출발확정 버튼 클릭
 			$('#cmptTrsmBtn').click(function(e){
-				page.tmChk();
-				
-				if(smutil.isEmpty(page.tmChk_yn) || page.tmChk_yn == 'N'){
-					var textButton = LEMP.Window.createElement({
-						"_sElementName" : "TextButton"
-					});
-		
-					textButton.setProperty({
-						"_sText" : "종료",
-						"_fCallback" : function()   {
-							LEMP.App.exit({
-								_sType : "kill"
-							});
-						}
-					});
-					LEMP.Window.alert({
-						"_sTitle" : "시간오류",
-						"_vMessage" : "휴대폰 시간이 실제 시간과 일치하지 않습니다.",
-						"_eTextButton" : textButton
-					});
-				}
-				
 				var _this = this;
 				var cldl_sct_cd = "D";							// 업무구분
 				var cldl_tmsl_cd = page.returnTimeCd();			// 예정시간코드
@@ -628,28 +605,7 @@ var page = {
 
 			// 하단 스캔버튼을 누른경우
 			$(".btn.ftScan").click(function(){
-				page.tmChk();
-				
-				if(smutil.isEmpty(page.tmChk_yn) || page.tmChk_yn == 'N'){
-					var textButton = LEMP.Window.createElement({
-						"_sElementName" : "TextButton"
-					});
-		
-					textButton.setProperty({
-						"_sText" : "종료",
-						"_fCallback" : function()   {
-							LEMP.App.exit({
-								_sType : "kill"
-							});
-						}
-					});
-					LEMP.Window.alert({
-						"_sTitle" : "시간오류",
-						"_vMessage" : "휴대폰 시간이 실제 시간과 일치하지 않습니다.",
-						"_eTextButton" : textButton
-					});
-				}
-				
+
 				//현제 어느 탭에 있는지 상태체크
 				var cldl_sct_cd = "D";						// 업무구분
 				var cldl_tmsl_cd = _this.returnTimeCd();						// 예정시간선택
@@ -855,11 +811,6 @@ var page = {
 								break;
 							case "02":		// 착불
 								result = "착불";
-								btnYn = "N";
-								classTxt = "badge s default";
-								break;
-							case "07":		// 착불결제완료
-								result = "착불결제완료";
 								btnYn = "N";
 								classTxt = "badge s default";
 								break;
@@ -2174,28 +2125,6 @@ var page = {
 		// ################### 스캔 전송 start
 		// 스캔된후 호출되는 함수
 		scanCallback : function(result){
-			page.tmChk();
-			
-			if(smutil.isEmpty(page.tmChk_yn) || page.tmChk_yn == 'N'){
-				var textButton = LEMP.Window.createElement({
-					"_sElementName" : "TextButton"
-				});
-	
-				textButton.setProperty({
-					"_sText" : "종료",
-					"_fCallback" : function()   {
-						LEMP.App.exit({
-							_sType : "kill"
-						});
-					}
-				});
-				LEMP.Window.alert({
-					"_sTitle" : "시간오류",
-					"_vMessage" : "휴대폰 시간이 실제 시간과 일치하지 않습니다.",
-					"_eTextButton" : textButton
-				});
-			}
-			
 			page.apiParamInit();		// 전역 api 파라메터 초기화
 			var _this = this;
 			var scanCallYn = "Y";
@@ -3333,108 +3262,7 @@ var page = {
 		},
 		// ################### 미배달 처리 end
 
-		// 서버시간 체크
-		tmChk : function(){
-			page.apiParamInit();		// 파라메터 초기화
-			page.apiParam.param.baseUrl = "/smapis/use/tmChk";
-			page.apiParam.param.callback = "page.tmChkCallback";
-			page.apiParam.data.parameters = {};
-			
-			smutil.callApi(page.apiParam);
-		},
-		
-		tmChkCallback : function(result){
-			try{
-				if(smutil.apiResValidChk(result) && result.code === "0000"){
-					var cur_ymd = result.cur_ymd;
-					var cur_tm = result.cur_tm;
-					
-					if(cur_tm.lenght == 5){
-						cur_tm = "0" + cur_tm;
-					}
-					
-					var cur_date = new Date(cur_ymd.substring(0,4), cur_ymd.substring(4,6)-1, cur_ymd.substring(6,8),
-											cur_tm.substring(0,2), cur_tm.substring(2,4), cur_tm.substring(4,6));
-					
-					var min_date = new Date(cur_ymd.substring(0,4), cur_ymd.substring(4,6)-1, cur_ymd.substring(6,8), 4);
-					var max_date = new Date(cur_ymd.substring(0,4), cur_ymd.substring(4,6)-1, cur_ymd.substring(6,8), 21);
 
-					// 4시부터 21시까지
-					if(cur_date.getTime() > min_date.getTime() && cur_date.getTime() < max_date.getTime()){
-						page.tmChk_yn = "Y";
-					}else{
-						page.smInfo();
-					}
-				}else {
-
-				}
-			}catch(e){}
-			finally{
-				page.apiParamInit();		// 파라메터 초기화
-			}
-		},
-		
-		// 팝업창 출력 여부 확인
-		smInfo : function(){
-			page.apiParamInit();		// 파라메터 초기화
-			page.apiParam.param.baseUrl = "/smapis/cmn/smInf";
-			page.apiParam.param.callback = "page.smInfoCallback";
-			page.apiParam.data.parameters = {};
-			smutil.callApi(page.apiParam);
-		},
-		
-		smInfoCallback : function(res){
-			try{
-				if(smutil.apiResValidChk(res) && res.code ==="0000"){
-					var popup_view_sct = res.popup_view_sct;
-					
-					if(popup_view_sct == 'Y'){
-						page.getUseStatus();
-					}else{
-						page.tmChk_yn = "Y";
-					}
-				}
-			}catch(e){}
-			finally{
-				page.apiParamInit();		// 파라메터 초기화
-			}
-		},
-		
-		//긴급사용 신청여부확인
-		getUseStatus : function (){
-			smutil.loadingOn();
-			var loginId = LEMP.Properties.get({
-				"_sKey" : "dataId"
-			});
-			page.apiParam.param.baseUrl = "/smapis/use/getApvInfo";
-			page.apiParam.param.callback = "page.getUseStatusCallback";
-			page.apiParam.data.parameters.empno = loginId;						// PARAM: 사원번호
-			smutil.callApi(page.apiParam);
-		},
-		
-		//긴급사용 신청여부화인 콜백
-		getUseStatusCallback : function (res){
-			try{
-				if(smutil.apiResValidChk(res) && res.code === "0000"){
-					if(res.apv_yn == 'Y'){
-						var now_tm = new Date();
-						var use_tm = new Date(res.use_tm.substring(0,4), res.use_tm.substring(4,6)-1, res.use_tm.substring(6,8),
-								res.use_tm.substring(8,10), res.use_tm.substring(10,12), res.use_tm.substring(12,14));
-						
-						if(now_tm.getTime() > use_tm.getTime()){
-							page.tmChk_yn = "N";
-						}else{
-							page.tmChk_yn = "Y";
-						}
-					}else {
-						page.tmChk_yn = "N";
-					}
-				}
-			}catch(e){}
-			finally{
-				smutil.loadingOff();
-			}
-		},
 
 		// 두 번호로 휴대폰 번호가 있는경우 휴대폰 번호를 리턴, 없으면 일반전화번호 리턴
 		getCpNo : function(phoneNum1, phoneNum2){
