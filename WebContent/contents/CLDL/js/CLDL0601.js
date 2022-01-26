@@ -130,8 +130,11 @@ var page = {
             $('#mmsArtc_nm').text('상품명 : ');       // 상품명 초기화
         });
 
-        // 전송 버튼 클릭
-        $('#btnSend').click(page.send);
+//        // 전송 버튼 클릭
+//        $('#btnSend').click(page.send);
+        $('#btnSend').click(function(){
+        	page.tmChk();
+        });
 
        $("#msgLock").change(function () {
             var msgLockYn = $("#msgLock").is(":checked")?"Y":"N";
@@ -808,7 +811,135 @@ var page = {
         item.find('.btnTelNum > span').text(res.param.pNum);
         item.find('.btnTelNum').data('telNum', res.param.pNum.replace(/\-/gi,''));
     },
+    
+    //////////////////////////////////////////////////
+    // 서버시간 체크, 긴급사용 오류 방지
+	tmChk : function(){
+		page.apiParamInit();		// 파라메터 초기화
+		page.apiParam.param.baseUrl = "/smapis/use/tmChk";
+		page.apiParam.param.callback = "page.tmChkCallback";
+		page.apiParam.data.parameters = {};
+		
+		smutil.callApi(page.apiParam);
+	},
+	
+	tmChkCallback : function(result){
+		try{
+			if(smutil.apiResValidChk(result) && result.code === "0000"){
+				var cur_ymd = result.cur_ymd;
+				var cur_tm = result.cur_tm;
+				
+				if(cur_tm.lenght == 5){
+					cur_tm = "0" + cur_tm;
+				}
+				
+				var cur_date = new Date(cur_ymd.substring(0,4), cur_ymd.substring(4,6)-1, cur_ymd.substring(6,8),
+										cur_tm.substring(0,2), cur_tm.substring(2,4), cur_tm.substring(4,6));
+				
+				var min_date = new Date(cur_ymd.substring(0,4), cur_ymd.substring(4,6)-1, cur_ymd.substring(6,8), 4);
+				var max_date = new Date(cur_ymd.substring(0,4), cur_ymd.substring(4,6)-1, cur_ymd.substring(6,8), 21);
 
+				// 4시부터 21시까지 제외
+				if(cur_date.getTime() < min_date.getTime() || cur_date.getTime() > max_date.getTime()){
+					page.smInfo();
+				}else{
+					page.send();
+				}
+			}else {
+
+			}
+		}catch(e){}
+		finally{
+			page.apiParamInit();		// 파라메터 초기화
+		}
+	},
+	
+	// 팝업창 출력 여부 확인
+	smInfo : function(){
+		page.apiParamInit();		// 파라메터 초기화
+		page.apiParam.param.baseUrl = "/smapis/cmn/smInf";
+		page.apiParam.param.callback = "page.smInfoCallback";
+		page.apiParam.data.parameters = {};
+		smutil.callApi(page.apiParam);
+	},
+	
+	smInfoCallback : function(res){
+		try{
+			if(smutil.apiResValidChk(res) && res.code ==="0000"){
+				var popup_view_sct = res.popup_view_sct;
+				
+				if(popup_view_sct == 'Y'){
+					page.getUseStatus();
+				}else{
+					page.send();
+				}
+			}
+		}catch(e){}
+		finally{
+			page.apiParamInit();		// 파라메터 초기화
+		}
+	},
+	
+	//긴급사용 신청여부확인
+	getUseStatus : function (){
+		smutil.loadingOn();
+		var loginId = LEMP.Properties.get({
+			"_sKey" : "dataId"
+		});
+		page.apiParam.param.baseUrl = "/smapis/use/getApvInfo";
+		page.apiParam.param.callback = "page.getUseStatusCallback";
+		page.apiParam.data.parameters.empno = loginId;						// PARAM: 사원번호
+		smutil.callApi(page.apiParam);
+	},
+	
+	//긴급사용 신청여부화인 콜백
+	getUseStatusCallback : function (res){
+		try{
+			if(smutil.apiResValidChk(res) && res.code === "0000"){
+				var tmChk_yn = '';
+				
+				if(res.apv_yn == 'Y'){
+					var now_tm = new Date();
+					var use_tm = new Date(res.use_tm.substring(0,4), res.use_tm.substring(4,6)-1, res.use_tm.substring(6,8),
+							res.use_tm.substring(8,10), res.use_tm.substring(10,12), res.use_tm.substring(12,14));
+					
+					if(now_tm.getTime() > use_tm.getTime()){
+						tmChk_yn = "N";
+					}else{
+						tmChk_yn = "Y";
+					}
+				}else {
+					tmChk_yn = "N";
+				}
+				
+				if(tmChk_yn == 'N'){
+					var textButton = LEMP.Window.createElement({
+						"_sElementName" : "TextButton"
+					});
+		
+					textButton.setProperty({
+						"_sText" : "종료",
+						"_fCallback" : function()   {
+							LEMP.App.exit({
+								_sType : "kill"
+							});
+						}
+					});
+					LEMP.Window.alert({
+						"_sTitle" : "긴급사용",
+						"_vMessage" : "사용 가능한 시간대가 아닙니다.",
+						"_eTextButton" : textButton
+					});
+				}else{
+					page.send();
+				}
+			}
+		}catch(e){}
+		finally{
+			smutil.loadingOff();
+		}
+	},
+	
     //////////////////////////////////////////////////
     // 물리적 뒤로가기 버튼 및 뒤로가기 버튼 클릭
     onBack : function(){
