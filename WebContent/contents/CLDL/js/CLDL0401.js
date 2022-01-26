@@ -1,5 +1,4 @@
 LEMP.addEvent("backbutton", "page.callbackBackButton");		// 뒤로가기 버튼 클릭시 이벤트
-LEMP.addEvent("resume", "page.resumeInfo"); // 페이지 열릴때마다 스케너 상태확인 호출
 
 var page = {
 
@@ -1617,6 +1616,7 @@ var page = {
 				return false;
 			}
 			
+			page.tmChk();				// 긴급사용 확인
 			$("#checkall").prop("checked", false);
 //			var _this = this;
 			smutil.loadingOn();				// 로딩바 시작
@@ -1661,7 +1661,6 @@ var page = {
 			var _this = this;
 
 			try{
-				debugger;
 				// api 전송 성공
 				if(smutil.apiResValidChk(result) && result.code == "0000"){
 
@@ -3390,10 +3389,6 @@ var page = {
 			}
 		},
 
-		// 페이지 resume 될때마다 실행되는 함수
-		resumeInfo : function(){
-			page.tmChk();
-		},
 		
 		// 두 번호로 휴대폰 번호가 있는경우 휴대폰 번호를 리턴, 없으면 일반전화번호 리턴
 		getCpNo : function(phoneNum1, phoneNum2){
