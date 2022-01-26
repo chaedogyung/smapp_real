@@ -2,6 +2,7 @@ LEMP.addEvent("backbutton", "page.callbackBackButton");
 LEMP.addEvent("resume", "page.resumeInfo"); // 페이지 열릴때마다 스케너 상태확인 호출
 
 var page = {
+	popup_view_sct : null,		//비행기모드 방지
 	apiParam : {
 		id : "HTTP", // 디바이스 콜 id
 		param : {// 디바이스가 알아야할 데이터
@@ -132,6 +133,14 @@ var page = {
 
 			//즐겨찾기 이동
 			$(document).on('click','.frevPage',function(){
+				if(smutil.isEmpty(page.popup_view_sct) || page.popup_view_sct == null){
+					LEMP.Window.toast({
+						"_sMessage":"사용자 정보가 없습니다.\n앱을 재시작하세요.",
+						'_sDuration' : 'short'
+					});
+					
+					return false;
+				}
 				var id = $(this).attr('id');
 				var index = id.indexOf('0');
 				var pre = id.substring(0,index);
@@ -713,6 +722,7 @@ var page = {
 				$('#tod_dlv_rslt').text(res.tod_dlv_rslt+"건");
 				$('#tod_sum').text(Number(res.tod_pick_rslt)+Number(res.tod_dlv_rslt)+"건");
 						
+				page.popup_view_sct = res.popup_view_sct;
 				LEMP.Properties.set({
 					"_sKey" : "approval_yn",
 					"_vValue" : res.approval_yn
