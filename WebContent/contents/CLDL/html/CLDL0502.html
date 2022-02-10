@@ -114,6 +114,9 @@
 								{{#svc}}
 									<li><span class="titBox">집하일</span><span>{{pick_ymd}}</span></li>
 								{{/svc}}
+								{{#acpr}}
+									<li class="w100p"><span class="titBox">위탁장소</span><span class="tGreenBold">{{req_acpr_nm}}</span></li>
+								{{/acpr}}
 							</ul>
 						</div>
 					</li>
@@ -133,6 +136,12 @@
 						<div class="infoBox">
 							<div class="tit"><span class="titBox">배송요청사항</span></div>
 							<div class="memo">{{dlv_msg_cont}}</div>
+						</div>
+					</li>
+					<li>
+						<div class="infoBox">
+							<div class="tit"><span class="titBox">기사메모</span></div>
+							<div class="memo">{{prcs_memo}}</div>
 						</div>
 					</li>
 				</ul>
