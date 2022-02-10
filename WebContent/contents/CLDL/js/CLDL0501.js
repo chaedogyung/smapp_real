@@ -175,7 +175,19 @@ var page = {
 
 		});
 
-
+		// 달력버튼을 누른경우
+		$("#cldlBtnCal_V1").click(function(){
+			
+			var popUrl = smutil.getMenuProp("COM.COM0301","url");
+			
+			LEMP.Window.open({
+				"_sPagePath":popUrl,
+				"_oMessage":{
+					"param":null
+				}
+			});
+			
+		});
 
 
 		// ###################################### handlebars helper 등록 start
@@ -416,6 +428,15 @@ var page = {
 
 		});
 
+		// 기사 메모가 있는지 없는지 if else
+		Handlebars.registerHelper('prcsMemoYn', function(options) {
+			if(!smutil.isEmpty(this.prcs_memo)){	// 메모있음 if true
+				return options.fn(this);
+			}
+			else{	// 메모없음 else
+				return options.inverse(this);
+			}
+		});
 
 		// 취소 여부 체크
 		Handlebars.registerHelper('cclYnChk', function(options) {
@@ -446,8 +467,43 @@ var page = {
 
 
 	initDpEvent : function() {
-		page.cmptStatusCnt();
-		page.cmptStatus();
+
+		var $dateTit = $(".dateTit");
+		var date = new Date();
+		var today = new Date();
+		
+		var $prevDateButton = $dateTit.prev('.arrowL.fl.tv1');
+		var $nextDateButton = $dateTit.next('.arrowR.fr.tv1');
+		updateDate(date);		
+
+		// 이전일
+		$prevDateButton.on('click', function(e){
+			date.setDate(date.getDate() - 1);
+			updateDate(date);
+		});
+
+		// 다음일
+		$nextDateButton.on('click', function(e){
+			if(date.getFullYear() === today.getFullYear() && date.getMonth() === today.getMonth() && date.getDate() === today.getDate()) {
+				return;	
+			}
+
+			date.setDate(date.getDate() + 1);
+			updateDate(date);
+		});
+
+		// 날짜 업데이트
+		function updateDate(date) {
+			var dateYear = date.getFullYear();
+			var dateMonth = date.getMonth() + 1;
+			var dateDay = date.getDate();
+			
+			// 달력셋팅
+			var curDate = dateYear + "." + ("0"+(dateMonth)).slice(-2) + "." + ("0"+dateDay).slice(-2);
+			$dateTit.text(curDate);
+			
+			page.listReLoad();		// 리스트 조회
+		}
 	},
 
 
@@ -455,6 +511,8 @@ var page = {
 		smutil.loadingOn();
 		page.apiParam.param.baseUrl = "smapis/cldl/cmptStatusCnt";
 		page.apiParam.param.callback = "page.cmptStatusCntCallback";
+		page.apiParam.data.parameters.base_ymd = $('#cldlBtnCal_V1').text().replace(/\./g, '');
+
 		smutil.callApi(page.apiParam);
 	},
 
@@ -493,6 +551,7 @@ var page = {
 		page.apiParam.data.parameters = page.cldl0501;
 		page.apiParam.data.parameters.page_no = page.page_no;
 		page.apiParam.data.parameters.item_cnt = page.item_cnt;
+		page.apiParam.data.parameters.base_ymd = $('#cldlBtnCal_V1').text().replace(/\./g, '');
 
 		smutil.callApi(page.apiParam);
 	},
@@ -544,8 +603,20 @@ var page = {
 			smutil.loadingOff(); // 로딩바 닫기
 		}
 	},
-
-
+	
+	//com0301에서 날짜 선택 한 후 실행되는 콜백 함수
+	COM0301Callback:function(res){
+		$("#cldlBtnCal_V1").text(res.param.date);
+		
+		page.listReLoad();					// 리스트 제조회
+	},
+	
+	//페이지 재조회
+	listReLoad : function(){
+		page.cmptStatusCnt();
+		page.cmptStatus();
+	},
+	
 	// 두 번호로 휴대폰 번호가 있는경우 휴대폰 번호를 리턴, 없으면 일반전화번호 리턴
 	getCpNo : function(phoneNum1, phoneNum2) {
 		var returnNum = "";

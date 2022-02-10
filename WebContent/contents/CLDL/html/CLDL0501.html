@@ -75,6 +75,15 @@
 				<div class="tabView deliveryTy2">
 					<ul>
 						<li>						
+							<!-- tabView-1 -->
+							<div class="tabView-1">
+								<div class="topHead tc">
+									<button class="btn arrowL fl tv1">&nbsp;</button>
+									<span class="dateTit" id="cldlBtnCal_V1"></span>
+									<button class="btn arrowR fr tv1">&nbsp;</button>
+								</div>
+							</div>
+							
 							<!-- baedalListBox -->
 							<div class="baedalListBox">
 								<ul id="CLDL0501LstUl">
@@ -144,6 +153,10 @@
 						{{!-- 송장번호형식표시 helper invNoTmpl --}}
 						<span class="dsin vm invNoSpan">{{invNoTmpl inv_no}}</span>
 						
+						{{#prcsMemoYn}}		{{!-- 기사 메모 내용이 있는지 없는지 확인하는 if --}}
+						<button class="btn pen" data-memo-inv-no='{{inv_no}}'></button>
+						{{/prcsMemoYn}}
+
 						{{!-- 운임 라벨 표시 helper fareChk --}}
 						{{fareChk label}}
 						

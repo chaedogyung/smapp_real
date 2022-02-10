@@ -403,6 +403,11 @@
 .contentBox.result .txtBox.tp3Compact {max-width:105px;width:auto;}
 /******* // 실적조회 // *******/
 
+/**************************************
+** 집배달현황
+***************************************/
+.contentBox.delivery .dateTit{display:inline-block; font-size:14px; color:#000;}
+/******* // 집배달현황 // *******/
 
 /**************************************
 ** 화물
