@@ -721,6 +721,11 @@ var page = {
 							btnYn = "N";
 							classTxt = "badge s default";
 							break;
+						case "07":		// 착불결제완료
+							result = "착불결제완료";
+							btnYn = "N";
+							classTxt = "badge s default";
+							break;
 						default:
 							result = "신용";
 							btnYn = "N";
@@ -743,6 +748,11 @@ var page = {
 								result = (this.summ_fare+"").LPToCommaNumber();
 							}
 							btnYn = "Y";
+							break;
+						case "07":		// 착불결제완료
+							result = "착불결제완료";
+							btnYn = "N";
+							classTxt = "badge s default";
 							break;
 						default:
 							//result = this.fare_sct_nm;
@@ -3431,9 +3441,9 @@ var page = {
 //					if($.inArray(el, single) === -1) single.push(el);
 //				});
 
-				if(page.dlvyCompl.area_sct_cd == "Y"){
+				if(page.dlvyCompl.area_sct_cd == "Y" && page.returnTabSctCd() == "G"){
 					timeTxt = $('#' + invNoLst[0]).data('liTmslNm');
-				}else{
+				}else if(page.dlvyCompl.area_sct_cd == "N" && page.returnTabSctCd() == "G"){
 					// 선택한 시간 구분text 셋팅
 					$("li[name=timeLstLi]").each(function() {
 						if($(this).is('.on')){
@@ -3443,8 +3453,8 @@ var page = {
 					});
 				}
 
-				if((smutil.isEmpty(timeTxt) && page.dlvyCompl.area_sct_cd == "N")
-						|| (smutil.isEmpty(timeTxt) && page.dlvyCompl.area_sct_cd == "Y" && chkLst.length == 1)){
+				if((smutil.isEmpty(timeTxt) && page.dlvyCompl.area_sct_cd == "N" && page.returnTabSctCd() == "G")
+						|| (smutil.isEmpty(timeTxt) && page.dlvyCompl.area_sct_cd == "Y" && chkLst.length == 1 && page.returnTabSctCd() == "G")){
 					LEMP.Window.toast({
 						"_sMessage":"선택한 시간 구간이 없습니다.",
 						'_sDuration' : 'short'
@@ -3572,9 +3582,9 @@ var page = {
 
 				});
 				
-				if(page.dlvyCompl.area_sct_cd == "Y"){
+				if(page.dlvyCompl.area_sct_cd == "Y" && page.returnTabSctCd() == "G"){
 					timeTxt = $('#' + invNoLst[0]).data('liTmslNm');
-				}else{
+				}else if(page.dlvyCompl.area_sct_cd == "N" && page.returnTabSctCd() == "G"){
 					// 선택한 시간 구분text 셋팅
 					$("li[name=timeLstLi]").each(function() {
 						if($(this).is('.on')){
@@ -3584,8 +3594,8 @@ var page = {
 					});
 				}
 				
-				if((smutil.isEmpty(timeTxt) && page.dlvyCompl.area_sct_cd == "N")
-						|| (smutil.isEmpty(timeTxt) && page.dlvyCompl.area_sct_cd == "Y" && chkLst.length == 1)){
+				if((smutil.isEmpty(timeTxt) && page.dlvyCompl.area_sct_cd == "N" && page.returnTabSctCd() == "G")
+						|| (smutil.isEmpty(timeTxt) && page.dlvyCompl.area_sct_cd == "Y" && chkLst.length == 1 && page.returnTabSctCd() == "G")){
 					LEMP.Window.toast({
 						"_sMessage":"선택한 시간 구간이 없습니다.",
 						'_sDuration' : 'short'
@@ -3600,11 +3610,11 @@ var page = {
 				else {
 					var text= res.msg_cont;			// 선택한 메세지
 
-					if(chkLst.length == 1 && page.dlvyCompl.area_sct_cd == 'Y'){
+					if(chkLst.length == 1 && page.dlvyCompl.area_sct_cd == 'Y' && page.returnTabSctCd() == "G"){
 						text += "\n도착예정시간 : " + timeTxt ;
 					}
 					
-					if(page.dlvyCompl.area_sct_cd == 'N'){
+					if(page.dlvyCompl.area_sct_cd == 'N' && page.returnTabSctCd() == "G"){
 						// 리스트에서 고른 시간구분text
 						if(!smutil.isEmpty(timeTxt)){
 							text += "\n도착예정시간 : " + timeTxt ;
