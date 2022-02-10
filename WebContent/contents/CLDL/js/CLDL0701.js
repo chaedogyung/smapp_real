@@ -326,6 +326,11 @@ var page = {
 								btnYn = "N";
 								classTxt = "badge s default";
 								break;
+							case "07":		// 착불결제완료
+								result = "착불결제완료";
+								btnYn = "N";
+								classTxt = "badge s default";
+								break;
 							default:
 								result = "신용";
 								btnYn = "N";

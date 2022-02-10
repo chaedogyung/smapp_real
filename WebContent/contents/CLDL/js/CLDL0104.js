@@ -174,6 +174,13 @@ var page = {
 						return options.fn(this);
 					}
 				});
+
+				// 고객지정 위탁장소 출력
+				Handlebars.registerHelper('acpr', function(options){
+					if (this.req_acpr_nm != null) {
+						return options.fn(this);
+					} 
+				});
 				
 				// 보내는사람 전화번호1이 공백일시 버튼 출력 X
 				Handlebars.registerHelper('mobileST', function(options){

@@ -84,11 +84,12 @@
 					</li>
 					<li>
 						<div class="infoBox">
+							<div class="tit"><span class="titBox">상품명</span><span>{{gds_nm}}</span></div>
 							<div class="tit"><span class="titBox">수량운임</span></div>
 							<ul class="ul0 ul2">
 								<li><span class="titBox">수량</span><span>{{qty}}</span></li>
 								<li><span class="titBox">운임구분</span><span>{{fare_sct_nm}}</span></li>
-								<li><span class="titBox">운임</span><span>{{summ_fare}}</span></li>
+								<li><span class="titBox">운임</span><span class="b">{{summ_fare}}</span></li>
 								<li class="w100p"><span class="titBox">인수자</span><span>{{acpr_nm}}</span></li>
 								{{#fres}}
 									<li><span class="titBox">신선식품</span><span class="badge bing s">신선</span></li>
@@ -96,6 +97,9 @@
 								{{#svc}}
 									<li class="w100p"><span class="titBox">집하일</span><span>{{pick_ymd}}</span></li>
 								{{/svc}}
+								{{#acpr}}
+									<li class="w100p"><span class="titBox">위탁장소</span><span class="tGreenBold">{{req_acpr_nm}}</span></li>
+								{{/acpr}}
 							</ul>
 						</div>
 					</li>

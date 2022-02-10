@@ -171,6 +171,9 @@ var page = {
 				case "02":
 					res.fare_sct_nm = "착불";
 					break;
+				case "07":		// 착불결제완료
+					res.fare_sct_nm = "착불결제완료";
+					break;
 				default:
 					res.fare_sct_nm = "신용";
 					break;
@@ -186,6 +189,13 @@ var page = {
 				// 의류 특화면 집하일 출력
 				Handlebars.registerHelper('svc', function(options){
 					if (this.svc_cd === "01") {
+						return options.fn(this);
+					} 
+				});
+				
+				// 고객지정 위탁장소 출력
+				Handlebars.registerHelper('acpr', function(options){
+					if (this.req_acpr_nm != null) {
 						return options.fn(this);
 					} 
 				});

@@ -214,6 +214,9 @@ var page = {
 				case "02":
 					res.fare_sct_nm = "착불";
 					break;
+				case "07":
+					res.fare_sct_nm = "착불결제완료";
+					break;
 				default:
 					res.fare_sct_nm = "신용";
 					break;
