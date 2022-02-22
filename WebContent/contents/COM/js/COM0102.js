@@ -10,9 +10,8 @@ var page = {
 		var priceMaxLength = 11;
 		var txtBox = $(".txtBox.tp2.numBox");
 
-		$(".keypadBox > ul > li .btn").on("click, touchstart", function(){
+		$(".keypadBox > ul > li .btn").on("click", function(){
 			var keyPad = $(this).data('key');
-
 			switch(keyPad) {
 				case 'cancel':
 					num = '';
@@ -32,6 +31,7 @@ var page = {
 		
 		$('.txtBox.tp2.numBox').on('change input',function(){
 			num = $(this).val().replace(/[^0-9]/g, "");
+			
 			$(this).val(page.numberFormat(num));
 		});
 		
