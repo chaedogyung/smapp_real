@@ -71,7 +71,7 @@
 								<!-- <li>등급 <em id="emp_grd"></em></li> -->
 								<li>ID<em id="empno"></em></li>
 								<li>차량번호<em id="vhc_no"></em></li>
-								<li class="mileage">마일리지<em id="acmt_point"></em></li>
+								<li class="mileage" style="display: none;">마일리지<em id="acmt_point"></em></li>
 							</ul>
 							<input type="hidden" id="brsh_cd_hid" value="">					  
 						</div>
@@ -140,6 +140,12 @@
                                 <span class="txt">SM별 정산</span>
                             </button>
                         </li>
+                        <!-- <li id ="MAN0701" class="frevPage" data-type="default">
+                            <button class="btn">
+                            	<span class="img"><img src="../../common/img/delivery_p4.png" style="width:100%; height:100%;"></span>
+                                <span class="txt">재해예방</span>
+                            </button>
+                        </li> -->
                     </ul>
                 </div>
                 <!-- //즐겨찾기 -->
@@ -162,7 +168,7 @@
 							</ul>
 						</div>
 					<div class="rightBox">
-						<div class="grade">
+						<div class="grade" style="display:none;">
 							
 							<div class="disabled" id="grade05">
 							<!-- [D] 비활성화시 div 에 disabled 클래스 추가 -->
@@ -201,7 +207,6 @@
 						<li>
 							<span class="badge gray2 l">합계</span>
 							<p class="num" id="tod_sum" style="color:#da291c; font-weight:400; float:right;"></p>
-							
 						</li>
 					</ul>
 				</div>
