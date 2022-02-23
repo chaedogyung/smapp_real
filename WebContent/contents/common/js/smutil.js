@@ -166,8 +166,6 @@ var smutil = (function(window, document, $) {
 		return result;
 
 	}		// end ajaxApiCall
-	
-	
 
 
 
@@ -566,28 +564,13 @@ var smutil = (function(window, document, $) {
 
 		}
 	};	// end callApi
-	
-	var openApi = function(commonParam){
-		$.ajax({
-            url:"http://service.kosha.or.kr/api/deliveryworker/edcVidoRecomend?legaldongCode=1111010300&crtfcky=YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5",
-            type:"GET",
-            contentType: "application/json; charset=utf-8",
-            headers : {
-            	'access-control-allow': '*'
-            },
-            success: function (xml) {
-                smutil.loadingOff();
-                LEMP.Window.alert({
-    				"_vMessage": "api성공!",
-    			});
-                console.log(">>>>>>>>>>>>>>>>> response >>>>>>>>>>>>> " + $(xml).find('resultCode').text());
-                console.log(">>>>>>>>>>>>>>>>> response >>>>>>>>>>>>> " + $(xml).find('legaldongCode').text());
-                console.log(">>>>>>>>>>>>>>>>> response >>>>>>>>>>>>> " + $(xml).find('vidoUrl').text());
-                
-                return xml;
-            
-            }
-        });
+
+
+
+
+
+
+
 
 	// 로딩레이어 on
 	var loadingOn = function(){
@@ -1201,9 +1184,6 @@ var smutil = (function(window, document, $) {
 		// 공통 api 호출함수
 		// api 호출을 로컬 브라우져에서 하고있을경우는 ajax 로 호출하고 전화기에서 호출하고있을경우에는 디바이스의 api 호출함수를 사용
 		callApi : callApi,
-		
-		//오픈 api 호출함수
-		openApi : openApi,
 
 		// native용 API 통신함수
 		nativeApiCall : nativeApiCall,

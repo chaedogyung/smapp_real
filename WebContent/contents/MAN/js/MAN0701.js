@@ -54,12 +54,34 @@ var page = {
 				};		
 //				// 공통 api호출 함수
 //				smutil.callApi(page.apiParam);
-				data = smutil.openApi($(this).attr('id'));	
-				LEMP.Window.alert({
-					"_vMessage": data.items.item.vidoUrl,
-				});
-				$('#video source').prop('src', data.items.item.vidoUrl);
+//				data = smutil.openApi($(this).attr('id'));	
 				
+		        $.ajax({
+		            url:"http://service.kosha.or.kr/api/deliveryworker/edcVidoRecomend?legaldongCode=1111010300&crtfcky=YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5",
+		            type:"GET",
+		            contentType: "application/json; charset=utf-8",
+		            headers : {
+		                'access-control-allow': '*'
+		            },
+		            success: function (xml) {
+		                smutil.loadingOff();
+		                LEMP.Window.alert({
+		                    "_vMessage": "api성공!",
+		                });
+		                console.log(">>>>>>>>>>>>>>>>> response >>>>>>>>>>>>> " + $(xml).find('resultCode').text());
+		                console.log(">>>>>>>>>>>>>>>>> response >>>>>>>>>>>>> " + $(xml).find('legaldongCode').text());
+		                console.log(">>>>>>>>>>>>>>>>> response >>>>>>>>>>>>> " + $(xml).find('vidoUrl').text());
+		                
+		                data = xml;
+		                
+		                LEMP.Window.alert({
+							"_vMessage": data.items.item.vidoUrl,
+						});
+		                
+		                $('#video source').prop('src', data.items.item.vidoUrl);
+		            }
+		        });
+		        
 				page.apiParamInit(); //파라메터 전역변수 초기화
 				
 				//여기서 동영상 재생여부 가는 api를 주면 될거같아요!
