@@ -21,66 +21,37 @@ var page = {
 		{
 			page.initEvent();			// 페이지 이벤트 등록
 			page.initDpEvent();			// 화면 디스플레이 이벤트
+			//page.initInterface();
 		},
 		
-		initInterface : function()
-		{
-			var date = new Date();
-			var day = date.getDate();
-			
-			LEMP.Properties.set({
-				"_sKey" : "videoPlay",
-				"_vValue" : day
-			});
-			
-			LEMP.Window.close();
-		},
+//		initInterface : function()
+//		{
+//			var date = new Date();
+//			var day = date.getDay();
+//
+//		},
 		
 		initEvent : function()
 		{
 			$(document).on('click', '.view1Tr', function(){
-				LEMP.Window.alert({
-					"_vMessage": $(this).attr('id'),
-				});
+				
+				//비디오태그 URL설정
+				page.videoUrlApi($(this).attr('id'));
 				
 				if($('.video').hasClass('dsn'))
 					$('.video').removeClass('dsn');
 				
-				page.apiParam.param.callback = "page.videoContentsCallback";
+				//page.apiParam.param.callback = "page.videoContentsCallback";
 				
-				page.apiParam.data = {
-					"legaldongCode" : $(this).attr('id'),
-					"crtfcky" : "YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5"
-				};		
+//				page.apiParam.data = {
+//					"legaldongCode" : $(this).attr('id'),
+//					"crtfcky" : "YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5"
+//				};		
 //				// 공통 api호출 함수
 //				smutil.callApi(page.apiParam);
 //				data = smutil.openApi($(this).attr('id'));	
-				
-		        $.ajax({
-		            url:"http://service.kosha.or.kr/api/deliveryworker/edcVidoRecomend?legaldongCode=1111010300&crtfcky=YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5",
-		            type:"GET",
-		            contentType: "application/json; charset=utf-8",
-		            headers : {
-		                'access-control-allow': '*'
-		            },
-		            success: function (xml) {
-		                smutil.loadingOff();
-		                LEMP.Window.alert({
-		                    "_vMessage": "api성공!",
-		                });
-		                console.log(">>>>>>>>>>>>>>>>> response >>>>>>>>>>>>> " + $(xml).find('resultCode').text());
-		                console.log(">>>>>>>>>>>>>>>>> response >>>>>>>>>>>>> " + $(xml).find('legaldongCode').text());
-		                console.log(">>>>>>>>>>>>>>>>> response >>>>>>>>>>>>> " + $(xml).find('vidoUrl').text());
-		                
-		                data = xml;
-		                
-		                LEMP.Window.alert({
-							"_vMessage": data.items.item.vidoUrl,
-						});
-		                
-		                $('#video source').prop('src', data.items.item.vidoUrl);
-		            }
-		        });
+				var id = $(this).attr('id')
+		        
 		        
 				page.apiParamInit(); //파라메터 전역변수 초기화
 				
@@ -89,7 +60,17 @@ var page = {
 				
 				$('#video').get(0).currentTime = 0;
 				$('#video').get(0).play();
+				
+				
 			});
+			
+			//확인 버튼 click
+			$('#checkOkay').click(function(){
+				page.callbackBackButton();
+			});
+			
+			
+
 		},
 		
 		initDpEvent : function()
@@ -102,10 +83,7 @@ var page = {
 		
 		//재해예방 동영상 리스트
 		cldlAreaLegdList : function() {
-			
-			var loginId = LEMP.Properties.get({
-				"_sKey" : "dataId"
-			});
+
 			page.apiParam.param.baseUrl = "smapis/cldlAreaLegdList";			// api no
 			page.apiParam.param.callback = "page.cldlAreaLegdListCallback";	
 			
@@ -149,10 +127,55 @@ var page = {
 			}
 			
 			smutil.loadingOff();
+			
+			var videoPlay_yn = LEMP.Properties.get({
+				"_sKey" : "videoPlay_yn",
+			});
+			
+			var id = $('.view1Tr:eq(0)').attr('id')
+
+			if(smutil.isEmpty(videoPlay_yn)) {
+				$('.btn.back.paL.ti').hide();
+				page.videoUrlApi(id);
+				$('.video').removeClass('dsn');
+				$('#video').get(0).currentTime = 0;
+			}else {
+				$('.btn.m.red.w100p').hide();
+			}
 		},
 		
-		videoContentsCallback : function(result) {
-			if(!smutil.isEmpty){}
+		//비디오 태그 URL설정
+		videoUrlApi : function(id) {
+			$.ajax({
+	            url:"http://service.kosha.or.kr/api/deliveryworker/edcVidoRecomend?legaldongCode="+ id +"&crtfcky=YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5",
+	            type:"GET",
+	            contentType: "application/json; charset=utf-8",
+	            headers : {
+	                'access-control-allow': '*'
+	            },
+	            success: function (xml) {
+	                smutil.loadingOff();
+//	                LEMP.Window.alert({
+//						"_vMessage": $(xml).find('vidoUrl').text(),
+//					});
+	                
+	                $('.video').removeClass('dsn');
+	                $('#video source').prop('src', $(xml).find('vidoUrl').text());
+	            }
+	        });
+
+//			page.apiParam.param.baseUrl = "smapis/videoContents",			// api no
+//			page.apiParam.param.callback = "page.videoContentsCallback",
+//			page.apiParam.param.method = "GET"
+//			page.apiParam.data={"parameters" : {
+//				"lege_cd" : id,
+//			}} 	
+//			// 공통 api호출 함수
+//			smutil.callApi(page.apiParam);
+//			
+//			page.apiParamInit(); //파라메터 전역변수 초기화
+//			
+//			
 		},
 		
 		// api 파람메터 초기화
@@ -171,4 +194,42 @@ var page = {
 				data:{"parameters" : {}}// api 통신용 파라메터
 			};
 		},
+		
+//		videoContentsCallback : function(xml) {
+//			smutil.loadingOff();
+//            LEMP.Window.alert({
+//				"_vMessage": $(xml).find('vidoUrl').text(),
+//			});
+//            
+//            $('.video').removeClass('dsn');
+//		},
+		
+		callbackBackButton : function() {
+
+			var videoPlay_yn = LEMP.Properties.get({
+				"_sKey" : "videoPlay_yn",
+			});
+			
+			var ended = $('#video').prop("ended");
+			
+			if(smutil.isEmpty(videoPlay_yn)) {
+				if(!ended) {
+					LEMP.Window.toast({
+						"_sMessage":"동영상을 시청해주세요",
+						'_sDuration' : 'short'
+					});
+					return false;
+				}	
+				else {
+					LEMP.Properties.set({
+						"_sKey" : "videoPlay_yn",
+						"_vValue" : "Y"
+					});
+					
+					LEMP.Window.close();
+				}
+			}
+			
+			LEMP.Window.close();
+		}
 };
