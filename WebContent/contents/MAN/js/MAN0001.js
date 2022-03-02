@@ -59,7 +59,7 @@ var page = {
 		// 메시지 대량발송 동의 조회
 		page.getMsgCnf();
 		// 등급 조회
-		page.getTevSmSeiReport(grdData);
+		//page.getTevSmSeiReport(grdData);
 		//공지사항
 		page.noticePopup();
 		// 일일 친절페스티벌
@@ -83,7 +83,7 @@ var page = {
 		//주간 근무 팝업
 		//page.weekTmPopup();
 		//재해예방 동영상 팝업
-		page.videoPopup();
+//		page.videoPopup();
 		/**
 		 * 출력 테스트용 코드
 		 * 나중에 꼭 삭제 해야함~~~~~~~~!!!!!!!!!!!!!!!!
@@ -185,21 +185,21 @@ var page = {
 					openOnFocus: true,
 					disableMonths : [ ]
 			};
-			
+
 			//이달의 실적현황 달력 버튼
 			$("#cur_monF").monthpicker(options);
-			
+
 			$(".mtz-monthpicker-month").on('click', function(e){
 				/*alert($(this).attr('data-month'));
 				alert($(".mtz-monthpicker-year").val());*/
 				var year = $(".mtz-monthpicker-year").val();
 				var month  = $(this).attr('data-month') > 9 ? $(this).attr('data-month') : "0" + $(this).attr('data-month');
 				if(year != 'undefined' || month != 'undefined'){
-					$('#cur_monF').val(year+"년"+month+"월");				
+					$('#cur_monF').val(year+"년"+month+"월");
 				}
 				var bscYm = year + month,
 					emp_no = $("#empno").text();
-				
+
 				var grdData = {
 						"bscYm" : bscYm,
 						"emp_no" : emp_no
