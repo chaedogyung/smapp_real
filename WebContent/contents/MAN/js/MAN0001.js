@@ -59,7 +59,7 @@ var page = {
 		// 메시지 대량발송 동의 조회
 		page.getMsgCnf();
 		// 등급 조회
-		//page.getTevSmSeiReport(grdData);
+		page.getTevSmSeiReport(grdData);
 		//공지사항
 		page.noticePopup();
 		// 일일 친절페스티벌
@@ -81,9 +81,7 @@ var page = {
 		//배달사진카운트
 		page.getCdlvPicCnt();
 		//주간 근무 팝업
-		//page.weekTmPopup();
-		//재해예방 동영상 팝업
-//		page.videoPopup();
+//		page.weekTmPopup();
 		/**
 		 * 출력 테스트용 코드
 		 * 나중에 꼭 삭제 해야함~~~~~~~~!!!!!!!!!!!!!!!!
@@ -185,21 +183,21 @@ var page = {
 					openOnFocus: true,
 					disableMonths : [ ]
 			};
-
+			
 			//이달의 실적현황 달력 버튼
 			$("#cur_monF").monthpicker(options);
-
+			
 			$(".mtz-monthpicker-month").on('click', function(e){
 				/*alert($(this).attr('data-month'));
 				alert($(".mtz-monthpicker-year").val());*/
 				var year = $(".mtz-monthpicker-year").val();
 				var month  = $(this).attr('data-month') > 9 ? $(this).attr('data-month') : "0" + $(this).attr('data-month');
 				if(year != 'undefined' || month != 'undefined'){
-					$('#cur_monF').val(year+"년"+month+"월");
+					$('#cur_monF').val(year+"년"+month+"월");				
 				}
 				var bscYm = year + month,
 					emp_no = $("#empno").text();
-
+				
 				var grdData = {
 						"bscYm" : bscYm,
 						"emp_no" : emp_no
@@ -280,7 +278,6 @@ var page = {
 
 		smutil.callApi(page.apiParam);
 	},
-
 	//쪽지 안읽음 표시
 	memoReadStatus : function(){
 		smutil.loadingOn();
@@ -507,7 +504,9 @@ var page = {
 
 							LEMP.Window.open({
 								"_sPagePath" : popUrl,
-
+								"_oMessage" : {
+									"param" : v
+								},
 							});
 					//	}
 						/*
@@ -641,7 +640,6 @@ var page = {
 		}
 
 	},
-	
 	//쪽지 안읽음 표시 callback
 	memoReadStatusCallback : function(res){
 		try{
@@ -1111,25 +1109,6 @@ var page = {
 //			});
 //		}
 //	}
-	
-		//재해예방 동영상 팝업
-		,videoPopup : function(){
-//			var week = ['일', '월', '화', '수', '목', '금', '토'];
-//			var dayOfWeek = week[new Date().getDay()];
-//			var day = '수';
-	
-			var videoPlay = LEMP.Properties.get({
-				"_sKey" : "videoPlay_yn"
-			});
-			
-//			if((smutil.isEmpty(videoPlay) || videoPlay != "Y") && dayOfWeek === day){
-			if((smutil.isEmpty(videoPlay) || videoPlay != "Y")){	
-				var popUrl = smutil.getMenuProp('MAN.MAN0701', 'url');
-				LEMP.Window.open({
-					"_sPagePath": popUrl
-				});
-			}
-		}
 
 	// 페이지 resume 될때마다 실행되는 함수
 	, resumeInfo : function(){
