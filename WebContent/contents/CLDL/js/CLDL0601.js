@@ -148,10 +148,10 @@ var page = {
         });
 
 //        // 전송 버튼 클릭
-//        $('#btnSend').click(page.send);
-        $('#btnSend').click(function(){
-        	page.tmChk();
-        });
+        $('#btnSend').click(page.send);
+//        $('#btnSend').click(function(){
+//        	page.tmChk();
+//        });
 
        $("#msgLock").change(function () {
             var msgLockYn = $("#msgLock").is(":checked")?"Y":"N";
