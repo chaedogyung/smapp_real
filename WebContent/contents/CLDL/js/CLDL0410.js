@@ -229,8 +229,7 @@ var page = {
 						var numCheck = phoneNumber.replace(/[^0-9]/gi,"");
 						if(!smutil.isEmpty(numCheck) && numCheck.length>8){
 							pNumApi.push(numCheck);
-							invNoApi.push(String(inv_no));
-							//invNoApi.push(String(inv_no) + snper_nm + artc_nm + acpr_nm + rcv_date);
+							invNoApi.push(String(inv_no) + snper_nm + artc_nm + acpr_nm + rcv_date);
 							usrCpnoApi.push(phoneNumber);
 						}
 						else{
@@ -290,10 +289,9 @@ var page = {
 			};
 
 			page.cldl0410.sendmms = obj;
-            page.cmptPhtgTrsmPop();
-
+//			page.cmptPhtgTrsmPop();
 			//긴급사용 확인 후 전송
-			//page.tmChk();
+			page.tmChk();
 			 // page.MMSLIbTestFunction(); //문자발송 테스트용
 
 		});
@@ -601,10 +599,7 @@ var page = {
 	,cmptPhtgTrsmPopCallback:function(res){
 		try{
 			if (smutil.apiResValidChk(res) && res.code=="0000") {
-               alert(page.cldl0410.sendmms.phoneNumber);
-               alert(page.cldl0410.sendmms);
-               page.MMSLIbTestFunction();
-
+				page.MMSLIbTestFunction();
 			}else if (res.code=="SMAPP_BAD_PARAMETER"){
 				LEMP.Window.toast({
 					"_sMessage":res.message,
