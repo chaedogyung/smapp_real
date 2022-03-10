@@ -81,7 +81,9 @@ var page = {
 		//배달사진카운트
 		page.getCdlvPicCnt();
 		//주간 근무 팝업
-//		page.weekTmPopup();
+		//page.weekTmPopup();
+		//재해예방 동영상 팝업
+		page.videoPopup();
 		/**
 		 * 출력 테스트용 코드
 		 * 나중에 꼭 삭제 해야함~~~~~~~~!!!!!!!!!!!!!!!!
@@ -278,6 +280,7 @@ var page = {
 
 		smutil.callApi(page.apiParam);
 	},
+
 	//쪽지 안읽음 표시
 	memoReadStatus : function(){
 		smutil.loadingOn();
@@ -504,9 +507,7 @@ var page = {
 
 							LEMP.Window.open({
 								"_sPagePath" : popUrl,
-								"_oMessage" : {
-									"param" : v
-								},
+
 							});
 					//	}
 						/*
@@ -640,6 +641,7 @@ var page = {
 		}
 
 	},
+	
 	//쪽지 안읽음 표시 callback
 	memoReadStatusCallback : function(res){
 		try{
@@ -719,7 +721,7 @@ var page = {
 				$('#cur_pick_rate').text(res.cur_pick_rate+"건");
 				$('#cur_dlv_rate').text(res.cur_dlv_rate+"건");
 				$('#cur_sum').text(Number(res.cur_pick_rate)+Number(res.cur_dlv_rate)+"건");
-				$('#acmt_point').text(res.acmt_point);
+				//$('#acmt_point').text(res.acmt_point);
 				$('#tod_pick_rslt').text(res.tod_pick_rslt+"건");
 				$('#tod_dlv_rslt').text(res.tod_dlv_rslt+"건");
 				$('#tod_sum').text(Number(res.tod_pick_rslt)+Number(res.tod_dlv_rslt)+"건");
@@ -1109,6 +1111,25 @@ var page = {
 //			});
 //		}
 //	}
+	
+		//재해예방 동영상 팝업
+		,videoPopup : function(){
+//			var week = ['일', '월', '화', '수', '목', '금', '토'];
+//			var dayOfWeek = week[new Date().getDay()];
+//			var day = '수';
+	
+			var videoPlay = LEMP.Properties.get({
+				"_sKey" : "videoPlay_yn"
+			});
+			
+//			if((smutil.isEmpty(videoPlay) || videoPlay != "Y") && dayOfWeek === day){
+			if((smutil.isEmpty(videoPlay) || videoPlay != "Y")){	
+				var popUrl = smutil.getMenuProp('MAN.MAN0701', 'url');
+				LEMP.Window.open({
+					"_sPagePath": popUrl
+				});
+			}
+		}
 
 	// 페이지 resume 될때마다 실행되는 함수
 	, resumeInfo : function(){

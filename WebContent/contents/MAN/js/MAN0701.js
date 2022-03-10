@@ -50,7 +50,7 @@ var page = {
 //				// 공통 api호출 함수
 //				smutil.callApi(page.apiParam);
 //				data = smutil.openApi($(this).attr('id'));	
-				var id = $(this).attr('id')
+//				var id = $(this).attr('id')
 		        
 		        
 				page.apiParamInit(); //파라메터 전역변수 초기화
