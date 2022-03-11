@@ -24,12 +24,6 @@ var page = {
 			//page.initInterface();
 		},
 		
-//		initInterface : function()
-//		{
-//			var date = new Date();
-//			var day = date.getDay();
-//
-//		},
 		
 		initEvent : function()
 		{
@@ -40,32 +34,17 @@ var page = {
 				
 				if($('.video').hasClass('dsn'))
 					$('.video').removeClass('dsn');
-				
-				//page.apiParam.param.callback = "page.videoContentsCallback";
-				
-//				page.apiParam.data = {
-//					"legaldongCode" : $(this).attr('id'),
-//					"crtfcky" : "YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5"
-//				};		
-//				// 공통 api호출 함수
-//				smutil.callApi(page.apiParam);
-//				data = smutil.openApi($(this).attr('id'));	
-				var id = $(this).attr('id')
-		        
 		        
 				page.apiParamInit(); //파라메터 전역변수 초기화
 				
 				//여기서 동영상 재생여부 가는 api를 주면 될거같아요!
 				//
 				
-				$('#video').get(0).currentTime = 0;
-				$('#video').get(0).play();
-				
 				
 			});
 			
 			//확인 버튼 click
-			$('#checkOkay').click(function(){
+			$(document).on('click', '#checkOkay', function(){
 				page.callbackBackButton();
 			});
 			
@@ -100,10 +79,10 @@ var page = {
 			page.apiParamInit();
 
 			if(smutil.apiResValidChk(result) && result.code == "0000") {
-				LEMP.Window.toast({
-					"_sMessage":"리스트를 가져왔습니다." + result.data_count,
-					'_sDuration' : 'short'
-				});
+//				LEMP.Window.toast({
+//					"_sMessage":"리스트를 가져왔습니다." + result.data_count,
+//					'_sDuration' : 'short'
+//				});
 				
 				var data = result.data;
 				
@@ -128,6 +107,7 @@ var page = {
 			
 			smutil.loadingOff();
 			
+			//여기가 공지사항으로 띄워진 화면인지 메인화면에서 띄워진 화면인지 확인하는 코드
 			var videoPlay_yn = LEMP.Properties.get({
 				"_sKey" : "videoPlay_yn",
 			});
@@ -139,43 +119,49 @@ var page = {
 				page.videoUrlApi(id);
 				$('.video').removeClass('dsn');
 				$('#video').get(0).currentTime = 0;
-			}else {
-				$('.btn.m.red.w100p').hide();
+				
+				var html = "<button class='btn m red w100p' id='checkOkay'>확인</button>"
+				$('.btnBox.pxB').html(html);
 			}
 		},
 		
 		//비디오 태그 URL설정
 		videoUrlApi : function(id) {
 			$.ajax({
-	            url:"http://service.kosha.or.kr/api/deliveryworker/edcVidoRecomend?legaldongCode="+ id +"&crtfcky=YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5",
+	            url:"https://young-reef-76169.herokuapp.com/http://service.kosha.or.kr/api/deliveryworker/edcVidoRecomend?legaldongCode="+ id +"&crtfcky=YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5",
+				//url:"http://service.kosha.or.kr/api/deliveryworker/edcVidoRecomend?legaldongCode="+ id +"&crtfcky=YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5",
 	            type:"GET",
 	            contentType: "application/json; charset=utf-8",
-	            headers : {
-	                'access-control-allow': '*'
-	            },
 	            success: function (xml) {
 	                smutil.loadingOff();
-//	                LEMP.Window.alert({
-//						"_vMessage": $(xml).find('vidoUrl').text(),
-//					});
 	                
 	                $('.video').removeClass('dsn');
-	                $('#video source').prop('src', $(xml).find('vidoUrl').text());
+	                
+	                var video = document.getElementById('video');
+	    			var videoSrc = $(xml).find('vidoUrl').text();
+	    			//
+	    			// 우선 HLS를 지원하는지 체크
+	    			//
+	    			if (video.canPlayType('application/vnd.apple.mpegurl')) {
+	    			  video.src = videoSrc;
+	    			//
+	    			// HLS를 지원하지 않는다면 hls.js를 지원
+	    			//
+	    			} else if (Hls.isSupported()) {
+	    			  var hls = new Hls();
+	    			  hls.loadSource(videoSrc);
+	    			  hls.attachMedia(video);
+	    			}
+	    			
+	    			$('#video').focus();
+	            },
+	            error : function(data) {
+	            	LEMP.Window.alert({
+						"_vMessage": JSON.stringify(data),
+					});
 	            }
 	        });
-
-//			page.apiParam.param.baseUrl = "smapis/videoContents",			// api no
-//			page.apiParam.param.callback = "page.videoContentsCallback",
-//			page.apiParam.param.method = "GET"
-//			page.apiParam.data={"parameters" : {
-//				"lege_cd" : id,
-//			}} 	
-//			// 공통 api호출 함수
-//			smutil.callApi(page.apiParam);
-//			
-//			page.apiParamInit(); //파라메터 전역변수 초기화
-//			
-//			
+			
 		},
 		
 		// api 파람메터 초기화
@@ -211,7 +197,6 @@ var page = {
 			});
 			
 			var ended = $('#video').prop("ended");
-			
 			if(smutil.isEmpty(videoPlay_yn)) {
 				if(!ended) {
 					LEMP.Window.toast({
