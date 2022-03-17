@@ -68,7 +68,7 @@ var page = {
 			page.initDpEvent();			// 화면 디스플레이 이벤트
 		},
 
-		// 페이지 이벤트 등록
+		// 페이지 이벤트 등록F
 		initEvent : function()
 		{
 			var _this = this;
