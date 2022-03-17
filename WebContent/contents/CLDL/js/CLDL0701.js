@@ -54,13 +54,21 @@ var page = {
 			if(smutil.isEmpty(page.order)){
 				page.order = "01";
 			}
-			$("#select_order").val(page.order).prop("selected", true);
 
+            if (page.order == "01") {
+                $("#select_order").text("일반정렬");
+                $("#select_order").data("value", "01");
+                $("#select_order").attr("class", "selBox sort1 mgl15");
+			} else {
+                $("#select_order").text("역순정렬");
+                $("#select_order").data("value", "02");
+                $("#select_order").attr("class", "selBox sort2 mgl15");
+			}
 			page.initEvent();			// 페이지 이벤트 등록
 			page.initDpEvent();			// 화면 디스플레이 이벤트
 		},
 
-		// 페이지 이벤트 등록
+		// 페이지 이벤트 등록F
 		initEvent : function()
 		{
 			var _this = this;
@@ -87,10 +95,22 @@ var page = {
 			});
 
 			// 배달완료 정렬방식 변경
-			const selectOrder = $("#select_order");
-			selectOrder.on('change', function(){
-				LEMP.Properties.set({"_sKey" : "order", "_vValue" : selectOrder.val()});
-				page.order = selectOrder.val();
+			$("#select_order").click(function(e) {
+
+			   if ($(this).data("value") == "01") {
+			      $("#select_order").text("역순정렬");
+                  $("#select_order").data("value", "02");
+                  $("#select_order").attr("class", "selBox sort2 mgl15");
+               } else {
+                  $("#select_order").text("일반정렬");
+                  $("#select_order").data("value", "01");
+                  $("#select_order").attr("class", "selBox sort1 mgl15");
+               }
+
+                var selOrder =  $(this).data("value");
+				LEMP.Properties.set({"_sKey" : "order", "_vValue" : selOrder});
+				page.order = selOrder;
+
 				page.listReLoad();					// 리스트 제조회
 			});
 
