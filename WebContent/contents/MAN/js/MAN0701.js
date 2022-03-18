@@ -1,7 +1,6 @@
 LEMP.addEvent("backbutton", "page.callbackBackButton");		// 뒤로가기 버튼 클릭시 이벤트
 
 var page = {
-		
 		// api 호출 기본 형식
 		apiParam : {
 			id:"HTTP",			// 디바이스 콜 id
@@ -85,7 +84,7 @@ var page = {
 //				});
 				
 				var data = result.data;
-				
+						
 				// 핸들바 템플릿 가져오기
 				var source = $("#video_list_template").html();
 
@@ -191,30 +190,30 @@ var page = {
 //		},
 		
 		callbackBackButton : function() {
-
 			var videoPlay_yn = LEMP.Properties.get({
 				"_sKey" : "videoPlay_yn",
 			});
 			
 			var ended = $('#video').prop("ended");
-			if(smutil.isEmpty(videoPlay_yn)) {
-				if(!ended) {
-					LEMP.Window.toast({
-						"_sMessage":"동영상을 시청해주세요",
-						'_sDuration' : 'short'
-					});
-					return false;
-				}	
-				else {
-					LEMP.Properties.set({
-						"_sKey" : "videoPlay_yn",
-						"_vValue" : "Y"
-					});
-					
-					LEMP.Window.close();
+			if($('tbody tr').length != 1){
+				if(smutil.isEmpty(videoPlay_yn)) {
+					if(!ended) {
+						LEMP.Window.toast({
+							"_sMessage":"동영상을 시청해주세요",
+							'_sDuration' : 'short'
+						});
+						return false;
+					}	
+					else {
+						LEMP.Properties.set({
+							"_sKey" : "videoPlay_yn",
+							"_vValue" : "Y"
+						});
+						
+						LEMP.Window.close();
+					}
 				}
 			}
-			
 			LEMP.Window.close();
 		}
 };
