@@ -56,7 +56,7 @@ var page = {
 //			smutil.loadingOn();
 //			//재해예방 동영상 리스트 가져오기
 			page.cldlAreaLegdList();
-			
+
 		},
 		
 		//재해예방 동영상 리스트
@@ -153,6 +153,8 @@ var page = {
 	    			}
 	    			
 	    			$('#video').focus();
+					page.videoViewHst();
+				
 	            },
 	            error : function(data) {
 	            	LEMP.Window.alert({
@@ -188,6 +190,18 @@ var page = {
 //            
 //            $('.video').removeClass('dsn');
 //		},
+		//재해예방 영상 시청 이력 
+		videoViewHst : function(){
+			page.apiParamInit(); //파라메터 전역변수 초기화
+			page.apiParam.param.baseUrl="/smapis/videoViewHst";
+			page.apiParam.param.callback = "page.videoViewHstCallback";
+			smutil.callApi(page.apiParam);
+			
+		},
+		
+		//재해예방 영상 시청 이력 콜백
+		videoViewHstCallback : function(res){
+		},		
 		
 		callbackBackButton : function() {
 			var videoPlay_yn = LEMP.Properties.get({
@@ -195,7 +209,7 @@ var page = {
 			});
 			
 			var ended = $('#video').prop("ended");
-			if($('tbody tr').length != 1){
+			if($("#view1Tbody tr").length != 1){
 				if(smutil.isEmpty(videoPlay_yn)) {
 					if(!ended) {
 						LEMP.Window.toast({
