@@ -1382,7 +1382,8 @@ var page = {
 				$(id + "Zipcd").val(data.zipcd);			//우편번호
 				$(id + "BldMgrNo").val(data.bld_mgr_no);	//건물번호
 				$(id + "Badr").val(data.ldno_badr);			//주소
-				$(id + "Dadr").val(data.ldno_dadr);			//상세주소
+				var ldno_dadr_etc_adr = data.ldno_dadr +" "+ data.etc_adr; 
+				$(id + "Dadr").val(ldno_dadr_etc_adr);			//상세주소
 				$(id + "BasAreaCd").val(data.basAreaCd);
 				$(id + "CldlBrshCd").val(data.picsh_cd);					//집하점소드코드
 				$(id + "CldlBrshNm").val(data.picsh_nm);					//집하점소드코드
