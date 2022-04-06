@@ -25,7 +25,7 @@ var menuJsonJs =
 		"MAN0402":{"menuTxt" : "연간 친절페스티벌", "parentMenuCd" : null, "menuDept" : 2, "url" : "MAN/html/MAN0402.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"MAN0501":{"menuTxt" : "설문조사", "parentMenuCd" : null, "menuDept" : 2, "url" : "MAN/html/MAN0501.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		"MAN0601":{"menuTxt" : "주간 근무 현황", "parentMenuCd" : null, "menuDept" : 2, "url" : "MAN/html/MAN0601.html", "mainImgSrc" : "", "gnbImgClass" : ""},
-		//"MAN0701":{"menuTxt" : "재해예방 동영상 테스트", "parentMenuCd" : null, "menuDept" : 2, "url" : "MAN/html/MAN0701.html", "mainImgSrc" : "", "gnbImgClass" : ""},
+		"MAN0701":{"menuTxt" : "재해예방 동영상 테스트", "parentMenuCd" : null, "menuDept" : 2, "url" : "MAN/html/MAN0701.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 	},
 	"COM":{
 		"GNB":false,

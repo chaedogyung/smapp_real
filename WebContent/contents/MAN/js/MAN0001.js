@@ -83,7 +83,7 @@ var page = {
 		//주간 근무 팝업
 //		page.weekTmPopup();
 		//재해예방 동영상 팝업
-	//	page.videoPopup();
+		page.videoPopup();
 		/**
 		 * 출력 테스트용 코드
 		 * 나중에 꼭 삭제 해야함~~~~~~~~!!!!!!!!!!!!!!!!

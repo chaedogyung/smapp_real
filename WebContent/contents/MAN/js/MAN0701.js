@@ -77,9 +77,9 @@ var page = {
 			
 			page.apiParamInit();
 
-			if(smutil.apiResValidChk(result) && result.code == "0000") {
+			if(smutil.apiResValidChk(result) && result.code == "0000" && result.data_count != 0) {
 //				LEMP.Window.toast({
-//					"_sMessage":"리스트를 가져왔습니다." + result.data_count,
+//				"_sMessage":"리스트를 가져왔습니다." + result.code,
 //					'_sDuration' : 'short'
 //				});
 				
@@ -99,7 +99,7 @@ var page = {
 				
 			}else {
 				LEMP.Window.toast({
-					"_sMessage":"리스트를 가져오지못했습니다. code:" + result.code,
+					"_sMessage":"리스트를 가져오지못했습니다. code:" + result.code + " data Count: "+result.data_count ,
 					'_sDuration' : 'short'
 				});
 			}
@@ -132,6 +132,7 @@ var page = {
 	            type:"GET",
 	            contentType: "application/json; charset=utf-8",
 	            success: function (xml) {
+					if($(xml).find('resultCode').text() == "00"){
 	                smutil.loadingOff();
 	                
 	                $('.video').removeClass('dsn');
@@ -153,12 +154,14 @@ var page = {
 	    			}
 	    			
 	    			$('#video').focus();
-					page.videoViewHst();
+					
 				
-	            },
-	            error : function(data) {
+	            }
+			},
+	            error : function(xml) {
 	            	LEMP.Window.alert({
-						"_vMessage": JSON.stringify(data),
+						"_vMessage": "리스트가져오기 실패. code"+ $(xml).find('resultCode').text(),
+						'_sDuration' : 'short'
 					});
 	            }
 	        });
@@ -223,7 +226,7 @@ var page = {
 							"_sKey" : "videoPlay_yn",
 							"_vValue" : "Y"
 						});
-						
+						page.videoViewHst();
 						LEMP.Window.close();
 					}
 				}
