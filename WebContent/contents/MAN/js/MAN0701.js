@@ -77,7 +77,7 @@ var page = {
 			
 			page.apiParamInit();
 
-			if(smutil.apiResValidChk(result) && result.code == "0000" && result.data_count != 0) {
+			if(smutil.apiResValidChk(result) && result.code == "0000") {
 //				LEMP.Window.toast({
 //				"_sMessage":"리스트를 가져왔습니다." + result.code,
 //					'_sDuration' : 'short'
@@ -99,7 +99,7 @@ var page = {
 				
 			}else {
 				LEMP.Window.toast({
-					"_sMessage":"리스트를 가져오지못했습니다. code:" + result.code + " data Count: "+result.data_count ,
+					"_sMessage":"리스트를 가져오지못했습니다. code:" + result.code,
 					'_sDuration' : 'short'
 				});
 			}
