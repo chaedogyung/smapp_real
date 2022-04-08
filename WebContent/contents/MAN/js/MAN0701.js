@@ -21,6 +21,7 @@ var page = {
 			page.initEvent();			// 페이지 이벤트 등록
 			page.initDpEvent();			// 화면 디스플레이 이벤트
 			//page.initInterface();
+		
 		},
 		
 		
@@ -124,7 +125,7 @@ var page = {
 			}
 		},
 		
-		//비디오 태그 URL설정
+		//비디오 태그 URL설정              
 		videoUrlApi : function(id) {
 			$.ajax({
 	            url:"https://young-reef-76169.herokuapp.com/http://service.kosha.or.kr/api/deliveryworker/edcVidoRecomend?legaldongCode="+ id +"&crtfcky=YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5",
@@ -133,29 +134,26 @@ var page = {
 	            contentType: "application/json; charset=utf-8",
 	            success: function (xml) {
 					if($(xml).find('resultCode').text() == "00"){
-	                smutil.loadingOff();
-	                
-	                $('.video').removeClass('dsn');
-	                
-	                var video = document.getElementById('video');
-	    			var videoSrc = $(xml).find('vidoUrl').text();
-	    			//
-	    			// 우선 HLS를 지원하는지 체크
-	    			//
-	    			if (video.canPlayType('application/vnd.apple.mpegurl')) {
-	    			  video.src = videoSrc;
-	    			//
-	    			// HLS를 지원하지 않는다면 hls.js를 지원
-	    			//
-	    			} else if (Hls.isSupported()) {
-	    			  var hls = new Hls();
-	    			  hls.loadSource(videoSrc);
-	    			  hls.attachMedia(video);
-	    			}
-	    			
-	    			$('#video').focus();
-					
-				
+		                smutil.loadingOff();
+		                
+		                $('.video').removeClass('dsn');
+		                
+		                var video = document.getElementById('video');
+		    			var videoSrc = $(xml).find('vidoUrl').text();
+		    			//
+		    			// 우선 HLS를 지원하는지 체크
+		    			//
+		    			if (video.canPlayType('application/vnd.apple.mpegurl')) {
+		    				  video.src = videoSrc;
+		    			//
+		    			// HLS를 지원하지 않는다면 hls.js를 지원
+		    			//
+		    			} else if (Hls.isSupported()) {
+		    			 	 var hls = new Hls();
+			    			  hls.loadSource(videoSrc);
+			    			  hls.attachMedia(video);
+		    			}
+		    			$('#video').focus();	
 	            }
 			},
 	            error : function(xml) {
@@ -203,16 +201,28 @@ var page = {
 		},
 		
 		//재해예방 영상 시청 이력 콜백
-		videoViewHstCallback : function(res){
+		videoViewHstCallback : function(result){
+			if(smutil.apiResValidChk(result) && result.code == "0000") {
+//				LEMP.Window.toast({
+//					"_sMessage":"이력 남김:" + result.code,
+//					'_sDuration' : 'short'
+//				});
+			}else {
+				LEMP.Window.toast({
+					"_sMessage":"영상이력  실패  code:" + result.code,
+					'_sDuration' : 'short'
+				});
+			}
 		},		
 		
+		//확인버튼
 		callbackBackButton : function() {
 			var videoPlay_yn = LEMP.Properties.get({
 				"_sKey" : "videoPlay_yn",
 			});
 			
 			var ended = $('#video').prop("ended");
-			if($("#view1Tbody tr").length != 1){
+			if($("#view1Tbody tr").length != 1 && $('.video').hasClass('dsn') == false){
 				if(smutil.isEmpty(videoPlay_yn)) {
 					if(!ended) {
 						LEMP.Window.toast({
