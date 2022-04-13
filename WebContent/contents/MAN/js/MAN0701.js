@@ -1,6 +1,7 @@
 LEMP.addEvent("backbutton", "page.callbackBackButton");		// 뒤로가기 버튼 클릭시 이벤트
 
 var page = {
+	data_list : null,
 		// api 호출 기본 형식
 		apiParam : {
 			id:"HTTP",			// 디바이스 콜 id
@@ -32,7 +33,8 @@ var page = {
 				//비디오태그 URL설정
 				page.videoUrlApi($(this).attr('id'));
 				
-			
+				if($('.video').hasClass('dsn'))
+					$('.video').removeClass('dsn');
 		        
 				page.apiParamInit(); //파라메터 전역변수 초기화
 				
@@ -74,16 +76,21 @@ var page = {
 		
 		//재해예방 동영상 리스트 callback
 		cldlAreaLegdListCallback : function(result) {
-			
+				var html = "<button class='btn m red w100p' id='checkOkay'>확인</button>"
+				$('.btnBox.pxB').html(html);
+		                
 			page.apiParamInit();
 
-			if(smutil.apiResValidChk(result) && result.code == "0000"  &&result.data_count != 0) {
+			if(smutil.apiResValidChk(result) && result.code == "0000") {
+				page.data_list =  result.data.list
+				if(result.data.list.length>0){
+				
 //				LEMP.Window.toast({
 //				"_sMessage":"리스트를 가져왔습니다." + result.code,
 //					'_sDuration' : 'short'
 //				});
 				var data = result.data;
-						
+				page.data_list = result.data.list;
 				// 핸들바 템플릿 가져오기
 				var source = $("#video_list_template").html();
 
@@ -95,9 +102,12 @@ var page = {
 				
 				// 생성된 HTML을 DOM에 주입
 				$('#view1Tbody').html(liHtml);
-				
+				}
+				else{					
+					$('.video').hide();
+				}
 			}else {
-				 $('.video').hide();
+				$('.video').hide();
 				LEMP.Window.toast({
 					"_sMessage":"리스트를 가져오지못했습니다. code:" + result.code,
 					'_sDuration' : 'short'
@@ -132,9 +142,9 @@ var page = {
 	            type:"GET",
 	            contentType: "application/json; charset=utf-8",
 	            success: function (xml) {
+		console.log("resultCode : " + $(xml).find('resultCode').text())
 					if($(xml).find('resultCode').text() == "00"){
-		                smutil.loadingOff();
-		                
+				
 		                $('.video').removeClass('dsn');
 		                
 		                var video = document.getElementById('video');
@@ -219,11 +229,12 @@ var page = {
 			var videoPlay_yn = LEMP.Properties.get({
 				"_sKey" : "videoPlay_yn",
 			});
-			
 			var ended = $('#video').prop("ended");
-			if($("#view1Tbody tr").length > 1  && $('.video').hasClass('dsn') == false){
+			if(page.data_list.length != 0){
 				if(smutil.isEmpty(videoPlay_yn)) {
+			
 					if(!ended) {
+			
 						LEMP.Window.toast({
 							"_sMessage":"동영상을 시청해주세요",
 							'_sDuration' : 'short'
@@ -235,11 +246,13 @@ var page = {
 							"_sKey" : "videoPlay_yn",
 							"_vValue" : "Y"
 						});
+						
 						page.videoViewHst();
 						LEMP.Window.close();
 					}
 				}
 			}
+			
 			LEMP.Window.close();
 		}
 };
