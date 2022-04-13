@@ -32,8 +32,7 @@ var page = {
 				//비디오태그 URL설정
 				page.videoUrlApi($(this).attr('id'));
 				
-				if($('.video').hasClass('dsn'))
-					$('.video').removeClass('dsn');
+			
 		        
 				page.apiParamInit(); //파라메터 전역변수 초기화
 				
@@ -78,12 +77,11 @@ var page = {
 			
 			page.apiParamInit();
 
-			if(smutil.apiResValidChk(result) && result.code == "0000" && result.data_count != 0) {
+			if(smutil.apiResValidChk(result) && result.code == "0000"  &&result.data_count != 0) {
 //				LEMP.Window.toast({
 //				"_sMessage":"리스트를 가져왔습니다." + result.code,
 //					'_sDuration' : 'short'
 //				});
-				
 				var data = result.data;
 						
 				// 핸들바 템플릿 가져오기
@@ -99,6 +97,7 @@ var page = {
 				$('#view1Tbody').html(liHtml);
 				
 			}else {
+				 $('.video').hide();
 				LEMP.Window.toast({
 					"_sMessage":"리스트를 가져오지못했습니다. code:" + result.code,
 					'_sDuration' : 'short'
