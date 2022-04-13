@@ -221,7 +221,7 @@ var page = {
 			});
 			
 			var ended = $('#video').prop("ended");
-			if($("#view1Tbody tr").length != 1 && $('.video').hasClass('dsn') == false){
+			if($("#view1Tbody tr").length > 1  && $('.video').hasClass('dsn') == false){
 				if(smutil.isEmpty(videoPlay_yn)) {
 					if(!ended) {
 						LEMP.Window.toast({
