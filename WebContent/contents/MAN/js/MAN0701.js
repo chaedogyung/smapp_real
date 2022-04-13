@@ -73,12 +73,8 @@ var page = {
 			page.apiParamInit(); //파라메터 전역변수 초기화
 		},
 		
-		
 		//재해예방 동영상 리스트 callback
 		cldlAreaLegdListCallback : function(result) {
-				var html = "<button class='btn m red w100p' id='checkOkay'>확인</button>"
-				$('.btnBox.pxB').html(html);
-		                
 			page.apiParamInit();
 
 			if(smutil.apiResValidChk(result) && result.code == "0000") {
@@ -142,7 +138,6 @@ var page = {
 	            type:"GET",
 	            contentType: "application/json; charset=utf-8",
 	            success: function (xml) {
-		console.log("resultCode : " + $(xml).find('resultCode').text())
 					if($(xml).find('resultCode').text() == "00"){
 				
 		                $('.video').removeClass('dsn');
