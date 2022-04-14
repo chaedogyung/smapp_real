@@ -99,7 +99,7 @@ var page = {
 				
 				// 생성된 HTML을 DOM에 주입
 				$('#view1Tbody').html(liHtml);
-				//}
+				}
 				else{					
 					$('.video').hide();
 				}
@@ -163,7 +163,7 @@ var page = {
 		    			}
 		    			$('#video').focus();	
 	            }else {
-						$('.video').hide();
+						
 	}
 			},
 	            error : function(xml) {
