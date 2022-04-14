@@ -2,6 +2,7 @@ LEMP.addEvent("backbutton", "page.callbackBackButton");		// 뒤로가기 버튼 
 
 var page = {
 	data_list : null,
+	resultCode : null,
 		// api 호출 기본 형식
 		apiParam : {
 			id:"HTTP",			// 디바이스 콜 id
@@ -98,7 +99,7 @@ var page = {
 				
 				// 생성된 HTML을 DOM에 주입
 				$('#view1Tbody').html(liHtml);
-				}
+				//}
 				else{					
 					$('.video').hide();
 				}
@@ -140,6 +141,7 @@ var page = {
 	            type:"GET",
 	            contentType: "application/json; charset=utf-8",
 	            success: function (xml) {
+					page.resultCode = $(xml).find('resultCode').text();
 					if($(xml).find('resultCode').text() == "00"){
 				
 		                $('.video').removeClass('dsn');
@@ -160,7 +162,9 @@ var page = {
 			    			  hls.attachMedia(video);
 		    			}
 		    			$('#video').focus();	
-	            }
+	            }else {
+						$('.video').hide();
+	}
 			},
 	            error : function(xml) {
 	            	LEMP.Window.alert({
@@ -235,7 +239,7 @@ var page = {
 				"_sKey" : "videoPlay_yn",
 			});
 			var ended = $('#video').prop("ended");
-			if(page.data_list.length != 0){
+			if(page.data_list.length != 0 && page.resultCode == "00"){
 				if(smutil.isEmpty(videoPlay_yn)) {
 			
 					if(!ended) {

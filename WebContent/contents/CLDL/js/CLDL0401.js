@@ -55,7 +55,7 @@ var page = {
 				"_sKey" : "autoMenual"
 			});
 			
-			page.tmChk();				// 긴급사용 확인
+//			page.tmChk();				// 긴급사용 확인
 			page.initEvent();			// 페이지 이벤트 등록
 			page.initDpEvent();			// 화면 디스플레이 이벤트
 		},
@@ -1616,7 +1616,7 @@ var page = {
 				return false;
 			}
 			
-			page.tmChk();				// 긴급사용 확인
+//			page.tmChk();				// 긴급사용 확인
 			$("#checkall").prop("checked", false);
 //			var _this = this;
 			smutil.loadingOn();				// 로딩바 시작
