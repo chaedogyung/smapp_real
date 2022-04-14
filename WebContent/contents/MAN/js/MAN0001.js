@@ -1118,18 +1118,30 @@ var page = {
 //        var dayOfWeek = week[new Date().getDay()];
 //        var day = '수';
 
-        var videoPlay = LEMP.Properties.get({
-            "_sKey" : "videoPlay_yn"
-        });
+//        var videoPlay = LEMP.Properties.get({
+//            "_sKey" : "videoPlay_yn"
+//       });
         
 //        if((smutil.isEmpty(videoPlay) || videoPlay != "Y") && dayOfWeek === day){
-        if((smutil.isEmpty(videoPlay) || videoPlay != "Y")){    
-            var popUrl = smutil.getMenuProp('MAN.MAN0701', 'url');
+//        if((smutil.isEmpty(videoPlay) || videoPlay != "Y")){    
+//           var popUrl = smutil.getMenuProp('MAN.MAN0701', 'url');
+//            LEMP.Window.open({
+//                "_sPagePath": popUrl
+//            });
+//        }
+		var day = date.getDate();
+
+		var videoPlayTM = LEMP.Properties.get({
+			"_sKey" : "videoPlayTM"
+		});
+
+		if(smutil.isEmpty(videoPlayTM) || videoPlayTM != day){
+			 var popUrl = smutil.getMenuProp('MAN.MAN0701', 'url');
             LEMP.Window.open({
                 "_sPagePath": popUrl
             });
-        }
-    }
+        }  
+	 }
 
 	// 페이지 resume 될때마다 실행되는 함수
 	, resumeInfo : function(){

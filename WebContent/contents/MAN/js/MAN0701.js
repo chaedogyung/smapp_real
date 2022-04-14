@@ -113,13 +113,15 @@ var page = {
 			smutil.loadingOff();
 			
 			//여기가 공지사항으로 띄워진 화면인지 메인화면에서 띄워진 화면인지 확인하는 코드
-			var videoPlay_yn = LEMP.Properties.get({
-				"_sKey" : "videoPlay_yn",
+			var date = new Date();
+			var day = date.getDate();
+			var videoPlayTM = LEMP.Properties.get({
+				"_sKey" : "videoPlayTM",
 			});
-			
+
 			var id = $('.view1Tr:eq(0)').attr('id')
 
-			if(smutil.isEmpty(videoPlay_yn)) {
+			if(smutil.isEmpty(videoPlayTM) || videoPlayTM != day) {
 				$('.btn.back.paL.ti').hide();
 				page.videoUrlApi(id);
 				$('.video').removeClass('dsn');
@@ -221,6 +223,14 @@ var page = {
 		
 		//확인버튼
 		callbackBackButton : function() {
+			var date = new Date();
+			var day = date.getDate();
+			LEMP.Properties.set({
+				"_sKey" : "videoPlayTM",
+				"_vValue" : day
+			});
+
+
 			var videoPlay_yn = LEMP.Properties.get({
 				"_sKey" : "videoPlay_yn",
 			});
@@ -247,7 +257,10 @@ var page = {
 					}
 				}
 			}
-			
+			LEMP.Properties.set({
+				"_sKey" : "videoPlay_yn",
+				"_vValue" : "N"
+				});
 			LEMP.Window.close();
 		}
 };
