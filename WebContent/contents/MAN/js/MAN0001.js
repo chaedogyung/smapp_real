@@ -55,7 +55,6 @@ var page = {
 				"brsh_cd" : brsh_cd,
 				"emp_no" : emp_no
 		}
-		
 		// 메시지 대량발송 동의 조회
 		page.getMsgCnf();
 		// 등급 조회
@@ -97,7 +96,7 @@ var page = {
 		/*if(!smutil.isEmpty(loginId)){
 			loginId = atob(loginId);		// 평문으로 디코딩
 		}*/
-
+		$('.bx-wrapper').css("margin","0 auto");
 	},
 
 	// 햄버거 메뉴 생성
@@ -173,7 +172,6 @@ var page = {
 				"_sKey" : "videoLinkClicked",
 				"_vValue" : false
 			});
-			
 			//monthpicker
 			var currentYear = (new Date()).getFullYear();
 			var options = {
@@ -832,7 +830,7 @@ var page = {
 	}
 	
 	// 등급 조회
-	/*, getGrade: function() {
+/*	, getGrade: function() {
 		page.apiParam.param.baseUrl = "/smapis/grade";		// api no
 		page.apiParam.param.callback = "page.getGradeCallback";	// callback methode
 
@@ -845,7 +843,8 @@ var page = {
 		if(res.code === "00" || res.code === "0000") {
 			var grade = $('#grade' + res.grade);
 			var index = $('.grade div').index(grade);
-
+			console.log("1321321312321321")
+			
 			grade.removeClass('disabled');
 			page.gradeSlider.goToSlide(index);
 		}
@@ -1007,7 +1006,6 @@ var page = {
 	
 	,getTevSmSeiReportCallback : function(data){
 		try{
-			
 			var dataSet;
 			dataSet = data;
 			if(dataSet.data.list[0]){
@@ -1016,11 +1014,16 @@ var page = {
 				
 				var grade = $('#grade' + dataSet.data.list[0].grd);
 				var index = $('.grade div').index(grade);
-
 				grade.removeClass('disabled');
 				page.gradeSlider.goToSlide(index);
 
-			}else {
+			}else if(!data.list){
+				var grade = $('#grade' + "05");
+				var index = $('.grade div').index(grade);
+				grade.removeClass('disabled');
+				page.gradeSlider.goToSlide(index);
+			}
+			else {
 				//LEMP.Window.alert({"_vMessage" : "해당 달의 등급이 없습니다." });
 				for(var i = 0; i < $(".grade").children().length; i++) {
 					$(".grade").children().eq(i).addClass('disabled')

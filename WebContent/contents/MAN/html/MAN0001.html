@@ -10,6 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
 	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
 	<link rel="stylesheet" type="text/css" href="../../common/css/main.css">
+	
 																					   
 
 
@@ -23,7 +24,9 @@
 				infiniteLoop: false,
 				pager: false,
 				hideControlOnEnd: true,
-				controls : false
+				touchEnabled : false,
+				controls : false,
+				slideWidth: 79
 			});
 		});
 	</script>
@@ -68,7 +71,7 @@
 					<div class="boxBody">
 						<div class="leftBox">
 							<ul class="dotTp1">
-								<li>등급 <em id="emp_grd"></em></li>
+								<!-- <li>등급 <em id="emp_grd"></em></li> -->
 								<li>ID<em id="empno"></em></li>
 								<li>차량번호<em id="vhc_no"></em></li>
 								<li class="mileage">마일리지<em id="acmt_point"></em></li>
@@ -153,8 +156,8 @@
 				<div class="cardBox chart" style="margin-top: 20px;">
 					<div class="tit">
 						이달의 실적현황
-						<!-- <span class="num" id="cur_monF"></span> -->
- 						<input type="hidden" id="cur_monF" class="num">
+						<!-- <span class="num" id="cur_monF"></span>-->
+ 						<input type="text" id="cur_monF" class="num" style="font-weight:20; float:right;">
  						<!-- <input type="button" id="btn_monthPicker" name="btn_monthPicker" value="클릭" /> -->
 		   			
 		   			</div>
@@ -168,23 +171,20 @@
 							</ul>
 						</div>
 					<div class="rightBox">
-						<div class="grade" style="display:none;">
-							
+						<div class="grade">
+		
 							<div class="disabled" id="grade05">
 							<!-- [D] 비활성화시 div 에 disabled 클래스 추가 -->
-								<img src="../../common/img/grade-family.png" alt="패밀리 등급">
+								<img src="../../common/img/grade-family1.png" alt="패밀리 등급">
 							</div>
 							<div class="disabled" id="grade04">
-								<img src="../../common/img/grade-silver.png" alt="실버 등급">
+								<img src="../../common/img/grade-silver1.png" alt="실버 등급">
 							</div>
 							<div class="disabled" id="grade03">
-								<img src="../../common/img/grade-gold.png" alt="골드 등급">
-							</div>
-							<div class="disabled" id="grade02">
-								<img src="../../common/img/grade-diamond.png" alt="다이아몬드 등급">
+								<img src="../../common/img/grade-gold1.png" alt="골드 등급">
 							</div>
 							<div class="disabled" id="grade01">
-								<img src="../../common/img/grade-vip.png" alt="브이아이피 등급">
+								<img src="../../common/img/grade-vip1.png" alt="브이아이피 등급">
 							</div>
 						</div>
 					</div>
