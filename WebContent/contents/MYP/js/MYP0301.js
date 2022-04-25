@@ -158,7 +158,7 @@ var page = {
 	// 기간설정 없이 조회
 	dtllist : function(){
 		var _this = this;
-		_this.apiParam.param.baseUrl = "smapis/point/hst";			// api no
+		_this.apiParam.param.baseUrl = "smapis/eva/point/hst";			// api no
 		_this.apiParam.param.callback = "page.dtllistCallback";			// callback methode
 		_this.apiParam.data = {"parameters" : {
 			}};						// api 통신용 파라메터
