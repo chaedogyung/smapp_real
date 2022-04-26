@@ -186,6 +186,7 @@ var page = {
 			
 			//이달의 실적현황 달력 버튼
 			$("#cur_monF").monthpicker(options);
+
 			
 			$(".mtz-monthpicker-month").on('click', function(e){
 				/*alert($(this).attr('data-month'));
@@ -1007,10 +1008,7 @@ var page = {
 	,getTevSmSeiReportCallback : function(data){
 		try{
 			var dataSet;
-			console.log("data : ",data);
-			
 			dataSet = data;
-			console.log(!dataSet.data.list)
 			if(dataSet.data.list[0]){
 				var fir = dataSet.data.list[0].bsc_ym.substring(0,4);
 				var lat = dataSet.data.list[0].bsc_ym.substring(4,6);
@@ -1019,12 +1017,13 @@ var page = {
 				var index = $('.grade div').index(grade);
 				grade.removeClass('disabled');
 				page.gradeSlider.goToSlide(index);
+				for(var i = 0; i < $(".grade").children().length; i++) {
+					if(i != index){
+							$(".grade").children().eq(i).addClass('disabled')
+					}
+				}
+				
 			//리스트가 없을떄 기본 세팅
-			}else if(!dataSet.data.list){
-				var grade = $('#grade' + "04");
-				var index = $('.grade div').index(grade);
-				grade.removeClass('disabled');
-				page.gradeSlider.goToSlide(index);
 			}
 			else {
 				//LEMP.Window.alert({"_vMessage" : "해당 달의 등급이 없습니다." });
