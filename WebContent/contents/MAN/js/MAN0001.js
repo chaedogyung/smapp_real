@@ -202,6 +202,7 @@ var page = {
 						"bscYm" : bscYm,
 						"emp_no" : emp_no
 				}
+				
 				e.stopPropagation();
 				page.getTevSmSeiReport(grdData);
 			})
@@ -985,7 +986,6 @@ var page = {
 			}
 			var bscYm = year + month;
 			var	emp_no = $("#empno").text();
-			
 			data = {
 				"empNo" : emp_no, //사원번호
 				"bscYm" : bscYm, //조회월
@@ -1007,7 +1007,10 @@ var page = {
 	,getTevSmSeiReportCallback : function(data){
 		try{
 			var dataSet;
+			console.log("data : ",data);
+			
 			dataSet = data;
+			console.log(!dataSet.data.list)
 			if(dataSet.data.list[0]){
 				var fir = dataSet.data.list[0].bsc_ym.substring(0,4);
 				var lat = dataSet.data.list[0].bsc_ym.substring(4,6);
@@ -1016,9 +1019,9 @@ var page = {
 				var index = $('.grade div').index(grade);
 				grade.removeClass('disabled');
 				page.gradeSlider.goToSlide(index);
-
-			}else if(!data.list){
-				var grade = $('#grade' + "05");
+			//리스트가 없을떄 기본 세팅
+			}else if(!dataSet.data.list){
+				var grade = $('#grade' + "04");
 				var index = $('.grade div').index(grade);
 				grade.removeClass('disabled');
 				page.gradeSlider.goToSlide(index);

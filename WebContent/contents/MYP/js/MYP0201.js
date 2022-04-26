@@ -17,7 +17,7 @@ var page = {
 	},
 
 	//마일리지
-	req_amount : 10000,
+	req_amount : 100000,
 	own_amount : 0,
 
 	init : function(){
@@ -28,13 +28,13 @@ var page = {
 	initInterface : function(){
 		//마일리지 감소
 		$(document).on('click','#minus_amount', function(e){
-			if(page.req_amount>10000){
-				page.req_amount = page.req_amount-10000;
+			if(page.req_amount>100000){
+				page.req_amount = page.req_amount-100000;
 				$('#req_amount').text((page.req_amount+"").LPToCommaNumber());
 			}
 			else{
 				LEMP.Window.toast({
-					"_sMessage" : "10000부터 입력 가능합니다",
+					"_sMessage" : "100,000부터 입력 가능합니다",
 					"_sDuration" : "short"
 				});
 			}
@@ -42,8 +42,8 @@ var page = {
 
 		//마일리지 증가
 		$(document).on('click','#plus_amount', function(e){
-			if(page.req_amount <= (page.own_amount-10000)){
-				page.req_amount = page.req_amount+10000;
+			if(page.req_amount <= (page.own_amount-100000)){
+				page.req_amount = page.req_amount+100000;
 				$('#req_amount').text((page.req_amount+"").LPToCommaNumber());
 			}
 			else{
@@ -56,9 +56,9 @@ var page = {
 
 		//마일리지 신청버튼 클릭
 		$(document).on('click','#requestBtn', function(e){
-			if(page.req_amount < 10000){
+			if(page.req_amount < 100000){
 				LEMP.Window.alert({
-					"_vMessage" : "10,000 이상부터 신청 가능합니다.",
+					"_vMessage" : "100,000 이상부터 신청 가능합니다.",
 				});
 				return false;
 			}
@@ -106,7 +106,7 @@ var page = {
 
 				$('#own_amount').text((page.own_amount+"").LPToCommaNumber());
 
-				if(page.own_amount>=10000){
+				if(page.own_amount>=100000){
 					$('#requestBtn').attr('disabled', false);		// 신청버튼 활성화
 					$('#requestBtn').addClass('red');
 				}

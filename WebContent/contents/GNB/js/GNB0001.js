@@ -42,6 +42,11 @@ var page = {
 								continue;
 							}
 						}
+						if (subMenuNm === 'MYP0201'){
+							if(LEMP.Properties.get({"_sKey":"approval_yn"})!=="Y"){
+								continue;
+							}
+						}
 						subObj = {};
 						subObj.menuCode = subMenuNm;
 						subObj.menuTxt = subMenuObj.menuTxt;
