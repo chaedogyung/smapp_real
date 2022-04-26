@@ -978,6 +978,12 @@ var page = {
 	,getTevSmSeiReport : function(data) {
 		smutil.loadingOn();
 		page.apiParamInit();
+				
+		data.emp_no = LEMP.Properties.get({
+				"_sKey" : "saveId"
+			});
+	
+	
 		if(_.isUndefined(data)){
 			var year = $(".mtz-monthpicker-year").val();
 			var month  = $(this).attr('data-month') > 9 ? $(this).attr('data-month') : "0" + $(this).attr('data-month');
@@ -986,13 +992,14 @@ var page = {
 				$('#cur_monF').val(year+"년"+month+"월");				
 			}
 			var bscYm = year + month;
-			var	emp_no = $("#empno").text();
+			var emp_no = $("#empno").text();
+
 			data = {
-				"empNo" : emp_no, //사원번호
+				"emp_no" : emp_no, //사원번호
 				"bscYm" : bscYm, //조회월
 			}
 		}
-		
+
 		page.apiParamInit();		// 파라메터 초기화
 		page.apiParam.param.task_id = "MAN0001";
 		page.apiParam.param.baseUrl = "/smapis/cmn/getTevSmSeiReport";		// api no
@@ -1012,23 +1019,39 @@ var page = {
 			if(dataSet.data.list[0]){
 				var fir = dataSet.data.list[0].bsc_ym.substring(0,4);
 				var lat = dataSet.data.list[0].bsc_ym.substring(4,6);
+				if(dataSet.data.list[0].grd!="05"){
+					var grade = $('#grade' + dataSet.data.list[0].grd);
+					var index = $('.grade div').index(grade);
+					grade.removeClass('disabled');
+					page.gradeSlider.goToSlide(index);
+					for(var i = 0; i < $(".grade").children().length; i++) {
+						if(i != index){
+								$(".grade").children().eq(i).addClass('disabled')
+						}
+					}
+				}
+				else{
+					var grade = $('#grade' + "04");
+					var index = $('.grade div').index(grade);
+					grade.removeClass('disabled');
+					page.gradeSlider.goToSlide(index);
+					for(var i = 0; i < $(".grade").children().length; i++) {
+						if(i != index)
+								$(".grade").children().eq(i).addClass('disabled')
+					}
+				}
 				
-				var grade = $('#grade' + dataSet.data.list[0].grd);
+			}
+			else{
+				//리스트가 없을떄 기본 세팅
+				//LEMP.Window.alert({"_vMessage" : "해당 달의 등급이 없습니다." });
+				var grade = $('#grade' + "04");
 				var index = $('.grade div').index(grade);
 				grade.removeClass('disabled');
 				page.gradeSlider.goToSlide(index);
 				for(var i = 0; i < $(".grade").children().length; i++) {
-					if(i != index){
+					if(i != index)
 							$(".grade").children().eq(i).addClass('disabled')
-					}
-				}
-				
-			//리스트가 없을떄 기본 세팅
-			}
-			else {
-				//LEMP.Window.alert({"_vMessage" : "해당 달의 등급이 없습니다." });
-				for(var i = 0; i < $(".grade").children().length; i++) {
-					$(".grade").children().eq(i).addClass('disabled')
 				}
 				
 			}
