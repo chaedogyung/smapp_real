@@ -33,8 +33,7 @@ var page = {
 		page.curDate = curDate.LPToFormatDate("yyyymmdd");
 
 		page.initInterface();
-		//서버시간 비교
-		page.tmChk();
+
 		//기사정보
 		page.smInfo();
 		
@@ -978,11 +977,11 @@ var page = {
 	,getTevSmSeiReport : function(data) {
 		smutil.loadingOn();
 		page.apiParamInit();
-				
-		data.emp_no = LEMP.Properties.get({
+		if(!data.emp_no){	
+			data.emp_no = LEMP.Properties.get({
 				"_sKey" : "saveId"
 			});
-	
+		}
 	
 		if(_.isUndefined(data)){
 			var year = $(".mtz-monthpicker-year").val();
@@ -1062,62 +1061,7 @@ var page = {
 		}
 	}
 
-	//서버시간 휴대폰 시간 체크
-	,tmChk : function(){
-		page.apiParamInit();		// 파라메터 초기화
-		page.apiParam.param.baseUrl = "/smapis/use/tmChk";
-		page.apiParam.param.callback = "page.tmChkCallback";
-		page.apiParam.data.parameters = {};
-		
-		smutil.callApi(page.apiParam);
-	}
 	
-	,tmChkCallback : function(result){
-		try{
-			if(smutil.apiResValidChk(result) && result.code === "0000"){
-				var cur_ymd = result.cur_ymd;
-				var cur_tm = result.cur_tm;
-				
-				if(cur_tm.lenght == 5){
-					cur_tm = "0" + cur_tm;
-				}
-				
-				// 서버시간
-				var cur_date = new Date(cur_ymd.substring(0,4), cur_ymd.substring(4,6)-1, cur_ymd.substring(6,8),
-										cur_tm.substring(0,2), cur_tm.substring(2,4), cur_tm.substring(4,6));
-				// 휴대폰시간
-				var now_date = new Date();
-				
-				// 오차범위 3분
-				var range = 3 * 60 * 1000;
-				
-				if(now_date.getTime() > cur_date.getTime() + range || now_date.getTime() < cur_date.getTime() - range){
-					var textButton = LEMP.Window.createElement({
-						"_sElementName" : "TextButton"
-					});
-		
-					textButton.setProperty({
-						"_sText" : "종료",
-						"_fCallback" : function()   {
-							LEMP.App.exit({
-								_sType : "kill"
-							});
-						}
-					});
-					LEMP.Window.alert({
-						"_sTitle" : "시간오류",
-						"_vMessage" : "휴대폰 시간이 실제 시간과 일치하지 않습니다.",
-						"_eTextButton" : textButton
-					});
-				}
-			}else {
-
-			}
-		}catch(e){}
-		finally{
-			smutil.loadingOff();
-		}
-	}
 	//주간 근무 팝업
 //	,weekTmPopup : function(){
 //		var date = new Date();

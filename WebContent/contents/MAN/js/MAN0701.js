@@ -2,7 +2,7 @@ LEMP.addEvent("backbutton", "page.callbackBackButton");		// 뒤로가기 버튼 
 
 var page = {
 	data_list : null,
-	resultCode : null,
+	resultCode : "00",
 		// api 호출 기본 형식
 		apiParam : {
 			id:"HTTP",			// 디바이스 콜 id
@@ -16,6 +16,22 @@ var page = {
 				contentType : "application/json; charset=utf-8"
 			},
 			data:{"parameters" : {}}// api 통신용 파라메터
+		},		
+		// api 파람메터 초기화
+		apiParamInit : function(){
+			page.apiParam =  {
+				id:"HTTP",			// 디바이스 콜 id
+				param:{				// 디바이스가 알아야할 데이터
+					task_id : "",										// 화면 ID 코드가 들어가기로함
+					//position : {},									// 사용여부 미확정
+					type : "",
+					baseUrl : "",
+					method : "POST",									// api 호출 형식(지정 안하면 'POST' 로 자동 셋팅)
+					callback : "",					// api 호출후 callback function
+					contentType : "application/json; charset=utf-8"
+				},
+				data:{"parameters" : {}}// api 통신용 파라메터
+			};
 		},
 		
 		init:function()
@@ -67,7 +83,6 @@ var page = {
 
 			page.apiParam.param.baseUrl = "smapis/cldlAreaLegdList";			// api no
 			page.apiParam.param.callback = "page.cldlAreaLegdListCallback";	
-			
 			// 공통 api호출 함수
 			smutil.callApi(page.apiParam);
 			
@@ -123,6 +138,12 @@ var page = {
 			var id = $('.view1Tr:eq(0)').attr('id')
 
 			if(smutil.isEmpty(videoPlayTM) || videoPlayTM != day) {
+				//처음들어오면 시청여부 초기화
+				LEMP.Properties.set({
+				"_sKey" : "videoPlay_yn",
+				"_vValue" : "N"
+				});
+				
 				$('.btn.back.paL.ti').hide();
 				page.videoUrlApi(id);
 				$('.video').removeClass('dsn');
@@ -162,10 +183,11 @@ var page = {
 			    			  hls.attachMedia(video);
 		    			}
 		    			$('#video').focus();	
-	            }else {
-						
-	}
-			},
+	         	   }
+					else {
+							$('.video').hide();
+						}
+				},
 	            error : function(xml) {
 	            	LEMP.Window.alert({
 						"_vMessage": "리스트가져오기 실패. code"+ $(xml).find('resultCode').text(),
@@ -174,24 +196,7 @@ var page = {
 	            }
 	        });
 			
-		},
-		
-		// api 파람메터 초기화
-		apiParamInit : function(){
-			page.apiParam =  {
-				id:"HTTP",			// 디바이스 콜 id
-				param:{				// 디바이스가 알아야할 데이터
-					task_id : "",										// 화면 ID 코드가 들어가기로함
-					//position : {},									// 사용여부 미확정
-					type : "",
-					baseUrl : "",
-					method : "POST",									// api 호출 형식(지정 안하면 'POST' 로 자동 셋팅)
-					callback : "",					// api 호출후 callback function
-					contentType : "application/json; charset=utf-8"
-				},
-				data:{"parameters" : {}}// api 통신용 파라메터
-			};
-		},
+		},				
 		
 //		videoContentsCallback : function(xml) {
 //			smutil.loadingOff();
@@ -240,7 +245,7 @@ var page = {
 			});
 			var ended = $('#video').prop("ended");
 			if(page.data_list.length != 0 && page.resultCode == "00"){
-				if(smutil.isEmpty(videoPlay_yn)) {
+				if(smutil.isEmpty(videoPlay_yn) || videoPlay_yn =="N") {
 			
 					if(!ended) {
 			
@@ -261,10 +266,8 @@ var page = {
 					}
 				}
 			}
-			LEMP.Properties.set({
-				"_sKey" : "videoPlay_yn",
-				"_vValue" : "N"
-				});
+			else{		
 			LEMP.Window.close();
+			}
 		}
 };
