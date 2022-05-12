@@ -19,7 +19,6 @@ var page = {
 		// api 통신용 파라메터
 		},
 		init : function(data) {
-			
 			page.jibbae =data.data.cldl_cenr_nm;
 			page.sdar_sct_cd = data.data.sdar_sct_cd;
 			page.scanCode =data.data.base_brsh_cd;
@@ -138,7 +137,6 @@ var page = {
 				if(smutil.apiResValidChk(res) && res.code === "0000") {
 					page.jibbae = res.cldl_cenr_nm;
 					page.scanCode = res.cldl_cenr_cd;
-					page.sdar_sct_cd = "5";
 				}
 			}catch(e){}
 			finally{
