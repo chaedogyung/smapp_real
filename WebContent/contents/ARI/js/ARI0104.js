@@ -20,12 +20,11 @@ var page = {
 		},
 		init : function(data) {
 			
-			// 데이터를 못가져왔을경우
 			page.jibbae =data.data.cldl_cenr_nm;
 			page.sdar_sct_cd = data.data.sdar_sct_cd;
 			page.scanCode =data.data.base_brsh_cd;
 			// 데이터를 못가져왔을경우
-			if(smutil.isEmpty(data.data.base_brsh_cd)){
+			if(smutil.isEmpty(data.data.cldl_cenr_nm)){
 					page.getSmInfo();
 			}
 			page.initInterface();
@@ -77,22 +76,38 @@ var page = {
 			//확인 버튼 클릭
 			$('#confirm').click(function(){
 				var numb =$('#dataListB').find('.on').children(":first").text();
+				var scannm = $('#dataListB').find('.on').children(":eq(1)").text();
+				var scancd = page.scanCode;
+				var jibbae = page.jibbae;
 				if(smutil.isEmpty(numb)){
-					LEMP.Window.alert({
-						"_vMessage" : "연계일보 번호를 선택해주세요",
-					});
+					LEMP.Window.toast({
+							"_sMessage":"연계일보 번호를 선택해주세요",
+							'_sDuration' : 'short'
+						});
+						
+//					LEMP.Window.alert({
+//						"_vMessage" : "연계일보 번호를 선택해주세요",
+//					});
+						return false;
 				}else{
 					if(page.sdar_sct_cd === "A"){
 						LEMP.Window.close({
 							"_oMessage" : {
-								"param" : numb
+								"param" : numb,
+										  scannm,
+										  scancd,
+										  jibbae
+								
 							},
 							"_sCallback" : "page.ARI0101numberCallback"
 						});
 					}else{
 						LEMP.Window.close({
 							"_oMessage" : {
-								"param" : numb
+								"param" : numb,
+										  scannm,
+										  scancd,
+										  jibbae
 							},
 							"_sCallback" : "page.ARI0201numberCallback"
 						});
@@ -121,7 +136,6 @@ var page = {
 			//page.scanCode
 			try{
 				if(smutil.apiResValidChk(res) && res.code === "0000") {
-					$('#scanP').text(res.cldl_cenr_nm);
 					page.jibbae = res.cldl_cenr_nm;
 					page.scanCode = res.cldl_cenr_cd;
 					page.sdar_sct_cd = "5";

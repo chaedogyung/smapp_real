@@ -29,7 +29,7 @@ var page = {
 		page.apiParam.data.parameters={};
 	},
 	init : function() {
-		page.getSmInfo();
+		//page.getSmInfo();
 		page.initInterface();
 		page.scanCnt();
 	},
@@ -310,7 +310,6 @@ var page = {
 				page.detail = data.data.list[0];
 				$('#counp_r').val(data.data.list[0].prtn_brsh_nm);
 				$('#carN_r').val(data.data.list[0].vhc_no);
-				$('#scanP').text(data.datlist[0].base_brsh_nm);
 				//스캔리스트 조회 호출
 				page.scanList(data);
 			}else{
@@ -570,6 +569,10 @@ var page = {
 	//연계일보팝업 콜백
 	ARI0201numberCallback : function(data){
 		$('#yunKil_r').val(data.param);
+		$('#scanP').text(data.scannm);
+		page.scanCode = data.scancd;
+		page.jibbae = data.jibbae;
+		
 		smutil.loadingOn();
 		//연계일보 상세조회 호출
 		page.dtlyk();
