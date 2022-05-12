@@ -310,6 +310,7 @@ var page = {
 				page.detail = data.data.list[0];
 				$('#counp_r').val(data.data.list[0].prtn_brsh_nm);
 				$('#carN_r').val(data.data.list[0].vhc_no);
+				$('#scanP').text(data.datlist[0].base_brsh_nm);
 				//스캔리스트 조회 호출
 				page.scanList(data);
 			}else{

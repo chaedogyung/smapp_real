@@ -19,9 +19,15 @@ var page = {
 		// api 통신용 파라메터
 		},
 		init : function(data) {
+			
+			// 데이터를 못가져왔을경우
 			page.jibbae =data.data.cldl_cenr_nm;
 			page.sdar_sct_cd = data.data.sdar_sct_cd;
 			page.scanCode =data.data.base_brsh_cd;
+			// 데이터를 못가져왔을경우
+			if(smutil.isEmpty(data.data.base_brsh_cd)){
+					page.getSmInfo();
+			}
 			page.initInterface();
 		
 		},
@@ -102,6 +108,30 @@ var page = {
 			})
 			
 		},
+		
+		//전페이지에서 스캔 코드를 못가져올경우
+		getSmInfo : function(){
+		smutil.loadingOn();
+		page.apiParam.param.baseUrl="/smapis/cmn/smInf";
+		page.apiParam.param.callback="page.getSmInfoCallback";
+		smutil.callApi(page.apiParam);
+		},
+		
+		getSmInfoCallback : function(res){
+			//page.scanCode
+			try{
+				if(smutil.apiResValidChk(res) && res.code === "0000") {
+					$('#scanP').text(res.cldl_cenr_nm);
+					page.jibbae = res.cldl_cenr_nm;
+					page.scanCode = res.cldl_cenr_cd;
+					page.sdar_sct_cd = "5";
+				}
+			}catch(e){}
+			finally{
+				smutil.loadingOff();
+			}
+		},
+		
 		//달력 callback
 		COM0301Callback:function(res){
 			$('#inDate').val(res.param.date);
