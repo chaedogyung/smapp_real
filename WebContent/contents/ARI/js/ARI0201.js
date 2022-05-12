@@ -29,7 +29,7 @@ var page = {
 		page.apiParam.data.parameters={};
 	},
 	init : function() {
-		//page.getSmInfo();
+		page.getSmInfo();
 		page.initInterface();
 		page.scanCnt();
 	},
