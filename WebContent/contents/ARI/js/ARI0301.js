@@ -60,9 +60,13 @@ var page = {
 		$('#eqScan').click(function(){
 		
 			if(smutil.isEmpty($("#inputJy").val())){
-				LEMP.Window.alert({
-					"_vMessage" : "적입점소 번호를 입력해주세요",
-				});
+				LEMP.Window.toast({
+					"_sMessage":"적입점소 번호를 입력해주세요",
+					'_sDuration' : 'short'
+				});				
+//				LEMP.Window.alert({
+//					"_vMessage" : "적입점소 번호를 입력해주세요",
+//				});
 			}else{
 				LEMP.Window.openCodeReader({
 					"_fCallback" : function(res) {
@@ -75,17 +79,25 @@ var page = {
 								page.sjycallback();
 									
 							}else {
-								LEMP.Window.alert({
-									"_sTitle" : "경고",
-									"_vMessage" : "정상적인 바코드번호가 아닙니다."
-								});
+								LEMP.Window.toast({
+									"_sMessage":"정상적인 바코드번호가 아닙니다.",
+									'_sDuration' : 'short'
+								});				
+//								LEMP.Window.alert({
+//									"_sTitle" : "경고",
+//									"_vMessage" : "정상적인 바코드번호가 아닙니다."
+//								});
 								return false;
 							}
 						}else {
-							LEMP.Window.alert({
-								"_sTitle" : "경고",
-								"_vMessage" : "바코드를 읽지 못했습니다."
-							});
+								LEMP.Window.toast({
+									"_sMessage":"바코드를 읽지 못했습니다.",
+									'_sDuration' : 'short'
+								});									
+//							LEMP.Window.alert({
+//								"_sTitle" : "경고",
+//								"_vMessage" : "바코드를 읽지 못했습니다."
+//							});
 							return false;
 						}
 					}
@@ -96,9 +108,13 @@ var page = {
 		//송장번호 입력
 		$('#invScan').click(function(){
 			if(smutil.isEmpty($("#moequi").val())){
-				LEMP.Window.alert({
-					"_vMessage" : "운반 장비 번호를 입력해주세요 ",
-				});
+				LEMP.Window.toast({
+					"_sMessage":"운반 장비 번호를 입력해주세요 ",
+					'_sDuration' : 'short'
+				});	
+//				LEMP.Window.alert({
+//					"_vMessage" : "운반 장비 번호를 입력해주세요 ",
+//				});
 			}else{
 				var popUrl = smutil.getMenuProp('COM.COM0102', 'url');
 				LEMP.Window.open({
@@ -110,9 +126,13 @@ var page = {
 		//카메라 스캔 입력
 		$('#invScan_c').click(function(){
 			if(smutil.isEmpty($("#moequi").val())){
-				LEMP.Window.alert({
-					"_vMessage" : "운반 장비 번호를 입력해주세요 ",
-				});
+				LEMP.Window.toast({
+					"_sMessage":"운반 장비 번호를 입력해주세요 ",
+					'_sDuration' : 'short'
+				});	
+//				LEMP.Window.alert({
+//					"_vMessage" : "운반 장비 번호를 입력해주세요 ",
+//				});
 			}else{
 				LEMP.Window.openCodeReader({
 					"_fCallback":function(res){
@@ -121,19 +141,27 @@ var page = {
 								page.inv_noV.sign = String(res.data);
 								page.InputChange();
 							}else {
-								LEMP.Window.alert({
-									"_sTitle" : "경고",
-									"_vMessage" : "정상적인 바코드번호가 아닙니다."
-								});
+								LEMP.Window.toast({
+									"_sMessage":"정상적인 바코드번호가 아닙니다.",
+									'_sDuration' : 'short'
+								});	
+//								LEMP.Window.alert({
+//									"_sTitle" : "경고",
+//									"_vMessage" : "정상적인 바코드번호가 아닙니다."
+//								});
 								smutil.callTTS("0", "0", null, page.isBackground);
 								
 								return false;
 							}
 						}else {
-							LEMP.Window.alert({
-								"_sTitle" : "경고",
-								"_vMessage" : "바코드를 읽지 못했습니다."
-							});
+							LEMP.Window.toast({
+								"_sMessage":"바코드를 읽지 못했습니다.",
+								'_sDuration' : 'short'
+							});							
+//							LEMP.Window.alert({
+//								"_sTitle" : "경고",
+//								"_vMessage" : "바코드를 읽지 못했습니다."
+//							});
 							smutil.callTTS("0", "0", null, page.isBackground);
 							
 							return false;
@@ -177,9 +205,13 @@ var page = {
 		$('#sendP').on('click',function(){
 			var count = $('.li.list').length;
 			if(count==0 || smutil.isEmpty($('.li.list'))){
-				LEMP.Window.alert({
-					"_vMessage" : "전송할 송장 번호가  번호가 없습니다 ",
-				});
+				LEMP.Window.toast({
+					"_sMessage":"전송할 송장 번호가  번호가 없습니다 ",
+					'_sDuration' : 'short'
+				});						
+//				LEMP.Window.alert({
+//					"_vMessage" : "전송할 송장 번호가  번호가 없습니다 ",
+//				});
 				return false;
 			}
 			else{
@@ -211,9 +243,13 @@ var page = {
 	//스캔 콜백
 	scanCallback : function(data){
 		if(smutil.isEmpty($('#moequi').val())){
-			LEMP.Window.alert({
-				"_vMessage" : "운반장비 번호를 입력해주세요 ",
-			});
+			LEMP.Window.toast({
+				"_sMessage":"운반장비 번호를 입력해주세요  ",
+				'_sDuration' : 'short'
+			});	
+//			LEMP.Window.alert({
+//				"_vMessage" : "운반장비 번호를 입력해주세요 ",
+//			});
 			smutil.callTTS("0", "0", null, page.isBackground);
 			return false;
 		}else{
@@ -244,15 +280,23 @@ var page = {
 		try {
 			if(data.code ==="0000" && data.data_count!=0) {
 					$('#inputJy').val(page.codeJ);
-					LEMP.Window.alert({
-						"_vMessage" : "입력 점소명은 "+data.data.list[0].scan_brsh_nm+" 입니다"
-					});
+					LEMP.Window.toast({
+						"_sMessage":"입력 점소명은 "+data.data.list[0].scan_brsh_nm+" 입니다",
+						'_sDuration' : 'short'
+					});	
+//					LEMP.Window.alert({
+//						"_vMessage" : "입력 점소명은 "+data.data.list[0].scan_brsh_nm+" 입니다"
+//					});
 					$("#moequi").attr('disabled',false);
 					
 			}else{
-				LEMP.Window.alert({
-					"_vMessage" : "올바르지 않은 점소코드 입니다 ",
-				});
+				LEMP.Window.toast({
+					"_sMessage":"올바르지 않은 점소코드 입니다 ",
+					'_sDuration' : 'short'
+				});					
+//				LEMP.Window.alert({
+//					"_vMessage" : "올바르지 않은 점소코드 입니다 ",
+//				});
 				return false;
 			}
 		} catch (e) {}
@@ -346,28 +390,40 @@ var page = {
 					// 공통 api호출 함수 
 					smutil.callApi(page.apiParam);
 				}else {
-					LEMP.Window.alert({
-						"_sTitle" : "경고",
-						"_vMessage" : "정상적인 바코드번호가 아닙니다."
-					});
+					LEMP.Window.toast({
+						"_sMessage":"정상적인 바코드번호가 아닙니다.",
+						'_sDuration' : 'short'
+					});	
+//					LEMP.Window.alert({
+//						"_sTitle" : "경고",
+//						"_vMessage" : "정상적인 바코드번호가 아닙니다."
+//					});
 					//$("#invScan").val("");
 					smutil.callTTS("0", "0", null, page.isBackground);
 					return false;
 				}
 			}else {
-				LEMP.Window.alert({
-					"_sTitle" : "경고",
-					"_vMessage" : "중복된 송장번호 입니다."
-				});
+				LEMP.Window.toast({
+					"_sMessage":"중복된 송장번호 입니다.",
+					'_sDuration' : 'short'
+				});	
+//				LEMP.Window.alert({
+//					"_sTitle" : "경고",
+//					"_vMessage" : "중복된 송장번호 입니다."
+//				});
 				//$("#invScan").val("");
 				smutil.callTTS("0", "0", null, page.isBackground);
 				return false;
 			}
 		}else {
-			LEMP.Window.alert({
-				"_sTitle" : "경고",
-				"_vMessage" : "정상적인 바코드번호가 아닙니다."
-			});
+			LEMP.Window.toast({
+				"_sMessage":"정상적인 바코드번호가 아닙니다.",
+				'_sDuration' : 'short'
+			});				
+//			LEMP.Window.alert({
+//				"_sTitle" : "경고",
+//				"_vMessage" : "정상적인 바코드번호가 아닙니다."
+//			});
 			//$("#invScan").val("");
 			smutil.callTTS("0", "0", null, page.isBackground);
 			return false;

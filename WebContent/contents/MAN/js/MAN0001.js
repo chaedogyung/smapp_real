@@ -712,7 +712,7 @@ var page = {
 				var fir = res.cur_mon.substring(0,4);
 				var lat = res.cur_mon.substring(4,6);
 				$('#emp_nm').text(res.emp_nm);
-				//$('#emp_grd').text(res.emp_grd);
+//				$('#emp_grd').text(res.emp_grd);
 				$('#empno').text(res.empno);
 				$('#vhc_no').text(res.vhc_no);
 				$('#emp_img_path').attr('src',res.emp_img_path);

@@ -20,10 +20,14 @@ var page = {
 					});
 						
 				}else {
-					LEMP.Window.alert({
-						"_sTitle" : " 오류",
-						"_vMessage" : "정상적인 운반 장비 번호를  입력해 주세요."
-					});
+					LEMP.Window.toast({
+						"_sMessage":"정상적인 운반 장비 번호를  입력해 주세요.",
+						'_sDuration' : 'short'
+					});							
+//					LEMP.Window.alert({
+//						"_sTitle" : " 오류",
+//						"_vMessage" : "정상적인 운반 장비 번호를  입력해 주세요."
+//					});
 				}
 			});
 		}

@@ -24,10 +24,15 @@ var page = {
 							"_sCallback":"page.Input_yCallback"
 						});
 					}else {
-						LEMP.Window.alert({
-							"_sTitle" : "연계일보번호 오류",
-							"_vMessage" : "정상적인 연계일보번호 입력해 주세요."
+						LEMP.Window.toast({
+							"_sMessage":"정상적인 연계일보번호 입력해 주세요.",
+							'_sDuration' : 'short'
 						});
+//						LEMP.Window.alert({
+//							"_sTitle" : "연계일보번호 오류",
+//							"_vMessage" : "정상적인 연계일보번호 입력해 주세요."
+//						});
+						return false;
 					}
 				}else{
 					if($(".txtBox.tp2.numBox").text().length == 12){
@@ -36,17 +41,25 @@ var page = {
 							"_sCallback":"page.Input_yCallback"
 						});
 					}else{
-						LEMP.Window.alert({
-							"_sTitle" : "연계일보번호 오류",
-							"_vMessage" : "정상적인 연계일보번호 입력해 주세요."
+						LEMP.Window.toast({
+							"_sMessage":"정상적인 연계일보번호 입력해 주세요.",
+							'_sDuration' : 'short'
 						});
+//						LEMP.Window.alert({
+//							"_sTitle" : "연계일보번호 오류",
+//							"_vMessage" : "정상적인 연계일보번호 입력해 주세요."
+//						});
 					}
 				}
 			}else{
-				LEMP.Window.alert({
-					"_sTitle" : "연계일보번호 오류",
-					"_vMessage" : "정상적인 연계일보번호 입력해 주세요."
+				LEMP.Window.toast({
+					"_sMessage":"정상적인 연계일보번호 입력해 주세요.",
+					'_sDuration' : 'short'
 				});
+//				LEMP.Window.alert({
+//					"_sTitle" : "연계일보번호 오류",
+//					"_vMessage" : "정상적인 연계일보번호 입력해 주세요."
+//				});
 			}
 		});
 		

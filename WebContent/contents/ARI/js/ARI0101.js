@@ -80,8 +80,8 @@ var page = {
 							page.dtlyk();
 						} else {
 							LEMP.Window.toast({
-							"_sMessage":"정상적인 바코드번호가 아닙니다.",
-							'_sDuration' : 'short'
+								"_sMessage":"정상적인 바코드번호가 아닙니다.",
+								'_sDuration' : 'short'
 							});
 							
 //							LEMP.Window.alert({
@@ -92,7 +92,7 @@ var page = {
 						return false;
 					} else {
 						LEMP.Window.toast({
-							"_sMessage":"바코드를 읽지 못했습니다",
+							"_sMessage":"바코드를 읽지 못했습니다.",
 							'_sDuration' : 'short'
 						});
 						
@@ -110,8 +110,8 @@ var page = {
 		$('#invScan').click(function() {
 			if (smutil.isEmpty($('#yunKil').val())) {
 				LEMP.Window.toast({
-							"_sMessage":"연계일보 번호가 없습니다",
-							'_sDuration' : 'short'
+					"_sMessage":"연계일보 번호가 없습니다",
+					'_sDuration' : 'short'
 				});
 //				LEMP.Window.alert({
 //					"_vMessage" : "연계일보 번호가 없습니다"
@@ -119,8 +119,8 @@ var page = {
 				return false;
 			} else if (smutil.isEmpty($('#counp').val())) {
 				LEMP.Window.toast({
-							"_sMessage":"상대점소 정보가 없습니다",
-							'_sDuration' : 'short'
+					"_sMessage":"상대점소 정보가 없습니다",
+					'_sDuration' : 'short'
 				});
 //				LEMP.Window.alert({
 //					"_vMessage" : "상대점소 정보가 없습니다"
@@ -128,8 +128,8 @@ var page = {
 				return false;
 			} else if (smutil.isEmpty($('#carN').val())) {
 				LEMP.Window.toast({
-							"_sMessage":"차량번호가 없습니다",
-							'_sDuration' : 'short'
+					"_sMessage":"차량번호가 없습니다",
+					'_sDuration' : 'short'
 				});
 //				LEMP.Window.alert({
 //					"_vMessage" : "차량번호가 없습니다"
@@ -146,8 +146,8 @@ var page = {
 		$('#invCame').click(function() {
 			if (smutil.isEmpty($('#yunKil').val())) {
 				LEMP.Window.toast({
-							"_sMessage":"연계일보 번호가 없습니다",
-							'_sDuration' : 'short'
+					"_sMessage":"연계일보 번호가 없습니다",
+					'_sDuration' : 'short'
 				});
 //				LEMP.Window.alert({
 //					"_vMessage" : "연계일보 번호가 없습니다"
@@ -155,8 +155,8 @@ var page = {
 				return false;
 			} else if (smutil.isEmpty($('#counp').val())) {
 				LEMP.Window.toast({
-							"_sMessage":"상대점소 정보가 없습니다 ",
-							'_sDuration' : 'short'
+					"_sMessage":"상대점소 정보가 없습니다 ",
+					'_sDuration' : 'short'
 				});
 //				LEMP.Window.alert({
 //					"_vMessage" : "상대점소 정보가 없습니다 "
@@ -164,8 +164,8 @@ var page = {
 				return false;
 			} else if (smutil.isEmpty($('#carN').val())) {
 				LEMP.Window.toast({
-							"_sMessage":"차량번호가 없습니다 ",
-							'_sDuration' : 'short'
+					"_sMessage":"차량번호가 없습니다 ",
+					'_sDuration' : 'short'
 				});
 //				LEMP.Window.alert({
 //					"_vMessage" : "차량번호가 없습니다 "
@@ -192,9 +192,9 @@ var page = {
 							}
 						} else {
 							LEMP.Window.toast({
-									"_sMessage":"바코드를 읽지 못했습니다.",
-									'_sDuration' : 'short'
-								});
+								"_sMessage":"바코드를 읽지 못했습니다.",
+								'_sDuration' : 'short'
+							});
 //							LEMP.Window.alert({
 //								"_sTitle" : "경고",
 //								"_vMessage" : "바코드를 읽지 못했습니다."
@@ -359,8 +359,8 @@ var page = {
 				page.scanList(data);
 			} else {
 				LEMP.Window.toast({
-				"_sMessage":"조회된 데이터가 없습니다",
-				'_sDuration' : 'short'
+					"_sMessage":"조회된 데이터가 없습니다",
+					'_sDuration' : 'short'
 				});		
 //				LEMP.Window.alert({
 //					"_vMessage" : "조회된 데이터가 없습니다"
@@ -537,8 +537,8 @@ var page = {
 				}
 			} else {
 				LEMP.Window.toast({
-						"_sMessage":"중복된 송장번호 입니다.",
-						'_sDuration' : 'short'
+					"_sMessage":"중복된 송장번호 입니다.",
+					'_sDuration' : 'short'
 				});	
 //				LEMP.Window.alert({
 //					"_sTitle" : "경고",

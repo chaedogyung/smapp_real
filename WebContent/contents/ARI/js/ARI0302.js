@@ -44,18 +44,26 @@ var page = {
 							$('#inv_noText').val(page.changeForm(String(res.data)));
 							page.scanListH(String(res.data));
 						}else {
-							LEMP.Window.alert({
-								"_sTitle" : "경고",
-								"_vMessage" : "정상적인 바코드번호가 아닙니다."
-							});
+							LEMP.Window.toast({
+								"_sMessage":"정상적인 바코드번호가 아닙니다.",
+								'_sDuration' : 'short'
+							});	
+//							LEMP.Window.alert({
+//								"_sTitle" : "경고",
+//								"_vMessage" : "정상적인 바코드번호가 아닙니다."
+//							});
 							smutil.callTTS("0", "0", null, page.isBackground);
 							return false;
 						}
 					}else {
-						LEMP.Window.alert({
-							"_sTitle" : "경고",
-							"_vMessage" : "바코드를 읽지 못했습니다."
-						});
+						LEMP.Window.toast({
+							"_sMessage":"바코드를 읽지 못했습니다.",
+							'_sDuration' : 'short'
+						});							
+//						LEMP.Window.alert({
+//							"_sTitle" : "경고",
+//							"_vMessage" : "바코드를 읽지 못했습니다."
+//						});
 						smutil.callTTS("0", "0", null, page.isBackground);
 						return false;
 					}
@@ -90,10 +98,14 @@ var page = {
 			$('#inv_noText').val(page.changeForm(data.barcode));
 			page.scanListH(data.barcode);
 		}else{
-			LEMP.Window.alert({
-				"_sTitle" : "경고",
-				"_vMessage" : "정상적인 바코드번호가 아닙니다."
-			});
+			LEMP.Window.toast({
+				"_sMessage":"정상적인 바코드번호가 아닙니다.",
+				'_sDuration' : 'short'
+			});						
+//			LEMP.Window.alert({
+//				"_sTitle" : "경고",
+//				"_vMessage" : "정상적인 바코드번호가 아닙니다."
+//			});
 		}
 		
 	},
