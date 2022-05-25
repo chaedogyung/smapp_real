@@ -143,7 +143,6 @@ var page = {
 				"_sKey" : "videoPlay_yn",
 				"_vValue" : "N"
 				});
-				
 				$('.btn.back.paL.ti').hide();
 				page.videoUrlApi(id);
 				$('.video').removeClass('dsn');
@@ -157,10 +156,11 @@ var page = {
 		//비디오 태그 URL설정              
 		videoUrlApi : function(id) {
 			$.ajax({
-	            url:"https://young-reef-76169.herokuapp.com/http://service.kosha.or.kr/api/deliveryworker/edcVidoRecomend?legaldongCode="+ id +"&crtfcky=YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5",
+				url:"https://cors-skyksit.herokuapp.com/http://service.kosha.or.kr/api/deliveryworker/edcVidoRecomend?legaldongCode="+ id +"&crtfcky=YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5",					            
+				//url:"https://young-reef-76169.herokuapp.com/http://service.kosha.or.kr/api/deliveryworker/edcVidoRecomend?legaldongCode="+ id +"&crtfcky=YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5",
 				//url:"http://service.kosha.or.kr/api/deliveryworker/edcVidoRecomend?legaldongCode="+ id +"&crtfcky=YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5",
 	            type:"GET",
-	            contentType: "application/json; charset=utf-8",
+				contentType: "application/json; charset=utf-8",
 	            success: function (xml) {
 					page.resultCode = $(xml).find('resultCode').text();
 					if($(xml).find('resultCode').text() == "00"){
