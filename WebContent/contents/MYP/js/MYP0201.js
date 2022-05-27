@@ -56,6 +56,16 @@ var page = {
 
 		//마일리지 신청버튼 클릭
 		$(document).on('click','#requestBtn', function(e){
+			var approval = LEMP.Properties.get({
+				"_sKey" : "approval_yn"
+			});
+		
+			if(approval != "Y"){
+				LEMP.Window.alert({
+					"_vMessage" : "대리점장만 신청 가능합니다.",
+				});
+				return false;
+			}
 			if(page.req_amount < 100000){
 				LEMP.Window.alert({
 					"_vMessage" : "100,000 이상부터 신청 가능합니다.",

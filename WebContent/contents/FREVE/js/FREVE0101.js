@@ -96,6 +96,12 @@ var page = {
 					if(target_obj.url === 'MYP/html/MYP0501.html'){
 						continue;
 					}
+					//마일리지교환신청 대리점장만
+					if(target_obj.url === 'MYP/html/MYP0201.html'){
+						if (LEMP.Properties.get({"_sKey": "approval_yn"}) !== "Y") {
+							continue;
+						}
+					}
 					target_obj.menuId=menu_id;
 					one_dept_list.push(target_obj);
 				}

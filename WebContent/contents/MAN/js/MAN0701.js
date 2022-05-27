@@ -121,7 +121,7 @@ var page = {
 			}else {
 				$('.video').hide();
 				LEMP.Window.toast({
-					"_sMessage":"리스트를 가져오지못했습니다. code:" + result.code,
+					"_sMessage":"법정동 지역을 가져오지 못했습니다. code:" + result.code,
 					'_sDuration' : 'short'
 				});
 			}
@@ -190,7 +190,7 @@ var page = {
 				},
 	            error : function(xml) {
 	            	LEMP.Window.alert({
-						"_vMessage": "리스트가져오기 실패. code"+ $(xml).find('resultCode').text(),
+						"_vMessage": "동영상을 가져오지 못했습니다. code"+ $(xml).find('resultCode').text(),
 						'_sDuration' : 'short'
 					});
 	            }
