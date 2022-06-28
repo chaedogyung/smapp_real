@@ -156,7 +156,7 @@ var page = {
 		//비디오 태그 URL설정              
 		videoUrlApi : function(id) {
 			$.ajax({
-				url:"https://cors-skyksit.herokuapp.com/http://service.kosha.or.kr/api/deliveryworker/edcVidoRecomend?legaldongCode="+ id +"&crtfcky=YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5",					            
+				url:"https://cors-lottegl-smapp-proxy.herokuapp.com/http://service.kosha.or.kr/api/deliveryworker/edcVidoRecomend?legaldongCode="+ id +"&crtfcky=YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5",					            
 				//url:"https://young-reef-76169.herokuapp.com/http://service.kosha.or.kr/api/deliveryworker/edcVidoRecomend?legaldongCode="+ id +"&crtfcky=YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5",
 				//url:"http://service.kosha.or.kr/api/deliveryworker/edcVidoRecomend?legaldongCode="+ id +"&crtfcky=YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5",
 	            type:"GET",
