@@ -352,6 +352,7 @@ var page = {
 		try{
 			if(smutil.apiResValidChk(data) && data.code === "0000" && data.data_count!=0){
 				page.detail = data.data.list[0];
+				$('#scanp').text(data.data.list[0].base_brsh_nm);
 				$('#counp_r').val(data.data.list[0].prtn_brsh_nm);
 				$('#carN_r').val(data.data.list[0].vhc_no);
 				//스캔리스트 조회 호출
@@ -632,6 +633,7 @@ var page = {
 				$('#scanDataN').text("스캔된 데이터 "+count+"건 데이터 전송이 완료 되었습니다 ");
 				$('#invScan_r').val("");
 				$('.boxList').empty();
+				$("#scanCount").html("0");
 			}
 		}catch(e){}
 		finally{
