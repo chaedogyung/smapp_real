@@ -186,11 +186,16 @@ var page = {
 	         	   }
 					else {
 							$('.video').addClass('dsn');
-							
-							LEMP.Window.alert({
-							"_vMessage": "동영상을 가져오지 못했습니다. code"+ $(xml).find('resultCode').text(),
-							'_sDuration' : 'short'
+
+							LEMP.Window.toast({
+								"_sMessage":"동영상을 가져오지 못했습니다.",
+								'_sDuration' : 'short'
 							});
+							
+//							LEMP.Window.alert({
+//							"_vMessage": "동영상을 가져오지 못했습니다. code"+ $(xml).find('resultCode').text(),
+//							'_sDuration' : 'short'
+//							});
 						}
 				}
 	        });
