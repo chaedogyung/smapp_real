@@ -338,8 +338,9 @@ var page = {
 	},
 	//연계일보 번호 callback
 	Input_yCallback: function(data){
-	
-		
+		if(page.scanCode==""){
+			page.getSmInfo();
+		}
 		$('#yunKil_r').val(data.yinfo);
 		
 		smutil.loadingOn();
@@ -352,7 +353,6 @@ var page = {
 		try{
 			if(smutil.apiResValidChk(data) && data.code === "0000" && data.data_count!=0){
 				page.detail = data.data.list[0];
-				$('#scanP').text(data.data.list[0].base_brsh_nm);
 				$('#counp_r').val(data.data.list[0].prtn_brsh_nm);
 				$('#carN_r').val(data.data.list[0].vhc_no);
 				//스캔리스트 조회 호출
