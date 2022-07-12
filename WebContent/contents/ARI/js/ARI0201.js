@@ -338,7 +338,7 @@ var page = {
 	},
 	//연계일보 번호 callback
 	Input_yCallback: function(data){
-		if(page.scanCode==""){
+		if(!page.scanCode){
 			page.getSmInfo();
 		}
 		$('#yunKil_r').val(data.yinfo);
