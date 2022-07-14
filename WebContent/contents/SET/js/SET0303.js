@@ -61,11 +61,18 @@ var page = {
 
             // push 음성
 	        var isSpeak = LEMP.Properties.get({"_sKey" : "push_speak_yn"});
-
 	        if(!smutil.isEmpty(isSpeak) && isSpeak == "Y") {
                 $("#ra7").prop('checked', true);
 	        } else {
 	            $("#ra7").prop('checked', false);
+	        }
+
+			 // 프린터 용지 설정
+	        var print_p_type =	LEMP.Properties.get({"_sKey" : "print_paper_type"});
+	        if(!smutil.isEmpty(print_p_type) && print_p_type == "Y") {
+                $("#ra9").prop('checked', true);
+	        } else {
+	            $("#ra9").prop('checked', false);
 	        }
 
 		});
@@ -93,6 +100,11 @@ var page = {
 //	            // push 음성
 	            LEMP.Properties.set({ "_sKey"   : "push_speak_yn"
 	                                , "_vValue" :  $("input[name='area_sct_cd4']:checked").val() });
+				
+				console.log("print_paper_type : " + $("input[name='area_sct_cd5']:checked").val() )
+				// 프린터 용지 설정
+	            LEMP.Properties.set({ "_sKey"   : "print_paper_type"
+	                                , "_vValue" :  $("input[name='area_sct_cd5']:checked").val() });
 				LEMP.Window.close();
 			}
 		});
@@ -158,6 +170,10 @@ var page = {
 		            // push 음성
 		            LEMP.Properties.set({ "_sKey"   : "push_speak_yn"
 		                                , "_vValue" :  $("input[name='area_sct_cd4']:checked").val() });
+
+					// 프린터 용지 설정
+	       		    LEMP.Properties.set({ "_sKey"   : "print_paper_type"
+	                                	, "_vValue" :  $("input[name='area_sct_cd5']:checked").val() });
 					LEMP.Window.close();
 				}
 				
