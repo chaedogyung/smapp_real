@@ -495,6 +495,7 @@ button:hover{cursor:pointer; outline:none;}
 .btn.blue4{background-color:#07649d; color:#fff;}
 .btn.blue5{background-color:#065281; color:#fff;}
 .btn.blue6{background-color:#0A476E; color:#fff;}
+.btn.darkyellow{background-color:#f2b826; color:#fff;}
 
 /* 라인 */
 .btn.bd{background-color:#fff; border:1px solid #757676; color:#535454;}
@@ -555,6 +556,8 @@ button:disabled{background-color:#b5b5b5; color:#dcdcdc;}
 .btn.bdClock{background-image:url("../../common/img/icon-clock.png");}
 .btn.bdSm{background-image:url("../../common/img/icon-man3.png");}
 .btn.bdScan{background-image:url("../../common/img/icon-sc.png");}
+
+.btn.refresh{color:#000; font-size:17px; font-weight:50; line-height:15px; height:20px; width:40px; background:url('../../common/img/icon-refresh3.png') no-repeat 90% 3px; background-size:15px 17px; padding-left:20px;}
 
 .btnLink {background:transparent; border:0;}
 

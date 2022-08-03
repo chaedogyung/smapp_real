@@ -272,6 +272,11 @@ var page = {
 		$('#scanSFi').click(function() {
 			$('.mpopBox.send.pop1').bPopup().close();
 		});
+		
+		//연계일보 새로고침
+		$('#btn_refresh').click(function(){
+			page.scanCnt();
+		})
 	},
 
 	getSmInfo : function() {

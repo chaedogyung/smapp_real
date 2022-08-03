@@ -21,6 +21,8 @@ var page = {
 	},
 	curDate:"",
 	gradeSlider: null,
+	strt_work_dtm:"",
+	end_work_dtm:"",
 	//공지사항 팝업시 backey 방지
 	init : function(json) {
 
@@ -82,6 +84,10 @@ var page = {
 //		page.weekTmPopup();
 		//재해예방 동영상 팝업
 		page.videoPopup();
+		//주각근무시간
+		page.weekWorkTme()
+		
+//		page.timeCheck();
 		/**
 		 * 출력 테스트용 코드
 		 * 나중에 꼭 삭제 해야함~~~~~~~~!!!!!!!!!!!!!!!!
@@ -97,7 +103,7 @@ var page = {
 		}*/
 		$('.bx-wrapper').css("margin","0 auto");
 	},
-
+	
 	// 햄버거 메뉴 생성
 	initCreateSideView : function(){
 		LEMP.SideView.create({
@@ -115,7 +121,6 @@ var page = {
 	// },
 
 	initInterface : function() {
-		
 		var tr = {
 				id : "INIT",
 			};
@@ -124,6 +129,58 @@ var page = {
 
 
 			// $('.grade').show();
+			
+			//출퇴근 버튼
+				var btnCancel = LEMP.Window.createElement({ _sElementName:"TextButton" });
+				btnCancel.setProperty({
+					_sText : "취소",
+					_fCallback : function(){
+						
+					}
+				});
+
+				var btnConfirm1 = LEMP.Window.createElement({ _sElementName:"TextButton" });
+				btnConfirm1.setProperty({
+					_sText : "확인",
+					_fCallback : function(){
+						var strt_work_Date = new Date();
+						page.strt_work_dtm = strt_work_Date;
+						strt_work_Date = strt_work_Date.LPToFormatDate("yyyy-mm-dd HH:nn");
+						$('#strt_work_dtm').html("출근<br>"+strt_work_Date)
+						page.mergeWorkDtm()}
+				});
+				
+				var btnConfirm2 = LEMP.Window.createElement({ _sElementName:"TextButton" });
+				btnConfirm2.setProperty({
+					_sText : "확인",
+					_fCallback : function(){
+						var end_work_Date = new Date();
+						page.end_work_dtm = end_work_Date;
+						end_work_Date = end_work_Date.LPToFormatDate("yyyy-mm-dd HH:nn");
+						$('#end_work_dtm').html("퇴근<br>"+end_work_Date)
+						page.mergeWorkDtm()} 
+				});
+	
+			// 출근버튼 
+			$('#strt_work_dtm').on('click', function() {
+				if(!page.strt_work_dtm){
+				LEMP.Window.confirm({
+					"_vMessage" : "업무를 시작 하시겠습니까??",
+					"_aTextButton" : [btnCancel, btnConfirm1]
+					});
+				}
+			});
+			
+			// 퇴근버튼
+			$('#end_work_dtm').on('click', function() {
+				if(!page.end_work_dtm && !(!page.strt_work_dtm)){
+				LEMP.Window.confirm({
+					"_vMessage" : "업무를 종료 하시겠습니까??",
+					"_aTextButton" : [btnCancel, btnConfirm2]
+					});
+					}
+			});
+///////////////////////////////////////////////////////////////////////			
 
 			// 알림 버튼 클릭
 			$('#alim').on('click', function() {
@@ -269,6 +326,20 @@ var page = {
 			});
 
 	},
+	timeCheck : function(){
+		page.apiParamInit();		// 파라메터 초기화
+		page.apiParam.param.baseUrl = "/smapis/use/tmChk";
+		page.apiParam.param.callback = "page.timeCheckCallback";
+		page.apiParam.data.parameters = {};
+		
+		smutil.callApi(page.apiParam);
+	},
+	timeCheckCallback : function(result){
+		if(smutil.apiResValidChk(result) && result.code === "0000"){
+			console.log("timeCheck : ",result)
+		}
+	},
+	
 	//공지사항 팝업
 	noticePopup : function() {
 		smutil.loadingOn();
@@ -706,7 +777,7 @@ var page = {
 //	},
 	//사원정보callback
 	smInfoCallback : function(res){
-
+//		console.log("smInfoCallback : ", res);
 		try{
 			if(smutil.apiResValidChk(res) && res.code ==="0000"){
 				var fir = res.cur_mon.substring(0,4);
@@ -724,7 +795,18 @@ var page = {
 				$('#tod_pick_rslt').text(res.tod_pick_rslt+"건");
 				$('#tod_dlv_rslt').text(res.tod_dlv_rslt+"건");
 				$('#tod_sum').text(Number(res.tod_pick_rslt)+Number(res.tod_dlv_rslt)+"건");
-						
+				if(!res.strt_work_dtm){
+				$('#strt_work_dtm').text("출근")}
+				else{		
+					page.strt_work_dtm = res.strt_work_dtm;
+					var dat = page.strt_work_dtm.LPToFormatDate("yyyy-mm-dd HH:nn");
+					$('#strt_work_dtm').html("출근<br>"+dat)} 
+				if(!res.end_work_dtm){
+				$('#end_work_dtm').text("퇴근")}
+				else{
+					page.end_work_dtm = res.end_work_dtm;
+					var dat = page.end_work_dtm.LPToFormatDate("yyyy-mm-dd HH:nn");
+					$('#end_work_dtm').html("퇴근<br>"+dat)} 
 				page.popup_view_sct = res.popup_view_sct;
 				LEMP.Properties.set({
 					"_sKey" : "approval_yn",
@@ -1007,6 +1089,8 @@ var page = {
 				"empNo" : data.emp_no, //사원번호
 				"bscYm" : data.bscYm, //조회월
 		};
+		
+		
 		smutil.callApi(page.apiParam);
 	}
 	
@@ -1094,7 +1178,7 @@ var page = {
 //            "_sKey" : "videoPlay_yn"
 //       });
         
-//        if((smutil.isEmpty(videoPlay) || videoPlay != "Y") && dayOfWeek === day){
+//        if((smutil.isEmpty(videoPlay) || videoPlay != "Y") && dayOfWeek === day)
 //        if((smutil.isEmpty(videoPlay) || videoPlay != "Y")){    
 //           var popUrl = smutil.getMenuProp('MAN.MAN0701', 'url');
 //            LEMP.Window.open({
@@ -1114,11 +1198,54 @@ var page = {
             });
         }  
 	 }
+	//출근 시간 퇴근시간 저장
+	,mergeWorkDtm : function(){
+		smutil.loadingOn();
+		page.apiParamInit();
+		page.apiParam.param.baseUrl = "/smapis/mergeWorkDtm";		// api no
+		page.apiParam.param.callback = "page.mergeWorkDtmCallback";
+
+		smutil.callApi(page.apiParam);
+	},
+	mergeWorkDtmCallback : function(result){
+		try{
+			if(smutil.apiResValidChk(result) && result.code === "0000"){
+			}else {
+
+			}
+		}catch(e){}
+		finally{
+			smutil.loadingOff();
+		}
+	},
+	//주간근무 시간
+	weekWorkTme : function(){
+		smutil.loadingOn();
+		page.apiParamInit();
+		page.apiParam.param.baseUrl = "/smapis/weekWorkTme";		// api no
+		page.apiParam.param.callback = "page.weekWorkTmeCallback";
+		smutil.callApi(page.apiParam);
+	},
+	weekWorkTmeCallback : function(result){
+		try{
+			if(smutil.apiResValidChk(result) && result.code === "0000"){
+			$('#weekWorkTme').text(result.sm_wkg_tme);
+			}else {
+
+			}
+		}catch(e){}
+		finally{
+			smutil.loadingOff();
+		}
+	},
+
 
 	// 페이지 resume 될때마다 실행되는 함수
-	, resumeInfo : function(){
+	 resumeInfo : function(){
 		//기사정보
 		page.smInfo();
+		//주간근무시간
+		page.weekWorkTme();
 		//긴급사용 신청여부 조회
 		page.getUseStatus();
 		// 메시지 대량발송 동의 조회

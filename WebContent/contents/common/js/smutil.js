@@ -749,11 +749,11 @@ var smutil = (function(window, document, $) {
 				case '2202':			// 마켓민트
 					className = "img min";
 					break;
-				case 'img coupang':		// 쿠팡 (코드 추가 해야함~!!!!)
+				case '4004':		// 쿠팡 
 					className = "img coupang";
 					break;
-				case 'img baro':		// 바로반품 (코드 추가 해야함~!!!!)
-					className = "img coupang";
+				case '4005':		// 바로반품 
+					className = "img baro";
 					break;
 				case '4003':			// 마켓컬리
 					className = "img kurly";
@@ -784,6 +784,9 @@ var smutil = (function(window, document, $) {
 					break;
 				case 'b2b05':			// B2C(개인->매장)
 					className = "img b2b2";
+					break;
+				case '2501':			// 유니클로
+					className = "img uniqlo";
 					break;
 
 				default:
