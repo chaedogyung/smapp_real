@@ -143,22 +143,16 @@ var page = {
 				btnConfirm1.setProperty({
 					_sText : "확인",
 					_fCallback : function(){
-						var strt_work_Date = new Date();
-						page.strt_work_dtm = strt_work_Date;
-						strt_work_Date = strt_work_Date.LPToFormatDate("yyyy-mm-dd HH:nn");
-						$('#strt_work_dtm').html("출근<br>"+strt_work_Date)
 						page.mergeWorkDtm()}
 				});
 				
 				var btnConfirm2 = LEMP.Window.createElement({ _sElementName:"TextButton" });
 				btnConfirm2.setProperty({
 					_sText : "확인",
-					_fCallback : function(){
-						var end_work_Date = new Date();
-						page.end_work_dtm = end_work_Date;
-						end_work_Date = end_work_Date.LPToFormatDate("yyyy-mm-dd HH:nn");
-						$('#end_work_dtm').html("퇴근<br>"+end_work_Date)
-						page.mergeWorkDtm()} 
+					_fCallback : function(){						
+						page.mergeWorkDtm()
+						//주간근무시간
+						page.weekWorkTme();} 
 				});
 	
 			// 출근버튼 
@@ -176,7 +170,7 @@ var page = {
 				if(!page.end_work_dtm && !(!page.strt_work_dtm)){
 				LEMP.Window.confirm({
 					"_vMessage" : "업무를 종료 하시겠습니까??",
-					"_aTextButton" : [btnCancel, btnConfirm2]
+				"_aTextButton" : [btnCancel, btnConfirm2]
 					});
 					}
 			});
@@ -1210,6 +1204,12 @@ var page = {
 	mergeWorkDtmCallback : function(result){
 		try{
 			if(smutil.apiResValidChk(result) && result.code === "0000"){
+				page.strt_work_Date = result.strt_work_dtm.LPToFormatDate("yyyy-mm-dd HH:nn");
+				$('#strt_work_dtm').html("출근<br>"+page.strt_work_Date)
+				if(end_work_dtm!=0){
+					page.end_work_Date = result.end_work_Date.LPToFormatDate("yyyy-mm-dd HH:nn");
+					$('#end_work_dtm').html("퇴근<br>"+page.end_work_Date)
+				}
 			}else {
 
 			}
