@@ -129,13 +129,13 @@ var page = {
 
 
 			// $('.grade').show();
-			
 			//출퇴근 버튼
 				var btnCancel = LEMP.Window.createElement({ _sElementName:"TextButton" });
 				btnCancel.setProperty({
 					_sText : "취소",
-					_fCallback : function(){
-						
+					_fCallback : function(){			
+						$('#strt_work_dtm').attr('disabled', false);	
+						$('#end_work_dtm').attr('disabled', false);
 					}
 				});
 
@@ -143,36 +143,44 @@ var page = {
 				btnConfirm1.setProperty({
 					_sText : "확인",
 					_fCallback : function(){
+						$('#strt_work_dtm').attr('disabled', false);	
+						$('#end_work_dtm').attr('disabled', false);
 						page.mergeWorkDtm()}
 				});
 				
 				var btnConfirm2 = LEMP.Window.createElement({ _sElementName:"TextButton" });
 				btnConfirm2.setProperty({
 					_sText : "확인",
-					_fCallback : function(){						
+					_fCallback : function(){
+						$('#strt_work_dtm').attr('disabled', false);	
+						$('#end_work_dtm').attr('disabled', false);						
 						page.mergeWorkDtm()
 						//주간근무시간
 						page.weekWorkTme();} 
 				});
+
+
 	
 			// 출근버튼 
 			$('#strt_work_dtm').on('click', function() {
 				if(!page.strt_work_dtm){
-				LEMP.Window.confirm({
-					"_vMessage" : "업무를 시작 하시겠습니까??",
-					"_aTextButton" : [btnCancel, btnConfirm1]
-					});
+				$('#strt_work_dtm').attr('disabled', true);
+					LEMP.Window.confirm({
+						"_vMessage" : "업무를 시작 하시겠습니까??",
+						"_aTextButton" : [btnCancel, btnConfirm1]
+					});		
 				}
 			});
 			
 			// 퇴근버튼
-			$('#end_work_dtm').on('click', function() {
-				if(!page.end_work_dtm && !(!page.strt_work_dtm)){
+			$('#end_work_dtm').on('click', function() {		
+				if(!page.end_work_dtm && !(!page.strt_work_dtm)){		
+				$('#end_work_dtm').attr('disabled', true);
 				LEMP.Window.confirm({
 					"_vMessage" : "업무를 종료 하시겠습니까??",
-				"_aTextButton" : [btnCancel, btnConfirm2]
+			    	"_aTextButton" : [btnCancel, btnConfirm2]
 					});
-					}
+				}
 			});
 ///////////////////////////////////////////////////////////////////////			
 
