@@ -779,7 +779,7 @@ var page = {
 //	},
 	//사원정보callback
 	smInfoCallback : function(res){
-//		console.log("smInfoCallback : ", res);
+		console.log("smInfoCallback : ", res);
 		try{
 			if(smutil.apiResValidChk(res) && res.code ==="0000"){
 				var fir = res.cur_mon.substring(0,4);
@@ -1212,11 +1212,11 @@ var page = {
 	mergeWorkDtmCallback : function(result){
 		try{
 			if(smutil.apiResValidChk(result) && result.code === "0000"){
-				page.strt_work_Date = result.strt_work_dtm.LPToFormatDate("yyyy-mm-dd HH:nn");
-				$('#strt_work_dtm').html("출근<br>"+page.strt_work_Date)
+				page.strt_work_dtm = result.strt_work_dtm.LPToFormatDate("yyyy-mm-dd HH:nn");
+				$('#strt_work_dtm').html("출근<br>"+page.strt_work_dtm)
 				if(end_work_dtm!=0){
-					page.end_work_Date = result.end_work_Date.LPToFormatDate("yyyy-mm-dd HH:nn");
-					$('#end_work_dtm').html("퇴근<br>"+page.end_work_Date)
+					page.end_work_dtm = result.end_work_dtm.LPToFormatDate("yyyy-mm-dd HH:nn");
+					$('#end_work_dtm').html("퇴근<br>"+page.end_work_dtm)
 				}
 			}else {
 
