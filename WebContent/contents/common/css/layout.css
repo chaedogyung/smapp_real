@@ -557,7 +557,7 @@ button:disabled{background-color:#b5b5b5; color:#dcdcdc;}
 .btn.bdSm{background-image:url("../../common/img/icon-man3.png");}
 .btn.bdScan{background-image:url("../../common/img/icon-sc.png");}
 
-.btn.refresh{color:#000; font-size:17px; font-weight:50; line-height:15px; height:20px; width:40px; background:url('../../common/img/icon-refresh3.png') no-repeat 90% 3px; background-size:15px 17px; padding-left:20px;}
+.btn.refresh{color:#000; font-size:17px; font-weight:50; line-height:15px; height:20px; width:40px; background:url('../../common/img/icon-refresh3.png') no-repeat 85% 3px; background-size:12px 15px; padding-left:20px;}
 
 .btnLink {background:transparent; border:0;}
 
