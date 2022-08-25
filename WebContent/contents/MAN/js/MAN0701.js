@@ -163,6 +163,7 @@ var page = {
 				contentType: "application/json; charset=utf-8",
 	            success: function (xml) {
 					page.resultCode = $(xml).find('resultCode').text();
+					console.log(page.resultCode);
 					if($(xml).find('resultCode').text() == "00"){
 				
 		                $('.video').removeClass('dsn');
@@ -197,7 +198,10 @@ var page = {
 //							'_sDuration' : 'short'
 //							});
 						}
-				}
+				},
+				 error:function(){
+					$('.video').addClass('dsn');
+					page.resultCode ="11"    } 
 	        });
 			
 		},				

@@ -209,6 +209,7 @@ var page = {
 			var scan_tme = page.scanStatus.tme;
 			var rea_cd_img;
 			var fileArray = new Array();
+			var req_dlv_sct = $("input[name=req_dlv_sct]:checked").val();
 
 			if (inv_no.length !== 12 
 					|| ( inv_no.substr(0,11)+((Number(inv_no.substr(0,11))%7)+"") ) !== inv_no) {
@@ -228,6 +229,7 @@ var page = {
 					"scan_ymd" : scan_ymd,
 					"scan_tme" : scan_tme,
 					"rea_cd" : rea_cd,
+					"pcad_cfdc_prcs_sct_cdt" :req_dlv_sct,
 					"phto_sct_img" : "2"
 				}
 			}
