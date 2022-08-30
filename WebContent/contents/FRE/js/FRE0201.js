@@ -229,7 +229,7 @@ var page = {
 					"scan_ymd" : scan_ymd,
 					"scan_tme" : scan_tme,
 					"rea_cd" : rea_cd,
-					"pcad_cfdc_prcs_sct_cdt" :req_dlv_sct,
+					"pcad_cfdc_prcs_sct_cd" :req_dlv_sct,
 					"phto_sct_img" : "2"
 				}
 			}
