@@ -779,7 +779,7 @@ var page = {
 //	},
 	//사원정보callback
 	smInfoCallback : function(res){
-		console.log("smInfoCallback : ", res);
+		//console.log("smInfoCallback : ", res);
 		try{
 			if(smutil.apiResValidChk(res) && res.code ==="0000"){
 				var fir = res.cur_mon.substring(0,4);
