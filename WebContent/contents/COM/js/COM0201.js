@@ -118,6 +118,7 @@ var page = {
 
 	// 순서 기준 조회 콜백
 	,MapListCallback:function(res){
+		var arr = res.data.list;
 		try {
 			if (res.data_count !== 0 && smutil.apiResValidChk(res) && res.code==="0000") {
 				$(".NoBox").css("display","none");
@@ -152,7 +153,7 @@ var page = {
 		$("#mapCon").empty();
 		// 맵그리기
 		var arr = list.data.list;
-
+		
 		var mapContainer = document.getElementById('mapCon'); // 지도를 표시할 div
 		var mapOption = {
 			center: new kakao.maps.LatLng(arr[arr.length-1].lttd,arr[arr.length-1].lgtd), // 지도의 중심좌표, 정상좌표값이 들어있기만 하면 됩니다.
@@ -182,7 +183,7 @@ var page = {
 			arr[i].latlng = new kakao.maps.LatLng(arr[i].lttd,arr[i].lgtd);
 
 			if (arr[i].hasOwnProperty("cnt")) {
-				var str=arr[i].cnt;
+				var str=3/5;
 			}else {
 				var str=i+1;
 			}
