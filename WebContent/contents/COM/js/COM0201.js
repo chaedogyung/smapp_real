@@ -183,7 +183,7 @@ var page = {
 			arr[i].latlng = new kakao.maps.LatLng(arr[i].lttd,arr[i].lgtd);
 
 			if (arr[i].hasOwnProperty("cnt")) {
-				var str=3/5;
+				var str="333/555";
 			}else {
 				var str=i+1;
 			}
