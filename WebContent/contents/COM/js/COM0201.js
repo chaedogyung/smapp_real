@@ -183,8 +183,7 @@ var page = {
 			arr[i].latlng = new kakao.maps.LatLng(arr[i].lttd,arr[i].lgtd);
 
 			if (arr[i].hasOwnProperty("cnt")) {
-				var str="33/55";
-				var str1="333/555";
+				var str=arr[i].cnt;
 			}else {
 				var str=i+1;
 			}
@@ -194,10 +193,10 @@ var page = {
 			if (arr[i].cldl_sct_cd==="D") {
 				// 미전송
 				if (arr[i].cmpt_yn !=="Y") {
-					var name = '<div class ="label red"><span style="font-weight: 700; font-size: 8px;">'+str+'</span></div>';
+					var name = '<div class ="label red"><span>'+str+'</span></div>';
 				// 전송
 				}else {
-					var name = '<div class ="label pink"><span style="font-weight: 700; font-size: 6px;">'+str1+'</span></div>';
+					var name = '<div class ="label pink"><span>'+str+'</span></div>';
 				}
 			// 집하
 			}else{
