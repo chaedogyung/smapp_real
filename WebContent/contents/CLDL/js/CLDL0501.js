@@ -1,3 +1,4 @@
+LEMP.addEvent("backbutton", "page.callbackBackButton");		// 뒤로가기 버튼 클릭시 이벤트
 var page = {
 	isPop : false, //심야 팝업여부
 	page_no :"1",						// 조회 요청한 페이지 번호
@@ -709,8 +710,20 @@ var page = {
 
 			return false;
 		}
-
-
-
+	
 	},
+	// 물리적 뒤로가기 버튼 클릭시
+	callbackBackButton : function(){
+		if(page.isPop){
+			if($('.mpopBox.pop').is(':visible')){
+				$('.mpopBox.pop').bPopup().close();
+				return;
+			}else{
+				$('.mpopBox.pop').bPopup();
+				return;
+			}
+		}else{
+			LEMP.Window.close();
+		}
+	}
 };
