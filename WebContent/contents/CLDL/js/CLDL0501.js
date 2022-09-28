@@ -196,6 +196,21 @@ var page = {
 			});
 			
 		});
+		
+		// 종료팝업 > 긴급사용 신청 버튼 클릭
+		$('#notDeliveryYesBtn').click(function(){
+			const popUrl = smutil.getMenuProp("COM.COM1201","url");
+			LEMP.Window.replace({
+				"_sPagePath":popUrl				
+			});
+		});
+
+		// 종료팝업 > 종료 버튼 클릭
+		$('#notDeliveryNoBtn').click(function(){
+			LEMP.App.exit({
+				_sType : "kill"
+			});
+		});
 
 
 		// ###################################### handlebars helper 등록 start
