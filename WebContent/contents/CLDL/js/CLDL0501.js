@@ -1,11 +1,19 @@
 var page = {
-
+	isPop : false, //심야 팝업여부
 	page_no :"1",						// 조회 요청한 페이지 번호
 	item_cnt : "400",					// 현황에서 보여질 row 수
 	page_navigation_cnt : 5,			// 페이징을 표시할 네비게이션 수
 
 
-	init : function() {
+	init : function(args) {	
+		//팝업에서 들어왔을경우
+		if(!smutil.isEmpty(args.data.param)){
+			if(args.data.param.typ_cd === "pop"){
+				//상단버튼 숨김처리
+				$('.back').remove();
+				page.isPop = true;
+			}
+		}
 		page.initEvent(); // 페이지 이벤트 등록
 		page.initDpEvent(); // 화면 디스플레이 이벤트
 	},
