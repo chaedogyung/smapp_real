@@ -433,9 +433,9 @@ var page = {
 								"_vMessage" : "무게 값을 입력해주세요",
 							});
 							return false;
-						} else if (Number($('#weightInput').val()) <= 25) {
+						} else if (Number($('#weightInput').val()) <= 20) {
 							LEMP.Window.alert({
-								"_vMessage" : "무게가 25kg 이하입니다",
+								"_vMessage" : "무게가 20kg 이하입니다",
 							});
 							return false;
 						} else {
