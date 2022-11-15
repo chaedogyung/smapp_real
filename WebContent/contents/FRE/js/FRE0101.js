@@ -418,7 +418,7 @@ var page = {
 					// 비규격사유코드 (비규격에서만 필요)
 					var rea_cd = $(
 						"#FRE0101_code2_template2 option:selected").val();
-					// 비규격사유 25kg초과 일경우(무게초과)
+					// 비규격사유 20kg초과 일경우(무게초과)
 					if (rea_cd == "03") {
 						if (smutil.isEmpty(page.pictures3.inv_no)
 							|| smutil.isEmpty(page.pictures3.total)
@@ -1000,7 +1000,7 @@ var page = {
 				case "결박화물":
 					rea_cd_img = "32";
 					break;
-				case "25Kg초과":
+				case "20Kg초과":
 					rea_cd_img = "33";
 					break;
 				case "무게 초과":
