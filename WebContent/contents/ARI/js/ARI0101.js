@@ -32,7 +32,6 @@ var page = {
 		page.apiParam.data.parameters={};
 	},
 	init : function() {
-		
 		page.getSmInfo();
 		page.scanCnt();
 		page.initInterface();
