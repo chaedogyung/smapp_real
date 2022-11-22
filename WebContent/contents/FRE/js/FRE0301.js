@@ -191,7 +191,7 @@ var page = {
 		
 		 $(function(){
 			page.dlvyCompl = LEMP.Properties.get({ "_sKey" : "autoMenual"});
-			if(page.dlvyCompl.area_sct_cd6 == "Y"){
+			if(!smutil.isEmpty(page.dlvyCompl.area_sct_cd6) &&page.dlvyCompl.area_sct_cd6 == "Y"){
 				$("#auto_camera").prop('checked', true)
 				LEMP.Window.openCodeReader({
 					"_fCallback" : function(res) {
