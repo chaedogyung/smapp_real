@@ -27,6 +27,7 @@ var page = {
 		
 		$(function(){
 			getParam = LEMP.Properties.get({ "_sKey" : "autoMenual"});
+			console.log("autoMenual", getParam)
 			if(getParam){
 				if(!_.isUndefined(getParam.area_sct_cd)){
 					$('input[name="area_sct_cd"]').each(function() {
@@ -51,6 +52,16 @@ var page = {
 				if(!_.isUndefined(getParam.area_sct_cd3)){
 					$('input[name="area_sct_cd3"]').each(function() {
 						if($(this).val() == getParam.area_sct_cd3){
+							$(this).prop('checked', true);
+						}else{
+							$(this).prop('checked', false);
+						}
+					});
+				}
+				
+				if(!_.isUndefined(getParam.area_sct_cd6)){
+					$('input[name="area_sct_cd6"]').each(function() {
+						if($(this).val() == getParam.area_sct_cd6){
 							$(this).prop('checked', true);
 						}else{
 							$(this).prop('checked', false);
@@ -90,7 +101,8 @@ var page = {
 				setParameter = {
 					area_sct_cd : $("input[name='area_sct_cd']:checked").val(),
 					area_sct_cd2 : $("input[name='area_sct_cd2']:checked").val(),
-					area_sct_cd3 : $("input[name='area_sct_cd3']:checked").val()
+					area_sct_cd3 : $("input[name='area_sct_cd3']:checked").val(),
+					area_sct_cd6 : $("input[name='area_sct_cd6']:checked").val()		
 				};
 	
 				LEMP.Properties.set({ "_sKey" : "autoMenual", "_vValue" : setParameter });
@@ -101,7 +113,6 @@ var page = {
 	            LEMP.Properties.set({ "_sKey"   : "push_speak_yn"
 	                                , "_vValue" :  $("input[name='area_sct_cd4']:checked").val() });
 				
-				console.log("print_paper_type : " + $("input[name='area_sct_cd5']:checked").val() )
 				// 프린터 용지 설정
 	            LEMP.Properties.set({ "_sKey"   : "print_paper_type"
 	                                , "_vValue" :  $("input[name='area_sct_cd5']:checked").val() });
@@ -160,7 +171,8 @@ var page = {
 					setParameter = {
 						area_sct_cd : $("input[name='area_sct_cd']:checked").val(),
 						area_sct_cd2 : $("input[name='area_sct_cd2']:checked").val(),
-						area_sct_cd3 : $("input[name='area_sct_cd3']:checked").val()
+						area_sct_cd3 : $("input[name='area_sct_cd3']:checked").val(),
+						area_sct_cd6 : $("input[name='area_sct_cd6']:checked").val()
 					};
 		
 					LEMP.Properties.set({ "_sKey" : "autoMenual", "_vValue" : setParameter });

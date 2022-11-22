@@ -4,6 +4,7 @@ var page = {
 	pInfo :{},
 	isPassed : false,		//기준날짜가 90일 이전인지 확인(false 개인정보 표시, true 표시하지 않음)
 	cnt : 0,
+	dlvyCompl: null,
 	apiParam : {
 		id : "HTTP", // 디바이스 콜 id
 		param : { // 디바이스가 알아야할 데이터
@@ -36,7 +37,7 @@ var page = {
 				page.isPop = true;
 			}
 		}
-		if (!smutil.isEmpty(args.data.param.inv_no)) {
+		if (!smutil.isEmpty(args.data.param)) {
 			$("#inv_noNumber").data("menuId",args.data.param.menuId);
 			page.changeForm(args.data.param.inv_no+"");
 			page.trclInfo(args.data.param.inv_no);
@@ -171,7 +172,54 @@ var page = {
 				_sType : "kill"
 			});
 		});
+		
+		//카메라 자동 작동 on/off
+		$("#auto_camera").change(function () {
+            var autocameraYn = $("#auto_camera").is(":checked")?"Y":"N";
+			
+			var setParameter = {};
+				setParameter = {
+					area_sct_cd : page.dlvyCompl.area_sct_cd,
+					area_sct_cd2 : page.dlvyCompl.area_sct_cd2,
+					area_sct_cd3 : page.dlvyCompl.area_sct_cd3,
+					area_sct_cd6 : autocameraYn		
+				};
+				
+			LEMP.Properties.set({ "_sKey" : "autoMenual", "_vValue" : setParameter });
+           
+        });
+		
+		 $(function(){
+			page.dlvyCompl = LEMP.Properties.get({ "_sKey" : "autoMenual"});
+			if(page.dlvyCompl.area_sct_cd6 == "Y"){
+				$("#auto_camera").prop('checked', true)
+				LEMP.Window.openCodeReader({
+					"_fCallback" : function(res) {
+						if(res.result){
+							if(String(res.data).length == 12 && (Number(String((res.data)).substr(0,11))%7 ==
+										Number(String((res.data)).substr(0,11))%7)){
+								page.changeForm(res.data);
+								page.trclInfo(res.data);
+							}else{
+								LEMP.Window.alert({
+									"_sTitle" : "경고",
+									"_vMessage" : "정상적인 바코드번호가 아닙니다."
+								});
+							}
+						}else{
+							LEMP.Window.alert({
+								"_sTitle" : "경고",
+								"_vMessage" : "바코드를 읽지 못했습니다."
+							});
+						}
+					}
+				});
+			}else{
+				$("#auto_camera").prop('checked', false)
+			}			
+		});		
 	},
+	
 	//송장번호 입력후 전송
 	trclInfo : function(code) {
 		smutil.loadingOn();
