@@ -386,6 +386,18 @@ var page = {
 					"_sPagePath" : popUrl,
 				});
 			});
+			
+			// 송장 종류
+			$(function() {
+			page.print_p_type =	LEMP.Properties.get({"_sKey" : "print_paper_type"});
+			if(!smutil.isEmpty(page.print_p_type) && page.print_p_type == "Y") {
+				$("#setDlvyCom1").text('신송장');
+				$("#setDlvyCom1").attr('class', 'blue badge option outline');
+			} else {
+				$("#setDlvyCom1").text('구송장');
+	            $("#setDlvyCom1").attr('class', 'gray2 badge option outline');
+					}			
+			});
 
 			// ###################################### handlebars helper 등록 start
 
