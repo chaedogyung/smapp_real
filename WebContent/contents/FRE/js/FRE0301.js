@@ -191,33 +191,15 @@ var page = {
 		
 		 $(function(){
 			page.dlvyCompl = LEMP.Properties.get({ "_sKey" : "autoMenual"});
-			if(!smutil.isEmpty(page.dlvyCompl.area_sct_cd6) &&page.dlvyCompl.area_sct_cd6 == "Y"){
-				$("#auto_camera").prop('checked', true)
-				LEMP.Window.openCodeReader({
-					"_fCallback" : function(res) {
-						if(res.result){
-							if(String(res.data).length == 12 && (Number(String((res.data)).substr(0,11))%7 ==
-										Number(String((res.data)).substr(0,11))%7)){
-								page.changeForm(res.data);
-								page.trclInfo(res.data);
-							}else{
-								LEMP.Window.alert({
-									"_sTitle" : "경고",
-									"_vMessage" : "정상적인 바코드번호가 아닙니다."
-								});
-							}
-						}else{
-							LEMP.Window.alert({
-								"_sTitle" : "경고",
-								"_vMessage" : "바코드를 읽지 못했습니다."
-							});
-						}
-					}
-				});
-			}else{
-				$("#auto_camera").prop('checked', false)
-			}			
-		});		
+			console.log("Fdsafdsa :", page.dlvyCompl)
+			if(!smutil.isEmpty(page.dlvyCompl.area_sct_cd6) &&page.dlvyCompl.area_sct_cd6 == "N"){
+				$("#setDlvyCom1").text('수동');
+				$("#setDlvyCom1").attr('class', 'gray2 badge option outline paR');
+			}else {
+				$("#setDlvyCom1").text('자동');
+        	    $("#setDlvyCom1").attr('class', 'blue badge option outline paR');
+				}			
+		});
 	},
 	
 	//송장번호 입력후 전송
