@@ -156,8 +156,8 @@ var page = {
 		//비디오 태그 URL설정              
 		videoUrlApi : function(id) {
 			$.ajax({
-				//url:"https://cors-lottegl-smapp-proxy.herokuapp.com/http://service.kosha.or.kr/api/deliveryworker/edcVidoRecomend?legaldongCode="+ id +"&crtfcky=YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5",					            
-				url:"https://young-reef-76169.herokuapp.com/http://service.kosha.or.kr/api/deliveryworker/edcVidoRecomend?legaldongCode="+ id +"&crtfcky=YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5",
+				url:"https://cors-lottegl-smapp-proxy.herokuapp.com/http://service.kosha.or.kr/api/deliveryworker/edcVidoRecomend?legaldongCode="+ id +"&crtfcky=YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5",					            
+				//url:"https://young-reef-76169.herokuapp.com/http://service.kosha.or.kr/api/deliveryworker/edcVidoRecomend?legaldongCode="+ id +"&crtfcky=YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5",
 				//url:"http://service.kosha.or.kr/api/deliveryworker/edcVidoRecomend?legaldongCode="+ id +"&crtfcky=YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5",
 	            type:"GET",
 				contentType: "application/json; charset=utf-8",
@@ -200,6 +200,10 @@ var page = {
 						}
 				},
 				 error:function(){
+					LEMP.Window.toast({
+								"_sMessage":"동영상을 가져오지 못했습니다.",
+								'_sDuration' : 'short'
+							});
 					$('.video').addClass('dsn');
 					page.resultCode ="11"    } 
 	        });
