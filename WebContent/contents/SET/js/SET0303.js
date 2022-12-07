@@ -58,7 +58,7 @@ var page = {
 						}
 					});
 				}
-				
+
 				if(!_.isUndefined(getParam.area_sct_cd6)){
 					$('input[name="area_sct_cd6"]').each(function() {
 						if($(this).val() == getParam.area_sct_cd6){
@@ -78,13 +78,21 @@ var page = {
 	            $("#ra7").prop('checked', false);
 	        }
 
-			 // 프린터 용지 설정
+			 // 프린터 용지(회수) 설정
 	        var print_p_type =	LEMP.Properties.get({"_sKey" : "print_paper_type"});
 	        if(!smutil.isEmpty(print_p_type) && print_p_type == "Y") {
                 $("#ra9").prop('checked', true);
 	        } else {
 	            $("#ra9").prop('checked', false);
 	        }
+
+			 // 프린터 용지(출고) 설정
+	       /* var print_p_type2 =	LEMP.Properties.get({"_sKey" : "print_paper_type2"});
+	        if(!smutil.isEmpty(print_p_type2) && print_p_type2 == "Y") {
+                $("#ra13").prop('checked', true);
+	        } else {
+	            $("#ra13").prop('checked', false);
+	        }*/
 
 		});
 
@@ -109,13 +117,17 @@ var page = {
 				//메인 팝업 체크
 				LEMP.Properties.set({ "_sKey" : "setPopCheck", "_vValue" : "Y"});
 	
-//	            // push 음성
+	            // push 음성
 	            LEMP.Properties.set({ "_sKey"   : "push_speak_yn"
 	                                , "_vValue" :  $("input[name='area_sct_cd4']:checked").val() });
 				
-				// 프린터 용지 설정
+				// 프린터 용지(회수) 설정
 	            LEMP.Properties.set({ "_sKey"   : "print_paper_type"
 	                                , "_vValue" :  $("input[name='area_sct_cd5']:checked").val() });
+				// 프린터 용지(출고) 설정
+	            /*LEMP.Properties.set({ "_sKey"   : "print_paper_type2"
+	                                , "_vValue" :  $("input[name='area_sct_cd7']:checked").val() });*/
+				
 				LEMP.Window.close();
 			}
 		});
@@ -183,9 +195,13 @@ var page = {
 		            LEMP.Properties.set({ "_sKey"   : "push_speak_yn"
 		                                , "_vValue" :  $("input[name='area_sct_cd4']:checked").val() });
 
-					// 프린터 용지 설정
+					// 프린터 용지(회수) 설정
 	       		    LEMP.Properties.set({ "_sKey"   : "print_paper_type"
 	                                	, "_vValue" :  $("input[name='area_sct_cd5']:checked").val() });
+					// 프린터 용지(출고) 설정
+	       		   /* LEMP.Properties.set({ "_sKey"   : "print_paper_type2"
+	                                	, "_vValue" :  $("input[name='area_sct_cd7']:checked").val() });*/
+					
 					LEMP.Window.close();
 				}
 				
