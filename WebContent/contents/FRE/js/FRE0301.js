@@ -5,6 +5,7 @@ var page = {
 	isPassed : false,		//기준날짜가 90일 이전인지 확인(false 개인정보 표시, true 표시하지 않음)
 	cnt : 0,
 	dlvyCompl: null,
+	obj : null,
 	apiParam : {
 		id : "HTTP", // 디바이스 콜 id
 		param : { // 디바이스가 알아야할 데이터
@@ -29,6 +30,8 @@ var page = {
 	init : function(args) {
 		page.initInterface();
 		page.emp();
+		page.obj=args.data
+		
 		//팝업에서 들어왔을경우
 		if(!smutil.isEmpty(args.data.param)){
 			if(args.data.param.typ_cd === "pop"){
@@ -173,53 +176,40 @@ var page = {
 			});
 		});
 		
-		//카메라 자동 작동 on/off
-		$("#auto_camera").change(function () {
-            var autocameraYn = $("#auto_camera").is(":checked")?"Y":"N";
-			
-			var setParameter = {};
-				setParameter = {
-					area_sct_cd : page.dlvyCompl.area_sct_cd,
-					area_sct_cd2 : page.dlvyCompl.area_sct_cd2,
-					area_sct_cd3 : page.dlvyCompl.area_sct_cd3,
-					area_sct_cd6 : autocameraYn		
-				};
-				
-			LEMP.Properties.set({ "_sKey" : "autoMenual", "_vValue" : setParameter });
-           
-        });
 		 $(function(){
 			page.dlvyCompl = LEMP.Properties.get({ "_sKey" : "autoMenual"});
 			
-			if(!smutil.isEmpty(page.dlvyCompl.area_sct_cd6) &&page.dlvyCompl.area_sct_cd6 == "N"){
-				$("#setDlvyCom1").text('수동');
-				$("#setDlvyCom1").attr('class', 'gray2 badge option outline paR');
-			}else {		
-				$("#setDlvyCom1").text('자동');
-				$("#setDlvyCom1").attr('class', 'blue badge option outline paR');
-			
-				LEMP.Window.openCodeReader({
-					"_fCallback" : function(res) {
-						if(res.result){
-							if(String(res.data).length == 12 && (Number(String((res.data)).substr(0,11))%7 ==
-										Number(String((res.data)).substr(0,11))%7)){
-								page.changeForm(res.data);
-								page.trclInfo(res.data);
+			if(smutil.isEmpty(page.obj)){
+				if(!smutil.isEmpty(page.dlvyCompl.area_sct_cd6) &&page.dlvyCompl.area_sct_cd6 == "N"){
+					$("#setDlvyCom1").text('수동');
+					$("#setDlvyCom1").attr('class', 'gray2 badge option outline paR');
+				}else {		
+					$("#setDlvyCom1").text('자동');
+					$("#setDlvyCom1").attr('class', 'blue badge option outline paR');
+				
+					LEMP.Window.openCodeReader({
+						"_fCallback" : function(res) {
+							if(res.result){
+								if(String(res.data).length == 12 && (Number(String((res.data)).substr(0,11))%7 ==
+											Number(String((res.data)).substr(0,11))%7)){
+									page.changeForm(res.data);
+									page.trclInfo(res.data);
+								}else{
+									LEMP.Window.alert({
+										"_sTitle" : "경고",
+										"_vMessage" : "정상적인 바코드번호가 아닙니다."
+									});
+								}
 							}else{
 								LEMP.Window.alert({
 									"_sTitle" : "경고",
-									"_vMessage" : "정상적인 바코드번호가 아닙니다."
+									"_vMessage" : "바코드를 읽지 못했습니다."
 								});
 							}
-						}else{
-							LEMP.Window.alert({
-								"_sTitle" : "경고",
-								"_vMessage" : "바코드를 읽지 못했습니다."
-							});
 						}
-					}
-				});
-			}			
+					});
+				}
+			}				
 		});
 	},
 	
