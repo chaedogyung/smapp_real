@@ -188,10 +188,10 @@ var page = {
 			LEMP.Properties.set({ "_sKey" : "autoMenual", "_vValue" : setParameter });
            
         });
-		
 		 $(function(){
 			page.dlvyCompl = LEMP.Properties.get({ "_sKey" : "autoMenual"});
-			if(smutil.isEmpty(page.dlvyCompl.area_sct_cd6) &&page.dlvyCompl.area_sct_cd6 == "N"){
+			
+			if(!smutil.isEmpty(page.dlvyCompl.area_sct_cd6) &&page.dlvyCompl.area_sct_cd6 == "N"){
 				$("#setDlvyCom1").text('수동');
 				$("#setDlvyCom1").attr('class', 'gray2 badge option outline paR');
 			}else {		

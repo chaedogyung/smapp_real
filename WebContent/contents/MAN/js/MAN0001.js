@@ -276,7 +276,8 @@ var page = {
 						 "_vValue" : {
 							 area_sct_cd : "N",
 							 area_sct_cd2 : "M",
-							 area_sct_cd3 : "N"
+							 area_sct_cd3 : "N",
+						 	 area_sct_cd6 : "N"
 						 } 
 					});
 					
