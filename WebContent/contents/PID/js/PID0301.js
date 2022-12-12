@@ -1,5 +1,8 @@
 var page = {
 		
+		print_p_type : null,
+		print_p_type2 : null,
+		
 		// api 호출 기본 형식
 		apiParam : {
 			id:"HTTP",						// 디바이스 콜 id
