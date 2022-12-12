@@ -291,6 +291,18 @@ var page = {
                         "_vValue" : "N"
 					});
 					
+					// 프린터 용지설정
+					LEMP.Properties.set({
+						"_sKey"   : "print_p_type",
+                        "_vValue" : "N"
+					});
+					
+					// 프린터 용지설정
+//					LEMP.Properties.set({
+//						"_sKey"   : "print_p_type2",
+//                       "_vValue" : "N"
+//					});
+					
 //					var popUrl = smutil.getMenuProp('SET.SET0303', 'url');
 //					LEMP.Window.open({
 //						"_sPagePath" : popUrl,
