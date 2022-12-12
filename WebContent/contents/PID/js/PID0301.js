@@ -106,6 +106,28 @@ var page = {
 				});
 			});
 			
+			// 용지 종류
+			$(function() {
+			//회수용지
+			page.print_p_type =	LEMP.Properties.get({"_sKey" : "print_paper_type"});
+			if(!smutil.isEmpty(page.print_p_type) && page.print_p_type == "Y") {
+				$("#setDlvyCom1").text('신회수(E형)');
+				$("#setDlvyCom1").attr('class', 'blue badge option outline');
+			} else {
+				$("#setDlvyCom1").text('구회수(4P)');
+	            $("#setDlvyCom1").attr('class', 'gray2 badge option outline');
+					}
+			//출고용지
+			/*page.print_p_type2 =	LEMP.Properties.get({"_sKey" : "print_paper_type2"});
+			if(!smutil.isEmpty(page.print_p_type2) && page.print_p_type2 == "Y") {
+				$("#setDlvyCom2").text('신출고');
+				$("#setDlvyCom2").attr('class', 'blue badge option outline');
+			} else {
+				$("#setDlvyCom2").text('구출고');
+	            $("#setDlvyCom2").attr('class', 'gray2 badge option outline');
+					}*/					
+			});	
+			
 		},
 		
 		initDpEvent : function()
