@@ -297,7 +297,7 @@ var page = {
                         "_vValue" : "N"
 					});
 					
-					// 프린터 용지설정
+					// 프린터 용지설정2
 //					LEMP.Properties.set({
 //						"_sKey"   : "print_p_type2",
 //                       "_vValue" : "N"
@@ -315,14 +315,16 @@ var page = {
 					if(_.isUndefined(autoMenual) ||
 							_.isUndefined(autoMenual.area_sct_cd) ||
 							_.isUndefined(autoMenual.area_sct_cd2) ||
-							_.isUndefined(autoMenual.area_sct_cd3) ||
+							_.isUndefined(autoMenual.area_sct_cd3) ||				
+							_.isUndefined(autoMenual.area_sct_cd6) ||
 							_.isUndefined(isSpeak)){
 						LEMP.Properties.set({
 							 "_sKey" : "autoMenual",
 							 "_vValue" : {
 								 area_sct_cd : smutil.nullToValue(autoMenual.area_sct_cd,"N"),
 								 area_sct_cd2 : smutil.nullToValue(autoMenual.area_sct_cd2,"M"),
-								 area_sct_cd3 : smutil.nullToValue(autoMenual.area_sct_cd3,"N")
+								 area_sct_cd3 : smutil.nullToValue(autoMenual.area_sct_cd3,"N"),
+								 area_sct_cd6 : smutil.nullToValue(autoMenual.area_sct_cd3,"N")
 							 } 
 						});
 						
@@ -331,6 +333,18 @@ var page = {
 			            	"_sKey"   : "push_speak_yn",
 			            	"_vValue" :  smutil.nullToValue(isSpeak,"N")
 			            });
+
+						// 프린터 용지설정
+						LEMP.Properties.set({
+							"_sKey"   : "print_p_type",
+                	        "_vValue" : "N"
+						});
+					
+						// 프린터 용지설정2
+//						LEMP.Properties.set({
+//							"_sKey"   : "print_p_type2",
+//                  	     "_vValue" : "N"
+//						});
 						
 //						var popUrl = smutil.getMenuProp('SET.SET0303', 'url');
 //						LEMP.Window.open({
