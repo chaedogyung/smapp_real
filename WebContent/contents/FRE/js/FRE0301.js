@@ -30,7 +30,7 @@ var page = {
 	init : function(args) {
 		page.initInterface();
 		page.emp();
-		page.obj=args.data
+		page.obj=args.data;
 		
 		//팝업에서 들어왔을경우
 		if(!smutil.isEmpty(args.data.param)){
