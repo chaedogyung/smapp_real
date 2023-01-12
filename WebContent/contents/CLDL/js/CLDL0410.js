@@ -414,6 +414,16 @@ var page = {
 		// 핸들바 템플릿에 데이터를 바인딩해서 생성된 HTML을 DOM에 주입
 		$('#cldl0410LstUl').append(template(page.cldl0410));
 
+		$(".aaa").each(function() {
+			  var rows = $(".aaa:contains('" + $(this).text() + "')");
+			  if (rows.length > 1) {
+			  var ccc =	 rows.eq(0).attr("rowspan", rows.length);
+			  var hide =  rows.not(":eq(0)").parent().parent().parent().hide();
+			  console.log("dddddd : " + hide.length);
+			  var hide2 = hide.length;
+			  ccc.html();
+			  }
+		});
 		/*var MMScont = "딩동\u266C\n진심을 다하는 롯데택배입니다.\n고객님의 소중한 상품이 " +
 				smutil.nullToValue(page.cldl0410.acpr_nm,'') + "에(게) 도착되었다는 소식을 알려드립니다.\n" +
 				"불편사항 있으시면 언제든지 연락바라며, 항상 최고의 서비스를 위해 노력하겠습니다."
