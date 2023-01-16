@@ -138,25 +138,11 @@ var page = {
 					}
 				});
 			} else {
-////				$(this).closest("li").remove();
-////				$(this).closest("li");
-//				var vvv = $(this).closest("li");
-//				const json =JSON.stringify(vvv.find(".telText1").text());
-//				console.log ("dddd" + json); 
-//				var www = $(".telText:contains(" + json + ")");
-//				
-////				$(this).not(":eq(0)").parent().parent().parent().remove();
-////				$(".telText:contains('" + json + "')").remove();
-////				$(this).parent().parent().parent().remove();
-//				var nnn = $(this).closest("ul");
-//				const json2 =JSON.stringify(nnn.find(".telText1").text());
-//				console.log ("dddd" + json2); 
-//				var mmm = $("#tel_num > .telText1").text();
-//				if( mmm.indexOf(json)){
-//					$(this).parent().parent().parent().hide().remove();
-//				}
-				var rows = $(".telText:contains('" + $(this).text() + "')");	
-				var	ggg= rows.eq			
+//				$(this).closest("li").remove();
+//				console.log("ssssss"+$(this).closest("li").find(".telText").text());
+				var ttt = $(this).closest("li");
+				console.log("ssssss"+ttt.find(".telText1").text());
+				var yyy = ttt.find(".telText1").text();
 			}
 		});
 
