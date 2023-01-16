@@ -137,8 +137,26 @@ var page = {
 						}
 					}
 				});
-			}else {
-				$(this).closest("li").remove();
+			} else {
+////				$(this).closest("li").remove();
+////				$(this).closest("li");
+//				var vvv = $(this).closest("li");
+//				const json =JSON.stringify(vvv.find(".telText1").text());
+//				console.log ("dddd" + json); 
+//				var www = $(".telText:contains(" + json + ")");
+//				
+////				$(this).not(":eq(0)").parent().parent().parent().remove();
+////				$(".telText:contains('" + json + "')").remove();
+////				$(this).parent().parent().parent().remove();
+//				var nnn = $(this).closest("ul");
+//				const json2 =JSON.stringify(nnn.find(".telText1").text());
+//				console.log ("dddd" + json2); 
+//				var mmm = $("#tel_num > .telText1").text();
+//				if( mmm.indexOf(json)){
+//					$(this).parent().parent().parent().hide().remove();
+//				}
+				var rows = $(".telText:contains('" + $(this).text() + "')");	
+				var	ggg= rows.eq			
 			}
 		});
 
@@ -415,25 +433,25 @@ var page = {
 		$('#cldl0410LstUl').append(template(page.cldl0410));
 		
 		//송장번호는 다르지만 같은 전화번호인 목록 하나로 통일 그리고 몇개인지 표시 
+		$(".telText").each(function(e) {
+			  var rows = $(".telText:contains('" + $(this).text() + "')");
+				//  	  if (rows.length > 1) {
+			  var addTel = rows.eq(0).attr("rowspan", rows.length);
 		
+			  var hide =  rows.not(":eq(0)").parent().parent().parent().hide();
+			  var length = hide.length;
+			  const json =JSON.stringify("외"+length+"건");
+			  if(rows.eq(0).text() !== "입력해주세요"){
+				  rows.eq(0).text(json);
+			  }else{
+				  hide.show();
+				  $(this).remove('.telText');
+			  }   
 	
-		$(".telText").each(function() {debugger;
-			var list = page.cldl0410.list;
-			var rows = $(".telText:contains('" + $(this).text() + "')");
-			if (rows.length > 1) {
-				var addTel = rows.eq(0).attr("rowspan", rows.length);
-  
-				var hide =  rows.not(":eq(0)").parent().parent().parent().hide();
-				var length = hide.length;
-				console.log("length"+ length)
-				console.log("rows.eq(0)  "+ rows.eq(0).text());
-				const json =JSON.stringify("외"+length+"건");
-				rows.eq(0).text(json);
-				new Set(rows.eq(0).text()); 	
-			
-			};
-			
-		});
+			  
+	   });
+
+
 		/*var MMScont = "딩동\u266C\n진심을 다하는 롯데택배입니다.\n고객님의 소중한 상품이 " +
 				smutil.nullToValue(page.cldl0410.acpr_nm,'') + "에(게) 도착되었다는 소식을 알려드립니다.\n" +
 				"불편사항 있으시면 언제든지 연락바라며, 항상 최고의 서비스를 위해 노력하겠습니다."
