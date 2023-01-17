@@ -137,13 +137,18 @@ var page = {
 						}
 					}
 				});
-			} else {
-//				$(this).closest("li").remove();
-//				console.log("ssssss"+$(this).closest("li").find(".telText").text());
-				var ttt = $(this).closest("li");
-				console.log("ssssss"+ttt.find(".telText1").text());
-				var yyy = ttt.find(".telText1").text();
-			}
+		    }else {
+		          let uuu = $(this).closest("li");
+		          console.log("sssssss" +uuu.find(".telText1").text());
+		          if(uuu.find(".telText1").text() == "입력해주세요" ){
+		             $(this).parent().parent().parent().remove();
+		          }else{
+		          var ttt = $(this).closest("li");
+		          console.log("ssssss"+ttt.find(".telText1").text());
+		          var yyy = ttt.find(".telText1").text();
+		          $("span:contains("+yyy+")").parent().parent().parent().parent().remove();
+		          }
+		    }
 		});
 
 		//전송 버튼 클릭
@@ -418,24 +423,23 @@ var page = {
 		// 핸들바 템플릿에 데이터를 바인딩해서 생성된 HTML을 DOM에 주입
 		$('#cldl0410LstUl').append(template(page.cldl0410));
 		
-		//송장번호는 다르지만 같은 전화번호인 목록 하나로 통일 그리고 몇개인지 표시 
-		$(".telText").each(function(e) {
-			  var rows = $(".telText:contains('" + $(this).text() + "')");
-				//  	  if (rows.length > 1) {
-			  var addTel = rows.eq(0).attr("rowspan", rows.length);
-		
-			  var hide =  rows.not(":eq(0)").parent().parent().parent().hide();
-			  var length = hide.length;
-			  const json =JSON.stringify("외"+length+"건");
-			  if(rows.eq(0).text() !== "입력해주세요"){
-				  rows.eq(0).text(json);
-			  }else{
-				  hide.show();
-				  $(this).remove('.telText');
-			  }   
-	
-			  
-	   });
+	      //송장번호는 다르지만 같은 전화번호인 목록 하나로 통일 그리고 몇개인지 표시 
+	      $(".telText").each(function(e) {
+	           var rows = $(".telText:contains('" + $(this).text() + "')");
+	            //       if (rows.length > 1) {
+	           var addTel = rows.eq(0).attr("rowspan", rows.length);
+	      
+	           var hide =  rows.not(":eq(0)").parent().parent().parent().hide();
+	           var length = hide.length;
+	           const json =JSON.stringify("외"+length+"건");
+	           const json1 = json.replace(/"/g,'');
+	           if(rows.eq(0).text() !== "입력해주세요"){
+	              rows.eq(0).text(json1);
+	           }else{
+	              hide.show();
+	              $(this).remove('.telText');
+	           }   
+	       });
 
 
 		/*var MMScont = "딩동\u266C\n진심을 다하는 롯데택배입니다.\n고객님의 소중한 상품이 " +
