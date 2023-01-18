@@ -656,7 +656,7 @@ var page = {
 
 
 
-			// 사진촬영 버튼클랙
+			// 사진/서명 버튼 클릭
 			$('.btn.ftImg').click(function(e){
 				_this.sendPhotoMms();		// 사진촬영 로직 호출
 			});
@@ -1687,12 +1687,12 @@ var page = {
 		// 사진촬영 mms 발송
 		sendPhotoMms : function(){
 			var _this = this;
-			var chkTelLst = [];
-			var invNoLst = [];
+			var chkTelLst = [];//전화번호 리스트
+			var invNoLst = [];//송장번호 리스트
 			// 보내는분, 상품명, 인수자 추가
-			var snperNmLst = [];
-			var artcNmLst = [];
-			var acprNmLst = []
+			var snperNmLst = [];//보내는 사람
+			var artcNmLst = []; //상품명
+			var acprNmLst = []  //인수자
 			var popOpenYn = true;
 			var acprCnt = 0;
 			var acpr_nm = "";
@@ -1767,6 +1767,37 @@ var page = {
 			}
 
 			// 스캔 되고 전화번호가 있는 리스트만 mms 전송가능
+//			console.log("eeeeee   :" + chkTelLst);
+//			console.log("ㅛㅛㅛㅛㅛ   :" + invNoLst);
+//			new Set();
+//			var chkTelLst = new Set(chkTelLst);
+
+
+//			console.log(chkTelLst.size);
+//			console.log("ㄹㄹㄹㄹㄹㄹ:" + invNoLst);
+//			chkTelLst.length = chkTelLst.size;
+//			if(chkTelLst.size == 1){
+			
+//			function hasDuplicates(chkTelLst) {
+//			    return new Set(chkTelLst).size !== chkTelLst.length;
+//			}
+//			if (hasDuplicates(chkTelLst)) {
+//			    console.log("Duplicate elements found.");
+//			}
+//			else {
+//			    console.log("No Duplicates found.");
+//			}
+//			new Set();
+//			var chkTelLst1 = new Set(chkTelLst);
+//			if(chkTelLst1.size !== 1){
+//				alert("1");
+//				LEMP.Window.toast({
+//					"_sMessage":"스캔후 선택한 송장정보가 없거나 두 개이상의 다른 전화번호를 선택하였거나 \nMMS를 전송할수있는 전화번호가 없습니다.",
+//					'_sDuration' : 'short'
+//				});
+//				return false;
+//			}
+			
 			if(chkTelLst.length > 0 && invNoLst.length > 0 && popOpenYn){
 				var paramObj = [];
 				var timeTxt = "";
