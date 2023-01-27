@@ -60,7 +60,9 @@
 								</ul>
 							</div>
 							<div class="inputBox">
-								<input type="text" id="addr_input" value="" name="">
+								<input type="text" id="addr_input" value="" name="" style="width: 75%;">
+								<button class="btn mic fr" id="micBtn" style="right: 45px; background-size: 17px;
+    																	width: 35px; height: 35px; ">마이크</button>
 								<button class="btn glass" id="addrSearch">검색</button>
 							</div>
 						</div>
@@ -123,6 +125,27 @@
 			</div>
 		</div>
 		<!-- //모달팝업 지도 -->
+		
+		<div class="mpopBox img sms">
+			<div class="popBody">
+				<p class="img"><img src="../../common/img/icon-voice.png" alt="" /></p>
+				<p class="txt1 tRed2">음성인식 중</p>
+				<p class="txt2">2초 ~ 3초 이내 말씀이 없으시면 자동 종료됩니다.</p>
+			</div>
+		</div>
+	
+		<div class="mpopBox img sms2">
+			<div class="popBody">
+				<p class="img"><img src="../../common/img/icon-voice.png" alt="" /></p>
+				<p class="txt1 tRed2">음성인식 중</p>
+				<p class="txt2">음성인식 완료를 원하시면 완료버튼을 눌러주세요.</p>
+			</div>
+			<div class="popFooter">
+				<div class="btnBox">
+					<button class="btn gray3 m w100p b-close">완료</button>
+				</div>
+			</div>
+		</div>
 
 	</div>
 	<!--  //contents  -->
@@ -141,6 +164,7 @@
 		<input type="hidden" id="rsphCd" value="{{rsphCd}}" />
 		<input type="hidden" id="cldlEmpno" value="{{cldlEmpno}}" />
 		<input type="hidden" id="bldNm" value="{{bldNm}}" />
+		<input type="hidden" id="dsttCd" value="{{dsttCd}}" />
 		<li>
 			<div class="addIn">
 				<span class="radioBox">
