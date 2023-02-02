@@ -171,17 +171,17 @@ var page = {
 				 return false;
 			};
 
-			if (smutil.isEmpty(imgCheck)) {
-				LEMP.Window.toast({
-					"_sMessage":"이미지가 선택 되지 않았습니다\n내용을 확인해주세요",
-					'_sDuration' : 'short'
-				});
-//				LEMP.Window.alert({
-//					 "_sTitle" : "사진전송",
-//					 "_vMessage" : "이미지가 선택 되지 않았습니다\n내용을 확인해주세요"
-//				 });
-				 return false;
-			};
+//			if (smutil.isEmpty(imgCheck)) {
+//				LEMP.Window.toast({
+//					"_sMessage":"이미지가 선택 되지 않았습니다\n내용을 확인해주세요",
+//					'_sDuration' : 'short'
+//				});
+////				LEMP.Window.alert({
+////					 "_sTitle" : "사진전송",
+////					 "_vMessage" : "이미지가 선택 되지 않았습니다\n내용을 확인해주세요"
+////				 });
+//				 return false;
+//			};
 
 
 			// 인수자 정보가 있으면 메세지에 셋팅
@@ -290,9 +290,9 @@ var page = {
 			};
 
 			page.cldl0410.sendmms = obj;
-            page.cmptPhtgTrsmPop();
+            //page.cmptPhtgTrsmPop();
 
-			 // page.MMSLIbTestFunction(); //문자발송 테스트용
+			page.MMSLIbTestFunction(); //문자발송 테스트용
 
 		});
 
@@ -518,11 +518,37 @@ var page = {
 			"id":"SENDMMS",
 			"param":page.cldl0410.sendmms
 		};
+		
+//		JSON.stringify(tr.param.invNo);
+//		alert(JSON.stringify(tr));
+//		alert(tr.param.invoiceNumber);
+		
+//		tr.param.invoiceNumber;
+//		
+//		let arr2 = new Array();
+		let arr2 = [];
+		
+        for (var i = 0; i < tr.param.invoiceNumber.length; i++) {
+        	if(i>0){
+//        		alert(tr.param.invoiceNumber[i].substr(0,12));
+        		var trp = tr.param.invoiceNumber[i].substr(0,12);
+        		arr2.push(trp);
+			}
+		}
+//		alert(arr2);
+//		let tr2 = tr;
+		tr.param.phoneNumber.length = 1;
+		tr.param.invoiceNumber.length = 1;
+//		alert(tr.param.phoneNumber.length);
 
+		tr.param.invoiceNumber.unshift(arr2);
+//		tr.param.invoiceNumber.push(arr2);
+//		alert(tr.param.invoiceNumber);
+//		alert(JSON.stringify(tr));
+		
 		// mms 호출
 		smutil.nativeMothodCall(tr);
 	}
-	//
 
 	// mms 호출후 callback
 	, mmsCallback : function(statusCode){
