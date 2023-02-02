@@ -171,17 +171,17 @@ var page = {
 				 return false;
 			};
 
-//			if (smutil.isEmpty(imgCheck)) {
-//				LEMP.Window.toast({
-//					"_sMessage":"이미지가 선택 되지 않았습니다\n내용을 확인해주세요",
-//					'_sDuration' : 'short'
-//				});
-////				LEMP.Window.alert({
-////					 "_sTitle" : "사진전송",
-////					 "_vMessage" : "이미지가 선택 되지 않았습니다\n내용을 확인해주세요"
-////				 });
-//				 return false;
-//			};
+			if (smutil.isEmpty(imgCheck)) {
+				LEMP.Window.toast({
+					"_sMessage":"이미지가 선택 되지 않았습니다\n내용을 확인해주세요",
+					'_sDuration' : 'short'
+				});
+//				LEMP.Window.alert({
+//					 "_sTitle" : "사진전송",
+//					 "_vMessage" : "이미지가 선택 되지 않았습니다\n내용을 확인해주세요"
+//				 });
+				 return false;
+			};
 
 
 			// 인수자 정보가 있으면 메세지에 셋팅
