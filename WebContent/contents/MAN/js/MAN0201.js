@@ -88,53 +88,53 @@ var page = {
 		
 		//확인 버튼 click
 		$('#checkOkay').click(function(){
-			LEMP.Window.close();			
-//			var noticeList = LEMP.Properties.get({
-//				"_sKey" : "notice"
-//			});
 			
-//			if(smutil.isEmpty(noticeList)){
-//				noticeList = [];
-//			}
-//			
-//			var chkBoolean = false;
-//			
-//			$.each(noticeList ,function(i,o){
-//				if(o._sKey === data_r.sta_ymd+data_r.seq_no){
-//					chkBoolean = true;
-//					return false;
-//				}
-//			});
-//			
-//			// chkBoolean false 면 신규 공지사항이니 확인데이터를 추가해준다
-//			if(!chkBoolean){
-//				noticeList.push({"_sKey" : data_r.keyNo, "_vValue" : 'Y'});
-//			}
-//			
-//			
-//			// properties 에 다시 저장
-//			LEMP.Properties.set({
-//				"_sKey" : "notice",
-//				"_vValue" : noticeList
-//			});
-//
-//
-//			const isVideoLinkClicked = LEMP.Properties.get({
-//				"_sKey" : "videoLinkClicked"
-//			});
-//
-//			if (page.isYoutubeLinkContains && isVideoLinkClicked === false) {
-//				LEMP.Window.toast({
-//					'_sMessage' : '영상을 확인해주세요.',
-//					'_sDuration' : 'short'
-//				});
-//			} else {
-//				LEMP.Properties.set({
-//					"_sKey" : "videoLinkClicked",
-//					"_vValue" : false
-//				});
-//				LEMP.Window.close();
-//			}
+			var noticeList = LEMP.Properties.get({
+				"_sKey" : "notice"
+			});
+			
+			if(smutil.isEmpty(noticeList)){
+				noticeList = [];
+			}
+			
+			var chkBoolean = false;
+			
+			$.each(noticeList ,function(i,o){
+				if(o._sKey === data_r.sta_ymd+data_r.seq_no){
+					chkBoolean = true;
+					return false;
+				}
+			});
+			
+			// chkBoolean false 면 신규 공지사항이니 확인데이터를 추가해준다
+			if(!chkBoolean){
+				noticeList.push({"_sKey" : data_r.keyNo, "_vValue" : 'Y'});
+			}
+			
+			
+			// properties 에 다시 저장
+			LEMP.Properties.set({
+				"_sKey" : "notice",
+				"_vValue" : noticeList
+			});
+
+
+			const isVideoLinkClicked = LEMP.Properties.get({
+				"_sKey" : "videoLinkClicked"
+			});
+
+			if (page.isYoutubeLinkContains && isVideoLinkClicked === false) {
+				LEMP.Window.toast({
+					'_sMessage' : '영상을 확인해주세요.',
+					'_sDuration' : 'short'
+				});
+			} else {
+				LEMP.Properties.set({
+					"_sKey" : "videoLinkClicked",
+					"_vValue" : false
+				});
+				LEMP.Window.close();
+			}
 		});
 
 		const tag = document.createElement('script');
