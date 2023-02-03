@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>롯데글로벌로지스</title>
+<meta
+	content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1"
+	name="viewport">
+<meta name="theme-color" content="#e8463a">
+<!-- 안드로드 헤드 칼라 -->
+<meta name="format-detection" content="telephone=no">
+<!-- IOS 전화번호 자동색상 방지 -->
+
+<link rel="stylesheet" type="text/css" href="../../common/css/style.css" />
+<link rel="stylesheet" type="text/css"
+	href="../../common/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="../../common/css/sub.css">
+
+<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+<script type="text/javascript" src="../js/FRE0303.js"></script>
+</head>
+
+<body>
+	<input type="hidden" name="menuId" id="menuId" value="FRE0303" />
+	<!--  contents  -->
+	<div id="contents">
+
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection v2">
+			<div class="headerWrap">
+				<h1>도착지 정보수정</h1>
+				<button class="btn closeW paR">메뉴</button>
+			</div>
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+
+			<!-- contentBox -->
+			<div class="contentBox pop freInfo">
+
+				<!-- infoListBox -->
+				<div class="infoListBox">
+					<ul>
+						<li>
+							<div class="topHead">
+								<p class="songNum">
+									송장번호 <em id="inv_no"></em>
+								</p>
+							</div>
+							<div class="infoBox">
+								<dl class="inBox tp3">
+									<dt>수하인주소</dt>
+									<dd><span id="acper_address"></span></dd>
+								</dl>
+							</div>
+							
+							<div class="topHead">
+								<p class="songNum">현행</p>
+							</div>
+							<div class="infoBox">
+								<dl class="inBox tp3">
+									<dt>배달점소</dt>
+									<dd><span id="updb_dlvsh"></span></dd>
+									<dt>도착지코드</dt>
+									<dd><span id="updb_dstt_cd"></span></span></dd>
+								</dl>
+							</div>
+							
+							<div class="topHead">
+								<p class="songNum">변경</p>
+							</div>
+							<div class="infoBox">
+								<dl class="inBox tp3">
+									<dt>전담구분</dt>
+									<dd>
+										<span class="selBox">
+											<select name="svcCd" id="svcCd">
+												<option value="00">일반</option>
+												<option value="01">의류</option>
+											</select>
+										</span>
+									</dd>
+									<dt>주소</dt>
+                                    <dd>
+                                        <div class="inputBox">
+                                            <input type="hidden" id="rsrvAcperZipcd"/>
+                                            <input type="hidden" id="rsrvAcperBldMgrNo" />
+                                            <input type="text" id="rsrvAcperBasAreaCd" style="width: 30%;" placeholder="" readonly required hname="우편번호"/>
+                                            <input type="text" id="rsrvAcperBadr" data-type="rsrvAcper" style="width: 68%;"  placeholder="주소를 검색" readonly required hname="주소"/>
+                                            <button class="btn glass addressSearch" data-type="rsrvAcper">검색</button>
+                                        </div>
+                                    </dd>
+                                    <dt>&nbsp;</dt>
+                                    <dd>
+                                        <input type="text" id="rsrvAcperDadr" placeholder="" readonly required hname="상세주소" />
+                                        <span style="font-size: 11px; margin-left: 5px; color: #268bcd;">필수사항) 주소검색으로 배달점소, 도착지코드 가져오기</span>
+                                    </dd>
+									
+									
+									<dt>배달점소</dt>
+									<dd>
+										 <input type="text" name="dlvBrshCd" id="dlvBrshCd"  style="width: 30%;" readonly required hname="변경된 배달점소 CODE"/>
+										 <input type="text" id="rsrvAcperDlvBrshNm" placeholder="" style="width: 45%;" readonly required hname="변경된 배달점소"/>
+									</dd>
+									<dt>도착지코드</dt>
+									<dd>
+										 <input type="text" name="dsttCd" id="dsttCd"  style="width: 30%;" readonly required hname="변경된 도착지 코드"/>
+									</dd>
+								</dl>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<!-- //infoListBox -->
+<!-- 				<div class="btnBox pxB" id="FRE0401" style="display: none;"> -->
+<!-- 					<ul class="ul0 ul2"> -->
+<!-- 						<li><button class="btn gray w100p m" id="opinion_regist">의견등록</button></li> -->
+<!-- 						<li><button class="btn red w100p m" id="judge_confirm">판정승인</button></li> -->
+<!-- 					</ul> -->
+<!-- 				</div> -->
+<!-- 			<div class="btnBox"> -->
+			<div class="btnBox pxB">
+				<ul class="ul0 ul2">
+					<li><button class="btn gray m w100p b-close" id="btnCancel">취소</button></li>
+					<li><button class="btn red m w100p" id="btnConfirm">저장</button></li>
+				</ul>
+			</div>
+			
+			</div>
+			<!-- //contentBox -->
+
+		</div>
+		<!--  //contentSection  -->
+	</div>
+	<!--  //contents  -->
+	
+	
+	
+	<!-- 모달팝업 저장 -->
+		<div class="mpopBox send pop">
+			<div class="popBody">
+				<p class="img"><img src="../../common/img/icon-beadal.png" alt="" /></p>
+				<p class="txt1">도착지 변경</p>
+				<p class="txt2" id="pop2Txt2"></p>
+			</div>
+			<div class="popFooter">
+				<div class="btnBox">
+					<ul class="ul0 ul2">
+						<li><button class="btn gray m w100p b-close">아니오</button></li>
+						<li><button class="btn red m w100p b-close" id="confirmYesBtn">예</button></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- //모달팝업 저장 -->
+</body>
+
+</html>

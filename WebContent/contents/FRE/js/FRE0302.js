@@ -42,7 +42,6 @@ var page = {
 					"_vMessage" : "전화번호 형식이 올바르지 않습니다."
 				});
 			};
-			
 		});
 	
 		// 통화 팝업 > 통화버튼 클릭
@@ -68,6 +67,31 @@ var page = {
 			LEMP.Window.close();
 		});
 		
+		//도착지 변경 click
+		$('#freInfo').click(function() {
+			if(smutil.isEmpty(page.info.inv_no)){
+				LEMP.Window.alert({
+					"_vMessage" : "운송장 번호를 입력해주세요"
+				});
+				return false;
+			}else if($('.tRed.fs11').text() == "운송장번호가 유효하지 않습니다."){
+				LEMP.Window.alert({
+					"_vMessage" : "운송장 번호가 유효하지 않습니다."
+				});
+				return false;
+			}
+			else{
+				var popUrl = smutil.getMenuProp('FRE.FRE0303', 'url');
+				LEMP.Window.open({
+					"_sPagePath" : popUrl,
+					"_oMessage" : {
+						"inv_no" : page.info.inv_no,
+						"param" : page.pInfo,
+						//"menuId":$("#inv_noNumber").data("menuId")
+					}
+				});
+			}
+		});
 	},
 	//추적정보 조회
 	searchData : function(){

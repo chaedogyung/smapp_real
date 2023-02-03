@@ -219,11 +219,18 @@ var page = {
 	,addrCallback:function(data){
 		try{
 			var res = data.api_msg;
+			var template;
 			
 			if (smutil.apiResValidChk(data) && data.code=="0000") {
 				
+				console.log(res.air_fare)
 				if(res.result === "success"){
-					var template = Handlebars.compile($("#cldl0302_list_template").html());
+					if(res.air_fare == 0) {
+						template = Handlebars.compile($("#cldl0302_list_template").html());
+					} else {
+						template = Handlebars.compile($("#cldl0302_list_template_airFare").html());
+						
+					}
 					$("#cldl0302Ul").html(template(res));
 				}
 				else {
