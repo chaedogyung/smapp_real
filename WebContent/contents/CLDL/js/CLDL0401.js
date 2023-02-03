@@ -1686,6 +1686,7 @@ var page = {
 
 		// 사진촬영 mms 발송
 		sendPhotoMms : function(){
+			var chnCdList = [];//채널코드 리스트 : b2b,b2c 기타....
 			var _this = this;
 			var chkTelLst = [];//전화번호 리스트
 			var invNoLst = [];//송장번호 리스트
@@ -1707,10 +1708,11 @@ var page = {
 				inv_no = (inv_no.split("_"))[0];
 				var telNumber = chkObj.val();
 
-				//보내는분, 상품명, 인수자 추가
+				//보내는분, 상품명, 인수자 추가, 채널코드
 				var snper_nm = chkObj.attr("data-snper-nm");
 				var artc_nm = chkObj.attr("data-artc-nm");
 				var acpr_nm = chkObj.attr("data-acpr-nm");
+				var chn_cd = chkObj.attr("data-chn-cd");//채널코드
 
 				if(smutil.isEmpty(telNumber)){
 					telNumber = "";
@@ -1738,7 +1740,8 @@ var page = {
 						snperNmLst.push(snper_nm);
 						artcNmLst.push(artc_nm);
 						acprNmLst.push(acpr_nm);
-
+						chnCdList.push(chn_cd);//채널코드
+						console.log("dddddd : " + chnCdList);
 						// 최초에 나오는 송장번호에 셋팅된 인수자를 사진정송 문구에 보내기로 수정 협의(2020-02-12)
 						if(acprCnt == 0){
 							acpr_nm = chkObj.data("acprNm");
@@ -1767,38 +1770,58 @@ var page = {
 			}
 
 			// 스캔 되고 전화번호가 있는 리스트만 mms 전송가능
-//			console.log("eeeeee   :" + chkTelLst);
-//			console.log("ㅛㅛㅛㅛㅛ   :" + invNoLst);
-//			new Set();
-//			var chkTelLst = new Set(chkTelLst);
+			new Set();
+			var chkTelLst1 = new Set(chkTelLst);
+
+			var chn_cd_List1 = new Set(chnCdList);
+		    console.log("dddd : " + chn_cd_List1.size);
+			
+//			if(chnCdList.includes("B2B") && chkTelLst1.size == 1 && chn_cd_List1.size == 1){
+		    //B2B건이 포함되어 있을때
+			if(chnCdList.includes("B2B")){
+				
+			    if(chn_cd_List1.size > 1 && chnCdList.includes("B2B")){
+					LEMP.Window.toast({
+						"_sMessage":"B2B 건과 다른 채널코드값(ex. B2C,C2C....)은 같이 선택되어질 수 없습니다.",
+						'_sDuration' : 'short'
+					});
+					
+					return false;
+			    }
+
+			    if(chn_cd_List1.size == 1 && chnCdList.includes("B2B") && chkTelLst1.size > 1){
+					LEMP.Window.toast({
+						"_sMessage":"B2B건은 동일 전화번호만 선택되어질 수 있습니다.",
+						'_sDuration' : 'short'
+					});
+				
+					return false;
+			    }
+				
+		    	LEMP.Window.toast({
+					"_sMessage":"B2B건을 선택하셨고 동일 수하인을 선택하셨습니다.",
+					'_sDuration' : 'short'
+				});
+				if(chkTelLst.length > 0 && invNoLst.length > 0 && popOpenYn){
+					var paramObj = [];
+					var timeTxt = "";
+
+					$.each(chkTelLst, function(idx){
+						paramObj.push({"inv_no" : (invNoLst[idx])+"","snper_nm" : (snperNmLst[idx])+"", "artc_nm" : (artcNmLst[idx])+"", "acpr_nm" : (acprNmLst[idx])+"", "rcv_date" : rcv_date, "tel_num":chkTelLst[idx]});
+					});
 
 
-//			console.log(chkTelLst.size);
-//			console.log("ㄹㄹㄹㄹㄹㄹ:" + invNoLst);
-//			chkTelLst.length = chkTelLst.size;
-//			if(chkTelLst.size == 1){
-			
-//			function hasDuplicates(chkTelLst) {
-//			    return new Set(chkTelLst).size !== chkTelLst.length;
-//			}
-//			if (hasDuplicates(chkTelLst)) {
-//			    console.log("Duplicate elements found.");
-//			}
-//			else {
-//			    console.log("No Duplicates found.");
-//			}
-//			new Set();
-//			var chkTelLst1 = new Set(chkTelLst);
-//			if(chkTelLst1.size !== 1){
-//				alert("1");
-//				LEMP.Window.toast({
-//					"_sMessage":"스캔후 선택한 송장정보가 없거나 두 개이상의 다른 전화번호를 선택하였거나 \nMMS를 전송할수있는 전화번호가 없습니다.",
-//					'_sDuration' : 'short'
-//				});
-//				return false;
-//			}
-			
-			if(chkTelLst.length > 0 && invNoLst.length > 0 && popOpenYn){
+					// 사진전송 로직 시작~!!!
+					var popUrl = smutil.getMenuProp("CLDL.CLDL0410","url");
+					console.log(paramObj);
+					LEMP.Window.open({
+						"_sPagePath":popUrl,
+						"_oMessage":{"param":{"list" : paramObj, "acpr_nm" : acpr_nm}}		// 인수자명 셋팅
+					});
+
+				}
+			} 
+			else if(chkTelLst.length > 0 && invNoLst.length > 0 && popOpenYn){
 				var paramObj = [];
 				var timeTxt = "";
 
