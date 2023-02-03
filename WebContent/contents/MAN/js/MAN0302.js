@@ -76,7 +76,7 @@ var page = {
 //				const isVideoLinkClicked = LEMP.Properties.get({
 //					"_sKey" : "videoLinkClicked"
 //				});
-//
+
 //				if (page.isYoutubeLinkContains && isVideoLinkClicked === false) {
 //					LEMP.Window.toast({
 //						'_sMessage' : '영상을 확인해주세요.',

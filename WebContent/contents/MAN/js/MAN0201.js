@@ -92,7 +92,7 @@ var page = {
 //			var noticeList = LEMP.Properties.get({
 //				"_sKey" : "notice"
 //			});
-//			
+			
 //			if(smutil.isEmpty(noticeList)){
 //				noticeList = [];
 //			}
