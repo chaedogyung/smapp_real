@@ -71,31 +71,30 @@ var page = {
 		}
 		//확인버튼 click
 		$('#checkOkay').click(function(){
-			LEMP.Window.close();
-//			if(data_r.status==="Notice") {
-//				const isVideoLinkClicked = LEMP.Properties.get({
-//					"_sKey" : "videoLinkClicked"
-//				});
+			if(data_r.status==="Notice") {
+				const isVideoLinkClicked = LEMP.Properties.get({
+					"_sKey" : "videoLinkClicked"
+				});
 
-//				if (page.isYoutubeLinkContains && isVideoLinkClicked === false) {
-//					LEMP.Window.toast({
-//						'_sMessage' : '영상을 확인해주세요.',
-//						'_sDuration' : 'short'
-//					});
-//				} else {
-//					LEMP.Properties.set({
-//						"_sKey" : "videoLinkClicked",
-//						"_vValue" : false
-//					});
-//					LEMP.Window.close();
-//				}
-//			} else {
-//				if(smutil.isEmpty(data_r.read_sct)){
-//					page.readUpdate(data_r);
-//				}else{
-//					LEMP.Window.close();
-//				}
-//			}
+				if (page.isYoutubeLinkContains && isVideoLinkClicked === false) {
+					LEMP.Window.toast({
+						'_sMessage' : '영상을 확인해주세요.',
+						'_sDuration' : 'short'
+					});
+				} else {
+					LEMP.Properties.set({
+						"_sKey" : "videoLinkClicked",
+						"_vValue" : false
+					});
+					LEMP.Window.close();
+				}
+			} else {
+				if(smutil.isEmpty(data_r.read_sct)){
+					page.readUpdate(data_r);
+				}else{
+					LEMP.Window.close();
+				}
+			}
 		});
 
 		const tag = document.createElement('script');
