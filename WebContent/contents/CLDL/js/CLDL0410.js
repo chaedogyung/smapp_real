@@ -152,6 +152,7 @@ var page = {
 			var plag = false;
 			var pNum = [];
 			var invNo = [];
+			var invCo = [];//송장번호 count(갯수)//새로추가 2023.02.03
 			var usrCpno = [];
 			
 			//서버전송용 
@@ -195,48 +196,108 @@ var page = {
 			// }
 
 
+			var sum = 0;
+			new Set();
+			var phoneCount1 = $("#tel_num > span");
+			new Array();
+			var phoneCount2 = new Array();
+			for(var i =0;i<phoneCount1.length; i++){
+				console.log(phoneCount1[i].innerText);
+				phoneCount2.push(phoneCount1[i].innerText);
+			};
+			console.log(JSON.stringify(phoneCount2));
+
+			var phoneCount = new Set(phoneCount2);	
 			$("#cldl0410LstUl > li").each(function(){
-				var phoneNumber = $(this).find("#tel_num > span").text();
-				var phoneCheck = phoneNumber.substr(0,3);
-				var inv_no = $(this).find("#inv_no").data("invNo");
-				var snper_nm = "\n\u25A0\u0020보내는분 : " + $(this).find("#inv_no").attr("data-snper-nm");
-				var artc_nm = "\n\u25A0\u0020상품명 : " + $(this).find("#inv_no").attr("data-artc-nm");
-				var acpr_nm = "\n\u25A0\u0020위탁장소 : " + $(this).find("#inv_no").attr("data-acpr-nm");
-				var rcv_date = "\n\u25A0\u0020" + $(this).find("#inv_no").attr("data-rcv-date");
-
-				switch (phoneCheck) {
-					//전화번호 앞자리가 아래 조건이 아니면 전송시도를 하지 않는다.
-					case "010":
-					case "011":
-					case "016":
-					case "017":
-					case "018":
-					case "019":
-					case "050":
-						//MMS 발송용
-						pNum.push(phoneNumber.replace(/\-/gi,""));
-						//MMS 발송할때 보내는분, 상품명, 배송날짜를 송장번호에 추가하여 발송
-						invNo.push(String(inv_no) + snper_nm + artc_nm + acpr_nm + rcv_date);
-						usrCpno.push(phoneNumber);
-
-						//API 발송용
-						pNumApi.push(phoneNumber.replace(/\-/gi,""));
-						invNoApi.push(String(inv_no));
-						usrCpnoApi.push(phoneNumber);
-						break;
-					default:
-						//휴대폰 번호는 아니지만 정상 번호가 입력되어 있을경우 전송
-						var numCheck = phoneNumber.replace(/[^0-9]/gi,"");
-						if(!smutil.isEmpty(numCheck) && numCheck.length>8){
-							pNumApi.push(numCheck);
+				if(phoneCount.size == 1){		
+					var phoneNumber = $(this).find("#tel_num > span").text();
+					var phoneCheck = phoneNumber.substr(0,3);
+					var inv_co = sum += $(this).find("#inv_no").size();
+					inv_co = inv_co - '1'; 
+					inv_co= "외 " + inv_co + "건"; 
+					var inv_no = $(this).find("#inv_no").data("invNo") + ' ';
+					var snper_nm = "\n\u25A0\u0020보내는분 : " + $(this).find("#inv_no").attr("data-snper-nm");
+					var artc_nm = "\n\u25A0\u0020상품명 : " + $(this).find("#inv_no").attr("data-artc-nm")+ ' ' + inv_co;
+					var acpr_nm = "\n\u25A0\u0020위탁장소 : " + $(this).find("#inv_no").attr("data-acpr-nm");
+					var rcv_date = "\n\u25A0\u0020" + $(this).find("#inv_no").attr("data-rcv-date");
+	
+					switch (phoneCheck) {
+						//전화번호 앞자리가 아래 조건이 아니면 전송시도를 하지 않는다.
+						case "010":
+						case "011":
+						case "016":
+						case "017":
+						case "018":
+						case "019":
+						case "050":
+							//MMS 발송용
+							pNum.push(phoneNumber.replace(/\-/gi,""));
+							//MMS 발송할때 보내는분, 상품명, 배송날짜를 송장번호에 추가하여 발송
+							usrCpno.push(phoneNumber);
+							invCo.push(inv_co);
+							invNo.push(String(inv_no) + inv_co + snper_nm + artc_nm + acpr_nm + rcv_date);
+							//API 발송용
+							pNumApi.push(phoneNumber.replace(/\-/gi,""));
 							invNoApi.push(String(inv_no));
-							//invNoApi.push(String(inv_no) + snper_nm + artc_nm + acpr_nm + rcv_date);
 							usrCpnoApi.push(phoneNumber);
-						}
-						else{
-							plag = true;
-							return false;
-						}
+							break;
+						default:
+							//휴대폰 번호는 아니지만 정상 번호가 입력되어 있을경우 전송
+							var numCheck = phoneNumber.replace(/[^0-9]/gi,"");
+							if(!smutil.isEmpty(numCheck) && numCheck.length>8){
+								pNumApi.push(numCheck);
+								invNoApi.push(String(inv_no));
+								//invNoApi.push(String(inv_no) + snper_nm + artc_nm + acpr_nm + rcv_date);
+								usrCpnoApi.push(phoneNumber);
+							}
+							else{
+								plag = true;
+								return false;
+							}
+					}
+				} else {
+					var phoneNumber = $(this).find("#tel_num > span").text();
+					var phoneCheck = phoneNumber.substr(0,3);
+					var inv_no = $(this).find("#inv_no").data("invNo");
+					var snper_nm = "\n\u25A0\u0020보내는분 : " + $(this).find("#inv_no").attr("data-snper-nm");
+					var artc_nm = "\n\u25A0\u0020상품명 : " + $(this).find("#inv_no").attr("data-artc-nm");
+					var acpr_nm = "\n\u25A0\u0020위탁장소 : " + $(this).find("#inv_no").attr("data-acpr-nm");
+					var rcv_date = "\n\u25A0\u0020" + $(this).find("#inv_no").attr("data-rcv-date");
+
+					switch (phoneCheck) {
+						//전화번호 앞자리가 아래 조건이 아니면 전송시도를 하지 않는다.
+						case "010":
+						case "011":
+						case "016":
+						case "017":
+						case "018":
+						case "019":
+						case "050":
+							//MMS 발송용
+							pNum.push(phoneNumber.replace(/\-/gi,""));
+							//MMS 발송할때 보내는분, 상품명, 배송날짜를 송장번호에 추가하여 발송
+							invNo.push(String(inv_no) + snper_nm + artc_nm + acpr_nm + rcv_date);
+							usrCpno.push(phoneNumber);
+
+							//API 발송용
+							pNumApi.push(phoneNumber.replace(/\-/gi,""));
+							invNoApi.push(String(inv_no));
+							usrCpnoApi.push(phoneNumber);
+							break;
+						default:
+							//휴대폰 번호는 아니지만 정상 번호가 입력되어 있을경우 전송
+							var numCheck = phoneNumber.replace(/[^0-9]/gi,"");
+							if(!smutil.isEmpty(numCheck) && numCheck.length>8){
+								pNumApi.push(numCheck);
+								invNoApi.push(String(inv_no));
+								//invNoApi.push(String(inv_no) + snper_nm + artc_nm + acpr_nm + rcv_date);
+								usrCpnoApi.push(phoneNumber);
+							}
+							else{
+								plag = true;
+								return false;
+							}
+					}
 				}
 			});
 
@@ -256,6 +317,7 @@ var page = {
 
 			obj.inv_no=invNo;
 			obj.usr_cpno=usrCpno;
+			obj.inv_co=invCo;
 			obj.images=imgCheck;
 			page.cldl0410.obj = obj;
 
@@ -265,6 +327,7 @@ var page = {
 				// ,"snper_nm" : obj.snper_nm
 				// ,"artc_nm" : obj.artc_nm
 				// ,"rcv_date" : obj.rcv_date
+				,"invoiceCount": invCo
 				,"title": '롯데택배'
 				,"context": conCheck
 				,"filePath": imgCheck
@@ -288,11 +351,11 @@ var page = {
 				,"sleepTime": 0
 				,"callback":"smutil.mmsMsgCallback"
 			};
-
+			
 			page.cldl0410.sendmms = obj;
-            //page.cmptPhtgTrsmPop();
+            page.cmptPhtgTrsmPop();
 
-			page.MMSLIbTestFunction(); //문자발송 테스트용
+			//page.MMSLIbTestFunction(); //문자발송 테스트용
 
 		});
 
@@ -518,36 +581,32 @@ var page = {
 			"id":"SENDMMS",
 			"param":page.cldl0410.sendmms
 		};
+		var tr1 = tr.param.phoneNumber;
+		new Set();
+		var tr1 = new Set(tr1);
 		
-//		JSON.stringify(tr.param.invNo);
-//		alert(JSON.stringify(tr));
-//		alert(tr.param.invoiceNumber);
-		
-//		tr.param.invoiceNumber;
-//		
-//		let arr2 = new Array();
-		let arr2 = [];
-		
-        for (var i = 0; i < tr.param.invoiceNumber.length; i++) {
-        	if(i>0){
-//        		alert(tr.param.invoiceNumber[i].substr(0,12));
-        		var trp = tr.param.invoiceNumber[i].substr(0,12);
-        		arr2.push(trp);
-			}
+		if(tr1.size == 1){
+			var phoneNumber = [tr.param.phoneNumber.pop()];
+			var invoiceNumber = [tr.param.invoiceNumber.pop()];
+			var invoiceCount = [tr.param.invoiceCount.pop()];
+			var title = tr.param.title;
+			var context = tr.param.context;
+			var filePath = tr.param.filePath;
+			var sleepTime = tr.param.sleepTime;
+			var callback = tr.param.callback;
+			var SENDMMS = tr.id;
+			var tr = {
+					"id":SENDMMS,
+					"param":{phoneNumber,invoiceNumber,invoiceCount,title,context,filePath,sleepTime,callback}
+			};
+			// mms 호출
+			smutil.nativeMothodCall(tr);
 		}
-//		alert(arr2);
-//		let tr2 = tr;
-		tr.param.phoneNumber.length = 1;
-		tr.param.invoiceNumber.length = 1;
-//		alert(tr.param.phoneNumber.length);
-
-		tr.param.invoiceNumber.unshift(arr2);
-//		tr.param.invoiceNumber.push(arr2);
-//		alert(tr.param.invoiceNumber);
-//		alert(JSON.stringify(tr));
-		
-		// mms 호출
-		smutil.nativeMothodCall(tr);
+		else
+		{
+			// mms 호출
+			smutil.nativeMothodCall(tr);
+		}
 	}
 
 	// mms 호출후 callback
