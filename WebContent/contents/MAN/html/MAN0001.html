@@ -53,7 +53,66 @@
 
 		<!--  contentSection  -->
 		<div class="contentSection" id="contentSection">
+				<!-- 실적박스 -->
+				<div class="cardBox chart" style="margin-top: 20px;">
+					<div class="tit">
+						이달의 실적현황
+						<!-- <span class="num" id="cur_monF"></span>-->
+ 						<input type="text" id="cur_monF" class="num" style="font-weight:20; float:right;">
+ 						<!-- <input type="button" id="btn_monthPicker" name="btn_monthPicker" value="클릭" /> -->
+		   			
+		   			</div>
 
+					<div class="boxBody">
+						<div class="leftBox">
+							<ul class="dotTp1">
+								<li>집하 <em id="cur_pick_rate"></em></li>
+								<li>배달<em id="cur_dlv_rate"></em></li>
+								<li>합계<em id="cur_sum"></em></li>
+							</ul>
+						</div>
+					<div class="rightBox">
+						<div class="grade">
+		
+							<div class="disabled" id="grade04">
+							<!-- [D] 비활성화시 div 에 disabled 클래스 추가 -->
+								<img src="../../common/img/grade-family1.png" alt="패밀리 등급">
+							</div>
+							<div class="disabled" id="grade03">
+								<img src="../../common/img/grade-silver1.png" alt="실버 등급">
+							</div>
+							<div class="disabled" id="grade02">
+								<img src="../../common/img/grade-gold1.png" alt="골드 등급">
+							</div>
+							<div class="disabled" id="grade01">
+								<img src="../../common/img/grade-vip1.png" alt="브이아이피 등급">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="monthBox">
+					<div class="tit">금일집배송</div>
+					<ul>
+						<li>
+							<span class="badge gray2 l">집하</span>
+							<p class="num" id="tod_pick_rslt"></p>
+						</li>
+						<li>
+							<span class="badge gray2 l">배달/사진</span>
+							<p class="num">
+								<span id="tod_dlv_rslt"></span>
+								/
+								<span id="pic_dlv_rslt"></span>
+							</p>
+						</li>
+						<li>
+							<span class="badge gray2 l">합계</span>
+							<p class="num" id="tod_sum" style="color:#da291c; font-weight:400; float:right;"></p>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!-- //실적박스 -->
 			<!-- contentBox -->
 			<div class="contentBox main" id="infoMain">
 				<div class="cardBox ranking">
@@ -159,66 +218,7 @@
                     </ul>
                 </div>
                 <!-- //즐겨찾기 -->
-				<!-- 실적박스 -->
-				<div class="cardBox chart" style="margin-top: 20px;">
-					<div class="tit">
-						이달의 실적현황
-						<!-- <span class="num" id="cur_monF"></span>-->
- 						<input type="text" id="cur_monF" class="num" style="font-weight:20; float:right;">
- 						<!-- <input type="button" id="btn_monthPicker" name="btn_monthPicker" value="클릭" /> -->
-		   			
-		   			</div>
-
-					<div class="boxBody">
-						<div class="leftBox">
-							<ul class="dotTp1">
-								<li>집하 <em id="cur_pick_rate"></em></li>
-								<li>배달<em id="cur_dlv_rate"></em></li>
-								<li>합계<em id="cur_sum"></em></li>
-							</ul>
-						</div>
-					<div class="rightBox">
-						<div class="grade">
-		
-							<div class="disabled" id="grade04">
-							<!-- [D] 비활성화시 div 에 disabled 클래스 추가 -->
-								<img src="../../common/img/grade-family1.png" alt="패밀리 등급">
-							</div>
-							<div class="disabled" id="grade03">
-								<img src="../../common/img/grade-silver1.png" alt="실버 등급">
-							</div>
-							<div class="disabled" id="grade02">
-								<img src="../../common/img/grade-gold1.png" alt="골드 등급">
-							</div>
-							<div class="disabled" id="grade01">
-								<img src="../../common/img/grade-vip1.png" alt="브이아이피 등급">
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="monthBox">
-					<div class="tit">금일집배송</div>
-					<ul>
-						<li>
-							<span class="badge gray2 l">집하</span>
-							<p class="num" id="tod_pick_rslt"></p>
-						</li>
-						<li>
-							<span class="badge gray2 l">배달/사진</span>
-							<p class="num">
-								<span id="tod_dlv_rslt"></span>
-								/
-								<span id="pic_dlv_rslt"></span>
-							</p>
-						</li>
-						<li>
-							<span class="badge gray2 l">합계</span>
-							<p class="num" id="tod_sum" style="color:#da291c; font-weight:400; float:right;"></p>
-						</li>
-					</ul>
-				</div>
-			</div>
-				<!-- //실적박스 -->
+				
 
 			</div>
 			<!-- //contentBox -->
