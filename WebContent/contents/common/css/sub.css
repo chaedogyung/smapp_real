@@ -17,6 +17,7 @@
 .deliveryTy2{margin-top:170px; margin-bottom:60px;}/* 집배달 출발 */
 .deliveryTy3{margin-top:170px; margin-bottom:60px;}/* 배달 완료 */
 .deliveryTy4{margin-top:230px; margin-bottom:60px;}/* 미배달 */
+.deliveryTy5{margin-top:100px; margin-bottom:60px;}/* 지도신규 */
 
 .deliveryTy1Cal{margin-top:270px;}
 .deliveryTy2Cal{margin-top:212px;}
@@ -494,13 +495,16 @@
 .popMap .mapcon.red{background:url('../../common/img/map-red.png') no-repeat 2px 5px; background-size:10px;}
 .popMap .mapcon.sky{background:url('../../common/img/map-sky.png') no-repeat 2px 5px; background-size:10px;}
 .popMap .mapcon.pink{background:url('../../common/img/map-pink.png') no-repeat 2px 5px; background-size:10px;}
-.popMap .mapCon{position:fixed; top:246px; height:70%; width:100%;}
+.popMap .mapCon{position:fixed; top:186px; height:72%; width:100%;}
 .popMap .mapCon .label{width:35px; height:45px; position:relative; top:-30px;}
-.popMap .mapCon .label span{text-align:center; color:#575757; display:inline-block; width:35px; line-height:33px; font-size:13px;}
+.popMap .mapCon .label span{text-align:center; color:#575757; display:inline-block; width:35px; line-height:33px; font-size:13px;border-radius:35px;}
 .popMap .mapCon .label.blue{background:url('../../common/img/map-blue2.png') no-repeat; background-size:35px;}
 .popMap .mapCon .label.red{background:url('../../common/img/map-red2.png') no-repeat; background-size:35px;}
 .popMap .mapCon .label.sky{background:url('../../common/img/map-sky2.png') no-repeat; background-size:35px;}
 .popMap .mapCon .label.pink{background:url('../../common/img/map-pink2.png') no-repeat; background-size:35px;}
+.popMap .mapCon .label.silver{background:url('../../common/img/map-silver2.png') no-repeat; background-size:35px;}
+.popMap .mapCon .label.green{background:url('../../common/img/map-green2.png') no-repeat; background-size:35px;}
+.popMap .mapCon .label.curloc{background:url('../../common/img/map-i.png') no-repeat; background-size:30px;}
 .popMap .mapCon .btn.list{position:absolute; bottom:20px; right:10px;}
 .popMap .mapCon2{position:fixed; height:92%; width:100%;}
 
