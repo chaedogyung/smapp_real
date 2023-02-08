@@ -11,8 +11,7 @@ var page = {
 		mbl_dlv_area : null,
 		mbl_dlv_nm : null,
 		dlvyCompl : null,
-		curLat: null,   		// 현재나의위치
-		curLong: null,   		// 현재나의위치
+
 		// api 호출 기본 형식
 		apiParam : {
 			id:"HTTP",			// 디바이스 콜 id
@@ -55,7 +54,7 @@ var page = {
 			page.dlvyCompl = LEMP.Properties.get({
 				"_sKey" : "autoMenual"
 			});
-			page.getLocation();			//현재 내위치 찾기			
+			
 			page.initEvent();			// 페이지 이벤트 등록
 			page.initDpEvent();			// 화면 디스플레이 이벤트
 		},
@@ -229,9 +228,7 @@ var page = {
 					"_oMessage" : {
 						"param" : {
 							"step_sct_cd":"1",
-							"base_ymd":base_ymd,
-							"curLat" : page.curLat,	//현재위치
-							"curLong" : page.curLong	//현재위치							
+							"base_ymd":base_ymd
 						}
 					}
 				});
@@ -659,7 +656,7 @@ var page = {
 
 
 
-			// 사진/서명 버튼 클릭
+			// 사진촬영 버튼클랙
 			$('.btn.ftImg').click(function(e){
 				_this.sendPhotoMms();		// 사진촬영 로직 호출
 			});
@@ -1689,14 +1686,13 @@ var page = {
 
 		// 사진촬영 mms 발송
 		sendPhotoMms : function(){
-			var chnCdList = [];//채널코드 리스트 : b2b,b2c 기타....
 			var _this = this;
-			var chkTelLst = [];//전화번호 리스트
-			var invNoLst = [];//송장번호 리스트
+			var chkTelLst = [];
+			var invNoLst = [];
 			// 보내는분, 상품명, 인수자 추가
-			var snperNmLst = [];//보내는 사람
-			var artcNmLst = []; //상품명
-			var acprNmLst = []  //인수자
+			var snperNmLst = [];
+			var artcNmLst = [];
+			var acprNmLst = []
 			var popOpenYn = true;
 			var acprCnt = 0;
 			var acpr_nm = "";
@@ -1711,11 +1707,10 @@ var page = {
 				inv_no = (inv_no.split("_"))[0];
 				var telNumber = chkObj.val();
 
-				//보내는분, 상품명, 인수자 추가, 채널코드
+				//보내는분, 상품명, 인수자 추가
 				var snper_nm = chkObj.attr("data-snper-nm");
 				var artc_nm = chkObj.attr("data-artc-nm");
 				var acpr_nm = chkObj.attr("data-acpr-nm");
-				var chn_cd = chkObj.attr("data-chn-cd");//채널코드
 
 				if(smutil.isEmpty(telNumber)){
 					telNumber = "";
@@ -1743,8 +1738,7 @@ var page = {
 						snperNmLst.push(snper_nm);
 						artcNmLst.push(artc_nm);
 						acprNmLst.push(acpr_nm);
-						chnCdList.push(chn_cd);//채널코드
-						console.log("dddddd : " + chnCdList);
+
 						// 최초에 나오는 송장번호에 셋팅된 인수자를 사진정송 문구에 보내기로 수정 협의(2020-02-12)
 						if(acprCnt == 0){
 							acpr_nm = chkObj.data("acprNm");
@@ -1773,58 +1767,7 @@ var page = {
 			}
 
 			// 스캔 되고 전화번호가 있는 리스트만 mms 전송가능
-			new Set();
-			var chkTelLst1 = new Set(chkTelLst);
-
-			var chn_cd_List1 = new Set(chnCdList);
-		    console.log("dddd : " + chn_cd_List1.size);
-			
-//			if(chnCdList.includes("B2B") && chkTelLst1.size == 1 && chn_cd_List1.size == 1){
-		    //B2B건이 포함되어 있을때
-			if(chnCdList.includes("B2B")){
-				
-			    if(chn_cd_List1.size > 1 && chnCdList.includes("B2B")){
-					LEMP.Window.toast({
-						"_sMessage":"B2B 건과 다른 채널코드값(ex. B2C,C2C....)은 같이 선택되어질 수 없습니다.",
-						'_sDuration' : 'short'
-					});
-					
-					return false;
-			    }
-
-			    if(chn_cd_List1.size == 1 && chnCdList.includes("B2B") && chkTelLst1.size > 1){
-					LEMP.Window.toast({
-						"_sMessage":"B2B건은 동일 전화번호만 선택되어질 수 있습니다.",
-						'_sDuration' : 'short'
-					});
-				
-					return false;
-			    }
-				
-		    	LEMP.Window.toast({
-					"_sMessage":"B2B건을 선택하셨고 동일 수하인을 선택하셨습니다.",
-					'_sDuration' : 'short'
-				});
-				if(chkTelLst.length > 0 && invNoLst.length > 0 && popOpenYn){
-					var paramObj = [];
-					var timeTxt = "";
-
-					$.each(chkTelLst, function(idx){
-						paramObj.push({"inv_no" : (invNoLst[idx])+"","snper_nm" : (snperNmLst[idx])+"", "artc_nm" : (artcNmLst[idx])+"", "acpr_nm" : (acprNmLst[idx])+"", "rcv_date" : rcv_date, "tel_num":chkTelLst[idx]});
-					});
-
-
-					// 사진전송 로직 시작~!!!
-					var popUrl = smutil.getMenuProp("CLDL.CLDL0410","url");
-					console.log(paramObj);
-					LEMP.Window.open({
-						"_sPagePath":popUrl,
-						"_oMessage":{"param":{"list" : paramObj, "acpr_nm" : acpr_nm}}		// 인수자명 셋팅
-					});
-
-				}
-			} 
-			else if(chkTelLst.length > 0 && invNoLst.length > 0 && popOpenYn){
+			if(chkTelLst.length > 0 && invNoLst.length > 0 && popOpenYn){
 				var paramObj = [];
 				var timeTxt = "";
 
@@ -3363,24 +3306,6 @@ var page = {
 
 			return returnNum;
 
-		},
-
-		//현재 위치 가져오기
-		getLocation:function() {
-			if(navigator.geolocation) { //GPS 지원여부
-				navigator.geolocation.getCurrentPosition(function(position) {
-					page.curLat = position.coords.latitude;
-					page.curLong = position.coords.longitude;
-					
-				}, function(error) {
-					console.error(error);
-				}, {
-					enableHighAccuracy : false,//배터리를 더 소모해서 더 정확한 위치를 찾음
-					maximumAge: 0, //한 번 찾은 위치 정보를 해당 초만큼 캐싱
-					timeout: Infinity //주어진 초 안에 찾지 못하면 에러 발생
-				});
-			}
-			
 		}
 };
 

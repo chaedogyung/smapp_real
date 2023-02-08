@@ -187,7 +187,7 @@
 			<div class="baedalBox {{scanYnClass scanYn}} baeBox" data-scn-inv-no='{{inv_no}}'>
 				<div class="chk">
 					<span class="chkBox m ti">
-						<input type="checkbox" name="chk" id="{{inv_no}}_chk" value="{{returnSctCdTel tellNo}}" data-acpr-nm="{{acpr_nm}}" data-snper-nm="{{snper_nm}}" data-artc-nm="{{artc_nm}}" data-chn-cd="{{chn_cd}}"/>
+						<input type="checkbox" name="chk" id="{{inv_no}}_chk" value="{{returnSctCdTel tellNo}}" data-acpr-nm="{{acpr_nm}}" data-snper-nm="{{snper_nm}}" data-artc-nm="{{artc_nm}}"/>
 						<label for="{{inv_no}}_chk">&nbsp;</label>
 					</span>
 				</div>
@@ -199,7 +199,6 @@
 					<p class="tit">
 						{{!-- 송장번호형식표시 helper invNoTmpl --}}
 						<span class="dsin vm invNoSpan">{{invNoTmpl inv_no}}</span>
-						<p class="addRed">{{chn_cd}}</p>
 						
 						{{#prcsMemoYn}}		{{!-- 기사 메모 내용이 있는지 없는지 확인하는 if --}}
 						<button class="btn pen" data-memo-inv-no='{{inv_no}}'></button>
@@ -269,7 +268,7 @@
 			<div class="baedalBox scan baeBox"  data-scn-inv-no='{{inv_no}}'>
 				<div class="chk">
 					<span class="chkBox m ti">
-						<input type="checkbox" name="chk" id="{{inv_no}}_chk" value="{{returnSctCdTel tellNo}}" data-acpr-nm="{{acpr_nm}}" data-snper-nm="{{snper_nm}}" data-artc-nm="{{artc_nm}}" data-chn-cd="{{chn_cd}}"/>
+						<input type="checkbox" name="chk" id="{{inv_no}}_chk" value="{{returnSctCdTel tellNo}}" data-acpr-nm="{{acpr_nm}}" data-snper-nm="{{snper_nm}}" data-artc-nm="{{artc_nm}}"/>
 						<label for="{{inv_no}}_chk">&nbsp;</label>
 					</span>
 				</div>
@@ -280,7 +279,6 @@
 					<p class="tit">
 						{{!-- 송장번호형식표시 helper invNoTmpl --}}
 						<span class="dsin vm invNoSpan">{{invNoTmpl inv_no}}</span>
-						<p class="addRed">{{chn_cd}}</p>
 					</p>
 					{{cldlSctCdChkTag resultTag}}
 				</div>
