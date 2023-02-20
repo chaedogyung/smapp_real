@@ -3,6 +3,8 @@ LEMP.addEvent("backbutton", "page.callbackBackButton");		// 뒤로가기 버튼 
 var page = {
 		curDate:"",
 		dlvyCompl : null,
+		curLat: null,   		// 현재나의위치
+		curLong: null,   		// 현재나의위치
 		// api 호출 기본 형식
 		apiParam : {
 			id:"HTTP",			// 디바이스 콜 id
@@ -511,7 +513,27 @@ var page = {
 				_this.sendSms();
 			});
 
+			$('.btn.ftMap').click(function(e){
+				var popUrl = smutil.getMenuProp("COM.COM0201","url");
 
+				// 날짜셋팅
+				var curDate = new Date();
+				curDate = curDate.getFullYear() + ("0"+(curDate.getMonth()+1)).slice(-2) + ("0"+curDate.getDate()).slice(-2);
+				var base_ymd = smutil.nullToValue($('#cldlBtnCal').text(),curDate);
+				base_ymd = base_ymd.split('.').join('');
+
+				LEMP.Window.open({
+					"_sPagePath":popUrl,
+					"_oMessage" : {
+						"param" : {
+							"step_sct_cd":"3",
+							"base_ymd" : base_ymd,
+							"curLat" : page.curLat,	//현재위치
+							"curLong" : page.curLong	//현재위치
+						}
+					}
+				});
+			});
 			// 문자발송 스와이프 버튼클릭
 //			$(document).on('click', '.btn.blue5.bdM.bdMsg', function(e){
 //				var inv_no = $(this).data('invNo')+"";				// 송장번호
@@ -2423,5 +2445,21 @@ var page = {
 
 	}
 
+	//현재 위치 가져오기
+	, getLocation:function() {
+		if(navigator.geolocation) { //GPS 지원여부
+			navigator.geolocation.getCurrentPosition(function(position) {
+				page.curLat = position.coords.latitude;
+				page.curLong = position.coords.longitude;
+			}, function(error) {
+				//console.error(error);
+			}, {
+				enableHighAccuracy : false,//배터리를 더 소모해서 더 정확한 위치를 찾음
+				maximumAge: 0, //한 번 찾은 위치 정보를 해당 초만큼 캐싱
+				timeout: Infinity //주어진 초 안에 찾지 못하면 에러 발생
+			});
+		}
+		
+	}
 };
 
