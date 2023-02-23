@@ -103,10 +103,10 @@ var page = {
 		obj.attr("class","on");
 		obj.parent().parent().find(".on").index()+1;
 
-		data.cldl_tmsl_cd= $("#com0201LstUl").find(".on").find(".top").attr("id");
-		pick_tmsl_cd= $("#com0201LstUl").find(".on").find(".top").attr("id");
+		page.pick_tmsl_cd= $("#com0201LstUl").find(".on").find(".top").attr("id");
+		data.cldl_tmsl_cd= page.pick_tmsl_cd;
 		
-		if(smutil.isEmpty(pick_tmsl_cd)) data.cldl_tmsl_null = "true";
+		if(smutil.isEmpty(data.cldl_tmsl_cd)) data.cldl_tmsl_null = "true";
 		
 		page.locMapList(data);
 		/*if ($(".tabBox").find(".on").index()==0) {
@@ -297,10 +297,10 @@ var page = {
 							"_oMessage" : {
 								"param" : {
 									"bld_mgr_no" : arr[mid].bld_mgr_no+"",
-									"cldl_tmsl_cd" : pick_tmsl_cd,									
+									"cldl_tmsl_cd" : page.pick_tmsl_cd,									
 									"base_ymd" : page.com0201.base_ymd,
 									"step_sct_cd" : page.com0201.step_sct_cd,
-									"ep" : arr[i].lttd+","+arr[i].lgtd
+									"ep" : arr[mid].lttd+","+arr[mid].lgtd
 								}
 							}
 						});	
