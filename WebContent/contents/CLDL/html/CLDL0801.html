@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>롯데글로벌로지스</title>
+    <meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+    <meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+    <meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+    <link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+    <link rel="stylesheet" type="text/css" href="../../common/css/sub.css"/>
+
+    <!-- JS Global -->
+    <script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+    <script type="text/javascript" src="../js/CLDL0801.js"></script>
+    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=3c7ef4737f064d8e289dcf6f5ea6c132&libraries=services"></script>
+    
+    <!-- //JS Global  -->
+
+</head>
+
+
+<body>
+<input type="hidden" name="menuId" id="menuId" value="CLDL801"/>
+    <!--  contents  -->
+    <div id="contents">
+
+        <!--  headerSection  -->
+        <header id="headerSection" class="headerSection">
+            <div class="headerWrap black">
+                <button class="btn back paL ti">버튼</button>
+                <h1>지도 보기</h1>  
+                <button class="btn barcode paR" id="openFrePop"></button>
+            </div>
+        </header>
+        <!--  //headerSection  -->
+
+        <!--  contentSection  -->
+        <div class="contentSection" id="contentSection">
+        
+            <!-- contentBox -->
+            <div class="contentBox">
+                
+                <!-- tabBox -->
+                <div class="tabBox li3">
+                    <ul>
+                        <li class="lstSchBtn on" data-step-sct-cd="3">
+                            <button class="btn">
+                                <span class="badge gray m">집배달 예정</span>
+                                <div id="div0" style="display: block;">(집하 /배달)</div>
+                            </button>
+                        </li>
+                        <li class="lstSchBtn" data-step-sct-cd="0">
+                            <button class="btn">
+                                <span class="badge gray m">집배달 출발</span>
+                                <div id="div1" style="display: none;">(집하 /배달)</div>
+                            </button>
+                        </li>
+                        <li class="lstSchBtn" data-step-sct-cd="1">
+                            <button class="btn">
+                                <span class="badge gray m">집배달 완료</span>
+                                <div id="div2" style="display: none;">(집하 /배달)</div>
+                            </button>
+                        </li>
+                            
+                    </ul>
+                </div>
+                <!-- //tabBox -->
+
+                
+                <!-- tabView -->
+                
+                <div class="tabView popMap">
+                    <ul>
+                        <li>
+                            <!-- divisionBox -->
+                            <div class="divisionBox v2">
+                                <div class="selectBox">
+                                    <ul id="cldl0801LstUl">
+                                    </ul>
+                                </div>                          
+
+                            </div>
+                            <!-- //divisionBox -->
+                        </li>
+                        <li class="noList">
+                            <!-- mapCon -->
+                            <div class="mapCon" id="mapCon">
+                            </div> 
+
+                            <!-- //mapCon -->
+                            <div class="NoBox" style="display: none;">
+                                <p class="txt tc">조회된 결과가 없습니다.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- //tabView -->
+
+                
+            </div>
+            <!-- //contentBox -->
+
+        </div>
+        <!--  //contentSection  -->
+
+    </div>
+    <!--  //contents  -->
+</body>
+<script type="text/x-handlebars-template" id="CLDL0801_list_template">
+{{#each list}}
+    <li>
+        <div class="itemBox">
+            <p class="top" id="{{cldl_tmsl_cd}}">{{cldl_tmsl_nm}}</p>
+            <p class="txt">집하<em>{{pick_cnf_cnt}}/{{pick_total_cnt}}</em></p>
+            <p class="txt bdb">배달<em>{{dlv_cnf_cnt}}/{{dlv_total_cnt}}</em></p>
+        </div>
+    </li>
+{{/each}}
+</script>
+</html>

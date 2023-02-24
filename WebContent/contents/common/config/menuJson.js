@@ -82,6 +82,8 @@ var menuJsonJs =
 		"CLDL0601":{"menuTxt" : "사진전송", "parentMenuCd" : null, "menuDept" : 1, "url" : "CLDL/html/CLDL0601.html", "mainImgSrc" : "../../common/img/icon-fa3.png", "gnbImgClass" : ""},
 		// "CLDL0801":{"menuTxt" : "사진 일괄전송", "parentMenuCd" : null, "menuDept" : 1, "url" : "CLDL/html/CLDL0801.html", "mainImgSrc" : "../../common/img/icon-fa3.png", "gnbImgClass" : ""},
 		"CLDL0701":{"menuTxt" : "미배달사유 일괄등록", "parentMenuCd" : null, "menuDept" : 1, "url" : "CLDL/html/CLDL0701.html", "mainImgSrc" : "../../common/img/icon-fa3.png", "gnbImgClass" : ""},
+		"CLDL0801":{"menuTxt" : "지도", "parentMenuCd" : null, "menuDept" : 1, "url" : "CLDL/html/CLDL0801.html", "mainImgSrc" : "../../common/img/icon-fa30.png", "gnbImgClass" : ""},
+		"CLDL0802":{"menuTxt" : "지도운송장목록", "parentMenuCd" : null, "menuDept" : 2, "url" : "CLDL/html/CLDL0802.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		// "CLDL0901":{"menuTxt" : "임시테스트", "parentMenuCd" : null, "menuDept" : 1, "url" : "CLDL/html/CLDL0901.html", "mainImgSrc" : "../../common/img/icon-fa3.png", "gnbImgClass" : ""},
 		"CLDL0501":{"menuTxt" : "집배달현황", "parentMenuCd" : null, "menuDept" : 1, "url" : "CLDL/html/CLDL0501.html", "mainImgSrc" : "../../common/img/icon-fa20.png", "gnbImgClass" : ""},
 		"CLDL0502":{"menuTxt" : "집하완료현황", "parentMenuCd" : null, "menuDept" : 2, "url" : "CLDL/html/CLDL0502.html", "mainImgSrc" : "", "gnbImgClass" : ""},

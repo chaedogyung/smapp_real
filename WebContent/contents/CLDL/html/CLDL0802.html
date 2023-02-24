@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>롯데글로벌로지스</title>
+	<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1" name="viewport">
+	<meta name="theme-color" content="#e8463a"><!-- 안드로드 헤드 칼라 -->
+	<meta name="format-detection" content="telephone=no"><!-- IOS 전화번호 자동색상 방지 -->
+
+	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../../common/css/sub.css">
+
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/CLDL0802.js"></script>
+	
+</head>
+
+<body>
+<input type="hidden" name="menuId" id="menuId" value="CLDL0802"/>
+	<!--  contents  -->
+	<div id="contents">
+		<!--  headerSection  -->
+		<header id="headerSection" class="headerSection">
+			<div class="headerWrap black">
+				<h1 id="headnm">운송장목록</h1>
+				<button class="btn closeW paR">닫기</button>
+			</div>
+		</header>
+		<!--  //headerSection  -->
+
+		<!--  contentSection  -->
+		<div class="contentSection" id="contentSection">
+		
+		<!-- contentBox -->
+		<div class="contentBox pop popInfo">
+			 
+	     <div class="topFx">
+	        <div class="tabBox li2">
+		        <ul>
+		            <li class="on lstSchBtn" data-pick-sct-cd='P'>
+						<button class="btn">
+							<span class="txt" id="cldlPcnt" style="background-color:transparent">집하 0건</span>
+						</button>
+					</li>
+		            <li class="lstSchBtn" data-pick-sct-cd='D'>
+		                <button class="btn">
+		                    <span class="txt" id="cldlDcnt" style="background-color:transparent">배달 0건</span>
+		                </button>
+		            </li>
+		        </ul>
+	       </div>
+	       <div class="tabChkbox" id="tabChkDetailP" style="display: block;">
+				<span class="chkBox m"><input type="checkbox" name="chkall" id="checkallP" /> <label for="checkallP" style="margin-top: 3px;">전체</label></span>
+			</div>
+			<div class="tabChkbox" id="tabChkDetailD" style="display: none;">
+				<span class="chkBox m"><input type="checkbox" name="chkall" id="checkallD" /> <label for="checkallD" style="margin-top: 3px;">전체</label></span>
+				<div class="insuja" id="insuja" >인수자 
+					<span class="txt insujaTxtView" >인수자정보</span>
+					<button class="btn plus"></button>
+					<input type="hidden" id="insujaCode" name="insujaCode">
+					<input type="hidden" id="insujaTxt" name="insujaTxt">
+				</div>
+			</div>
+			<!-- tabView -->
+			<div class="tabView" id="listViewDiv">
+				<ul>
+					<li>
+						<!-- baedalListBox -->
+						<div class="baedalListBox" id="invDetailP"">
+							<ul id="cldl0802LstUl">
+							</ul>
+							<!-- <div class="pagination" id="pagingDiv" style="display: none;">
+								<ul id="pagingUl">
+								</ul>
+							</div> -->
+						</div>						
+						<div class="baedalListBox" id="invDetailD" style="display: none;">
+							<ul id="cldl0802LstUlD">
+							</ul>
+							<!-- <div class="pagination" id="pagingDiv" style="display: none;">
+								<ul id="pagingUl">
+								</ul>
+							</div> -->
+						</div>
+						<!-- //baedalListBox -->
+					</li>
+				</ul>
+			</div>
+			<!-- //tabView -->			
+	       <!-- <div class="tabInvDetail baedalListBox">
+	        <div class="txtBox tp4" id="invDetailP" style="display: block;">
+	         	<div class="invListBox">
+					<ul id="com0201LstInvsUl" class="ui-sortable">
+					</ul>
+				</div> 
+	        </div>
+			<div class="txtBox tp4" id="invDetailD" style="display: none;">
+				<div class="invListBox">
+					<ul id="com0201LstInvsUlD" class="ui-sortable">
+					</ul>
+				</div>
+			  </div>
+			</div> -->
+	    </div>
+	    <!-- //tabInv -->	
+	    		
+		</div>
+		<!-- //contentBox -->
+		
+		</div>
+		<!--  //contentSection  -->
+		
+		<!-- ftMenu -->
+		<div class="ftMenu li5">
+			<ul>
+				<li>
+					<button class="btn ftScan">
+						<span class="txt">스캔</span>
+					</button>
+				</li>
+				<li>
+					<button class="btn ftSms"><span class="txt">미배송사유</span></button>
+				</li>
+				<li>
+					<button class="btn ftSms"><span class="txt">문자</span></button>
+				</li>
+				 <li>
+					<button class="btn ftImg"><span class="txt">사진/서명</span></button>
+				</li> 
+				<li class="on">
+					<button class="btn ftSend" id="cmptTrsmBtn">
+						<p class="badge red s num" id="scanLstCnt">0</p>
+						<span class="txt">전송</span>
+					</button>
+				</li>
+			</ul>
+		</div>
+		<!-- //ftMenu -->
+	</div>
+	<!--  //contents  -->
+	
+
+	<!-- 모달팝업 통화 -->
+	<div class="mpopBox img phone">
+		<div class="popBody">
+			<p class="img"><img src="../../common/img/icon-phone2.png" alt="" /></p>
+			<p class="txt1" id="popPhoneTxt"></p>
+			<p class="txt2">통화하시겠습니까?</p>
+		</div>
+		<div class="popFooter">
+			<div class="btnBox">
+				<ul class="ul0 ul2">
+					<li><button class="btn gray m w100p b-close">취소</button></li>
+					<li><button class="btn red m w100p b-close" id="phoneCallYesBtn">통화</button></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- //모달팝업 통화 -->
+		
+</body>
+
+<!-- 리스트 li 집하P -->
+<script type="text/x-handlebars-template" id="cldl0802_li_template" >
+{{#each list}}
+	<li id="P{{inv_no}}" class='row-four cldlSctCd_{{cldl_sct_cd}}' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}'>
+		<div class="baedalBox scan baeBox" data-scn-inv-no='{{inv_no}}'>
+			{{#isChk}}
+			<div class="chk">
+				<span class="chkBox m ti">
+					<input type="checkbox" name="chkInvP" id="P{{inv_no}}_chk" value="{{inv_no}}" /> 
+					<label for="{{inv_no}}_chk">&nbsp;</label>
+				</span>
+			</div>
+			{{/isChk}}
+			<div class="infoBox">
+				<p class="tit" id="{{inv_no}}">
+					<span class="dsin vm invNoSpan">{{invNoTmpl inv_no}}</span> <span class="purple badge option outline">{{cldlSctNm}}</span>
+
+					{{#prcsMemoYn}}		{{!-- 기사 메모 내용이 있는지 없는지 확인하는 if --}}
+					<button class="btn pen" data-memo-inv-no='{{inv_no}}'></button>
+					{{/prcsMemoYn}}
+
+					{{!-- 운임 라벨 표시 helper fareChk --}}
+					{{fareChk label}}
+						
+					{{!-- 취소 여부 helper--}}
+					{{#cclYnChk}}
+						<span class="badge red s outline">취소</span>
+					{{/cclYnChk}}
+						
+					{{!-- 신선식품 여부 helper--}}
+					{{#fresYnChk}}
+						<span class="badge blue s outline">신선</span>
+					{{/fresYnChk}}
+						
+					{{!-- 사고 여부 helper--}}
+					{{#acdYnChk}}
+						<span class="badge purple s outline">사고</span>
+					{{/acdYnChk}}
+				</p>
+				<p class="addRe">{{snper_adr}}</p>
+				<p class="addRe">{{snper_nm}} / {{snper_cpno}}</p>
+				<p class="addRed">{{dlv_msg_cont}}</p>
+			</div>
+		</div>
+		<div class="btnBox">
+			{{setPhoneNumber phoneNumber}}		<!-- 전화걸기 버튼 -->
+            {{setRsnRgstBtnP rsnBtn}}
+			<button class="btn bdM blue7 bdRoute mgl1" data-inv-no='{{inv_no}}'>경로</button>
+		</div>
+	</li>
+{{else}}
+	<li class="noList">
+		<p class="txt tc">조회된 결과가 없습니다.</p>
+	</li>
+{{/each}}
+</script>
+
+<script type="text/x-handlebars-template" id="cldl0802_li_templateD" >
+{{#each listD}}
+	<li id="D{{inv_no}}" class='row-four cldlSctCd_{{cldl_sct_cd}}' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}'>
+		<div class="baedalBox scan baeBox" data-scn-inv-no='{{inv_no}}'>
+			{{#isChk}}
+			<div class="chk">
+				<span class="chkBox m ti">
+					<input type="checkbox" name="chkInvD" id="D{{inv_no}}_chk" value="{{inv_no}}" /> 
+					<label for="{{inv_no}}_chk">&nbsp;</label>
+				</span>
+			</div>
+			{{/isChk}}
+			<div class="infoBox">
+				<p class="tit" id="{{inv_no}}">
+					<span class="dsin vm invNoSpan">{{invNoTmpl inv_no}}</span> <span class="purple badge option outline">{{cldlSctNm}}</span>
+
+					{{#prcsMemoYn}}		{{!-- 기사 메모 내용이 있는지 없는지 확인하는 if --}}
+					<button class="btn pen" data-memo-inv-no='{{inv_no}}'></button>
+					{{/prcsMemoYn}}
+
+					{{!-- 운임 라벨 표시 helper fareChk --}}
+					{{fareChk label}}
+						
+					{{!-- 취소 여부 helper--}}
+					{{#cclYnChk}}
+						<span class="badge red s outline">취소</span>
+					{{/cclYnChk}}
+						
+					{{!-- 신선식품 여부 helper--}}
+					{{#fresYnChk}}
+						<span class="badge blue s outline">신선</span>
+					{{/fresYnChk}}
+						
+					{{!-- 사고 여부 helper--}}
+					{{#acdYnChk}}
+						<span class="badge purple s outline">사고</span>
+					{{/acdYnChk}}
+				</p>
+				<p class="addRe">{{acper_adr}}</p>
+				<p class="addRe">{{acper_nm}} / {{acper_cpno}}</p>
+				<p class="addRed">{{dlv_msg_cont}}</p>
+			</div>
+			
+			{{!-- #chkScanCmptYn --}}
+			<button class="btn cancel" data-cancel-inv-no='{{inv_no}}' data-cancle-sct-cd='{{cldl_sct_cd}}' data-cancle-tmsl-cd='{{cldl_tmsl_cd}}'>캔슬</button>
+			{{setSubBoxBtn subBoxBtn}}		{{!-- 보조송장 등록버튼 셋팅 --}}
+			{{!-- /chkScanCmptYn--}}
+		</div>
+		<div class="btnBox">
+			{{setPhoneNumber phoneNumber}}		<!-- 전화걸기 버튼 -->
+            {{setRsnRgstBtnD rsnBtn}}
+			<button class="btn bdM blue7 bdRoute mgl1" data-inv-no='{{inv_no}}'>경로</button>
+		</div>
+	</li>
+{{else}}
+	<li class="noList">
+		<p class="txt tc">조회된 결과가 없습니다.</p>
+	</li>
+{{/each}}
+
+</script>
+
+</html>

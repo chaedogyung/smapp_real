@@ -11,7 +11,8 @@ var page = {
 		mbl_dlv_area : null,
 		mbl_dlv_nm : null,
 		dlvyCompl : null,
-
+		curLat: null,   		// 현재나의위치
+		curLong: null,   		// 현재나의위치
 		// api 호출 기본 형식
 		apiParam : {
 			id:"HTTP",			// 디바이스 콜 id
@@ -228,7 +229,9 @@ var page = {
 					"_oMessage" : {
 						"param" : {
 							"step_sct_cd":"1",
-							"base_ymd":base_ymd
+							"base_ymd":base_ymd,
+							"curLat" : page.curLat,	//현재위치
+							"curLong" : page.curLong	//현재위치
 						}
 					}
 				});
@@ -3306,6 +3309,23 @@ var page = {
 
 			return returnNum;
 
+		}
+
+		//현재 위치 가져오기
+		, getLocation:function() {
+			if(navigator.geolocation) { //GPS 지원여부
+				navigator.geolocation.getCurrentPosition(function(position) {
+					page.curLat = position.coords.latitude;
+					page.curLong = position.coords.longitude;					
+				}, function(error) {
+					//console.error(error);
+				}, {
+					enableHighAccuracy : false,//배터리를 더 소모해서 더 정확한 위치를 찾음
+					maximumAge: 0, //한 번 찾은 위치 정보를 해당 초만큼 캐싱
+					timeout: Infinity //주어진 초 안에 찾지 못하면 에러 발생
+				});
+			}
+			
 		}
 };
 
