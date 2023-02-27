@@ -105,7 +105,7 @@ var page = {
 
 		page.pick_tmsl_cd= $("#com0201LstUl").find(".on").find(".top").attr("id");
 		data.cldl_tmsl_cd= page.pick_tmsl_cd;
-		
+		data.cldl_tmsl_null = "";
 		if(smutil.isEmpty(data.cldl_tmsl_cd)) data.cldl_tmsl_null = "true";
 		
 		page.locMapList(data);

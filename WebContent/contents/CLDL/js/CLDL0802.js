@@ -3,9 +3,9 @@ var page = {
 	signInvNo : null,
 	is_reload : null,
 	dlvyCompl : null,
-	ep : null,	//현재위치 
+	sp : null,	//현재위치 
 	init:function(arg)
-	{console.log('802 arg param 000000 ', arg.data.param);
+	{
 		page.cldl0802 = arg.data.param;
 		page.dlvyCompl = LEMP.Properties.get({
 			"_sKey" : "autoMenual"
@@ -95,8 +95,10 @@ var page = {
 			$('#tabChkDetailP').show();
 			$('#tabChkDetailD').hide();
 			$('#headnm').text("집배달 완료");
+			$("#bottomli").show();
 		} else {
 			$('.tabChkbox').hide();
+			$("#bottomli").hide();
 			if(page.cldl0802.step_sct_cd == '0'){
 				$('#headnm').text("집배달 출발");	
 			} else {
@@ -128,14 +130,21 @@ var page = {
 			// 텝에따라 업무구분 선택박스 처리
 			if(pick_sct_cd == 'D'){
 				$('#invDetailP').hide();
-				$('#invDetailD').show();
+				$('#invDetailD').show();				
 				
-				if(page.cldl0802.step_sct_cd == '1'){
+				if(page.cldl0802.step_sct_cd == '1'){ //완료(집하/배달)
 					$('#tabChkDetailP').hide();
 					$('#tabChkDetailD').show();
+					
+					$("#bottomli").show();
+					$("#bottomli").removeClass("li4");
+					$("#bottomli").addClass("li5");
+					$('#liimg').show();
+					$("#spanoff").html("미배송사유");
 				}
 				else{
 					$('.tabChkbox').hide();
+					$("#bottomli").hide();
 				}
 			}
 			else{
@@ -145,9 +154,16 @@ var page = {
 				if(page.cldl0802.step_sct_cd == '1'){
 					$('#tabChkDetailP').show();
 					$('#tabChkDetailD').hide();
+					$("#bottomli").show();
+					$("#bottomli").removeClass("li4");
+					$("#bottomli").addClass("li5");
+					$('#liimg').show();
+					$("#spanoff").html("미배송사유");
 				}
 				else{
 					$('.tabChkbox').hide();
+					$("#bottomli").hide();
+
 				}
 			}
 
@@ -176,44 +192,31 @@ var page = {
 				$('.baedalBox').removeClass('bg-v2');									// 다른 row 선택초기화
 				liElement.parents('.baedalBox').addClass('bg-v2');						// row 선택 표시
 				var sctCd = liElement.parents('li').data('liSctCd');		// 업무 구분
-console.log('invNoSpan click 111 ');
+
 				if(!smutil.isEmpty(sctCd)){
 
 					var inv_no = liElement.parents('li').data('invNo')+"";				// 송장번호
 					var rsrv_mgr_no = liElement.parents('li').data('rsrvMgrNo')+"";		// 접수번호
-console.log('invNoSpan click 222  inv_no: ' + inv_no);
+
 					// 팝업 url 호출
 					var popUrl;
-
+					var popnm = 'CLDL.CLDL0203';	// 배달 팝업
 					if(sctCd == "P"){		// 집하 팝업
+						popnm = 'CLDL.CLDL0202';
+					} 
+					
+					popUrl = smutil.getMenuProp(popnm, 'url');
 
-						popUrl = smutil.getMenuProp('CLDL.CLDL0202', 'url');
-
-						LEMP.Window.open({
-							"_sPagePath":popUrl,
-							"_oMessage" : {
-								"param" : {
-									"inv_no" : inv_no+"",
-									"rsrv_mgr_no" : rsrv_mgr_no
-								}
+					LEMP.Window.open({
+						"_sPagePath":popUrl,
+						"_oMessage" : {
+							"param" : {
+								"inv_no" : inv_no+"",
+								"rsrv_mgr_no" : rsrv_mgr_no
 							}
-						});
-					}
-					else if(sctCd == "D"){		// 배달 팝업
+						}
+					});
 
-						popUrl = smutil.getMenuProp('CLDL.CLDL0203', 'url');
-
-						LEMP.Window.open({
-							"_sPagePath":popUrl,
-							"_oMessage" : {
-								"param" : {
-									"inv_no" : inv_no+"",
-									"rsrv_mgr_no" : rsrv_mgr_no
-								}
-							}
-						});
-
-					}
 				}
 			}
 		});
@@ -231,6 +234,30 @@ console.log('invNoSpan click 222  inv_no: ' + inv_no);
 			});
 
 		});
+		
+
+		// 문자버튼 클릭
+		$('.btn.ftSms').click(function(e){
+			var routeUrl = "https://m.map.kakao.com/scheme/open";
+			alert('map opentest:: ' + routeUrl);
+			window.location = routeUrl;
+			// 문자발송 이벤트 호출
+			//page.sendSms();
+		});
+		
+		$('.btn.ftImg').click(function(e){
+			var routeUrl = "kakaomap://route?sp=37.5570572,126.9736211&ep=37.4979502,127.0276368&by=FOOT";
+			alert('routeUrl kakaomap:: ' + routeUrl);
+			window.location = routeUrl;
+		});
+		
+		$('.btn.ftSend').click(function(e){
+			var routeUrl = "https://map.kakao.com/link/from/서울특별시청,37.5668260054857,126.978656785931/to/강원도청,37.8853257858225,127.729829010358";
+			alert('routeUrl https:: ' + routeUrl);
+			window.location = routeUrl;
+		});
+
+
 
 		// 스와이프 touch start
 		// 스와이프해서  통화버튼 클릭
@@ -244,9 +271,14 @@ console.log('invNoSpan click 222  inv_no: ' + inv_no);
 		
 		//통화 
 		$(document).on("click","#phoneCallYesBtn",function(){
+			var phoneNumber = $('#popPhoneTxt').text();
+			alert('phoneNumber : ' + phoneNumber );
+				phoneNumber = phoneNumber.split('-').join('').replace(/\-/g,'');
+			
 			LEMP.System.callTEL({
-				"_sNumber":$("#phoneNum").text().replace(/\-/g,'')
+				"_sNumber":phoneNumber
 			});
+			
 			$('.mpopBox.phone').bPopup().close();
 		});
 		
@@ -254,9 +286,11 @@ console.log('invNoSpan click 222  inv_no: ' + inv_no);
 
 		// 스와이프해서 서명 싸인패드 호출
 		$(document).on('click', '.btn.blue2.bdM.bdSign.mgl1', function(e){
-			var inv_no = $(this).data('invNo')+"";alert('서명 싸인패드 기능 준비중');
+			var inv_no = $(this).data('invNo')+"";//alert('서명 싸인패드 기능 준비중');
 			console.log('page.cldl0802. btn.blue2.bdM.bdSign.mgl1 click inv_no' + inv_no);
-			if(page.chkScanYn(inv_no)){
+			var chksyn = page.chkScanYn(inv_no);
+			alert("chkScanYn: " + chksyn);
+			if(chksyn){
 				page.signInvNo = inv_no;
 				var date = new Date();
 				var curTime = date.LPToFormatDate("yyyymmddHHnnss");
@@ -334,10 +368,10 @@ console.log('invNoSpan click 222  inv_no: ' + inv_no);
 			var inv_no = $(this).data('invNo');
 			var cldl_sct_cd = $(this).data('cldlSctCd');
 			inv_no = inv_no+"";
-			alert('scan: ' + inv_no);
+			alert('scan1: ' + inv_no);
 			if(!smutil.isEmpty(inv_no)){
 				inv_no = inv_no.split('-').join('');
-				var result = {"barcode" : inv_no, "cldl_sct_cd":cldl_sct_cd};
+				var result = {"barcode" : inv_no}; //, "cldl_sct_cd":cldl_sct_cd
 				page.scanCallback(result); //스캔 기능 확인
 			}
 			else{
@@ -354,8 +388,8 @@ console.log('invNoSpan click 222  inv_no: ' + inv_no);
 		$(document).on('click', '.btn.blue7.bdM.bdRoute.mgl1', function(e){
 			//alert('이동경로 기능 준비중입니다.');
 			alert("goRoute::: " + page.sp + "" + page.cldl0802.ep);
-			if(!smutil.isEmpty(sp) && !smutil.isEmpty(page.cldl0802.ep)){				
-				var popUrl = "kakaomap://route?sp="+sp+"&ep="+page.cldl0802.ep+"&by=CAR";
+			if(!smutil.isEmpty(page.sp) && !smutil.isEmpty(page.cldl0802.ep)){				
+				var popUrl = "kakaomap://route?sp="+page.sp+"&ep="+page.cldl0802.ep+"&by=CAR"; //2023.02.24
 				//page.goRoute(result);
 				alert(popUrl);
 				LEMP.Window.open({
@@ -628,6 +662,10 @@ console.log('invNoSpan click 222  inv_no: ' + inv_no);
 		page.invDtl();
 	}
 	
+	, listReLoad : function(){
+			page.is_reload = true;
+			page.invDtl();				// 리스트 재조회
+	}
 	
 	
 	
@@ -638,6 +676,7 @@ console.log('invNoSpan click 222  inv_no: ' + inv_no);
 		data.step_sct_cd= page.cldl0802.step_sct_cd;
 		data.bld_mgr_no	= page.cldl0802.bld_mgr_no;
 		data.cldl_tmsl_cd= page.cldl0802.cldl_tmsl_cd;
+		data.cldl_tmsl_null = "";
 		if(smutil.isEmpty(page.cldl0802.cldl_tmsl_cd)) data.cldl_tmsl_null = "true";
 			
 		smutil.loadingOn();		// 로딩바 열기
@@ -653,7 +692,7 @@ console.log('invNoSpan click 222  inv_no: ' + inv_no);
 	
 	//상세화면 콜백
 	, invDtlCallback : function(res){
-		try{console.log('invDtlCallback 2222222', res);
+		try{
 			$('.tabChkbox').prop("checked",false);
 			
 			var template = Handlebars.compile($("#cldl0802_li_template").html());
@@ -684,7 +723,7 @@ console.log('invNoSpan click 222  inv_no: ' + inv_no);
 	// 현재 리스트가 스캔이 되어있는지 체크
 	// 스캔 했으면 true, 안했으면 false
 	, chkScanYn : function(inv_no){
-		if(!smutil.isEmpty(inv_no) && $('#'+inv_no).length > 0){
+		if(!smutil.isEmpty(inv_no) && $('#'+inv_no).length > 0){ 
 			return !($('#'+inv_no).children(".baedalBox").is(".off"));
 		}
 		else {
@@ -870,21 +909,18 @@ console.log('cmptSignRgstCallback result', result);
 				"_sDuration" : "short"
 			});
 
-			page.is_reload = true;
-			page.invDtl();				// 리스트 재조회
+			page.listReLoad();				// 리스트 재조회 2023.02.27
 		}
 	}
 	// ################### 미배달 처리 end
 
-
-
 	// ################### 스캔 전송 start
 	// 스캔된후 호출되는 함수
-	, scanCallback : function(result){
+	, scanCallback : function(result){console.log('scanCallback', result);
 		page.apiParamInit();		// 전역 api 파라메터 초기화
 		var _this = this;
 		var scanCallYn = "Y", sMsg = "";
-		var cldl_sct_cd = result.cldl_sct_cd;				// 업무구분 (배달 : D)
+		var cldl_sct_cd = "D";//result.cldl_sct_cd;				// 업무구분 (배달 : D)
 		var cldl_tmsl_cd = page.cldl0802.cldl_tmsl_cd;				// 예정시간
 		 
 		var inv_no = result.barcode;
@@ -899,12 +935,12 @@ console.log('cmptSignRgstCallback result', result);
 		inv_no = inv_no+"";
 		// 중복 스캔 방지
 		if(page.chkScanYn(inv_no)){
-			
+			console.log('smutil.callTTS');
 			// 실패 tts 호출(벨소리)
 			smutil.callTTS("0", "0", null, result.isBackground);
 
 			return false;
-		}
+		}  //진행안됨.. 나중에 살림 testdev
 		
 		if(smutil.isEmpty(cldl_tmsl_cd) && page.dlvyCompl.area_sct_cd == 'N'){
 				sMsg = "예정시간을 선택해 주세요.";
@@ -927,7 +963,7 @@ console.log('cmptSignRgstCallback result', result);
 				sMsg = "직접입력 인수자정보를 입력해 주세요.";
 				scanCallYn = "N";
 			}
-			
+			console.log('222222222222 scanCallYn: ' + scanCallYn + ' sMsg: ' + sMsg);
 			// 스캔 validation 오류로 실패
 			if(scanCallYn == "N"){
 				
@@ -942,7 +978,7 @@ console.log('cmptSignRgstCallback result', result);
 
 				return false;
 			}
-			
+			console.log('3333333333');
 			//스캔시간
 			var date = new Date();
 			var scan_dtm = date.LPToFormatDate("yyyymmddHHnnss");				// 스캔 시간
@@ -963,14 +999,14 @@ console.log('cmptSignRgstCallback result', result);
 			};	// api 통신용 파라메터
 			
 			page.apiParam.isBackground = result.isBackground;					// app이 background 상태인지 설정
-	
+	console.log('page.apiParam.data 1111', page.apiParam.data);
 			// 공통 api호출 함수
 			smutil.callApi(page.apiParam);
 		
 	}
 	
 	// 스캔 api 호출 callback
-	, cmptScanRgstCallback : function(result){
+	, cmptScanRgstCallback : function(result){ console.log('cmptScanRgstCallback', result);
 		var message = smutil.nullToValue(result.message,'');
 		var acnt = 0;
 		var dcnt = 0;
@@ -1084,7 +1120,7 @@ console.log('cmptSignRgstCallback result', result);
 
 					//TO-DO
 //				console.log(data);
-
+console.log('smutil.callTTS scanCnt: ', scanCnt);
 				// 성공 tts 호출
 				smutil.callTTS("1", "2", scanCnt, result.isBackground);
 
@@ -1164,7 +1200,7 @@ console.log('cmptSignRgstCallback result', result);
 	}
 	// ################### 스캔 전송  end
 	// 배달출발확정 콜백
-	, cmptTrsmCallback : function(result){
+	, cmptTrsmCallback : function(result){ console.log('cmptTrsmCallback: ', cmptTrsmCallback);
 		var _this = this;
 
 		try{
@@ -1208,7 +1244,7 @@ console.log('cmptSignRgstCallback result', result);
 	,getLocation:function() {
 		if(navigator.geolocation) { //GPS 지원여부
 			navigator.geolocation.getCurrentPosition(function(position) {
-				page.ep = position.coords.latitude +","+position.coords.longitude;
+				page.sp = position.coords.latitude +","+position.coords.longitude;//2023.02.24
 			}, function(error) {
 			}, {
 				enableHighAccuracy : false,//배터리를 더 소모해서 더 정확한 위치를 찾음

@@ -21,7 +21,7 @@
 	<!--  contents  -->
 	<div id="contents">
 		<!--  headerSection  -->
-		<header id="headerSection" class="headerSection">
+		<header id="headerSection" class="headerSection headFx">
 			<div class="headerWrap black">
 				<h1 id="headnm">운송장목록</h1>
 				<button class="btn closeW paR">닫기</button>
@@ -36,6 +36,7 @@
 		<div class="contentBox pop popInfo">
 			 
 	     <div class="topFx">
+            <!-- topHead -->
 	        <div class="tabBox li2">
 		        <ul>
 		            <li class="on lstSchBtn" data-pick-sct-cd='P'>
@@ -63,83 +64,67 @@
 				</div>
 			</div>
 			<!-- tabView -->
-			<div class="tabView" id="listViewDiv">
+            <!-- // topHeadCal -->
+        </div>
+        <!-- //topFx -->
+
+			<!-- tabView -->
+			<div class="tabView deliveryTy3Cal" id="listViewDiv" style="margin-top:147px;">
 				<ul>
 					<li>
-						<!-- baedalListBox -->
-						<div class="baedalListBox" id="invDetailP"">
-							<ul id="cldl0802LstUl">
-							</ul>
-							<!-- <div class="pagination" id="pagingDiv" style="display: none;">
-								<ul id="pagingUl">
-								</ul>
-							</div> -->
-						</div>						
-						<div class="baedalListBox" id="invDetailD" style="display: none;">
-							<ul id="cldl0802LstUlD">
-							</ul>
-							<!-- <div class="pagination" id="pagingDiv" style="display: none;">
-								<ul id="pagingUl">
-								</ul>
-							</div> -->
-						</div>
-						<!-- //baedalListBox -->
-					</li>
-				</ul>
-			</div>
-			<!-- //tabView -->			
-	       <!-- <div class="tabInvDetail baedalListBox">
-	        <div class="txtBox tp4" id="invDetailP" style="display: block;">
-	         	<div class="invListBox">
-					<ul id="com0201LstInvsUl" class="ui-sortable">
-					</ul>
-				</div> 
-	        </div>
-			<div class="txtBox tp4" id="invDetailD" style="display: none;">
-				<div class="invListBox">
-					<ul id="com0201LstInvsUlD" class="ui-sortable">
-					</ul>
-				</div>
-			  </div>
-			</div> -->
-	    </div>
-	    <!-- //tabInv -->	
-	    		
-		</div>
-		<!-- //contentBox -->
-		
-		</div>
-		<!--  //contentSection  -->
-		
-		<!-- ftMenu -->
-		<div class="ftMenu li5">
-			<ul>
-				<li>
-					<button class="btn ftScan">
-						<span class="txt">스캔</span>
-					</button>
-				</li>
-				<li>
-					<button class="btn ftSms"><span class="txt">미배송사유</span></button>
-				</li>
-				<li>
-					<button class="btn ftSms"><span class="txt">문자</span></button>
-				</li>
-				 <li>
-					<button class="btn ftImg"><span class="txt">사진/서명</span></button>
-				</li> 
-				<li class="on">
-					<button class="btn ftSend" id="cmptTrsmBtn">
-						<p class="badge red s num" id="scanLstCnt">0</p>
-						<span class="txt">전송</span>
-					</button>
-				</li>
-			</ul>
-		</div>
-		<!-- //ftMenu -->
-	</div>
-	<!--  //contents  -->
-	
+                        <!-- baedalListBox -->
+                        <div class="baedalListBox" id="invDetailP"">
+                            <ul id="cldl0802LstUl">
+                            </ul>
+                        </div>                      
+                        <div class="baedalListBox" id="invDetailD" style="display: none;">
+                            <ul id="cldl0802LstUlD">
+                            </ul>
+                        </div>
+                        <!-- //baedalListBox -->
+                    </li>
+                </ul>
+            </div>
+
+
+        <!-- //tabInv -->   
+                
+        </div>
+        <!-- //contentBox -->
+        
+        </div>
+        <!--  //contentSection  -->
+        
+        <!-- ftMenu -->
+        <div class="ftMenu li4" id="bottomli" style="display: none;">
+            <ul>
+                <li>
+                    <button class="btn ftScan">
+                        <span class="txt">스캔</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="btn ftDeliveryOff"><span class="txt" id="spanoff">미회수사유</span></button>
+                </li>
+                <li>
+                    <button class="btn ftSms"><span class="txt">문자</span></button>
+                </li>
+                 <li id="liimg" style="display: none;">
+                    <button class="btn ftImg"><span class="txt">사진전송</span></button>
+                </li>
+                <li class="on">
+                    <button class="btn ftSend" id="cmptTrsmBtn">
+                        <p class="badge red s num" id="scanLstCnt">0</p>
+                        <span class="txt">전송</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+        <!-- //ftMenu -->
+    </div>
+    <!--  //contents  -->
+    
+
 
 	<!-- 모달팝업 통화 -->
 	<div class="mpopBox img phone">

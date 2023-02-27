@@ -1,7 +1,7 @@
 LEMP.addEvent("backbutton", "page.callbackBackButton");		// 뒤로가기 버튼 클릭시 이벤트
 
 var page = {
-		step_sct_cd : "0",
+		step_sct_cd : "3",// 집배달 예정
 		base_ymd : null,
 		cldl_sct_cd : "A",
 		pick_tmsl_cd: null,
@@ -175,7 +175,7 @@ var page = {
 	
 			data.cldl_tmsl_cd= $("#cldl0801LstUl").find(".on").find(".top").attr("id");
 			page.pick_tmsl_cd= data.cldl_tmsl_cd;
-			
+			data.cldl_tmsl_null = "";			
 			if(smutil.isEmpty(page.pick_tmsl_cd)) data.cldl_tmsl_null = "true";
 			
 			data.base_ymd = page.base_ymd;
