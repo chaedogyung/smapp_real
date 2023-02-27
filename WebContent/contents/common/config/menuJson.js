@@ -143,7 +143,7 @@ var menuJsonJs =
 		"FRE0201":{"menuTxt" : "화물사고 확인서", "parentMenuCd" : null, "menuDept" : 1, "url" : "FRE/html/FRE0201.html", "mainImgSrc" : "../../common/img/icon-fa13.png", "gnbImgClass" : ""},
 		"FRE0301":{"menuTxt" : "화물추적", "parentMenuCd" : null, "menuDept" : 1, "url" : "FRE/html/FRE0301.html", "mainImgSrc" : "../../common/img/icon-fa14.png", "gnbImgClass" : ""},
 		"FRE0302":{"menuTxt" : "화물정보", "parentMenuCd" : null, "menuDept" : 2, "url" : "FRE/html/FRE0302.html", "mainImgSrc" : "", "gnbImgClass" : ""},
-		"FRE0302":{"menuTxt" : "도착지변경", "parentMenuCd" : null, "menuDept" : 2, "url" : "FRE/html/FRE0303.html", "mainImgSrc" : "", "gnbImgClass" : ""},
+		"FRE0303":{"menuTxt" : "도착지변경", "parentMenuCd" : null, "menuDept" : 2, "url" : "FRE/html/FRE0303.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		//"FRE0401":{"menuTxt" : "화물사고 판정", "parentMenuCd" : null, "menuDept" : 1, "url" : "FRE/html/FRE0401.html", "mainImgSrc" : "../../common/img/icon-fa25.png", "gnbImgClass" : ""},
 		"FRE0501":{"menuTxt" : "화물정보 키패드", "parentMenuCd" : null, "menuDept" : 2, "url" : "FRE/html/FRE0501.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 	},
