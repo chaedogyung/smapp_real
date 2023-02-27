@@ -123,6 +123,24 @@
 		</div>
 		<!-- //모달팝업 통화 -->
 		
+		<!-- 사유등록건 취소 -->
+		<div class="mpopBox del cancelRsn">
+	        <div class="popBody">
+	            <p class="img"><img src="../../common/img/icon-fa4.png" alt="" /></p>
+	            <p class="txt1">해당 사유 등록건 취소</p>
+	            <!-- <p class="txt2">데이터 전송이 완료되었습니다.</p> -->
+	            <p class="txt2" id="pop2Txt"></p>
+	        </div>
+	        <div class="popFooter">
+	            <div class="btnBox">
+	                <ul class="ul0 ul2">
+	                    <li><button class="btn gray m w100p b-close">아니오</button></li>
+	                    <li><button class="btn red m w100p b-close" id="rsnYesBtn">예</button></li>
+	                </ul>
+	            </div>
+	        </div>
+	    </div>
+		
 	</div>
 	<!--  //contents  -->
     <!-- 모달팝업 긴급사용신청 -->
@@ -154,11 +172,11 @@
 	<!-- 리스트 li -->
 	<script id="CLDL0501_list_template" type="text/x-handlebars-template">
 		{{#each list}}
-		<li id="{{inv_no}}" class='cldlSctCd_{{cldl_sct_cd}}' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}'>
-			{{#cldlSctCdChk}}		{{!-- 집하와 배달을 구분해주는 helper sctCd --}}
-			<div class="baedalBox jibBox" data-scn-inv-no='{{inv_no}}'>
+		<li id="{{inv_no}}" class='cldlSctCd_{{cldl_sct_cd}}' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}' data-cancel-yn='{{cancel_yn}}' >
+			{{#cldlSctCdChk}}	{{!-- 집하와 배달을 구분해주는 helper sctCd --}}
+			<div class="baedalBox jibBox noChk {{cancelYn}}" data-scn-inv-no='{{inv_no}}'>
 			{{else}}
-			<div class="baedalBox baeBox" data-scn-inv-no='{{inv_no}}'>
+			<div class="baedalBox baeBox noChk {{cancelYn}}" data-scn-inv-no='{{inv_no}}'>
 			{{/cldlSctCdChk}}
 				<div class="thumb">
 					<span class="{{corpLogoReturn corplogo}}"></span>
@@ -199,6 +217,16 @@
 				{{/cldlSctCdChk}}
 					<p class="addRed">{{dlv_msg_cont}}</p>
 				</div>
+                {{#pacl_stat_cd}}
+                {{else}}
+                     {{!-- 취소 여부 helper--}}
+                    {{#cancel_yn}}
+                        <button class="btn cancel" id="{{inv_no}}" data-cancel-inv-no="{{inv_no}}" data-cancle-sct-cd="{{cldl_sct_cd}}" data-empno='{{empno}}' data-scan-ymd='{{scan_ymd}}' data-cancel-yn='{{cancel_yn}}' data-dlay-rsn-cd='{{dlay_rsn_cd}}' disabled >캔슬</button>
+                    {{else}}
+                        <button class="btn cancel" id="{{inv_no}}" data-cancel-inv-no="{{inv_no}}" data-cancle-sct-cd="{{cldl_sct_cd}}" data-empno='{{empno}}' data-scan-ymd='{{scan_ymd}}' data-cancel-yn='{{cancel_yn}}' data-dlay-rsn-cd='{{dlay_rsn_cd}}'>캔슬</button>
+                    {{/cancel_yn}}
+                {{/pacl_stat_cd}}
+               
 			</div>
 			<div class="btnBox">
 				{{setPhoneNumber phoneNumber}}		{{!-- 전화번호 버튼 --}}

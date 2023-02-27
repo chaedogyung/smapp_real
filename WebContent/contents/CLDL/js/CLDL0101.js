@@ -362,14 +362,14 @@ var page = {
 				
 				//컨펌창 호출
 				if(scanCnt > 0){
-					if($('#cldl_tmsl_cd').val() == '38') {
-						$('#pop2Txt3').html('스캔된 데이터 '+scanCnt+'건<br/>익일 배송예정 건으로 자동 이관합니다.');
-						$('.mpopBox.pop3').bPopup();
-						
-					} else {
+//					if($('#cldl_tmsl_cd').val() == '38') {
+//						$('#pop2Txt3').html('스캔된 데이터 '+scanCnt+'건<br/>익일 배송예정 건으로 자동 이관합니다.');
+//						$('.mpopBox.pop3').bPopup();
+//						
+//					} else {
 						$('#pop2Txt2').html('스캔된 데이터 '+scanCnt+'건<br/>집배달출발을 확정합니다.<br/>확정후 출발화면으로 이동합니다.');
 						$('.mpopBox.pop2').bPopup();
-					}
+//					}
 				}
 				else{
 					LEMP.Window.toast({
@@ -394,7 +394,6 @@ var page = {
 			
 			// 제주 익일 배송 팝업 'yes' 버튼 클릭
 			$('#jejuNextDayYesBtn').click(function(e){
-				// 배달출발 확정로직 시작
 				_this.jejuNextDay();
 			});
 
@@ -512,7 +511,7 @@ var page = {
 				// 문자발송 이벤트 호출
 				_this.sendSms();
 			});
-
+			
 			$('.btn.ftMap').click(function(e){
 				var popUrl = smutil.getMenuProp("COM.COM0201","url");
 
@@ -534,6 +533,8 @@ var page = {
 					}
 				});
 			});
+
+
 			// 문자발송 스와이프 버튼클릭
 //			$(document).on('click', '.btn.blue5.bdM.bdMsg', function(e){
 //				var inv_no = $(this).data('invNo')+"";				// 송장번호
@@ -1796,6 +1797,7 @@ var page = {
 
 			if(!smutil.isEmpty(cldl_sct_cd)){
 				var scanCnt = 0;
+				var cldlTmslCd = $('#cldl_tmsl_cd').val();		// 예정시간선택
 
 				scanCnt = Number($('#scanLstCnt').text());
 
@@ -1806,10 +1808,11 @@ var page = {
 					_this.apiParam.data = {				// api 통신용 파라메터
 						"parameters" : {
 							"cldl_sct_cd" : cldl_sct_cd,		// 업무구분
-							"base_ymd" : base_ymd				// 기준일자
+							"base_ymd" : base_ymd,				// 기준일자
+							"cldlTmslCd": cldlTmslCd            //예정시간 선택(제주 익일관련 전용 코드)
 						}
 					};
-
+					
 					smutil.loadingOn();			// 로딩바 on
 
 					// 공통 api호출 함수
@@ -2374,15 +2377,22 @@ var page = {
 		//선택한 송장번호, 전화번호 가져오기 
 		$("input[name=chk]:checked").each(function() {
 			var jsonObj		= new Object();
+			var cldlSctCd = (($(this).attr("data-li-sct-cd ")));
 			jsonObj.invNo = ($(this).attr("id")).replace('_chk', '');
 			jsonObj.rsrvMgrNo = (($(this).attr("data-rsrv-mgr-no")));
 			jsonObj.telNo = (($(this).attr("data-tel-no")));
 			jsonObj.acperNm = (($(this).attr("data-acper-nm")));
 			jsonObj.pickYmd = base_ymd;
-			jsonObj.paclStatCd = "00";
+			jsonObj.cldlSctCd = cldlSctCd;
+			//집하: 00, 배달 32
+			if(cldlSctCd == "P") {
+				jsonObj.paclStatCd = "00";
+			} else {
+				jsonObj.paclStatCd = "32";
+			}
 			jsonObj.msgTitle = "익일 배송 안내문자";
 			var msgCont = "안녕하세요." + (($(this).attr("data-acper-nm"))) + "고객님 롯데택배입니다.\n익일 배송 예정입니다.";
-			jsonObj.msgCont = msgCont;
+			jsonObj.msgCont = msgCont; 
 			
 			jsonObj = JSON.stringify(jsonObj);
 			
@@ -2444,7 +2454,7 @@ var page = {
 		page.rsnRgstCldlSctCd = null;	// 선택한 미집배달 구분코드 초기화
 
 	}
-
+	
 	//현재 위치 가져오기
 	, getLocation:function() {
 		if(navigator.geolocation) { //GPS 지원여부
@@ -2461,5 +2471,6 @@ var page = {
 		}
 		
 	}
+
 };
 

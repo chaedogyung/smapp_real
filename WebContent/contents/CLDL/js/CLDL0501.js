@@ -5,7 +5,6 @@ var page = {
 	item_cnt : "400",					// 현황에서 보여질 row 수
 	page_navigation_cnt : 5,			// 페이징을 표시할 네비게이션 수
 
-
 	init : function(args) {	
 		//팝업에서 들어왔을경우
 		if(!smutil.isEmpty(args.data.param)){
@@ -41,6 +40,10 @@ var page = {
 	cldl0501 : {
 		"cnf_yn" : "Y", 			// 완료 : Y, 미처리 : N
 		"cldl_sct_cd" : "A",		// 전체, 집하, 배달
+	},
+	
+	//미배달/미집하 취소 param
+	rsnCancelParam : {
 	},
 
 
@@ -183,6 +186,24 @@ var page = {
 			});
 
 		});
+		
+		// 사유등록취소 버튼 누른경우 이벤트 추가.
+		$(document).on('click', '.btn.cancel', function(e){
+			page.rsnCancelParam.empno =  (($(this).attr("data-empno")));
+			page.rsnCancelParam.cldl_sct_cd = (($(this).attr("data-cancle-sct-cd")));
+			page.rsnCancelParam.inv_no = (($(this).attr("data-cancel-inv-no")));
+			page.rsnCancelParam.scan_ymd = (($(this).attr("data-scan-ymd")));
+			page.rsnCancelParam.dlay_rsn_cd = (($(this).attr("data-dlay-rsn-cd")));
+			
+			$('#pop2Txt').html('해당건 사유 등록\n취소하시겠습니까?');
+			$('.mpopBox.cancelRsn').bPopup();
+			
+		});
+		
+		// 미집하/미배달  취소 팝업 'yes' 버튼 클릭
+		$('#rsnYesBtn').click(function(e){
+			_this.rsnCancel();
+		});
 
 		// 달력버튼을 누른경우
 		$("#cldlBtnCal_V1").click(function(){
@@ -202,7 +223,7 @@ var page = {
 		$('#notDeliveryYesBtn').click(function(){
 			const popUrl = smutil.getMenuProp("COM.COM1201","url");
 			LEMP.Window.replace({
-				"_sPagePath":popUrl				
+				"_sPagePath":popUrl	
 			});
 		});
 
@@ -486,6 +507,15 @@ var page = {
 				return options.inverse(this);
 			}
 		});
+		
+		// 취소여부 확인
+		Handlebars.registerHelper('cancelYn', function(options) {
+			if(this.cancel_yn == 'Y'){
+				return 'pink';
+			}else {
+				return '';
+			}
+		});
 
 	},
 
@@ -603,6 +633,8 @@ var page = {
 					var naviLiHtml = "";
 
 					$.each(pagObj.pages, function(idx, obj){
+						
+						console.log(obj);
 
 						// 선택된 페이지
 						if((obj+"") == (page.page_no+"")){
@@ -725,5 +757,63 @@ var page = {
 		}else{
 			LEMP.Window.close();
 		}
+	},
+	
+	// ################### 미집하/미배달 사유등록취소 당일 배달 처리 start
+	rsnCancel : function(){
+		
+		page.apiParamInit();		// 파라메터 전역변수 초기화
+		page.apiParam.param.baseUrl = "smapis/cldl/ucldlRsnCancel";		// api no
+		page.apiParam.param.callback = "page.rsnCancelUptCallback";			// callback methode
+		page.apiParam.data.parameters = page.rsnCancelParam;
+		
+		// 공통 api호출 함수
+		smutil.callApi(page.apiParam);
+
+	},
+	// 미배달/미집하 사유등록건 당일 배달 처리 콜백
+	rsnCancelUptCallback : function(result){
+		try{
+			// api 전송 성공
+			if(smutil.apiResValidChk(result) && result.code == "0000"){
+				LEMP.Window.toast({
+					"_sMessage": result.message,
+					'_sDuration' : 'short'
+				});
+				
+				page.listReLoad();				// 리스트 제조회
+			} else {
+				LEMP.Window.toast({
+					"_sMessage":"문자를 발송할 송장을 선택해주세요.",
+					'_sDuration' : 'short'
+				});
+			}
+		}
+		catch(e){}
+		finally{
+			smutil.loadingOff();			// 로딩바 닫기
+			page.apiParamInit();			// 파라메터 전역변수 초기화
+		}
+		
+		page.apiParamInit();			// 파라메터 전역변수 초기화
+		page.rsnRgstCldlSctCd = null;	// 선택한 미집배달 구분코드 초기화
+
+	},
+	
+	// api 파람메터 초기화
+	apiParamInit : function(){
+		page.apiParam =  {
+			id:"HTTP",			// 디바이스 콜 id
+			param:{				// 디바이스가 알아야할 데이터
+				task_id : "",										// 화면 ID 코드가 들어가기로함
+				//position : {},									// 사용여부 미전송
+				type : "",
+				baseUrl : "",
+				method : "POST",									// api 호출 형식(지정 안하면 'POST' 로 자동 셋팅)
+				callback : "",										// api 호출후 callback function
+				contentType : "application/json; charset=utf-8"
+			},
+			data:{"parameters" : {}}// api 통신용 파라메터
+		};
 	}
 };

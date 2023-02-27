@@ -202,10 +202,8 @@ var page = {
 			new Array();
 			var phoneCount2 = new Array();
 			for(var i =0;i<phoneCount1.length; i++){
-				console.log(phoneCount1[i].innerText);
 				phoneCount2.push(phoneCount1[i].innerText);
 			};
-			console.log(JSON.stringify(phoneCount2));
 
 			var phoneCount = new Set(phoneCount2);	
 			$("#cldl0410LstUl > li").each(function(){
@@ -215,7 +213,7 @@ var page = {
 					var inv_co = sum += $(this).find("#inv_no").size();
 					inv_co = inv_co - '1'; 
 					inv_co= "외 " + inv_co + "건"; 
-					var inv_no = $(this).find("#inv_no").data("invNo") + ' ';
+					var inv_no = $(this).find("#inv_no").data("invNo");
 					var snper_nm = "\n\u25A0\u0020보내는분 : " + $(this).find("#inv_no").attr("data-snper-nm");
 					var artc_nm = "\n\u25A0\u0020상품명 : " + $(this).find("#inv_no").attr("data-artc-nm")+ ' ' + inv_co;
 					var acpr_nm = "\n\u25A0\u0020위탁장소 : " + $(this).find("#inv_no").attr("data-acpr-nm");
