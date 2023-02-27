@@ -223,7 +223,7 @@ var page = {
 		$('#notDeliveryYesBtn').click(function(){
 			const popUrl = smutil.getMenuProp("COM.COM1201","url");
 			LEMP.Window.replace({
-				"_sPagePath":popUrl				
+				"_sPagePath":popUrl	
 			});
 		});
 

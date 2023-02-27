@@ -511,7 +511,7 @@ var page = {
 				// 문자발송 이벤트 호출
 				_this.sendSms();
 			});
-
+			
 			$('.btn.ftMap').click(function(e){
 				var popUrl = smutil.getMenuProp("COM.COM0201","url");
 
@@ -533,6 +533,8 @@ var page = {
 					}
 				});
 			});
+
+
 			// 문자발송 스와이프 버튼클릭
 //			$(document).on('click', '.btn.blue5.bdM.bdMsg', function(e){
 //				var inv_no = $(this).data('invNo')+"";				// 송장번호
@@ -2452,7 +2454,7 @@ var page = {
 		page.rsnRgstCldlSctCd = null;	// 선택한 미집배달 구분코드 초기화
 
 	}
-
+	
 	//현재 위치 가져오기
 	, getLocation:function() {
 		if(navigator.geolocation) { //GPS 지원여부
@@ -2469,5 +2471,6 @@ var page = {
 		}
 		
 	}
+
 };
 

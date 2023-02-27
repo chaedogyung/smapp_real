@@ -173,7 +173,7 @@
 	<script id="CLDL0501_list_template" type="text/x-handlebars-template">
 		{{#each list}}
 		<li id="{{inv_no}}" class='cldlSctCd_{{cldl_sct_cd}}' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}' data-cancel-yn='{{cancel_yn}}' >
-			{{#cldlSctCdChk}}		{{!-- 집하와 배달을 구분해주는 helper sctCd --}}
+			{{#cldlSctCdChk}}	{{!-- 집하와 배달을 구분해주는 helper sctCd --}}
 			<div class="baedalBox jibBox noChk {{cancelYn}}" data-scn-inv-no='{{inv_no}}'>
 			{{else}}
 			<div class="baedalBox baeBox noChk {{cancelYn}}" data-scn-inv-no='{{inv_no}}'>
