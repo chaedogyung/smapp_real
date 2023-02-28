@@ -27,7 +27,7 @@ var page = {
 			page.curDate = curDate.getFullYear() + "" + ("0"+(curDate.getMonth()+1)).slice(-2) + "" + ("0"+curDate.getDate()).slice(-2);
 			curDate = curDate.getFullYear() + "." + ("0"+(curDate.getMonth()+1)).slice(-2) + "." + ("0"+curDate.getDate()).slice(-2);
 			$('#cldlBtnCal').text(curDate);
-
+			
 			page.dlvyCompl = LEMP.Properties.get({
 				"_sKey" : "autoMenual"
 			});
@@ -109,8 +109,18 @@ var page = {
 					$('#dsgt_dd_cldl_ymd').val('');
 				}
 			});
-
-
+			
+			// 업무구분이 변경된 경우
+			$('#cldl_sct_cd').change(function() {
+				
+				// 지정일 배송의 경우 달력 팝업 출력
+				if ($(this).val() === 'D') {
+					$("select[name=cldl_tmsl_cd] option[value='38']").prop('disabled',false);
+				} else {
+					$("select[name=cldl_tmsl_cd] option[value='38']").prop('disabled',true);
+				}
+			});
+			
 			// 달력버튼을 누른경우
 			$("#cldlBtnCal").click(function(){
 
@@ -218,8 +228,6 @@ var page = {
 				});
 			});	// end 스캔버튼을 누른경우 종료
 
-			//
-		
 			// 상단 조회 탭 클릭
 			$(".lstSchBtn").click(function(){
 				var cldl_sct_cd = $(this).data('schSctCd');		// 선택한 탭의 값 (A,P,D)
@@ -1309,9 +1317,8 @@ var page = {
 			catch(e){}
 			finally{
 				smutil.loadingOff();			// 로딩바 닫기
-
+				$("select[name=cldl_tmsl_cd] option[value='38']").prop('disabled',true);//제주 익일 비활성화
 			}
-
 		},
 		// ################### 페이지 리스트 조회 end
 
