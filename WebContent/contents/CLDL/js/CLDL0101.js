@@ -110,6 +110,18 @@ var page = {
 				}
 			});
 			
+			// 업무구분 클릭한 경우
+			$("#cldl_tmsl_cd").click(function(){
+				
+				var tab_sct_cd = page.returnTabSctCd();
+				
+				if(tab_sct_cd == 'D') {
+					$("select[name=cldl_tmsl_cd] option[value='38']").prop('disabled', false);//제주 익일 활성화
+				} else if(tab_sct_cd == 'P') {
+					$("select[name=cldl_tmsl_cd] option[value='38']").prop('disabled', true);//제주 익일 비활성화
+				}
+			});
+			
 			// 업무구분이 변경된 경우
 			$('#cldl_sct_cd').change(function() {
 				
@@ -229,6 +241,8 @@ var page = {
 				});
 			});	// end 스캔버튼을 누른경우 종료
 
+			
+			
 			// 상단 조회 탭 클릭
 			$(".lstSchBtn").click(function(){
 				var cldl_sct_cd = $(this).data('schSctCd');		// 선택한 탭의 값 (A,P,D)
@@ -253,16 +267,10 @@ var page = {
 						btnObj.closest('li').removeClass( 'on' );
 					}
 				});
-
-				page.listReLoad();					// 리스트 제조회
 				
-				$("select[name=cldl_tmsl_cd]").val('10'); //06~08 기본
-				if(cldl_sct_cd == 'D') {
-					console.log(cldl_sct_cd);
-					$("select[name=cldl_tmsl_cd] option[value='38']").prop('disabled', false);//제주 익일 활성화
-				} else {
-					$("select[name=cldl_tmsl_cd] option[value='38']").prop('disabled', true);//제주 익일 비활성화
-				}
+				$("select[name=cldl_tmsl_cd]").val('10'); //시간대별 06~08 기본
+				$('#cldl_sct_cd').val(''); //업무구분 기본
+				page.listReLoad();					// 리스트 제조회
 				
 			});
 
