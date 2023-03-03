@@ -1,13 +1,30 @@
 var page = {
 	curLocation : null,			// 자기위치
+	dlvyCompl : null,			// 구역,시간 기준
 	mbl_dlv_area: null,   //토요휴무
-	pick_tmsl_cd: null,
+	sboxType: null,			// 권역 or 시간별 2023.02.28
 	init:function(data)	{
 		// 이전페이지에서 넘겨 받은 파라미터로 배달, 집하 구분하며 어떤 api를 호출 할지 결정
 		page.com0201= data.data.param;
 		page.com0201.cldl_sct_cd="A";
+		
+		page.dlvyCompl = LEMP.Properties.get({
+			"_sKey" : "autoMenual"
+		});
+		page.sboxType = 'time';
+		if(!_.isUndefined(page.dlvyCompl)){
+			if(page.dlvyCompl.area_sct_cd == "Y"){
+				page.sboxType = 'area';
+				//$(".popMap .mapCon").css({"margin-top": "30px"});
+			} else {
+				page.sboxType = 'time';
+				//$(".deliveryTy3Cal").css({"margin-top": "225px"});
+			}
+		}
+
 		page.getLocation();
 		page.initInterface();
+		page.initDpEvent();
 	}
 	,PublishCode:function(){
 		$(document).ready(function(){
@@ -49,9 +66,128 @@ var page = {
 
 		data.step_sct_cd=page.com0201.step_sct_cd;
 		//selectBox 그려주는 함수
-		page.mapTmslCnt();
+		//page.mapTmslCnt();
+		page.mapSelectList();
 
 	}
+	// 화면 디스플레이 이벤트 2023.02.28
+	, initDpEvent : function(){
+		var _this = this;
+		//console.log('801 initDpEvent page.dlvyCompl::1111111111111', page.dlvyCompl);
+		
+		if(page.com0201.step_sct_cd == "0" || page.com0201.step_sct_cd == "1"){
+			$(".popMap .mapCon").css({"margin-top": "0px"});
+			$(".popMap .mapCon").css({"height": "79%"});	
+		} else {
+			$(".popMap .mapCon").css({"margin-top": "-81px"});
+			$(".popMap .mapCon").css({"height": "85%"});
+		}
+			
+	}  //initDpEvent end
+
+	, mapSelectList:function() {
+		if(page.com0201.step_sct_cd == "0" || page.com0201.step_sct_cd == "1"){
+			if(page.sboxType == 'area'){
+				page.autoCmptTmList();            // 구역별 조회건수 조회
+			} else{
+				page.mapTmslCnt();
+			}
+		} else {
+			var data={};
+			data.base_ymd = page.com0201.base_ymd;
+			data.step_sct_cd = page.com0201.step_sct_cd;
+			data.cldl_sct_cd = "A"; //page.cldl_sct_cd 
+			page.locMapList(data);
+		}
+	}
+	// ################### 구역별 조회건수 조회 start
+	, autoCmptTmList : function(){
+		
+		var data = {};
+		data.base_ymd=page.com0201.base_ymd;
+		data.cldl_sct_cd="A";
+		data.step_sct_cd=page.com0201.step_sct_cd;
+
+		smutil.loadingOn();
+
+		page.apiParam.param.baseUrl="smapis/cldl/autoCmptTmList";
+		page.apiParam.param.callback="page.autoCmptTmListCallback";
+		page.apiParam.data.parameters=data;
+
+		// 공통 api호출 함수
+		smutil.callApi(page.apiParam);
+	},
+
+	// 구역별 조회건수 callback
+	autoCmptTmListCallback : function(result){
+		page.apiParamInit();		// 파라메터 전역변수 초기화
+
+		// api 결과 성공여부 검사
+		if(smutil.apiResValidChk(result) && result.code == "0000"){
+
+			// 조회 결과 데이터가 있으면 옵션 생성
+			if(result.data_count > 0){
+				var data = result.data;
+				
+				//오름차순 정렬
+				data.list.sort(function(a, b) {
+					if(a.mbl_area == "기타"){
+						return -1;
+					}
+					
+					if(b.mbl_area == "기타"){
+						return 1;
+					}
+					
+					return 0;
+				});
+
+				// 핸들바 템플릿 가져오기
+				var source = $("#COM0201_mblLst_template").html();
+				
+				// 핸들바 템플릿 컴파일
+				var template = Handlebars.compile(source);
+
+				// 핸들바 템플릿에 데이터를 바인딩해서 HTML 생성
+				var liHtml = template(data);
+
+				// 생성된 HTML을 DOM에 주입
+				$('#com0201LstUl').html(liHtml); //cmptTmListUl
+				
+				/* touchFlow 등록*/
+				$(".divisionBox .selectBox").touchFlow();
+
+				$("#com0201LstUl").find("li:eq(0)").trigger("click");					
+			}
+			else{
+				// 리스트가 아무것도 없을경우에는 기본으로 18~20 시 코드를 셋팅한다
+				var data = {"list" : [{
+					"mbl_area": "기타",
+					"min_nm": "18",
+					"max_nm": "20",
+					"cldl_tmsl_nm": "18~20시",
+					"cldl_tmsl_cd": "19",
+					"cnt" : 0
+				}]};
+				var source = $("#cldl0802_mblLst_template").html();
+				
+				// 핸들바 템플릿 컴파일
+				var template = Handlebars.compile(source);
+
+				// 핸들바 템플릿에 데이터를 바인딩해서 HTML 생성
+				var liHtml = template(data);
+
+				// 생성된 HTML을 DOM에 주입
+				$('#com0201LstUl').html(liHtml);
+
+
+				/* touchFlow 등록*/
+				$(".divisionBox .selectBox").touchFlow();
+
+			}
+		}
+	}
+	// ################### 구역별 조회건수 조회 end
 	,mapTmslCnt:function(){
 		var data = {};
 		data.base_ymd=page.com0201.base_ymd;
@@ -80,15 +216,17 @@ var page = {
 					res.data.list[i].pick_total_cnt = res.data.list[i].pick_cnf_cnt+res.data.list[i].pick_ucnf_cnt;
 					res.data.list[i].dlv_total_cnt = res.data.list[i].dlv_cnf_cnt+res.data.list[i].dlv_ucnf_cnt;
 				}
+				$('#mapno').hide();
+				$('#mapCon').show();
 
 				$('#com0201LstUl').append(template(res.data));
 
 				$("#com0201LstUl").find("li:eq(0)").trigger("click");
 			} else {
-				if(res.code==="0000" && res.data_count == 0) {
-					//현재 내 위치만 표시하자
-					$('#com0201LstUl').append(template(res.data));
-				}
+				var template = Handlebars.compile($("#com0201_list_template").html());
+				$('#com0201LstUl').html(template(res.data));
+				$('#mapno').show();
+				$('#mapCon').hide();
 				
 			}
 		}
@@ -103,10 +241,35 @@ var page = {
 		obj.attr("class","on");
 		obj.parent().parent().find(".on").index()+1;
 
-		page.pick_tmsl_cd= $("#com0201LstUl").find(".on").find(".top").attr("id");
-		data.cldl_tmsl_cd= page.pick_tmsl_cd;
+		//page.pick_tmsl_cd= $("#com0201LstUl").find(".on").find(".top").attr("id");
+		data.sbox_type = "";
+		data.sbox_type_cd = obj.data('timecd');
+		data.sbox_type_cd2 = "";
+		data.min_tmsl = "";
+		data.max_tmsl = "";
 		data.cldl_tmsl_null = "";
-		if(smutil.isEmpty(data.cldl_tmsl_cd)) data.cldl_tmsl_null = "true";
+
+		if(smutil.isEmpty(data.sbox_type_cd )) {
+			data.cldl_tmsl_null = "true";
+			data.sbox_type_cd = "";
+		}
+
+		if(page.sboxType == 'area' && page.com0201.step_sct_cd != "3"){
+			data.sbox_type = "area";
+			data.min_tmsl = smutil.nullToValue(obj.data('tmslmin'), "");
+			data.max_tmsl = smutil.nullToValue(obj.data('tmslmax'), "");
+			data.sbox_type_cd2 = smutil.nullToValue(obj.data('timecd2'), "");
+		}else{
+			data.sbox_type = "time";
+		}
+
+		data.base_ymd = page.com0201.base_ymd;
+		data.step_sct_cd = page.com0201.step_sct_cd;
+		data.cldl_sct_cd = "A"; //page.cldl_sct_cd 
+		
+		page.com0201 = data;
+		page.com0201.max_nm = smutil.nullToValue(obj.data('maxnm'), "");
+		page.com0201.pick_tmsl_nm = smutil.nullToValue(obj.data('timenm'), "");
 		
 		page.locMapList(data);
 		/*if ($(".tabBox").find(".on").index()==0) {
@@ -208,7 +371,6 @@ var page = {
 		// 지도에서 표현 할 수 없는 좌표가 존재한다면 하얀 화면이 출력 될 수 있음
 		var bounds = new kakao.maps.LatLngBounds();
 
-		var isFindMe = false;
 		var imarkerPosition = page.curLocation;
 		if(!imarkerPosition) {
 			//현재페이지에서 현재위치를 못가져왔으면 호출페이지에서 넘김파라미터에 담긴 현재위치정보 활용한다
@@ -226,8 +388,7 @@ var page = {
 	
 			bounds.extend(imarkerPosition);
           
-			customOverlay.setMap(map);
-			isFindMe = true;
+			customOverlay.setMap(map); 
 		}
 
 		// 마커를 추가하는 반복문
@@ -243,12 +404,54 @@ var page = {
 				content.classList.add('red');
 				//content.classList.add('pink');	
 			} else if(page.com0201.step_sct_cd == "1" ) {
-				content.classList.add('blue');  //미전송 , 미처리건 1건이라도 있으면 빨간색 표시
+				content.classList.add('red');  //미전송 , 미처리건 1건이라도 있으면 빨간색 표시
 			} else {
 				content.classList.add('silver');	
 			}
 			
-			
+			var info = document.createElement('span');
+		    info.appendChild(document.createTextNode(strCnt));
+		    content.appendChild(info);	
+			content.onclick = function(e) {
+				var id = $(this)[0].id; 
+				var mid = 0, stmpDetail;
+				if(($(this).attr("id")).length > 1) {
+					mid = ($(this).attr("id")).substr(1);
+					
+					if(!smutil.isEmpty(arr[mid].bld_mgr_no)){
+						var popUrl = smutil.getMenuProp('CLDL.CLDL0802', 'url');
+						//console.log('com0201', page.com0201);
+						var cldl_sct_cd = "P";
+						if(arr[mid].cldl_p == 0) cldl_sct_cd = "D";
+						
+						var paramdata = {};
+						paramdata.bld_mgr_no = arr[mid].bld_mgr_no;
+						paramdata.base_ymd=page.com0201.base_ymd;
+						paramdata.step_sct_cd=page.com0201.step_sct_cd;
+						paramdata.cldl_sct_cd = cldl_sct_cd;
+						paramdata.ep = arr[mid].lttd+ "," +arr[mid].lgtd;	
+
+						if(page.com0201.step_sct_cd == "0" || page.com0201.step_sct_cd == "1") {
+							paramdata.sbox_type = page.com0201.sbox_type;
+							paramdata.sbox_type_cd = page.com0201.sbox_type_cd;
+							paramdata.sbox_type_cd2 = page.com0201.sbox_type_cd2;
+							paramdata.cldl_tmsl_null = page.com0201.cldl_tmsl_null;
+							paramdata.max_tmsl = page.com0201.max_tmsl;
+							paramdata.min_tmsl = page.com0201.min_tmsl;
+							paramdata.max_nm = page.com0201.max_nm;
+							paramdata.cldl_tmsl_nm = page.com0201.pick_tmsl_nm;
+						}
+
+						LEMP.Window.open({
+							"_sPagePath":popUrl,
+							"_oMessage" : {
+								"param" : paramdata
+							}
+						});	
+					}					
+				} 
+				
+		    };			
 			/*var str;
 			if (arr[i].hasOwnProperty("cnt")) {
 				str=arr[i].cnt;
@@ -280,34 +483,6 @@ var page = {
 					var name = '<div class ="label sky"><span>'+str+'</span></div>';
 				}
 			}*/
-			var info = document.createElement('span');
-		    info.appendChild(document.createTextNode(strCnt));
-		    content.appendChild(info);	
-			content.onclick = function(e) {
-				var id = $(this)[0].id; 
-				var mid = 0, stmpDetail;
-				if(($(this).attr("id")).length > 1) {
-					mid = ($(this).attr("id")).substr(1);
-					
-					if(!smutil.isEmpty(arr[mid].bld_mgr_no)){
-						var popUrl = smutil.getMenuProp('CLDL.CLDL0802', 'url');
-
-						LEMP.Window.open({
-							"_sPagePath":popUrl,
-							"_oMessage" : {
-								"param" : {
-									"bld_mgr_no" : arr[mid].bld_mgr_no+"",
-									"cldl_tmsl_cd" : page.pick_tmsl_cd,									
-									"base_ymd" : page.com0201.base_ymd,
-									"step_sct_cd" : page.com0201.step_sct_cd,
-									"ep" : arr[mid].lttd+","+arr[mid].lgtd
-								}
-							}
-						});	
-					}					
-				} 
-				
-		    };
 			
 			// 커스텀 오버레이 객체를 생성합니다
 			var customOverlay = new kakao.maps.CustomOverlay({
@@ -325,26 +500,25 @@ var page = {
 			customOverlay.setMap(map);
 		}
 		
-		///////////
-		if(!isFindMe) {
-			imarkerPosition = page.curLocation;
-			if(imarkerPosition) {
-			    var name = '<div class ="label curloc"><span>I</span></div>';
-				var customOverlay = new kakao.maps.CustomOverlay({
-					position: imarkerPosition,
-					content: name
-				});
-		
-				bounds.extend(imarkerPosition);
-	          
-				customOverlay.setMap(map);
-			}	
-		}
-		///////////
-		
 			
 		// 추가된 마커의 위치에 따라 맵의 표현범위가 확장
 		map.setBounds(bounds);
+	}
+	// api 파람메터 초기화 2023.02.28
+	,apiParamInit : function(){
+		page.apiParam =  {
+			id:"HTTP",			// 디바이스 콜 id
+			param:{				// 디바이스가 알아야할 데이터
+				task_id : "",										// 화면 ID 코드가 들어가기로함
+				//position : {},									// 사용여부 미확정
+				type : "",
+				baseUrl : "",
+				method : "POST",									// api 호출 형식(지정 안하면 'POST' 로 자동 셋팅)
+				callback : "",										// api 호출후 callback function
+				contentType : "application/json; charset=utf-8"
+			},
+			data:{"parameters" : {}}// api 통신용 파라메터
+		};
 	}
 	
 	// 운송장목록 팝업창 닫을때 callback 함수

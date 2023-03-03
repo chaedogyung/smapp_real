@@ -67,7 +67,19 @@
                     </ul>
                 </div>
                 <!-- //tabBox -->
+            <!-- <div class="topHeadCal">
+                <span style="position: fixed; left: 8px;">
+                    <span class="" id="setDlvyCom1" style="font-size: 13px; margin-right: 5px;"></span>
+                    <span class="" id="setDlvyCom2" style="font-size: 13px;"></span>
+                    <span class="" id="setDlvyCom3" style="font-size: 13px;"></span>
+                </span>
 
+                <button class="btn btnCal" id="cldlBtnCal"></button>
+
+                <span style="position: fixed; right: 5px; margin-top: 5px;">
+                </span>
+            </div> -->
+            <!-- // topHeadCal -->
                 
                 <!-- tabView -->
                 
@@ -86,11 +98,11 @@
                         </li>
                         <li class="noList">
                             <!-- mapCon -->
-                            <div class="mapCon" id="mapCon" style="top:205px;">
+                            <div class="mapCon" id="mapCon">
                             </div> 
 
                             <!-- //mapCon -->
-                            <div class="NoBox" style="display: none;">
+                            <div class="NoBox" id="mapno" style="display: none;">
                                 <p class="txt tc">조회된 결과가 없습니다.</p>
                             </div>
                         </li>
@@ -110,13 +122,34 @@
 </body>
 <script type="text/x-handlebars-template" id="CLDL0801_list_template">
 {{#each list}}
-    <li>
+    <li name="timeLstLi" data-timecd="{{cldl_tmsl_cd}}" data-timenm='{{cldl_tmsl_nm}}'>
         <div class="itemBox">
             <p class="top" id="{{cldl_tmsl_cd}}">{{cldl_tmsl_nm}}</p>
             <p class="txt">집하<em>{{pick_cnf_cnt}}/{{pick_total_cnt}}</em></p>
             <p class="txt bdb">배달<em>{{dlv_cnf_cnt}}/{{dlv_total_cnt}}</em></p>
         </div>
     </li>
-{{/each}}
+    {{else}}
+    <li class="noList">
+        <p class="txt tc">조회된 결과가 없습니다.</p>
+    </li>
+    {{/each}}
+</script>
+
+<!-- 상단 설정구역 리스트 li -->
+<script type="text/x-handlebars-template" id="CLDL0801_mblLst_template" >
+    {{#each list}}
+        <li name="timeLstLi" data-timecd="{{mbl_area_org}}" data-timenm='{{mbl_area}}' data-tmslmin='{{min_tmsl}}' data-tmslmax='{{max_tmsl}}' data-maxnm='{{max_nm}}' data-timecd2="{{alps_area}}" >
+            <div class="itemBox">
+                <p class="top mbl">{{mbl_area}}</p>
+                <p class="top cldl">{{cldl_tmsl_nm}}</p>
+                <p class="txt tc" id="timeCnt_D_{{mbl_area}}">집 {{cnt_p}} / 배{{cnt_d}}</p>
+            </div>
+        </li>
+    {{else}}
+    <li class="noList">
+        <p class="txt tc">조회된 결과가 없습니다.</p>
+    </li>
+    {{/each}}
 </script>
 </html>
