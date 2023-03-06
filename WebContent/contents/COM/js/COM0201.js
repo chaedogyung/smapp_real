@@ -70,17 +70,16 @@ var page = {
 		page.mapSelectList();
 
 	}
-	// 화면 디스플레이 이벤트 2023.02.28
+	// 화면 디스플레이 이벤트
 	, initDpEvent : function(){
 		var _this = this;
-		//console.log('801 initDpEvent page.dlvyCompl::1111111111111', page.dlvyCompl);
 		
 		if(page.com0201.step_sct_cd == "0" || page.com0201.step_sct_cd == "1"){
 			$(".popMap .mapCon").css({"margin-top": "0px"});
-			$(".popMap .mapCon").css({"height": "79%"});	
+			$(".popMap .mapCon").css({"height": "77%"});	
 		} else {
 			$(".popMap .mapCon").css({"margin-top": "-81px"});
-			$(".popMap .mapCon").css({"height": "85%"});
+			$(".popMap .mapCon").css({"height": "86%"});
 		}
 			
 	}  //initDpEvent end
@@ -400,11 +399,9 @@ var page = {
 			content.setAttribute('id','I'+i); 
 			content.classList.add('label');
 			var strCnt = arr[i].cldl_p + '/' + arr[i].cldl_d;
-			if(page.com0201.step_sct_cd == "0") {
+			if(page.com0201.step_sct_cd == "0" || page.com0201.step_sct_cd == "1") {
 				content.classList.add('red');
 				//content.classList.add('pink');	
-			} else if(page.com0201.step_sct_cd == "1" ) {
-				content.classList.add('red');  //미전송 , 미처리건 1건이라도 있으면 빨간색 표시
 			} else {
 				content.classList.add('silver');	
 			}
@@ -504,7 +501,7 @@ var page = {
 		// 추가된 마커의 위치에 따라 맵의 표현범위가 확장
 		map.setBounds(bounds);
 	}
-	// api 파람메터 초기화 2023.02.28
+	// api 파람메터 초기화
 	,apiParamInit : function(){
 		page.apiParam =  {
 			id:"HTTP",			// 디바이스 콜 id
@@ -523,7 +520,12 @@ var page = {
 	
 	// 운송장목록 팝업창 닫을때 callback 함수
 	, cldl0802Callback : function(res){
-		console.log('cldl0802Callback');
-		page.mapTmslCnt();
+		//console.log('cldl0802Callback');
+		//page.mapTmslCnt();
+		if(!smutil.isEmpty(res.param.step_sct_cd)) {
+			page.com0201.step_sct_cd = res.step_sct_cd;
+			page.mapSelectList();
+		}
+
 	}	
 };
