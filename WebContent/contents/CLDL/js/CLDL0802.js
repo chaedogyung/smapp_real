@@ -765,7 +765,7 @@ var page = {
 			var inv_no = $(this).data('invNo');
 			var cldl_sct_cd = $(this).data('cldlSctCd');
 			inv_no = inv_no+"";
-			alert('scan1: ' + inv_no);
+			//alert('scan1: ' + inv_no);
 			if(!smutil.isEmpty(inv_no)){
 				inv_no = inv_no.split('-').join('');
 				var result = {"barcode" : inv_no};
@@ -790,12 +790,9 @@ var page = {
 				var routeUrl = "https://map.kakao.com/link/from/"+page.sp+"/to/"+page.cldl0802.ep+"&by=CAR"; //2023.02.24
 				//page.goRoute(result);
 				alert(routeUrl);
-				window.location = routeUrl;
-				LEMP.Window.open({
-					"_sPagePath":routeUrl,
-					"_oMessage" : {
-					}
-				});	
+				LEMP.System.callBrowser({
+					"_sURL" : routeUrl
+				});
 				
 			}
 			else{
@@ -875,46 +872,157 @@ var page = {
 
 			var html = "";
 			var phoneNumber = "";
+			var span = "";
+			
+			if(page.cldl0802.step_sct_cd == '0'){	//출발
+				if(this.cldl_sct_cd === "P"){	// 집하
+					if(!smutil.isEmpty(this.snper_nm)){
+						html = html + '<li class="name">' + this.snper_nm + '</li>';
+					}
 
-			if(this.cldl_sct_cd === "P"){	// 집하
-				if(!smutil.isEmpty(this.snper_nm)){
-					html = html + '<li>' + this.snper_nm + '</li>';
+					var snper_tel = smutil.nullToValue(this.snper_tel,"");
+					var snper_cpno = smutil.nullToValue(this.snper_cpno,"");
+					phoneNumber = page.getCpNo(snper_tel, snper_cpno);
+
+					if(!smutil.isEmpty(phoneNumber)){
+						html = html + '<li>' + phoneNumber + '</li>';
+					}
+
 				}
+				else{	// 배달
+					if(!smutil.isEmpty(this.acper_nm)){
+						html = html + '<li class="name">' + this.acper_nm + '</li>';
+					}
 
-				var snper_tel = smutil.nullToValue(this.snper_tel,"");
-				var snper_cpno = smutil.nullToValue(this.snper_cpno,"");
-				phoneNumber = page.getCpNo(snper_tel, snper_cpno);
+					var acper_tel = smutil.nullToValue(this.acper_tel,"");
+					var acper_cpno = smutil.nullToValue(this.acper_cpno,"");
 
-				if(!smutil.isEmpty(phoneNumber)){
-					html = html + '<li>' + phoneNumber + '</li>';
+					phoneNumber = page.getCpNo(acper_tel, acper_cpno);
+
+					if(!smutil.isEmpty(phoneNumber)){
+						html = html + '<li>' + phoneNumber + '</li>';
+					}
+
 				}
-
+				
+				if(page.dlvyCompl.area_sct_cd == 'Y' && !smutil.isEmpty(this.cldl_tmsl_nm)){
+					html = html + '<li><span style="padding: 0px 5px; font-size: 10px; color: #fff; border: 1px solid #015182; background-color: #015182; border-radius: 20px;">' + (this.cldl_tmsl_nm).replace('시', '') + '</span></li>'
+				}
+				
+				// 고객요청 인수자 정보 셋팅
+				if(!smutil.isEmpty(this.req_acpr_nm)){
+					if(this.req_acpt_rgst_sct_cd == "01"){		// 고객요청
+						html = html + '<li id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tGreen">' + this.req_acpr_nm + '</span></li>';
+					}
+					else if(this.req_acpt_rgst_sct_cd == "02"){		// 기사변경
+						html = html + '<li id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tRed">' + this.req_acpr_nm + '</span></li>';
+					}
+				}
 			}
-			else{	// 배달
-				if(!smutil.isEmpty(this.acper_nm)){
-					html = html + '<li>' + this.acper_nm + '</li>';
+			else if(page.cldl0802.step_sct_cd == '1'){	//완료	
+				if(this.cldl_sct_cd === "P"){	// 집하
+					if(!smutil.isEmpty(this.snper_nm)){
+						html = html + '<li class="name">' + this.snper_nm + '</li>';
+					}
+	
+					var snper_tel = smutil.nullToValue(this.snper_tel,"");
+					var snper_cpno = smutil.nullToValue(this.snper_cpno,"");
+					phoneNumber = page.getCpNo(snper_tel, snper_cpno);
+	
+					if(!smutil.isEmpty(phoneNumber)){
+						html = html + '<li>' + phoneNumber + '</li>';
+					}
+	
+					if(page.dlvyCompl.area_sct_cd == 'Y' && !smutil.isEmpty(this.cldl_tmsl_nm)){
+						html = html + '<li><span style="padding: 0px 5px; font-size: 10px; color: #fff; border: 1px solid #015182; background-color: #015182; border-radius: 20px;">' + (this.cldl_tmsl_nm).replace('시', '') + '</span></li>'
+					}
+	
+					// 고객요청 인수자 정보 셋팅
+					if(!smutil.isEmpty(this.req_acpr_nm)){
+						if(this.req_acpt_rgst_sct_cd == "01"){		// 고객요청
+							html = html + '<li style="display: inline-block;" id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tGreenBold">' + this.req_acpr_nm + '</span></li>';
+						}
+						else if(this.req_acpt_rgst_sct_cd == "02"){		// 기사변경
+							html = html + '<li style="display: inline-block;" id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tRed">' + this.req_acpr_nm + '</span></li>';
+						}
+					}
+				} else {
+					if(!smutil.isEmpty(this.acper_nm)){
+						html = html + '<li class="name">' + this.acper_nm + '</li>';
+					}
+	
+					var acper_tel = smutil.nullToValue(this.acper_tel,"");
+					var acper_cpno = smutil.nullToValue(this.acper_cpno,"");
+	
+					phoneNumber = page.getCpNo(acper_tel, acper_cpno);
+	
+					if(!smutil.isEmpty(phoneNumber)){
+						html = html + '<li>' + phoneNumber + '</li>';
+					}
+	
+					if(page.dlvyCompl.area_sct_cd == 'Y' && !smutil.isEmpty(this.cldl_tmsl_nm)){
+						html = html + '<li><span style="padding: 0px 5px; font-size: 10px; color: #fff; border: 1px solid #015182; background-color: #015182; border-radius: 20px;">' + (this.cldl_tmsl_nm).replace('시', '') + '</span></li>'
+					}
+	
+					// 고객요청 인수자 정보 셋팅
+					if(!smutil.isEmpty(this.req_acpr_nm)){
+						if(this.req_acpt_rgst_sct_cd == "01"){		// 고객요청
+							if(page.dlvyCompl.area_sct_cd == 'Y'){
+								html = html + '<li style="display: inline-block; position: absolute;" id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tGreenBold">' + this.req_acpr_nm + '</span></li>';
+							}else{
+								html = html + '<li style="display: inline-block; position: absolute;" id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tGreenBold">' + this.req_acpr_nm + '</span></li>';							
+							}
+						}
+						else if(this.req_acpt_rgst_sct_cd == "02"){		// 기사변경
+							html = html + '<li style="display: inline-block; position: absolute;" id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+' ><span class="tRed">' + this.req_acpr_nm + '</span></li>';
+						}
+					}
+	 
 				}
-
-				var acper_tel = smutil.nullToValue(this.acper_tel,"");
-				var acper_cpno = smutil.nullToValue(this.acper_cpno,"");
-
-				phoneNumber = page.getCpNo(acper_tel, acper_cpno);
-
-				if(!smutil.isEmpty(phoneNumber)){
-					html = html + '<li>' + phoneNumber + '</li>';
-				}
-
 			}
+			else {
+				if(this.cldl_sct_cd === "P"){	// 집하
+					if(!smutil.isEmpty(this.snper_nm)){
+						html = html + '<li>' + this.snper_nm + '</li>';
+					}
 
-			// 고객요청 인수자 정보 셋팅
-			if(!smutil.isEmpty(this.req_acpr_nm)){
-				if(this.req_acpt_rgst_sct_cd == "01"){			// 고객요청
-					html = html + '<li id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tGreen">' + this.req_acpr_nm + '</span></li>';
+					var snper_tel = smutil.nullToValue(this.snper_tel,"");
+					var snper_cpno = smutil.nullToValue(this.snper_cpno,"");
+					phoneNumber = page.getCpNo(snper_tel, snper_cpno);
+
+					if(!smutil.isEmpty(phoneNumber)){
+						html = html + '<li>' + phoneNumber + '</li>';
+					}
+
 				}
-				else if(this.req_acpt_rgst_sct_cd == "02"){		// 기사변경
-					html = html + '<li id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tRed">' + this.req_acpr_nm + '</span></li>';
+				else{	// 배달
+					if(!smutil.isEmpty(this.acper_nm)){
+						html = html + '<li>' + this.acper_nm + '</li>';
+					}
+
+					var acper_tel = smutil.nullToValue(this.acper_tel,"");
+					var acper_cpno = smutil.nullToValue(this.acper_cpno,"");
+
+					phoneNumber = page.getCpNo(acper_tel, acper_cpno);
+
+					if(!smutil.isEmpty(phoneNumber)){
+						html = html + '<li>' + phoneNumber + '</li>';
+					}
+
 				}
+
+				// 고객요청 인수자 정보 셋팅
+				if(!smutil.isEmpty(this.req_acpr_nm)){
+					if(this.req_acpt_rgst_sct_cd == "01"){			// 고객요청
+						html = html + '<li id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tGreen">' + this.req_acpr_nm + '</span></li>';
+					}
+					else if(this.req_acpt_rgst_sct_cd == "02"){		// 기사변경
+						html = html + '<li id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tRed">' + this.req_acpr_nm + '</span></li>';
+					}
+				}				
 			}
+			
+
 
 
 			if(!smutil.isEmpty(html)){
