@@ -82,10 +82,10 @@ var page = {
 				
 				if(page.step_sct_cd == "0" || page.step_sct_cd == "1"){
 					$(".popMap .mapCon").css({"margin-top": "17px"});
-					$(".popMap .mapCon").css({"height": "72%"});	
+					$(".popMap .mapCon").css({"height": "77%"});	
 				} else {
 					$(".popMap .mapCon").css({"margin-top": "-63px"});
-					$(".popMap .mapCon").css({"height": "82%"});
+					$(".popMap .mapCon").css({"height": "86%"});
 				}
 				// 집하 배달 탭 표시처리
 				var btnLst = $(".lstSchBtn");
@@ -124,14 +124,13 @@ var page = {
 		// 화면 디스플레이 이벤트
 		initDpEvent : function(){
 			var _this = this;
-
 			
 			if(page.step_sct_cd == "0" || page.step_sct_cd == "1"){
 				$(".popMap .mapCon").css({"margin-top": "17px"});
-				//$(".popMap .mapCon").css({"height": "72%"});	
+				$(".popMap .mapCon").css({"height": "77%"});	
 			} else {
 				$(".popMap .mapCon").css({"margin-top": "-63px"});
-				$(".popMap .mapCon").css({"height": "82%"});
+				$(".popMap .mapCon").css({"height": "86%"});
 			}
 				
 		},  //initDpEvent end

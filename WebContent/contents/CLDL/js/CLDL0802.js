@@ -4,7 +4,9 @@ var page = {
 	dlvyCompl : null,
 	scanParam : null,			// 스캔완료한 송장파라메터 집하
 	param_list : [],			// 미집하/배달 전송할 송장 리스트
-	sp : null,	//현재위치 //2023.02.24 
+	sp : null,	//현재위치
+	changeTimeInvNo : null,		// 시간 변경을 선택한 invNo
+	changeTimeSctCd : null,		// 시간 변경을 선택한 송장의 배달, 집하코드
 	init:function(arg)
 	{
 		page.cldl0802 = arg.data.param;
@@ -70,7 +72,7 @@ var page = {
 	                $("#setDlvyCom2").attr('class', 'gray2 badge option outline');
 				}
 				
-				$("#setDlvyCom3").text('' + page.cldl0802.sbox_type_cd); //testdev나중에 없앨것
+				//$("#setDlvyCom3").text('' + page.cldl0802.sbox_type_cd); //testdev나중에 없앨것
 			} else {
 				page.cldl0802.mbl_dlv_area = "";
 				page.cldl0802.cldl_tmsl_cd = "";
@@ -108,7 +110,7 @@ var page = {
 			$(".deliveryTy3Cal").css({"margin-top": "164px"});
 			
 			$('.tabChkbox').hide();
-			$("#bottomDiv").hide();	//2023.02.28
+			$("#bottomDiv").hide();
 			$("#bottomDivD").hide();
 			if(page.cldl0802.step_sct_cd == '0'){
 				$('#headnm').text("집배달 출발");	
@@ -125,13 +127,9 @@ var page = {
 			if(page.is_reload == null) {
 				LEMP.Window.close();
 			} else {
-				var obj = {
-						"cldl_sct_cd":"D",
-						"inv_no":"1111" //시간대넘길것 2023.02.28
-				}
 				LEMP.Window.close({
 						"_oMessage":{
-							"param":obj
+							"param":{"step_sct_cd":page.cldl0802.step_sct_cd} //2023.03.06
 						},
 						"_sCallback":"page.cldl0802Callback"
 					});
@@ -200,7 +198,7 @@ var page = {
 					$('#tabChkDetailP').hide();
 					$('#tabChkDetailD').show();					
 					$("#bottomDiv").hide();
-					$("#bottomDivD").show();	//2023.02.28
+					$("#bottomDivD").show();
 				}
 				else{
 					$('.tabChkbox').hide();
@@ -648,9 +646,9 @@ var page = {
 		});
 		
 		// 통화버튼 yes 클릭
-		$('#phoneCallYesBtn').click(function(e){ //2023.02.28
+		$('#phoneCallYesBtn').click(function(e){
 			var phoneNumber = $('#popPhoneTxt').text();
-			alert('phoneCallYesBtn click2222 ' + phoneNumber); 
+			 
 			phoneNumber = phoneNumber.split('-').join('').replace(/\-/g,'');
 			LEMP.System.callTEL({
 				"_sNumber" : phoneNumber,
@@ -658,6 +656,29 @@ var page = {
 
 		});
 
+
+		$(document).on('click', '.btn.bdM.blue4.bdClock.mgl1', function(e){
+			
+			if(page.cldl0802.cldl_tmsl_nm != '토요휴무'){  //mbl_dlv_area
+				var inv_no = $(this).data('invNo')+"";
+				var cldl_sct_cd = $(this).data('cldlSctCd')+"";
+				page.changeTimeInvNo = inv_no;					// 시간수정을 하기위한 송장번호 전역변수로 셋팅
+				page.changeTimeSctCd = cldl_sct_cd;				// 시간수정버튼을 클릭한 송장번호의 배달, 집하 구분코드 전역변수로 셋팅
+	
+				// 시간수정 팝업 호출
+				var popUrl = smutil.getMenuProp('COM.COM0501', 'url');
+
+				LEMP.Window.open({
+					"_sPagePath":popUrl
+				});
+			}else{
+				LEMP.Window.toast({
+					"_sMessage":"토요휴무는 시간변경이 불가능합니다.",
+					'_sDuration' : 'short'
+				});
+			}
+
+		});
 
 
 		// 스와이프해서 서명 싸인패드 호출
@@ -811,7 +832,7 @@ var page = {
 			}
 		});
 		
-		// 스캔한 데이터인지 여부 확인 //2023.02.28
+		// 스캔한 데이터인지 여부 확인 
 		Handlebars.registerHelper('scanYnClass', function(options) {
 			if(this.scan_cmpt_yn == 'N'){
 				return 'off';
@@ -820,12 +841,12 @@ var page = {
 			}
 		});
 		
-		// 회사 로고 표시  //2023.02.28
+		// 회사 로고 표시 
 		Handlebars.registerHelper('corpLogoReturn', function(options) {
 			return smutil.corpLogoReturn(this.corp_sct_cd);
 		});
 		
-		// 체크박스에 전화번호 리턴  //2023.02.28
+		// 체크박스에 전화번호 리턴
 		Handlebars.registerHelper('returnSctCdTel', function(options) {
 			var telNum;
 
@@ -849,7 +870,7 @@ var page = {
 			}
 		});
 		
-		// 집하, 배달 구분(집하 = if true, 배달은=else)  //2023.02.28
+		// 집하, 배달 구분(집하 = if true, 배달은=else)
 		Handlebars.registerHelper('cldlSctCdChkTag', function(options) {
 
 			var html = "";
@@ -1185,8 +1206,18 @@ var page = {
 				} else {					
 					$('#cldl0802LstUlD').html(templateD(res.data));
 				}
-				$('#cldlPcnt').text('집하 '+smutil.nullToValue((res.data.list.length),0)+'건');
-				$('#cldlDcnt').text('배달 '+smutil.nullToValue((res.data.listD.length),0)+'건');
+				
+				var tot = 0, totD = 0;
+				if(res.data.list.length > 0) {					
+					tot = smutil.nullToValue((res.data.list[0].tot),0);
+				}
+				
+				if(res.data.listD.length > 0) {					
+					totD = smutil.nullToValue((res.data.listD[0].tot),0);
+				}
+				
+				$('#cldlPcnt').text('집하 '+tot+'건');
+				$('#cldlDcnt').text('배달 '+totD+'건');
 				
 				//$('#cldl0802LstUlD').html(templateD(res.data));
 				
@@ -1436,7 +1467,7 @@ var page = {
 				"_sDuration" : "short"
 			});
 
-			page.listReLoad();				// 리스트 재조회 2023.02.27
+			page.listReLoad();				// 리스트 재조회
 		}
 	}
 	// ################### 미배달 처리 end
@@ -1461,13 +1492,13 @@ var page = {
 		
 		inv_no = inv_no+"";
 		// 중복 스캔 방지
-		/*if(page.chkScanYn(inv_no)){
-			console.log('smutil.callTTS');
+		if(page.chkScanYn(inv_no)){
+			
 			// 실패 tts 호출(벨소리)
 			smutil.callTTS("0", "0", null, result.isBackground);
 
 			return false;
-		}*/  //진행안됨.. 나중에 살림 testdev
+		}
 		
 		if(smutil.isEmpty(cldl_tmsl_cd) && page.dlvyCompl.area_sct_cd == 'N'){
 				sMsg = "예정시간을 선택해 주세요.";
@@ -1650,7 +1681,7 @@ var page = {
 //				console.log(data);
 
 				// 성공 tts 호출
-				//smutil.callTTS("1", "2", scanCnt, result.isBackground);//testdev
+				smutil.callTTS("1", "2", scanCnt, result.isBackground);
 
 				if(page.dlvyCompl.area_sct_cd2 == "A"){
 					//$("#span_cldl_sct_cd").hide(); ??
@@ -2256,7 +2287,7 @@ var page = {
 	// ################### 스캔취소 end
 		
 	
-	//2023.02.28
+
 	// 문자발송 서비스 호출
 	, sendSms : function(){
 			var _this = this;
@@ -2318,7 +2349,7 @@ var page = {
 			// 전화번호가 없어도 문자 발송 가능하도록 기능 수정(20200204)
 			if(chkLst.length > 0){
 				var single = [];
-				var timeTxt = page.cldl0802.cldl_tmsl_nm; //2023.02.28
+				var timeTxt = page.cldl0802.cldl_tmsl_nm;
 
 				if((smutil.isEmpty(timeTxt) && page.dlvyCompl.area_sct_cd == "N")
 						|| (smutil.isEmpty(timeTxt) && page.dlvyCompl.area_sct_cd == "Y" && chkLst.length == 1)){
@@ -2414,7 +2445,7 @@ var page = {
 			if(chkLst.length > 0){
 				var single = [];
 				var timeTxt = "";
-				var timeTxt = page.cldl0802.cldl_tmsl_nm; //2023.02.28
+				var timeTxt = page.cldl0802.cldl_tmsl_nm;
 
 				// 선택한 전화번호리스트 중복제거
 				$.each(chkLst, function(i, el){
@@ -2579,8 +2610,65 @@ var page = {
 		page.listReLoad();				// 리스트 재조회
 	}
 
+
+	//##########################################################################
+	// 시간변경 api 호출	start
+	// 시간설정 팝업 닫을때 callback 함수 
+	, com0501Callback : function(res){
+		if(!smutil.isEmpty(res.selectedCode)){
+			// 시간 변경을 위한 송장번호와 타임 배달, 집하 구분코드가 전부 있으면 변경
+			if(!smutil.isEmpty(page.changeTimeInvNo)
+					&& !smutil.isEmpty(page.changeTimeSctCd)){
+				var setObject = [{invNo : page.changeTimeInvNo, cldl_sct_cd : page.changeTimeSctCd}];
+
+				var cldl_tmsl_cd = res.selectedCode;
+				//넘겨받은 체크 대상 리스트
+				var chngInvNoList = setObject;
+
+				page.apiParamInit();
+				page.apiParam.param.baseUrl = "smapis/cldl/changedlvytme";					// api no
+				page.apiParam.param.callback = "page.changeDlvyTimeCallback";			// callback methode
+				page.apiParam.data = {
+					"parameters" : {
+						"cldl_tmsl_cd" : cldl_tmsl_cd,
+						"chngInvNoList" : chngInvNoList
+					}
+				};
+				
+				smutil.loadingOn();				// 로딩바 on
+				
+				// 공통 api호출 함수
+				smutil.callApi(page.apiParam);
+			}
+			else{
+				LEMP.Window.toast({
+					"_sMessage":"시간변경을 위한 필수값이 없습니다.",
+					'_sDuration' : 'short'
+				});
+
+				return false;
+			}
+		}
+
+	}
+	//성공여부 콜백
+	,changeDlvyTimeCallback: function(res){
+		if(res.code == 0000){
+			LEMP.Window.toast({
+				"_sMessage":res.message,
+				'_sDuration' : 'short'
+			});
+		}else if(res.code == 0001){
+			LEMP.Window.toast({
+				"_sMessage":res.message,
+				'_sDuration' : 'short'
+			});
+		}
+		
+		page.listReLoad();
+	}
 	// 현재 리스트가 스캔이 되어있는지 체크
-	// 스캔 했으면 true, 안했으면 false //2023.02.28
+	// 스캔 했으면 true, 안했으면 false
 	, chkScanYn : function(inv_no){
 		if(!smutil.isEmpty(inv_no) && $('#'+inv_no).length > 0){ 
 			return !($('#'+inv_no).children(".baedalBox").is(".off"));
@@ -2636,7 +2724,7 @@ var page = {
 	,getLocation:function() {
 		if(navigator.geolocation) { //GPS 지원여부
 			navigator.geolocation.getCurrentPosition(function(position) {
-				page.sp = position.coords.latitude +","+position.coords.longitude;//2023.02.24
+				page.sp = position.coords.latitude +","+position.coords.longitude;
 			}, function(error) {
 			}, {
 				enableHighAccuracy : false,//배터리를 더 소모해서 더 정확한 위치를 찾음
