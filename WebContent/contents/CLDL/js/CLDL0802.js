@@ -50,13 +50,13 @@ var page = {
 			if (!_.isUndefined(page.dlvyCompl)) {
 	            // 구역별 시간별
 			    if(page.dlvyCompl.area_sct_cd == "Y") {
-	                $("#setDlvyCom1").text('구역(' + page.cldl0802.sbox_type_cd+')');
+	                $("#setDlvyCom1").text('구역');
 	                $("#setDlvyCom1").attr('class', 'red badge option outline');
 
 					page.cldl0802.mbl_dlv_area = page.cldl0802.sbox_type_cd;
 					page.cldl0802.cldl_tmsl_cd = "";
 	            } else {
-	                $("#setDlvyCom1").text('시간(' + page.cldl0802.cldl_tmsl_nm+')');
+	                $("#setDlvyCom1").text('시간');
 	                $("#setDlvyCom1").attr('class', 'green badge option outline');
 	
 					page.cldl0802.mbl_dlv_area = "";
@@ -72,7 +72,7 @@ var page = {
 	                $("#setDlvyCom2").attr('class', 'gray2 badge option outline');
 				}
 				
-				//$("#setDlvyCom3").text('' + page.cldl0802.sbox_type_cd); //testdev나중에 없앨것
+				$("#setDlvyCom3").text('' + page.cldl0802.sbox_type_cd + '/' + page.cldl0802.cldl_tmsl_nm+' '); //testdev나중에 없앨것
 			} else {
 				page.cldl0802.mbl_dlv_area = "";
 				page.cldl0802.cldl_tmsl_cd = "";
@@ -765,7 +765,7 @@ var page = {
 			var inv_no = $(this).data('invNo');
 			var cldl_sct_cd = $(this).data('cldlSctCd');
 			inv_no = inv_no+"";
-			alert('scan1: ' + inv_no);
+			//alert('scan1: ' + inv_no);
 			if(!smutil.isEmpty(inv_no)){
 				inv_no = inv_no.split('-').join('');
 				var result = {"barcode" : inv_no};
@@ -780,6 +780,37 @@ var page = {
 				return false;
 			}
 		});
+
+		/* testdev*/
+		$("#setDlvyCom1").click(function(){
+				var routeUrl = "kakaomap://route?sp="+page.sp+"&ep="+page.cldl0802.ep+"&by=CAR"; 
+				//page.goRoute(result);
+				alert(routeUrl);
+				
+				LEMP.System.callBrowser({
+					"_sURL" : routeUrl
+				});
+		});
+		
+		$("#setDlvyCom2").click(function(){
+				var routeUrl="http://m.map.naver.com/route.nhn?menu=route&sname=출발&sx=126.9736211&sy=37.5570572&ename=도착&ex=127.0276368&ey=37.4979502&pathType=0&showMap=true";
+				alert(routeUrl);
+				
+				LEMP.System.callBrowser({
+					"_sURL" : routeUrl
+				});
+
+		});
+		
+		$("#setDlvyCom3").click(function(){
+				var routeUrl="nmap://route/car?dlat=37.5209436&dlng=127.1230074&dname=%EC%98%AC%EB%A6%BC%ED%94%BD%EA%B3%B5%EC%9B%90&appname=com.example.myapp";
+				alert(routeUrl);
+				
+				LEMP.System.callBrowser({
+					"_sURL" : routeUrl
+				});
+
+		});
 		
 		// 스와이프해서 이동경로버튼 클릭한 경우
 		$(document).on('click', '.btn.blue7.bdM.bdRoute.mgl1', function(e){
@@ -787,15 +818,12 @@ var page = {
 			alert("goRoute::: " + page.sp + "" + page.cldl0802.ep);
 			if(!smutil.isEmpty(page.sp) && !smutil.isEmpty(page.cldl0802.ep)){				
 				//var routeUrl = "kakaomap://route?sp="+page.sp+"&ep="+page.cldl0802.ep+"&by=CAR"; //2023.02.24
-				var routeUrl = "https://map.kakao.com/link/from/"+page.sp+"/to/"+page.cldl0802.ep+"&by=CAR"; //2023.02.24
+				var routeUrl = "https://map.kakao.com/link/to/"+page.cldl0802.ep+"&by=CAR"; //2023.02.24
 				//page.goRoute(result);
 				alert(routeUrl);
-				window.location = routeUrl;
-				LEMP.Window.open({
-					"_sPagePath":routeUrl,
-					"_oMessage" : {
-					}
-				});	
+				LEMP.System.callBrowser({
+					"_sURL" : routeUrl
+				});
 				
 			}
 			else{
@@ -875,46 +903,157 @@ var page = {
 
 			var html = "";
 			var phoneNumber = "";
+			var span = "";
+			
+			if(page.cldl0802.step_sct_cd == '0'){	//출발
+				if(this.cldl_sct_cd === "P"){	// 집하
+					if(!smutil.isEmpty(this.snper_nm)){
+						html = html + '<li class="name">' + this.snper_nm + '</li>';
+					}
 
-			if(this.cldl_sct_cd === "P"){	// 집하
-				if(!smutil.isEmpty(this.snper_nm)){
-					html = html + '<li>' + this.snper_nm + '</li>';
+					var snper_tel = smutil.nullToValue(this.snper_tel,"");
+					var snper_cpno = smutil.nullToValue(this.snper_cpno,"");
+					phoneNumber = page.getCpNo(snper_tel, snper_cpno);
+
+					if(!smutil.isEmpty(phoneNumber)){
+						html = html + '<li>' + phoneNumber + '</li>';
+					}
+
 				}
+				else{	// 배달
+					if(!smutil.isEmpty(this.acper_nm)){
+						html = html + '<li class="name">' + this.acper_nm + '</li>';
+					}
 
-				var snper_tel = smutil.nullToValue(this.snper_tel,"");
-				var snper_cpno = smutil.nullToValue(this.snper_cpno,"");
-				phoneNumber = page.getCpNo(snper_tel, snper_cpno);
+					var acper_tel = smutil.nullToValue(this.acper_tel,"");
+					var acper_cpno = smutil.nullToValue(this.acper_cpno,"");
 
-				if(!smutil.isEmpty(phoneNumber)){
-					html = html + '<li>' + phoneNumber + '</li>';
+					phoneNumber = page.getCpNo(acper_tel, acper_cpno);
+
+					if(!smutil.isEmpty(phoneNumber)){
+						html = html + '<li>' + phoneNumber + '</li>';
+					}
+
 				}
-
+				
+				if(page.dlvyCompl.area_sct_cd == 'Y' && !smutil.isEmpty(this.cldl_tmsl_nm)){
+					html = html + '<li><span style="padding: 0px 5px; font-size: 10px; color: #fff; border: 1px solid #015182; background-color: #015182; border-radius: 20px;">' + (this.cldl_tmsl_nm).replace('시', '') + '</span></li>'
+				}
+				
+				// 고객요청 인수자 정보 셋팅
+				if(!smutil.isEmpty(this.req_acpr_nm)){
+					if(this.req_acpt_rgst_sct_cd == "01"){		// 고객요청
+						html = html + '<li id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tGreen">' + this.req_acpr_nm + '</span></li>';
+					}
+					else if(this.req_acpt_rgst_sct_cd == "02"){		// 기사변경
+						html = html + '<li id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tRed">' + this.req_acpr_nm + '</span></li>';
+					}
+				}
 			}
-			else{	// 배달
-				if(!smutil.isEmpty(this.acper_nm)){
-					html = html + '<li>' + this.acper_nm + '</li>';
+			else if(page.cldl0802.step_sct_cd == '1'){	//완료	
+				if(this.cldl_sct_cd === "P"){	// 집하
+					if(!smutil.isEmpty(this.snper_nm)){
+						html = html + '<li class="name">' + this.snper_nm + '</li>';
+					}
+	
+					var snper_tel = smutil.nullToValue(this.snper_tel,"");
+					var snper_cpno = smutil.nullToValue(this.snper_cpno,"");
+					phoneNumber = page.getCpNo(snper_tel, snper_cpno);
+	
+					if(!smutil.isEmpty(phoneNumber)){
+						html = html + '<li>' + phoneNumber + '</li>';
+					}
+	
+					if(page.dlvyCompl.area_sct_cd == 'Y' && !smutil.isEmpty(this.cldl_tmsl_nm)){
+						html = html + '<li><span style="padding: 0px 5px; font-size: 10px; color: #fff; border: 1px solid #015182; background-color: #015182; border-radius: 20px;">' + (this.cldl_tmsl_nm).replace('시', '') + '</span></li>'
+					}
+	
+					// 고객요청 인수자 정보 셋팅
+					if(!smutil.isEmpty(this.req_acpr_nm)){
+						if(this.req_acpt_rgst_sct_cd == "01"){		// 고객요청
+							html = html + '<li style="display: inline-block;" id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tGreenBold">' + this.req_acpr_nm + '</span></li>';
+						}
+						else if(this.req_acpt_rgst_sct_cd == "02"){		// 기사변경
+							html = html + '<li style="display: inline-block;" id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tRed">' + this.req_acpr_nm + '</span></li>';
+						}
+					}
+				} else {
+					if(!smutil.isEmpty(this.acper_nm)){
+						html = html + '<li class="name">' + this.acper_nm + '</li>';
+					}
+	
+					var acper_tel = smutil.nullToValue(this.acper_tel,"");
+					var acper_cpno = smutil.nullToValue(this.acper_cpno,"");
+	
+					phoneNumber = page.getCpNo(acper_tel, acper_cpno);
+	
+					if(!smutil.isEmpty(phoneNumber)){
+						html = html + '<li>' + phoneNumber + '</li>';
+					}
+	
+					if(page.dlvyCompl.area_sct_cd == 'Y' && !smutil.isEmpty(this.cldl_tmsl_nm)){
+						html = html + '<li><span style="padding: 0px 5px; font-size: 10px; color: #fff; border: 1px solid #015182; background-color: #015182; border-radius: 20px;">' + (this.cldl_tmsl_nm).replace('시', '') + '</span></li>'
+					}
+	
+					// 고객요청 인수자 정보 셋팅
+					if(!smutil.isEmpty(this.req_acpr_nm)){
+						if(this.req_acpt_rgst_sct_cd == "01"){		// 고객요청
+							if(page.dlvyCompl.area_sct_cd == 'Y'){
+								html = html + '<li style="display: inline-block; position: absolute;" id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tGreenBold">' + this.req_acpr_nm + '</span></li>';
+							}else{
+								html = html + '<li style="display: inline-block; position: absolute;" id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tGreenBold">' + this.req_acpr_nm + '</span></li>';							
+							}
+						}
+						else if(this.req_acpt_rgst_sct_cd == "02"){		// 기사변경
+							html = html + '<li style="display: inline-block; position: absolute;" id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+' ><span class="tRed">' + this.req_acpr_nm + '</span></li>';
+						}
+					}
+	 
 				}
-
-				var acper_tel = smutil.nullToValue(this.acper_tel,"");
-				var acper_cpno = smutil.nullToValue(this.acper_cpno,"");
-
-				phoneNumber = page.getCpNo(acper_tel, acper_cpno);
-
-				if(!smutil.isEmpty(phoneNumber)){
-					html = html + '<li>' + phoneNumber + '</li>';
-				}
-
 			}
+			else {
+				if(this.cldl_sct_cd === "P"){	// 집하
+					if(!smutil.isEmpty(this.snper_nm)){
+						html = html + '<li>' + this.snper_nm + '</li>';
+					}
 
-			// 고객요청 인수자 정보 셋팅
-			if(!smutil.isEmpty(this.req_acpr_nm)){
-				if(this.req_acpt_rgst_sct_cd == "01"){			// 고객요청
-					html = html + '<li id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tGreen">' + this.req_acpr_nm + '</span></li>';
+					var snper_tel = smutil.nullToValue(this.snper_tel,"");
+					var snper_cpno = smutil.nullToValue(this.snper_cpno,"");
+					phoneNumber = page.getCpNo(snper_tel, snper_cpno);
+
+					if(!smutil.isEmpty(phoneNumber)){
+						html = html + '<li>' + phoneNumber + '</li>';
+					}
+
 				}
-				else if(this.req_acpt_rgst_sct_cd == "02"){		// 기사변경
-					html = html + '<li id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tRed">' + this.req_acpr_nm + '</span></li>';
+				else{	// 배달
+					if(!smutil.isEmpty(this.acper_nm)){
+						html = html + '<li>' + this.acper_nm + '</li>';
+					}
+
+					var acper_tel = smutil.nullToValue(this.acper_tel,"");
+					var acper_cpno = smutil.nullToValue(this.acper_cpno,"");
+
+					phoneNumber = page.getCpNo(acper_tel, acper_cpno);
+
+					if(!smutil.isEmpty(phoneNumber)){
+						html = html + '<li>' + phoneNumber + '</li>';
+					}
+
 				}
+
+				// 고객요청 인수자 정보 셋팅
+				if(!smutil.isEmpty(this.req_acpr_nm)){
+					if(this.req_acpt_rgst_sct_cd == "01"){			// 고객요청
+						html = html + '<li id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tGreen">' + this.req_acpr_nm + '</span></li>';
+					}
+					else if(this.req_acpt_rgst_sct_cd == "02"){		// 기사변경
+						html = html + '<li id="reqAcptSctCd_'+this.inv_no+'" data-req-acpt-sct-cd='+this.req_acpt_sct_cd+'><span class="tRed">' + this.req_acpr_nm + '</span></li>';
+					}
+				}				
 			}
+			
+
 
 
 			if(!smutil.isEmpty(html)){

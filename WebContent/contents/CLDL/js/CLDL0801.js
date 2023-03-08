@@ -189,8 +189,8 @@ var page = {
 					$("#cldl0801LstUl").find("li:eq(0)").trigger("click");
 					
 				} else {
-					var template = Handlebars.compile($("#CLDL0801_list_template").html());
-					$('#cldl0801LstUl').html(template(res.data));
+					/*var template = Handlebars.compile($("#CLDL0801_list_template").html());
+					$('#cldl0801LstUl').html(template(res.data));*/
 					$('#mapno').show();
 					$('#mapCon').hide();
 				}
@@ -223,88 +223,86 @@ var page = {
 		// 구역별 조회건수 callback
 		autoCmptTmListCallback : function(result){
 			page.apiParamInit();		// 파라메터 전역변수 초기화
-
-			// api 결과 성공여부 검사
-			if(smutil.apiResValidChk(result) && result.code == "0000"){
-
-				// 조회 결과 데이터가 있으면 옵션 생성
-				if(result.data_count > 0){
-					var data = result.data;
-					
-					//오름차순 정렬
-					data.list.sort(function(a, b) {
-						if(a.mbl_area == "기타"){
-							return -1;
-						}
+			try {
+				if (smutil.apiResValidChk(result) && result.code==="0000") {
+					// 조회 결과 데이터가 있으면 옵션 생성
+					if(result.data_count > 0){
+						var data = result.data;
 						
-						if(b.mbl_area == "기타"){
-							return 1;
-						}
+						//오름차순 정렬
+						data.list.sort(function(a, b) {
+							if(a.mbl_area == "기타"){
+								return -1;
+							}
+							
+							if(b.mbl_area == "기타"){
+								return 1;
+							}
+							
+							return 0;
+						});
+	
+						// 핸들바 템플릿 가져오기
+						var source = $("#CLDL0801_mblLst_template").html();
 						
-						return 0;
-					});
-
-					// 핸들바 템플릿 가져오기
-					var source = $("#CLDL0801_mblLst_template").html();
+						// 핸들바 템플릿 컴파일
+						var template = Handlebars.compile(source);
+	
+						// 핸들바 템플릿에 데이터를 바인딩해서 HTML 생성
+						var liHtml = template(data);
+	
+						// 생성된 HTML을 DOM에 주입
+						$('#cldl0801LstUl').html(liHtml); //cmptTmListUl
+						
+						/* touchFlow 등록*/
+						$(".divisionBox .selectBox").touchFlow();
+	
+						$("#cldl0801LstUl").find("li:eq(0)").trigger("click");					
+					}
+					else{ console.log('result 00000 nolist');
+						// 리스트가 아무것도 없을경우에는 기본으로 18~20 시 코드를 셋팅한다
+						var data = {"list" : [{
+							"mbl_area": "기타",
+							"mbl_area_org": "기타",
+							"alps_area":"ZZ",
+							"min_nm": "18",
+							"max_nm": "20",
+							"cldl_tmsl_nm": "18~20시",
+							"cldl_tmsl_cd": "19",
+							"cnt" : 0,
+							"cnt_p" : 0,
+							"cnt_d" : 0,
+							"min_tmsl" : "18",
+							"max_tmsl" : "19"							
+						}]};
+						var source = $("#CLDL0801_mblLst_template").html(); 
+						// 핸들바 템플릿 컴파일
+						var template = Handlebars.compile(source);
+	
+						// 핸들바 템플릿에 데이터를 바인딩해서 HTML 생성
+						var liHtml = template(data);
+	
+						// 생성된 HTML을 DOM에 주입
+						$('#cldl0801LstUl').html(liHtml);
+	
+	
+						/* touchFlow 등록*/
+						$(".divisionBox .selectBox").touchFlow();
+	
+						$('#mapno').show();
+						$('#mapCon').hide();
+					}
 					
-					// 핸들바 템플릿 컴파일
-					var template = Handlebars.compile(source);
-
-					// 핸들바 템플릿에 데이터를 바인딩해서 HTML 생성
-					var liHtml = template(data);
-
-					// 생성된 HTML을 DOM에 주입
-					$('#cldl0801LstUl').html(liHtml); //cmptTmListUl
-					
-					/* touchFlow 등록*/
-					$(".divisionBox .selectBox").touchFlow();
-
-					$("#cldl0801LstUl").find("li:eq(0)").trigger("click");					
+				}else {
+					$('#mapno').show();
+					$('#mapCon').hide();				
 				}
-				else{
-					// 리스트가 아무것도 없을경우에는 기본으로 18~20 시 코드를 셋팅한다
-					var data = {"list" : [{
-						"mbl_area": "기타",
-						"min_nm": "18",
-						"max_nm": "20",
-						"cldl_tmsl_nm": "18~20시",
-						"cldl_tmsl_cd": "19",
-						"cnt" : 0
-					}]};
-					var source = $("#cldl0802_mblLst_template").html();
-					
-					// 핸들바 템플릿 컴파일
-					var template = Handlebars.compile(source);
-
-					// 핸들바 템플릿에 데이터를 바인딩해서 HTML 생성
-					var liHtml = template(data);
-
-					// 생성된 HTML을 DOM에 주입
-					$('#cldl0801LstUl').html(liHtml);
-
-
-					/* touchFlow 등록*/
-					$(".divisionBox .selectBox").touchFlow();
-
-					/*// 현제 어느 시간데를 선택했는지 검사
-					var timeLstLi = $("li[name='timeLstLi']");
-
-					_.forEach(timeLstLi, function(obj, key) {
-						$(obj).addClass('on');
-
-						// 선택한 구역 등록
-						page.mbl_dlv_area = $(obj).data('timecd')+"";
-						// 한번만 셋팅하고 바로 루프 나감
-						return false;
-					});*/
-
-
-					// 생성된 HTML을 DOM에 주입
-//					$('#cmptTmListUl').html('');
-				}
-
-				//page.autoCmptList();		// 페이지 리스트 조회
 			}
+			catch (e) {}
+			finally{
+				smutil.loadingOff();
+			}
+			
 		}
 		// ################### 구역별 조회건수 조회 end
 
@@ -427,6 +425,22 @@ var page = {
 		// 지도에서 표현 할 수 없는 좌표가 존재한다면 하얀 화면이 출력 될 수 있음
 		var bounds = new kakao.maps.LatLngBounds();
 
+		var imarkerPosition = page.curLocation;
+		/*if(!imarkerPosition) {
+			imarkerPosition = new kakao.maps.LatLng(37.5570572,126.9736211); //testdev
+		}*/
+
+		if(imarkerPosition) {
+		    var name = '<div class ="label curloc"><span></span></div>';
+			var customOverlay = new kakao.maps.CustomOverlay({
+				position: imarkerPosition,
+				content: name
+			});
+	
+			bounds.extend(imarkerPosition);
+          
+			customOverlay.setMap(map);
+		}
 		// 마커를 추가하는 반복문
 		for (var i = 0; i < arr.length; i ++) {
 			arr[i].latlng = new kakao.maps.LatLng(arr[i].lttd,arr[i].lgtd);
@@ -502,23 +516,7 @@ var page = {
 
 			customOverlay.setMap(map);
 		}
-		
-		var imarkerPosition = page.curLocation;
-		if(!imarkerPosition) {
-			imarkerPosition = new kakao.maps.LatLng(37.5570572,126.9736211); //testdev
-		}
 
-		if(imarkerPosition) {
-		    var name = '<div class ="label curloc"><span></span></div>';
-			var customOverlay = new kakao.maps.CustomOverlay({
-				position: imarkerPosition,
-				content: name
-			});
-	
-			bounds.extend(imarkerPosition);
-          
-			customOverlay.setMap(map);
-		}
 		
  		// 추가된 마커의 위치에 따라 맵의 표현범위가 확장
 		map.setBounds(bounds);

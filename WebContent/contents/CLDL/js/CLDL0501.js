@@ -195,6 +195,9 @@ var page = {
 			page.rsnCancelParam.scan_ymd = (($(this).attr("data-scan-ymd")));
 			page.rsnCancelParam.dlay_rsn_cd = (($(this).attr("data-dlay-rsn-cd")));
 			
+			var date = new Date();
+			page.rsnCancelParam.scan_dtm = date.LPToFormatDate("yyyymmddHHnnss"); // 스캔 시간
+			
 			$('#pop2Txt').html('해당건 사유 등록\n취소하시겠습니까?');
 			$('.mpopBox.cancelRsn').bPopup();
 			
