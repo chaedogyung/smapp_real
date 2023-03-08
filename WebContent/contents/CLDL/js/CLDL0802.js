@@ -50,13 +50,13 @@ var page = {
 			if (!_.isUndefined(page.dlvyCompl)) {
 	            // 구역별 시간별
 			    if(page.dlvyCompl.area_sct_cd == "Y") {
-	                $("#setDlvyCom1").text('구역(' + page.cldl0802.sbox_type_cd+')');
+	                $("#setDlvyCom1").text('구역');
 	                $("#setDlvyCom1").attr('class', 'red badge option outline');
 
 					page.cldl0802.mbl_dlv_area = page.cldl0802.sbox_type_cd;
 					page.cldl0802.cldl_tmsl_cd = "";
 	            } else {
-	                $("#setDlvyCom1").text('시간(' + page.cldl0802.cldl_tmsl_nm+')');
+	                $("#setDlvyCom1").text('시간');
 	                $("#setDlvyCom1").attr('class', 'green badge option outline');
 	
 					page.cldl0802.mbl_dlv_area = "";
@@ -72,7 +72,7 @@ var page = {
 	                $("#setDlvyCom2").attr('class', 'gray2 badge option outline');
 				}
 				
-				//$("#setDlvyCom3").text('' + page.cldl0802.sbox_type_cd); //testdev나중에 없앨것
+				$("#setDlvyCom3").text('' + page.cldl0802.sbox_type_cd + '/' + page.cldl0802.cldl_tmsl_nm+' '); //testdev나중에 없앨것
 			} else {
 				page.cldl0802.mbl_dlv_area = "";
 				page.cldl0802.cldl_tmsl_cd = "";
@@ -780,6 +780,37 @@ var page = {
 				return false;
 			}
 		});
+
+		/* testdev*/
+		$("#setDlvyCom1").click(function(){
+				var routeUrl = "kakaomap://route?sp="+page.sp+"&ep="+page.cldl0802.ep+"&by=CAR"; 
+				//page.goRoute(result);
+				alert(routeUrl);
+				
+				LEMP.System.callBrowser({
+					"_sURL" : routeUrl
+				});
+		});
+		
+		$("#setDlvyCom2").click(function(){
+				var routeUrl="http://m.map.naver.com/route.nhn?menu=route&sname=출발&sx=126.9736211&sy=37.5570572&ename=도착&ex=127.0276368&ey=37.4979502&pathType=0&showMap=true";
+				alert(routeUrl);
+				
+				LEMP.System.callBrowser({
+					"_sURL" : routeUrl
+				});
+
+		});
+		
+		$("#setDlvyCom3").click(function(){
+				var routeUrl="nmap://route/car?dlat=37.5209436&dlng=127.1230074&dname=%EC%98%AC%EB%A6%BC%ED%94%BD%EA%B3%B5%EC%9B%90&appname=com.example.myapp";
+				alert(routeUrl);
+				
+				LEMP.System.callBrowser({
+					"_sURL" : routeUrl
+				});
+
+		});
 		
 		// 스와이프해서 이동경로버튼 클릭한 경우
 		$(document).on('click', '.btn.blue7.bdM.bdRoute.mgl1', function(e){
@@ -787,7 +818,7 @@ var page = {
 			alert("goRoute::: " + page.sp + "" + page.cldl0802.ep);
 			if(!smutil.isEmpty(page.sp) && !smutil.isEmpty(page.cldl0802.ep)){				
 				//var routeUrl = "kakaomap://route?sp="+page.sp+"&ep="+page.cldl0802.ep+"&by=CAR"; //2023.02.24
-				var routeUrl = "https://map.kakao.com/link/from/"+page.sp+"/to/"+page.cldl0802.ep+"&by=CAR"; //2023.02.24
+				var routeUrl = "https://map.kakao.com/link/to/"+page.cldl0802.ep+"&by=CAR"; //2023.02.24
 				//page.goRoute(result);
 				alert(routeUrl);
 				LEMP.System.callBrowser({

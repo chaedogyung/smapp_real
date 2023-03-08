@@ -425,6 +425,22 @@ var page = {
 		// 지도에서 표현 할 수 없는 좌표가 존재한다면 하얀 화면이 출력 될 수 있음
 		var bounds = new kakao.maps.LatLngBounds();
 
+		var imarkerPosition = page.curLocation;
+		/*if(!imarkerPosition) {
+			imarkerPosition = new kakao.maps.LatLng(37.5570572,126.9736211); //testdev
+		}*/
+
+		if(imarkerPosition) {
+		    var name = '<div class ="label curloc"><span></span></div>';
+			var customOverlay = new kakao.maps.CustomOverlay({
+				position: imarkerPosition,
+				content: name
+			});
+	
+			bounds.extend(imarkerPosition);
+          
+			customOverlay.setMap(map);
+		}
 		// 마커를 추가하는 반복문
 		for (var i = 0; i < arr.length; i ++) {
 			arr[i].latlng = new kakao.maps.LatLng(arr[i].lttd,arr[i].lgtd);
@@ -500,23 +516,7 @@ var page = {
 
 			customOverlay.setMap(map);
 		}
-		
-		var imarkerPosition = page.curLocation;
-		if(!imarkerPosition) {
-			imarkerPosition = new kakao.maps.LatLng(37.5570572,126.9736211); //testdev
-		}
 
-		if(imarkerPosition) {
-		    var name = '<div class ="label curloc"><span></span></div>';
-			var customOverlay = new kakao.maps.CustomOverlay({
-				position: imarkerPosition,
-				content: name
-			});
-	
-			bounds.extend(imarkerPosition);
-          
-			customOverlay.setMap(map);
-		}
 		
  		// 추가된 마커의 위치에 따라 맵의 표현범위가 확장
 		map.setBounds(bounds);
