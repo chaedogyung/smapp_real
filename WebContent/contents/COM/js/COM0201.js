@@ -82,7 +82,7 @@ var page = {
 			$(".popMap .mapCon").css({"top": "67px"});
 			$(".popMap .mapCon").css({"height": "90%"});
 		}
-			
+
 	}  //initDpEvent end
 
 	, mapSelectList:function() {

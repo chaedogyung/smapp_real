@@ -88,6 +88,7 @@ var page = {
 					$(".popMap .mapCon").css({"top": "121px"});
 					$(".popMap .mapCon").css({"height": "82%"});
 				}
+				
 				// 집하 배달 탭 표시처리
 				var btnLst = $(".lstSchBtn");
 				var btnObj;

@@ -819,7 +819,6 @@ var page = {
 			LEMP.System.callBrowser({
 				"_sURL" : routeUrl
 			});
-
 		});
 
 		// 스와이프해서 이동경로버튼 클릭한 경우
