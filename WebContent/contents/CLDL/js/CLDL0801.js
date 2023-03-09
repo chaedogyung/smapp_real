@@ -80,13 +80,17 @@ var page = {
 				page.step_sct_cd = step_sct_cd;
 
 				
-				if(page.step_sct_cd == "0" || page.step_sct_cd == "1"){
-					$(".popMap .mapCon").css({"top": "202px"});
-					$(".popMap .mapCon").css({"height": "70%"});
-				} else {
-					//$(".popMap .mapCon").css({"margin-top": "-63px"});
+				if(page.step_sct_cd != "0"  && page.step_sct_cd != "1"){
 					$(".popMap .mapCon").css({"top": "121px"});
 					$(".popMap .mapCon").css({"height": "82%"});
+				} else {
+					if(page.sboxType == "time") {
+						$(".popMap .mapCon").css({"top": "179px"});
+						$(".popMap .mapCon").css({"height": "73%"});
+					} else {
+						$(".popMap .mapCon").css({"top": "202px"});
+						$(".popMap .mapCon").css({"height": "70%"});						
+					}
 				}
 				
 				// 집하 배달 탭 표시처리
@@ -104,7 +108,7 @@ var page = {
 					}
 				});
 	
-				//page.mapTmslCnt();
+				//page.mapTmList();
 				page.mapSelectList();
 				
 			});
@@ -118,7 +122,7 @@ var page = {
 			});
 			 
 			//selectBox 그려주는 함수
-			//page.mapTmslCnt();
+			//page.mapTmList();
 			page.mapSelectList();
 			
 		}, //initEvent end
@@ -127,22 +131,25 @@ var page = {
 		initDpEvent : function(){
 			var _this = this;
 			
-			if(page.step_sct_cd == "0" || page.step_sct_cd == "1"){
+			$(".popMap .mapCon").css({"top": "121px"});
+			$(".popMap .mapCon").css({"height": "82%"});
+			
+			/*if(page.step_sct_cd == "0" || page.step_sct_cd == "1"){
 				$(".popMap .mapCon").css({"top": "202px"});
 				$(".popMap .mapCon").css({"height": "70%"});
 			} else {
 				$(".popMap .mapCon").css({"top": "121px"});
 				$(".popMap .mapCon").css({"height": "82%"});
-			}
+			}*/
 				
 		},  //initDpEvent end
 		
 		mapSelectList:function() {
 			if(page.step_sct_cd == "0" || page.step_sct_cd == "1"){
 				if(page.sboxType == 'area'){
-					page.autoCmptTmList();            // 구역별 조회건수 조회
+					page.mapAreaList();            // 구역별 조회건수 조회
 				} else{
-					page.mapTmslCnt();
+					page.mapTmList();
 				}
 			} else {
 				var data={};
@@ -152,7 +159,7 @@ var page = {
 				page.locMapList(data);
 			}
 		}
-		,mapTmslCnt:function(){
+		,mapTmList:function(){
 			
 			var data = {};
 			data.base_ymd=page.base_ymd;
@@ -160,29 +167,21 @@ var page = {
 	
 			smutil.loadingOn();
 	
-			page.apiParam.param.baseUrl="smapis/cldl/mapTmslCnt";
-			page.apiParam.param.callback="page.mapTmslCntCallback";
+			page.apiParam.param.baseUrl="smapis/cldl/mapTmList";
+			page.apiParam.param.callback="page.mapTmListCallback";
 			page.apiParam.data.parameters=data;
 	
 			// 공통 api호출 함수
 			smutil.callApi(page.apiParam);
 		}
-		,mapTmslCntCallback:function(res){
+		,mapTmListCallback:function(res){
 			try {
 				$('#cldl0801LstUl').html("");
 
 				if (smutil.apiResValidChk(res) && res.code==="0000" && res.data_count > 0) {
-					//오름차순 정렬
-					res.data.list.sort(function(a, b) {
-						return a.cldl_tmsl_nm < b.cldl_tmsl_nm ? -1 : a.cldl_tmsl_nm > b.cldl_tmsl_nm ? 1 : 0;
-					});
 					// 가져온 핸들바 템플릿 컴파일
 					var template = Handlebars.compile($("#CLDL0801_list_template").html());
-					// 핸들바 템플릿에 데이터를 바인딩해서 생성된 HTML을 DOM에 주입
-					for (var i = 0; i < res.data.list.length; i++) {
-						res.data.list[i].pick_total_cnt = res.data.list[i].pick_cnf_cnt+res.data.list[i].pick_ucnf_cnt;
-						res.data.list[i].dlv_total_cnt = res.data.list[i].dlv_cnf_cnt+res.data.list[i].dlv_ucnf_cnt;
-					}
+					
 					$('#mapno').hide();
 					$('#mapCon').show();
 	
@@ -205,7 +204,7 @@ var page = {
 		}
 		
 		// ################### 구역별 조회건수 조회 start
-		, autoCmptTmList : function(){
+		, mapAreaList : function(){
 			
 			var data = {};
 			data.base_ymd=page.base_ymd;
@@ -214,8 +213,8 @@ var page = {
 	
 			smutil.loadingOn();
 	
-			page.apiParam.param.baseUrl="smapis/cldl/autoCmptTmList";
-			page.apiParam.param.callback="page.autoCmptTmListCallback";
+			page.apiParam.param.baseUrl="smapis/cldl/mapAreaList";
+			page.apiParam.param.callback="page.mapAreaListCallback";
 			page.apiParam.data.parameters=data;
 	
 			// 공통 api호출 함수
@@ -223,7 +222,7 @@ var page = {
 		},
 
 		// 구역별 조회건수 callback
-		autoCmptTmListCallback : function(result){
+		mapAreaListCallback : function(result){
 			page.apiParamInit();		// 파라메터 전역변수 초기화
 			try {
 				if (smutil.apiResValidChk(result) && result.code==="0000") {
@@ -272,8 +271,8 @@ var page = {
 							"cldl_tmsl_nm": "18~20시",
 							"cldl_tmsl_cd": "19",
 							"cnt" : 0,
-							"cnt_p" : 0,
-							"cnt_d" : 0,
+							"tmsl_pick_cnt" : 0,
+							"tmsl_pick_cnt" : 0,
 							"min_tmsl" : "18",
 							"max_tmsl" : "19"							
 						}]};
@@ -493,7 +492,10 @@ var page = {
 						}
 
 						LEMP.Window.open({
-							"_sPagePath":popUrl,
+							"_sPagePath" : popUrl,
+							"_sType"     : "popup",
+							"_sWidth"    : "88%",
+							"_sHeight"   : "90%",	
 							"_oMessage" : {
 								"param" : paramdata
 							}

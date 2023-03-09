@@ -125,8 +125,7 @@
     <li name="timeLstLi" data-timecd="{{cldl_tmsl_cd}}" data-timenm='{{cldl_tmsl_nm}}'>
         <div class="itemBox">
             <p class="top" id="{{cldl_tmsl_cd}}">{{cldl_tmsl_nm}}</p>
-            <p class="txt">집하<em>{{pick_cnf_cnt}}/{{pick_total_cnt}}</em></p>
-            <p class="txt bdb">배달<em>{{dlv_cnf_cnt}}/{{dlv_total_cnt}}</em></p>
+            <p class="txt tc">집{{tmsl_pick_cnt}} / 배{{tmsl_dlv_cnt}}</p>
         </div>
     </li>
     {{else}}
@@ -143,7 +142,7 @@
             <div class="itemBox">
                 <p class="top mbl">{{mbl_area}}</p>
                 <p class="top cldl">{{cldl_tmsl_nm}}</p>
-                <p class="txt tc" id="timeCnt_D_{{mbl_area}}">집 {{cnt_p}} / 배{{cnt_d}}</p>
+                <p class="txt tc" id="timeCnt_D_{{mbl_area}}">집 {{tmsl_pick_cnt}} / 배{{tmsl_dlv_cnt}}</p>
             </div>
         </li>
     {{else}}
