@@ -205,9 +205,58 @@ var page = {
 				phoneCount2.push(phoneCount1[i].innerText);
 			};
 
+			var invNoCount = $("#inv_no > span");
+
 			var phoneCount = new Set(phoneCount2);	
 			$("#cldl0410LstUl > li").each(function(){
-				if(phoneCount.size == 1){		
+				//전화번호가 1개이고 송장번호가 1개일떄( 단건일때)
+				if(phoneCount.size == 1 && invNoCount.length == 1){
+						var phoneNumber = $(this).find("#tel_num > span").text();
+						var phoneCheck = phoneNumber.substr(0,3);
+						var inv_no = $(this).find("#inv_no").data("invNo");
+						var snper_nm = "\n\u25A0\u0020보내는분 : " + $(this).find("#inv_no").attr("data-snper-nm");
+						var artc_nm = "\n\u25A0\u0020상품명 : " + $(this).find("#inv_no").attr("data-artc-nm");
+						var acpr_nm = "\n\u25A0\u0020위탁장소 : " + $(this).find("#inv_no").attr("data-acpr-nm");
+						var rcv_date = "\n\u25A0\u0020" + $(this).find("#inv_no").attr("data-rcv-date");
+	
+						switch (phoneCheck) {
+							//전화번호 앞자리가 아래 조건이 아니면 전송시도를 하지 않는다.
+							case "010":
+							case "011":
+							case "016":
+							case "017":
+							case "018":
+							case "019":
+							case "050":
+								//MMS 발송용
+								pNum.push(phoneNumber.replace(/\-/gi,""));
+								//MMS 발송할때 보내는분, 상품명, 배송날짜를 송장번호에 추가하여 발송
+								invNo.push(String(inv_no) + snper_nm + artc_nm + acpr_nm + rcv_date);
+								usrCpno.push(phoneNumber);
+	
+								//API 발송용
+								pNumApi.push(phoneNumber.replace(/\-/gi,""));
+								invNoApi.push(String(inv_no));
+								usrCpnoApi.push(phoneNumber);
+								break;
+							default:
+								//휴대폰 번호는 아니지만 정상 번호가 입력되어 있을경우 전송
+								var numCheck = phoneNumber.replace(/[^0-9]/gi,"");
+								if(!smutil.isEmpty(numCheck) && numCheck.length>8){
+									pNumApi.push(numCheck);
+									invNoApi.push(String(inv_no));
+									//invNoApi.push(String(inv_no) + snper_nm + artc_nm + acpr_nm + rcv_date);
+									usrCpnoApi.push(phoneNumber);
+								}
+								else{
+									plag = true;
+									return false;
+								}
+						}
+					
+				}
+				//전화번호가 1개이고 송장번호가 2개이상일때
+				else if(phoneCount.size == 1 && invNoCount.length > 1){	
 					var phoneNumber = $(this).find("#tel_num > span").text();
 					var phoneCheck = phoneNumber.substr(0,3);
 					var inv_co = sum += $(this).find("#inv_no").size();
@@ -253,7 +302,9 @@ var page = {
 								return false;
 							}
 					}
-				} else {
+				} 
+				//전화 번호가 두개 이상이고 송장번호가 2개이상일떄
+				else {
 					var phoneNumber = $(this).find("#tel_num > span").text();
 					var phoneCheck = phoneNumber.substr(0,3);
 					var inv_no = $(this).find("#inv_no").data("invNo");
