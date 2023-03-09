@@ -495,7 +495,7 @@
 .popMap .mapcon.red{background:url('../../common/img/map-red.png') no-repeat 2px 5px; background-size:10px;}
 .popMap .mapcon.sky{background:url('../../common/img/map-sky.png') no-repeat 2px 5px; background-size:10px;}
 .popMap .mapcon.pink{background:url('../../common/img/map-pink.png') no-repeat 2px 5px; background-size:10px;}
-.popMap .mapCon{position:fixed; top:186px; height:86%; width:100%;}
+.popMap .mapCon{position:fixed; top:121px; height:82%; width:100%;}
 .popMap .mapCon .label{width:35px; height:45px; position:relative; top:-30px;}
 .popMap .mapCon .label span{text-align:center; color:#575757; display:inline-block; width:35px; line-height:33px; font-size:13px;border-radius:35px;}
 .popMap .mapCon .label.blue{background:url('../../common/img/map-blue2.png') no-repeat; background-size:35px;}

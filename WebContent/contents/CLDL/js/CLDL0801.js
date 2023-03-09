@@ -81,11 +81,12 @@ var page = {
 
 				
 				if(page.step_sct_cd == "0" || page.step_sct_cd == "1"){
-					$(".popMap .mapCon").css({"margin-top": "17px"});
-					$(".popMap .mapCon").css({"height": "77%"});	
+					$(".popMap .mapCon").css({"top": "202px"});
+					$(".popMap .mapCon").css({"height": "70%"});
 				} else {
-					$(".popMap .mapCon").css({"margin-top": "-63px"});
-					$(".popMap .mapCon").css({"height": "86%"});
+					//$(".popMap .mapCon").css({"margin-top": "-63px"});
+					$(".popMap .mapCon").css({"top": "121px"});
+					$(".popMap .mapCon").css({"height": "82%"});
 				}
 				// 집하 배달 탭 표시처리
 				var btnLst = $(".lstSchBtn");
@@ -126,11 +127,11 @@ var page = {
 			var _this = this;
 			
 			if(page.step_sct_cd == "0" || page.step_sct_cd == "1"){
-				$(".popMap .mapCon").css({"margin-top": "17px"});
-				$(".popMap .mapCon").css({"height": "77%"});	
+				$(".popMap .mapCon").css({"top": "202px"});
+				$(".popMap .mapCon").css({"height": "70%"});
 			} else {
-				$(".popMap .mapCon").css({"margin-top": "-63px"});
-				$(".popMap .mapCon").css({"height": "86%"});
+				$(".popMap .mapCon").css({"top": "121px"});
+				$(".popMap .mapCon").css({"height": "82%"});
 			}
 				
 		},  //initDpEvent end

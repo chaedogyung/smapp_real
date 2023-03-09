@@ -75,11 +75,12 @@ var page = {
 		var _this = this;
 		
 		if(page.com0201.step_sct_cd == "0" || page.com0201.step_sct_cd == "1"){
-			$(".popMap .mapCon").css({"margin-top": "0px"});
-			$(".popMap .mapCon").css({"height": "77%"});	
+			$(".popMap .mapCon").css({"top": "141px"});
+			$(".popMap .mapCon").css({"height": "79%"});	
 		} else {
-			$(".popMap .mapCon").css({"margin-top": "-81px"});
-			$(".popMap .mapCon").css({"height": "86%"});
+			//$(".popMap .mapCon").css({"margin-top": "-81px"});
+			$(".popMap .mapCon").css({"top": "67px"});
+			$(".popMap .mapCon").css({"height": "90%"});
 		}
 			
 	}  //initDpEvent end

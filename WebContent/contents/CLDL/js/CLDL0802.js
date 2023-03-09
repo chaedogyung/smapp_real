@@ -811,14 +811,24 @@ var page = {
 				});
 
 		});
-		
+
+		$("#headnm").click(function(){
+			var routeUrl="https://map.kakao.com/link/to/18577297";
+			alert(routeUrl);
+			
+			LEMP.System.callBrowser({
+				"_sURL" : routeUrl
+			});
+
+		});
+
 		// 스와이프해서 이동경로버튼 클릭한 경우
 		$(document).on('click', '.btn.blue7.bdM.bdRoute.mgl1', function(e){
 			//alert('이동경로 기능 준비중입니다.');
 			alert("goRoute::: " + page.sp + "" + page.cldl0802.ep);
 			if(!smutil.isEmpty(page.sp) && !smutil.isEmpty(page.cldl0802.ep)){				
 				//var routeUrl = "kakaomap://route?sp="+page.sp+"&ep="+page.cldl0802.ep+"&by=CAR"; //2023.02.24
-				var routeUrl = "https://map.kakao.com/link/to/"+page.cldl0802.ep+"&by=CAR"; //2023.02.24
+				var routeUrl = "https://map.kakao.com/link/to/%EC%B9%B4%EC%B9%B4%EC%98%A4%ED%8C%90%EA%B5%90%EC%98%A4%ED%94%BC%EC%8A%A4,37.402056,127.108212"; //testdev
 				//page.goRoute(result);
 				alert(routeUrl);
 				LEMP.System.callBrowser({
