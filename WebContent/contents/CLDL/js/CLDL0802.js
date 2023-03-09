@@ -72,7 +72,7 @@ var page = {
 	                $("#setDlvyCom2").attr('class', 'gray2 badge option outline');
 				}
 				
-				$("#setDlvyCom3").text('' + page.cldl0802.sbox_type_cd + '/' + page.cldl0802.cldl_tmsl_nm+' '); //testdev나중에 없앨것
+				$("#setDlvyCom3").text('' + page.cldl0802.sbox_type_cd + ' '); //testdev나중에 없앨것  + page.cldl0802.cldl_tmsl_nm+' '
 			} else {
 				page.cldl0802.mbl_dlv_area = "";
 				page.cldl0802.cldl_tmsl_cd = "";
@@ -94,7 +94,7 @@ var page = {
 		if(page.cldl0802.step_sct_cd == '1'){			
 			$(".deliveryTy3Cal").css({"margin-top": "211px"});
 			
-			$('#headnm').text("집배달 완료");
+			$('#headnm').text("집배달 완료:" + page.cldl0802.bld_mgr_no);
 			if(page.cldl0802.cldl_sct_cd == 'P'){
 				$('#tabChkDetailP').show();
 				$('#tabChkDetailD').hide();
@@ -113,9 +113,9 @@ var page = {
 			$("#bottomDiv").hide();
 			$("#bottomDivD").hide();
 			if(page.cldl0802.step_sct_cd == '0'){
-				$('#headnm').text("집배달 출발");	
+				$('#headnm').text("집배달 출발:" + page.cldl0802.bld_mgr_no);
 			} else {
-				$('#headnm').text("집배달 예정");
+				$('#headnm').text("집배달 예정:" + page.cldl0802.bld_mgr_no);
 			}
 		}
 	}
@@ -823,17 +823,14 @@ var page = {
 
 		// 스와이프해서 이동경로버튼 클릭한 경우
 		$(document).on('click', '.btn.blue7.bdM.bdRoute.mgl1', function(e){
-			//alert('이동경로 기능 준비중입니다.');
-			alert("goRoute::: " + page.sp + "" + page.cldl0802.ep);
 			if(!smutil.isEmpty(page.sp) && !smutil.isEmpty(page.cldl0802.ep)){				
-				//var routeUrl = "kakaomap://route?sp="+page.sp+"&ep="+page.cldl0802.ep+"&by=CAR"; //2023.02.24
-				var routeUrl = "https://map.kakao.com/link/to/%EC%B9%B4%EC%B9%B4%EC%98%A4%ED%8C%90%EA%B5%90%EC%98%A4%ED%94%BC%EC%8A%A4,37.402056,127.108212"; //testdev
+				var routeUrl = "kakaomap://route?sp="+page.sp+"&ep="+page.cldl0802.ep+"&by=CAR"; 
 				//page.goRoute(result);
 				alert(routeUrl);
+				
 				LEMP.System.callBrowser({
 					"_sURL" : routeUrl
-				});
-				
+				});	
 			}
 			else{
 				LEMP.Window.toast({
@@ -1345,7 +1342,7 @@ var page = {
 			
 			var template = Handlebars.compile($("#cldl0802_li_template").html());
 			var templateD = Handlebars.compile($("#cldl0802_li_templateD").html());
-
+			$("#setDlvyCom4").text(' '+ res.code + '(' + smutil.nullToValue(res.data_count) + ') '); //testdev나중에 없앨것
 			if (res.data_count !== 0 && smutil.apiResValidChk(res) && res.code==="0000") { 
 
 				
