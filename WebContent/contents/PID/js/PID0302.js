@@ -684,7 +684,7 @@ var page = {
 			//출력건 접수번호
 			page.prntRsrv = prntDataArr[0].rsrv;
 			
-			if(prntDataArr[0].corp == "2201"){	//카카오
+			if(prntDataArr[0].corp == "2201" || prntDataArr[0].corp == "2203"){	//카카오
 				_this.apiParam.param.baseUrl = "smapis/pid/smileInvPrnt";			//api no
 			}else{
 				_this.apiParam.param.baseUrl = "smapis/pid/invPrnt";			//api no
