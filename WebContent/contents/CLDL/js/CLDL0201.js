@@ -190,6 +190,8 @@ var page = {
 			$(".lstSchBtn").click(function(){
 				var cldl_sct_cd = $(this).data('schSctCd');		// 선택한 탭의 값 (A,P,D)
 
+				var cldl_tmsl_cd = $('#cldl_tmsl_cd').val('10');
+				
 				// 집하 배달 탭 표시처리
 				var btnLst = $(".lstSchBtn");
 				var btnObj;
@@ -924,9 +926,20 @@ var page = {
 					var invNo = $(this).attr("id").split("_");
 					var cldl_sct_cd = $(this).parents("li").data("liSctCd");
 					
-					invNoLst.push(invNo[0]);
-					cldlSctCdLst.push(cldl_sct_cd);
+					var cldlTmslCd = $('#cldl_tmsl_cd').val();
+					
+					if(cldlTmslCd == '38') {  //시간설정이 제주 익일배송이면 배달건만 세팅 나머진 무시
+						if(cldl_sct_cd == 'D') {
+							invNoLst.push(invNo[0]);
+							cldlSctCdLst.push(cldl_sct_cd);
+						}
+					} else {
+						invNoLst.push(invNo[0]);
+						cldlSctCdLst.push(cldl_sct_cd);
+					}
+					
 				});
+				
 				var cldl_sct_cd = page.returnTabSctCd();		// 업무구분 (전체 : A, 집하 : P, 배달 : D)
 				var dprtTrsmCnt = Number($('#'+cldl_sct_cd+'_cldl0201Cnt').text());
 				
@@ -1266,7 +1279,8 @@ var page = {
 		// ################### 최상단 집배달 리스트 카운트 조회 end
 		dprtAreaList : function(){
 			var _this = this;
-
+			var cldl_sct_cd = _this.returnTabSctCd();
+			
 			_this.apiParam.param.baseUrl = "smapis/cldl/dprtAreaList";					// api no
 			_this.apiParam.param.callback = "page.dprtAreaListCallback";					// callback methode
 
@@ -1618,6 +1632,13 @@ var page = {
 			catch(e){}
 			finally{
 				smutil.loadingOff();			// 로딩바 닫기
+				
+				var cldl_sct_cd = page.returnTabSctCd();		// 업무구분 (전체 : A, 집하 : P, 배달 : D)
+				if(cldl_sct_cd == "D") {
+					$("select[name=cldl_tmsl_cd] option[value='38']").prop('disabled',false);//제주 익일 활성화
+				} else {
+					$("select[name=cldl_tmsl_cd] option[value='38']").prop('disabled',true);//제주 익일 비활성화
+				}
 			}
 
 		},
@@ -2224,6 +2245,7 @@ var page = {
 		},
 	//집배달 출발 시간변경
 		changeDlvyTime : function(param, cldlSctCdLst){
+			
 			var setParam = [];
 			var setObject = {invNo : "", cldl_sct_cd : ""};
 			//현재 시간 기준

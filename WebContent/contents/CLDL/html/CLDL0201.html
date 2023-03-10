@@ -100,6 +100,7 @@
 									<option value="21">20~22시</option>
 									<option value="37">21~23시</option>
 									<option value="22">22~00시</option>
+									<option value="38">제주 익일배송</option>
 <!-- 									<option value="27">토요휴무</option> -->
 	<!-- 								<option value="28">지정일 집하/배송</option> -->
 								</select>
@@ -292,7 +293,7 @@
 	<!-- 리스트 li -->
 	<script id="cldl0201_list_template" type="text/x-handlebars-template">
 		{{#each list}}
-		<li id="{{inv_no}}" class='row-four cldlSctCd_{{cldl_sct_cd}}' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}' data-li-tmsl-nm='{{cldl_tmsl_nm}}'>
+		<li id="{{inv_no}}" class='row-four cldlSctCd_{{cldl_sct_cd}}' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}' data-li-tmsl-nm='{{cldl_tmsl_nm}}' data-li-tmsl-cd='{{cldl_tmsl_cd}}'>
 			{{#cldlSctCdChk}}		{{!-- 집하와 배달을 구분해주는 helper sctCd --}}
 			<div class="baedalBox scan jibBox" data-scn-inv-no='{{inv_no}}'>
 			{{else}}
