@@ -645,7 +645,7 @@ var page = {
 		
 		// 출력 전 운송장 정보
 		invPrnt : function(arg){
-			if(prntDataArr[0].corp == "2201"){	//카카오만 재출력
+			if(prntDataArr[0].corp == "2201" || prntDataArr[0].corp == "2203"){	//카카오만 재출력
 				//이미 출력한 목록은 재출력 여부 물어보기
 				if(prntDataArr[0].invPrntYn == "Y"){
 					
