@@ -300,7 +300,8 @@ var page = {
 			Handlebars.registerHelper('prntChk', function(options) {
 				//카카오
 				if(this.status_cd != "05" && this.status_cd != "06"){ // 취소건이 아닌경우 체크박스 활성화
-					if(this.corp_sct_cd == "2201" || (this.corp_sct_cd != "2201" && this.inv_prnt_yn == "N") || this.corp_sct_cd == "2203" || (this.corp_sct_cd != "2203" && this.inv_prnt_yn == "N")){ //카카오거나 카카오가아닐경우에는 미출력만 출력가능
+					if(this.corp_sct_cd == "2201" || (this.corp_sct_cd != "2201" && this.inv_prnt_yn == "N") || 
+					   this.corp_sct_cd == "2203" || (this.corp_sct_cd != "2203" && this.inv_prnt_yn == "N")){ //카카오거나 카카오가아닐경우에는 미출력만 출력가능
 						// options.fn == if(true)
 						return options.fn(this);
 					}
@@ -439,7 +440,8 @@ var page = {
 			
 			// 출력취소 버튼 활성화
 			Handlebars.registerHelper('prntCclChk', function(options) {
-				if((this.inv_prnt_yn === "Y" && this.corp_sct_cd != "2201") || (this.inv_prnt_yn === "Y" && this.corp_sct_cd != "2203")){ //출력이면서 카카오가 아닌 경우 true
+				if((this.inv_prnt_yn === "Y" && this.corp_sct_cd != "2201") || 
+				   (this.inv_prnt_yn === "Y" && this.corp_sct_cd != "2203")){ //출력이면서 카카오가 아닌 경우 true
 					// options.fn == if(true)
 					return options.fn(this);
 				}
