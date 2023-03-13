@@ -845,6 +845,9 @@ var page = {
 
 			//출력건 접수번호
 			prntRsrv = prntDataArr[0].rsrv;
+			if(prntRsrv == "2203"){	
+				_this.apiParam.param.baseUrl = "smapis/pid/invPrnt";				//api no
+			}
 
 			_this.apiParam.param.baseUrl = "smapis/pid/invPrnt";				//api no
 			_this.apiParam.param.callback = "page.invPrntCallback";				//callback methode
