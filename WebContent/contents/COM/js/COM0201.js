@@ -100,7 +100,9 @@ var page = {
 			var data={};
 			data.base_ymd = page.com0201.base_ymd;
 			data.step_sct_cd = page.com0201.step_sct_cd;
-			data.cldl_sct_cd = "A"; //page.cldl_sct_cd 
+			data.cldl_sct_cd = "A"; //page.cldl_sct_cd
+			data.cldl_tmsl_null = "true";
+			data.sbox_type_cd = "";
 			page.locMapList(data);
 		}
 	}
@@ -438,6 +440,9 @@ var page = {
 						paramdata.step_sct_cd=page.com0201.step_sct_cd;
 						paramdata.cldl_sct_cd = cldl_sct_cd;
 						paramdata.ep = arr[mid].lttd+ "," +arr[mid].lgtd;	
+						
+						paramdata.lttd = arr[mid].lttd;
+						paramdata.lgtd = arr[mid].lgtd;
 
 						if(page.com0201.step_sct_cd == "0" || page.com0201.step_sct_cd == "1") {
 							paramdata.sbox_type = page.com0201.sbox_type;

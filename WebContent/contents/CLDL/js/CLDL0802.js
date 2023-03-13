@@ -5,11 +5,39 @@ var page = {
 	scanParam : null,			// 스캔완료한 송장파라메터 집하
 	param_list : [],			// 미집하/배달 전송할 송장 리스트
 	sp : null,	//현재위치
+	lttd: null,
+	lgtd: null, 
 	changeTimeInvNo : null,		// 시간 변경을 선택한 invNo
 	changeTimeSctCd : null,		// 시간 변경을 선택한 송장의 배달, 집하코드
 	init:function(arg)
 	{
 		page.cldl0802 = arg.data.param;
+		
+		// 배달완료 정렬방식 세팅 
+		page.order = LEMP.Properties.get({"_sKey":"order"});
+		if(smutil.isEmpty(page.order)){
+			page.order = "01";
+		}
+
+        if (page.order == "01") {
+            $("#select_order").text("일반정렬");
+            $("#select_order").data("value", "01");
+            $("#select_order").attr("class", "selBox sort1 mgl15");
+		} else {
+            $("#select_order").text("역순정렬");
+            $("#select_order").data("value", "02");
+            $("#select_order").attr("class", "selBox sort2 mgl15");
+		}
+
+		var curDate = page.cldl0802.base_ymd;
+		if(smutil.isEmpty(page.cldl0802.base_ymd)) {
+			curDate = new Date();
+			curDate = curDate.getFullYear() + "." + ("0"+(curDate.getMonth()+1)).slice(-2) + "." + ("0"+curDate.getDate()).slice(-2);	
+		} else {
+			curDate = curDate.substr(0,4) + "." + curDate.substr(4,2) + "." + curDate.substr(6,2); 
+		}		
+		$('#cldlBtnCal').text(curDate);
+
 		page.dlvyCompl = LEMP.Properties.get({
 			"_sKey" : "autoMenual"
 		});
@@ -36,16 +64,6 @@ var page = {
 	}
 	// 화면 디스플레이 이벤트
 	, initDpEvent : function(){
-		var curDate = page.cldl0802.base_ymd;
-		if(smutil.isEmpty(page.cldl0802.base_ymd)) {
-			curDate = new Date();
-			curDate = curDate.getFullYear() + "." + ("0"+(curDate.getMonth()+1)).slice(-2) + "." + ("0"+curDate.getDate()).slice(-2);	
-		} else {
-			curDate = curDate.substr(0,4) + "." + curDate.substr(4,2) + "." + curDate.substr(6,2); 
-		}
-		
-		$('#cldlBtnCal').text(curDate);
-			
 		if(page.cldl0802.step_sct_cd == "0" || page.cldl0802.step_sct_cd == "1") {
 			if (!_.isUndefined(page.dlvyCompl)) {
 	            // 구역별 시간별
@@ -94,7 +112,7 @@ var page = {
 		if(page.cldl0802.step_sct_cd == '1'){			
 			$(".deliveryTy3Cal").css({"margin-top": "211px"});
 			
-			$('#headnm').text("집배달 완료:" + page.cldl0802.bld_mgr_no);
+			$('#headnm').text("집배달 완료");
 			if(page.cldl0802.cldl_sct_cd == 'P'){
 				$('#tabChkDetailP').show();
 				$('#tabChkDetailD').hide();
@@ -113,9 +131,9 @@ var page = {
 			$("#bottomDiv").hide();
 			$("#bottomDivD").hide();
 			if(page.cldl0802.step_sct_cd == '0'){
-				$('#headnm').text("집배달 출발:" + page.cldl0802.bld_mgr_no);
+				$('#headnm').text("집배달 출발");
 			} else {
-				$('#headnm').text("집배달 예정:" + page.cldl0802.bld_mgr_no);
+				$('#headnm').text("집배달 예정");
 			}
 		}
 	}
@@ -240,7 +258,26 @@ var page = {
 			page.invDtl();			// 리스트 재조회
 		});
 		
+		// 배달완료 정렬방식 변경
+		$("#select_order").click(function(e) {
 
+		   if ($(this).data("value") == "01") {
+		      $("#select_order").text("역순정렬");
+              $("#select_order").data("value", "02");
+              $("#select_order").attr("class", "selBox sort2 mgl15");
+           } else {
+              $("#select_order").text("일반정렬");
+              $("#select_order").data("value", "01");
+              $("#select_order").attr("class", "selBox sort1 mgl15");
+           }
+
+            var selOrder =  $(this).data("value");
+			LEMP.Properties.set({"_sKey" : "order", "_vValue" : selOrder});
+			page.order = selOrder;
+
+			page.invDtl();					// 리스트 제조회
+		});
+		
 		// 송장번호 누른경우 (상세보기 연결)
 		$(document).on('click', '.invNoSpan', function(event){
 
@@ -783,8 +820,7 @@ var page = {
 
 		/* testdev*/
 		$("#setDlvyCom1").click(function(){
-				var routeUrl = "kakaomap://route?sp="+page.sp+"&ep="+page.cldl0802.ep+"&by=CAR"; 
-				//page.goRoute(result);
+				var routeUrl = "kakaomap://route?sp="+page.lttd + "," + page.lgtd+"&ep="+page.cldl0802.lttd + "," + page.cldl0802.lgtd+"&by=CAR";  //ok , 안되는 폰 있음.
 				alert(routeUrl);
 				
 				LEMP.System.callBrowser({
@@ -792,9 +828,8 @@ var page = {
 				});
 		});
 		
-		$("#setDlvyCom2").click(function(){
-				var routeUrl="http://m.map.naver.com/route.nhn?menu=route&sname=출발&sx=126.9736211&sy=37.5570572&ename=도착&ex=127.0276368&ey=37.4979502&pathType=0&showMap=true";
-				alert(routeUrl);
+		$("#setDlvyCom2").click(function(){ 
+				var routeUrl="intent://place?lat=37.4979502&lng=127.0276368&name=%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EC%84%B1%EB%82%A8%EC%8B%9C%20%EB%B6%84%EB%8B%B9%EA%B5%AC%20%EC%A0%95%EC%9E%90%EB%8F%99&appname=com.example.myapp#Intent;scheme=nmap;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.nhn.android.nmap;end";
 				
 				LEMP.System.callBrowser({
 					"_sURL" : routeUrl
@@ -803,8 +838,31 @@ var page = {
 		});
 		
 		$("#setDlvyCom3").click(function(){
-				var routeUrl="nmap://route/car?dlat=37.5209436&dlng=127.1230074&dname=%EC%98%AC%EB%A6%BC%ED%94%BD%EA%B3%B5%EC%9B%90&appname=com.example.myapp";
+				//xx //var routeUrl="nmap://route/car?dlat=37.5209436&dlng=127.1230074&dname=%EC%98%AC%EB%A6%BC%ED%94%BD%EA%B3%B5%EC%9B%90&appname=com.example.myapp";
+				//xx var routeUrl="https://map.kakao.com/link/to/18577297"; //장소id 찾기 안됨.
+				 
+				alert('LEMP.System.callMap');
+				LEMP.System.callMap({
+					"_sLocation" : "37.402056,127.108212"
+				});
+
+		});
+		$("#setDlvyCom4").click(function(){
+				var routeUrl="http://app.map.naver.com/launchApp/?version=11&menu=navigation&elat=37.5570572&elng=127.1230074&etitle=서울역";
 				alert(routeUrl);
+				LEMP.System.callBrowser({
+					"_sURL" : routeUrl
+				});
+		});
+		
+		$("#headnm").click(function(){
+			//var routeUrl="http://m.map.naver.com/route.nhn?menu=route&sname=출발&sx=126.9736211&sy=37.5570572&ename=도착&ex=127.0276368&ey=37.4979502&pathType=0&showMap=true";
+				var routeUrl="http://m.map.naver.com/route.nhn?menu=route&sname=출발"
+				+"&sx=" + page.lgtd + "&sy=" + page.lttd
+				+"&ename=도착"
+				+"&ex=" + page.cldl0802.lgtd + "&ey=" + page.cldl0802.lttd
+				+"&pathType=0&showMap=true";
+				alert(routeUrl); 
 				
 				LEMP.System.callBrowser({
 					"_sURL" : routeUrl
@@ -812,25 +870,18 @@ var page = {
 
 		});
 
-		$("#headnm").click(function(){
-			var routeUrl="https://map.kakao.com/link/to/18577297";
-			alert(routeUrl);
-			
-			LEMP.System.callBrowser({
-				"_sURL" : routeUrl
-			});
-		});
-
 		// 스와이프해서 이동경로버튼 클릭한 경우
 		$(document).on('click', '.btn.blue7.bdM.bdRoute.mgl1', function(e){
-			if(!smutil.isEmpty(page.sp) && !smutil.isEmpty(page.cldl0802.ep)){				
-				var routeUrl = "kakaomap://route?sp="+page.sp+"&ep="+page.cldl0802.ep+"&by=CAR"; 
-				//page.goRoute(result);
+			//alert('이동경로 기능 준비중입니다.');
+			if(!smutil.isEmpty(page.lgtd) && !smutil.isEmpty(page.lttd)){
+				var routeUrl="https://map.kakao.com/link/to/도착지,"+ page.lttd + "," + page.lgtd;
+				//var routeUrl = "kakaomap://route?"+"sp="+page.lgtd + "," + page.lttd+"&ep="+page.cldl0802.lgtd + ","+page.cldl0802. page.cldl0802.lttd+"&by=CAR"; 
+				
 				alert(routeUrl);
 				
 				LEMP.System.callBrowser({
 					"_sURL" : routeUrl
-				});	
+				});				
 			}
 			else{
 				LEMP.Window.toast({
@@ -840,7 +891,7 @@ var page = {
 
 				return false;
 			}
-		});		
+		});	
 		
 		// 스와이프 touch end
 		
@@ -2870,6 +2921,13 @@ var page = {
 		if(navigator.geolocation) { //GPS 지원여부
 			navigator.geolocation.getCurrentPosition(function(position) {
 				page.sp = position.coords.latitude +","+position.coords.longitude;
+				if((position.coords.latitude + "").substr(0,1) == '1') {
+					page.lgtd = position.coords.latitude;
+					page.lttd = position.coords.longitude;	
+				} else {
+					page.lgtd = position.coords.longitude;
+					page.lttd = position.coords.latitude;
+				}
 			}, function(error) {
 			}, {
 				enableHighAccuracy : false,//배터리를 더 소모해서 더 정확한 위치를 찾음
