@@ -423,7 +423,8 @@ var page = {
 				
 				var html = "";
 				
-				if(this.corp_sct_cd === "2201" && this.corp_sct_cd === "2203" &&  this.status_cd != "05" && this.status_cd != "06"){	///카카오이면서 집하보류,취소건이 아닌경우 집하보류 버튼 활성화
+				if((this.corp_sct_cd === "2201" && this.status_cd != "05" && this.status_cd != "06") ||
+				   (this.corp_sct_cd === "2203" && this.status_cd != "05" && this.status_cd != "06")){	///카카오이면서 집하보류,취소건이 아닌경우 집하보류 버튼 활성화
 					// options.fn == if(true)
 					var html = '<button class="btn blue3 bdM bdCancle mgl1" data-inv-no="' + this.inv_no + '" data-corp="' + this.corp_sct_cd + '" data-rsrv="' + this.rsrv_mgr_no + '">집하보류</button>';
 				}
