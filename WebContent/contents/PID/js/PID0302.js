@@ -300,7 +300,8 @@ var page = {
 			Handlebars.registerHelper('prntChk', function(options) {
 				//카카오
 				if(this.status_cd != "05" && this.status_cd != "06"){ // 취소건이 아닌경우 체크박스 활성화
-					if(this.corp_sct_cd == "2201" || (this.corp_sct_cd != "2201" && this.inv_prnt_yn == "N")){ //카카오거나 카카오가아닐경우에는 미출력만 출력가능
+					if(this.corp_sct_cd == "2201" || (this.corp_sct_cd != "2201" && this.inv_prnt_yn == "N") || 
+					   this.corp_sct_cd == "2203" || (this.corp_sct_cd != "2203" && this.inv_prnt_yn == "N")){ //카카오거나 카카오가아닐경우에는 미출력만 출력가능
 						// options.fn == if(true)
 						return options.fn(this);
 					}
@@ -423,7 +424,8 @@ var page = {
 				
 				var html = "";
 				
-				if(this.corp_sct_cd === "2201" && this.status_cd != "05" && this.status_cd != "06"){	///카카오이면서 집하보류,취소건이 아닌경우 집하보류 버튼 활성화
+				if((this.corp_sct_cd === "2201" && this.status_cd != "05" && this.status_cd != "06") ||
+				   (this.corp_sct_cd === "2203" && this.status_cd != "05" && this.status_cd != "06")){	///카카오이면서 집하보류,취소건이 아닌경우 집하보류 버튼 활성화
 					// options.fn == if(true)
 					var html = '<button class="btn blue3 bdM bdCancle mgl1" data-inv-no="' + this.inv_no + '" data-corp="' + this.corp_sct_cd + '" data-rsrv="' + this.rsrv_mgr_no + '">집하보류</button>';
 				}
@@ -438,7 +440,8 @@ var page = {
 			
 			// 출력취소 버튼 활성화
 			Handlebars.registerHelper('prntCclChk', function(options) {
-				if(this.inv_prnt_yn === "Y" && this.corp_sct_cd != "2201"){ //출력이면서 카카오가 아닌 경우 true
+				if((this.inv_prnt_yn === "Y" && this.corp_sct_cd != "2201") || 
+				   (this.inv_prnt_yn === "Y" && this.corp_sct_cd != "2203")){ //출력이면서 카카오가 아닌 경우 true
 					// options.fn == if(true)
 					return options.fn(this);
 				}
@@ -645,7 +648,7 @@ var page = {
 		
 		// 출력 전 운송장 정보
 		invPrnt : function(arg){
-			if(prntDataArr[0].corp == "2201"){	//카카오만 재출력
+			if(prntDataArr[0].corp == "2201" || prntDataArr[0].corp == "2203"){	//카카오만 재출력
 				//이미 출력한 목록은 재출력 여부 물어보기
 				if(prntDataArr[0].invPrntYn == "Y"){
 					
@@ -833,7 +836,7 @@ var page = {
 			var rsn_cont = smutil.nullToValue(result.param.value,"");		// 미집하 사유 직접입력 텍스트 또는 지정일
 			var filepath = smutil.nullToValue(result.param.images,"");		// 취급불가 비규격 사진파일
 			var corp_sct_cd = smutil.nullToValue(result.param.corp_sct_cd);	// 업체구분코드
-			if(corp_sct_cd == "2201"){
+			if(corp_sct_cd == "2201" || corp_sct_cd == "2203"){
 				var confirmTitle = "집하보류 처리";
 				var confirmMessage = "선택한 송장정보를 \n집하보류 처리하시겠습니까?";
 			}else{
@@ -854,7 +857,7 @@ var page = {
 					_sText : "확인", 
 					_fCallback : function(){
 						
-						if(corp_sct_cd == "2201"){	// 카카오일 경우 집하보류
+						if(corp_sct_cd == "2201" || corp_sct_cd == "2203"){	// 카카오일 경우 집하보류
 							// 집하보류 api 호출
 							page.apiParam.id = "HTTP";
 							page.apiParam.param.baseUrl = "/smapis/cldl/kakaoCcl";			// callback methode
