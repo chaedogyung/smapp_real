@@ -1,5 +1,7 @@
 var page = {
 	curLocation : null,			// 자기위치
+	curLgtd: null,
+	curLttd: null,
 	dlvyCompl : null,			// 구역,시간 기준
 	mbl_dlv_area: null,   //토요휴무
 	sboxType: null,			// 권역 or 시간별
@@ -67,7 +69,7 @@ var page = {
 		data.step_sct_cd=page.com0201.step_sct_cd;
 		//selectBox 그려주는 함수
 		//page.mapTmList();
-		page.mapSelectList();
+		//page.mapSelectList();
 
 	}
 	// 화면 디스플레이 이벤트
@@ -338,18 +340,30 @@ var page = {
 
 	//현재위치 찾기
 	,getLocation:function() {
-		if(navigator.geolocation) { //GPS 지원여부
+		//if(navigator.geolocation) { //GPS 지원여부
 			navigator.geolocation.getCurrentPosition(function(position) {
 				page.curLocation = new kakao.maps.LatLng(position.coords.latitude,position.coords.longitude);
-
+				
+				page.mapSelectList();
+				alert('curlat: ' + position.coords.latitude + ' lon:' + position.coords.longitude);
+									
+				if((position.coords.latitude + "").substr(0,1) == '1') {
+					page.curLgtd = position.coords.latitude;
+					page.curLttd = position.coords.longitude;	
+				} else {
+					page.curLgtd = position.coords.longitude;
+					page.curLttd = position.coords.latitude;
+				}
 			}, function(error) {
 				//console.error(error);
+				page.mapSelectList();
+				alert('GPS권한이 필요합니다.');
 			}, {
 				enableHighAccuracy : false,//배터리를 더 소모해서 더 정확한 위치를 찾음
 				maximumAge: 0, //한 번 찾은 위치 정보를 해당 초만큼 캐싱
 				timeout: Infinity //주어진 초 안에 찾지 못하면 에러 발생
 			});
-		}
+		//}
 		
 	}
 	
@@ -443,6 +457,8 @@ var page = {
 						
 						paramdata.lttd = arr[mid].lttd;
 						paramdata.lgtd = arr[mid].lgtd;
+						paramdata.curlgtd = page.curLgtd;
+						paramdata.curlttd = page.curLttd;
 
 						if(page.com0201.step_sct_cd == "0" || page.com0201.step_sct_cd == "1") {
 							paramdata.sbox_type = page.com0201.sbox_type;
