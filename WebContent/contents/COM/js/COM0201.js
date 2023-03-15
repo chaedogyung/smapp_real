@@ -355,15 +355,19 @@ var page = {
 					page.curLttd = position.coords.latitude;
 				}
 			}, function(error) {
+				alert('GPS권한이 필요합니다.');
 				//console.error(error);
 				page.mapSelectList();
-				alert('GPS권한이 필요합니다.');
 			}, {
 				enableHighAccuracy : false,//배터리를 더 소모해서 더 정확한 위치를 찾음
 				maximumAge: 0, //한 번 찾은 위치 정보를 해당 초만큼 캐싱
 				timeout: Infinity //주어진 초 안에 찾지 못하면 에러 발생
 			});
 		//}
+			
+		if(!navigator.geolocation) { //GPS 지원여부
+			alert('GPS권한이 필요합니다..');
+		}
 		
 	}
 	

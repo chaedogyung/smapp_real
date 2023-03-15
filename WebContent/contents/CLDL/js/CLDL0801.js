@@ -111,7 +111,7 @@ var page = {
 				});
 	
 				//page.mapTmList();
-				//page.mapSelectList();
+				page.mapSelectList();
 				
 			});
 
@@ -125,7 +125,7 @@ var page = {
 			 
 			//selectBox 그려주는 함수
 			//page.mapTmList();
-			page.mapSelectList();
+			//page.mapSelectList();
 			
 		}, //initEvent end
 		
@@ -405,8 +405,8 @@ var page = {
 					}
 				}, function(error) {
 					//console.error(error);
-					page.mapSelectList();
 					alert('GPS권한이 필요합니다.');
+					page.mapSelectList();
 				}, {
 					enableHighAccuracy : false,//배터리를 더 소모해서 더 정확한 위치를 찾음
 					maximumAge: 0, //한 번 찾은 위치 정보를 해당 초만큼 캐싱
@@ -498,6 +498,8 @@ var page = {
 						
 						paramdata.lttd = arr[mid].lttd;
 						paramdata.lgtd = arr[mid].lgtd;
+						paramdata.curlgtd = page.curLgtd;
+						paramdata.curlttd = page.curLttd;
 
 						if(page.step_sct_cd == "0" || page.step_sct_cd == "1") {
 							paramdata.sbox_type = page.cldl0801.sbox_type;

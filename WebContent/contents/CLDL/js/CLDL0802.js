@@ -788,7 +788,7 @@ var page = {
 				alert('GPS를 확인하세요');
 				return;
 			}
-			var routeUrl = "kakaomap://route?sp="+page.cldl0802.curlgtd + "," + cldl0802.curlgtd+"&ep="+page.cldl0802.lttd + "," + page.cldl0802.lgtd+"&by=CAR";  //ok , s:x
+			var routeUrl = "kakaomap://route?sp="+page.cldl0802.curlgtd + "," + page.cldl0802.curlgtd+"&ep="+page.cldl0802.lttd + "," + page.cldl0802.lgtd+"&by=CAR";  //ok , s:x
 			
 			alert(routeUrl);
 			
@@ -807,17 +807,21 @@ var page = {
 		});
 		
 		$("#setDlvyCom3").click(function(){
-				//xx //var routeUrl="nmap://route/car?dlat=37.5209436&dlng=127.1230074&dname=%EC%98%AC%EB%A6%BC%ED%94%BD%EA%B3%B5%EC%9B%90&appname=com.example.myapp";
+				/*xx //var routeUrl="nmap://route/car?dlat=37.5209436&dlng=127.1230074&dname=%EC%98%AC%EB%A6%BC%ED%94%BD%EA%B3%B5%EC%9B%90&appname=com.example.myapp";
 				//xx var routeUrl="https://map.kakao.com/link/to/18577297"; //장소id 찾기 안됨.
 				 
 				alert('LEMP.System.callMap');
 				LEMP.System.callMap({
 					"_sLocation" : "37.402056,127.108212"
-				});
+				});*/
 
 		});
 		$("#setDlvyCom4").click(function(){
-				var routeUrl="http://app.map.naver.com/launchApp/?version=11&menu=navigation&elat=37.5570572&elng=127.1230074&etitle=서울역";
+			if(!smutil.isEmpty(page.cldl0802.lgtd) && !smutil.isEmpty(page.cldl0802.lttd)){
+				alert('도착지정보가 없습니다.');
+				return;
+			}
+				var routeUrl="http://app.map.naver.com/launchApp/?version=11&menu=navigation&elat=" + page.cldl0802.lgtd + "&elng=" + page.cldl0802.lttd+"&etitle=도착지";
 				alert(routeUrl);
 				LEMP.System.callBrowser({
 					"_sURL" : routeUrl
@@ -851,8 +855,8 @@ var page = {
 			}
 			
 			//alert('이동경로 기능 준비중입니다.');
-			if(!smutil.isEmpty(page.lgtd) && !smutil.isEmpty(page.lttd)){
-				var routeUrl="https://map.kakao.com/link/to/도착지,"+ page.cldl0802.curlttd + "," + page.cldl0802.curlgtd;
+			if(!smutil.isEmpty(page.cldl0802.lgtd) && !smutil.isEmpty(page.cldl0802.lttd)){
+				var routeUrl="https://map.kakao.com/link/to/도착지,"+ page.cldl0802.lttd + "," + page.cldl0802.lgtd;
 				//var routeUrl = "kakaomap://route?"+"sp="+page.lgtd + "," + page.lttd+"&ep="+page.cldl0802.lgtd + ","+page.cldl0802. page.cldl0802.lttd+"&by=CAR"; 
 				
 				alert(routeUrl);
