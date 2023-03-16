@@ -2,6 +2,8 @@ var page = {
 	curLocation : null,			// 자기위치
 	curLgtd: null,
 	curLttd: null,
+	isfirst : true,		
+	isfirstLoad : false,
 	dlvyCompl : null,			// 구역,시간 기준
 	mbl_dlv_area: null,   //토요휴무
 	sboxType: null,			// 권역 or 시간별
@@ -9,6 +11,9 @@ var page = {
 		// 이전페이지에서 넘겨 받은 파라미터로 배달, 집하 구분하며 어떤 api를 호출 할지 결정
 		page.com0201= data.data.param;
 		page.com0201.cldl_sct_cd="A";
+		
+		var baseymd = (page.com0201.base_ymd).substr(0,4) + "." + (page.com0201.base_ymd).substr(4,2) + "." + (page.com0201.base_ymd).substr(6,2);
+		$('#cldlBtnCal').text(baseymd);
 		
 		page.dlvyCompl = LEMP.Properties.get({
 			"_sKey" : "autoMenual"
@@ -66,10 +71,26 @@ var page = {
 			LEMP.Window.close();
 		});
 
-		data.step_sct_cd=page.com0201.step_sct_cd;
+		$("#cldlBtnCal").click(function(){
+
+			var popUrl = smutil.getMenuProp("COM.COM0301","url");
+			LEMP.Window.open({
+				"_sPagePath":popUrl,
+				"_oMessage":{
+					"param":null
+				}
+			});
+
+		});	// end 스캔버튼을 누른경우 종료
+
+		
 		//selectBox 그려주는 함수
 		//page.mapTmList();
-		//page.mapSelectList();
+		setTimeout(function() { //현재위치 찾을시간 주고 찾지못할경우 실행
+			  if(!page.isfirstLoad) {
+				page.mapSelectList();
+			}
+		}, 3000);
 
 	}
 	// 화면 디스플레이 이벤트
@@ -77,15 +98,15 @@ var page = {
 		var _this = this;
 		
 		if(page.com0201.step_sct_cd != "0"  && page.com0201.step_sct_cd != "1"){
-			$(".popMap .mapCon").css({"top": "67px"});
-			$(".popMap .mapCon").css({"height": "90%"});
+			$(".popMap .mapCon").css({"top": "98px"});
+			$(".popMap .mapCon").css({"height": "85%"});
 		} else {
 			if(page.sboxType == "time") {
-				$(".popMap .mapCon").css({"top": "118px"});
-				$(".popMap .mapCon").css({"height": "82%"});
+				$(".popMap .mapCon").css({"top": "156px"});
+				$(".popMap .mapCon").css({"height": "76%"});
 			} else {
-				$(".popMap .mapCon").css({"top": "141px"});
-				$(".popMap .mapCon").css({"height": "79%"});						
+				$(".popMap .mapCon").css({"top": "149px"});
+				$(".popMap .mapCon").css({"height": "78%"});						
 			}
 		}
 
@@ -233,7 +254,7 @@ var page = {
 				$('#mapno').hide();
 				$('#mapCon').show();
 
-				$('#com0201LstUl').append(template(res.data));
+				$('#com0201LstUl').html(template(res.data));
 
 				$("#com0201LstUl").find("li:eq(0)").trigger("click");
 			} else {
@@ -323,6 +344,14 @@ var page = {
 		catch (e) {}
 		finally{
 			smutil.loadingOff();
+			
+			if(page.isfirst) {
+				
+				if(smutil.isEmpty(page.curLgtd)) {
+					alert('GPS 확인요망');
+				}
+			}	
+			page.isfirst = false;
 		}
 	}
 	// 건수 기준 조회
@@ -342,11 +371,8 @@ var page = {
 	,getLocation:function() {
 		//if(navigator.geolocation) { //GPS 지원여부
 			navigator.geolocation.getCurrentPosition(function(position) {
-				page.curLocation = new kakao.maps.LatLng(position.coords.latitude,position.coords.longitude);
-				
-				page.mapSelectList();
-				alert('curlat: ' + position.coords.latitude + ' lon:' + position.coords.longitude);
-									
+				page.isfirstLoad = true;
+				page.curLocation = new kakao.maps.LatLng(position.coords.latitude,position.coords.longitude);				
 				if((position.coords.latitude + "").substr(0,1) == '1') {
 					page.curLgtd = position.coords.latitude;
 					page.curLttd = position.coords.longitude;	
@@ -354,21 +380,17 @@ var page = {
 					page.curLgtd = position.coords.longitude;
 					page.curLttd = position.coords.latitude;
 				}
+				//console.log('getLocation mapselect: ' + page.isfirstLoad);
+				page.mapSelectList();
 			}, function(error) {
 				alert('GPS권한이 필요합니다.');
 				//console.error(error);
-				page.mapSelectList();
 			}, {
 				enableHighAccuracy : false,//배터리를 더 소모해서 더 정확한 위치를 찾음
 				maximumAge: 0, //한 번 찾은 위치 정보를 해당 초만큼 캐싱
 				timeout: Infinity //주어진 초 안에 찾지 못하면 에러 발생
 			});
 		//}
-			
-		if(!navigator.geolocation) { //GPS 지원여부
-			alert('GPS권한이 필요합니다..');
-		}
-		
 	}
 	
 	//지도 그리는 함수
@@ -477,9 +499,9 @@ var page = {
 
 						LEMP.Window.open({
 							"_sPagePath" : popUrl,
-							/*"_sType"     : "popup",
-							"_sWidth"    : "88%",
-							"_sHeight"   : "90%",*/	
+							"_sType"     : "popup",
+							"_sWidth"    : "90%",
+							"_sHeight"   : "90%",	
 							"_oMessage" : {
 								"param" : paramdata
 							}
@@ -557,12 +579,19 @@ var page = {
 		};
 	}
 	
+	//com0301에서 날짜 선택 한 후 실행되는 콜백 함수 
+	, COM0301Callback:function(res){
+		$("#cldlBtnCal").text(res.param.date);
+		page.com0201.base_ymd = (res.param.date).split('.').join('');
+		page.mapSelectList();
+	}
+	
 	// 운송장목록 팝업창 닫을때 callback 함수
 	, cldl0802Callback : function(res){
 		//console.log('cldl0802Callback');
 		//page.mapTmList();
 		if(!smutil.isEmpty(res.param.step_sct_cd)) {
-			page.com0201.step_sct_cd = res.step_sct_cd;
+			page.com0201.step_sct_cd = res.param.step_sct_cd + "";
 			page.mapSelectList();
 		}
 

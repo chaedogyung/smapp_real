@@ -5,8 +5,6 @@ var page = {
 	scanParam : null,			// 스캔완료한 송장파라메터 집하
 	param_list : [],			// 미집하/배달 전송할 송장 리스트
 	sp : null,	//현재위치
-	/*lttd: null,
-	lgtd: null,*/ 
 	changeTimeInvNo : null,		// 시간 변경을 선택한 invNo
 	changeTimeSctCd : null,		// 시간 변경을 선택한 송장의 배달, 집하코드
 	init:function(arg)
@@ -788,6 +786,10 @@ var page = {
 				alert('GPS를 확인하세요');
 				return;
 			}
+			if(smutil.isEmpty(page.cldl0802.lgtd) || smutil.isEmpty(page.cldl0802.lttd)){
+				alert('도착지정보가 없습니다.');
+				return;
+			}
 			var routeUrl = "kakaomap://route?sp="+page.cldl0802.curlgtd + "," + page.cldl0802.curlgtd+"&ep="+page.cldl0802.lttd + "," + page.cldl0802.lgtd+"&by=CAR";  //ok , s:x
 			
 			alert(routeUrl);
@@ -817,20 +819,25 @@ var page = {
 
 		});
 		$("#setDlvyCom4").click(function(){
-			if(!smutil.isEmpty(page.cldl0802.lgtd) && !smutil.isEmpty(page.cldl0802.lttd)){
+			if(smutil.isEmpty(page.cldl0802.lgtd) || smutil.isEmpty(page.cldl0802.lttd)){
 				alert('도착지정보가 없습니다.');
 				return;
 			}
-				var routeUrl="http://app.map.naver.com/launchApp/?version=11&menu=navigation&elat=" + page.cldl0802.lgtd + "&elng=" + page.cldl0802.lttd+"&etitle=도착지";
-				alert(routeUrl);
-				LEMP.System.callBrowser({
-					"_sURL" : routeUrl
-				});
+			
+			var routeUrl="http://app.map.naver.com/launchApp/?version=11&menu=navigation&elat=" + page.cldl0802.lgtd + "&elng=" + page.cldl0802.lttd+"&etitle=도착지";
+			alert(routeUrl);
+			LEMP.System.callBrowser({
+				"_sURL" : routeUrl
+			});
 		});
 		
 		$("#headnm").click(function(){
 			if(smutil.isEmpty(page.cldl0802.curlgtd) || smutil.isEmpty(page.cldl0802.curlttd)){
 				alert('GPS를 확인하세요');
+				return;
+			}
+			if(smutil.isEmpty(page.cldl0802.lgtd) || smutil.isEmpty(page.cldl0802.lttd)){
+				alert('도착지정보가 없습니다.');
 				return;
 			}
 			//var routeUrl="http://m.map.naver.com/route.nhn?menu=route&sname=출발&sx=126.9736211&sy=37.5570572&ename=도착&ex=127.0276368&ey=37.4979502&pathType=0&showMap=true";
