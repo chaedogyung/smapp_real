@@ -98,15 +98,32 @@ var page = {
 
 				
 				if(page.step_sct_cd != "0"  && page.step_sct_cd != "1"){
-					$(".popMap .mapCon").css({"top": "160px"});
-					$(".popMap .mapCon").css({"height": "75%"});
+					$(".popMap .mapCon").css({"top": "162px"});
+					$(".popMap .mapCon").css({"height": "78%"});
+					$(".popMap .divisionBox").hide(); 
 				} else {
+					$(".popMap .divisionBox").show();
 					if(page.sboxType == "time") {
-						$(".popMap .mapCon").css({"top": "214px"});
-						$(".popMap .mapCon").css({"height": "67%"});
+						$(".popMap .mapCon").css({"top": "231px"});
+						$(".popMap .mapCon").css({"height": "69%"});
+						
+						$("#setDlvyCom1").text('시간');
+	            		$("#setDlvyCom1").attr('class', 'green badge option outline');
 					} else {
-						$(".popMap .mapCon").css({"top": "216px"});
-						$(".popMap .mapCon").css({"height": "62%"});						
+						$(".popMap .mapCon").css({"top": "253px"});
+						$(".popMap .mapCon").css({"height": "66%"});
+						
+						$("#setDlvyCom1").text('구역');
+	            		$("#setDlvyCom1").attr('class', 'red badge option outline');						
+					}
+					
+					// 자동전송 여부
+					if(page.dlvyCompl.area_sct_cd2 == "A") {
+						$("#setDlvyCom2").text('자동');
+						$("#setDlvyCom2").attr('class', 'blue badge option outline');
+					} else {
+						$("#setDlvyCom2").text('수동');
+		                $("#setDlvyCom2").attr('class', 'gray2 badge option outline');
 					}
 				}
 				
@@ -152,16 +169,8 @@ var page = {
 		initDpEvent : function(){
 			var _this = this;
 			
-			$(".popMap .mapCon").css({"top": "160px"});
-			$(".popMap .mapCon").css({"height": "75%"});
-			
-			/*if(page.step_sct_cd == "0" || page.step_sct_cd == "1"){
-				$(".popMap .mapCon").css({"top": "202px"});
-				$(".popMap .mapCon").css({"height": "70%"});
-			} else {
-				$(".popMap .mapCon").css({"top": "121px"});
-				$(".popMap .mapCon").css({"height": "82%"});
-			}*/
+			$(".popMap .mapCon").css({"top": "162px"});
+			$(".popMap .mapCon").css({"height": "78%"});
 				
 		},  //initDpEvent end
 		
@@ -180,6 +189,7 @@ var page = {
 				data.cldl_tmsl_null = "true";
 				data.sbox_type_cd = ""; 
 				page.locMapList(data);
+				$('#cldl0801LstUl').html('');
 			}
 		}
 		,mapTmList:function(){

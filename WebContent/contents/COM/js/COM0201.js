@@ -98,16 +98,34 @@ var page = {
 		var _this = this;
 		
 		if(page.com0201.step_sct_cd != "0"  && page.com0201.step_sct_cd != "1"){
+			$(".popMap .divisionBox").hide();
 			$(".popMap .mapCon").css({"top": "98px"});
 			$(".popMap .mapCon").css({"height": "85%"});
 		} else {
+			$(".popMap .divisionBox").show();
 			if(page.sboxType == "time") {
-				$(".popMap .mapCon").css({"top": "156px"});
-				$(".popMap .mapCon").css({"height": "76%"});
+				$(".popMap .mapCon").css({"top": "170px"});
+				$(".popMap .mapCon").css({"height": "77%"});
+				
+				$("#setDlvyCom1").text('시간');
+	            $("#setDlvyCom1").attr('class', 'green badge option outline');
 			} else {
-				$(".popMap .mapCon").css({"top": "149px"});
-				$(".popMap .mapCon").css({"height": "78%"});						
+				$(".popMap .mapCon").css({"top": "193px"});
+				$(".popMap .mapCon").css({"height": "74%"});
+				
+				$("#setDlvyCom1").text('구역');
+	            $("#setDlvyCom1").attr('class', 'red badge option outline');				
 			}
+			
+			// 자동전송 여부
+			if(page.dlvyCompl.area_sct_cd2 == "A") {
+				$("#setDlvyCom2").text('자동');
+				$("#setDlvyCom2").attr('class', 'blue badge option outline');
+			} else {
+				$("#setDlvyCom2").text('수동');
+                $("#setDlvyCom2").attr('class', 'gray2 badge option outline');
+			}
+
 		}
 
 	}  //initDpEvent end
@@ -380,7 +398,7 @@ var page = {
 					page.curLgtd = position.coords.longitude;
 					page.curLttd = position.coords.latitude;
 				}
-				//console.log('getLocation mapselect: ' + page.isfirstLoad);
+
 				page.mapSelectList();
 			}, function(error) {
 				alert('GPS권한이 필요합니다.');
@@ -497,7 +515,7 @@ var page = {
 							paramdata.cldl_tmsl_nm = page.com0201.pick_tmsl_nm;
 						}
 
-						LEMP.Window.open({
+						LEMP.MultiLayout.open({
 							"_sPagePath" : popUrl,
 							"_sType"     : "popup",
 							"_sWidth"    : "90%",
@@ -588,12 +606,10 @@ var page = {
 	
 	// 운송장목록 팝업창 닫을때 callback 함수
 	, cldl0802Callback : function(res){
-		//console.log('cldl0802Callback');
-		//page.mapTmList();
+
 		if(!smutil.isEmpty(res.param.step_sct_cd)) {
 			page.com0201.step_sct_cd = res.param.step_sct_cd + "";
 			page.mapSelectList();
 		}
-
 	}	
 };

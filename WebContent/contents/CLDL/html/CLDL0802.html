@@ -53,34 +53,27 @@
                 </ul>
            </div>
            
-           <div class="topHeadCal" style="height:40px;">
-                <span style="position: fixed; left: 8px;">
-                    <span class="" id="setDlvyCom1" style="font-size: 13px; margin-right: 5px;"></span>
-                    <span class="" id="setDlvyCom2" style="font-size: 13px;"></span>
-                    <span class="" id="setDlvyCom3" style="font-size: 13px;"></span>
-                </span>
-
-                <span id="cldlBtnCal" style="font-size: 14px;line-height:39px;">&nbsp;&nbsp;</span>
+           <div class="topHead" style="display: flex;">
+               <div style="flex: 1;left: 10px;margin-top: 6px;">
+                   <span class="chkBox m" id="chkAllSpan" style="display:none;">
+                        <input type="checkbox" name="chkall" id="checkall" /> 
+                        <label for="checkall">선택</label>
+                   </span>
+               </div>
+                <div style="flex: 1;">
+                    <span class="btn btnCal" id="cldlBtnCal" style="padding-left:21px;padding-top: 8px;">2023.03.16</span>
+                </div>
                 
-                <span style="position: fixed; right: 5px;">
-                    <span class="" id="setDlvyCom4" style="font-size: 13px;"></span>
-                    <!-- <span class="" id="select_order" style="font-size: 13px; margin-right: 5px;" data-value="01">일반정렬</span> -->
-                </span>
+                 <div style="flex: 1;">
+                     <div class="insuja" id="insuja" style="display:none;">
+                        <span class="txt insujaTxtView" >인수자정보</span>
+                        <button class="btn plus"></button>
+                        <input type="hidden" id="insujaCode" name="insujaCode">
+                        <input type="hidden" id="insujaTxt" name="insujaTxt">
+                     </div>&nbsp;
+                 </div>
             </div>
             <!-- // topHeadCal -->
-                       
-           <div class="tabChkbox" id="tabChkDetailP" style="display: block;">
-                <span class="chkBox m"><input type="checkbox" name="chkall" id="checkallP" /> <label for="checkallP" style="margin-top: 3px;">전체</label></span>
-            </div>
-            <div class="tabChkbox" id="tabChkDetailD" style="display: none;">
-                <span class="chkBox m"><input type="checkbox" name="chkall" id="checkallD" /> <label for="checkallD" style="margin-top: 3px;">전체</label></span>
-                <div class="insuja" id="insuja" >인수자
-                    <span class="txt insujaTxtView" >인수자정보</span>
-                    <button class="btn plus"></button>
-                    <input type="hidden" id="insujaCode" name="insujaCode">
-                    <input type="hidden" id="insujaTxt" name="insujaTxt">
-                </div>
-            </div>
             
         </div>
         <!-- //topFx -->
@@ -223,7 +216,7 @@
             </div>
             <div class="infoBox">
                 <p class="tit">
-                    <span class="dsin vm invNoSpan">{{invNoTmpl inv_no}}</span> <span class="purple badge option outline">{{cldlSctNm}}</span>
+                    <span class="dsin vm invNoSpan">{{invNoTmpl inv_no}}</span>
 
                     {{#prcsMemoYn}}     {{!-- 기사 메모 내용이 있는지 없는지 확인하는 if --}}
                     <button class="btn pen" data-memo-inv-no='{{inv_no}}'></button>
@@ -287,7 +280,7 @@
             </div>
             <div class="infoBox">
                 <p class="tit">
-                    <span class="dsin vm invNoSpan">{{invNoTmpl inv_no}}</span> <span class="purple badge option outline">{{cldlSctNm}}</span>
+                    <span class="dsin vm invNoSpan">{{invNoTmpl inv_no}}</span>
 
                     {{#prcsMemoYn}}     {{!-- 기사 메모 내용이 있는지 없는지 확인하는 if --}}
                     <button class="btn pen" data-memo-inv-no='{{inv_no}}'></button>

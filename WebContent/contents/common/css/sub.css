@@ -505,6 +505,7 @@
 .popMap .mapCon .label.silver{background:url('../../common/img/map-silver2.png') no-repeat; background-size:35px;}
 .popMap .mapCon .label.green{background:url('../../common/img/map-green2.png') no-repeat; background-size:35px;}
 .popMap .mapCon .label.curloc{background:url('../../common/img/map-i.png') no-repeat; background-size:30px;}
+.popMap .mapCon .label.mapreload{background:url('../../common/img/map-i2.png') no-repeat; background-size:30px;}
 .popMap .mapCon .btn.list{position:absolute; bottom:20px; right:10px;}
 .popMap .mapCon2{position:fixed; height:92%; width:100%;}
 

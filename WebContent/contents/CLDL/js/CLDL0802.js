@@ -50,27 +50,27 @@ var page = {
 			if (!_.isUndefined(page.dlvyCompl)) {
 	            // 구역별 시간별
 			    if(page.dlvyCompl.area_sct_cd == "Y") {
-	                $("#setDlvyCom1").text('구역');
-	                $("#setDlvyCom1").attr('class', 'red badge option outline');
+	                /*$("#setDlvyCom1").text('구역');
+	                $("#setDlvyCom1").attr('class', 'red badge option outline');*/
 
 					page.cldl0802.mbl_dlv_area = page.cldl0802.sbox_type_cd;
 					page.cldl0802.cldl_tmsl_cd = "";
 	            } else {
-	                $("#setDlvyCom1").text('시간');
-	                $("#setDlvyCom1").attr('class', 'green badge option outline');
+	                /*$("#setDlvyCom1").text('시간');
+	                $("#setDlvyCom1").attr('class', 'green badge option outline');*/
 	
 					page.cldl0802.mbl_dlv_area = "";
 					page.cldl0802.cldl_tmsl_cd = page.cldl0802.sbox_type_cd;
 	            }
 	
-	            // 자동전송 여부
+	            /*// 자동전송 여부
 				if(page.dlvyCompl.area_sct_cd2 == "A") {
 					$("#setDlvyCom2").text('자동');
 					$("#setDlvyCom2").attr('class', 'blue badge option outline');
 				} else {
 					$("#setDlvyCom2").text('수동');
 	                $("#setDlvyCom2").attr('class', 'gray2 badge option outline');
-				}
+				}*/
 				
 				$("#setDlvyCom3").text('' + page.cldl0802.sbox_type_cd + ' '); //testdev나중에 없앨것  + page.cldl0802.cldl_tmsl_nm+' '
 			} else {
@@ -92,24 +92,24 @@ var page = {
 		}
 		
 		if(page.cldl0802.step_sct_cd == '1'){			
-			$(".deliveryTy3Cal").css({"margin-top": "211px"});
+			//$(".deliveryTy3Cal").css({"margin-top": "211px"});
 			
 			$('#headnm').text("집배달 완료");
+			$('#chkAllSpan').show();
 			if(page.cldl0802.cldl_sct_cd == 'P'){
-				$('#tabChkDetailP').show();
-				$('#tabChkDetailD').hide();
+				$('#insuja').hide();
 				$("#bottomDiv").show();	
 				$("#bottomDivD").hide();
 			} else {
-				$('#tabChkDetailD').show();
-				$('#tabChkDetailP').hide();
+				$('#insuja').show();
 				$("#bottomDivD").show();
 				$("#bottomDiv").hide();
 			}
 		} else {
-			$(".deliveryTy3Cal").css({"margin-top": "164px"});
+			//$(".deliveryTy3Cal").css({"margin-top": "164px"});
 			
-			$('.tabChkbox').hide();
+			$('#chkAllSpan').hide();
+			$('#insuja').hide();
 			$("#bottomDiv").hide();
 			$("#bottomDivD").hide();
 			if(page.cldl0802.step_sct_cd == '0'){
@@ -166,21 +166,13 @@ var page = {
 		
 
 				
-		/* 체크박스 전체선택 */
-		$("#checkallD").click(function(){
-			if($("#checkallD").prop("checked")){
+		$("#checkall").click(function(){
+			if($("#checkall").prop("checked")){
+				$("input[name=chkInvP]").prop("checked",true);
 				$("input[name=chkInvD]").prop("checked",true);
 			}else{
-				$("input[name=chkInvD]").prop("checked",false);
-			}
-		});
-		
-		/* 체크박스 전체선택 */
-		$("#checkallP").click(function(){
-			if($("#checkallP").prop("checked")){
-				$("input[name=chkInvP]").prop("checked",true);
-			}else{
 				$("input[name=chkInvP]").prop("checked",false);
+				$("input[name=chkInvD]").prop("checked",false);
 			}
 		});
 
@@ -195,13 +187,14 @@ var page = {
 				$('#invDetailD').show();				
 				
 				if(page.cldl0802.step_sct_cd == '1'){ //완료(집하/배달)
-					$('#tabChkDetailP').hide();
-					$('#tabChkDetailD').show();					
+					$('#chkAllSpan').show();
+					$('#insuja').show();					
 					$("#bottomDiv").hide();
 					$("#bottomDivD").show();
 				}
 				else{
-					$('.tabChkbox').hide();
+					$('#chkAllSpan').hide();
+					$('#insuja').hide();
 					$("#bottomDiv").hide();
 					$("#bottomDivD").hide();
 				}
@@ -210,14 +203,14 @@ var page = {
 				$('#invDetailP').show();
 				$('#invDetailD').hide();
 				
+				$('#insuja').hide();
 				if(page.cldl0802.step_sct_cd == '1'){
-					$('#tabChkDetailP').show();
-					$('#tabChkDetailD').hide();
+					$('#chkAllSpan').show();
 					$("#bottomDiv").show();
 					$("#bottomDivD").hide();
 				}
 				else{
-					$('.tabChkbox').hide();
+					$('#chkAllSpan').hide();
 					$("#bottomDiv").hide();
 					$("#bottomDivD").hide();
 
@@ -780,44 +773,6 @@ var page = {
 			}
 		});
 
-		/* testdev*/
-		$("#setDlvyCom1").click(function(){
-			if(smutil.isEmpty(page.cldl0802.curlgtd) || smutil.isEmpty(page.cldl0802.curlttd)){
-				alert('GPS를 확인하세요');
-				return;
-			}
-			if(smutil.isEmpty(page.cldl0802.lgtd) || smutil.isEmpty(page.cldl0802.lttd)){
-				alert('도착지정보가 없습니다.');
-				return;
-			}
-			var routeUrl = "kakaomap://route?sp="+page.cldl0802.curlgtd + "," + page.cldl0802.curlgtd+"&ep="+page.cldl0802.lttd + "," + page.cldl0802.lgtd+"&by=CAR";  //ok , s:x
-			
-			alert(routeUrl);
-			
-			LEMP.System.callBrowser({
-				"_sURL" : routeUrl
-			});
-		});
-		
-		$("#setDlvyCom2").click(function(){ 
-				/*var routeUrl="intent://place?lat=37.4979502&lng=127.0276368&name=%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EC%84%B1%EB%82%A8%EC%8B%9C%20%EB%B6%84%EB%8B%B9%EA%B5%AC%20%EC%A0%95%EC%9E%90%EB%8F%99&appname=com.example.myapp#Intent;scheme=nmap;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.nhn.android.nmap;end";
-				
-				LEMP.System.callBrowser({
-					"_sURL" : routeUrl
-				});*/
-
-		});
-		
-		$("#setDlvyCom3").click(function(){
-				/*xx //var routeUrl="nmap://route/car?dlat=37.5209436&dlng=127.1230074&dname=%EC%98%AC%EB%A6%BC%ED%94%BD%EA%B3%B5%EC%9B%90&appname=com.example.myapp";
-				//xx var routeUrl="https://map.kakao.com/link/to/18577297"; //장소id 찾기 안됨.
-				 
-				alert('LEMP.System.callMap');
-				LEMP.System.callMap({
-					"_sLocation" : "37.402056,127.108212"
-				});*/
-
-		});
 		$("#setDlvyCom4").click(function(){
 			if(smutil.isEmpty(page.cldl0802.lgtd) || smutil.isEmpty(page.cldl0802.lttd)){
 				alert('도착지정보가 없습니다.');
@@ -825,7 +780,7 @@ var page = {
 			}
 			
 			var routeUrl="http://app.map.naver.com/launchApp/?version=11&menu=navigation&elat=" + page.cldl0802.lgtd + "&elng=" + page.cldl0802.lttd+"&etitle=도착지";
-			alert(routeUrl);
+			//alert(routeUrl);
 			LEMP.System.callBrowser({
 				"_sURL" : routeUrl
 			});
@@ -846,7 +801,7 @@ var page = {
 				+"&ename=도착"
 				+"&ex=" + page.cldl0802.lgtd + "&ey=" + page.cldl0802.lttd
 				+"&pathType=0&showMap=true";
-			alert(routeUrl); 
+			//alert(routeUrl); 
 			
 			LEMP.System.callBrowser({
 				"_sURL" : routeUrl
@@ -865,8 +820,7 @@ var page = {
 			if(!smutil.isEmpty(page.cldl0802.lgtd) && !smutil.isEmpty(page.cldl0802.lttd)){
 				var routeUrl="https://map.kakao.com/link/to/도착지,"+ page.cldl0802.lttd + "," + page.cldl0802.lgtd;
 				//var routeUrl = "kakaomap://route?"+"sp="+page.lgtd + "," + page.lttd+"&ep="+page.cldl0802.lgtd + ","+page.cldl0802. page.cldl0802.lttd+"&by=CAR"; 
-				
-				alert(routeUrl);
+				//alert(routeUrl);
 				
 				LEMP.System.callBrowser({
 					"_sURL" : routeUrl
@@ -1378,7 +1332,7 @@ var page = {
 	//상세화면 콜백
 	, invDtlCallback : function(res){
 		try{
-			$('.tabChkbox').prop("checked",false);
+			$('#checkall').prop("checked",false);
 			
 			var template = Handlebars.compile($("#cldl0802_li_template").html());
 			var templateD = Handlebars.compile($("#cldl0802_li_templateD").html());
