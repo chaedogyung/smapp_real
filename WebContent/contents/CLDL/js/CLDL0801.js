@@ -8,7 +8,8 @@ var page = {
 		curLgtd: null,
 		curLttd: null,
 		isfirst : true,		//첫로드시 관련
-		isfirstLoad : false,	//gps찾고 로드중인지 시간지나서 로드중인지확인용. 첫 로드시 과련
+		isGpsLoad : false,	//gps찾고 로드중인지 시간지나서 로드중인지확인용. 첫 로드시 과련
+		datalist : null,  //지도에 표시할 위도경도목록
 		sboxType: null,			// 권역 or 시간별
 		apiParam : {
 			id:"HTTP",			// 디바이스 콜 id
@@ -100,9 +101,13 @@ var page = {
 				if(page.step_sct_cd != "0"  && page.step_sct_cd != "1"){
 					$(".popMap .mapCon").css({"top": "162px"});
 					$(".popMap .mapCon").css({"height": "78%"});
-					$(".popMap .divisionBox").hide(); 
+					$(".popMap .divisionBox").hide();
+					$("#setDlvyCom1").hide();
+					$("#setDlvyCom2").hide();
 				} else {
 					$(".popMap .divisionBox").show();
+					$("#setDlvyCom1").show();
+					$("#setDlvyCom2").show();
 					if(page.sboxType == "time") {
 						$(".popMap .mapCon").css({"top": "231px"});
 						$(".popMap .mapCon").css({"height": "69%"});
@@ -158,7 +163,7 @@ var page = {
 			//selectBox 그려주는 함수
 			//page.mapTmList();
 			setTimeout(function() { //현재위치 찾을시간 주고 찾지못할경우 실행
-				  if(!page.isfirstLoad) {
+				  if(!page.isGpsLoad) {
 						page.mapSelectList();
 					}
 				}, 3000);
@@ -390,6 +395,7 @@ var page = {
 		,locMapList:function(data){
 			smutil.loadingOn();
 	
+			page.datalist = null;
 			page.apiParam.param.baseUrl="smapis/cldl/locMapList";
 			page.apiParam.param.callback="page.MapListCallback";
 			page.apiParam.data.parameters=data;
@@ -400,12 +406,13 @@ var page = {
 			  
 		// 기준 조회 콜백
 		,MapListCallback:function(res){
-			var arr = res.data.list;
+			//var arr = res.data.list;
+			page.datalist = res.data.list;
 			try {
 				if (res.data_count !== 0 && smutil.apiResValidChk(res) && res.code==="0000") {
 					$(".NoBox").css("display","none");
 					$("#mapCon").css("display","block");
-					page.writeMap(res);
+					page.writeMap(page.datalist);
 				}else {
 					$("#mapCon").css("display","none");
 					$(".NoBox").css("display","block");
@@ -434,7 +441,7 @@ var page = {
 				navigator.geolocation.getCurrentPosition(function(position) {
 					page.curLocation = new kakao.maps.LatLng(position.coords.latitude,position.coords.longitude);
 					//alert('curlat: ' + position.coords.latitude + ' lon:' + position.coords.longitude);
-					page.isfirstLoad = true;					
+					page.isGpsLoad = true;					
 					if((position.coords.latitude + "").substr(0,1) == '1') {
 						page.curLgtd = position.coords.latitude;
 						page.curLttd = position.coords.longitude;	
@@ -442,7 +449,11 @@ var page = {
 						page.curLgtd = position.coords.longitude;
 						page.curLttd = position.coords.latitude;
 					}
-					page.mapSelectList();
+					if(!page.isfirst && page.datalist != null && page.datalist.length > 0) {
+						page.writeMap(page.datalist);
+					} else {
+						page.mapSelectList();
+					}
 				}, function(error) {
 					//console.error(error);
 					alert('GPS권한이 필요합니다.');
@@ -460,7 +471,7 @@ var page = {
 	,writeMap: function(list){
 		$("#mapCon").empty();
 		// 맵그리기
-		var arr = list.data.list;
+		var arr = list;
 		
 		var mapContainer = document.getElementById('mapCon'); // 지도를 표시할 div
 		var mapOption = {
@@ -580,10 +591,20 @@ var page = {
 
 			customOverlay.setMap(map);
 		}
-
 		
  		// 추가된 마커의 위치에 따라 맵의 표현범위가 확장
 		map.setBounds(bounds);
+		
+		//지도새로고침(현재자기위치 갱신용)		
+		var divMapReload = document.createElement('div'); 
+		divMapReload.setAttribute('id','mapReload'); 
+		divMapReload.classList.add('label');
+		divMapReload.classList.add('mapreload');
+		divMapReload.onclick = function(e) {
+			page.getLocation();
+		};
+		mapContainer.appendChild(divMapReload);
+		$("#mapReload").css({"top": "0px", "z-index": "1"});
 	}
 		// api 파람메터 초기화
 	,apiParamInit : function(){

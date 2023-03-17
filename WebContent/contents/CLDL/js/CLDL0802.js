@@ -7,6 +7,7 @@ var page = {
 	sp : null,	//현재위치
 	changeTimeInvNo : null,		// 시간 변경을 선택한 invNo
 	changeTimeSctCd : null,		// 시간 변경을 선택한 송장의 배달, 집하코드
+	reqAcptRgstInvNo : null,	// 인수자 변경을 선택한 송장번호
 	init:function(arg)
 	{
 		page.cldl0802 = arg.data.param;
@@ -587,7 +588,7 @@ var page = {
 				//var inv_no = id.substr(1);
 
 				// 스캔한 데이터 먼저 모두 셋팅
-				if(page.chkScanYn(inv_no, "D")){
+				if(page.chkScanYn(inv_no)){
 					// 스캔한 송장번호, 스캔여부 전부 Y으로 셋팅
 					invNoObj = {"inv_no":inv_no, "scan_yn":"Y"};
 					param_list.push(invNoObj);
@@ -595,7 +596,7 @@ var page = {
 				}
 
 				// 체크박스에 체크한 데이터 (기본적으로 스캔 안한데이터이다)
-				if($('#D'+inv_no+'_chk').prop("checked")){
+				if($('#'+inv_no+'_chk').prop("checked")){
 					// 스캔한 송장번호, 스캔여부 전부 Y으로 셋팅
 					invNoObj = {"inv_no":inv_no, "scan_yn":"N"};
 					param_list.push(invNoObj);
@@ -648,6 +649,28 @@ var page = {
 
 		});
 
+		// 고객요청(인수자변경) 팝업호출
+		$(document).on('click', '.btn.bdM.blue3.bdMic.mgl1', function(e){
+			var inv_no = $(this).data('invNo')+"";
+
+			if(!smutil.isEmpty(inv_no)){
+				page.reqAcptRgstInvNo = inv_no;
+
+				// 인수자 선택 팝업호출
+				var popUrl = smutil.getMenuProp('COM.COM0601', 'url');
+
+				LEMP.Window.open({
+					"_sPagePath":popUrl
+				});
+			}
+			else{
+				LEMP.Window.toast({
+					"_sMessage":"선택된 송장번호가 없습니다.",
+					'_sDuration' : 'short'
+				});
+
+			}
+		});
 
 		$(document).on('click', '.btn.bdM.blue4.bdClock.mgl1', function(e){
 			
@@ -1269,7 +1292,7 @@ var page = {
 			var html = '';
 			if(page.cldl0802.step_sct_cd == '0'){ //cldl201
 				html = '<button class="btn bdM blue2 bdMemo mgl1" data-inv-no="'+this.inv_no+'" data-cldl-sct-cd="'+this.cldl_sct_cd+'">메모</button>'
-//					 + '<button class="btn bdM blue3 bdMic mgl1" data-inv-no="'+this.inv_no+'" data-cldl-sct-cd="'+this.cldl_sct_cd+'">희망인수자</button>'
+					 + '<button class="btn bdM blue3 bdMic mgl1" data-inv-no="'+this.inv_no+'" data-cldl-sct-cd="'+this.cldl_sct_cd+'">희망인수자</button>'
 				 	 + '<button class="btn bdM blue4 bdClock mgl1" data-inv-no="'+this.inv_no+'" data-cldl-sct-cd="'+this.cldl_sct_cd+'">시간수정</button>';
 			}
 			else if(page.cldl0802.step_sct_cd == '1'){  //cldl401
@@ -1576,22 +1599,67 @@ var page = {
 	// 인수자 팝업 닫을때 callback 함수
 	, com0601Callback : function(res){
 		// 선택한 인수자 정보가 있을경우
-		if(!smutil.isEmpty(res.selectedCode)
-				&& !smutil.isEmpty(res.selectedText)){
-			$('#insujaTxt').val(res.selectedText);			// 인수자 text
-			$('#insujaCode').val(res.selectedCode);			// 인수자 code
-			$('.insujaTxtView').text(res.selectedText);		// 인수자 text
+		if(!smutil.isEmpty(res.selectedCode) && !smutil.isEmpty(res.selectedText)){
+			if(page.cldl0802.step_sct_cd == "1") {//배달완료시 상단인수자버튼 클릭으로 인수자호출콜백
+				$('#insujaTxt').val(res.selectedText);			// 인수자 text
+				$('#insujaCode').val(res.selectedCode);			// 인수자 code
+				$('.insujaTxtView').text(res.selectedText);		// 인수자 text
+	
+				var acpt_sct_info = {
+					"acpt_sct_cd" : res.selectedCode
+					, "acpr_nm" : res.selectedText
+				};
+	
+				// 인수자정보 메모리에 저장
+				LEMP.Properties.set({
+					"_sKey" : "acptSctInfo",
+					"_vValue" : acpt_sct_info
+				});				
+			} else {	//배달 출발시 스와이프로 인수자호출콜백
+				var inv_no = page.reqAcptRgstInvNo;
+				var req_acpt_sct_cd = res.selectedCode;
+				var req_acpr_nm = res.selectedText;
 
-			var acpt_sct_info = {
-				"acpt_sct_cd" : res.selectedCode
-				, "acpr_nm" : res.selectedText
-			};
+				page.apiParamInit();		// 파라메터 전역변수 초기화
+				page.apiParam.param.baseUrl = "smapis/cldl/reqAcptRgst";			// api no
+				page.apiParam.param.callback = "page.reqAcptRgstCallback";		// callback methode
+				page.apiParam.data = {				// api 통신용 파라메터
+					"parameters" : {
+						"inv_no" : inv_no+"",
+						"req_acpt_sct_cd" : req_acpt_sct_cd,
+						"req_acpr_nm" :req_acpr_nm
+					}
+				};
+				smutil.loadingOn();				// 로딩바 on
 
-			// 인수자정보 메모리에 저장
-			LEMP.Properties.set({
-				"_sKey" : "acptSctInfo",
-				"_vValue" : acpt_sct_info
+				// 공통 api호출 함수
+				smutil.callApi(page.apiParam);
+			}
+			
+		} else{
+			LEMP.Window.toast({
+				"_sMessage":"인수자 변경에 필요한 필수값들이 없습니다.",
+				'_sDuration' : 'short'
 			});
+		}
+	}
+	// 희망인수자 변경 api 콜백  스와이프 희망인수자변경시 콜백(배달 출발)
+	, reqAcptRgstCallback : function(result){
+		try{
+			// api 전송 성공
+			if(smutil.apiResValidChk(result) && result.code == "0000"){
+				LEMP.Window.toast({
+					"_sMessage":"희망인수자 변경에 성공하였습니다.",
+					'_sDuration' : 'short'
+				});
+
+				page.listReLoad();					// 리스트 제조회
+			}
+		}
+		catch(e){}
+		finally{
+			smutil.loadingOff();			// 로딩바 닫기
+			page.apiParamInit();			// 파라메터 전역변수 초기화
 		}
 	}
 	
@@ -2373,7 +2441,8 @@ var page = {
 						"cldl_sct_cd" : cldl_sct_cd,			// 업무구분
 						"cldl_tmsl_cd" : cldl_tmsl_cd,			// 시간코드
 						"cldlSctCd" : cldl_sct_cd,			// 업무구분 changedlvywait 에서 사용
-						"scanYmd" : scanYmd
+						"scanYmd" : scanYmd,
+						"base_ymd": scanYmd
 					}
 				};
 
