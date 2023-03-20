@@ -93,7 +93,7 @@ var page = {
 		}
 		
 		if(page.cldl0802.step_sct_cd == '1'){			
-			//$(".deliveryTy3Cal").css({"margin-top": "211px"});
+			$(".deliveryTy3Cal").css({"margin-top": "179px"});
 			
 			$('#headnm').text("집배달 완료");
 			$('#chkAllSpan').show();
@@ -107,7 +107,7 @@ var page = {
 				$("#bottomDiv").hide();
 			}
 		} else {
-			//$(".deliveryTy3Cal").css({"margin-top": "164px"});
+			$(".deliveryTy3Cal").css({"margin-top": "177px"});
 			
 			$('#chkAllSpan').hide();
 			$('#insuja').hide();

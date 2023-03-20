@@ -530,9 +530,9 @@ var page = {
 						});*/
 						LEMP.Window.open({
 							"_sPagePath" : popUrl,
-							"_sType"     : "popup",
+							/*"_sType"     : "popup",
 							"_sWidth"    : "90%",
-							"_sHeight"   : "90%",	
+							"_sHeight"   : "90%",*/	
 							"_oMessage" : {
 								"param" : paramdata
 							}
