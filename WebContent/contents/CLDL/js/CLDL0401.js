@@ -1578,6 +1578,8 @@ var page = {
 					// 생성된 HTML을 DOM에 주입
 					$('#cldl0401LstUl').html(liHtml);
 
+					smutil.hdmgrCustCdReturn();
+					
 					// 스캔건수 표시
 					if(!smutil.isEmpty(result.data.scan_cnt)
 						&& result.data.scan_cnt > 0){

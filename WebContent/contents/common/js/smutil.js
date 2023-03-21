@@ -701,6 +701,26 @@ var smutil = (function(window, document, $) {
 		}
 	};
 
+	// 현대홈쇼핑 고가품 관리거래처코드 이미지 리턴
+	var hdmgrCustCdReturn = function(){
+		var hdmgrcustcdimg= '<span class="badge red s" style="background-color:#391cda;">' + '내품확인서비스' + '</span>';
+
+		$('input[value=101000]').after(hdmgrcustcdimg);
+		$('input[value=007030]').after(hdmgrcustcdimg);
+		$('input[value=404810]').after(hdmgrcustcdimg);
+
+		//출고 : 186758 / 475311 / 475366 / 475425
+		$('input[value=186758]').after(hdmgrcustcdimg);
+		$('input[value=475311]').after(hdmgrcustcdimg);
+		$('input[value=475366]').after(hdmgrcustcdimg);
+		$('input[value=475425]').after(hdmgrcustcdimg);
+		
+		//반품 : 186776 / 475322 / 475414 / 475436	
+		$('input[value=186776]').after(hdmgrcustcdimg);
+		$('input[value=475322]').after(hdmgrcustcdimg);
+		$('input[value=475414]').after(hdmgrcustcdimg);
+		$('input[value=475436]').after(hdmgrcustcdimg);
+	};
 
 	// 코드에 맞는 회사 로고 클래스명 리턴
 	var corpLogoReturn = function(code){
@@ -1255,7 +1275,9 @@ var smutil = (function(window, document, $) {
 		// 기준날짜 이전인지 확인
 		isPassed: isPassed,
 
-	};
+		//현대 관리거래처 코드
+		hdmgrCustCdReturn : hdmgrCustCdReturn
 
+	};
 
 })(window, document, jQuery);

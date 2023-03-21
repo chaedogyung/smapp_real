@@ -237,6 +237,9 @@
                         {{!-- 운임 라벨 표시 helper fareChk --}}
                         {{fareChk label}}
 
+						<!-- 추가 2023.02.21 현대홈쇼핑 특정 관리거래처코드 -->
+						<input class="mgr_cust_cd" id="mgr_cust_cd" value='{{mgr_cust_cd}}' hidden>
+
                         {{!-- 취소 여부 helper--}}
                         {{#cclYnChk}}
                         <span class="badge red s outline">취소</span>
@@ -311,6 +314,9 @@
                 <p class="tit">
                     {{!-- 송장번호형식표시 helper invNoTmpl --}}
                     <span class="dsin vm invNoSpan">{{invNoTmpl inv_no}}</span>
+
+					<!-- 추가 2023.02.21 현대홈쇼핑 특정 관리거래처코드 -->
+					<input class="mgr_cust_cd" id="mgr_cust_cd" value='{{mgr_cust_cd}}' hidden>
                 </p>
             </div>
             <button class="btn cancel" data-cancel-inv-no='{{inv_no}}' data-cancle-sct-cd='{{cldl_sct_cd}}' data-li-status='noData'>캔슬</button>
