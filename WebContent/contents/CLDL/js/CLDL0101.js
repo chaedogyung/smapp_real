@@ -1806,6 +1806,7 @@ var page = {
 			var _this = this;
 			var cldl_sct_cd = page.returnTabSctCd();		// 업무구분
 			var base_ymd = $('#cldlBtnCal').text();
+			var task_id = "CLDL0101";
 
 			if(smutil.isEmpty(base_ymd)){
 				LEMP.Window.toast({
@@ -1836,7 +1837,8 @@ var page = {
 						"parameters" : {
 							"cldl_sct_cd" : cldl_sct_cd,		// 업무구분
 							"base_ymd" : base_ymd,				// 기준일자
-							"cldlTmslCd": cldlTmslCd            //예정시간 선택(제주 익일관련 전용 코드)
+							"cldlTmslCd": cldlTmslCd,            //예정시간 선택(제주 익일관련 전용 코드)
+							"task_id": task_id
 						}
 					};
 					

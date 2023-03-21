@@ -40,6 +40,7 @@ i{font-style:normal;}
 .srOnly {position:absolute;left:-9999px;top:-9999px;overflow: hidden;visibility: hidden;border: 0;text-indent: -9999999px;}
 ul.ul0{overflow:hidden;}
 ul.ul0 > li{float:left; box-sizing:border-box;}
+ul.ul1 > li{width:100%;}
 ul.ul2 > li{width:50%;} ul.ul3 > li{width:33.33%;} ul.ul4 > li{width:25%;}
 ul.ul5 > li{width:20%;} ul.ul6 > li{width:16.66%;} ul.ul7 > li{width:14.285%;}
 ul.ul-none > li{list-style: none; margin: 0px; padding: 0px;}

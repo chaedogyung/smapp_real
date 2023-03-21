@@ -11,6 +11,7 @@ var page = {
 		dlvyCompl : null,			// 구역,시간 기준
 		curLat: null,   		// 현재나의위치
 		curLong: null,   		// 현재나의위치
+		aceTypYn: "N",         //화물사고 팝업 유무
 		// api 호출 기본 형식
 		apiParam : {
 			id:"HTTP",			// 디바이스 콜 id
@@ -323,6 +324,12 @@ var page = {
 				});
 
 			});
+			
+			// 화물사고 팝업 확인 버튼 클릭
+			$('#checkBtn').click(function(e){
+				page.aceTypYn = "Y";
+				return;
+			});
 
 
 			// 기사메모 팝업 호출
@@ -426,9 +433,15 @@ var page = {
 			// [20200121 : 시간대별 전송에서 리스트 전체 전송으로 수정]
 			$('#dprtTrsmTrsmBtn').click(function(e){
 
-//				var scanCnt = 0;
-//				var liLst = $('.cldl0201LstUl').children('li');
-//				scanCnt = Number(liLst.length);
+				var alarmCnt = 1;
+				if(page.aceTypYn == "N") {
+					alarmCnt = page.scanAlarm(); //배달전 알림 로직 추가
+				}
+				
+				if(alarmCnt > 1) {
+					return;
+				}
+				
 				var cldl_sct_cd = page.returnTabSctCd();		// 업무구분 (전체 : A, 집하 : P, 배달 : D)
 				var base_ymd = $('#cldlBtnCal').text();
 				var dprtTrsmCnt = Number($('#'+cldl_sct_cd+'_cldl0201Cnt').text());
@@ -2459,6 +2472,50 @@ var page = {
 				});
 			}
 			
+		},
+		
+		//스캔 등록시 화물사고 알림
+		scanAlarm:function() {
+			
+			var base_ymd = $('#cldlBtnCal').text();
+			base_ymd = base_ymd.split('.').join('');
+
+			var liLst = $('.baedalListBox > ul > li');
+			var inv_no;									// li 에 걸려있는 송장번호
+			var param_list = [];						// 전송할 리스트 배열
+			var invNoObj = {};
+			var aceTypCd;
+			var msg = "하기 송장은 분실 / 파손 / 반품접수 / 등의 사유로<br />집배달 불가 상품 입니다. <br />";
+			var alarmCnt = 1;
+			
+			// 모든 li 리스트를 돌면서 스캔한 데이터와 체크박스의 체크한 데이터를 셋팅한다.
+			$.each(liLst, function(idx, liObj){
+				inv_no = $(liObj).attr('id')+"";
+				inv_no = inv_no.replace(/([0-9]{4})([0-9]{4})([0-9]{4})/,"$1-$2-$3");
+				aceTypCd = $(liObj).data('liAceTypCd');
+				
+				if(aceTypCd == "10") {
+					msg += "<br />" + alarmCnt + ") " + inv_no + "<br />" + "- 분실 사고 등록 건<br />";
+					alarmCnt ++;
+				} else if(aceTypCd == "30") {
+					msg += "<br />" + alarmCnt + ") " + inv_no + "<br />" + "- 경유점소에서 사고확인서 등록 건<br />";
+					alarmCnt ++;
+				} else if(aceTypCd == "60") {
+					msg += "<br />" + alarmCnt + ") " + inv_no + "<br />" + "- 반품 지시 접수 건<br />";
+					alarmCnt ++;
+				}
+			});
+			
+			console.log(msg);
+			
+			if(alarmCnt == 1) {
+				return;
+			}
+			
+			$('#popScanAlarmTxt').html(msg);
+			$('.mpopBox.scanAlarm').bPopup();
+			
+			return alarmCnt;
 		}
 
 };
