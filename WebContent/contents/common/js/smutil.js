@@ -705,10 +705,6 @@ var smutil = (function(window, document, $) {
 	var hdmgrCustCdReturn = function(){
 		var hdmgrcustcdimg= '<span class="badge red s" style="background-color:#391cda;">' + '내품확인서비스' + '</span>';
 
-		$('input[value=101000]').after(hdmgrcustcdimg);
-		$('input[value=007030]').after(hdmgrcustcdimg);
-		$('input[value=404810]').after(hdmgrcustcdimg);
-
 		//출고 : 186758 / 475311 / 475366 / 475425
 		$('input[value=186758]').after(hdmgrcustcdimg);
 		$('input[value=475311]').after(hdmgrcustcdimg);
