@@ -1,17 +1,20 @@
+LEMP.addEvent("backbutton", "page.callbackBackButton");		// 뒤로가기 버튼 클릭시 이벤트
 var page = {
 	signInvNo : null,
 	is_reload : null,
 	dlvyCompl : null,
 	scanParam : null,			// 스캔완료한 송장파라메터 집하
 	param_list : [],			// 미집하/배달 전송할 송장 리스트
-	sp : null,	//현재위치
 	changeTimeInvNo : null,		// 시간 변경을 선택한 invNo
 	changeTimeSctCd : null,		// 시간 변경을 선택한 송장의 배달, 집하코드
 	reqAcptRgstInvNo : null,	// 인수자 변경을 선택한 송장번호
 	init:function(arg)
 	{
 		page.cldl0802 = arg.data.param;
-		
+		page.dlvyCompl = LEMP.Properties.get({
+			"_sKey" : "autoMenual"
+		});
+
 		var curDate = page.cldl0802.base_ymd;
 		if(smutil.isEmpty(page.cldl0802.base_ymd)) {
 			curDate = new Date();
@@ -20,13 +23,9 @@ var page = {
 			curDate = curDate.substr(0,4) + "." + curDate.substr(4,2) + "." + curDate.substr(6,2); 
 		}		
 		$('#cldlBtnCal').text(curDate);
-
-		page.dlvyCompl = LEMP.Properties.get({
-			"_sKey" : "autoMenual"
-		});
-
+		
 		//page.getLocation();
-		page.initInterface();
+		page.initEvent();
 		page.initDpEvent();			// 화면 디스플레이 이벤트
 	}	
 	,cldl0802:{}	
@@ -64,8 +63,8 @@ var page = {
 					page.cldl0802.cldl_tmsl_cd = page.cldl0802.sbox_type_cd;
 	            }
 	
-	            /*// 자동전송 여부
-				if(page.dlvyCompl.area_sct_cd2 == "A") {
+	            // 자동전송 여부
+				/*if(page.dlvyCompl.area_sct_cd2 == "A") {
 					$("#setDlvyCom2").text('자동');
 					$("#setDlvyCom2").attr('class', 'blue badge option outline');
 				} else {
@@ -73,7 +72,7 @@ var page = {
 	                $("#setDlvyCom2").attr('class', 'gray2 badge option outline');
 				}*/
 				
-				$("#setDlvyCom3").text('' + page.cldl0802.sbox_type_cd + ' '); //testdev나중에 없앨것  + page.cldl0802.cldl_tmsl_nm+' '
+				//$("#setDlvyCom3").text('' + page.cldl0802.sbox_type_cd + ' ' ); //testdev나중에 없앨것
 			} else {
 				page.cldl0802.mbl_dlv_area = "";
 				page.cldl0802.cldl_tmsl_cd = "";
@@ -121,20 +120,11 @@ var page = {
 		}
 	}
 	// 이벤트 등록 함수
-	,initInterface : function()
+	,initEvent : function()
 	{
 		//닫기
 		$(document).on("click",".btn.closeW.paR",function(){
-			if(page.is_reload == null) {
-				LEMP.Window.close();
-			} else {
-				LEMP.Window.close({
-						"_oMessage":{
-							"param":{"step_sct_cd":page.cldl0802.step_sct_cd} //2023.03.06
-						},
-						"_sCallback":"page.cldl0802Callback"
-					});
-			}
+			page.callbackBackButton();
 		});
 		
 		/* 제스처 */
@@ -164,9 +154,8 @@ var page = {
 		});
 		$(thisN).trigger("click");
 		/* //제스쳐 */
-		
 
-				
+		/* 체크박스 전체선택 */
 		$("#checkall").click(function(){
 			if($("#checkall").prop("checked")){
 				$("input[name=chkInvP]").prop("checked",true);
@@ -286,7 +275,6 @@ var page = {
 
 		});
 		
-		//2023.02.28
 		// 문자버튼 클릭
 		$('.btn.ftSms').click(function(e){
 			// 문자발송 이벤트 호출
@@ -415,33 +403,16 @@ var page = {
 
 			//현제 어느 탭에 있는지 상태체크
 			var cldl_tmsl_cd = page.returnTimeCd();		// 예정시간선택
-			var pick_sct_cd = "G";		// 일반집하 : G, 전산집하 구분 : C //testdev 일반.전산집하 구분??
+			var pick_sct_cd = "";		// 일반집하 : G, 전산집하 구분 : C //testdev 일반.전산집하 구분??
 			var area_sct_cd = page.dlvyCompl.area_sct_cd;	//구역(Y) 시간(N) 기준 
 			
-			if(!_.isUndefined(page.dlvyCompl.area_sct_cd) && page.dlvyCompl.area_sct_cd == 'Y'){
-				cldl_tmsl_cd = "";
-			}else{
-				cldl_tmsl_cd = page.returnTimeCd();					
-			}
-			// 일반 집하일 경우만 시간구분코드를 찾아서 체크
-			if(pick_sct_cd == "G" && (smutil.isEmpty(cldl_tmsl_cd) && page.dlvyCompl.area_sct_cd == 'N')){
-
-				LEMP.Window.toast({
-					"_sMessage":"예정시간을 선택해 주세요.",
-					'_sDuration' : 'short'
-				}); 
-
-				return false;
-			}
-
-
 			// 스캔 팝업 url 호출
 			var popUrl = smutil.getMenuProp('CLDL.CLDL0306', 'url');
 
 			LEMP.Window.open({
 				"_oMessage" : {
 					"param" : {
-						"pick_sct_cd" : "G",
+						"pick_sct_cd" : "",
 						"cldl_tmsl_cd" : cldl_tmsl_cd,
 						"area_sct_cd" : area_sct_cd,
 						"menu_id" : "CLDL0802"
@@ -509,6 +480,7 @@ var page = {
 			// 배달출발 전송(전송) 컴펌창 호출
 			if(scanCnt > 0){
 				$('#pop2Txt2').html('스캔된 데이터 '+scanCnt+'건<br />집하완료를 전송합니다.');
+				$('#popCldlSctNm').text('집하완료 전송');
 				$('.mpopBox.pop2').bPopup();
 			}
 			else{
@@ -609,6 +581,7 @@ var page = {
 			// 배달출발 확정(전송) 컴펌창 호출
 			if(scanCnt > 0){
 				$('#pop2Txt2').html('전송할 데이터 '+scanCnt+'건<br />배달완료를 전송합니다.');
+				$('#popCldlSctNm').text('배달완료 전송');
 				$('.mpopBox.pop2').bPopup();
 			}
 			else{
@@ -625,7 +598,11 @@ var page = {
 		// 배달완료전송버튼 'yes' 버튼 클릭
 		$('#cmptTrsmYesBtn').click(function(e){
 			// 배달완료 확정로직 시작
-			page.cmptTrsm();
+			if(page.cldl0802.cldl_sct_cd == "P") {
+				page.cmptTrsmP();	
+			} else {
+				page.cmptTrsmD();	
+			}
 		});
 
 		// 스와이프 touch start
@@ -795,40 +772,23 @@ var page = {
 				return false;
 			}
 		});
-
-		$("#setDlvyCom4").click(function(){
-			if(smutil.isEmpty(page.cldl0802.lgtd) || smutil.isEmpty(page.cldl0802.lttd)){
-				alert('도착지정보가 없습니다.');
-				return;
-			}
-			
-			var routeUrl="http://app.map.naver.com/launchApp/?version=11&menu=navigation&elat=" + page.cldl0802.lgtd + "&elng=" + page.cldl0802.lttd+"&etitle=도착지";
-			//alert(routeUrl);
-			LEMP.System.callBrowser({
-				"_sURL" : routeUrl
-			});
-		});
-		
+ 
 		$("#headnm").click(function(){
 			if(smutil.isEmpty(page.cldl0802.curlgtd) || smutil.isEmpty(page.cldl0802.curlttd)){
 				alert('GPS를 확인하세요');
 				return;
 			}
-			if(smutil.isEmpty(page.cldl0802.lgtd) || smutil.isEmpty(page.cldl0802.lttd)){
-				alert('도착지정보가 없습니다.');
-				return;
-			}
 			//var routeUrl="http://m.map.naver.com/route.nhn?menu=route&sname=출발&sx=126.9736211&sy=37.5570572&ename=도착&ex=127.0276368&ey=37.4979502&pathType=0&showMap=true";
-			var routeUrl="http://m.map.naver.com/route.nhn?menu=route&sname=출발" //ok 2023.03.13 s:o, m:o 
+				var routeUrl="http://m.map.naver.com/route.nhn?menu=route&sname=출발" //ok s:o, m:o 
 				+"&sx=" + page.cldl0802.curlgtd + "&sy=" + page.cldl0802.curlttd
 				+"&ename=도착"
 				+"&ex=" + page.cldl0802.lgtd + "&ey=" + page.cldl0802.lttd
 				+"&pathType=0&showMap=true";
-			//alert(routeUrl); 
-			
-			LEMP.System.callBrowser({
-				"_sURL" : routeUrl
-			});
+				//alert(routeUrl); 
+				
+				LEMP.System.callBrowser({
+					"_sURL" : routeUrl
+				});
 
 		});
 
@@ -839,7 +799,6 @@ var page = {
 				return;
 			}
 			
-			//alert('이동경로 기능 준비중입니다.');
 			if(!smutil.isEmpty(page.cldl0802.lgtd) && !smutil.isEmpty(page.cldl0802.lttd)){
 				var routeUrl="https://map.kakao.com/link/to/도착지,"+ page.cldl0802.lttd + "," + page.cldl0802.lgtd;
 				//var routeUrl = "kakaomap://route?"+"sp="+page.lgtd + "," + page.lttd+"&ep="+page.cldl0802.lgtd + ","+page.cldl0802. page.cldl0802.lttd+"&by=CAR"; 
@@ -1277,7 +1236,7 @@ var page = {
 		Handlebars.registerHelper('setRsnRgstBtnP', function(options) {
 			var html = '';
 			if(page.cldl0802.step_sct_cd == '0'){ //cldl201
-				//html = '<button class="btn bdM blue4 bdClock mgl1" data-inv-no="'+this.inv_no+'" data-cldl-sct-cd="'+this.cldl_sct_cd+'">시간수정</button>';
+				html = '<button class="btn bdM blue4 bdClock mgl1" data-inv-no="'+this.inv_no+'" data-cldl-sct-cd="'+this.cldl_sct_cd+'">시간수정</button>';
 			}
 			else if(page.cldl0802.step_sct_cd == '1'){ //cldl301
 				html = '<button class="btn bdM blue3 bdCancle mgl1" data-inv-no="'+this.inv_no+'" data-corp-sct-cd="'+this.corp_sct_cd+'" data-cldl-sct-cd="'+this.cldl_sct_cd+'">미집하</button>';
@@ -1326,7 +1285,7 @@ var page = {
 	}
 	
 	
-	//상세화면 조회
+	//건물번호로 운송장목록 조회
 	,invDtl:function(){
 		var data = {};
 		data.base_ymd   = page.cldl0802.base_ymd;
@@ -1359,27 +1318,31 @@ var page = {
 			
 			var template = Handlebars.compile($("#cldl0802_li_template").html());
 			var templateD = Handlebars.compile($("#cldl0802_li_templateD").html());
-			$("#setDlvyCom4").text(' '+ res.code + '(' + smutil.nullToValue(res.data_count) + ') '); //testdev나중에 없앨것
+
 			if (res.data_count !== 0 && smutil.apiResValidChk(res) && res.code==="0000") { 
 
 				
 				if(page.cldl0802.cldl_sct_cd == "P") {
-					$('#cldl0802LstUl').html(template(res.data));	
+					$('#cldl0802LstUl').html(template(res.data));
 				} else {					
 					$('#cldl0802LstUlD').html(templateD(res.data));
 				}
 				
-				var tot = 0, totD = 0;
+				var tot = 0, totD = 0, scanLstCnt=0, scanLstCntD = 0;
 				if(res.data.list.length > 0) {					
 					tot = smutil.nullToValue((res.data.list[0].tot),0);
+					scanLstCnt = smutil.nullToValue((res.data.list[0].scan_cnt),0);
 				}
 				
 				if(res.data.listD.length > 0) {					
 					totD = smutil.nullToValue((res.data.listD[0].tot),0);
+					scanLstCntD = smutil.nullToValue((res.data.listD[0].scan_cnt),0);
 				}
 				
 				$('#cldlPcnt').text('집하 '+tot+'건');
 				$('#cldlDcnt').text('배달 '+totD+'건');
+				$('#scanLstCnt').text(scanLstCnt);
+				$('#scanLstCntD').text(scanLstCntD);
 				
 				//$('#cldl0802LstUlD').html(templateD(res.data));
 				
@@ -1395,6 +1358,8 @@ var page = {
 				}
 				$('#cldlPcnt').text('집하 0건');
 				$('#cldlDcnt').text('배달 0건');
+				$('#scanLstCnt').text(0);
+				$('#scanLstCntD').text(0);
 				
 			}
 		}
@@ -1700,7 +1665,7 @@ var page = {
 		inv_no = inv_no+"";
 		// 중복 스캔 방지
 		if(page.chkScanYn(inv_no)){
-			
+
 			// 실패 tts 호출(벨소리)
 			smutil.callTTS("0", "0", null, result.isBackground);
 
@@ -1810,7 +1775,7 @@ var page = {
 				if(liKey.length > 0){
 
 					// 스켄하지 않은건이면 하단 카운트 증가(상단카운트는 증가할 필요 없음)
-					if(!page.chkScanYn(inv_no)){ //2023.02.28
+					if(!page.chkScanYn(inv_no)){
 
 						if(smutil.isEmpty(scanLstCnt.text())){
 							scancnt = 1;
@@ -1926,7 +1891,7 @@ var page = {
 						base_ymd = base_ymd.split('.').join('');
 						
 						page.apiParam.param.baseUrl=baseUrl;
-						page.apiParam.param.callback="page.cmptTrsmCallback";
+						page.apiParam.param.callback="page.cmptTrsmCallbackD";
 						page.apiParam.data = {				// api 통신용 파라메터
 								"parameters" : {
 									"base_ymd" : base_ymd,				// 기준일자
@@ -1937,7 +1902,8 @@ var page = {
 									"area_sct_cd" : area_sct_cd,
 									"acpt_sct_cd" : $('#insujaCode').val(), 		// 인수자 구분코드
 									"acpr_nm" : acpr_nm,				// 인수자 명
-									"param_list" : param_list			// 전송할 송장정보 {송장번호 : 스캔여부}
+									"param_list" : param_list,			// 전송할 송장정보 {송장번호 : 스캔여부}
+									"bld_mgr_no" : page.cldl0802.bld_mgr_no				// 인수자 명
 								}
 						};
 						smutil.loadingOn();
@@ -1967,7 +1933,7 @@ var page = {
 	}
 	// ################### 스캔 전송  end
 	// 배달출발확정 콜백
-	, cmptTrsmCallback : function(result){
+	, cmptTrsmCallbackD : function(result){
 		var _this = this;
 
 		try{
@@ -1992,7 +1958,7 @@ var page = {
 
 	// ################### 배달완료확정(전송) start
 	// 일괄전송 ( 시간데마다 스캔 + 체크한 데이터 같이 전송)
-	, cmptTrsm : function(){
+	, cmptTrsmD : function(){
 
 		var cldl_sct_cd = "D";							// 업무구분
 		var cldl_tmsl_cd = "";			// 예정시간코드
@@ -2076,7 +2042,7 @@ var page = {
 
 		page.apiParamInit();		// 파라메터 전역변수 초기화
 		page.apiParam.param.baseUrl = "smapis/cldl/dlvCmptScanTrsm";		// api no
-		page.apiParam.param.callback = "page.cmptTrsmCallback";			// callback methode
+		page.apiParam.param.callback = "page.cmptTrsmCallbackD";			// callback methode
 		page.apiParam.data = {				// api 통신용 파라메터
 				"parameters" : {
 					"base_ymd" : base_ymd,				// 기준일자
@@ -2087,7 +2053,8 @@ var page = {
 					"area_sct_cd" : area_sct_cd,
 					"acpt_sct_cd" : acpt_sct_cd, 		// 인수자 구분코드
 					"acpr_nm" : acpr_nm,				// 인수자 명
-					"param_list" : param_list			// 전송할 송장정보 {송장번호 : 스캔여부}
+					"param_list" : param_list,			// 전송할 송장정보 {송장번호 : 스캔여부}
+					"bld_mgr_no" : page.cldl0802.bld_mgr_no				// 인수자 명
 				}
 		}
 
@@ -2100,7 +2067,72 @@ var page = {
 
 	} 
 	// ################### 배달출발확정(전송) end		
+	
+	// ################### 집하완료전송(전송) start
+	, cmptTrsmP : function(){
 
+		var page = this;
+		var cldl_sct_cd = "P";							// 업무구분
+		var pick_sct_cd = "";
+		var cldl_tmsl_cd = page.returnTimeCd();			// 예정시간코드
+		var mbl_dlv_area = page.returnAreaCd();			// 구역명칭
+		var base_ymd = page.cldl0802.base_ymd;		// 기준일자
+		var area_sct_cd = page.dlvyCompl.area_sct_cd;	//구역시간 구분
+		
+		if(!_.isUndefined(page.dlvyCompl.area_sct_cd) && page.dlvyCompl.area_sct_cd == 'Y'){
+			cldl_tmsl_cd = "";
+			mbl_dlv_area = page.returnAreaCd();
+		}else{
+			cldl_tmsl_cd = page.returnTimeCd();
+			mbl_dlv_area = "";
+		}
+		 
+		page.apiParamInit();		// 파라메터 전역변수 초기화
+		page.apiParam.param.baseUrl = "smapis/cldl/cmptTrsm";		// api no
+		page.apiParam.param.callback = "page.cmptTrsmCallbackP";		// callback methode
+		page.apiParam.data = {				// api 통신용 파라메터
+			"parameters" : {
+				"cldl_sct_cd" : cldl_sct_cd			// 업무구분
+				, "pick_sct_cd" : pick_sct_cd		// 일반집하, 전산집하 구분코드
+				, "cldl_tmsl_cd" : cldl_tmsl_cd		// 예정시간 구분코드
+				, "mbl_area" : mbl_dlv_area			// 구역명칭
+				, "area_sct_cd" : area_sct_cd
+				, "base_ymd" : base_ymd
+				, "bld_mgr_no" : page.cldl0802.bld_mgr_no
+			}
+		};
+
+		smutil.loadingOn();			// 로딩바 on
+
+		// 공통 api호출 함수
+		smutil.callApi(page.apiParam); 
+			page.apiParamInit();			// 파라메터 전역변수 초기화
+
+	}
+
+	// 집하완료전송 콜백
+	, cmptTrsmCallbackP : function(result){
+		try{
+			// api 전송 성공
+			if(smutil.apiResValidChk(result) && result.code == "0000"){
+
+				LEMP.Window.toast({
+					"_sMessage" : "집하완료를 전송하였습니다.",
+					"_sDuration" : "short"
+				});
+
+				page.listReLoad();					// 리스트 제조회
+				//page.closeWindow(); //testdev
+			}
+		}
+		catch(e){}
+		finally{
+			smutil.loadingOff();			// 로딩바 닫기
+			page.apiParamInit();			// 파라메터 전역변수 초기화
+		}
+	}
+	// ################### 집하완료전송(전송) end	
+		
 	// cldl306  스캔팝업 콜백 함수
 	, CLDL0306Callback : function(result){
 		page.apiParamInit();		// 전역 api 파라메터 초기화
@@ -2812,12 +2844,10 @@ var page = {
 		}
 
 	}
-
-	// mms 전송후 페이지 제조회
+	// mms 전송후 페이지 재조회
 	, cldl0410Callback : function(){
 		page.listReLoad();				// 리스트 재조회
 	}
-
 
 	//##########################################################################
 	// 시간변경 api 호출	start
@@ -2874,6 +2904,90 @@ var page = {
 		}
 		
 		page.listReLoad();
+	}
+	, callbackBackButton : function(){
+		if(page.cldl0802.step_sct_cd == "1") {
+			// 하단 스캔건수 조회
+			var scancnt = 0; 
+			var cldlSctNm = '집하';
+			if(page.cldl0802.cldl_sct_cd == "P") {
+				scancnt = Number(smutil.nullToValue($('#scanLstCnt').text(),"0"));
+				cldlSctNm = '집하';
+			} else {
+				scancnt = Number(smutil.nullToValue($('#scanLstCntD').text(),"0"));
+				cldlSctNm = '배달';
+			} 
+			if(scancnt > 0) {
+				page.chkScanCnt(scancnt, cldlSctNm);	
+			} else {
+				page.closeWindow();	
+			}
+			
+		} else {
+			page.closeWindow();			
+		}
+
+	}
+	, closeWindow : function(){
+		if(page.is_reload == null) {
+				LEMP.Window.close();
+			} else {
+				LEMP.Window.close({
+						"_oMessage":{
+							"param":{"step_sct_cd":page.cldl0802.step_sct_cd}
+						},
+						"_sCallback":"page.cldl0802Callback"
+					});
+			}
+	}
+	
+	// 물리적 뒤로가기 버튼 및 뒤로가기 화살표 버튼 클릭시 스캔 체크해서 전송여부 결정
+	, chkScanCnt : function(scancnt, cldlSctNm){ 
+		
+
+		// 스캔 후 전송안된 데이터가 남아있으면 전송 후 페이지 이동 가능
+		if(scancnt>0){
+			var btnCancel = LEMP.Window.createElement({ _sElementName:"TextButton" });
+				btnCancel.setProperty({
+					_sText : "취소",
+					_fCallback : function(){}
+				});
+
+				var btnConfirm = LEMP.Window.createElement({ _sElementName:"TextButton" });
+				btnConfirm.setProperty({
+					_sText : "확인",
+					_fCallback : function(){
+
+						// 집하배달출발 확정(전송) 컴펌창 호출
+						if(scancnt > 0){
+							$('#pop2Txt2').html('스캔된 데이터 '+scancnt+'건<br />'+cldlSctNm+'완료를 전송합니다.');
+							$('#popCldlSctNm').text(cldlSctNm + '완료 전송');
+							$('.mpopBox.pop2').bPopup();
+						}
+						else{
+							LEMP.Window.toast({
+								"_sMessage":"스캔한 데이터가 없습니다.",
+								'_sDuration' : 'short'
+							});
+
+							return false;
+						}
+					}
+				});
+
+				LEMP.Window.confirm({
+					"_sTitle":"미전송 스캔데이터 확인.",
+					"_vMessage" : "전송완료가 안된 스캔데이터가 있습니다.\n전송후 페이지 이동이 가능합니다. \n전송 하시겠습니까?",
+					"_aTextButton" : [btnCancel, btnConfirm]
+				});
+			}
+			else{
+				LEMP.Window.close({
+					"_oMessage" : {
+						"param" : ""
+					}
+				});
+			}
 	}
 	// 현재 리스트가 스캔이 되어있는지 체크
 	// 스캔 했으면 true, 안했으면 false
@@ -2932,7 +3046,7 @@ var page = {
 	,getLocation:function() {
 		if(navigator.geolocation) { //GPS 지원여부
 			navigator.geolocation.getCurrentPosition(function(position) {
-				page.sp = position.coords.latitude +","+position.coords.longitude;
+				
 				if((position.coords.latitude + "").substr(0,1) == '1') {
 					page.lgtd = position.coords.latitude;
 					page.lttd = position.coords.longitude;	

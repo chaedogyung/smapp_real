@@ -602,7 +602,7 @@ var page = {
 			page.getLocation();
 		};
 		mapContainer.appendChild(divMapReload);
-		$("#mapReload").css({"top": "0px", "z-index": "1"});
+		$("#mapReload").css({"top": "0px" ,"margin-left": "8px", "z-index": "1"});
 	}
 	// api 파람메터 초기화
 	,apiParamInit : function(){

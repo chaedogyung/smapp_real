@@ -61,7 +61,7 @@
                    </span>
                </div>
                 <div style="flex: 1;">
-                    <span class="btn btnCal" id="cldlBtnCal" style="padding-left:21px;padding-top: 8px;">2023.03.16</span>
+                    <span class="btn btnCal" id="cldlBtnCal" style="padding-left:21px;padding-top: 8px;"></span>
                 </div>
                 
                  <div style="flex: 1;">
@@ -80,7 +80,7 @@
         </div>
         <!-- //contentBox -->
         <!-- tabView -->
-        <div class="tabView deliveryTy6 deliveryTy3Cal" id="listViewDiv">
+        <div class="tabView deliveryTy2 deliveryTy3Cal" id="listViewDiv">
             <ul>
                 <li>
                     <!-- baedalListBox -->
@@ -253,7 +253,9 @@
     </li>
 {{else}}
     <li class="noList">
-        <p class="txt tc">조회된 결과가 없습니다.</p>
+        <div class="NoBox">
+            <p class="txt tc">조회된 결과가 없습니다.</p>
+        </div>
     </li>
 {{/each}}
 </script>
@@ -319,7 +321,9 @@
     </li>
 {{else}}
     <li class="noList">
-        <p class="txt tc">조회된 결과가 없습니다.</p>
+        <div class="NoBox">
+            <p class="txt tc">조회된 결과가 없습니다.</p>
+        </div>
     </li>
 {{/each}}
 

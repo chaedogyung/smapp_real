@@ -298,7 +298,7 @@ var page = {
 	
 						$("#cldl0801LstUl").find("li:eq(0)").trigger("click");					
 					}
-					else{ console.log('result 00000 nolist');
+					else{
 						// 리스트가 아무것도 없을경우에는 기본으로 18~20 시 코드를 셋팅한다
 						var data = {"list" : [{
 							"mbl_area": "기타",
@@ -310,7 +310,7 @@ var page = {
 							"cldl_tmsl_cd": "19",
 							"cnt" : 0,
 							"tmsl_pick_cnt" : 0,
-							"tmsl_pick_cnt" : 0,
+							"tmsl_dlv_cnt" : 0,
 							"min_tmsl" : "18",
 							"max_tmsl" : "19"							
 						}]};
@@ -425,23 +425,18 @@ var page = {
 					if(smutil.isEmpty(page.curLgtd)) {
 						alert('GPS 확인요망');
 					}
-					
-					/*if(navigator.geolocation) { //GPS 지원여부
-						alert('navigator.geolocation');
-					} else {
-						alert('navigator.geolocation not!!!!');
-					}*/
 				}	
 				page.isfirst = false;
 			}
 		} 
 		//현재위치 찾기
 		,getLocation:function() {
+			
 			//if(navigator.geolocation) { //GPS 지원여부
 				navigator.geolocation.getCurrentPosition(function(position) {
 					page.curLocation = new kakao.maps.LatLng(position.coords.latitude,position.coords.longitude);
-					//alert('curlat: ' + position.coords.latitude + ' lon:' + position.coords.longitude);
-					page.isGpsLoad = true;					
+					//console.log('curlat: ' + position.coords.latitude + ' lon:' + position.coords.longitude);
+					page.isGpsLoad = true;
 					if((position.coords.latitude + "").substr(0,1) == '1') {
 						page.curLgtd = position.coords.latitude;
 						page.curLttd = position.coords.longitude;	
@@ -457,11 +452,10 @@ var page = {
 				}, function(error) {
 					//console.error(error);
 					alert('GPS권한이 필요합니다.');
-					page.mapSelectList();
 				}, {
 					enableHighAccuracy : false,//배터리를 더 소모해서 더 정확한 위치를 찾음
 					maximumAge: 0, //한 번 찾은 위치 정보를 해당 초만큼 캐싱
-					timeout: Infinity //주어진 초 안에 찾지 못하면 에러 발생
+					timeout: 4000//Infinity //주어진 초 안에 찾지 못하면 에러 발생
 				});
 			//}
 		}
@@ -544,7 +538,7 @@ var page = {
 						paramdata.base_ymd=page.base_ymd;
 						paramdata.step_sct_cd=page.step_sct_cd;
 						paramdata.cldl_sct_cd = cldl_sct_cd;
-						paramdata.ep = arr[mid].lttd+ "," +arr[mid].lgtd;	
+						paramdata.ep = arr[mid].lttd+ "," +arr[mid].lgtd;
 						
 						paramdata.lttd = arr[mid].lttd;
 						paramdata.lgtd = arr[mid].lgtd;
@@ -604,7 +598,7 @@ var page = {
 			page.getLocation();
 		};
 		mapContainer.appendChild(divMapReload);
-		$("#mapReload").css({"top": "0px", "z-index": "1"});
+		$("#mapReload").css({"top": "0px" ,"margin-left": "8px", "z-index": "1"});
 	}
 		// api 파람메터 초기화
 	,apiParamInit : function(){
