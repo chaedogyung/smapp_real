@@ -479,8 +479,8 @@ var page = {
 
 			// 배달출발 전송(전송) 컴펌창 호출
 			if(scanCnt > 0){
+				$('#pop2Txt1').text('집하완료 전송');
 				$('#pop2Txt2').html('스캔된 데이터 '+scanCnt+'건<br />집하완료를 전송합니다.');
-				$('#popCldlSctNm').text('집하완료 전송');
 				$('.mpopBox.pop2').bPopup();
 			}
 			else{
@@ -580,8 +580,8 @@ var page = {
 
 			// 배달출발 확정(전송) 컴펌창 호출
 			if(scanCnt > 0){
+				$('#pop2Txt1').text('배달완료 전송');
 				$('#pop2Txt2').html('전송할 데이터 '+scanCnt+'건<br />배달완료를 전송합니다.');
-				$('#popCldlSctNm').text('배달완료 전송');
 				$('.mpopBox.pop2').bPopup();
 			}
 			else{
@@ -2960,8 +2960,8 @@ var page = {
 
 						// 집하배달출발 확정(전송) 컴펌창 호출
 						if(scancnt > 0){
+							$('#pop2Txt1').text(cldlSctNm + '완료 전송');
 							$('#pop2Txt2').html('스캔된 데이터 '+scancnt+'건<br />'+cldlSctNm+'완료를 전송합니다.');
-							$('#popCldlSctNm').text(cldlSctNm + '완료 전송');
 							$('.mpopBox.pop2').bPopup();
 						}
 						else{
