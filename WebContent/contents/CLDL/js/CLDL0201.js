@@ -1643,7 +1643,7 @@ var page = {
 					
 					//화물사고 알림List 세팅
 					page.dataListAll = result.data.listAll;
-					
+					page.acdTypYn = "N"; //재조회시 팝업 유무 초기화
 					console.log(page.dataListAll);
 
 				}
