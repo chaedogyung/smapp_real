@@ -11,7 +11,8 @@ var page = {
 		dlvyCompl : null,			// 구역,시간 기준
 		curLat: null,   		// 현재나의위치
 		curLong: null,   		// 현재나의위치
-		aceTypYn: "N",         //화물사고 팝업 유무
+		acdTypYn: "N",         //화물사고 팝업 유무
+		dataListAll: {},         //화물사고 알림 전용 전체 데이터
 		// api 호출 기본 형식
 		apiParam : {
 			id:"HTTP",			// 디바이스 콜 id
@@ -434,10 +435,12 @@ var page = {
 			$('#dprtTrsmTrsmBtn').click(function(e){
 
 				var alarmCnt = 1;
-				if(page.aceTypYn == "N") {
+				if(page.acdTypYn == "N") {
 					alarmCnt = page.scanAlarm(); //배달전 알림 로직 추가
-					page.aceTypYn = "Y";
+					page.acdTypYn = "Y";
 				}
+				
+				console.log(alarmCnt);
 				
 				if(alarmCnt > 1) {
 					return;
@@ -1604,8 +1607,7 @@ var page = {
 
 			page.apiParamInit();		// 파라메터 전역변수 초기화
 		},
-
-
+		
 		// 리스트 조회후 그리기
 		dprtListCallback : function(result){
 			page.apiParamInit();		// 파라메터 전역변수 초기화
@@ -1624,6 +1626,7 @@ var page = {
 					if(result){
 						data = result.data;
 					}
+					
 					//data = [];
 
 					// 핸들바 템플릿 가져오기
@@ -1637,6 +1640,11 @@ var page = {
 
 					// 생성된 HTML을 DOM에 주입
 					$('.cldl0201LstUl').html(liHtml);
+					
+					//화물사고 알림List 세팅
+					page.dataListAll = result.data.listAll;
+					
+					console.log(page.dataListAll);
 
 				}
 				else{		// 조회 결과 없음
@@ -1657,7 +1665,6 @@ var page = {
 
 		},
 		// ################### 페이지 리스트 조회 end
-
 
 		// 리스트 제조회 함수
 		listReLoad : function(){
@@ -2477,31 +2484,28 @@ var page = {
 		
 		//스캔 등록시 화물사고 알림
 		scanAlarm:function() {
-			
-			var base_ymd = $('#cldlBtnCal').text();
-			base_ymd = base_ymd.split('.').join('');
 
-			var liLst = $('.baedalListBox > ul > li');
+			var listAll = page.dataListAll;
 			var inv_no;									// li 에 걸려있는 송장번호
 			var param_list = [];						// 전송할 리스트 배열
 			var invNoObj = {};
-			var aceTypCd;
+			var acdTypCd;
 			var msg = "하기 송장은<br />분실 / 파손 / 반품접수 / 등의 사유로<br />집배달 불가 상품 입니다. <br />";
 			var alarmCnt = 1;
 			
 			// 모든 li 리스트를 돌면서 스캔한 데이터와 체크박스의 체크한 데이터를 셋팅한다.
-			$.each(liLst, function(idx, liObj){
-				inv_no = $(liObj).attr('id')+"";
+			$.each(listAll, function(index, obj){
+				inv_no = obj.inv_no;
 				inv_no = inv_no.replace(/([0-9]{4})([0-9]{4})([0-9]{4})/,"$1-$2-$3");
-				aceTypCd = $(liObj).data('liAceTypCd');
+				acdTypCd = obj.acd_typ_cd;
 				
-				if(aceTypCd == "10") {
+				if(acdTypCd == "10") {
 					msg += "<br />" + alarmCnt + ") " + inv_no + "<br />" + "- 분실 사고 등록 건<br />";
 					alarmCnt ++;
-				} else if(aceTypCd == "30") {
+				} else if(acdTypCd == "30") {
 					msg += "<br />" + alarmCnt + ") " + inv_no + "<br />" + "- 경유점소에서 사고확인서 등록 건<br />";
 					alarmCnt ++;
-				} else if(aceTypCd == "60") {
+				} else if(acdTypCd == "60") {
 					msg += "<br />" + alarmCnt + ") " + inv_no + "<br />" + "- 반품 지시 접수 건<br />";
 					alarmCnt ++;
 				}
