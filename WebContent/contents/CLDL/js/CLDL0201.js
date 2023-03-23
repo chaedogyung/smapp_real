@@ -2490,7 +2490,7 @@ var page = {
 			var param_list = [];						// 전송할 리스트 배열
 			var invNoObj = {};
 			var acdTypCd;
-			var msg = "하기 송장은<br />분실 / 파손 / 반품접수 / 등의 사유로<br />집배달 불가 상품 입니다. <br />";
+			var msg = "하기 송장은<br />분실 / 파손 / 반품접수 등의 사유로<br />집배달 불가 상품 입니다. <br />";
 			var alarmCnt = 1;
 			
 			// 모든 li 리스트를 돌면서 스캔한 데이터와 체크박스의 체크한 데이터를 셋팅한다.
