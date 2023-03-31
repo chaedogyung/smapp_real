@@ -3329,5 +3329,13 @@ var page = {
 			}
 			
 		}
+		// 운송장목록 팝업창 닫을때 callback 함수
+		, com0201Callback : function(res){
+			//console.log(' com0201Callback:: ', res);	
+			if(!smutil.isEmpty(res.param.step_sct_cd)) {
+				page.listReLoad();
+			}
+		}
+
 };
 

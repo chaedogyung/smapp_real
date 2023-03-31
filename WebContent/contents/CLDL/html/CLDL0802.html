@@ -13,7 +13,7 @@
 
     <script type="text/javascript" src="../../LEMP/LEMP.js"></script>
     <script type="text/javascript" src="../js/CLDL0802.js"></script>
-    
+
 </head>
 
 <body style="background-color: white;">
@@ -53,19 +53,20 @@
                 </ul>
            </div>
            
-            <div class="topHead" style="display: flex;">
-               <div style="flex: 1;left: 10px;margin-top: 6px;">
+            <div class="topHead">
+               <div style="float: left; width: 33%;left: 10px;margin-top: 6px;">
                    <span class="chkBox m" id="chkAllSpan" style="display:none;">
                         <input type="checkbox" name="chkall" id="checkall" /> 
                         <label for="checkall">선택</label>
                    </span>
                </div>
-                <div style="flex: 1;">
-                    <span class="btn btnCal" id="cldlBtnCal" style="padding-left:21px;padding-top: 8px;"></span>
+                <div style="float: left; width: 33%;">
+                    <span class="btn btnCal" id="cldlBtnCal" style="padding-top: 8px;padding-left:21px;"></span>
                 </div>
                 
-                 <div style="flex: 1;">
-                     <div class="insuja" id="insuja" style="display:none;">
+                 <div style="float: left; width: 33%;right:5px;">
+                     <span class="cldl1D sort1" id="select_order" data-value="01" style="display:none;"></span>
+                     <div class="cldl1D insuja2" id="insuja" style="display:none;">
                         <span class="txt insujaTxtView" >인수자정보</span>
                         <button class="btn plus"></button>
                         <input type="hidden" id="insujaCode" name="insujaCode">
@@ -101,7 +102,7 @@
         <!--  //contentSection  -->
         
         <!-- ftMenu 집하 하단-->
-        <div class="ftMenu li4" id="bottomDiv">
+        <div class="ftMenu li4 cldl1P" style="display: none;">
             <ul>
                 <li>
                     <button class="btn ftScan" id="scnBtnP">
@@ -125,7 +126,7 @@
         <!-- //ftMenu -->
         
         <!-- ftMenu 배달 하단-->
-        <div class="ftMenu li5" id="bottomDivD" style="display: none;">
+        <div class="ftMenu li5 cldl1D" style="display: none;">
             <ul>
                 <li>
                     <button class="btn ftScan" id="scnBtnD">
@@ -196,7 +197,7 @@
 <!-- 리스트 li 집하P -->
 <script type="text/x-handlebars-template" id="cldl0802_li_template" >
 {{#each list}}
-    <li id="{{inv_no}}" class='row-four cldlSctCd_{{cldl_sct_cd}}' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}'>
+    <li id="{{inv_no}}" class='row-four cldlSctCd_{{cldl_sct_cd}}' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}' data-li-tmsl-nm='{{cldl_tmsl_nm}}' data-li-tmsl-cd='{{cldl_tmsl_cd}}' data-li-acd-typ-cd='{{acd_typ_cd}}'>
         <div class="baedalBox {{scanYnClass scanYn}} jibBox noChk" data-scn-inv-no='{{inv_no}}'>
             {{#isChk}}
             <div class="chk">
@@ -210,7 +211,12 @@
                 <span class="{{corpLogoReturn corplogo}}"></span>
             </div>
             <div class="infoBox">
-                <p class="tit">
+                {{#acd_typ_cd}}
+                    <p class="tit" style="color:red">
+                {{else}}
+                    <p class="tit">
+                {{/acd_typ_cd}}
+
                     <span class="dsin vm invNoSpan">{{invNoTmpl inv_no}}</span>
 
                     {{#prcsMemoYn}}     {{!-- 기사 메모 내용이 있는지 없는지 확인하는 if --}}
@@ -234,6 +240,9 @@
                     {{#acdYnChk}}
                         <span class="badge purple s outline">사고</span>
                     {{/acdYnChk}}
+
+                    {{!-- 화물 사고 유형  helper--}}
+                    {{setAcdTyp acdtypBtn}}
                 </p>
                 {{!-- 집하, 배달 구분 해서 보내는사람 받는사람 정보 태그로 리턴 --}}
                 {{cldlSctCdChkTag resultTag}}
@@ -262,7 +271,7 @@
 
 <script type="text/x-handlebars-template" id="cldl0802_li_templateD" >
 {{#each listD}}
-    <li id="{{inv_no}}" class='row-four cldlSctCd_{{cldl_sct_cd}}' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}'>
+    <li id="{{inv_no}}" class='row-four cldlSctCd_{{cldl_sct_cd}}' data-inv-no='{{inv_no}}' data-rsrv-mgr-no='{{rsrv_mgr_no}}' data-li-sct-cd='{{cldl_sct_cd}}' data-li-tmsl-nm='{{cldl_tmsl_nm}}' data-li-tmsl-cd='{{cldl_tmsl_cd}}' data-li-acd-typ-cd='{{acd_typ_cd}}'>
         <div class="baedalBox {{scanYnClass scanYn}} baeBox" data-scn-inv-no='{{inv_no}}'>
             {{#isChk}}
             <div class="chk">
@@ -276,7 +285,12 @@
                 <span class="{{corpLogoReturn corplogo}}"></span>
             </div>
             <div class="infoBox">
-                <p class="tit">
+                {{#acd_typ_cd}}
+                    <p class="tit" style="color:red">
+                {{else}}
+                    <p class="tit">
+                {{/acd_typ_cd}}
+
                     <span class="dsin vm invNoSpan">{{invNoTmpl inv_no}}</span>
 
                     {{#prcsMemoYn}}     {{!-- 기사 메모 내용이 있는지 없는지 확인하는 if --}}
@@ -300,6 +314,9 @@
                     {{#acdYnChk}}
                         <span class="badge purple s outline">사고</span>
                     {{/acdYnChk}}
+
+                    {{!-- 화물 사고 유형  helper--}}
+                    {{setAcdTyp acdtypBtn}}
                 </p>
                 {{!-- 집하, 배달 구분 해서 보내는사람 받는사람 정보 태그로 리턴 --}}
                 {{cldlSctCdChkTag resultTag}}

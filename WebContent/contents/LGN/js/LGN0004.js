@@ -4,7 +4,9 @@ var page = {
 	
 	init:function()
 	{
-		page.initEvent();					// 이벤트 등록
+		// page.initEvent();					// 이벤트 등록
+		page.callbackBackButton();
+
 	},
 	
 	
@@ -46,10 +48,12 @@ var page = {
 			}
 		});
 
-		LEMP.Window.confirm({
-			_vMessage : "앱을 종료하시겠습니까?",
-			_aTextButton : [ btnCancel, btnConfirm ]
-		});
+		var popUrl = smutil.getMenuProp("MAN.MAN0001","url");
+			
+			 LEMP.Window.open({
+			 	"_sPagePath":popUrl,
+			 });
+		
 	}
 	
 	

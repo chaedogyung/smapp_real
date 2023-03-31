@@ -8,6 +8,8 @@ var page = {
 	changeTimeInvNo : null,		// 시간 변경을 선택한 invNo
 	changeTimeSctCd : null,		// 시간 변경을 선택한 송장의 배달, 집하코드
 	reqAcptRgstInvNo : null,	// 인수자 변경을 선택한 송장번호
+	order : "01",				// 배달완료 정렬방식
+	resData : null,				// 배달완료 정렬데이타		
 	init:function(arg)
 	{
 		page.cldl0802 = arg.data.param;
@@ -24,6 +26,21 @@ var page = {
 		}		
 		$('#cldlBtnCal').text(curDate);
 		
+		// 배달완료 정렬방식 세팅
+		page.order = LEMP.Properties.get({"_sKey":"order"});
+		if(smutil.isEmpty(page.order)){
+			page.order = "01";
+		}
+
+        if (page.order == "01") {
+            //$("#select_order").text("");
+            $("#select_order").data("value", "01");
+            $("#select_order").attr("class", "cldl1D sort1");
+		} else {
+            //$("#select_order").text("");
+            $("#select_order").data("value", "02");
+            $("#select_order").attr("class", "cldl1D sort2");
+		}
 		//page.getLocation();
 		page.initEvent();
 		page.initDpEvent();			// 화면 디스플레이 이벤트
@@ -97,21 +114,18 @@ var page = {
 			$('#headnm').text("집배달 완료");
 			$('#chkAllSpan').show();
 			if(page.cldl0802.cldl_sct_cd == 'P'){
-				$('#insuja').hide();
-				$("#bottomDiv").show();	
-				$("#bottomDivD").hide();
+				$(".cldl1P").show();	
+				$(".cldl1D").hide();
 			} else {
-				$('#insuja').show();
-				$("#bottomDivD").show();
-				$("#bottomDiv").hide();
+				$(".cldl1D").show();
+				$(".cldl1P").hide();
 			}
 		} else {
 			$(".deliveryTy3Cal").css({"margin-top": "177px"});
 			
 			$('#chkAllSpan').hide();
-			$('#insuja').hide();
-			$("#bottomDiv").hide();
-			$("#bottomDivD").hide();
+			$(".cldl1P").hide();
+			$(".cldl1D").hide();
 			if(page.cldl0802.step_sct_cd == '0'){
 				$('#headnm').text("집배달 출발");
 			} else {
@@ -178,31 +192,28 @@ var page = {
 				
 				if(page.cldl0802.step_sct_cd == '1'){ //완료(집하/배달)
 					$('#chkAllSpan').show();
-					$('#insuja').show();					
-					$("#bottomDiv").hide();
-					$("#bottomDivD").show();
+					$(".cldl1P").hide();
+					$(".cldl1D").show();
 				}
 				else{
 					$('#chkAllSpan').hide();
-					$('#insuja').hide();
-					$("#bottomDiv").hide();
-					$("#bottomDivD").hide();
+					$(".cldl1P").hide();
+					$(".cldl1D").hide();
 				}
 			}
 			else{
 				$('#invDetailP').show();
 				$('#invDetailD').hide();
-				
-				$('#insuja').hide();
+
 				if(page.cldl0802.step_sct_cd == '1'){
 					$('#chkAllSpan').show();
-					$("#bottomDiv").show();
-					$("#bottomDivD").hide();
+					$(".cldl1P").show();
+					$(".cldl1D").hide();
 				}
 				else{
 					$('#chkAllSpan').hide();
-					$("#bottomDiv").hide();
-					$("#bottomDivD").hide();
+					$(".cldl1P").hide();
+					$(".cldl1D").hide();
 
 				}
 			}
@@ -221,6 +232,26 @@ var page = {
 			});
 			
 			page.invDtl();			// 리스트 재조회
+		});
+		
+		// 배달완료 정렬방식 변경
+		$("#select_order").click(function(e) {
+
+		   if ($(this).data("value") == "01") {
+		      //$("#select_order").text("역순");
+              $("#select_order").data("value", "02");
+              $("#select_order").attr("class", "cldl1D sort2");//mgl15 selBox
+           } else {
+              //$("#select_order").text("정렬");
+              $("#select_order").data("value", "01");
+              $("#select_order").attr("class", "cldl1D sort1");
+           }
+
+            var selOrder =  $(this).data("value");
+			LEMP.Properties.set({"_sKey" : "order", "_vValue" : selOrder});
+			page.order = selOrder;
+
+			page.listOrder();					// 리스트 정렬
 		});
 		
 		// 송장번호 누른경우 (상세보기 연결)
@@ -263,7 +294,7 @@ var page = {
 		
 		
 		// 인수자 설정 버튼 클릭
-		$(document).on('click', '.insuja', function(e){
+		$(document).on('click', '.insuja2', function(e){
 			var inv_no = $(this).data('invNo')+"";
 
 			// 인수자 설정 팝업 호출
@@ -580,8 +611,8 @@ var page = {
 
 			// 배달출발 확정(전송) 컴펌창 호출
 			if(scanCnt > 0){
-				$('#pop2Txt1').text('배달완료 전송');
 				$('#pop2Txt2').html('전송할 데이터 '+scanCnt+'건<br />배달완료를 전송합니다.');
+				$('#pop2Txt1').text('배달완료 전송');
 				$('.mpopBox.pop2').bPopup();
 			}
 			else{
@@ -772,30 +803,15 @@ var page = {
 				return false;
 			}
 		});
- 
-		$("#headnm").click(function(){
-			if(smutil.isEmpty(page.cldl0802.curlgtd) || smutil.isEmpty(page.cldl0802.curlttd)){
-				alert('GPS를 확인하세요');
-				return;
-			}
-			//var routeUrl="http://m.map.naver.com/route.nhn?menu=route&sname=출발&sx=126.9736211&sy=37.5570572&ename=도착&ex=127.0276368&ey=37.4979502&pathType=0&showMap=true";
-				var routeUrl="http://m.map.naver.com/route.nhn?menu=route&sname=출발" //ok s:o, m:o 
-				+"&sx=" + page.cldl0802.curlgtd + "&sy=" + page.cldl0802.curlttd
-				+"&ename=도착"
-				+"&ex=" + page.cldl0802.lgtd + "&ey=" + page.cldl0802.lttd
-				+"&pathType=0&showMap=true";
-				//alert(routeUrl); 
-				
-				LEMP.System.callBrowser({
-					"_sURL" : routeUrl
-				});
 
-		});
 
 		// 스와이프해서 이동경로버튼 클릭한 경우
 		$(document).on('click', '.btn.blue7.bdM.bdRoute.mgl1', function(e){
 			if(smutil.isEmpty(page.cldl0802.curlgtd) || smutil.isEmpty(page.cldl0802.curlttd)){
-				alert('GPS를 확인하세요');
+				LEMP.Window.toast({
+					"_sMessage":"GPS(핸드폰 위치 서비스) 설정 바랍니다.",
+					'_sDuration' : 'short'
+				});
 				return;
 			}
 			
@@ -1165,7 +1181,6 @@ var page = {
 			}
 		});
 
-
 		// 사고 여부 체크
 		Handlebars.registerHelper('acdYnChk', function(options) {
 			if(this.acd_yn === "Y"){	// 사고
@@ -1178,6 +1193,24 @@ var page = {
 			}
 		});
 
+
+		// 화물사고시 사고유형 버튼 표시
+		Handlebars.registerHelper('setAcdTyp', function(options) {
+			var html = '';
+			if(page.cldl0802.step_sct_cd == '0'){ //cldl201
+				if(this.acd_typ_cd === "10"){	// 분실
+					html = '<span class="badge gray s outline">분실</span>';
+				}
+				else if(this.acd_typ_cd === "30"){	// 파손
+					html = '<span class="badge gray s outline">파손</span>';
+				}
+				else if(this.acd_typ_cd === "60"){	// 반품
+					html = '<span class="badge gray s outline">반품</span>';
+				}
+			}
+			return new Handlebars.SafeString(html);
+		});	
+		
 		// 신선식품 여부 체크
 		Handlebars.registerHelper('fresYnChk', function(options) {
 			if(this.fres_yn === "Y"){	// 신선식품
@@ -1284,6 +1317,13 @@ var page = {
 		page.invDtl();				// 리스트 재조회
 	}
 	
+	, listOrder : function(){	//리스트 정렬
+		if(resData != null && resData.listD.length > 0){
+			resData.listD.reverse();
+			var templateD = Handlebars.compile($("#cldl0802_li_templateD").html());
+			$('#cldl0802LstUlD').html(templateD(resData));
+		}
+	}
 	
 	//건물번호로 운송장목록 조회
 	,invDtl:function(){
@@ -1321,22 +1361,26 @@ var page = {
 
 			if (res.data_count !== 0 && smutil.apiResValidChk(res) && res.code==="0000") { 
 
-				
+				resData = res.data;
 				if(page.cldl0802.cldl_sct_cd == "P") {
-					$('#cldl0802LstUl').html(template(res.data));
-				} else {					
-					$('#cldl0802LstUlD').html(templateD(res.data));
+					$('#cldl0802LstUl').html(template(resData));
+				} else {
+					if(page.order == "02"){
+						resData.listD.reverse();
+					}
+					
+					$('#cldl0802LstUlD').html(templateD(resData));
 				}
 				
 				var tot = 0, totD = 0, scanLstCnt=0, scanLstCntD = 0;
-				if(res.data.list.length > 0) {					
-					tot = smutil.nullToValue((res.data.list[0].tot),0);
-					scanLstCnt = smutil.nullToValue((res.data.list[0].scan_cnt),0);
+				if(resData.list.length > 0) {					
+					tot = smutil.nullToValue((resData.list[0].tot),0);
+					scanLstCnt = smutil.nullToValue((resData.list[0].scan_cnt),0);
 				}
 				
-				if(res.data.listD.length > 0) {					
-					totD = smutil.nullToValue((res.data.listD[0].tot),0);
-					scanLstCntD = smutil.nullToValue((res.data.listD[0].scan_cnt),0);
+				if(resData.listD.length > 0) {					
+					totD = smutil.nullToValue((resData.listD[0].tot),0);
+					scanLstCntD = smutil.nullToValue((resData.listD[0].scan_cnt),0);
 				}
 				
 				$('#cldlPcnt').text('집하 '+tot+'건');
@@ -1344,9 +1388,9 @@ var page = {
 				$('#scanLstCnt').text(scanLstCnt);
 				$('#scanLstCntD').text(scanLstCntD);
 				
-				//$('#cldl0802LstUlD').html(templateD(res.data));
+				//$('#cldl0802LstUlD').html(templateD(resData));
 				
-				/*if(res.data.list.length == 0) {
+				/*if(resData.list.length == 0) {
 					$(".tabBox").find("li:eq(1)").trigger("click");
 				}*/
 			} else {
@@ -1798,7 +1842,7 @@ var page = {
 					liKey.prependTo('#cldl0802LstUlD');
 
 					// 인수자 추가
-					$('#'+cldl_sct_cd+inv_no+"_chk").attr('data-acpr-nm', acpr_nm);
+					$('#'+inv_no+"_chk").attr('data-acpr-nm', acpr_nm);
 
 				}
 				else {	// 스캔한 정보가 리스트에 없는경우는 li 추가
@@ -2819,7 +2863,7 @@ var page = {
 
 			// 사진전송 로직 시작~!!!
 			var popUrl = smutil.getMenuProp("CLDL.CLDL0410","url");
-
+			console.log(paramObj);
 			LEMP.Window.open({
 				"_sPagePath":popUrl,
 				"_oMessage":{"param":{"list" : paramObj, "acpr_nm" : acpr_nm}}		// 인수자명 셋팅
@@ -2960,8 +3004,8 @@ var page = {
 
 						// 집하배달출발 확정(전송) 컴펌창 호출
 						if(scancnt > 0){
-							$('#pop2Txt1').text(cldlSctNm + '완료 전송');
 							$('#pop2Txt2').html('스캔된 데이터 '+scancnt+'건<br />'+cldlSctNm+'완료를 전송합니다.');
+							$('#pop2Txt1').text(cldlSctNm + '완료 전송');
 							$('.mpopBox.pop2').bPopup();
 						}
 						else{

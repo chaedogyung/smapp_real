@@ -916,7 +916,6 @@ var page = {
 				}
 			});
 
-
 			// 사고 여부 체크
 			Handlebars.registerHelper('acdYnChk', function(options) {
 				if(this.acd_yn === "Y"){	// 사고
@@ -928,6 +927,22 @@ var page = {
 					return options.inverse(this);
 				}
 			});
+			
+			// 화물사고시 사고유형 버튼 표시
+			Handlebars.registerHelper('setAcdTyp', function(options) {
+				var html = '';
+				
+				if(this.acd_typ_cd === "10"){	// 분실
+					html = '<span class="badge gray s outline">분실</span>';
+				}
+				else if(this.acd_typ_cd === "30"){	// 파손
+					html = '<span class="badge gray s outline">파손</span>';
+				}
+				else if(this.acd_typ_cd === "60"){	// 반품
+					html = '<span class="badge gray s outline">반품</span>';
+				}
+				return new Handlebars.SafeString(html);
+			});	
 
 			// ###################################### handlebars helper 등록 end
 			//시간변경 이벤트 
@@ -2500,7 +2515,7 @@ var page = {
 				acdTypCd = obj.acd_typ_cd;
 				
 				if(acdTypCd == "10") {
-					msg += "<br />" + alarmCnt + ") " + inv_no + "<br />" + "- 분실 사고 등록 건<br />";
+					msg += "<br />" + alarmCnt + ") " + inv_no + "<br />" + "- 분실 사고 진행 건<br />";
 					alarmCnt ++;
 				} else if(acdTypCd == "30") {
 					msg += "<br />" + alarmCnt + ") " + inv_no + "<br />" + "- 경유점소에서 사고확인서 등록 건<br />";
@@ -2519,6 +2534,13 @@ var page = {
 			$('.mpopBox.scanAlarm').bPopup();
 			
 			return alarmCnt;
+		}
+		// 운송장목록 팝업창 닫을때 callback 함수
+		, com0201Callback : function(res){
+			//console.log(' com0201Callback:: ', res);	
+			if(!smutil.isEmpty(res.param.step_sct_cd)) {
+				page.listReLoad();
+			}
 		}
 
 };

@@ -8,6 +8,7 @@ var page = {
 	dlvyCompl : null,			// 구역,시간 기준
 	mbl_dlv_area: null,   //토요휴무
 	sboxType: null,			// 권역 or 시간별
+	is_reload : null,      //부모창 리로드여부(자식창 변경여부)
 	init:function(data)	{
 		// 이전페이지에서 넘겨 받은 파라미터로 배달, 집하 구분하며 어떤 api를 호출 할지 결정
 		page.com0201= data.data.param;
@@ -67,7 +68,17 @@ var page = {
  
 		//닫기
 		$(".btn.closeW.paR").click(function(){
-			LEMP.Window.close();
+			//console.log('btn.closeW.paR111 :::::::: page.is_reload: '+ page.is_reload + ' page.com0201.step_sct_cd: ' + page.com0201.step_sct_cd);
+			if(page.is_reload) {
+				LEMP.Window.close({
+						"_oMessage":{
+							"param":{"step_sct_cd":page.com0201.step_sct_cd}
+						},
+						"_sCallback":"page.com0201Callback"
+					});
+			} else {
+				LEMP.Window.close();
+			}
 		});
 
 		$("#cldlBtnCal").click(function(){
@@ -295,7 +306,7 @@ var page = {
 
 		//page.pick_tmsl_cd= $("#com0201LstUl").find(".on").find(".top").attr("id");
 		data.sbox_type = "";
-		data.sbox_type_cd = obj.data('timecd');
+		data.sbox_type_cd = obj.data('timecd') + "";
 		data.sbox_type_cd2 = "";
 		data.min_tmsl = "";
 		data.max_tmsl = "";
@@ -308,9 +319,9 @@ var page = {
 
 		if(page.sboxType == 'area' && page.com0201.step_sct_cd != "3"){
 			data.sbox_type = "area";
-			data.min_tmsl = smutil.nullToValue(obj.data('tmslmin'), "");
-			data.max_tmsl = smutil.nullToValue(obj.data('tmslmax'), "");
-			data.sbox_type_cd2 = smutil.nullToValue(obj.data('timecd2'), "");
+			data.min_tmsl = smutil.nullToValue(obj.data('tmslmin'), "") + "";
+			data.max_tmsl = smutil.nullToValue(obj.data('tmslmax'), "") + "";
+			data.sbox_type_cd2 = smutil.nullToValue(obj.data('timecd2'), "") + "";
 		}else{
 			data.sbox_type = "time";
 		}
@@ -364,11 +375,11 @@ var page = {
 		finally{
 			smutil.loadingOff();
 			
-			if(page.isfirst) {				
+			/*if(page.isfirst) {				
 				if(smutil.isEmpty(page.curLgtd)) {
-					alert('GPS 확인요망');
+					alert('GPS(핸드폰 위치 서비스) 설정 바랍니다.');
 				}
-			}	
+			}*/
 			page.isfirst = false;
 		}
 	}
@@ -405,7 +416,7 @@ var page = {
 					page.mapSelectList();
 				}
 			}, function(error) {
-				alert('GPS권한이 필요합니다.');
+				//alert('GPS권한이 필요합니다.');
 				//console.error(error);
 			}, {
 				enableHighAccuracy : false,//배터리를 더 소모해서 더 정확한 위치를 찾음
@@ -602,7 +613,7 @@ var page = {
 			page.getLocation();
 		};
 		mapContainer.appendChild(divMapReload);
-		$("#mapReload").css({"top": "0px" ,"margin-left": "8px", "z-index": "1"});
+		$("#mapReload").css({"top": "5px" ,"margin-left": "8px", "z-index": "1"});
 	}
 	// api 파람메터 초기화
 	,apiParamInit : function(){
@@ -630,9 +641,10 @@ var page = {
 	
 	// 운송장목록 팝업창 닫을때 callback 함수
 	, cldl0802Callback : function(res){
-
+//console.log('cldl0802Callback:: ', res);
 		if(!smutil.isEmpty(res.param.step_sct_cd)) {
 			page.com0201.step_sct_cd = res.param.step_sct_cd + "";
+			page.is_reload = true;
 			page.mapSelectList();
 		}
 	}	
