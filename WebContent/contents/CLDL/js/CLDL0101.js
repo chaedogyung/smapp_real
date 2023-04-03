@@ -154,6 +154,9 @@ var page = {
 
 			});
 			
+			
+
+
 			// 스캔버튼을 누른경우
 			$(".btn.ftScan").click(function(){
 
@@ -237,11 +240,12 @@ var page = {
 					"_sPagePath": popUrl
 				});
 			});	// end 스캔버튼을 누른경우 종료
+
+			
 			
 			// 상단 조회 탭 클릭
 			$(".lstSchBtn").click(function(){
 				var cldl_sct_cd = $(this).data('schSctCd');		// 선택한 탭의 값 (A,P,D)
-				var cldl_tmsl_cd = $('#cldl_tmsl_cd').val();;		// 시간대
 				
 				// 텝에따라 업무구분 선택박스 처리
 				if(cldl_sct_cd != 'A'){
@@ -264,20 +268,20 @@ var page = {
 					}
 				});
 				
-				//제주 익일인 경우에만 Tab이동시 시간 업무구분 초기화
-				if(cldl_tmsl_cd == '38'){
-					$("select[name=cldl_tmsl_cd]").val('10'); //시간대별 06~08 기본
-					$('#cldl_sct_cd').val(''); //업무구분 기본
-				} 
-				
+				$("select[name=cldl_tmsl_cd]").val('10'); //시간대별 06~08 기본
+				$('#cldl_sct_cd').val(''); //업무구분 기본
 				page.listReLoad();					// 리스트 제조회
 				
 			});
+
+
 
 			// 구분 필터값 변경
 			$("#fltr_sct_cd").on('change', function(){
 				page.listReLoad();					// 리스트 제조회
 			});
+
+
 
 			// 스캔취소 버튼 누른경우 이벤트
 			$(document).on('click', '.btn.cancel', function(e){
@@ -294,6 +298,8 @@ var page = {
 				}
 
 			});
+
+
 
 			// 송장번호 누른경우
 			$(document).on('click', '.dsin.vm.invNoSpan', function(event){
@@ -1311,7 +1317,7 @@ var page = {
 					$('#cldl0101LstUl').html(liHtml);
 					
 					//현대 특정고가물품 관리거래처 코드 내품확인서비스 이미지 표시
-//					smutil.hdmgrCustCdReturn();
+					smutil.hdmgrCustCdReturn();
 					
 					// 스캔건수 표시
 					if(!smutil.isEmpty(result.data.scan_cnt)

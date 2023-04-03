@@ -1143,7 +1143,7 @@ var page = {
 					}
 				}
 				else{
-					var grade = $('#grade' + "04");
+					var grade = $('#grade' + "05");
 					var index = $('.grade div').index(grade);
 					grade.removeClass('disabled');
 					page.gradeSlider.goToSlide(index);

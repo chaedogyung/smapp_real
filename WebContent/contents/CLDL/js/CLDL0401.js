@@ -1578,6 +1578,7 @@ var page = {
 					// 생성된 HTML을 DOM에 주입
 					$('#cldl0401LstUl').html(liHtml);
 
+					//현대 특정고가물품 관리거래처 코드 내품확인서비스 이미지 표시
 					smutil.hdmgrCustCdReturn();
 					
 					// 스캔건수 표시
