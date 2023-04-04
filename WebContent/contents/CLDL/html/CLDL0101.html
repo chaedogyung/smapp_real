@@ -237,8 +237,7 @@
                         {{!-- 운임 라벨 표시 helper fareChk --}}
                         {{fareChk label}}
 
-						<!-- 추가 2023.02.21 현대홈쇼핑 특정 관리거래처코드 -->
-						<input class="mgr_cust_cd" id="mgr_cust_cd" value='{{mgr_cust_cd}}' hidden>
+						
 
                         {{!-- 취소 여부 helper--}}
                         {{#cclYnChk}}
@@ -254,6 +253,9 @@
                         {{#acdYnChk}}
                         <span class="badge purple s outline">사고</span>
                         {{/acdYnChk}}
+
+						<!-- 추가 2023.02.21 현대홈쇼핑 특정 관리거래처코드 -->
+						<span  class="mgr_cust_cd" id="mgr_cust_cd" value='{{mgr_cust_cd}}' style="display:none;" >{{mgr_cust_cd}}</span>	
                     </p>
                     {{!-- 집하, 배달 구분 해서 보내는사람 받는사람 정보 태그로 리턴 --}}
                     {{cldlSctCdChkTag resultTag}}
@@ -316,7 +318,7 @@
                     <span class="dsin vm invNoSpan">{{invNoTmpl inv_no}}</span>
 
 					<!-- 추가 2023.02.21 현대홈쇼핑 특정 관리거래처코드 -->
-					<input class="mgr_cust_cd" id="mgr_cust_cd" value='{{mgr_cust_cd}}' hidden>
+					<span  class="mgr_cust_cd" id="mgr_cust_cd" value='{{mgr_cust_cd}}' style="display:none;" >{{mgr_cust_cd}}</span>	
                 </p>
             </div>
             <button class="btn cancel" data-cancel-inv-no='{{inv_no}}' data-cancle-sct-cd='{{cldl_sct_cd}}' data-li-status='noData'>캔슬</button>

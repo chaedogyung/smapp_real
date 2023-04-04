@@ -38,6 +38,8 @@ var page = {
 			
 			page.initEvent();			// 페이지 이벤트 등록
 			page.initDpEvent();			// 화면 디스플레이 이벤트
+			//현대 특정고가물품 관리거래처 코드 내품확인서비스 이미지 표시
+			smutil.hdmgrCustCdReturn();
 		},
 
 

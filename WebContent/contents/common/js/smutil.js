@@ -706,16 +706,30 @@ var smutil = (function(window, document, $) {
 		var hdmgrcustcdimg= '<img src="../../common/img/icon-hdcustcd.png" alt="" style="max-width: 35px;margin-left: -34px;margin-bottom: -44px;">';
 		
 		//출고 : 186758 / 475311 / 475366 / 475425
-		$('input[value=186758]').closest('.row-four').find('.img.df').after(hdmgrcustcdimg);
-		$('input[value=475311]').closest('.row-four').find('.img.df').after(hdmgrcustcdimg);
-		$('input[value=475366]').closest('.row-four').find('.img.df').after(hdmgrcustcdimg);
-		$('input[value=475425]').closest('.row-four').find('.img.df').after(hdmgrcustcdimg);
+		$('span[value=186758]').closest('.row-four').find('.img.df').after(hdmgrcustcdimg);
+		$('span[value=186758]').closest('.row-four').find('.img.lotte3').after(hdmgrcustcdimg);
+		
+		$('span[value=475311]').closest('.row-four').find('.img.df').after(hdmgrcustcdimg);
+		$('span[value=475311]').closest('.row-four').find('.img.lotte3').after(hdmgrcustcdimg);
+		
+		$('span[value=475366]').closest('.row-four').find('.img.df').after(hdmgrcustcdimg);
+		$('span[value=475366]').closest('.row-four').find('.img.lotte3').after(hdmgrcustcdimg);
+		
+		$('span[value=475425]').closest('.row-four').find('.img.df').after(hdmgrcustcdimg);
+		$('span[value=475425]').closest('.row-four').find('.img.lotte3').after(hdmgrcustcdimg);
 		
 		//반품 : 186776 / 475322 / 475414 / 475436	
-		$('input[value=186776]').closest('.row-four').find('.img.df').after(hdmgrcustcdimg);
-		$('input[value=475322]').closest('.row-four').find('.img.df').after(hdmgrcustcdimg);
-		$('input[value=475414]').closest('.row-four').find('.img.df').after(hdmgrcustcdimg);
-		$('input[value=475436]').closest('.row-four').find('.img.df').after(hdmgrcustcdimg);
+		$('span[value=186776]').closest('.row-four').find('.img.df').after(hdmgrcustcdimg);
+		$('span[value=186776]').closest('.row-four').find('.img.lotte3').after(hdmgrcustcdimg);
+		
+		$('span[value=475322]').closest('.row-four').find('.img.df').after(hdmgrcustcdimg);
+		$('span[value=475322]').closest('.row-four').find('.img.lotte3').after(hdmgrcustcdimg);
+
+		$('span[value=475414]').closest('.row-four').find('.img.df').after(hdmgrcustcdimg);
+		$('span[value=475414]').closest('.row-four').find('.img.lotte3').after(hdmgrcustcdimg);
+
+		$('span[value=475436]').closest('.row-four').find('.img.df').after(hdmgrcustcdimg);
+		$('span[value=475436]').closest('.row-four').find('.img.lotte3').after(hdmgrcustcdimg);
 	};
 
 	// 코드에 맞는 회사 로고 클래스명 리턴
