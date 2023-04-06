@@ -351,7 +351,7 @@ var page = {
 			obj.parent().parent().find(".on").index()+1
 			
 			data.sbox_type = "";
-			data.sbox_type_cd = obj.data('timecd');
+			data.sbox_type_cd = obj.data('timecd') + "";
 			data.sbox_type_cd2 = "";
 			data.min_tmsl = "";
 			data.max_tmsl = "";
@@ -364,9 +364,9 @@ var page = {
 
 			if(page.sboxType == 'area' && page.step_sct_cd != "3"){
 				data.sbox_type = "area";
-				data.min_tmsl = smutil.nullToValue(obj.data('tmslmin'), "");
-				data.max_tmsl = smutil.nullToValue(obj.data('tmslmax'), "");
-				data.sbox_type_cd2 = smutil.nullToValue(obj.data('timecd2'), "");
+				data.min_tmsl = smutil.nullToValue(obj.data('tmslmin'), "") + "";
+				data.max_tmsl = smutil.nullToValue(obj.data('tmslmax'), "") + "";
+				data.sbox_type_cd2 = smutil.nullToValue(obj.data('timecd2'), "") + "";
 			}else{
 				data.sbox_type = "time";
 			}
@@ -421,11 +421,11 @@ var page = {
 			catch (e) {}
 			finally{
 				smutil.loadingOff();
-				if(page.isfirst) {
+				/*if(page.isfirst) {
 					if(smutil.isEmpty(page.curLgtd)) {
 						alert('GPS(핸드폰 위치 서비스) 설정 바랍니다.');
 					}
-				}	
+				}*/
 				page.isfirst = false;
 			}
 		} 
@@ -451,7 +451,7 @@ var page = {
 					}
 				}, function(error) {
 					//console.error(error);
-					alert('GPS권한이 필요합니다.');
+					//alert('GPS권한이 필요합니다.');
 				}, {
 					enableHighAccuracy : false,//배터리를 더 소모해서 더 정확한 위치를 찾음
 					maximumAge: 0, //한 번 찾은 위치 정보를 해당 초만큼 캐싱

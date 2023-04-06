@@ -251,7 +251,7 @@ var page = {
 			LEMP.Properties.set({"_sKey" : "order", "_vValue" : selOrder});
 			page.order = selOrder;
 
-			page.listOrder();					// 리스트 정렬
+			page.invDtl(); //page.listOrder();					// 리스트 정렬
 		});
 		
 		// 송장번호 누른경우 (상세보기 연결)
@@ -324,9 +324,10 @@ var page = {
 			$("input[name=chkInvP]:checked").each(function() {
 				var inv_no = ($(this).attr("id")).replace('_chk', '');
 				var scan_yn = page.chkScanYn(inv_no);
+				var corp_sct_cd = $(this).data('corp_sct_cd');
 				if(!smutil.isEmpty(inv_no)){
 					var scan_yn = page.chkScanYn(inv_no);
-					invNoObj = {"inv_no":inv_no, "scan_yn":scan_yn};
+					invNoObj = {"inv_no":inv_no, "scan_yn":scan_yn, "cldl_sct_cd" : "P","corp_sct_cd":corp_sct_cd};
 					param_list.push(invNoObj);
 				}
 				else{
@@ -346,6 +347,7 @@ var page = {
 							"menu_id":"CLDL0301"
 							, "inv_no":param_list[0].inv_no+""
 							, "cldl_sct_cd" : "P"
+							, "corp_sct_cd" : param_list[0].corp_sct_cd+""
 						}
 					}
 				});
@@ -371,7 +373,7 @@ var page = {
 				var scan_yn = page.chkScanYn(inv_no);
 				if(!smutil.isEmpty(inv_no)){
 					var scan_yn = page.chkScanYn(inv_no);
-					invNoObj = {"inv_no":inv_no, "scan_yn":scan_yn};
+					invNoObj = {"inv_no":inv_no, "scan_yn":scan_yn,"cldl_sct_cd":"D"};
 					param_list.push(invNoObj);
 				}
 				else{
@@ -756,6 +758,7 @@ var page = {
 		$(document).on('click', '.btn.bdM.blue3.bdCancle.mgl1, .btn.bdM.blue5.bdCancle.mgl1', function(e){
 			var inv_no = $(this).data('invNo');
 			var cldl_sct_cd = $(this).data('cldlSctCd');
+			var corp_sct_cd = $(this).data('corpSctCd');
 			var menu_id = "";
 
 			if(!smutil.isEmpty(inv_no)){
@@ -777,6 +780,7 @@ var page = {
 								"menu_id":menu_id
 								, "inv_no":inv_no+""
 								, "cldl_sct_cd" : cldl_sct_cd
+								, "corp_sct_cd" : corp_sct_cd
 							}
 						}
 					});
@@ -803,8 +807,7 @@ var page = {
 				return false;
 			}
 		});
-
-
+ 
 		// 스와이프해서 이동경로버튼 클릭한 경우
 		$(document).on('click', '.btn.blue7.bdM.bdRoute.mgl1', function(e){
 			if(smutil.isEmpty(page.cldl0802.curlgtd) || smutil.isEmpty(page.cldl0802.curlttd)){
@@ -1295,7 +1298,7 @@ var page = {
 			}
 			else{	//step 예정 
 				html ='<button class="btn bdM blue2 bdMemo mgl1" data-inv-no="'+this.inv_no+'" data-cldl-sct-cd="'+this.cldl_sct_cd+'">메모</button>'
-				    + '<button class="btn bdM blue3 bdCancle mgl1" data-inv-no="'+this.inv_no+'" data-cldl-sct-cd="'+this.cldl_sct_cd+'">미배달</button>';
+				    + '<button class="btn bdM blue3 bdCancle mgl1" data-inv-no="'+this.inv_no+'" data-corp-sct-cd="'+this.corp_sct_cd+'" data-cldl-sct-cd="'+this.cldl_sct_cd+'">미배달</button>';
 			}
 			return new Handlebars.SafeString(html);
 		});
@@ -1559,6 +1562,9 @@ var page = {
 		var dlay_rsn_cd = smutil.nullToValue(res.param.code,"");	// 미배달 사유 코드
 		var rsn_cont = smutil.nullToValue(res.param.value,"");		// 미배달 사유 date
 
+		//집하일경우 취급불가시 이미지 첨부 //2023.03.31 add
+		var filepath = smutil.nullToValue(res.param.images,"");			// 취급불가 비규격 사진파일
+		
 		if(!smutil.isEmpty(inv_no) && !smutil.isEmpty(dlay_rsn_cd)){
 
 			var liDiv = $('#'+inv_no).children('.baedalBox');
@@ -1567,10 +1573,20 @@ var page = {
 				rsn_cont = rsn_cont.split('.').join('');
 			}
 
+			// 이미지 있을경우//2023.03.31 add
+			if(!smutil.isEmpty(filepath) && cldl_sct_cd == "P"){
+				page.apiParam.id = "HTTPFILE";
+				page.apiParam.param.baseUrl = "smapis/cmn/rsnRgst";				// api no
+				page.apiParam.files = [filepath];
+			}
+			else{			// 이미지 없을경우
+				page.apiParam.id = "HTTP";
+				page.apiParam.param.baseUrl = "smapis/cmn/rsnRgstTxt";				// api no
+			}
 			//미배달 api 호출
 
-			page.apiParam.id = 'HTTP'
-			page.apiParam.param.baseUrl = "smapis/cmn/rsnRgstTxt";				// api no
+			//page.apiParam.id = 'HTTP'
+			//page.apiParam.param.baseUrl = "smapis/cmn/rsnRgstTxt";				// api no
 			page.apiParam.param.callback = "page.rsnRgstCallback";			// callback methode
 			
 			if(!smutil.isEmpty(page.param_list)){ //일괄전송
@@ -2800,7 +2816,7 @@ var page = {
 		var popOpenYn = true;
 		var acprCnt = 0;
 		var acpr_nm = "";
-
+		
 		//배송일자
 		var rcv_date = '배송일자 : ' + smutil.getTodayStr();
 
@@ -2863,7 +2879,7 @@ var page = {
 
 			// 사진전송 로직 시작~!!!
 			var popUrl = smutil.getMenuProp("CLDL.CLDL0410","url");
-			console.log(paramObj);
+			//console.log(paramObj);
 			LEMP.Window.open({
 				"_sPagePath":popUrl,
 				"_oMessage":{"param":{"list" : paramObj, "acpr_nm" : acpr_nm}}		// 인수자명 셋팅

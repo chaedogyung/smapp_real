@@ -704,7 +704,7 @@ var smutil = (function(window, document, $) {
 	// 현대홈쇼핑 고가품 관리거래처코드 이미지 리턴
 	var hdmgrCustCdReturn = function(){
 		var hdmgrcustcdimg= '<img src="../../common/img/icon-hdcustcd.png" alt="" style="max-width: 35px;margin-left: -34px;margin-bottom: -44px;">';
-		
+
 		//출고 : 186758 / 475311 / 475366 / 475425
 		$('span[value=186758]').closest('.row-four').find('.img.df').after(hdmgrcustcdimg);
 		$('span[value=186758]').closest('.row-four').find('.img.lotte3').after(hdmgrcustcdimg);
