@@ -96,7 +96,6 @@ var page = {
 				var step_sct_cd = $(this).data('stepSctCd');		// 선택한 탭의 값 (0,1,3) step_sct_cd
 				page.step_sct_cd = step_sct_cd;
 				page.isfirst = false;
-
 				
 				if(page.step_sct_cd != "0"  && page.step_sct_cd != "1"){
 					$(".popMap .mapCon").css({"top": "162px"});
@@ -104,6 +103,7 @@ var page = {
 					$(".popMap .divisionBox").hide();
 					$("#setDlvyCom1").hide();
 					$("#setDlvyCom2").hide();
+					$(".cldl0send").hide();
 				} else {
 					$(".popMap .divisionBox").show();
 					$("#setDlvyCom1").show();
@@ -129,6 +129,12 @@ var page = {
 					} else {
 						$("#setDlvyCom2").text('수동');
 		                $("#setDlvyCom2").attr('class', 'gray2 badge option outline');
+					}
+					
+					if(page.step_sct_cd == "0") {
+						$(".cldl0send").show();	
+					} else {
+						$(".cldl0send").hide();
 					}
 				}
 				
@@ -160,6 +166,41 @@ var page = {
 				page.ClickFunc($(this),data);
 			});
 			 
+
+			// 집배달출발 전송버튼 클릭 //2023.04.04
+			$('#dprtTrsmTrsmBtn').click(function(e){
+				var base_ymd = $('#cldlBtnCal').text();
+				var dprtTrsmCnt = Number(smutil.nullToValue($('#A_cldl0801Cnt').text(), "0")); //건물번호와 상관없이 전체 출발건수 가져올것
+				if(dprtTrsmCnt == 0 || smutil.isEmpty(dprtTrsmCnt)){
+	            	LEMP.Window.toast({
+						"_sMessage":"전송할 데이터가 없습니다.",
+						'_sDuration' : 'short'
+					});
+	
+	                return false;
+	            }
+	            
+				if(smutil.isEmpty(base_ymd)){
+					LEMP.Window.toast({
+						"_sMessage":"날짜를 선택해 주세요.",
+						'_sDuration' : 'short'
+					}); 
+	
+					return false;
+				}
+				else{ // 배달출발 확정(전송) 컴펌창 호출
+					$('#pop2Txt2').html(dprtTrsmCnt + '건의 집배달 출발을 전송합니다.');
+					$('.mpopBox.pop2').bPopup();
+				}
+			});
+			
+			// 배달출발확정 버튼 'yes' 버튼 클릭
+			$('#dprtTrsmYesBtn').click(function(e){
+				// 배달출발 확정로직 시작
+				page.dprtTrsm();
+			});
+			
+					
 			//selectBox 그려주는 함수
 			//page.mapTmList();
 			setTimeout(function() { //현재위치 찾을시간 주고 찾지못할경우 실행
@@ -180,6 +221,9 @@ var page = {
 		},  //initDpEvent end
 		
 		mapSelectList:function() {
+			$("#A_cldl0801Cnt").text(0);
+			$("#P_cldl0801Cnt").text(0);
+			$("#D_cldl0801Cnt").text(0);
 			if(page.step_sct_cd == "0" || page.step_sct_cd == "1"){
 				if(page.sboxType == 'area'){
 					page.mapAreaList();            // 구역별 조회건수 조회
@@ -189,7 +233,7 @@ var page = {
 			} else {
 				var data={};
 				data.base_ymd = page.base_ymd;
-				data.step_sct_cd = page.step_sct_cd;
+				data.step_sct_cd = page.step_sct_cd+"";
 				data.cldl_sct_cd = "A";
 				data.cldl_tmsl_null = "true";
 				data.sbox_type_cd = ""; 
@@ -201,7 +245,7 @@ var page = {
 			
 			var data = {};
 			data.base_ymd=page.base_ymd;
-			data.step_sct_cd=page.step_sct_cd;
+			data.step_sct_cd=page.step_sct_cd+"";
 	
 			smutil.loadingOn();
 	
@@ -230,6 +274,7 @@ var page = {
 				} else {
 					/*var template = Handlebars.compile($("#CLDL0801_list_template").html());
 					$('#cldl0801LstUl').html(template(res.data));*/
+					$('#cldl0801LstUl').html('');
 					$('#mapno').show();
 					$('#mapCon').hide();
 				}
@@ -247,7 +292,7 @@ var page = {
 			var data = {};
 			data.base_ymd=page.base_ymd;
 			data.cldl_sct_cd="A";
-			data.step_sct_cd=page.step_sct_cd;
+			data.step_sct_cd=page.step_sct_cd+"";
 	
 			smutil.loadingOn();
 	
@@ -334,7 +379,8 @@ var page = {
 					
 				}else {
 					$('#mapno').show();
-					$('#mapCon').hide();				
+					$('#mapCon').hide();
+					$('#cldl0801LstUl').html('');				
 				}
 			}
 			catch (e) {}
@@ -372,7 +418,7 @@ var page = {
 			}
 
 			data.base_ymd = page.base_ymd;
-			data.step_sct_cd = page.step_sct_cd;
+			data.step_sct_cd = page.step_sct_cd+"";
 			data.cldl_sct_cd = "A"; //page.cldl_sct_cd 
 			
 			page.cldl0801 = data;
@@ -408,11 +454,31 @@ var page = {
 		,MapListCallback:function(res){
 			//var arr = res.data.list;
 			page.datalist = res.data.list;
+
 			try {
 				if (res.data_count !== 0 && smutil.apiResValidChk(res) && res.code==="0000") {
 					$(".NoBox").css("display","none");
 					$("#mapCon").css("display","block");
 					page.writeMap(page.datalist);
+					
+					
+					//지도 집배달 출발 목록 조회 건수(전송시 알림용)
+					if(page.step_sct_cd == "0") {
+						if(!smutil.isEmpty(res.data.listCnt)){
+						var cnt = 0;
+						$.each(res.data.listCnt, function(index, obj){
+								if(smutil.isEmpty(obj.cldl_cnt)) {
+									cnt = 0 ;
+								}
+								else{
+									cnt = obj.cldl_cnt ;
+								}
+		
+								$("#"+obj.cldl_sct_cd+"_cldl0801Cnt").text(cnt);
+							});
+						}
+					}
+					
 				}else {
 					$("#mapCon").css("display","none");
 					$(".NoBox").css("display","block");
@@ -616,6 +682,88 @@ var page = {
 			data:{"parameters" : {}}// api 통신용 파라메터
 		};
 	}
+
+	// ################### 집배달출발 전송 start 
+	, dprtTrsm : function(){
+		var cldl_sct_cd = "A";		// 업무구분 (전체 : A, 집하 : P, 배달 : D)
+		var cldl_tmsl_cd = page.returnTimeCd();		// 시간구분코드
+		var base_ymd = $('#cldlBtnCal').text();
+
+		if(smutil.isEmpty(base_ymd)){
+			LEMP.Window.toast({
+				"_sMessage":"날짜를 선택해 주세요.",
+				'_sDuration' : 'short'
+			}); 
+
+			return ;
+		}
+
+		base_ymd = base_ymd.split('.').join('');
+
+		// 시간대별 전송이 아닌 전체 전송으로 수정(20200121 : 수정사항 반영)
+		//if(!smutil.isEmpty(cldl_sct_cd) && !smutil.isEmpty(cldl_tmsl_cd)){
+		if(!smutil.isEmpty(cldl_sct_cd)){
+			page.apiParamInit();		// 파라메터 전역변수 초기화
+			page.apiParam.param.baseUrl = "smapis/cldl/dprtTrsm";			// api no
+			page.apiParam.param.callback = "page.dprtTrsmCallback";		// callback methode
+			page.apiParam.data = {						// api 통신용 파라메터
+				"parameters" : {
+					"cldl_sct_cd" : cldl_sct_cd			// 업무구분
+					//, "cldl_tmsl_cd" : cldl_tmsl_cd
+					, "base_ymd" : base_ymd				// 기준일자
+				}
+			};
+
+			smutil.loadingOn();				// 로딩바 on
+
+			// 공통 api호출 함수
+			smutil.callApi(page.apiParam);
+		}
+
+	},
+
+
+	// 배달출발전송 콜백
+	dprtTrsmCallback : function(result){
+		try{
+			// api 전송 성공
+			if(smutil.apiResValidChk(result) && result.code == "0000"){
+				LEMP.Window.toast({
+					"_sMessage" : "집배달출발을 전송하였습니다.",
+					"_sDuration" : "short"
+				});
+				page.is_reload = true;
+				page.mapSelectList(); //page.listReLoad();					// 리스트 제조회
+			}
+		}
+		catch(e){}
+		finally{
+			smutil.loadingOff();			// 로딩바 닫기
+			page.apiParamInit();			// 파라메터 전역변수 초기화
+		}
+	},
+	// ################### 배달출발확정(전송) end 
+	// 현재 활성화 시간구간코드 리턴
+	returnTimeCd : function(){
+		var timeLst = $("li[name='timeLstLi']");
+
+		//현제 어느 탭에 있는지 상태체크
+		var btnObj;
+		var cldl_tmsl_cd;
+		_.forEach(timeLst, function(obj, key) {
+			btnObj = $(obj);
+
+			if(btnObj.is('.on')){
+				cldl_tmsl_cd = btnObj.data('timeLi');
+				return false;
+			}
+		});
+
+		return cldl_tmsl_cd;
+	}
+
+	
+			
 	//com0301에서 날짜 선택 한 후 실행되는 콜백 함수
 	, COM0301Callback:function(res){
 		$("#cldlBtnCal").text(res.param.date);

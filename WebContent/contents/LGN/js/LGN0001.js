@@ -113,21 +113,21 @@ var page = {
 		if(!smutil.isEmpty(installAuthConfirmYn) && installAuthConfirmYn === "Y"){
 			page.isvalid();						// 토큰 사용여부 확인
 		}
-// 		else{	// 권한정보가 없으면 토큰 삭제하고 권한동의 페이지를 띄운다
-// 			// 토큰 삭제
-// 			LEMP.Properties.remove({"_sKey":"accessToken"});
+		else{	// 권한정보가 없으면 토큰 삭제하고 권한동의 페이지를 띄운다
+			// 토큰 삭제
+			LEMP.Properties.remove({"_sKey":"accessToken"});
 
-// 			// 권한동의 팝업오픈
-// 			var popUrl = smutil.getMenuProp("LGN.LGN0004","url");
+			// 권한동의 팝업오픈
+			var popUrl = smutil.getMenuProp("LGN.LGN0004","url");
 
-// 			LEMP.Window.open({
-// 				"_sPagePath":popUrl,
-// 			});
+			LEMP.Window.open({
+				"_sPagePath":popUrl,
+			});
 
-// 			// inito 화면 초기화
-// //			$(".intro").fadeOut(800);
+			// inito 화면 초기화
+//			$(".intro").fadeOut(800);
 
-// 		}
+		}
 
 
 		// 개인정보 동의값
@@ -479,64 +479,64 @@ var page = {
 			return false;
 		}
 		// 인증정보 없으면 인증먼저 하고 다시 로그인
-//		else if(smutil.isEmpty(authCertInfo) || smutil.isEmpty(authCertInfo.usrCpno)){
-//
-//			LEMP.Window.alert({
-//				"_sTitle":"인증정보 없음",
-//				"_vMessage":"인증정보가 없습니다.\n인증절차를 먼저 진행해 주세요."
-//			});
-//
-//			var popUrl = smutil.getMenuProp('LGN.LGN0002', 'url');
-//
-//			// 인증 페이지로 이동
-//			LEMP.Window.open({
-//				"_sPagePath" : popUrl,
-//				"_oMessage" : {
-//					"param" : {
-//						"status" : "INIT_LOGIN",					// 최초 인증절차
-//						"principal" : id							// 로그인 id
-//					}
-//				}
-//			});
-//
-//			return false;
-//		}
-//		else if(smutil.isEmpty(pw)){
-//			LEMP.Window.alert({
-//				"_sTitle":"로그인 오류",
-//				"_vMessage":"비밀번호를 입력해 주세요."
-//			});
-//
-//			$('#credential').foucs();
-//
-//			return false;
-//		}
-//		else if(smutil.isEmpty(usrCpno)){
-//			var message = "해당 디바이스의 \n전화번호를 구해올수 없습니다.";
-//
-//			if(smutil.deviceInfo === "smios"){
-//				message = "해당 디바이스의 \n인증받은 전화번호를 구해올수 없습니다.";
-//			}
-//
-//			LEMP.Window.alert({
-//				"_sTitle":"로그인 오류",
-//				"_vMessage": message
-//			});
-//
-//			return false;
-//		}
-//		else if(smutil.isEmpty(pushToken)){
-//			LEMP.Window.alert({
-//				"_sTitle":"로그인 오류",
-//				"_vMessage":"해당 디바이스의 \n푸시 정보를 구해올수 없습니다.\n관리자에게 문의해주세요."
-//			});
-//
-//			return false;
-//		}
-//		else {
-		
+		else if(smutil.isEmpty(authCertInfo) || smutil.isEmpty(authCertInfo.usrCpno)){
+
+			LEMP.Window.alert({
+				"_sTitle":"인증정보 없음",
+				"_vMessage":"인증정보가 없습니다.\n인증절차를 먼저 진행해 주세요."
+			});
+
+			var popUrl = smutil.getMenuProp('LGN.LGN0002', 'url');
+
+			// 인증 페이지로 이동
+			LEMP.Window.open({
+				"_sPagePath" : popUrl,
+				"_oMessage" : {
+					"param" : {
+						"status" : "INIT_LOGIN",					// 최초 인증절차
+						"principal" : id							// 로그인 id
+					}
+				}
+			});
+
+			return false;
+		}
+		else if(smutil.isEmpty(pw)){
+			LEMP.Window.alert({
+				"_sTitle":"로그인 오류",
+				"_vMessage":"비밀번호를 입력해 주세요."
+			});
+
+			$('#credential').foucs();
+
+			return false;
+		}
+		else if(smutil.isEmpty(usrCpno)){
+			var message = "해당 디바이스의 \n전화번호를 구해올수 없습니다.";
+
+			if(smutil.deviceInfo === "smios"){
+				message = "해당 디바이스의 \n인증받은 전화번호를 구해올수 없습니다.";
+			}
+
+			LEMP.Window.alert({
+				"_sTitle":"로그인 오류",
+				"_vMessage": message
+			});
+
+			return false;
+		}
+		else if(smutil.isEmpty(pushToken)){
+			LEMP.Window.alert({
+				"_sTitle":"로그인 오류",
+				"_vMessage":"해당 디바이스의 \n푸시 정보를 구해올수 없습니다.\n관리자에게 문의해주세요."
+			});
+
+			return false;
+		}
+		else {
+
 			smutil.loadingOn();
-			usrCpno = "010-4043-8553";
+
 			// 우리나라 전화번호 형식으로 변경
 			if(usrCpno.startsWith( '+82' )){
 				usrCpno = "0" + usrCpno.substring(3, usrCpno.length);
@@ -546,7 +546,6 @@ var page = {
 			page.loginUsrCpno = usrCpno;
 			usrCpno = usrCpno.LPToFormatPhone();		// 전화번호 형식으로 변경
 
-			pushToken="c8N1hG0CFHw:APA91bFE5INSELNYgveNGCdnYu7iFlop2GD915T-RO318mGsBjz-er8SqkUZ1NMUHLhBMh8i8SmgoJWU0X2jxKc-ocloe3q|jcOLe00naHf8et2|K9UEBI7PB21AFXE5cJVvOrUbK3VS"
 			// 로그인 시도
 			page.apiParam.param.baseUrl = "/auth/login";					// api no
 			page.apiParam.param.callback = "page.loginCallback";			// callback methode
@@ -561,7 +560,7 @@ var page = {
 			// 공통 api호출 함수
 			smutil.callApi(page.apiParam);
 
-//		}
+		}
 
 		page.apiParamInit();				// 파라메터 전역변수 초기화
 
@@ -649,7 +648,7 @@ var page = {
 				});
 
 				// 인증한 사용자 전화번호
-				var cpNo = "01040537917";
+				var cpNo = authCertInfo.usrCpno;
 
 				// 난독화화 함께 적용하기로하고 주석처리
 				// base64로 인코딩된걸 디코딩하기

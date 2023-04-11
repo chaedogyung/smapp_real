@@ -80,8 +80,14 @@
                                 <button class="btn btnCal" id="cldlBtnCal"></button>
         
                                 <span style="position: fixed; right: 5px; margin-top: 5px;">
-                                    <!-- <span class="" id="select_order" style="font-size: 13px; margin-right: 5px;" data-value="01">일반정렬</span> -->
+                                    <button class="btn cldl0send" style="display: none;background-color:#da291c;" id="dprtTrsmTrsmBtn">
+                                    <span class="txt" style="color:#fff;font-size:12px;" >전송</span>
+                                    </button>
+                                    <span id="A_com0201Cnt" style="display: none;">0</span>
+                                    <span id="P_com0201Cnt" style="display: none;">0</span>
+                                    <span id="D_com0201Cnt" style="display: none;">0</span>
                                 </span>
+
                             </div>
                             <!-- // topHeadCal -->
 						</li>
@@ -104,7 +110,25 @@
 
 		</div>
 		<!--  //contentSection  -->
-
+        
+        <!-- 모달팝업 전송 -->
+        <div class="mpopBox send pop2">
+            <div class="popBody">
+                <p class="img"><img src="../../common/img/icon-beadal.png" alt="" /></p>
+                <p class="txt1">집배달출발 전송</p>
+                <p class="txt2" id="pop2Txt2"></p>
+            </div>
+            <div class="popFooter">
+                <div class="btnBox">
+                    <ul class="ul0 ul2">
+                        <li><button class="btn gray m w100p b-close">아니오</button></li>
+                        <li><button class="btn red m w100p b-close" id="dprtTrsmYesBtn">예</button></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- //모달팝업 전송 -->
+        
 	</div>
 	<!--  //contents  -->
 
