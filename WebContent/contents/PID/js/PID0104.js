@@ -29,7 +29,7 @@ var page = {
 		init:function(arg)
 		{
 			social_fare = 170;                              // 사합금
-			bsc_fare = arg.data.bsc_fare;					// 기본운임
+			bsc_fare = arg.data.bsc_fare;		// 기본운임
 			air_fare = arg.data.air_fare;					// 항공운임
 			ship_fare = arg.data.ship_fare;					// 도선료
 			sur_fare = arg.data.sur_fare;					// 할증료
