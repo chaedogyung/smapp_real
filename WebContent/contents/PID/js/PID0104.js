@@ -29,12 +29,12 @@ var page = {
 		init:function(arg)
 		{
 			social_fare = 170;                              // 사합금
-			bsc_fare = arg.data.bsc_fare - social_fare;		// 기본운임
+			bsc_fare = arg.data.bsc_fare;					// 기본운임
 			air_fare = arg.data.air_fare;					// 항공운임
 			ship_fare = arg.data.ship_fare;					// 도선료
 			sur_fare = arg.data.sur_fare;					// 할증료
 			sum_fare = arg.data.sum_fare;					// 합계운임(기존)
-			sum_fare_base = bsc_fare + sur_fare + social_fare;			// 최종 기본운임 : 기본운임 + 할증료
+			sum_fare_base = bsc_fare + sur_fare + social_fare;			// 최종 기본운임 : 기본운임 + 할증료 + 사회적 합의금
 			sum_fare_etc = air_fare + ship_fare;			// 기타운임 : 항공운임 + 도선료(수정불가)
 			sum_fare_final = sum_fare_base + sum_fare_etc;	// 합계운임(신규) : 최종기본운임 + 기타운임(수정불가)
 
@@ -112,9 +112,9 @@ var page = {
 				//사합금 계산
 				var social = tmps - 5000;
 				if((social >= 0) && (social <= 170)){
-					social_fare = social;
+					social_fare = 170;
 				}else if(social < 0){
-					social_fare = 0;
+					social_fare = 170;
 				}else {
 					social_fare = 170;
 				}
