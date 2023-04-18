@@ -775,7 +775,217 @@ var page = {
 	, cldl0802Callback : function(res){
 		if(!smutil.isEmpty(res.param.step_sct_cd)) {
 			page.step_sct_cd = res.param.step_sct_cd + "";
-			page.mapSelectList();
+//			page.mapSelectList();
+			$("#A_cldl0801Cnt").text(0);
+			$("#P_cldl0801Cnt").text(0);
+			$("#D_cldl0801Cnt").text(0);
+			if(page.step_sct_cd == "0" || page.step_sct_cd == "1"){
+				if(page.sboxType == 'area'){
+					page.mapAreaList();            // 구역별 조회건수 조회
+				} else{
+					page.mapTmList();
+				}
+			} else {
+				var data={};
+				data.base_ymd = page.base_ymd;
+				data.step_sct_cd = page.step_sct_cd+"";
+				data.cldl_sct_cd = "A";
+				data.cldl_tmsl_null = "true";
+				data.sbox_type_cd = ""; 
+				page.locMapList1(data);
+//				$('#cldl0801LstUl').html('');
+			}
 		}
-	}	
-};
+	}
+	,locMapList1:function(data){
+		smutil.loadingOn();
+		page.datalist = null;
+		page.apiParam.param.baseUrl="smapis/cldl/locMapList";
+		page.apiParam.param.callback="page.MapListCallback1";
+		page.apiParam.data.parameters=data;
+		
+		// 공통 api호출 함수
+		smutil.callApi(page.apiParam);
+	},
+	MapListCallback1:function(res){
+		//var arr = res.data.list;
+		page.datalist = res.data.list;
+		try {
+			if (res.data_count !== 0 && smutil.apiResValidChk(res) && res.code==="0000") {
+				$(".NoBox").css("display","none");
+				$("#mapCon").css("display","block");
+				page.writeMap1(page.datalist);
+				
+				
+				//지도 집배달 출발 목록 조회 건수(전송시 알림용)
+				if(page.step_sct_cd == "0") {
+					if(!smutil.isEmpty(res.data.listCnt)){
+					var cnt = 0;
+					$.each(res.data.listCnt, function(index, obj){
+							if(smutil.isEmpty(obj.cldl_cnt)) {
+								cnt = 0 ;
+							}
+							else{
+								cnt = obj.cldl_cnt ;
+							}
+		
+							$("#"+obj.cldl_sct_cd+"_cldl0801Cnt").text(cnt);
+						});
+					}
+				}
+				
+			}else {
+				$("#mapCon").css("display","none");
+				$(".NoBox").css("display","block");
+			}
+		}
+		catch (e) {}
+		finally{
+			smutil.loadingOff();
+			/*if(page.isfirst) {
+				if(smutil.isEmpty(page.curLgtd)) {
+					alert('GPS(핸드폰 위치 서비스) 설정 바랍니다.');
+				}
+			}*/
+			page.isfirst = false;
+		}
+	},
+	writeMap1: function(list){
+//		$("#mapCon").empty();
+		// 맵그리기
+		var arr = list;
+//		
+		var mapContainer = document.getElementById('mapCon'); // 지도를 표시할 div
+		var mapOption = {
+			center: new kakao.maps.LatLng(arr[arr.length-1].lttd,arr[arr.length-1].lgtd), // 지도의 중심좌표, 정상좌표값이 들어있기만 하면 됩니다.
+			level: 3 // 지도의 확대 레벨
+		};
+	
+		var map = new kakao.maps.Map(mapContainer, mapOption);
+		
+		var marker = new kakao.maps.Marker({}); 
+	
+		// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+		var zoomControl = new kakao.maps.ZoomControl();
+		map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+	
+	
+		// 마커들을 한 화면에 출력하기위해 맵 레벨 변경을 하기 위한 변수
+		// 지도에서 표현 할 수 없는 좌표가 존재한다면 하얀 화면이 출력 될 수 있음
+		var bounds = new kakao.maps.LatLngBounds();
+	
+		var imarkerPosition = page.curLocation;
+		/*if(!imarkerPosition) {
+			imarkerPosition = new kakao.maps.LatLng(37.5570572,126.9736211); //testdev
+		}*/
+	
+		if(imarkerPosition) {
+		    var name = '<div class ="label curloc"><span></span></div>';
+			var customOverlay = new kakao.maps.CustomOverlay({
+				position: imarkerPosition,
+				content: name
+			});
+	
+			bounds.extend(imarkerPosition);
+	      
+			customOverlay.setMap(map);
+		}
+		// 마커를 추가하는 반복문
+		for (var i = 0; i < arr.length; i ++) {
+			arr[i].latlng = new kakao.maps.LatLng(arr[i].lttd,arr[i].lgtd);
+	
+			var content;
+			content = document.createElement('div'); 
+			content.setAttribute('id','I'+i); 
+			content.classList.add('label');
+			var strCnt = arr[i].cldl_p + '/' + arr[i].cldl_d;
+			if(page.step_sct_cd == "0" || page.step_sct_cd == "1") {
+				content.classList.add('red');	
+			} else {
+				content.classList.add('silver');	
+			}
+			
+			 
+			var info = document.createElement('span');
+		    info.appendChild(document.createTextNode(strCnt));
+		    content.appendChild(info);	
+			content.onclick = function(e) {
+				var id = $(this)[0].id; 
+				var mid = 0, stmpDetail;
+				if(($(this).attr("id")).length > 1) {
+					mid = ($(this).attr("id")).substr(1);
+					
+					if(!smutil.isEmpty(arr[mid].bld_mgr_no)){
+						var popUrl = smutil.getMenuProp('CLDL.CLDL0802', 'url');
+	
+						var cldl_sct_cd = "P";
+						if(arr[mid].cldl_p == 0) cldl_sct_cd = "D";
+						
+						var paramdata = {};
+						paramdata.bld_mgr_no = arr[mid].bld_mgr_no;
+						paramdata.base_ymd=page.base_ymd;
+						paramdata.step_sct_cd=page.step_sct_cd;
+						paramdata.cldl_sct_cd = cldl_sct_cd;
+						paramdata.ep = arr[mid].lttd+ "," +arr[mid].lgtd;
+						
+						paramdata.lttd = arr[mid].lttd;
+						paramdata.lgtd = arr[mid].lgtd;
+						paramdata.curlgtd = page.curLgtd;
+						paramdata.curlttd = page.curLttd;
+	
+						if(page.step_sct_cd == "0" || page.step_sct_cd == "1") {
+							paramdata.sbox_type = page.cldl0801.sbox_type;
+							paramdata.sbox_type_cd = page.cldl0801.sbox_type_cd;
+							paramdata.sbox_type_cd2 = page.cldl0801.sbox_type_cd2;
+							paramdata.cldl_tmsl_null = page.cldl0801.cldl_tmsl_null;
+							paramdata.max_tmsl = page.cldl0801.max_tmsl;
+							paramdata.min_tmsl = page.cldl0801.min_tmsl;
+							paramdata.max_nm = page.cldl0801.max_nm;
+							paramdata.cldl_tmsl_nm = page.cldl0801.pick_tmsl_nm;
+						}
+	
+						LEMP.Window.open({
+							"_sPagePath" : popUrl,
+							/*"_sType"     : "popup",
+							"_sWidth"    : "90%",
+							"_sHeight"   : "90%",*/
+							"_oMessage" : {
+								"param" : paramdata
+							}
+						});	
+					}					
+				} 
+				
+		    };
+			
+			// 커스텀 오버레이 객체를 생성합니다
+			var customOverlay = new kakao.maps.CustomOverlay({
+				position: arr[i].latlng,
+				content: content //name
+			});
+	
+			// 마커를 추가함으로써 표현할 영역을 확장시킴
+			bounds.extend(arr[i].latlng);
+			
+			// 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+			kakao.maps.event.addListener(marker, 'click', function() {			
+			});
+	
+			customOverlay.setMap(map);
+		}
+	
+		// 추가된 마커의 위치에 따라 맵의 표현범위가 확장
+//		map.setBounds(bounds);
+		
+		//지도새로고침(현재자기위치 갱신용)		
+//		var divMapReload = document.createElement('div'); 
+//		divMapReload.setAttribute('id','mapReload'); 
+//		divMapReload.classList.add('label');
+//		divMapReload.classList.add('mapreload');
+//		divMapReload.onclick = function(e) {
+//			page.getLocation();
+//		};
+//		mapContainer.appendChild(divMapReload);
+//		$("#mapReload").css({"top": "5px" ,"margin-left": "8px", "z-index": "1"});
+	}
+}
