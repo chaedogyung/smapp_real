@@ -781,9 +781,25 @@ var page = {
 			$("#D_cldl0801Cnt").text(0);
 			if(page.step_sct_cd == "0" || page.step_sct_cd == "1"){
 				if(page.sboxType == 'area'){
-					page.mapAreaList();            // 구역별 조회건수 조회
+					console.log(JSON.stringify(page));
+					var data={};
+					data.base_ymd = page.base_ymd;
+					data.step_sct_cd = page.step_sct_cd+"";
+					data.cldl_sct_cd = page.apiParam.data.parameters.cldl_sct_cd;
+					data.cldl_tmsl_null = page.apiParam.data.parameters.cldl_tmsl_null;
+					data.sbox_type_cd = page.apiParam.data.parameters.sbox_type_cd; 
+					page.locMapList2(data);
+					page.mapAreaList2();            // 구역별 조회건수 조회
 				} else{
-					page.mapTmList();
+				console.log(JSON.stringify(page));
+					var data={};
+					data.base_ymd = page.base_ymd;
+					data.step_sct_cd = page.step_sct_cd+"";
+					data.cldl_sct_cd = page.apiParam.data.parameters.cldl_sct_cd;
+					data.cldl_tmsl_null = page.apiParam.data.parameters.cldl_tmsl_null;
+					data.sbox_type_cd = page.apiParam.data.parameters.sbox_type_cd; 
+					page.locMapList2(data);	
+					page.mapTmList2();				 //시간대별 조회건수 조회
 				}
 			} else {
 				var data={};
@@ -792,29 +808,29 @@ var page = {
 				data.cldl_sct_cd = "A";
 				data.cldl_tmsl_null = "true";
 				data.sbox_type_cd = ""; 
-				page.locMapList1(data);
+				page.locMapList2(data);
 //				$('#cldl0801LstUl').html('');
 			}
 		}
 	}
-	,locMapList1:function(data){
+	,locMapList2:function(data){
 		smutil.loadingOn();
 		page.datalist = null;
 		page.apiParam.param.baseUrl="smapis/cldl/locMapList";
-		page.apiParam.param.callback="page.MapListCallback1";
+		page.apiParam.param.callback="page.MapListCallback2";
 		page.apiParam.data.parameters=data;
 		
 		// 공통 api호출 함수
 		smutil.callApi(page.apiParam);
 	},
-	MapListCallback1:function(res){
+	MapListCallback2:function(res){
 		//var arr = res.data.list;
 		page.datalist = res.data.list;
 		try {
 			if (res.data_count !== 0 && smutil.apiResValidChk(res) && res.code==="0000") {
 				$(".NoBox").css("display","none");
 				$("#mapCon").css("display","block");
-				page.writeMap1(page.datalist);
+				page.writeMap2(page.datalist);
 				
 				
 				//지도 집배달 출발 목록 조회 건수(전송시 알림용)
@@ -850,7 +866,8 @@ var page = {
 			page.isfirst = false;
 		}
 	},
-	writeMap1: function(list){
+	//신규지도 화면에서 배송목록창을 닫을 시 지도 화면 다시 셋팅
+	writeMap2: function(list){
 //		$("#mapCon").empty();
 		// 맵그리기
 		var arr = list;
@@ -974,18 +991,157 @@ var page = {
 			customOverlay.setMap(map);
 		}
 	
-		// 추가된 마커의 위치에 따라 맵의 표현범위가 확장
-//		map.setBounds(bounds);
-		
-		//지도새로고침(현재자기위치 갱신용)		
-//		var divMapReload = document.createElement('div'); 
-//		divMapReload.setAttribute('id','mapReload'); 
-//		divMapReload.classList.add('label');
-//		divMapReload.classList.add('mapreload');
-//		divMapReload.onclick = function(e) {
-//			page.getLocation();
-//		};
-//		mapContainer.appendChild(divMapReload);
-//		$("#mapReload").css({"top": "5px" ,"margin-left": "8px", "z-index": "1"});
 	}
+	
+	//시간대별 조회
+	,mapTmList2:function(){
+		
+		var data = {};
+		data.base_ymd=page.base_ymd;
+		data.step_sct_cd=page.step_sct_cd+"";
+
+		smutil.loadingOn();
+
+		page.apiParam.param.baseUrl="smapis/cldl/mapTmList";
+		page.apiParam.param.callback="page.mapTmListCallback2";
+		page.apiParam.data.parameters=data;
+
+		// 공통 api호출 함수
+		smutil.callApi(page.apiParam);
+	}
+	
+	//시간대별 조회 콜백2
+	,mapTmListCallback2:function(res){
+		try {
+			$('#cldl0801LstUl').html("");
+
+			if (smutil.apiResValidChk(res) && res.code==="0000" && res.data_count > 0) {
+				// 가져온 핸들바 템플릿 컴파일
+				var template = Handlebars.compile($("#CLDL0801_list_template").html());
+				
+				$('#mapno').hide();
+				$('#mapCon').show();
+
+				$('#cldl0801LstUl').html(template(res.data));
+
+//				$("#cldl0801LstUl").find("li:eq(0)").trigger("click");
+				
+			} else {
+				/*var template = Handlebars.compile($("#CLDL0801_list_template").html());
+				$('#cldl0801LstUl').html(template(res.data));*/
+				$('#cldl0801LstUl').html('');
+				$('#mapno').show();
+				$('#mapCon').hide();
+			}
+		}
+		catch (e) {}
+		finally{
+			smutil.loadingOff();
+			page.PublishCode();
+		}
+	}
+	
+	// 구역별 조회2
+	, mapAreaList2 : function(){
+		
+		var data = {};
+		data.base_ymd=page.base_ymd;
+		data.cldl_sct_cd="A";
+		data.step_sct_cd=page.step_sct_cd+"";
+
+		smutil.loadingOn();
+
+		page.apiParam.param.baseUrl="smapis/cldl/mapAreaList";
+		page.apiParam.param.callback="page.mapAreaListCallback2";
+		page.apiParam.data.parameters=data;
+
+		// 공통 api호출 함수
+		smutil.callApi(page.apiParam);
+	},
+
+	// 구역별 조회건수 callback
+	mapAreaListCallback2 : function(result){
+		page.apiParamInit();		// 파라메터 전역변수 초기화
+		try {
+			if (smutil.apiResValidChk(result) && result.code==="0000") {
+				// 조회 결과 데이터가 있으면 옵션 생성
+				if(result.data_count > 0){
+					var data = result.data;
+					
+					//오름차순 정렬
+					data.list.sort(function(a, b) {
+						if(a.mbl_area == "기타"){
+							return -1;
+						}
+						
+						if(b.mbl_area == "기타"){
+							return 1;
+						}
+						
+						return 0;
+					});
+
+					// 핸들바 템플릿 가져오기
+					var source = $("#CLDL0801_mblLst_template").html();
+					
+					// 핸들바 템플릿 컴파일
+					var template = Handlebars.compile(source);
+
+					// 핸들바 템플릿에 데이터를 바인딩해서 HTML 생성
+					var liHtml = template(data);
+
+					// 생성된 HTML을 DOM에 주입
+					$('#cldl0801LstUl').html(liHtml); //cmptTmListUl
+					
+					/* touchFlow 등록*/
+					$(".divisionBox .selectBox").touchFlow();
+//					/$("#cldl0801LstUl").find("li:eq(0)").trigger("click");					
+				}
+				else{
+					// 리스트가 아무것도 없을경우에는 기본으로 18~20 시 코드를 셋팅한다
+					var data = {"list" : [{
+						"mbl_area": "기타",
+						"mbl_area_org": "기타",
+						"alps_area":"ZZ",
+						"min_nm": "18",
+						"max_nm": "20",
+						"cldl_tmsl_nm": "18~20시",
+						"cldl_tmsl_cd": "19",
+						"cnt" : 0,
+						"tmsl_pick_cnt" : 0,
+						"tmsl_dlv_cnt" : 0,
+						"min_tmsl" : "18",
+						"max_tmsl" : "19"							
+					}]};
+					var source = $("#CLDL0801_mblLst_template").html(); 
+					// 핸들바 템플릿 컴파일
+					var template = Handlebars.compile(source);
+
+					// 핸들바 템플릿에 데이터를 바인딩해서 HTML 생성
+					var liHtml = template(data);
+
+					// 생성된 HTML을 DOM에 주입
+					$('#cldl0801LstUl').html(liHtml);
+
+
+					/* touchFlow 등록*/
+					$(".divisionBox .selectBox").touchFlow();
+
+					$('#mapno').show();
+					$('#mapCon').hide();
+				}
+				
+			}else {
+				$('#mapno').show();
+				$('#mapCon').hide();
+				$('#cldl0801LstUl').html('');				
+			}
+		}
+		catch (e) {}
+		finally{
+			smutil.loadingOff();
+		}
+		
+	}
+	// ################### 구역별 조회건수 조회 end
 }
