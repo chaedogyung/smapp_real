@@ -40,6 +40,11 @@ var page = {
 			page.initDpEvent();			// 화면 디스플레이 이벤트
 			//현대 특정고가물품 관리거래처 코드 내품확인서비스 이미지 표시
 			smutil.hdmgrCustCdReturn();
+			$('.divisionBox > .selectBox > .infoBox').hide();
+			//전산집하에서 박스 타입 초기셋팅은 A로 함
+			$(document).ready(function(){
+				$("input:radio[name='box_typ']:radio[value=A]").prop('checked', true); 
+			});
 		},
 
 
@@ -1022,7 +1027,8 @@ var page = {
 			var pick_sct_cd = page.returnTabSctCd();
 			// 일반집화
 			if(!smutil.isEmpty(pick_sct_cd) && pick_sct_cd == "G"){
-				$('.divisionBox').show();
+				$('.divisionBox > .selectBox > #cmptTmListUl').show();
+				$('.divisionBox > .selectBox > .infoBox').hide();
 				$('.topHead').show();
 				$('#bottomDivG').show();
 				$('#setDlvyCom1').show();
@@ -1044,7 +1050,12 @@ var page = {
 			}
 			// 전산집화
 			else if(pick_sct_cd == "C"){
-				$('.divisionBox').hide();
+				$('.divisionBox > .selectBox > #cmptTmListUl').hide();
+				if ($('.divisionBox > .selectBox > .infoBox').length) {
+					$('.divisionBox > .selectBox > .infoBox').show();
+				} else {
+					$('.divisionBox > .selectBox').append(boxTypHtml);
+				}
 				$('.topHead').hide();
 				$('#bottomDivG').hide();
 				$('#setDlvyCom1').hide();
@@ -1052,7 +1063,7 @@ var page = {
 				$('#listViewDiv').removeClass('gathListTp1');
 				$('#listViewDiv').addClass('gathListTp2');
 
-				$(".gathListTp2").css({"margin-top": "161px"});
+				$(".gathListTp2").css({"margin-top": "237px"});
 
 				// 전체 스캔리스트 조회
 				page.cmptScanListFun();
@@ -1975,6 +1986,12 @@ var page = {
 			else{		// 전산집하 (스캔 후처리)
 
 				result.scan_dtm = scan_dtm;
+				var rCheck4=$("input[type='radio'][name='box_typ']").is(":checked");
+				if (rCheck4) {
+					result.box_typ = $("input:radio[name='box_typ']:checked").val();
+				} else {
+					result.box_typ = "A";
+				}
 				page.cmptScanRgst(result);
 
 			}
@@ -2156,7 +2173,7 @@ var page = {
 			var inv_no = result.barcode;						// 송장번호
 			var scan_dtm = result.scan_dtm;						// 스캔 시간
 			var pick_sct_cd = "C";								// 집하구분코드(전산집하 : C)
-
+			var box_typ = result.box_typ;  					//박스 타입
 			if(smutil.isEmpty(inv_no)){
 				LEMP.Window.toast({
 					"_sMessage":"송장번호가 없습니다.",
@@ -2215,7 +2232,8 @@ var page = {
 					"inv_no":inv_no+"",
 					"scan_dtm":scan_dtm+"",
 					"cldl_sct_cd":cldl_sct_cd+"",
-					"pick_sct_cd" : pick_sct_cd+""
+					"pick_sct_cd" : pick_sct_cd+"",
+					"box_typ" : box_typ+""
 				}
 
 			};	// api 통신용 파라메터
@@ -3695,3 +3713,18 @@ var page = {
 		}
 };
 
+var boxTypHtml = 	
+'<div class="infoBox" style="height:75px; background-color: white;">'+
+	'<div class="tit">'+
+		'<em style="font-weight: bold;">&nbsp; &nbsp;박스 타입</em>'+
+		'<span class="chkBox m fr"></span>'+
+	'</div>'+
+	'<div id="box_typ" style="margin-top: 8px;">'+
+			'<span class="radioBox txt" style="float:left;"><input type="radio" name="box_typ" id="A_BOX_TYP" value="A"><label for="A_BOX_TYP">A</label></span>'+
+			'<span class="radioBox txt" style="float:left;"><input type="radio" name="box_typ" id="B_BOX_TYP" value="B"><label for="B_BOX_TYP">B</label></span>'+
+			'<span class="radioBox txt" style="float:left;"><input type="radio" name="box_typ" id="C_BOX_TYP" value="C"><label for="C_BOX_TYP">C</label></span>'+
+			'<span class="radioBox txt" style="float:left;"><input type="radio" name="box_typ" id="D_BOX_TYP" value="D"><label for="D_BOX_TYP">D</label></span>'+
+			'<span class="radioBox txt" style="float:left;"><input type="radio" name="box_typ" id="E_BOX_TYP" value="E"><label for="E_BOX_TYP">E</label></span>'+
+			'<span class="radioBox txt" style="float:left;"><input type="radio" name="box_typ" id="F_BOX_TYP" value="F"><label for="F_BOX_TYP">F</label></span>'+
+	'</div>'+
+'</div>';
