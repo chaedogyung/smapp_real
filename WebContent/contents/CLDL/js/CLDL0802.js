@@ -3773,11 +3773,11 @@ var page = {
 			} else {
 				scancnt = Number(smutil.nullToValue($('#scanLstCntD').text(),"0"));
 			} 
-			if(scancnt > 0) {
-				page.chkScanCnt(scancnt);	
-			} else {
+//			if(scancnt > 0) {
+//				page.chkScanCnt(scancnt);	
+//			} else {
 				page.closeWindow();	
-			}
+//			}
 			
 		} else if(page.cldl0802.step_sct_cd == "3") { //예정
 			// 하단 스캔건수 조회
@@ -3796,8 +3796,15 @@ var page = {
 	}
 	, closeWindow : function(){
 		if(page.is_reload == null) {
-				LEMP.Window.close();
+			alert("1-1")
+			LEMP.Window.close({
+					"_oMessage":{
+						"param":{"step_sct_cd":page.cldl0802.step_sct_cd}
+					},
+					"_sCallback":"page.cldl0802Callback"
+				});
 			} else {
+				alert("1")
 				LEMP.Window.close({
 						"_oMessage":{
 							"param":{"step_sct_cd":page.cldl0802.step_sct_cd}

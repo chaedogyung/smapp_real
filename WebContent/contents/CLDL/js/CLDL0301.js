@@ -295,13 +295,14 @@ var page = {
 			// 전송버튼
 			// 집하완료 전송 버튼 클릭
 			$('#cmptTrsmBtnG,#cmptTrsmBtnC').click(function(e){
-
+				alert("3")
 				var scanCnt = 0;
 				// 일반집하
 				if(_this.returnTabSctCd() == "G"){
 					scanCnt = Number($('#scanLstCntG').text());
 				}
 				else{	// 전산집하
+					alert("2")
 					scanCnt = Number($('#scanLstCntC').text());
 				}
 
@@ -2784,7 +2785,7 @@ var page = {
 
 		// ################### 집하완료전송(전송) start
 		cmptTrsm : function(){
-
+alert("1")
 			var _this = this;
 			var cldl_sct_cd = "P";							// 업무구분
 			var cldl_tmsl_cd = page.returnTimeCd();			// 예정시간코드
@@ -3720,11 +3721,11 @@ var boxTypHtml =
 		'<span class="chkBox m fr"></span>'+
 	'</div>'+
 	'<div id="box_typ" style="margin-top: 8px;">'+
-			'<span class="radioBox txt" style="float:left;"><input type="radio" name="box_typ" id="A_BOX_TYP" value="A"><label for="A_BOX_TYP">A</label></span>'+
-			'<span class="radioBox txt" style="float:left;"><input type="radio" name="box_typ" id="B_BOX_TYP" value="B"><label for="B_BOX_TYP">B</label></span>'+
-			'<span class="radioBox txt" style="float:left;"><input type="radio" name="box_typ" id="C_BOX_TYP" value="C"><label for="C_BOX_TYP">C</label></span>'+
-			'<span class="radioBox txt" style="float:left;"><input type="radio" name="box_typ" id="D_BOX_TYP" value="D"><label for="D_BOX_TYP">D</label></span>'+
-			'<span class="radioBox txt" style="float:left;"><input type="radio" name="box_typ" id="E_BOX_TYP" value="E"><label for="E_BOX_TYP">E</label></span>'+
-			'<span class="radioBox txt" style="float:left;"><input type="radio" name="box_typ" id="F_BOX_TYP" value="F"><label for="F_BOX_TYP">F</label></span>'+
+			'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="A_BOX_TYP" value="A"><label for="A_BOX_TYP">A</label></span>'+
+			'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="B_BOX_TYP" value="B"><label for="B_BOX_TYP">B</label></span>'+
+			'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="C_BOX_TYP" value="C"><label for="C_BOX_TYP">C</label></span>'+
+			'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="D_BOX_TYP" value="D"><label for="D_BOX_TYP">D</label></span>'+
+			'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="E_BOX_TYP" value="E"><label for="E_BOX_TYP">E</label></span>'+
+			'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="F_BOX_TYP" value="F"><label for="F_BOX_TYP">F</label></span>'+
 	'</div>'+
 '</div>';
