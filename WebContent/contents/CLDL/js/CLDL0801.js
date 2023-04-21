@@ -850,13 +850,7 @@ var page = {
 					$('.noList > #mapCon > div > div > div > div >.label.silver > span').parent().remove();
 					for (var i = 0; i < arr.length; i ++) {
 						var strCnt = arr[i].cldl_p + '/' + arr[i].cldl_d;
-						$('.noList > #mapCon > div > div > div > div').setAttribute('id','I'+i);
-						$('.noList > #mapCon > div > div > div > div').content.classList.add('label');
-						$('.noList > #mapCon > div > div > div > div').classList.add('silver');
-							
-						var info = document.createElement('span');
-					    info.appendChild(document.createTextNode(strCnt));
-						$('.noList > #mapCon > div>div>div>div> #I'+i+'').appendChild(info);	
+						$('.noList > #mapCon > div > div > div > div').append('<div class=label silver id=I'+i+'><span>'+strCnt+'</span></div>');
 					}	
 				}
 				
