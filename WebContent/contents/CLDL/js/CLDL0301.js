@@ -40,15 +40,7 @@ var page = {
 			page.initDpEvent();			// 화면 디스플레이 이벤트
 			//현대 특정고가물품 관리거래처 코드 내품확인서비스 이미지 표시
 			smutil.hdmgrCustCdReturn();
-			$('.divisionBox > .selectBox > .infoBox').hide();
-			//전산집하에서 박스 타입 초기셋팅은 A로 함
-			$(document).ready(function(){
-				$("input:radio[name='box_typ']:radio[value=A]").prop('checked', true); 
-			});
 		},
-
-
-
 		// 페이지 이벤트 등록
 		initEvent : function()
 		{
@@ -295,14 +287,13 @@ var page = {
 			// 전송버튼
 			// 집하완료 전송 버튼 클릭
 			$('#cmptTrsmBtnG,#cmptTrsmBtnC').click(function(e){
-				alert("3")
+
 				var scanCnt = 0;
 				// 일반집하
 				if(_this.returnTabSctCd() == "G"){
 					scanCnt = Number($('#scanLstCntG').text());
 				}
 				else{	// 전산집하
-					alert("2")
 					scanCnt = Number($('#scanLstCntC').text());
 				}
 
@@ -1063,9 +1054,7 @@ var page = {
 				$('#bottomDivC').show();
 				$('#listViewDiv').removeClass('gathListTp1');
 				$('#listViewDiv').addClass('gathListTp2');
-
-				$(".gathListTp2").css({"margin-top": "237px"});
-
+				$("input:radio[name='svc_cd']:radio[value=00]").trigger('click');
 				// 전체 스캔리스트 조회
 				page.cmptScanListFun();
 			}
@@ -2785,7 +2774,7 @@ var page = {
 
 		// ################### 집하완료전송(전송) start
 		cmptTrsm : function(){
-alert("1")
+
 			var _this = this;
 			var cldl_sct_cd = "P";							// 업무구분
 			var cldl_tmsl_cd = page.returnTimeCd();			// 예정시간코드
@@ -3716,16 +3705,40 @@ alert("1")
 
 var boxTypHtml = 	
 '<div class="infoBox" style="height:75px; background-color: white;">'+
-	'<div class="tit">'+
-		'<em style="font-weight: bold;">&nbsp; &nbsp;박스 타입</em>'+
-		'<span class="chkBox m fr"></span>'+
-	'</div>'+
-	'<div id="box_typ" style="margin-top: 8px;">'+
-			'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="A_BOX_TYP" value="A"><label for="A_BOX_TYP">A</label></span>'+
-			'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="B_BOX_TYP" value="B"><label for="B_BOX_TYP">B</label></span>'+
-			'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="C_BOX_TYP" value="C"><label for="C_BOX_TYP">C</label></span>'+
-			'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="D_BOX_TYP" value="D"><label for="D_BOX_TYP">D</label></span>'+
-			'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="E_BOX_TYP" value="E"><label for="E_BOX_TYP">E</label></span>'+
-			'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="F_BOX_TYP" value="F"><label for="F_BOX_TYP">F</label></span>'+
-	'</div>'+
+'<div class="tit">'+
+	'<em>&nbsp; &nbsp;박스 타입</em>'+
+	'<span class="chkBox m fr"></span>'+
+'</div>'+
+'<div class="raTab">'+
+	'<span class="radioBox"><input type="radio"  name="svc_cd" id="00_SVC_CD" value="00" checked="checked" onclick="PublishCode();"/><label for="00_SVC_CD">일반</label></span>'+
+	'<span class="radioBox mgl10"><input type="radio"  name="svc_cd" id="01_SVC_CD" value="01" class="raShow" onclick="PublishCode();"/><label for="01_SVC_CD">해외직구</label></span>'+
+'</div>'+
+
+'<div class="raView dsn mgt10" style="margin-top: 8px;">'+
+	'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="A_BOX_TYP" value="A"><label for="A_BOX_TYP">A</label></span>'+
+	'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="B_BOX_TYP" value="B"><label for="B_BOX_TYP">B</label></span>'+
+	'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="C_BOX_TYP" value="C"><label for="C_BOX_TYP">C</label></span>'+
+	'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="D_BOX_TYP" value="D"><label for="D_BOX_TYP">D</label></span>'+
+	'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="E_BOX_TYP" value="E"><label for="E_BOX_TYP">E</label></span>'+
+	'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="F_BOX_TYP" value="F"><label for="F_BOX_TYP">F</label></span>'+
+'</div>'+
 '</div>';
+
+
+function PublishCode(){
+	/* 라디오버튼 옵션 */
+	$(".raTab input:radio").on("click",function(){
+		if($(".raTab .raShow").prop("checked")){
+			$(".raView").show();
+			$(".gathListTp2").css({"height": "102x"});
+			$(".gathListTp2").css({"margin-top": "271px"});
+			$(".infoBox").css({"height": "109px"});
+		}else{
+			$(".raView").hide();
+			$(".gathListTp2").css({"height": "271px"});
+			$(".gathListTp2").css({"margin-top": "230px"});
+			$(".infoBox").css({"height": "68px"});
+			$('input[name="box_typ"]').prop('checked', false);
+		}
+	});
+}
