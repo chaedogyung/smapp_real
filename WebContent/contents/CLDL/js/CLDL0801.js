@@ -577,6 +577,7 @@ var page = {
 			content.setAttribute('id','I'+i); 
 			content.classList.add('label');
 			var strCnt = arr[i].cldl_p + '/' + arr[i].cldl_d;
+			var bldMgrNo = arr[i].bld_mgr_no;
 			if(page.step_sct_cd == "0" || page.step_sct_cd == "1") {
 				content.classList.add('red');	
 			} else {
@@ -585,8 +586,11 @@ var page = {
 			
 			 
 			var info = document.createElement('span');
+			var info2 = document.createElement('div');
 		    info.appendChild(document.createTextNode(strCnt));
+		    info2.appendChild(document.createTextNode(bldMgrNo));
 		    content.appendChild(info);	
+		    content.appendChild(info2);	
 			content.onclick = function(e) {
 				var id = $(this)[0].id; 
 				var mid = 0, stmpDetail;
@@ -790,12 +794,12 @@ var page = {
 					data.sbox_type_cd = page.apiParam.data.parameters.sbox_type_cd; 
 					page.mapAreaList2();            // 구역별 조회건수 조회2
 					page.locMapList2(data);
-					var count = $('.noList > #mapCon > div > div > div > div > .label.red > span').length
-					for(var i = 0; i < count; i++){	
-						if (!$('.noList > #mapCon > div > div > div > div > #I'+i+' > span').text().trim()) {
-							$('.noList > #mapCon > div > div > div > div > #I'+i+' > span').parent().remove();
-						}
-					}	
+//					var count = $('.noList > #mapCon > div > div > div > div > .label.red > span').length
+//					for(var i = 0; i < count; i++){	
+//						if (!$('.noList > #mapCon > div > div > div > div > #I'+i+' > span').text().trim()) {
+//							$('.noList > #mapCon > div > div > div > div > #I'+i+' > span').parent().remove();
+//						}
+//					}	
 				} else{
 					var data={};
 					data.base_ymd = page.base_ymd;
@@ -805,12 +809,13 @@ var page = {
 					data.sbox_type_cd = page.apiParam.data.parameters.sbox_type_cd;
 					page.mapTmList2();				 //시간대별 조회건수 조회2
 					page.locMapList2(data);
-					var count = $('.noList > #mapCon > div > div > div > div > .label.red > span').length
-					for(var i = 0; i < count; i++){	
-						if (!$('.noList > #mapCon > div > div > div > div > #I'+i+' > span').text().trim()) {
-							$('.noList > #mapCon > div > div > div > div > #I'+i+' > span').parent().remove();
-						}
-					}	
+//					var count = $('.noList > #mapCon > div > div > div > div > .label.red > span').length
+//					for(var i = 0; i < count; i++){	
+//						if (!$('.noList > #mapCon > div > div > div > div > #I'+i+' > span').text().trim()) {
+//							$('.noList > #mapCon > div > div > div > div > #I'+i+' > span').parent().remove();
+//						}
+//					}
+					console.log(page.datalist);
 				}
 			} else {
 				var data={};
@@ -844,25 +849,58 @@ var page = {
 				
 				var arr = res.data.list;
 				// 마커를 추가하는 반복문
+
+				var bld_mgr_no = $('.noList > #mapCon > div > div > div > div >.label.silver > div');
+
+				var myArray = [];
+				var myArray2 = [];
+				for(var f=0;f<arr.length;f++){
+					console.log(arr[f].bld_mgr_no)
+					myArray.push(arr[f].bld_mgr_no)
+				}
+
+				myArray.sort(function(a, b) {
+				  return a - b;
+				});
+				console.log(myArray);
+				
+				for(var i =0; i<bld_mgr_no.length;i++){
+					console.log(bld_mgr_no[i]);
+					myArray2.push(bld_mgr_no[i]);
+				}
+				myArray2.sort(function(a, b) {
+				  return a - b;
+				});
+				console.log(myArray2);
 				
 				//집배달예정일때
 				if(page.step_sct_cd == "3"){
-					$('.noList > #mapCon > div > div > div > div >.label.silver > span').parent().remove();
+					console.log($('.noList > #mapCon > div > div > div > div >.label.silver > div').length)
+					
+					var bld_mgr_no = $('.noList > #mapCon > div > div > div > div >.label.silver > div');
+					for(var i =0; i<bld_mgr_no.length;i++){
+						if(myArray[i] == bld_mgr_no[i].textContent){
+							$(bld_mgr_no[i]).parent().hide();
+							console.log(bld_mgr_no[i]);
+						}
+					}
+		
+					console.log(bld_mgr_no);
+					$('.noList > #mapCon > div > div > div > div >.label.silver > span').text('');
 					for (var i = 0; i < arr.length; i ++) {
 						var strCnt = arr[i].cldl_p + '/' + arr[i].cldl_d;
-						$('.noList > #mapCon > div > div > div > div').append('<div class=label silver id=I'+i+'><span>'+strCnt+'</span></div>');
+						$('.noList > #mapCon > div > div > div > div > #I'+i+' > span').text(strCnt);
 					}	
 				}
-				
-				if(page.step_sct_cd == '1' || page.step_sct_cd == '0'){
-					$('.noList > #mapCon > div>div>div>div> .label.red > span').text('')
-					for(var i= 0;i<page.datalist.length;i++){
-						console.log($('.noList > #mapCon > div>div>div>div> .label.red').length);
-						var strCnt = page.datalist[i].cldl_p + '/' + page.datalist[i].cldl_d;	
-						$('.noList > #mapCon > div>div>div>div> #I'+i+' > span').text(strCnt);	
-					}
-				}
-				//page.writeMap2(page.datalist);
+//				
+//				if(page.step_sct_cd == '1' || page.step_sct_cd == '0'){
+//					$('.noList > #mapCon > div>div>div>div> .label.red > span').text('')
+//					for(var i= 0;i<arr.length;i++){
+//						var strCnt = arr[i].cldl_p + '/' + arr[i].cldl_d;	
+//						$('.noList > #mapCon > div>div>div>div> #I'+i+' > span').text(strCnt);	
+//					}
+//				}
+//				page.writeMap2(page.datalist);
 
 				//지도 집배달 출발 목록 조회 건수(전송시 알림용)
 				if(page.step_sct_cd == "0") {
@@ -899,7 +937,7 @@ var page = {
 	},
 	//신규지도 화면에서 배송목록창을 닫을 시 지도 화면 다시 셋팅
 	writeMap2: function(list){
-//		$("#mapCon").empty();
+		$("#mapCon").empty();
 		// 맵그리기
 		var arr = list;
 //		
@@ -1175,83 +1213,5 @@ var page = {
 		
 	}
 	// ################### 구역별 조회건수 조회 end
-	
-	
-	
-	// 건수 기준 조회
-	,locMapList3:function(data){
-		smutil.loadingOn();
-
-		page.datalist = null;
-		page.apiParam.param.baseUrl="smapis/cldl/locMapList";
-		page.apiParam.param.callback="page.MapListCallback";
-		page.apiParam.data.parameters=data;
-
-		// 공통 api호출 함수
-		smutil.callApi(page.apiParam);
-	}		
-		  
-	// 기준 조회 콜백
-	,MapListCallback3:function(res){
-		//var arr = res.data.list;
-		page.datalist = res.data.list;
-
-		try {
-			if (res.data_count !== 0 && smutil.apiResValidChk(res) && res.code==="0000") {
-				$(".NoBox").css("display","none");
-				$("#mapCon").css("display","block");
-				
-				var arr = res.data.list;
-				// 마커를 추가하는 반복문
-
-				if(page.step_sct_cd == "3"){
-					$('.noList > #mapCon > div > div > div > div >.label.silver > span').parent().remove();
-					for (var i = 0; i < arr.length; i ++) {
-						var strCnt = arr[i].cldl_p + '/' + arr[i].cldl_d;
-						$('.noList > #mapCon > div > div > div > div').setAttribute('id','I'+i);
-						$('.noList > #mapCon > div > div > div > div').content.classList.add('label');
-						$('.noList > #mapCon > div > div > div > div').classList.add('silver');
-							
-						var info = document.createElement('span');
-					    info.appendChild(document.createTextNode(strCnt));
-						$('.noList > #mapCon > div>div>div>div> #I'+i+'').appendChild(info);	
-					}	
-				}
-				//page.writeMap(page.datalist);
-				
-				
-				//지도 집배달 출발 목록 조회 건수(전송시 알림용)
-				if(page.step_sct_cd == "0") {
-					if(!smutil.isEmpty(res.data.listCnt)){
-					var cnt = 0;
-					$.each(res.data.listCnt, function(index, obj){
-							if(smutil.isEmpty(obj.cldl_cnt)) {
-								cnt = 0 ;
-							}
-							else{
-								cnt = obj.cldl_cnt ;
-							}
-	
-							$("#"+obj.cldl_sct_cd+"_cldl0801Cnt").text(cnt);
-						});
-					}
-				}
-				
-			}else {
-				$("#mapCon").css("display","none");
-				$(".NoBox").css("display","block");
-			}
-		}
-		catch (e) {}
-		finally{
-			smutil.loadingOff();
-			/*if(page.isfirst) {
-				if(smutil.isEmpty(page.curLgtd)) {
-					alert('GPS(핸드폰 위치 서비스) 설정 바랍니다.');
-				}
-			}*/
-			page.isfirst = false;
-		}
-	} 
 	
 }
