@@ -1972,23 +1972,23 @@ var page = {
 					"_sPagePath": popUrl
 				});
 
-			}
-			else{		// 전산집하 (스캔 후처리)
+			} else {		// 전산집하 (스캔 후처리)
 
 				result.scan_dtm = scan_dtm;
-				var rCheck4=$("input[type='radio'][name='box_typ']").is(":checked");
-				if (rCheck4) {
-					result.box_typ = $("input:radio[name='box_typ']:checked").val();
-				} else {
-					result.box_typ = "A";
+				if ($('#00_SVC_CD').is(':checked')) {//일반일때
+					page.cmptScanRgst(result);
+				} else  if ($('#01_SVC_CD').is(':checked')){//해외직구일때
+					
+					var rCheck4=$("input[type='radio'][name='box_typ']").is(":checked");
+					if (rCheck4) {
+						result.box_typ = $("input:radio[name='box_typ']:checked").val();
+					} else {
+						result.box_typ = "A";
+					}
+					page.cmptScanRgst(result);
 				}
-				page.cmptScanRgst(result);
-
 			}
-
 		},
-
-
 
 		// 스캔팝업 콜백 함수
 		CLDL0306Callback : function(result){
@@ -3706,7 +3706,7 @@ var page = {
 var boxTypHtml = 	
 '<div class="infoBox" style="height:75px; background-color: white;">'+
 '<div class="tit">'+
-	'<em>&nbsp; &nbsp;박스 타입</em>'+
+	'<em>&nbsp; &nbsp;  &nbsp;박스 타입</em>'+
 	'<span class="chkBox m fr"></span>'+
 '</div>'+
 '<div class="raTab">'+
@@ -3730,14 +3730,12 @@ function PublishCode(){
 	$(".raTab input:radio").on("click",function(){
 		if($(".raTab .raShow").prop("checked")){
 			$(".raView").show();
-			$(".gathListTp2").css({"height": "102x"});
 			$(".gathListTp2").css({"margin-top": "271px"});
 			$(".infoBox").css({"height": "109px"});
 		}else{
 			$(".raView").hide();
-			$(".gathListTp2").css({"height": "271px"});
-			$(".gathListTp2").css({"margin-top": "230px"});
-			$(".infoBox").css({"height": "68px"});
+			$(".gathListTp2").css({"margin-top": "219px"});
+			$(".infoBox").css({"height": "57px"});
 			$('input[name="box_typ"]').prop('checked', false);
 		}
 	});
