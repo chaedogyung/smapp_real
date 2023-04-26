@@ -187,8 +187,10 @@ var page = {
 		if(page.com0201.step_sct_cd == "0" || page.com0201.step_sct_cd == "1"){
 			if(page.sboxType == 'area'){
 				page.mapAreaList();            // 구역별 조회건수 조회
+				$('.noList > #mapCon > div > div > div > div >.label.red > div').hide();
 			} else{
 				page.mapTmList();
+				$('.noList > #mapCon > div > div > div > div >.label.red > div').hide();
 			}
 		} else {
 			var data={};
@@ -198,6 +200,7 @@ var page = {
 			data.cldl_tmsl_null = "true";
 			data.sbox_type_cd = "";
 			page.locMapList(data);
+			$('.noList > #mapCon > div > div > div > div >.label.silver > div').hide();
 		}
 	}
 	// ################### 구역별 조회건수 조회 start
@@ -547,6 +550,7 @@ var page = {
 			content.setAttribute('id','I'+i); 
 			content.classList.add('label');
 			var strCnt = arr[i].cldl_p + '/' + arr[i].cldl_d;
+			var bldMgrNo = arr[i].bld_mgr_no;
 			if(page.com0201.step_sct_cd == "0" || page.com0201.step_sct_cd == "1") {
 				content.classList.add('red');
 				//content.classList.add('pink');	
@@ -555,8 +559,11 @@ var page = {
 			}
 			
 			var info = document.createElement('span');
+			var info2 = document.createElement('div');
 		    info.appendChild(document.createTextNode(strCnt));
+		    info2.appendChild(document.createTextNode(bldMgrNo));
 		    content.appendChild(info);	
+		    content.appendChild(info2);	
 			content.onclick = function(e) {
 				var id = $(this)[0].id; 
 				var mid = 0, stmpDetail;
@@ -787,7 +794,325 @@ var page = {
 		if(!smutil.isEmpty(res.param.step_sct_cd)) {
 			page.com0201.step_sct_cd = res.param.step_sct_cd + "";
 			page.is_reload = true;
-			page.mapSelectList();
+			page.mapSelectList2();
+		}
+	}
+	,mapSelectList2:function() {
+		$("#A_com0201Cnt").text(0);
+		$("#P_com0201Cnt").text(0);
+		$("#D_com0201Cnt").text(0);
+		
+		if(page.com0201.step_sct_cd == "0" || page.com0201.step_sct_cd == "1"){
+			if(page.sboxType == 'area'){
+				var data={};
+				data.base_ymd = page.com0201.base_ymd;
+				data.step_sct_cd = page.com0201.step_sct_cd+"";
+				data.cldl_sct_cd = page.com0201.cldl_sct_cd;
+				data.cldl_tmsl_null = page.com0201.cldl_tmsl_null;
+				data.sbox_type_cd = page.com0201.sbox_type_cd;
+				page.mapAreaList2();            // 구역별 조회건수 조회
+				page.locMapList2(data);
+				$('.noList > #mapCon > div > div > div > div >.label.red > div').hide();
+			} else{
+				var data={};
+				data.base_ymd = page.com0201.base_ymd;
+				data.step_sct_cd = page.com0201.step_sct_cd+"";
+				data.cldl_sct_cd = page.com0201.cldl_sct_cd;
+				data.cldl_tmsl_null = page.com0201.cldl_tmsl_null;
+				data.sbox_type_cd = page.com0201.sbox_type_cd;
+				page.mapTmList2();
+				page.locMapList2(data);
+				$('.noList > #mapCon > div > div > div > div >.label.red > div').hide();
+			}
+		} else {
+			var data={};
+			data.base_ymd = page.com0201.base_ymd;
+			data.step_sct_cd = page.com0201.step_sct_cd+"";
+			data.cldl_sct_cd = "A"; //page.cldl_sct_cd
+			data.cldl_tmsl_null = "true";
+			data.sbox_type_cd = "";
+			page.locMapList2(data);
+			$('.noList > #mapCon > div > div > div > div >.label.silver > div').hide();
 		}
 	}	
+		
+	// 건수 기준 조회2
+	,locMapList2:function(data){
+		smutil.loadingOn();
+
+//		page.com0201.base_ymd = "20200106"
+		page.apiParam.param.baseUrl="smapis/cldl/locMapList";
+		page.apiParam.param.callback="page.MapListCallback2";
+		page.apiParam.data.parameters=data;
+
+		// 공통 api호출 함수
+		smutil.callApi(page.apiParam);
+	}
+	
+	// 순서 기준 조회 콜백2
+	,MapListCallback2:function(res){
+		//var arr = res.data.list;
+		page.datalist = res.data.list;
+		try {
+			if (res.data_count !== 0 && smutil.apiResValidChk(res) && res.code==="0000") {
+				$(".NoBox").css("display","none");
+				$("#mapCon").css("display","block");
+				//page.writeMap(page.datalist);
+				
+				var arr = res.data.list;
+				
+				//집배달예정일때
+				if(page.com0201.step_sct_cd == "3"){
+					var bld_mgr_no = $('.noList > #mapCon > div > div > div > div >.label.silver > div');
+	
+					var arrArray = [];
+					var bld_mgr_no_array = [];
+					for(var f=0;f<arr.length;f++){
+						console.log(arr[f].bld_mgr_no)
+						arrArray.push(arr[f].bld_mgr_no)
+					}
+	
+					arrArray.sort(function(a, b) {
+					  return a - b;
+					});
+					console.log(arrArray);
+					
+					for(var i =0; i<bld_mgr_no.length;i++){
+						console.log(bld_mgr_no[i].outerText);
+						bld_mgr_no_array.push(bld_mgr_no[i].outerText);
+					}
+					bld_mgr_no_array.sort(function(a, b) {
+					  return a - b;
+					});
+					console.log(bld_mgr_no_array);
+	
+					// 차집합(Difference) 목록에서 사라진 항목 찾아서 지도에서 제거하기
+					console.log(bld_mgr_no_array.filter(x => !arrArray.includes(x)));
+					var myArray3 = bld_mgr_no_array.filter(x => !arrArray.includes(x));
+					console.log(myArray3)
+					console.log(bld_mgr_no);
+					for(var q=0;q<bld_mgr_no.length;q++){
+						if(bld_mgr_no[q].outerText == myArray3){
+							$(bld_mgr_no[q]).closest('.label.silver').remove();
+						}
+					}
+				//집배달 출발,집배달완료	
+				} else if(page.com0201.step_sct_cd == '1' || page.com0201.step_sct_cd == '0'){
+				
+					var bld_mgr_no = $('.noList > #mapCon > div > div > div > div >.label.red > div');
+					var arrArray = [];
+					var bld_mgr_no_array = [];
+	
+					for(var f=0;f<arr.length;f++){
+						console.log(arr[f].bld_mgr_no)
+						arrArray.push(arr[f].bld_mgr_no)
+					}
+	
+					arrArray.sort(function(a, b) {
+					  return a - b;
+					});
+					console.log(arrArray);
+					
+					for(var i =0; i<bld_mgr_no.length;i++){
+						console.log(bld_mgr_no[i].outerText);
+						bld_mgr_no_array.push(bld_mgr_no[i].outerText);
+					}
+					bld_mgr_no_array.sort(function(a, b) {
+					  return a - b;
+					});
+					console.log(bld_mgr_no_array);
+	
+					// 차집합(Difference) 목록에서 사라진 항목 찾아서 지도에서 제거하기
+					console.log(bld_mgr_no_array.filter(x => !arrArray.includes(x)));
+					var myArray3 = bld_mgr_no_array.filter(x => !arrArray.includes(x));
+					console.log(myArray3)
+					console.log(bld_mgr_no);
+					for(var q=0;q<bld_mgr_no.length;q++){
+						if(bld_mgr_no[q].outerText == myArray3){
+							$(bld_mgr_no[q]).closest('.label.red').remove();
+						}
+					}
+
+				}
+				
+				
+				//지도 집배달 출발 목록 조회 건수(전송시 알림용)
+				if(page.com0201.step_sct_cd == "0") { //2023.04.10
+					if(!smutil.isEmpty(res.data.listCnt)){
+					var cnt = 0;
+					$.each(res.data.listCnt, function(index, obj){
+							if(smutil.isEmpty(obj.cldl_cnt)) {
+								cnt = 0 ;
+							}
+							else{
+								cnt = obj.cldl_cnt ;
+							}
+	
+							$("#"+obj.cldl_sct_cd+"_com0201Cnt").text(cnt);
+						});
+					}
+				}
+			}else {
+				$("#mapCon").css("display","none");
+				$(".NoBox").css("display","block");
+			}
+		}
+		catch (e) {}
+		finally{
+			smutil.loadingOff();
+			
+			/*if(page.isfirst) {				
+				if(smutil.isEmpty(page.curLgtd)) {
+					alert('GPS(핸드폰 위치 서비스) 설정 바랍니다.');
+				}
+			}*/
+			page.isfirst = false;
+		}
+	}
+	
+	,mapTmList2:function(){
+		var data = {};
+		data.base_ymd=page.com0201.base_ymd;
+		data.step_sct_cd=page.com0201.step_sct_cd+"";
+
+		smutil.loadingOn();
+
+		page.apiParam.param.baseUrl="smapis/cldl/mapTmList";
+		page.apiParam.param.callback="page.mapTmListCallback2";
+		page.apiParam.data.parameters=data;
+
+		// 공통 api호출 함수
+		smutil.callApi(page.apiParam);
+	}
+	,mapTmListCallback2:function(res){
+		try {
+			if (smutil.apiResValidChk(res) && res.code==="0000" && res.data_count > 0) {
+				// 가져온 핸들바 템플릿 컴파일
+				var template = Handlebars.compile($("#COM0201_list_template").html());
+				
+				$('#mapno').hide();
+				$('#mapCon').show();
+
+				$('#com0201LstUl').html(template(res.data));
+
+//				$("#com0201LstUl").find("li:eq(0)").trigger("click");
+			} else {
+				/*var template = Handlebars.compile($("#com0201_list_template").html());
+				$('#com0201LstUl').html(template(res.data));*/
+				$('#mapno').show();
+				$('#mapCon').hide();
+				$('#com0201LstUl').html('');
+				
+			}
+		}
+		catch (e) {}
+		finally{
+			smutil.loadingOff();
+			page.PublishCode();
+		}
+	}
+	// ################### 구역별 조회건수 조회2 start
+	, mapAreaList2 : function(){
+		
+		var data = {};
+		data.base_ymd=page.com0201.base_ymd;
+		data.cldl_sct_cd="A";
+		data.step_sct_cd=page.com0201.step_sct_cd+"";
+
+		smutil.loadingOn();
+
+		page.apiParam.param.baseUrl="smapis/cldl/mapAreaList";
+		page.apiParam.param.callback="page.mapAreaListCallback2";
+		page.apiParam.data.parameters=data;
+
+		// 공통 api호출 함수
+		smutil.callApi(page.apiParam);
+	},
+
+	// 구역별 조회건수 callback
+	mapAreaListCallback2 : function(result){
+		page.apiParamInit();		// 파라메터 전역변수 초기화
+		try {
+			if (smutil.apiResValidChk(result) && result.code==="0000") {
+				// 조회 결과 데이터가 있으면 옵션 생성
+				if(result.data_count > 0){
+					var data = result.data;
+					
+					//오름차순 정렬
+					data.list.sort(function(a, b) {
+						if(a.mbl_area == "기타"){
+							return -1;
+						}
+						
+						if(b.mbl_area == "기타"){
+							return 1;
+						}
+						
+						return 0;
+					});
+
+					// 핸들바 템플릿 가져오기
+					var source = $("#COM0201_mblLst_template").html();
+					
+					// 핸들바 템플릿 컴파일
+					var template = Handlebars.compile(source);
+
+					// 핸들바 템플릿에 데이터를 바인딩해서 HTML 생성
+					var liHtml = template(data);
+
+					// 생성된 HTML을 DOM에 주입
+					$('#com0201LstUl').html(liHtml); //cmptTmListUl
+					
+					/* touchFlow 등록*/
+					$(".divisionBox .selectBox").touchFlow();
+
+//					$("#com0201LstUl").find("li:eq(0)").trigger("click");					
+				}
+				else{
+					// 리스트가 아무것도 없을경우에는 기본으로 18~20 시 코드를 셋팅한다
+					var data = {"list" : [{
+						"mbl_area": "기타",
+						"mbl_area_org": "기타",
+						"alps_area":"ZZ",
+						"min_nm": "18",
+						"max_nm": "20",
+						"cldl_tmsl_nm": "18~20시",
+						"cldl_tmsl_cd": "19",
+						"cnt" : 0,
+						"cnt_p" : 0,
+						"cnt_d" : 0,
+						"min_tmsl" : "18",
+						"max_tmsl" : "19"							
+					}]};
+					var source = $("#COM0201_mblLst_template").html(); 
+					// 핸들바 템플릿 컴파일
+					var template = Handlebars.compile(source);
+
+					// 핸들바 템플릿에 데이터를 바인딩해서 HTML 생성
+					var liHtml = template(data);
+
+					// 생성된 HTML을 DOM에 주입
+					$('#com0201LstUl').html(liHtml);
+
+
+					/* touchFlow 등록*/
+					$(".divisionBox .selectBox").touchFlow();
+
+					$('#mapno').show();
+					$('#mapCon').hide();
+				}
+				
+			}else {
+				$('#mapno').show();
+				$('#mapCon').hide();
+				$('#com0201LstUl').html('');				
+			}
+		}
+		catch (e) {}
+		finally{
+			smutil.loadingOff();
+		}
+	}
+	// ################### 구역별 조회건수 조회2 end
+	
 };

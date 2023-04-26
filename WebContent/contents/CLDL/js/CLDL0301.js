@@ -3705,23 +3705,23 @@ var page = {
 
 var boxTypHtml = 	
 '<div class="infoBox" style="height:75px; background-color: white;">'+
-'<div class="tit">'+
-	'<em>&nbsp; &nbsp;  &nbsp;박스 타입</em>'+
-	'<span class="chkBox m fr"></span>'+
-'</div>'+
-'<div class="raTab">'+
-	'<span class="radioBox"><input type="radio"  name="svc_cd" id="00_SVC_CD" value="00" checked="checked" onclick="PublishCode();"/><label for="00_SVC_CD">일반</label></span>'+
-	'<span class="radioBox mgl10"><input type="radio"  name="svc_cd" id="01_SVC_CD" value="01" class="raShow" onclick="PublishCode();"/><label for="01_SVC_CD">해외직구</label></span>'+
-'</div>'+
+	'<div class="tit">'+
+		'<em style="font-size: 14px; font-weight: bolder; font-style:normal;">&nbsp; 서비스 구분</em>'+
+		'<span class="chkBox m fr"></span>'+
+	'</div>'+
+	'<div class="raTab">'+
+		'<span class="radioBox"><input type="radio"  name="svc_cd" id="00_SVC_CD" value="00" checked="checked" onclick="PublishCode();"/><label for="00_SVC_CD">일반</label></span>'+
+		'<span class="radioBox mgl10"><input type="radio"  name="svc_cd" id="01_SVC_CD" value="01" class="raShow" onclick="PublishCode();"/><label for="01_SVC_CD">해외직구</label></span>'+
+	'</div>'+
 
-'<div class="raView dsn mgt10" style="margin-top: 8px;">'+
-	'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="A_BOX_TYP" value="A"><label for="A_BOX_TYP">A</label></span>'+
-	'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="B_BOX_TYP" value="B"><label for="B_BOX_TYP">B</label></span>'+
-	'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="C_BOX_TYP" value="C"><label for="C_BOX_TYP">C</label></span>'+
-	'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="D_BOX_TYP" value="D"><label for="D_BOX_TYP">D</label></span>'+
-	'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="E_BOX_TYP" value="E"><label for="E_BOX_TYP">E</label></span>'+
-	'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="F_BOX_TYP" value="F"><label for="F_BOX_TYP">F</label></span>'+
-'</div>'+
+	'<div class="raView dsn mgt10" style="margin-top: 8px;">'+
+		'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="A_BOX_TYP" value="A"><label for="A_BOX_TYP">A</label></span>'+
+		'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="B_BOX_TYP" value="B"><label for="B_BOX_TYP">B</label></span>'+
+		'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="C_BOX_TYP" value="C"><label for="C_BOX_TYP">C</label></span>'+
+		'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="D_BOX_TYP" value="D"><label for="D_BOX_TYP">D</label></span>'+
+		'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="E_BOX_TYP" value="E"><label for="E_BOX_TYP">E</label></span>'+
+		'<span class="radioBox txt" style="float:left; padding: 0px 2px;"><input type="radio" name="box_typ" id="F_BOX_TYP" value="F"><label for="F_BOX_TYP">F</label></span>'+
+	'</div>'+
 '</div>';
 
 
@@ -3730,12 +3730,12 @@ function PublishCode(){
 	$(".raTab input:radio").on("click",function(){
 		if($(".raTab .raShow").prop("checked")){
 			$(".raView").show();
-			$(".gathListTp2").css({"margin-top": "271px"});
-			$(".infoBox").css({"height": "109px"});
+			$(".gathListTp2").css({"margin-top": "268px"});
+			$(".infoBox").css({"height": "106px"});
 		}else{
 			$(".raView").hide();
-			$(".gathListTp2").css({"margin-top": "219px"});
-			$(".infoBox").css({"height": "57px"});
+			$(".gathListTp2").css({"margin-top": "218px"});
+			$(".infoBox").css({"height": "58px"});
 			$('input[name="box_typ"]').prop('checked', false);
 		}
 	});

@@ -227,8 +227,10 @@ var page = {
 			if(page.step_sct_cd == "0" || page.step_sct_cd == "1"){
 				if(page.sboxType == 'area'){
 					page.mapAreaList();            // 구역별 조회건수 조회
+					$('.noList > #mapCon > div > div > div > div >.label.red > div').hide();
 				} else{
 					page.mapTmList();
+					$('.noList > #mapCon > div > div > div > div >.label.red > div').hide();
 				}
 			} else {
 				var data={};
@@ -238,6 +240,7 @@ var page = {
 				data.cldl_tmsl_null = "true";
 				data.sbox_type_cd = ""; 
 				page.locMapList(data);
+				$('.noList > #mapCon > div > div > div > div >.label.silver > div').hide();
 				$('#cldl0801LstUl').html('');
 			}
 		}
@@ -794,12 +797,7 @@ var page = {
 					data.sbox_type_cd = page.apiParam.data.parameters.sbox_type_cd; 
 					page.mapAreaList2();            // 구역별 조회건수 조회2
 					page.locMapList2(data);
-//					var count = $('.noList > #mapCon > div > div > div > div > .label.red > span').length
-//					for(var i = 0; i < count; i++){	
-//						if (!$('.noList > #mapCon > div > div > div > div > #I'+i+' > span').text().trim()) {
-//							$('.noList > #mapCon > div > div > div > div > #I'+i+' > span').parent().remove();
-//						}
-//					}	
+					$('.noList > #mapCon > div > div > div > div >.label.red > div').hide();
 				} else{
 					var data={};
 					data.base_ymd = page.base_ymd;
@@ -809,13 +807,7 @@ var page = {
 					data.sbox_type_cd = page.apiParam.data.parameters.sbox_type_cd;
 					page.mapTmList2();				 //시간대별 조회건수 조회2
 					page.locMapList2(data);
-//					var count = $('.noList > #mapCon > div > div > div > div > .label.red > span').length
-//					for(var i = 0; i < count; i++){	
-//						if (!$('.noList > #mapCon > div > div > div > div > #I'+i+' > span').text().trim()) {
-//							$('.noList > #mapCon > div > div > div > div > #I'+i+' > span').parent().remove();
-//						}
-//					}
-					console.log(page.datalist);
+					$('.noList > #mapCon > div > div > div > div >.label.red > div').hide();
 				}
 			} else {
 				var data={};
@@ -825,6 +817,7 @@ var page = {
 				data.cldl_tmsl_null = "true";
 				data.sbox_type_cd = ""; 
 				page.locMapList2(data);
+				$('.noList > #mapCon > div > div > div > div >.label.silver > div').hide();
 //				$('#cldl0801LstUl').html('');
 			}
 		}
@@ -849,57 +842,80 @@ var page = {
 				
 				var arr = res.data.list;
 				// 마커를 추가하는 반복문
-
-				var bld_mgr_no = $('.noList > #mapCon > div > div > div > div >.label.silver > div');
-
-				var myArray = [];
-				var myArray2 = [];
-				for(var f=0;f<arr.length;f++){
-					console.log(arr[f].bld_mgr_no)
-					myArray.push(arr[f].bld_mgr_no)
-				}
-
-				myArray.sort(function(a, b) {
-				  return a - b;
-				});
-				console.log(myArray);
-				
-				for(var i =0; i<bld_mgr_no.length;i++){
-					console.log(bld_mgr_no[i]);
-					myArray2.push(bld_mgr_no[i]);
-				}
-				myArray2.sort(function(a, b) {
-				  return a - b;
-				});
-				console.log(myArray2);
 				
 				//집배달예정일때
 				if(page.step_sct_cd == "3"){
-					console.log($('.noList > #mapCon > div > div > div > div >.label.silver > div').length)
-					
 					var bld_mgr_no = $('.noList > #mapCon > div > div > div > div >.label.silver > div');
+	
+					var myArray = [];
+					var myArray2 = [];
+					for(var f=0;f<arr.length;f++){
+						console.log(arr[f].bld_mgr_no)
+						myArray.push(arr[f].bld_mgr_no)
+					}
+	
+					myArray.sort(function(a, b) {
+					  return a - b;
+					});
+					console.log(myArray);
+					
 					for(var i =0; i<bld_mgr_no.length;i++){
-						if(myArray[i] == bld_mgr_no[i].textContent){
-							$(bld_mgr_no[i]).parent().hide();
-							console.log(bld_mgr_no[i]);
+						console.log(bld_mgr_no[i].outerText);
+						myArray2.push(bld_mgr_no[i].outerText);
+					}
+					myArray2.sort(function(a, b) {
+					  return a - b;
+					});
+					console.log(myArray2);
+	
+					// 차집합(Difference)
+					console.log(myArray2.filter(x => !myArray.includes(x)));
+					var myArray3 = myArray2.filter(x => !myArray.includes(x));
+					console.log(myArray3)
+					console.log(bld_mgr_no);
+					for(var q=0;q<bld_mgr_no.length;q++){
+						if(bld_mgr_no[q].outerText == myArray3){
+							$(bld_mgr_no[q]).closest('.label.silver').remove();
 						}
 					}
-		
+					
+				//집배달 출발,집배달완료	
+				} else if(page.step_sct_cd == '1' || page.step_sct_cd == '0'){//집배달완료
+					
+					var bld_mgr_no = $('.noList > #mapCon > div > div > div > div >.label.red > div');
+					var myArray = [];
+					var myArray2 = [];
+
+					for(var f=0;f<arr.length;f++){
+						console.log(arr[f].bld_mgr_no)
+						myArray.push(arr[f].bld_mgr_no)
+					}
+	
+					myArray.sort(function(a, b) {
+					  return a - b;
+					});
+					console.log(myArray);
+					
+					for(var i =0; i<bld_mgr_no.length;i++){
+						console.log(bld_mgr_no[i].outerText);
+						myArray2.push(bld_mgr_no[i].outerText);
+					}
+					myArray2.sort(function(a, b) {
+					  return a - b;
+					});
+					console.log(myArray2);
+	
+					// 차집합(Difference) 목록에서 사라진 항목 찾아서 지도에서 제거하기
+					console.log(myArray2.filter(x => !myArray.includes(x)));
+					var myArray3 = myArray2.filter(x => !myArray.includes(x));
+					console.log(myArray3)
 					console.log(bld_mgr_no);
-					$('.noList > #mapCon > div > div > div > div >.label.silver > span').text('');
-					for (var i = 0; i < arr.length; i ++) {
-						var strCnt = arr[i].cldl_p + '/' + arr[i].cldl_d;
-						$('.noList > #mapCon > div > div > div > div > #I'+i+' > span').text(strCnt);
-					}	
+					for(var q=0;q<bld_mgr_no.length;q++){
+						if(bld_mgr_no[q].outerText == myArray3){
+							$(bld_mgr_no[q]).closest('.label.red').remove();
+						}
+					}
 				}
-//				
-//				if(page.step_sct_cd == '1' || page.step_sct_cd == '0'){
-//					$('.noList > #mapCon > div>div>div>div> .label.red > span').text('')
-//					for(var i= 0;i<arr.length;i++){
-//						var strCnt = arr[i].cldl_p + '/' + arr[i].cldl_d;	
-//						$('.noList > #mapCon > div>div>div>div> #I'+i+' > span').text(strCnt);	
-//					}
-//				}
 //				page.writeMap2(page.datalist);
 
 				//지도 집배달 출발 목록 조회 건수(전송시 알림용)
@@ -934,132 +950,6 @@ var page = {
 			}*/
 			page.isfirst = false;
 		}
-	},
-	//신규지도 화면에서 배송목록창을 닫을 시 지도 화면 다시 셋팅
-	writeMap2: function(list){
-		$("#mapCon").empty();
-		// 맵그리기
-		var arr = list;
-//		
-		var mapContainer = document.getElementById('mapCon'); // 지도를 표시할 div
-		var mapOption = {
-			center: new kakao.maps.LatLng(arr[arr.length-1].lttd,arr[arr.length-1].lgtd), // 지도의 중심좌표, 정상좌표값이 들어있기만 하면 됩니다.
-			level: 3 // 지도의 확대 레벨
-		};
-	
-		var map = new kakao.maps.Map(mapContainer, mapOption);
-		
-		var marker = new kakao.maps.Marker({}); 
-	
-		// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
-		var zoomControl = new kakao.maps.ZoomControl();
-		map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-	
-	
-		// 마커들을 한 화면에 출력하기위해 맵 레벨 변경을 하기 위한 변수
-		// 지도에서 표현 할 수 없는 좌표가 존재한다면 하얀 화면이 출력 될 수 있음
-		var bounds = new kakao.maps.LatLngBounds();
-	
-		var imarkerPosition = page.curLocation;
-		/*if(!imarkerPosition) {
-			imarkerPosition = new kakao.maps.LatLng(37.5570572,126.9736211); //testdev
-		}*/
-	
-		if(imarkerPosition) {
-		    var name = '<div class ="label curloc"><span></span></div>';
-			var customOverlay = new kakao.maps.CustomOverlay({
-				position: imarkerPosition,
-				content: name
-			});
-	
-			bounds.extend(imarkerPosition);
-	      
-			customOverlay.setMap(map);
-		}
-		// 마커를 추가하는 반복문
-		for (var i = 0; i < arr.length; i ++) {
-			arr[i].latlng = new kakao.maps.LatLng(arr[i].lttd,arr[i].lgtd);
-	
-			var content;
-			content = document.createElement('div'); 
-			content.setAttribute('id','I'+i); 
-			content.classList.add('label');
-			var strCnt = arr[i].cldl_p + '/' + arr[i].cldl_d;
-			if(page.step_sct_cd == "0" || page.step_sct_cd == "1") {
-				content.classList.add('red');	
-			} else {
-				content.classList.add('silver');	
-			}
-			
-			 
-			var info = document.createElement('span');
-		    info.appendChild(document.createTextNode(strCnt));
-		    content.appendChild(info);	
-			content.onclick = function(e) {
-				var id = $(this)[0].id; 
-				var mid = 0, stmpDetail;
-				if(($(this).attr("id")).length > 1) {
-					mid = ($(this).attr("id")).substr(1);
-					
-					if(!smutil.isEmpty(arr[mid].bld_mgr_no)){
-						var popUrl = smutil.getMenuProp('CLDL.CLDL0802', 'url');
-	
-						var cldl_sct_cd = "P";
-						if(arr[mid].cldl_p == 0) cldl_sct_cd = "D";
-						
-						var paramdata = {};
-						paramdata.bld_mgr_no = arr[mid].bld_mgr_no;
-						paramdata.base_ymd=page.base_ymd;
-						paramdata.step_sct_cd=page.step_sct_cd;
-						paramdata.cldl_sct_cd = cldl_sct_cd;
-						paramdata.ep = arr[mid].lttd+ "," +arr[mid].lgtd;
-						
-						paramdata.lttd = arr[mid].lttd;
-						paramdata.lgtd = arr[mid].lgtd;
-						paramdata.curlgtd = page.curLgtd;
-						paramdata.curlttd = page.curLttd;
-	
-						if(page.step_sct_cd == "0" || page.step_sct_cd == "1") {
-							paramdata.sbox_type = page.cldl0801.sbox_type;
-							paramdata.sbox_type_cd = page.cldl0801.sbox_type_cd;
-							paramdata.sbox_type_cd2 = page.cldl0801.sbox_type_cd2;
-							paramdata.cldl_tmsl_null = page.cldl0801.cldl_tmsl_null;
-							paramdata.max_tmsl = page.cldl0801.max_tmsl;
-							paramdata.min_tmsl = page.cldl0801.min_tmsl;
-							paramdata.max_nm = page.cldl0801.max_nm;
-							paramdata.cldl_tmsl_nm = page.cldl0801.pick_tmsl_nm;
-						}
-	
-						LEMP.Window.open({
-							"_sPagePath" : popUrl,
-							/*"_sType"     : "popup",
-							"_sWidth"    : "90%",
-							"_sHeight"   : "90%",*/
-							"_oMessage" : {
-								"param" : paramdata
-							}
-						});	
-					}					
-				} 
-				
-		    };
-			
-			// 커스텀 오버레이 객체를 생성합니다
-			var customOverlay = new kakao.maps.CustomOverlay({
-				position: arr[i].latlng,
-				content: content //name
-			});
-	
-			// 마커를 추가함으로써 표현할 영역을 확장시킴
-			bounds.extend(arr[i].latlng);
-			
-			// 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
-			kakao.maps.event.addListener(marker, 'click', function() {			
-			});
-	
-			customOverlay.setMap(map);
-		}
-	
 	}
 	
 	//시간대별 조회
