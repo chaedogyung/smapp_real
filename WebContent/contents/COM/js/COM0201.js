@@ -187,10 +187,8 @@ var page = {
 		if(page.com0201.step_sct_cd == "0" || page.com0201.step_sct_cd == "1"){
 			if(page.sboxType == 'area'){
 				page.mapAreaList();            // 구역별 조회건수 조회
-				$('.noList > #mapCon > div > div > div > div >.label.red > div').hide();
 			} else{
 				page.mapTmList();
-				$('.noList > #mapCon > div > div > div > div >.label.red > div').hide();
 			}
 		} else {
 			var data={};
@@ -200,7 +198,6 @@ var page = {
 			data.cldl_tmsl_null = "true";
 			data.sbox_type_cd = "";
 			page.locMapList(data);
-			$('.noList > #mapCon > div > div > div > div >.label.silver > div').hide();
 		}
 	}
 	// ################### 구역별 조회건수 조회 start
@@ -560,6 +557,7 @@ var page = {
 			
 			var info = document.createElement('span');
 			var info2 = document.createElement('div');
+			info2.hidden = true;
 		    info.appendChild(document.createTextNode(strCnt));
 		    info2.appendChild(document.createTextNode(bldMgrNo));
 		    content.appendChild(info);	
@@ -812,7 +810,6 @@ var page = {
 				data.sbox_type_cd = page.com0201.sbox_type_cd;
 				page.mapAreaList2();            // 구역별 조회건수 조회
 				page.locMapList2(data);
-				$('.noList > #mapCon > div > div > div > div >.label.red > div').hide();
 			} else{
 				var data={};
 				data.base_ymd = page.com0201.base_ymd;
@@ -822,7 +819,6 @@ var page = {
 				data.sbox_type_cd = page.com0201.sbox_type_cd;
 				page.mapTmList2();
 				page.locMapList2(data);
-				$('.noList > #mapCon > div > div > div > div >.label.red > div').hide();
 			}
 		} else {
 			var data={};
@@ -832,7 +828,6 @@ var page = {
 			data.cldl_tmsl_null = "true";
 			data.sbox_type_cd = "";
 			page.locMapList2(data);
-			$('.noList > #mapCon > div > div > div > div >.label.silver > div').hide();
 		}
 	}	
 		
@@ -875,7 +870,6 @@ var page = {
 					arrArray.sort(function(a, b) {
 					  return a - b;
 					});
-					console.log(arrArray);
 					
 					for(var i =0; i<bld_mgr_no.length;i++){
 						console.log(bld_mgr_no[i].outerText);
@@ -884,13 +878,10 @@ var page = {
 					bld_mgr_no_array.sort(function(a, b) {
 					  return a - b;
 					});
-					console.log(bld_mgr_no_array);
 	
 					// 차집합(Difference) 목록에서 사라진 항목 찾아서 지도에서 제거하기
 					console.log(bld_mgr_no_array.filter(x => !arrArray.includes(x)));
 					var myArray3 = bld_mgr_no_array.filter(x => !arrArray.includes(x));
-					console.log(myArray3)
-					console.log(bld_mgr_no);
 					for(var q=0;q<bld_mgr_no.length;q++){
 						if(bld_mgr_no[q].outerText == myArray3){
 							$(bld_mgr_no[q]).closest('.label.silver').remove();
@@ -904,37 +895,28 @@ var page = {
 					var bld_mgr_no_array = [];
 	
 					for(var f=0;f<arr.length;f++){
-						console.log(arr[f].bld_mgr_no)
 						arrArray.push(arr[f].bld_mgr_no)
 					}
 	
 					arrArray.sort(function(a, b) {
 					  return a - b;
 					});
-					console.log(arrArray);
 					
 					for(var i =0; i<bld_mgr_no.length;i++){
-						console.log(bld_mgr_no[i].outerText);
 						bld_mgr_no_array.push(bld_mgr_no[i].outerText);
 					}
 					bld_mgr_no_array.sort(function(a, b) {
 					  return a - b;
 					});
-					console.log(bld_mgr_no_array);
 	
 					// 차집합(Difference) 목록에서 사라진 항목 찾아서 지도에서 제거하기
-					console.log(bld_mgr_no_array.filter(x => !arrArray.includes(x)));
 					var myArray3 = bld_mgr_no_array.filter(x => !arrArray.includes(x));
-					console.log(myArray3)
-					console.log(bld_mgr_no);
 					for(var q=0;q<bld_mgr_no.length;q++){
 						if(bld_mgr_no[q].outerText == myArray3){
 							$(bld_mgr_no[q]).closest('.label.red').remove();
 						}
 					}
-
 				}
-				
 				
 				//지도 집배달 출발 목록 조회 건수(전송시 알림용)
 				if(page.com0201.step_sct_cd == "0") { //2023.04.10
@@ -947,7 +929,6 @@ var page = {
 							else{
 								cnt = obj.cldl_cnt ;
 							}
-	
 							$("#"+obj.cldl_sct_cd+"_com0201Cnt").text(cnt);
 						});
 					}

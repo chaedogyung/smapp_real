@@ -227,10 +227,8 @@ var page = {
 			if(page.step_sct_cd == "0" || page.step_sct_cd == "1"){
 				if(page.sboxType == 'area'){
 					page.mapAreaList();            // 구역별 조회건수 조회
-					$('.noList > #mapCon > div > div > div > div >.label.red > div').hide();
 				} else{
 					page.mapTmList();
-					$('.noList > #mapCon > div > div > div > div >.label.red > div').hide();
 				}
 			} else {
 				var data={};
@@ -240,7 +238,6 @@ var page = {
 				data.cldl_tmsl_null = "true";
 				data.sbox_type_cd = ""; 
 				page.locMapList(data);
-				$('.noList > #mapCon > div > div > div > div >.label.silver > div').hide();
 				$('#cldl0801LstUl').html('');
 			}
 		}
@@ -590,6 +587,7 @@ var page = {
 			 
 			var info = document.createElement('span');
 			var info2 = document.createElement('div');
+			info2.hidden = true;
 		    info.appendChild(document.createTextNode(strCnt));
 		    info2.appendChild(document.createTextNode(bldMgrNo));
 		    content.appendChild(info);	
@@ -797,7 +795,6 @@ var page = {
 					data.sbox_type_cd = page.apiParam.data.parameters.sbox_type_cd; 
 					page.mapAreaList2();            // 구역별 조회건수 조회2
 					page.locMapList2(data);
-					$('.noList > #mapCon > div > div > div > div >.label.red > div').hide();
 				} else{
 					var data={};
 					data.base_ymd = page.base_ymd;
@@ -807,7 +804,6 @@ var page = {
 					data.sbox_type_cd = page.apiParam.data.parameters.sbox_type_cd;
 					page.mapTmList2();				 //시간대별 조회건수 조회2
 					page.locMapList2(data);
-					$('.noList > #mapCon > div > div > div > div >.label.red > div').hide();
 				}
 			} else {
 				var data={};
@@ -817,7 +813,6 @@ var page = {
 				data.cldl_tmsl_null = "true";
 				data.sbox_type_cd = ""; 
 				page.locMapList2(data);
-				$('.noList > #mapCon > div > div > div > div >.label.silver > div').hide();
 //				$('#cldl0801LstUl').html('');
 			}
 		}
