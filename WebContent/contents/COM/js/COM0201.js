@@ -852,7 +852,6 @@ var page = {
 			if (res.data_count !== 0 && smutil.apiResValidChk(res) && res.code==="0000") {
 				$(".NoBox").css("display","none");
 				$("#mapCon").css("display","block");
-				//page.writeMap(page.datalist);
 				
 				var arr = res.data.list;
 				
@@ -863,7 +862,6 @@ var page = {
 					var arrArray = [];
 					var bld_mgr_no_array = [];
 					for(var f=0;f<arr.length;f++){
-						console.log(arr[f].bld_mgr_no)
 						arrArray.push(arr[f].bld_mgr_no)
 					}
 	
@@ -872,7 +870,6 @@ var page = {
 					});
 					
 					for(var i =0; i<bld_mgr_no.length;i++){
-						console.log(bld_mgr_no[i].outerText);
 						bld_mgr_no_array.push(bld_mgr_no[i].outerText);
 					}
 					bld_mgr_no_array.sort(function(a, b) {
@@ -880,10 +877,9 @@ var page = {
 					});
 	
 					// 차집합(Difference) 목록에서 사라진 항목 찾아서 지도에서 제거하기
-					console.log(bld_mgr_no_array.filter(x => !arrArray.includes(x)));
-					var myArray3 = bld_mgr_no_array.filter(x => !arrArray.includes(x));
+					var removeArray = bld_mgr_no_array.filter(x => !arrArray.includes(x));
 					for(var q=0;q<bld_mgr_no.length;q++){
-						if(bld_mgr_no[q].outerText == myArray3){
+						if(bld_mgr_no[q].outerText == removeArray){
 							$(bld_mgr_no[q]).closest('.label.silver').remove();
 						}
 					}
@@ -910,9 +906,9 @@ var page = {
 					});
 	
 					// 차집합(Difference) 목록에서 사라진 항목 찾아서 지도에서 제거하기
-					var myArray3 = bld_mgr_no_array.filter(x => !arrArray.includes(x));
+					var removeArray = bld_mgr_no_array.filter(x => !arrArray.includes(x));
 					for(var q=0;q<bld_mgr_no.length;q++){
-						if(bld_mgr_no[q].outerText == myArray3){
+						if(bld_mgr_no[q].outerText == removeArray){
 							$(bld_mgr_no[q]).closest('.label.red').remove();
 						}
 					}

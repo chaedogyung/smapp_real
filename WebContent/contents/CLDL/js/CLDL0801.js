@@ -842,34 +842,27 @@ var page = {
 				if(page.step_sct_cd == "3"){
 					var bld_mgr_no = $('.noList > #mapCon > div > div > div > div >.label.silver > div');
 	
-					var myArray = [];
-					var myArray2 = [];
+					var arrArray = [];
+					var bld_mgr_no_array = [];
 					for(var f=0;f<arr.length;f++){
-						console.log(arr[f].bld_mgr_no)
-						myArray.push(arr[f].bld_mgr_no)
+						arrArray.push(arr[f].bld_mgr_no)
 					}
 	
-					myArray.sort(function(a, b) {
+					arrArray.sort(function(a, b) {
 					  return a - b;
 					});
-					console.log(myArray);
 					
 					for(var i =0; i<bld_mgr_no.length;i++){
-						console.log(bld_mgr_no[i].outerText);
-						myArray2.push(bld_mgr_no[i].outerText);
+						bld_mgr_no_array.push(bld_mgr_no[i].outerText);
 					}
-					myArray2.sort(function(a, b) {
+					bld_mgr_no_array.sort(function(a, b) {
 					  return a - b;
 					});
-					console.log(myArray2);
 	
 					// 차집합(Difference)
-					console.log(myArray2.filter(x => !myArray.includes(x)));
-					var myArray3 = myArray2.filter(x => !myArray.includes(x));
-					console.log(myArray3)
-					console.log(bld_mgr_no);
+					var removeArray = bld_mgr_no_array.filter(x => !arrArray.includes(x));
 					for(var q=0;q<bld_mgr_no.length;q++){
-						if(bld_mgr_no[q].outerText == myArray3){
+						if(bld_mgr_no[q].outerText == removeArray){
 							$(bld_mgr_no[q]).closest('.label.silver').remove();
 						}
 					}
@@ -878,40 +871,32 @@ var page = {
 				} else if(page.step_sct_cd == '1' || page.step_sct_cd == '0'){//집배달완료
 					
 					var bld_mgr_no = $('.noList > #mapCon > div > div > div > div >.label.red > div');
-					var myArray = [];
-					var myArray2 = [];
+					var arrArray = [];
+					var bld_mgr_no_array = [];
 
 					for(var f=0;f<arr.length;f++){
-						console.log(arr[f].bld_mgr_no)
-						myArray.push(arr[f].bld_mgr_no)
+						arrArray.push(arr[f].bld_mgr_no)
 					}
 	
-					myArray.sort(function(a, b) {
+					arrArray.sort(function(a, b) {
 					  return a - b;
 					});
-					console.log(myArray);
 					
 					for(var i =0; i<bld_mgr_no.length;i++){
-						console.log(bld_mgr_no[i].outerText);
-						myArray2.push(bld_mgr_no[i].outerText);
+						bld_mgr_no_array.push(bld_mgr_no[i].outerText);
 					}
-					myArray2.sort(function(a, b) {
+					bld_mgr_no_array.sort(function(a, b) {
 					  return a - b;
 					});
-					console.log(myArray2);
 	
 					// 차집합(Difference) 목록에서 사라진 항목 찾아서 지도에서 제거하기
-					console.log(myArray2.filter(x => !myArray.includes(x)));
-					var myArray3 = myArray2.filter(x => !myArray.includes(x));
-					console.log(myArray3)
-					console.log(bld_mgr_no);
+					var removeArray = bld_mgr_no_array.filter(x => !arrArray.includes(x));
 					for(var q=0;q<bld_mgr_no.length;q++){
-						if(bld_mgr_no[q].outerText == myArray3){
+						if(bld_mgr_no[q].outerText == removeArray){
 							$(bld_mgr_no[q]).closest('.label.red').remove();
 						}
 					}
 				}
-//				page.writeMap2(page.datalist);
 
 				//지도 집배달 출발 목록 조회 건수(전송시 알림용)
 				if(page.step_sct_cd == "0") {
