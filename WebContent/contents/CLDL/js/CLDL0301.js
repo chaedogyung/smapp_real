@@ -3704,7 +3704,7 @@ var page = {
 };
 
 var boxTypHtml = 	
-'<div class="infoBox" style="height:75px; background-color: white;">'+
+'<div class="infoBox" id="infoBoxBoxtyp" style="height:75px; background-color: white;">'+
 	'<div class="tit">'+
 		'<em style="font-size: 14px; font-weight: bolder; font-style:normal;">&nbsp; 서비스 구분</em>'+
 		'<span class="chkBox m fr"></span>'+
@@ -3731,11 +3731,11 @@ function PublishCode(){
 		if($(".raTab .raShow").prop("checked")){
 			$(".raView").show();
 			$(".gathListTp2").css({"margin-top": "268px"});
-			$(".infoBox").css({"height": "106px"});
+			$("#infoBoxBoxtyp").css({"height": "106px"});
 		}else{
 			$(".raView").hide();
 			$(".gathListTp2").css({"margin-top": "218px"});
-			$(".infoBox").css({"height": "58px"});
+			$("#infoBoxBoxtyp").css({"height": "56px"});
 			$('input[name="box_typ"]').prop('checked', false);
 		}
 	});
