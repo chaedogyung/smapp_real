@@ -818,6 +818,12 @@ var smutil = (function(window, document, $) {
 				case '2501':			// 유니클로
 					className = "img uniqlo";
 					break;
+				case '2005':			// Hmall //271615
+					className = "img hmall";//
+					break;
+				case '2006':			//더현대닷컴 //272045
+					className = "img thehyundaicom";
+					break;
 
 				default:
 					className = "img df";		// 일반
