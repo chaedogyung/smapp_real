@@ -3703,6 +3703,7 @@ var page = {
 		}
 };
 
+//전산집하 박스 타입
 var boxTypHtml = 	
 '<div class="infoBox" id="infoBoxBoxtyp" style="height:75px; background-color: white;">'+
 	'<div class="tit">'+

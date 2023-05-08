@@ -859,7 +859,7 @@ var page = {
 					  return a - b;
 					});
 	
-					// 차집합(Difference)
+					// 차집합(Difference) 배송목록에서 사라진 항목 찾아서 지도에서 제거하기
 					var removeArray = bld_mgr_no_array.filter(x => !arrArray.includes(x));
 					for(var q=0;q<bld_mgr_no.length;q++){
 						if(bld_mgr_no[q].outerText == removeArray){
@@ -889,7 +889,7 @@ var page = {
 					  return a - b;
 					});
 	
-					// 차집합(Difference) 목록에서 사라진 항목 찾아서 지도에서 제거하기
+					// 차집합(Difference) 배송목록에서 사라진 항목 찾아서 지도에서 제거하기
 					var removeArray = bld_mgr_no_array.filter(x => !arrArray.includes(x));
 					for(var q=0;q<bld_mgr_no.length;q++){
 						if(bld_mgr_no[q].outerText == removeArray){
