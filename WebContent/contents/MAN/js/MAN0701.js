@@ -154,57 +154,55 @@ var page = {
 		},
 		
 		//비디오 태그 URL설정              
-		videoUrlApi : function(id) {
-			$.ajax({
-				url:"https://cors-lottegl-smapp-proxy.herokuapp.com/http://service.kosha.or.kr/api/deliveryworker/edcVidoRecomend?legaldongCode="+ id +"&crtfcky=YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5",					            
+		videoUrlApi: function(id) {
+		    $.ajax({
+		        url: "https://api.allorigins.win/get?url=" + encodeURIComponent("http://service.kosha.or.kr/api/deliveryworker/edcVidoRecomend?legaldongCode=" + id + "&crtfcky=YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5"),
+				//url:"https://cors-lottegl-smapp-proxy.herokuapp.com/http://service.kosha.or.kr/api/deliveryworker/edcVidoRecomend?legaldongCode="+ id +"&crtfcky=YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5",					            
 				//url:"https://young-reef-76169.herokuapp.com/http://service.kosha.or.kr/api/deliveryworker/edcVidoRecomend?legaldongCode="+ id +"&crtfcky=YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5",
 				//url:"http://service.kosha.or.kr/api/deliveryworker/edcVidoRecomend?legaldongCode="+ id +"&crtfcky=YEJ6U5M390E8DVP0V9OXRDXLD9GSJUE5",
-				type:"GET",
-				contentType: "application/json; charset=utf-8",
-	            success: function (xml) {
-					page.resultCode = $(xml).find('resultCode').text();
-					console.log(page.resultCode);
-					if($(xml).find('resultCode').text() == "00"){
-				
+		        type: "GET",
+		        contentType: "application/json; charset=utf-8",
+		        success: function(response) {
+		            var xml = $.parseXML(response.contents);
+		            page.resultCode = $(xml).find('resultCode').text();
+		            console.log(page.resultCode);
+		            if ($(xml).find('resultCode').text() == "00") {
 		                $('.video').removeClass('dsn');
 		                
 		                var video = document.getElementById('video');
-		    			var videoSrc = $(xml).find('vidoUrl').text();
+		                var videoSrc = $(xml).find('vidoUrl').text();
 		    			//
 		    			// 우선 HLS를 지원하는지 체크
 		    			//
-		    			if (video.canPlayType('application/vnd.apple.mpegurl')) {
-		    				  video.src = videoSrc;
+		                if (video.canPlayType('application/vnd.apple.mpegurl')) {
+		                    video.src = videoSrc;
 		    			//
 		    			// HLS를 지원하지 않는다면 hls.js를 지원
 		    			//
-		    			} else if (Hls.isSupported()) {
-		    			 	 var hls = new Hls();
-			    			  hls.loadSource(videoSrc);
-			    			  hls.attachMedia(video);
-		    			}
-		    			$('#video').focus();	
-	         	   }
-					else {
-							$('.video').addClass('dsn');
-
-							LEMP.Window.toast({
-								"_sMessage":"동영상을 가져오지 못했습니다.",
-								'_sDuration' : 'short'
-							});
-							
-						}
-				},
-				 error:function(){
-					LEMP.Window.toast({
-								"_sMessage":"동영상을 가져오지 못했습니다.",
-								'_sDuration' : 'short'
-							});
-					$('.video').addClass('dsn');
-					page.resultCode ="11"    } 
-	        });
-			
-		},				
+		                } else if (Hls.isSupported()) {
+		                    var hls = new Hls();
+		                    hls.loadSource(videoSrc);
+		                    hls.attachMedia(video);
+		                }
+		                $('#video').focus();
+		            } else {
+		                $('.video').addClass('dsn');
+		                LEMP.Window.toast({
+		                    "_sMessage": "동영상을 가져오지 못했습니다.",
+		                    '_sDuration': 'short'
+		                });
+		            }
+		        },
+		        error: function() {
+		            LEMP.Window.toast({
+		                "_sMessage": "동영상을 가져오지 못했습니다.",
+		                '_sDuration': 'short'
+		            });
+		            $('.video').addClass('dsn');
+		            page.resultCode = "11";
+		        }
+		    });
+		},		
 		
 //		videoContentsCallback : function(xml) {
 //			smutil.loadingOff();
