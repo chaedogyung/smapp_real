@@ -142,6 +142,8 @@
 .baedalBox .thumb .img.thehyundaicom{background:#fff  url('../../common/img/delivery-logo-hyundaicom.png') no-repeat 50%; background-size:40px;}
 /* 2023.0413 새로추가 */
 .baedalBox .thumb .img.hmall{background:#fff url('../../common/img/delivery-logo-hmall.png') no-repeat 50%; background-size:40px;}
+/* 2023.0830 새로추가 */
+.baedalBox .thumb .img.guaranteedArrival{background:#fff url('../../common/img/guaranteedArrival.png') no-repeat 50%; background-size:40px;}
 
 .baedalBox .thumb .img.lotte7{background:#000 url('../../common/img/delivery-logo-lotte6.png') no-repeat 50%; background-size:35px;}
 .baedalBox .thumb .img.lotte8{background:#000 url('../../common/img/delivery-logo-lotte7.png') no-repeat 50%; background-size:35px;}

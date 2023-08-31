@@ -824,6 +824,9 @@ var smutil = (function(window, document, $) {
 				case '2006':			//더현대닷컴 //272045
 					className = "img thehyundaicom";
 					break;
+				case '5001':
+					className = "img guaranteedArrival";
+					break;	
 
 				default:
 					className = "img df";		// 일반
