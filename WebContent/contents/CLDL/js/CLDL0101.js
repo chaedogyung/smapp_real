@@ -615,7 +615,20 @@ var page = {
 
 				if(this.cldl_sct_cd === "P"){	// 집하
 					if(!smutil.isEmpty(this.snper_nm)){
-						html = html + '<li>' + this.snper_nm + '</li>';
+						if (this.snper_nm.length >= 3) {//이름이 3글자 이상일때 가운데 글자 별표처리
+							var firstChar = this.snper_nm.charAt(0);
+							var lastChar = this.snper_nm.charAt(this.snper_nm.length - 1);
+							var maskedPart = "*".repeat(this.snper_nm.length - 2);
+							var maskedString = firstChar + maskedPart + lastChar;
+	
+							html = html + '<li style="display:none;">' + this.snper_nm + '</li>' + '<li>' + maskedString + '</li>';
+	
+						} else{//이름이 두글자 이하일때 마지막 글자 별표처리
+						  var firstChar = this.snper_nm.charAt(0);
+						  var lastChar = "*";
+						  var maskedString = firstChar + lastChar;
+						  html = html + '<li style="display:none;">' + this.snper_nm + '</li>' + '<li>' + maskedString + '</li>';
+						}					
 					}
 
 					var snper_tel = smutil.nullToValue(this.snper_tel,"");
@@ -623,13 +636,33 @@ var page = {
 					phoneNumber = page.getCpNo(snper_tel, snper_cpno);
 
 					if(!smutil.isEmpty(phoneNumber)){
-						html = html + '<li>' + phoneNumber + '</li>';
+						//안심전화번호가 아니면
+						if (!/^050/.test(phoneNumber)) {
+							var startPart = phoneNumber.substring(0, 4);
+					        var maskedPart = phoneNumber.substring(4, 8).replace(/./g, "*");
+					        var endPart = phoneNumber.substring(8);
+						    var maskedString = startPart + maskedPart + endPart;
+							phoneNumber1 = maskedString;
+					    	html = html + '<li style="display: none;">' + phoneNumber + '</li>' + '<li>' + phoneNumber1 + '</li>';
+						} else {//안심전화번호이면
+							html = html + '<li>' + phoneNumber + '</li>';
+						}
 					}
-
 				}
 				else{	// 배달
 					if(!smutil.isEmpty(this.acper_nm)){
-						html = html + '<li>' + this.acper_nm + '</li>';
+						if(this.acper_nm.length >= 3){//이름이 3글자 이상일때 가운데 글자 별표처리
+							var firstChar = this.acper_nm.charAt(0);
+							var lastChar = this.acper_nm.charAt(this.acper_nm.length - 1);
+							var maskedPart = "*".repeat(this.acper_nm.length-2);
+							var maskedString = firstChar + maskedPart + lastChar;
+							html = html + '<li style = "display:none;">' + this.acper_nm + '<li>' + '<li>' + maskedString + '<li>';
+						} else{//이름이 2글자 이하일때 마지막 글자 별표처리
+						  var firstChar = this.acper_nm.charAt(0);
+						  var lastChar = "*";
+						  var maskedString = firstChar + lastChar;
+						  html = html + '<li style="display:none;">' + this.acper_nm + '</li>' + '<li>' + maskedString + '</li>';
+						}
 					}
 
 					var acper_tel = smutil.nullToValue(this.acper_tel,"");
@@ -638,7 +671,17 @@ var page = {
 					phoneNumber = page.getCpNo(acper_tel, acper_cpno);
 
 					if(!smutil.isEmpty(phoneNumber)){
-						html = html + '<li>' + phoneNumber + '</li>';
+						//안심전화번호가 아니면
+						if (!/^050/.test(phoneNumber)) {
+							var startPart = phoneNumber.substring(0, 4);
+					        var maskedPart = phoneNumber.substring(4, 8).replace(/./g, "*");
+					        var endPart = phoneNumber.substring(8);
+						    var maskedString = startPart + maskedPart + endPart;
+							phoneNumber1 = maskedString;
+							html = html + '<li style="display: none;">' + phoneNumber + '</li>' + '<li>' + phoneNumber1 + '</li>';
+						} else {//안심전화번호이면
+							html = html + '<li>' + phoneNumber + '</li>';
+						}
 					}
 
 				}

@@ -219,6 +219,13 @@ var page = {
 				return false;
 			}
 			
+			if ($('input[name="req_dlv_sct"]:checked').length == 0) {
+				LEMP.Window.alert({
+					"_vMessage" : "배송/반송/페기 중 하나를 선택하시길 바람니다."
+				});
+				return false;
+			}
+			
 			page.apiParam.id = "HTTPFILE";
 			page.apiParam.param.baseUrl = "/smapis/pacl/rgstAcc";
 			page.apiParam.param.callback = "page.sendCallback_F";
