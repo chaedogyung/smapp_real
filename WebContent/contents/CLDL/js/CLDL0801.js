@@ -784,13 +784,13 @@ var page = {
 			$("#A_cldl0801Cnt").text(0);
 			$("#P_cldl0801Cnt").text(0);
 			$("#D_cldl0801Cnt").text(0);
+			//집배달 출발, 집배달완료
 			if(page.step_sct_cd == "0" || page.step_sct_cd == "1"){
 				if(page.sboxType == 'area'){
-					console.log(JSON.stringify(page));
 					var data={};
 					data.base_ymd = page.base_ymd;
 					data.step_sct_cd = page.step_sct_cd+"";
-					data.cldl_sct_cd = page.apiParam.data.parameters.cldl_sct_cd;
+					data.cldl_sct_cd = page.apiParam.data.parameters.cldl_sct_cd;// 업무구분 (전체 : A, 집하 : P, 배달 : D)
 					data.cldl_tmsl_null = page.apiParam.data.parameters.cldl_tmsl_null;
 					data.sbox_type_cd = page.apiParam.data.parameters.sbox_type_cd; 
 					page.mapAreaList2();            // 구역별 조회건수 조회2
@@ -806,6 +806,7 @@ var page = {
 					page.locMapList2(data);
 				}
 			} else {
+				//집배달 예정
 				var data={};
 				data.base_ymd = page.base_ymd;
 				data.step_sct_cd = page.step_sct_cd+"";
@@ -823,7 +824,6 @@ var page = {
 		page.apiParam.param.baseUrl="smapis/cldl/locMapList";
 		page.apiParam.param.callback="page.MapListCallback2";
 		page.apiParam.data.parameters=data;
-		console.log(page.apiParam);
 		// 공통 api호출 함수
 		smutil.callApi(page.apiParam);
 	},
@@ -934,7 +934,6 @@ var page = {
 	
 	//시간대별 조회
 	,mapTmList2:function(){
-		
 		var data = {};
 		data.base_ymd=page.base_ymd;
 		data.step_sct_cd=page.step_sct_cd+"";
