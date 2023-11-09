@@ -827,7 +827,9 @@ var smutil = (function(window, document, $) {
 				case '5001':
 					className = "img guaranteedArrival";
 					break;	
-
+				case '6001':
+					className = "img nonghyupMulryu";
+					break;			
 				default:
 					className = "img df";		// 일반
 					break;
