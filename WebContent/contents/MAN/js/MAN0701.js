@@ -173,7 +173,7 @@ var page = {
 					var elements = page.data_list.length;
 					var vidourllist = [];
 					for(var i=0; i<elements; i++){
-						vidourllist.push(page.data_list[i].vido_url);
+						vidourllist.push(page.data_list[i].vidoUrl);
 					};
 
 	                $('.video').removeClass('dsn');
