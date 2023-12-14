@@ -10,7 +10,25 @@
 	<link rel="stylesheet" type="text/css" href="../../common/css/style.css"/>
 	<link rel="stylesheet" type="text/css" href="../../common/css/layout.css"/>
 	<link rel="stylesheet" type="text/css" href="../../common/css/main.css">
-	
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		.image-container {
+			display: flex;
+			justify-content: space-between;
+			max-width: 100%;
+		}
+
+		.image-container img {
+			width: 100%;
+			height: auto;
+			max-width: 33%;
+			box-sizing: border-box;
+		}
+	</style>
 </head>
 
 <body>
@@ -51,6 +69,14 @@
 							</ul>
 						</div>
 						<div class="logout"><span class="icon logout"></span><a id="logoutBtn">로그아웃</a></div>
+						<div class="image-container">
+							<!-- ks-sqi_app -->
+							<img src="../../common/img/ks-sqi_app.png" alt="ks-sqi_app">
+							<!-- ncsi_app -->
+							<img src="../../common/img/ncsi_app.png" alt="ncsi_app">
+							<!-- test -->
+							<img src="../../common/img/test.png" alt="test">
+						</div>
 				</div>
 
 			</div>
