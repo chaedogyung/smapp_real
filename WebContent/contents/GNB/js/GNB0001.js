@@ -19,7 +19,6 @@ var page = {
 		// 메뉴정보 셋팅
 		page.initDpEvent();
 		page.initInterface();
-		page.apiSave();
 	},
 
 	initDpEvent : function(){
@@ -220,24 +219,21 @@ var page = {
 			});
 
 		});
-	},
-	apiSave : function(data) {
-		var apk_version=$('#appVer').text();
-		var contents_version =$('#contentsVer').text();
-		var eqp_nm = 'SMAPP';
-		page.apiParam.param.baseUrl = "/smapis/saveAppInfo"; // api no
-		page.apiParam.param.callback = "page.saveAppInfoCallback"; // callback
-		page.apiParam.data = {
-			"parameters" : {
-				"contents_version" : contents_version,
-				"apk_version" : apk_version,
-				"eqp_nm" : eqp_nm
-			}
-		}; // api 통신용 파라메터
-		// 공통 api호출 함수
-		smutil.callApi(page.apiParam);
-	},
-	saveAppInfoCallback : function(res) {
-		console.log(JSON.stringify(res));
+		apiSave();
+		function apiSave(data) {
+			var apk_version=$('#appVer').text();
+			var contents_version =$('#contentsVer').text();
+			var eqp_nm = 'SMAPP';
+			page.apiParam.param.baseUrl = "/smapis/saveAppInfo"; // api no
+			page.apiParam.data = {
+				"parameters" : {
+					"contents_version" : contents_version,
+					"apk_version" : apk_version,
+					"eqp_nm" : eqp_nm
+				}
+			}; // api 통신용 파라메터
+			// 공통 api호출 함수
+			smutil.callApi(page.apiParam);
+		}
 	}
 };
