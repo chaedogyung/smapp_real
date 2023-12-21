@@ -99,6 +99,11 @@ var page = {
 
 			if(smutil.apiResValidChk(result) && result.code == "0000") {
 				page.data_list =  result.list
+				for (let i = result.list.length - 1; i >= 0; i--) {
+					if (!result.list[i].vidoUrl || result.list[i].vidoUrl.trim() === "") {
+						result.list.splice(i, 1);
+					}
+				}	
 				if(result.list.length>0){
 				
 //				LEMP.Window.toast({
@@ -143,7 +148,7 @@ var page = {
 
 			var id = $('.view1Tr:eq(0)').attr('id');
 
-			if(smutil.isEmpty(videoPlayTM) || videoPlayTM != day) {
+			if(smutil.isEmpty(videoPlayTM) || videoPlayTM != day || page.data_list.length >0 ) {
 				//처음들어오면 시청여부 초기화
 				LEMP.Properties.set({
 				"_sKey" : "videoPlay_yn",

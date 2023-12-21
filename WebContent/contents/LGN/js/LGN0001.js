@@ -38,6 +38,7 @@ var page = {
 	deviceInfo : null,			// android(smandroid) / ios(smios) 구분
 	init:function()
 	{
+		page.saveAppInfo();
 		page.deviceInfo = smutil.deviceInfo;		// 해당 기기 android / ios 구분
 
 		page.usrCpno = LEMP.Device.getInfo({
@@ -1285,5 +1286,31 @@ var page = {
 				}
 			}
 		});
+	},
+	
+	//앱버전,컨텐츠 버전 등록
+	saveAppInfo :function(){
+		var app_version = LEMP.Device.getInfo({
+			"_sKey" : "app_version"
+		});
+		// 버젼 정보 셋팅
+		if(!smutil.isEmpty(app_version)){
+			app_version = app_version.split('_');
+			if(app_version && app_version.length == 2){
+			var contents_version = app_version[1];
+			var apk_version = app_version[0];
+			}
+		}
+		var eqp_nm = 'SMAPP';
+		page.apiParam.param.baseUrl = "/smapis/saveAppInfo"; // api no
+		page.apiParam.data = {
+			"parameters" : {
+				"contents_version" : contents_version,
+				"apk_version" : apk_version,
+				"eqp_nm" : eqp_nm
+			}
+		}; // api 통신용 파라메터
+		// 공통 api호출 함수
+		smutil.callApi(page.apiParam);
 	}
 };
