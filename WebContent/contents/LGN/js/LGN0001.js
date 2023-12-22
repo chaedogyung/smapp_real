@@ -1302,7 +1302,9 @@ var page = {
 			}
 		}
 		var eqp_nm = 'SMAPP';
+		smutil.loadingOn();
 		page.apiParam.param.baseUrl = "/smapis/saveAppInfo"; // api no
+		page.apiParam.param.callback = "page.saveAppInfoCallback"; // api no
 		page.apiParam.data = {
 			"parameters" : {
 				"contents_version" : contents_version,
@@ -1312,5 +1314,8 @@ var page = {
 		}; // api 통신용 파라메터
 		// 공통 api호출 함수
 		smutil.callApi(page.apiParam);
+	},
+	saveAppInfoCallback : function(res){
+		smutil.loadingOff();
 	}
 };
