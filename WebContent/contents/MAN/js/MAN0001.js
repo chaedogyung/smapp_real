@@ -102,6 +102,8 @@ var page = {
 			loginId = atob(loginId);		// 평문으로 디코딩
 		}*/
 		$('.bx-wrapper').css("margin","0 auto");
+		
+		page.saveAppInfo();
 	},
 	
 	// 햄버거 메뉴 생성
@@ -1274,6 +1276,37 @@ var page = {
 		}
 	},
 
+
+	//앱버전,컨텐츠 버전 등록
+	saveAppInfo :function(){
+		var app_version = LEMP.Device.getInfo({
+			"_sKey" : "app_version"
+		});
+		// 버젼 정보 셋팅
+		if(!smutil.isEmpty(app_version)){
+			app_version = app_version.split('_');
+			if(app_version && app_version.length == 2){
+			var contents_version = app_version[1];
+			var apk_version = app_version[0];
+			}
+		}
+		var eqp_nm = 'SMAPP';
+		smutil.loadingOn();
+		page.apiParam.param.baseUrl = "/smapis/saveAppInfo"; // api no
+		page.apiParam.param.callback = "page.saveAppInfoCallback"; // api no
+		page.apiParam.data = {
+			"parameters" : {
+				"contents_version" : contents_version,
+				"apk_version" : apk_version,
+				"eqp_nm" : eqp_nm
+			}
+		}; // api 통신용 파라메터
+		// 공통 api호출 함수
+		smutil.callApi(page.apiParam);
+	},
+	saveAppInfoCallback : function(res){
+		smutil.loadingOff();
+	},
 
 	// 페이지 resume 될때마다 실행되는 함수
 	 resumeInfo : function(){
