@@ -86,7 +86,46 @@ var page = {
 	},
 
 	initInterface : function() {
-
+		$("#sendDatas3").click(function() {
+			//개봉전 위험물 전송 api개발중
+		});
+		
+		//신고내용이 위험화물일시 선택 값 생성
+		$(document).ready(function() {
+			reportContSelectVal();
+		});
+		function reportContSelectVal(){
+			$("#FRE0101_code2_template2").on("change", function() {
+		    if ($(this).val() === "08") {
+		        	$("#reportDetails").after(`
+        				<dt id="reasonForOpen">개봉사유</dt>
+						<dd id="reasonForOpenDeta">
+								<span class="selBox w100p"> 
+									<select name="FRE0101_code2_template3" id="FRE0101_code2_template3" ></select>
+								</span>
+						</dd>
+						<dt id="branDangerGoodsConn">지점위험물연계</dt>
+						<dd id="branDangerGooDeta">
+								<span class="selBox w100p"> 
+									<select name="FRE0101_code2_template4" id="FRE0101_code2_template4"></select>
+								</span>
+						</dd>
+		        	`);
+		        	page.reaforOpeCode();
+		        	page.brDaGoConnCode();
+		        	 var button = '<button class="btn m red w100p" id="sendDatas3">개봉전 위험물 전송</button>';
+		 		    $('#sendDatas').before(button);
+		        	
+		        } else{
+					$('#reasonForOpen').remove();
+					$('#branDangerGoodsConn').remove();
+					$("#reasonForOpenDeta").remove();
+					$("#branDangerGooDeta").remove();
+					$("#sendDatas3").remove();
+		        }
+		    });
+		};
+		
 		$('#tabView_2').css('display', "none");
 		$('#tabView_3').css('display', "none");
 		//$('#lengthInfomation').css('display','none');
@@ -670,6 +709,7 @@ var page = {
 			$('.mpopBox.pop3').bPopup().close();
 
 		});
+
 	},
 	// 스캐너 콜백
 	scanCallback : function(data) {
@@ -788,12 +828,51 @@ var page = {
 			$('#weightInfomation').css('display', 'block');
 			$('#bindInfomation').css('display', 'block');
 			$('#lengthInfomation').css('display', 'block');
+			$('#updatePictures1 > .imgList.m.mgb15 > .ul0.ul3 > li > .titArea ').text(function(index, oldText){
+        		return oldText.replace(/개봉전 사진/g,"전체");
+        	});
+        	
+        	$('#updatePictures1 > .imgList.m.mgb15 > .ul0.ul3 > li > .titArea ').text(function(index, oldText){
+        		return oldText.replace(/개봉후 사진/g,"가로");
+        	});
+        	
+        	$('#updatePictures1 > .imgList.m > .ul0.ul3 > li > .titArea ').text(function(index, oldText){
+        		return oldText.replace(/개봉후 포장사진/g,"세로");
+        	});
+
+        	$('#updatePictures1 > .imgList.m > .ul0.ul3 > li > .titArea ').text(function(index, oldText){
+        		return oldText.replace(/내품사진/g,"높이");
+        	});
+        	
+        	$('#updatePictures1 > .imgList.m > .ul0.ul3 > li > .titArea ').text(function(index, oldText){
+        		return oldText.replace(/추가사진1/g,"무게");
+        	});
+        	
 		} else if(selected =="08"){
 			// 위험화물
 			// 운송장, 전체사진, 가로, 세로, 높이, 무게
 			$('#updatePictures1').css('display','block');
 			$('#weightInfomation').css('display', 'block');
 			$('#lengthInfomation').css('display', 'block');
+        	$('#updatePictures1 > .imgList.m.mgb15 > .ul0.ul3 > li > .titArea ').text(function(index, oldText){
+        		return oldText.replace(/전체/g,"개봉전 사진");
+        	});
+        	
+        	$('#updatePictures1 > .imgList.m.mgb15 > .ul0.ul3 > li > .titArea ').text(function(index, oldText){
+        		return oldText.replace(/가로/g,"개봉후 사진");
+        	});
+		        	
+        	$('#updatePictures1 > .imgList.m > .ul0.ul3 > li > .titArea ').text(function(index, oldText){
+        		return oldText.replace(/세로/g,"개봉후 포장사진");
+        	});
+
+        	$('#updatePictures1 > .imgList.m > .ul0.ul3 > li > .titArea ').text(function(index, oldText){
+        		return oldText.replace(/높이/g,"내품사진");
+        	});
+        	
+        	$('#updatePictures1 > .imgList.m > .ul0.ul3 > li > .titArea ').text(function(index, oldText){
+        		return oldText.replace(/무게/g,"추가사진1");
+        	});
 		}
 		else{
 			// 운송장, 전체사진, 가로, 세로, 높이
@@ -1508,5 +1587,67 @@ var page = {
 		finally{
 
 		}
+	},
+	//개봉사유 공통코드
+	reaforOpeCode : function(){
+		smutil.loadingOn();
+		var _this = this;
+		_this.apiParam.param.baseUrl = "/smapis/cmn/codeListPopup"; // api
+		_this.apiParam.param.callback = "page.reaforOpeCodeCallback"; // callback
+		_this.apiParam.data = {
+			"parameters" : {
+				"typ_cd" : "DG_OPN_TYP_CD"
+			}
+		}; // api 통신용 파라메터
+		// 공통 api호출 함수
+		smutil.callApi(_this.apiParam);
+	},
+	reaforOpeCodeCallback : function(result){
+		page.apiParamInit();		// 파라메터 전역변수 초기화
+
+		// api 결과 성공여부 검사
+		if(smutil.apiResValidChk(result) && result.code == "0000"){
+
+			// 조회 결과 데이터가 있으면 옵션 생성
+			if(result.data_count > 0){
+				var list = result.data.list;
+
+				// select box 셋팅
+				smutil.setSelectOptions("#FRE0101_code2_template3", list);
+				smutil.loadingOff();
+			}
+		}
+	},
+	
+	//지점위험상품연계 공통코드
+	brDaGoConnCode : function(){
+		smutil.loadingOn();
+		var _this = this;
+		_this.apiParam.param.baseUrl = "/smapis/cmn/codeListPopup"; // api
+		_this.apiParam.param.callback = "page.brDaGoConnCodeCallback"; // callback
+		_this.apiParam.data = {
+			"parameters" : {
+				"typ_cd" : "BRN_DG_TO_TYP_CD"
+			}
+		}; // api 통신용 파라메터
+		// 공통 api호출 함수
+		smutil.callApi(_this.apiParam);
+	},
+	brDaGoConnCodeCallback : function(result){
+		page.apiParamInit();		// 파라메터 전역변수 초기화
+
+		// api 결과 성공여부 검사
+		if(smutil.apiResValidChk(result) && result.code == "0000"){
+
+			// 조회 결과 데이터가 있으면 옵션 생성
+			if(result.data_count > 0){
+				var list = result.data.list;
+
+				// select box 셋팅
+				smutil.setSelectOptions("#FRE0101_code2_template4", list);
+				smutil.loadingOff();
+			}
+		}
 	}
+	
 };

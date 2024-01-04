@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>롯데글로벌로지스</title>
+<meta
+	content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,initial-scale=1"
+	name="viewport">
+<meta name="theme-color" content="#e8463a">
+<!-- 안드로드 헤드 칼라 -->
+<meta name="format-detection" content="telephone=no">
+<!-- IOS 전화번호 자동색상 방지 -->
+
+<link rel="stylesheet" type="text/css" href="../../common/css/style.css" />
+<link rel="stylesheet" type="text/css"
+	href="../../common/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="../../common/css/sub.css">
+
+<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+<script type="text/javascript" src="../js/FRE0601.js"></script>
+<script type="text/javascript">
+	
+</script>
+<!-- //JS Global  -->
+</head>
+
+<body>
+	<input type="hidden" name="menuId" id="menuId" value="FRE0601" />
+	<!--  headerSection  -->
+	<header id="headerSection" class="headerSection">
+		<div class="headerWrap">
+			<button class="btn back paL fre"></button>
+			<h1>위험물 정보 조회</h1>
+		</div>
+	</header>
+	<!--  //headerSection  -->
+
+	<!--  contentSection  -->
+	<div class="contentSection" id="contentSection">
+		<!-- contentBox -->
+		<div class="contentBox">
+			<div class="calBox">
+				<!-- 조회 조건 -->
+				<ul class="ul0 ul2 calin">
+					<li class="pdl10" style="width: 45%; margin-left: -22px;">
+						<span class="selBox v1 mgl15"> 
+							<select name="fltr_sct_cd" id="fltr_sct_cd"></select>
+						</span>
+					</li>
+					<li class="pdl10" style="width: 45%;">
+						<input type="text" value="" id="srchKeyword" placeholder="">
+					</li>
+					<li class="pdl10" style="width: 5%;">
+						<button class="btn red lstSch" data-prnt-sct-cd="A">조회</button>
+					</li>
+				</ul>
+				<!-- 조회 조건 END -->
+			</div>
+			
+			<!-- tctDgMstrList -->
+			<div class="infoListBox tctDgMstrList">
+			</div>
+			<!-- //tctDgMstrList -->
+		
+		</div>
+		<!-- contentBox END -->
+		
+	</div>
+	<!--  contentSection END  -->
+
+</body>
+
+	<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+	<script type="text/javascript" src="../js/FRE0601.js"></script>
+	
+	<!-- handlebars li template start -->
+	<script id="fre0601_list_template" type="text/x-handlebars-template">
+		<ul>
+		{{#each list}}
+			<li>
+				<div class="infoBox">
+					<div class="itemList">
+						<ul>
+							<li></li>
+						</ul>
+					</div>
+				</div>
+			</li>
+		{{/each}}
+		</ul>
+	</script>
+	<script id="fre0601_nolist_template" type="text/x-handlebars-template">
+	<ul>
+		<li class="noList">
+			<div class="NoBox">
+				<p class="txt tc">조회된 결과가 없습니다.</p>
+			</div>
+		</li>
+	</ul>
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
