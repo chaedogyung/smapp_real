@@ -146,6 +146,7 @@ var menuJsonJs =
 		"FRE0303":{"menuTxt" : "도착지변경", "parentMenuCd" : null, "menuDept" : 2, "url" : "FRE/html/FRE0303.html", "mainImgSrc" : "", "gnbImgClass" : ""},
 		//"FRE0401":{"menuTxt" : "화물사고 판정", "parentMenuCd" : null, "menuDept" : 1, "url" : "FRE/html/FRE0401.html", "mainImgSrc" : "../../common/img/icon-fa25.png", "gnbImgClass" : ""},
 		"FRE0501":{"menuTxt" : "화물정보 키패드", "parentMenuCd" : null, "menuDept" : 2, "url" : "FRE/html/FRE0501.html", "mainImgSrc" : "", "gnbImgClass" : ""},
+		"FRE0601":{"menuTxt" : "위험물 정보 조회", "parentMenuCd" : null, "menuDept" : 1, "url" : "FRE/html/FRE0601.html", "mainImgSrc" : "", "gnbImgClass" : ""}
 	},
 	"RES" : {
 		"GNB":true,

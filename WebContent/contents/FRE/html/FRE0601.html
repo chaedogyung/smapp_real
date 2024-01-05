@@ -22,6 +22,11 @@
 	
 </script>
 <!-- //JS Global  -->
+<style type="text/css">
+.view1Tr td:first-child {
+    vertical-align: middle;
+}
+</style>
 </head>
 
 <body>
@@ -56,11 +61,40 @@
 				</ul>
 				<!-- 조회 조건 END -->
 			</div>
-			
-			<!-- tctDgMstrList -->
-			<div class="infoListBox tctDgMstrList">
+			<!--  contentSection  -->
+    		<div class="contentSection" id="contentSection">
+	       		<!-- contentBox -->
+	       		<div class="contentBox">
+		       		<!-- infoListBox -->
+		       		<div class="infoListBox" style="background-color : #e9f1f6;">
+						<ul>
+							<li>
+								<div class="tableBox tp1">
+									<table>
+										<colgroup>
+											<col style="width:25%;">
+											<col style="width:20%;">
+											<col style="width:20%;">
+										</colgroup>
+										<thead>
+											<tr>
+												<th>제조/수입 업체</th>
+												<th>용도 내용</th>
+												<th>모델 명</th>
+											</tr>
+										</thead>
+										<tbody id="view1Tbody">
+											<tr></tr>
+												<tr class="view1Tr" id="">
+												</tr>
+										</tbody>
+								</table>
+							</div>
+							</li>
+						</ul>
+					</div>
+				</div>
 			</div>
-			<!-- //tctDgMstrList -->
 		
 		</div>
 		<!-- contentBox END -->
@@ -75,19 +109,14 @@
 	
 	<!-- handlebars li template start -->
 	<script id="fre0601_list_template" type="text/x-handlebars-template">
-		<ul>
+		<tr></tr>
 		{{#each list}}
-			<li>
-				<div class="infoBox">
-					<div class="itemList">
-						<ul>
-							<li></li>
-						</ul>
-					</div>
-				</div>
-			</li>
+				<tr class="view1Tr" id="{{dgSeqNo}}" data-mnfrIpr="{{mnfrIpr}}" data-usagCont="{{usagCont}}" data-modlNm="{{modlNm}}" data-prdLcns="{{prdLcns}}"  data-dgNm="{{dgNm}}"  data-dgSeqNo="{{dgSeqNo}}">
+					<td>{{mnfrIpr}}</td>
+					<td>{{usagCont}}</td>
+					<td>{{modlNm}}</td>
+				</tr>
 		{{/each}}
-		</ul>
 	</script>
 	<script id="fre0601_nolist_template" type="text/x-handlebars-template">
 	<ul>
@@ -99,13 +128,3 @@
 	</ul>
 </script>
 </html>
-
-
-
-
-
-
-
-
-
-

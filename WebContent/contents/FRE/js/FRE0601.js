@@ -32,7 +32,6 @@ var page = {
 		$('.lstSch').click(function(){
 			page.tctDgMstrList();
 		})
-		$('.lstSch').trigger('click');
 	},
 	FltrListSerch : function(){
 		smutil.loadingOn();
@@ -72,14 +71,12 @@ var page = {
 		var srchKeyword = $("#srchKeyword").val();
 		var srchSrchTctDg = $("#fltr_sct_cd option:selected").val();
 		smutil.loadingOn();
-		page.apiParam.param.method= "GET";
-		page.apiParam.param.baseUrl="/smapis/getTctDgMstrList";
+//		page.apiParam.param.method= "GET";
+		page.apiParam.param.baseUrl="smapis/getTctDgMstrList";
 		page.apiParam.param.callback="page.getTctDgMstrListCallback";
-		page.apiParam.data= {// api 통신용 파라메터
-			"parameters" : {
-				"srchKeyword" : srchKeyword,
-				"srchSrchTctDg" : srchSrchTctDg
-			}
+		page.apiParam.data.parameters = {// api 통신용 파라메터
+				"srchKeyword" :$("#srchKeyword").val(),
+				"srchSrchTctDg" : $("#fltr_sct_cd option:selected").val()
 		};
 		
 		smutil.callApi(page.apiParam);
@@ -116,7 +113,7 @@ var page = {
 				var liHtml = template(data);
 				
 				// 생성된 HTML을 DOM에 주입
-				$('.tctDgMstrList').html(liHtml);
+				$('#view1Tbody').html(liHtml);
 			}
 		}
 		catch(e){}
